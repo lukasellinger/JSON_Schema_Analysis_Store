@@ -1,0 +1,12 @@
+[2021-07-15 16:33:15] [SEVERE ] apibuilder.json: DraftValidationException: Specified draft in Document: http://json-schema.org/draft-04/schema# Used for validation: Draft04 - #/definitions: 2 schema violations found 
+[2021-07-15 16:33:18] [WARNING] compilerconfig.json: InvalidIdentifierException: Schema with file:/C:/Users/luell/Desktop/currentSchema/compilerdefaults-schema.json cannot be loaded 
+[2021-07-15 16:33:22] [SEVERE ] golangci-lint.json: DraftValidationException: Specified draft in Document: https://json-schema.org/draft/2019-09/schema# Used for validation: Draft04 - #/properties/linters-settings/properties/golint/properties/min-confidence: 2 schema violations found 
+[2021-07-15 16:33:25] [WARNING] nest-cli.json: InvalidIdentifierException: Parent URI of file:/C:/Users/luell/Desktop/currentSchema/nest-cli.json is no valid URI 
+[2021-07-15 16:33:25] [SEVERE ] ninjs-1.0.json: DraftValidationException: Specified draft in Document: http://json-schema.org/draft-03/schema# Used for validation: Draft04 - #/properties/uri/required: expected type: JSONArray, found: Boolean 
+[2021-07-15 16:33:25] [SEVERE ] nodemon.json: DraftValidationException: Specified draft in Document: http://json-schema.org/draft-07/schema Used for validation: Draft07 - #: #: no subschema matched out of the total 2 subschemas 
+[2021-07-15 16:33:39] [INFO   ] ---------------------------------- 
+[2021-07-15 16:33:39] [INFO   ] Total: 314 
+[2021-07-15 16:33:39] [INFO   ] Recursive: 63 
+[2021-07-15 16:33:39] [INFO   ] Thereof unguarded recursive: 1 
+[2021-07-15 16:33:39] [INFO   ] Illegal draft: 4 
+[2021-07-15 16:33:39] [INFO   ] Invalid reference: 2 

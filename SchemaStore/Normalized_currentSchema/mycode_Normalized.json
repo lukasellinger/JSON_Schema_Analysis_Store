@@ -1,0 +1,74 @@
+{
+  "title": "JSON schema for mycode.js files",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "definitions": {
+    "classification": {
+      "enum": [
+        "MyCode",
+        "LibraryCode",
+        "UnrelatedCode"
+      ]
+    },
+    "includes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "properties": {
+    "Eval": {
+      "description": "Script that is executed by passing a string to the host-provided eval function.",
+      "default": "MyCode",
+      "allOf": [
+        {
+          "$ref": "#/definitions/classification"
+        }
+      ]
+    },
+    "Function": {
+      "description": "Script that is executed by passing a string to the \u0027Function\u0027 constructor.",
+      "default": "LibraryCode",
+      "allOf": [
+        {
+          "$ref": "#/definitions/classification"
+        }
+      ]
+    },
+    "ScriptBlock": {
+      "description": "Script that is executed by passing a string to the \u0027setTimeout\u0027, \u0027setImmediate\u0027, or \u0027setInterval\u0027 functions.",
+      "default": "UnrelatedCode",
+      "allOf": [
+        {
+          "$ref": "#/definitions/classification"
+        }
+      ]
+    },
+    "MyCode": {
+      "description": "An array of urls or files that are classified as \u0027MyCode\u0027.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/includes"
+        }
+      ]
+    },
+    "Libraries": {
+      "description": "An array of urls or files that are classified as \u0027LibraryCode\u0027.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/includes"
+        }
+      ]
+    },
+    "Unrelated": {
+      "description": "An array of urls or files that are classified as \u0027UnrelatedCode\u0027.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/includes"
+        }
+      ]
+    }
+  }
+}
