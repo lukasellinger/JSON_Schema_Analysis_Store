@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/toplevelref.json",
+  "definitions": {
+    "toplevelref.json": {
+      "type": "object",
+      "properties": {
+        "baz": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

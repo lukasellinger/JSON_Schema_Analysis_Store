@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/containers/create/response",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string"
+    },
+    "Warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "Id"
+  ]
+}

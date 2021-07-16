@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://schemas.digitallinguistics.io/DatabaseReference-4.3.0.json",
+  "title": "Database Reference",
+  "type": "object",
+  "description": "A reference to an item in a database, used when you wish to store an item separately in the database (following a relational database model), rather than inline. A disadvantage of this approach is that it often requires making multiple database calls. To avoid this, in most cases the actual object can be used instead of a database reference. For example, instead of making a reference to a separate Person file, you can simply include the Person object directly in place of the database reference. This is useful when you don\u0027t want to deal with cross references and multiple database calls. In this case, it is often a good idea to include just a minimal set of data. For a person, for example, you might include just the ID, abbreviation, family name, and given name. This prevents you from having to replicate all of the data about that Person each time it is used.",
+  "additionalProperties": true,
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "const": "DatabaseReference",
+      "readOnly": true,
+      "description": "The type of object. Must be set to `DatabaseReference`."
+    },
+    "abbreviation": {
+      "title": "Referenced Abbreviation",
+      "type": "string",
+      "$ref": "#/definitions/Abbreviation-2.1.0.json",
+      "description": "The abbreviation of the referenced database item."
+    },
+    "id": {
+      "title": "Referenced ID",
+      "description": "The ID of the referenced database item"
+    },
+    "filename": {
+      "title": "Filename",
+      "type": "string",
+      "description": "If the reference database item is a media item, use this field for the name of the referenced file."
+    },
+    "index": {
+      "title": "Referenced Index",
+      "type": "integer",
+      "minimum": 1,
+      "description": "The index of the referenced database item. Indexes should start at 1 rather than 0 to increase human readability."
+    },
+    "key": {
+      "title": "Referenced Key",
+      "type": "string",
+      "pattern": "^[^\\s]+$",
+      "description": "The key of the referenced database item"
+    },
+    "name": {
+      "title": "Name",
+      "$ref": "#/definitions/MultiLangString-5.0.0.json",
+      "description": "The name of the referenced database item, optionally in multiple languages."
+    },
+    "referenceType": {
+      "title": "Referenced Item Type",
+      "type": "string",
+      "description": "The type of database item being referenced",
+      "enum": [
+        "BibliographicReference",
+        "Bundle",
+        "Language",
+        "Lexeme",
+        "Location",
+        "Media",
+        "Morpheme",
+        "Orthography",
+        "Person",
+        "Sense",
+        "Text",
+        "Utterance",
+        "Word"
+      ]
+    },
+    "url": {
+      "title": "Referenced URL",
+      "type": "string",
+      "format": "uri",
+      "description": "The URL of the referenced database item"
+    }
+  },
+  "examples": [
+    {
+      "index": 2,
+      "referenceType": "Utterance",
+      "type": "DatabaseReference",
+      "url": "https://api.digitallinguistics.io/languages/Chitimacha/texts/A1/utterances/2"
+    },
+    {
+      "key": "Omoiseke",
+      "name": "Ómoíséké ósokérété chíséese",
+      "referenceType": "Text",
+      "type": "DatabaseReference",
+      "url": "https://api.digitallinguistics.io/languages/Gusii/texts/Omoiseke"
+    }
+  ],
+  "definitions": {
+    "Abbreviation-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Abbreviation",
+      "type": "string",
+      "pattern": "^[(a-z)|(A-Z)|(0-9)]+$",
+      "description": "A human-readable abbreviation, containing on letters `a-z`, `A-Z`, and numbers `0-9` (no spaces allowed).",
+      "examples": [
+        "chiti",
+        "ctm"
+      ]
+    },
+    "MultiLangString-5.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Multi-Language Text / String",
+      "description": "A piece of text in multiple languages. This is typically used for analyses, database properties, and information in metalanguages rather than transcriptions or translations of data (for those, see the [Transcription](https://spec.digitallinguistics.github.io/schemas/Transcription.html) and [Translation](https://spec.digitallinguistics.github.io/schemas/Translation.html) schemas). For example, the part of speech for a lexeme might be given as both English *noun* and Spanish *nombre*. Each key must be a valid IETF language tag for a language (see the [IETF](https://www.w3.org/International/articles/language-tags/) reference page), and the value for that key must be the string of text in that language. **Note:** MultiLangStrings do not have a `type` property.\n\nIf the text is in only one language and that language is English, it may be represented as a simple string instead of an object. Thus instead of `gloss: { en: \"M.SG\" }` you can simply write `gloss: \"M.SG\"`.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))|((([A-Za-z]{2,3}(-([A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-([A-Za-z]{4}))?(-([A-Za-z]{2}|[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-([0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(x(-[A-Za-z0-9]{1,8})+))?)|(x(-[A-Za-z0-9]{1,8})+))$": {
+              "title": "Text",
+              "type": "string",
+              "description": "The string of text in the specified language"
+            }
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "examples": [
+        "man",
+        {
+          "en": "man",
+          "fr": "homme"
+        }
+      ]
+    }
+  }
+}

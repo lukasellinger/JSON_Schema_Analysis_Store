@@ -1,0 +1,36 @@
+{
+  "id": "http://localhost:1234/object",
+  "type": "object",
+  "properties": {
+    "name": {
+      "$ref": "#/definitions/name.json_definitions_orNull"
+    }
+  },
+  "definitions": {
+    "name.json_definitions_orNull": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/definitions/name.json"
+        }
+      ]
+    },
+    "name.json": {
+      "definitions": {
+        "orNull": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/name.json"
+            }
+          ]
+        }
+      },
+      "type": "string"
+    }
+  }
+}

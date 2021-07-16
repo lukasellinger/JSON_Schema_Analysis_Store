@@ -1,0 +1,215 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/v0_3/video.json",
+  "title": "A video.",
+  "description": "Holds attributes of an ANS video component.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/media.json",
+      "properties": {
+        "description": {
+          "description": "Description for the video.",
+          "type": "string"
+        },
+        "duration": {
+          "description": "Runtime of the video in milliseconds.",
+          "type": "number"
+        },
+        "transcript": {
+          "description": "A transcript of the contents of the video.",
+          "type": "string"
+        },
+        "rating": {
+          "description": "A rating of the video, to be used for appropriate age/content warnings.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of video (e.g. clip, livestream, etc)",
+          "type": "string"
+        },
+        "youtubeContentId": {
+          "description": "The YouTube ID of the content, if (re)hosted on youtube.com",
+          "type": "string"
+        },
+        "streams": {
+          "description": "The different streams this video can play in.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/video-stream.json"
+          }
+        },
+        "promo_image": {
+          "$ref": "#/definitions/image.json",
+          "description": "A promo/leader image to the video."
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "media.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A media object.",
+      "description": "Holds common attributes of ANS Media objects.",
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/content.json",
+          "properties": {
+            "title": {
+              "description": "The title of the media object.",
+              "type": "string"
+            },
+            "taxonomy": {
+              "$ref": "#/definitions/taxonomy.json",
+              "description": "A collection of metadata, keywords, etc. describing this media."
+            }
+          }
+        }
+      ]
+    },
+    "content.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A content object.",
+      "description": "Holds common attributes of ANS Content objects.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/trait_copyrighted.json"
+        }
+      ]
+    },
+    "trait_copyrighted.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Copyright information",
+      "description": "Defines the structure of copyright information, as applied to content.",
+      "type": "object",
+      "properties": {
+        "copyright": {
+          "description": "The copyright notice, e.g. \u0027(c) 2015 The Washington Post, Inc.\u0027",
+          "type": "string"
+        }
+      }
+    },
+    "taxonomy.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Taxonomy",
+      "description": "Holds the collection of metadata, keywords, etc that describe content.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/keyword.json"
+          },
+          "description": "A list of keywords."
+        }
+      }
+    },
+    "keyword.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Keyword",
+      "description": "Models a keyword used in describing a piece of content.",
+      "type": "object",
+      "required": [
+        "keyword"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "keyword": {
+          "type": "string",
+          "description": "The keyword used to describe/categorize a piece of content"
+        },
+        "score": {
+          "type": "number",
+          "description": "An arbitrary weighting to give the keyword"
+        },
+        "frequency": {
+          "type": "integer",
+          "description": "An optional count of the frequency of the keyword as it appears in the content it describes"
+        }
+      }
+    },
+    "video-stream.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A stream of video.",
+      "description": "Configuration for a piece of video content, over a stream.",
+      "type": "object",
+      "properties": {
+        "height": {
+          "description": "The height of the video.",
+          "type": "number"
+        },
+        "width": {
+          "description": "The width of the video.",
+          "type": "number"
+        },
+        "filesize": {
+          "description": "The size of the video, in bytes.",
+          "type": "number"
+        },
+        "audioCodec": {
+          "description": "The audio codec.",
+          "type": "string"
+        },
+        "videoCodec": {
+          "description": "The video codec.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of video (e.g. mp4).",
+          "type": "string"
+        },
+        "url": {
+          "description": "Where to get the stream from.",
+          "type": "string"
+        },
+        "bitrate": {
+          "description": "The bitrate of the video",
+          "type": "number"
+        },
+        "provider": {
+          "description": "The provider of the video.",
+          "type": "string"
+        }
+      }
+    },
+    "image.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "An image.",
+      "description": "Holds attributes of an ANS image component.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/media.json",
+          "properties": {
+            "subtitle": {
+              "description": "Subtitle for the image.",
+              "type": "string"
+            },
+            "caption": {
+              "description": "Caption for the image.",
+              "type": "string"
+            },
+            "url": {
+              "description": "URL for the image.",
+              "type": "string"
+            },
+            "width": {
+              "description": "Width for the image.",
+              "type": "integer"
+            },
+            "height": {
+              "description": "Height for the image.",
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "request": {
+    "http_method": "GET",
+    "path": "/echo",
+    "headers": {
+      "Accept": "application/json",
+      "Custom-Auth-Token": "\u003c%\u003d auth_token %\u003e",
+      "X-Message": "\u003c%\u003d key %\u003e"
+    },
+    "params": {}
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "schema": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "type": "object",
+      "required": true,
+      "properties": {
+        "message": {
+          "type": "string",
+          "default": "\u003c%\u003d req[\u0027HEADERS\u0027][\u0027X-Message\u0027].reverse %\u003e",
+          "required": true
+        }
+      }
+    }
+  }
+}

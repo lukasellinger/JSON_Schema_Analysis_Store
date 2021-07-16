@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "developer": {
+      "type": "object",
+      "properties": {
+        "shortCode": {
+          "type": "string",
+          "description": "the developer\u0027s shortcode"
+        },
+        "name": {
+          "type": "string",
+          "description": "the developer\u0027s name"
+        },
+        "blurb": {
+          "type": "string",
+          "description": "the developer\u0027s blurb"
+        },
+        "description": {
+          "type": "string",
+          "description": "the developer\u0027s description"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "shortCode",
+        "name",
+        "blurb"
+      ]
+    }
+  },
+  "type": "object",
+  "description": "details about a specific app",
+  "additionalProperties": false,
+  "properties": {
+    "shortCode": {
+      "type": "string",
+      "description": "the app\u0027s shortcode"
+    },
+    "name": {
+      "type": "string",
+      "description": "the app\u0027s name"
+    },
+    "blurb": {
+      "type": "string",
+      "description": "the app\u0027s blurb"
+    },
+    "description": {
+      "type": "string",
+      "description": "the app\u0027s description"
+    },
+    "logoUrl": {
+      "type": "string",
+      "format": "url",
+      "description": "the app\u0027s logo"
+    },
+    "learnMoreUrl": {
+      "type": "string",
+      "description": "the app\u0027s learnMoreUrl"
+    },
+    "principalType": {
+      "type": "string",
+      "description": "the app\u0027s principal type (if it is SSO)"
+    },
+    "developer": {
+      "$ref": "#/definitions/developer"
+    }
+  },
+  "required": [
+    "shortCode",
+    "name",
+    "blurb",
+    "developer"
+  ]
+}

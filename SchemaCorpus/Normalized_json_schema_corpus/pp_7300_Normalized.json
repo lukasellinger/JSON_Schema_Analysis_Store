@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "title": "DOcloud Github Web Catalog JSON object",
+  "description": "Schema for a DOcloud Github Web Catalog JSON object",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "default": "IBM",
+        "enum": [
+          null,
+          "IBM"
+        ]
+      },
+      "required": [
+        "0"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "model": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string",
+          "default": "null",
+          "enum": [
+            null,
+            "CPLEX",
+            "CPO",
+            "OPL cplex",
+            "OPL cp"
+          ]
+        }
+      ]
+    },
+    "development": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string",
+          "default": "null",
+          "enum": [
+            null,
+            "Java",
+            "Python",
+            "Javascript",
+            "PHP",
+            "NodeJS",
+            "Curl",
+            "REST"
+          ]
+        }
+      ]
+    },
+    "category": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "APPLICATION": {
+            "type": "array",
+            "items": [
+              {
+                "type": "string",
+                "enum": [
+                  null,
+                  "Web Application",
+                  "Mobile Application",
+                  "Desktop Application"
+                ]
+              }
+            ]
+          },
+          "MODELING": {
+            "type": "array",
+            "items": [
+              {
+                "type": "string",
+                "enum": [
+                  null,
+                  "Advanced Modeling",
+                  "Data Integration",
+                  "Model"
+                ]
+              }
+            ]
+          },
+          "CLIENT": {
+            "type": "array",
+            "items": [
+              {
+                "type": "string",
+                "enum": [
+                  null
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "industry": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string",
+          "enum": [
+            null,
+            "Transportation"
+          ]
+        }
+      ]
+    },
+    "abstract": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "provider",
+    "name",
+    "model",
+    "development",
+    "category",
+    "abstract"
+  ]
+}

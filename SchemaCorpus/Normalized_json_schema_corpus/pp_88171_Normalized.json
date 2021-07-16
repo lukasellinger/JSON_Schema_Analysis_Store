@@ -1,0 +1,599 @@
+{
+  "id": "http://schemas.wbeme.com/json-schema/eme/solicits/event/solicit-updated/1-0-0.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "_schema": {
+      "type": "string",
+      "pattern": "^pbj:([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+):([0-9]+-[0-9]+-[0-9]+)$",
+      "default": "pbj:eme:solicits:event:solicit-updated:1-0-0"
+    },
+    "account_id": {
+      "type": "string",
+      "pattern": "^[\\w\\/\\.:-]+$",
+      "description": "The EME account that this message is associated with.",
+      "pbj": {
+        "type": "identifier",
+        "rule": "single"
+      }
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+      "pbj": {
+        "type": "time-uuid",
+        "rule": "single"
+      }
+    },
+    "occurred_at": {
+      "type": "string",
+      "pattern": "^[1-9]{1}[0-9]{12,15}$",
+      "pbj": {
+        "type": "microtime",
+        "rule": "single"
+      }
+    },
+    "ctx_causator_ref": {
+      "type": "object",
+      "properties": {
+        "curie": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+)$",
+          "minLength": 0,
+          "maxLength": 146
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9:_\\-]+$",
+          "minLength": 0,
+          "maxLength": 255
+        },
+        "tag": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "curie",
+        "id"
+      ],
+      "additionalProperties": false,
+      "pbj": {
+        "type": "message-ref",
+        "rule": "single"
+      }
+    },
+    "ctx_correlator_ref": {
+      "type": "object",
+      "properties": {
+        "curie": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+)$",
+          "minLength": 0,
+          "maxLength": 146
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9:_\\-]+$",
+          "minLength": 0,
+          "maxLength": 255
+        },
+        "tag": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "curie",
+        "id"
+      ],
+      "additionalProperties": false,
+      "pbj": {
+        "type": "message-ref",
+        "rule": "single"
+      }
+    },
+    "ctx_user_ref": {
+      "type": "object",
+      "properties": {
+        "curie": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+)$",
+          "minLength": 0,
+          "maxLength": 146
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9:_\\-]+$",
+          "minLength": 0,
+          "maxLength": 255
+        },
+        "tag": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "curie",
+        "id"
+      ],
+      "additionalProperties": false,
+      "pbj": {
+        "type": "message-ref",
+        "rule": "single"
+      }
+    },
+    "ctx_app": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/app"
+        }
+      ],
+      "description": "The \"ctx_app\" refers to the application used to send the command which in turn resulted in this event being published.",
+      "pbj": {
+        "type": "message",
+        "rule": "single"
+      }
+    },
+    "ctx_cloud": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/cloud"
+        }
+      ],
+      "description": "The \"ctx_cloud\" is usually copied from the command that resulted in this event being published. This means the value most likely refers to the cloud that received the command originally, not the machine processing the event.",
+      "pbj": {
+        "type": "message",
+        "rule": "single"
+      }
+    },
+    "ctx_ip": {
+      "type": "string",
+      "format": "ipv4",
+      "pbj": {
+        "type": "string",
+        "rule": "single",
+        "format": "ipv4",
+        "overridable": true
+      }
+    },
+    "ctx_ipv6": {
+      "type": "string",
+      "format": "ipv6",
+      "pbj": {
+        "type": "string",
+        "rule": "single",
+        "format": "ipv6",
+        "overridable": true
+      }
+    },
+    "ctx_ua": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 65535,
+      "pbj": {
+        "type": "text",
+        "rule": "single",
+        "overridable": true
+      }
+    },
+    "node_ref": {
+      "type": "string",
+      "pattern": "^[\\w\\/\\.:-]+$",
+      "pbj": {
+        "type": "identifier",
+        "rule": "single"
+      }
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+      "minLength": 0,
+      "maxLength": 255,
+      "pbj": {
+        "type": "string",
+        "rule": "single",
+        "format": "slug"
+      }
+    },
+    "new_etag": {
+      "type": "string",
+      "pattern": "^[\\w\\.:-]+$",
+      "pbj": {
+        "type": "string",
+        "rule": "single"
+      }
+    },
+    "old_etag": {
+      "type": "string",
+      "pattern": "^[\\w\\.:-]+$",
+      "pbj": {
+        "type": "string",
+        "rule": "single"
+      }
+    },
+    "new_node": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/node"
+        }
+      ],
+      "pbj": {
+        "type": "message",
+        "rule": "single",
+        "overridable": true
+      }
+    },
+    "old_node": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/node"
+        }
+      ],
+      "description": "The entire node, as it appeared before it was modified.",
+      "pbj": {
+        "type": "message",
+        "rule": "single",
+        "overridable": true
+      }
+    },
+    "paths": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string",
+          "pattern": "^[a-zA-Z_]{1}[\\w\\.]*$"
+        }
+      ],
+      "uniqueItems": true,
+      "additionalProperties": false,
+      "description": "The names of the fields this update event should apply changes to. Nested paths can be referenced using dot notation.",
+      "pbj": {
+        "type": "string",
+        "rule": "set"
+      }
+    }
+  },
+  "required": [
+    "_schema",
+    "event_id",
+    "node_ref",
+    "new_node"
+  ],
+  "definitions": {
+    "app": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/..\\..\\..\\..\\gdbots\\contexts\\app\\1-0-0.json"
+        }
+      ]
+    },
+    "cloud": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/..\\..\\..\\..\\gdbots\\contexts\\cloud\\1-0-0.json"
+        }
+      ]
+    },
+    "node": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/..\\..\\..\\..\\gdbots\\ncr\\mixin\\node\\1-0-0.json"
+        }
+      ]
+    },
+    "..\\..\\..\\..\\gdbots\\contexts\\app\\1-0-0.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "_schema": {
+          "type": "string",
+          "pattern": "^pbj:([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+):([0-9]+-[0-9]+-[0-9]+)$",
+          "default": "pbj:gdbots:contexts::app:1-0-0"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          "pbj": {
+            "type": "uuid",
+            "rule": "single",
+            "useTypeDefault": false
+          }
+        },
+        "vendor": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$",
+          "pbj": {
+            "type": "string",
+            "rule": "single"
+          }
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$",
+          "pbj": {
+            "type": "string",
+            "rule": "single"
+          }
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$",
+          "pbj": {
+            "type": "string",
+            "rule": "single"
+          }
+        },
+        "build": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$",
+          "pbj": {
+            "type": "string",
+            "rule": "single"
+          }
+        },
+        "variant": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$",
+          "pbj": {
+            "type": "string",
+            "rule": "single"
+          }
+        }
+      },
+      "required": [
+        "_schema"
+      ],
+      "additionalProperties": false
+    },
+    "..\\..\\..\\..\\gdbots\\contexts\\cloud\\1-0-0.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "_schema": {
+          "type": "string",
+          "pattern": "^pbj:([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+):([0-9]+-[0-9]+-[0-9]+)$",
+          "default": "pbj:gdbots:contexts::cloud:1-0-0"
+        },
+        "provider": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 20,
+          "pbj": {
+            "type": "string",
+            "rule": "single",
+            "format": "slug"
+          }
+        },
+        "region": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 20,
+          "pbj": {
+            "type": "string",
+            "rule": "single",
+            "format": "slug"
+          }
+        },
+        "zone": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 20,
+          "pbj": {
+            "type": "string",
+            "rule": "single",
+            "format": "slug"
+          }
+        },
+        "instance_id": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$",
+          "pbj": {
+            "type": "string",
+            "rule": "single"
+          }
+        },
+        "instance_type": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$",
+          "pbj": {
+            "type": "string",
+            "rule": "single"
+          }
+        }
+      },
+      "required": [
+        "_schema"
+      ],
+      "additionalProperties": false
+    },
+    "..\\..\\..\\..\\gdbots\\ncr\\mixin\\node\\1-0-0.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "pattern": "^[\\w\\/\\.:-]+$",
+          "description": "The \"_id\" value: - MUST NOT change for the life of the node. - SHOULD be globally unique - SHOULD be generated by the app (ideally in default value closure... e.g. UuidIdentifier::generate())",
+          "pbj": {
+            "type": "identifier",
+            "rule": "single",
+            "overridable": true
+          }
+        },
+        "status": {
+          "type": "string",
+          "default": "draft",
+          "enum": [
+            "unknown",
+            "published",
+            "scheduled",
+            "pending",
+            "draft",
+            "expired",
+            "archived",
+            "deleted"
+          ],
+          "pbj": {
+            "type": "string-enum",
+            "rule": "single"
+          }
+        },
+        "etag": {
+          "type": "string",
+          "pattern": "^[\\w\\.:-]+$",
+          "pbj": {
+            "type": "string",
+            "rule": "single"
+          }
+        },
+        "created_at": {
+          "type": "string",
+          "pattern": "^[1-9]{1}[0-9]{12,15}$",
+          "pbj": {
+            "type": "microtime",
+            "rule": "single"
+          }
+        },
+        "creator_ref": {
+          "type": "object",
+          "properties": {
+            "curie": {
+              "type": "string",
+              "pattern": "^([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+)$",
+              "minLength": 0,
+              "maxLength": 146
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9:_\\-]+$",
+              "minLength": 0,
+              "maxLength": 255
+            },
+            "tag": {
+              "type": "string",
+              "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+              "minLength": 0,
+              "maxLength": 255
+            }
+          },
+          "required": [
+            "curie",
+            "id"
+          ],
+          "additionalProperties": false,
+          "description": "A fully qualified reference to what created this node. This is intentionally a message-ref and not a user id because it is often a program that creates nodes, not a user.",
+          "pbj": {
+            "type": "message-ref",
+            "rule": "single"
+          }
+        },
+        "updated_at": {
+          "type": "string",
+          "pattern": "^[1-9]{1}[0-9]{12,15}$",
+          "pbj": {
+            "type": "microtime",
+            "rule": "single",
+            "useTypeDefault": false
+          }
+        },
+        "updater_ref": {
+          "type": "object",
+          "properties": {
+            "curie": {
+              "type": "string",
+              "pattern": "^([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+)$",
+              "minLength": 0,
+              "maxLength": 146
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9:_\\-]+$",
+              "minLength": 0,
+              "maxLength": 255
+            },
+            "tag": {
+              "type": "string",
+              "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+              "minLength": 0,
+              "maxLength": 255
+            }
+          },
+          "required": [
+            "curie",
+            "id"
+          ],
+          "additionalProperties": false,
+          "description": "A fully qualified reference to what updated this node. This is intentionally a message-ref and not a user id because it is often a program that updates nodes, not a user. E.g. \"acme:iam:node:app:cli-scheduler\" or \"acme:iam:node:user:60c71df0-fda8-11e5-bfb9-30342d363854\"",
+          "pbj": {
+            "type": "message-ref",
+            "rule": "single"
+          }
+        },
+        "last_event_ref": {
+          "type": "object",
+          "properties": {
+            "curie": {
+              "type": "string",
+              "pattern": "^([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+)$",
+              "minLength": 0,
+              "maxLength": 146
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9:_\\-]+$",
+              "minLength": 0,
+              "maxLength": 255
+            },
+            "tag": {
+              "type": "string",
+              "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+              "minLength": 0,
+              "maxLength": 255
+            }
+          },
+          "required": [
+            "curie",
+            "id"
+          ],
+          "additionalProperties": false,
+          "description": "A reference to the last event that changed the state of this node. E.g. \"acme:blog:event:article-published:60c71df0-fda8-11e5-bfb9-30342d363854\"",
+          "pbj": {
+            "type": "message-ref",
+            "rule": "single"
+          }
+        },
+        "title": {
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 255,
+          "pbj": {
+            "type": "string",
+            "rule": "single"
+          }
+        }
+      },
+      "required": [
+        "_id"
+      ],
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

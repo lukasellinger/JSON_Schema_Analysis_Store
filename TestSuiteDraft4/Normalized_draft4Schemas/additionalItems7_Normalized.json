@@ -1,0 +1,10 @@
+{
+  "additionalItems": {
+    "type": "integer"
+  },
+  "items": [
+    {
+      "type": "string"
+    }
+  ]
+}

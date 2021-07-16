@@ -1,0 +1,2691 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "bodyTarget.json",
+  "title": "Definitions: Bodies and Targets.",
+  "description": "Schemas in #/definitions detect or validate keys, objects or constraints variously applicable to Bodies and/or Targets (Section 3.2.1 - 3.2.6). Excludes Choice, Set and Specific Resources.",
+  "definitions": {
+    "externalWebResourceDetected": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: External Web Resource",
+      "description": "True when the object is an External Web Resource, i.e., includes an id that is of format uri but does not contain source (Specific Resource) keys (Sections 3.2.1, 3.2.4, 4).",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/id.json_definitions_idValueFound"
+        }
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "source"
+            ]
+          },
+          {
+            "required": [
+              "target"
+            ]
+          }
+        ]
+      }
+    },
+    "sourceEwrDetected": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        }
+      }
+    },
+    "itemEwrDetected": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/externalWebResourceDetected"
+              }
+            }
+          }
+        }
+      }
+    },
+    "textualBodyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: Embedded Textual Body",
+      "description": "True when the object is an Embedded Textual Body, i.e., includes the value key (Section 3.2.4).",
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "itemETBDetected": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/textualBodyFound"
+              }
+            }
+          }
+        }
+      }
+    },
+    "targetResourcesFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: Resources that can be used as Target",
+      "description": "True when the string is format uri or the object is recognized as a valid target resource (Sections 3.2 and 4).",
+      "type": [
+        "string",
+        "object"
+      ],
+      "oneOf": [
+        {
+          "$ref": "#/definitions/id.json_definitions_stringUri"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_choiceDetected"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_compositeDetected"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_independentsDetected"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_listDetected"
+        },
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        }
+      ]
+    },
+    "bodyResourcesFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: Resources that can be used as Body",
+      "description": "True when the string is format uri or the object is recognized as a valid body resource (Sections 3.2 and 4).",
+      "type": [
+        "string",
+        "object"
+      ],
+      "anyOf": [
+        {
+          "$ref": "#/definitions/id.json_definitions_stringUri"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_choiceDetected"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_compositeDetected"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_independentsDetected"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_listDetected"
+        },
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ]
+    },
+    "optionalBodyPropertiesShould": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Optional Body Keys Should Validations",
+      "description": "Supports validity checks of optional keys (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/resourceTypeShouldIfPresent"
+        },
+        {
+          "$ref": "#/definitions/formatValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/languageValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/processingLanguageValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_creatorValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_generatorValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_audienceValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_accessibilityValidIfPresent"
+        }
+      ]
+    },
+    "optionalBodyPropertiesMust": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Optional Body Keys Must Validations",
+      "description": "Supports validity checks of optional keys (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/textDirectionValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_createdValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_generatedValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_modifiedValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_rightsValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_canonicalValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_viaValidIfPresent"
+        }
+      ]
+    },
+    "optionalBodyPurposePropertyShould": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Optional Purpose Key",
+      "description": "Supports validity checks of optional purpose key (if/when) used on Specific Resources or Textual Body Resources (Sections 3.3.5)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_purposeRecognizedIfPresent"
+        }
+      ]
+    },
+    "optionalTargetPropertiesShould": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Optional Target Keys Should validation",
+      "description": "Supports validity check of optional keys (if/when) used on External Web Resources, Specific Resources (Sections 3.2.1-6, 3.3)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        }
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/resourceTypeShouldIfPresent"
+        },
+        {
+          "$ref": "#/definitions/formatValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/languageValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/processingLanguageValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_creatorValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_generatorValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_audienceValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_accessibilityValidIfPresent"
+        }
+      ]
+    },
+    "optionalTargetPropertiesMust": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Optional Target Keys Must validation",
+      "description": "Supports validity check of optional keys (if/when) used on External Web Resources, Specific Resources (Sections 3.2.1-6, 3.3)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        }
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/textDirectionValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_createdValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_generatedValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_modifiedValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_rightsValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_canonicalValidIfPresent"
+        },
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_viaValidIfPresent"
+        }
+      ]
+    },
+    "resourceTypeRecognizedIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definitions: body / target classes",
+      "description": "True when type value for body / target is or includes item from recommended list of classes (Section 3.2.2)",
+      "type": "object",
+      "properties": {
+        "type": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Dataset",
+                "Image",
+                "Video",
+                "Sound",
+                "Text"
+              ]
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "not": {
+                "items": {
+                  "not": {
+                    "type": "string",
+                    "enum": [
+                      "Dataset",
+                      "Image",
+                      "Video",
+                      "Sound",
+                      "Text"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "resourceTypeShouldIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: body / target classes all from 3.2.2",
+      "description": "Adds TextualBody to list from 3.2.2. True when type absent or all type value(s) for body / target are from recommended list of classes (Section 3.2.2), or TextualBody",
+      "type": "object",
+      "properties": {
+        "type": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Dataset",
+                "Image",
+                "Video",
+                "Sound",
+                "Text",
+                "TextualBody"
+              ]
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Dataset",
+                  "Image",
+                  "Video",
+                  "Sound",
+                  "Text",
+                  "TextualBody"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "recognizedTypeFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: type key with recognized classes",
+      "description": "Supports implementation check of type (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.2)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ],
+      "allOf": [
+        {
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "$ref": "#/definitions/resourceTypeRecognizedIfPresent"
+        }
+      ]
+    },
+    "itemRecognizedTypeFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: items having type key with qualifying body/target classes",
+      "description": "Supports implementation check of items having type (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/recognizedTypeFound"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "sourceRecognizedTypeFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Specific Resource source having type key",
+      "description": "Supports implementation check of type (if/when) used on Specific Resource source (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "$ref": "#/definitions/resourceTypeRecognizedIfPresent"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "formatValueCheck": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definitions: format value regex",
+      "description": "True when string value starts with a registered top-level Media type, including trailing slash (Section 3.2.1)",
+      "type": "string",
+      "pattern": "^(application/|audio/|example/|image/|multipart/|text/|video/)"
+    },
+    "formatValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: format validity",
+      "description": "True when the body or target has no format or has a valid format value - single string or array of strings (Section 3.2.1)",
+      "type": "object",
+      "properties": {
+        "format": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/formatValueCheck"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/formatValueCheck"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "formatSingularIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definitions: format",
+      "description": "True when the body or target format value, if present, is singular and valid (Section 3.2.1)",
+      "type": "object",
+      "properties": {
+        "format": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/formatValueCheck"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "$ref": "#/definitions/formatValueCheck"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "formatPropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: format key with qualifying body/target classes",
+      "description": "Supports implementation check of format (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ],
+      "allOf": [
+        {
+          "required": [
+            "format"
+          ]
+        },
+        {
+          "$ref": "#/definitions/formatValidIfPresent"
+        }
+      ]
+    },
+    "itemFormatPropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: items having format key with qualifying body/target classes",
+      "description": "Supports implementation check of items having format (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/formatPropertyFound"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "sourceFormatPropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Specific Resource source having format key",
+      "description": "Supports implementation check of format (if/when) used on Specific Resource source (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "format"
+          ],
+          "$ref": "#/definitions/formatValidIfPresent"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "singleFormatPropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: format key with qualifying body/target classes",
+      "description": "Supports implementation check of format being singular (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ],
+      "allOf": [
+        {
+          "required": [
+            "format"
+          ]
+        },
+        {
+          "$ref": "#/definitions/formatSingularIfPresent"
+        }
+      ]
+    },
+    "itemSingleFormatPropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: items having singular format key with qualifying body/target classes",
+      "description": "Supports implementation check of items having singular format (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/singleFormatPropertyFound"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "sourceSingleFormatPropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Specific Resource source having single format key value",
+      "description": "Supports implementation check of singular format (if/when) used on Specific Resource source (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "format"
+          ],
+          "$ref": "#/definitions/formatSingularIfPresent"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "languageValueCheck": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definitions: language value regex",
+      "description": "True when string value starts with a two or three lc characters and a hyphen or end of string (Section 3.2.1)",
+      "type": "string",
+      "oneOf": [
+        {
+          "pattern": "^([a-z]){2,3}$"
+        },
+        {
+          "pattern": "^([a-z]){2,3}-"
+        }
+      ]
+    },
+    "languageValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: language value",
+      "description": "True when the body or target has no language or has a valid language value - single string or array of strings (Section 3.2.1)",
+      "type": "object",
+      "properties": {
+        "language": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/languageValueCheck"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/languageValueCheck"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "languageSingularIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definitions: single language valid",
+      "description": "True when the body or target has no language or has exactly one language property - single string (Section 3.2.1)",
+      "type": "object",
+      "properties": {
+        "language": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/languageValueCheck"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "$ref": "#/definitions/languageValueCheck"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "languagePropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: language key with qualifying body/target classes",
+      "description": "Supports implementation check of language (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ],
+      "allOf": [
+        {
+          "required": [
+            "language"
+          ]
+        },
+        {
+          "$ref": "#/definitions/languageValidIfPresent"
+        }
+      ]
+    },
+    "itemLanguagePropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: items having language key with qualifying body/target classes",
+      "description": "Supports implementation check of items having language (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/languagePropertyFound"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "sourceLanguagePropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Specific Resource source having language key",
+      "description": "Supports implementation check of language (if/when) used on Specific Resource source (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "language"
+          ],
+          "$ref": "#/definitions/languageValidIfPresent"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "singleLanguagePropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: language key with qualifying body/target classes",
+      "description": "Supports implementation check of language being singular (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ],
+      "allOf": [
+        {
+          "required": [
+            "language"
+          ]
+        },
+        {
+          "$ref": "#/definitions/languageSingularIfPresent"
+        }
+      ]
+    },
+    "itemSingleLanguagePropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: items having singular language key with qualifying body/target classes",
+      "description": "Supports implementation check of items having singular language (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/singleLanguagePropertyFound"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "sourceSingleLanguagePropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Specific Resource source having single language key value",
+      "description": "Supports implementation check of singular language (if/when) used on Specific Resource source (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "language"
+          ],
+          "$ref": "#/definitions/languageSingularIfPresent"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "processingLanguageValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: processingLanguage",
+      "description": "True when the Body or Target has no processingLanguage or exactly one processingLanguage property (Section 3.2.1)",
+      "type": "object",
+      "properties": {
+        "processingLanguage": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/languageValueCheck"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "$ref": "#/definitions/languageValueCheck"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "processingLanguagePropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: processingLanguage Key with qualifying body/target classes",
+      "description": "Supports implementation check of processingLanguage (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ],
+      "allOf": [
+        {
+          "required": [
+            "processingLanguage"
+          ]
+        },
+        {
+          "$ref": "#/definitions/processingLanguageValidIfPresent"
+        }
+      ]
+    },
+    "itemProcessingLanguagePropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: items having processingLanguage key with qualifying body/target classes",
+      "description": "Supports implementation check of items having processingLanguage (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/processingLanguagePropertyFound"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "sourceProcessingLanguagePropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Specific Resource source having processingLanguage key",
+      "description": "Supports implementation check of processingLanguage (if/when) used on Specific Resource source (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "processingLanguage"
+          ],
+          "$ref": "#/definitions/processingLanguageValidIfPresent"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "textDirectionValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: textDirection",
+      "description": "True when the body or target has no textDirection or exactly one valid textDirection (Section 3.2.1)",
+      "type": "object",
+      "properties": {
+        "textDirection": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "ltr",
+                "rtl",
+                "auto"
+              ]
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ltr",
+                  "rtl",
+                  "auto"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "textDirectionPropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: textDirection Key with qualifying body/target classes",
+      "description": "Supports implementation check of textDirection (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        }
+      ],
+      "allOf": [
+        {
+          "required": [
+            "textDirection"
+          ]
+        },
+        {
+          "$ref": "#/definitions/textDirectionValidIfPresent"
+        }
+      ]
+    },
+    "itemTextDirectionPropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: items having textDirection key with qualifying body/target classes",
+      "description": "Supports implementation check of items having textDirection (if/when) used on External Web Resources, Specific Resources, Textual Body Resources (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/textDirectionPropertyFound"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "sourceTextDirectionPropertyFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: Specific Resource source having textDirection key",
+      "description": "Supports implementation check of textDirection (if/when) used on Specific Resource source (Sections 3.2.1-6, 3.3)",
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "textDirection"
+          ],
+          "$ref": "#/definitions/textDirectionValidIfPresent"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "ewrWithItems": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "required": [
+            "items"
+          ]
+        }
+      ]
+    },
+    "sourceEwrWithItems": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/ewrWithItems"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "itemEwrWithItems": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/ewrWithItems"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "ewrWithPurpose": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/externalWebResourceDetected"
+        },
+        {
+          "required": [
+            "purpose"
+          ]
+        }
+      ]
+    },
+    "sourceEwrWithPurpose": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/ewrWithPurpose"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "itemEwrWithPurpose": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/ewrWithPurpose"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "embeddedTextualBodyWithItems": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        },
+        {
+          "required": [
+            "items"
+          ]
+        }
+      ]
+    },
+    "itemETBWithItems": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/embeddedTextualBodyWithItems"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "embeddedTextualBodyWithSource": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        },
+        {
+          "required": [
+            "source"
+          ]
+        }
+      ]
+    },
+    "itemETBWithSource": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/embeddedTextualBodyWithSource"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "embeddedTextTypeIncludesTextualBody": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        },
+        {
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "TextualBody"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "minItems": 1,
+                  "not": {
+                    "items": {
+                      "not": {
+                        "enum": [
+                          "TextualBody"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "embeddedTextTypeInclTextualBodyWithoutId": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        },
+        {
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "TextualBody"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "minItems": 1,
+                  "not": {
+                    "items": {
+                      "not": {
+                        "enum": [
+                          "TextualBody"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "not": {
+            "$ref": "#/definitions/id.json_definitions_idValueFound"
+          }
+        }
+      ]
+    },
+    "itemEmbeddedTextTypeIncludesTextualBody": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/embeddedTextTypeIncludesTextualBody"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "itemEmbeddedTextTypeInclTextualBodyWithoutId": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/embeddedTextTypeIncludesTextualBody"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "not": {
+        "$ref": "#/definitions/id.json_definitions_idValueFound"
+      }
+    },
+    "embeddedTextTypeIncludesText": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/textualBodyFound"
+        },
+        {
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "Text"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "minItems": 1,
+                  "not": {
+                    "items": {
+                      "not": {
+                        "enum": [
+                          "Text"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "itemEmbeddedTextTypeIncludesText": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "not": {
+            "items": {
+              "not": {
+                "$ref": "#/definitions/embeddedTextTypeIncludesText"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "id.json_definitions_idValueFound": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id.json_definitions_arraySingleStringUri"
+        }
+      }
+    },
+    "id.json_definitions_arraySingleStringUri": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/id.json_definitions_stringUri"
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "$ref": "#/definitions/id.json_definitions_stringUri"
+          }
+        }
+      ]
+    },
+    "id.json_definitions_stringUri": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "string",
+      "format": "uri"
+    },
+    "choiceSet.json_definitions_choiceDetected": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Detection: Choice",
+      "description": "True when object\u0027s type is \u0027Choice\u0027 and the object has an items array (Section 3.2.7)",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_choiceTypeDefinition"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_itemsDetected"
+        }
+      ]
+    },
+    "choiceSet.json_definitions_choiceTypeDefinition": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: Choice type",
+      "description": "True when object has type key and object\u0027s type is \u0027Choice\u0027 (Section 3.2.7)",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Choice"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "choiceSet.json_definitions_itemsDetected": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: items",
+      "description": "True when the object includes items key and value of items is an array containing at least 1 item, which can be a specificResource, an externalWebResource, a uri, a textualBody or another choice/set (Sections 3.2.7 and 3.2.8).",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/specificResource.json_definitions_specificeResourceDetected"
+              },
+              {
+                "$ref": "#/definitions/externalWebResourceDetected"
+              },
+              {
+                "$ref": "#/definitions/textualBodyFound"
+              },
+              {
+                "$ref": "#/definitions/id.json_definitions_stringUri"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/definitions/choiceSet.json_definitions_choiceOrSetTypeDefinition"
+                  },
+                  {
+                    "$ref": "#/definitions/choiceSet.json_definitions_itemsDetected"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "specificResource.json_definitions_specificeResourceDetected": {
+      "title": "Detection: Specific Resource",
+      "description": "True when object has exactly 1 source value and at least one of purpose, selector, state, styleClass, renderedVia, scope (Section 4)",
+      "type": "object",
+      "$ref": "#/definitions/specificResource.json_definitions_sourceDetected",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/otherProperties.json_definitions_purposeRecognizedIfPresent",
+          "required": [
+            "purpose"
+          ]
+        },
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_selectorDetected"
+        },
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_stateDetected"
+        },
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_styleClassDetected"
+        },
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_renderedViaDetected"
+        },
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_scopeDetected"
+        }
+      ]
+    },
+    "specificResource.json_definitions_sourceDetected": {
+      "title": "Detection: source",
+      "description": "True when object has exactly 1 source key value and that value is of format uri or an External Web Resource (Section 4) - NB, the Specific Resource is closer in hierarchy to the External Web Resource than a Choice or Set; the items of a Choice or Set may be Specific Resources, but the source of a Specific Resource may not be a Choice or Set.",
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": [
+            "string",
+            "object"
+          ],
+          "oneOf": [
+            {
+              "$ref": "#/definitions/id.json_definitions_stringUri"
+            },
+            {
+              "$ref": "#/definitions/externalWebResourceDetected"
+            }
+          ]
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "otherProperties.json_definitions_purposeRecognizedIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: purpose value",
+      "description": "True when the body has 0 or more purpose property values (Section 3.3.5)",
+      "type": "object",
+      "properties": {
+        "purpose": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/annotations.json_definitions_motivationList"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/annotations.json_definitions_motivationList"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "annotations.json_definitions_motivationList": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definitions: list of motivation and purposes",
+      "description": "List of motivations and purposes as defined in the model (Section 3.3.5).",
+      "type": "string",
+      "enum": [
+        "assessing",
+        "bookmarking",
+        "classifying",
+        "commenting",
+        "describing",
+        "editing",
+        "highlighting",
+        "identifying",
+        "linking",
+        "moderating",
+        "questioning",
+        "replying",
+        "tagging"
+      ]
+    },
+    "specificResource.json_definitions_selectorDetected": {
+      "title": "Detection: selector type",
+      "description": "True when object tested has selector(s) that is(are) recognized as being one or more of the selectors described in the model (Section 4.2)",
+      "type": "object",
+      "$ref": "#/definitions/specificResource.json_definitions_selectorDefined",
+      "required": [
+        "selector"
+      ]
+    },
+    "specificResource.json_definitions_selectorDefined": {
+      "title": "Definition: selector",
+      "description": "True when object tested has no selector, or has selector identified by uri, or has selector(s) with value matching one or more of the selectors described in the model (Section 4.2)",
+      "type": "object",
+      "properties": {
+        "selector": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/id.json_definitions_stringUri"
+            },
+            {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/id.json_definitions_idValueFound"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_fragmentSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_cssSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_xpathSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_textQuoteSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_textPositionSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_dataPositionSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_rangeSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_svgSelectorDetected"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/id.json_definitions_stringUri"
+                  },
+                  {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/id.json_definitions_idValueFound"
+                      },
+                      {
+                        "$ref": "#/definitions/specificResource.json_definitions_fragmentSelectorDetected"
+                      },
+                      {
+                        "$ref": "#/definitions/specificResource.json_definitions_cssSelectorDetected"
+                      },
+                      {
+                        "$ref": "#/definitions/specificResource.json_definitions_xpathSelectorDetected"
+                      },
+                      {
+                        "$ref": "#/definitions/specificResource.json_definitions_textQuoteSelectorDetected"
+                      },
+                      {
+                        "$ref": "#/definitions/specificResource.json_definitions_textPositionSelectorDetected"
+                      },
+                      {
+                        "$ref": "#/definitions/specificResource.json_definitions_dataPositionSelectorDetected"
+                      },
+                      {
+                        "$ref": "#/definitions/specificResource.json_definitions_rangeSelectorDetected"
+                      },
+                      {
+                        "$ref": "#/definitions/specificResource.json_definitions_svgSelectorDetected"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "specificResource.json_definitions_fragmentSelectorDetected": {
+      "title": "Detection: fragment selector",
+      "description": "True when object is a fragment selelctor (Section 4.2.1)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_fragmentSelectorTypeDetected"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "conformsTo": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": [
+            "value"
+          ]
+        }
+      ]
+    },
+    "specificResource.json_definitions_fragmentSelectorTypeDetected": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "FragmentSelector"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "specificResource.json_definitions_cssSelectorDetected": {
+      "title": "Detection: CssSelector selector",
+      "description": "True when object is a CssSelector selelctor (Section 4.2.2)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_cssSelectorTypeDetected"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value"
+          ]
+        }
+      ]
+    },
+    "specificResource.json_definitions_cssSelectorTypeDetected": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "CssSelector"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "specificResource.json_definitions_xpathSelectorDetected": {
+      "title": "Detection: XPath selector",
+      "description": "True when object is a XPath selelctor (Section 4.2.3)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_xpathSelectorTypeDetected"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value"
+          ]
+        }
+      ]
+    },
+    "specificResource.json_definitions_xpathSelectorTypeDetected": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "XPathSelector"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "specificResource.json_definitions_textQuoteSelectorDetected": {
+      "title": "Detection: text quote selector",
+      "description": "True when object is a text quote selelctor (Section 4.2.4)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_textQuoteSelectorTypeDetected"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "exact": {
+              "type": "string"
+            },
+            "prefix": {
+              "type": "string"
+            },
+            "suffix": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "exact"
+          ]
+        }
+      ]
+    },
+    "specificResource.json_definitions_textQuoteSelectorTypeDetected": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "TextQuoteSelector"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "specificResource.json_definitions_textPositionSelectorDetected": {
+      "title": "Definition: text position selector",
+      "description": "True when object is a text position selelctor (Section 4.2.5)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_textPositionSelectorTypeDetected"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ]
+        }
+      ]
+    },
+    "specificResource.json_definitions_textPositionSelectorTypeDetected": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "TextPositionSelector"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "specificResource.json_definitions_dataPositionSelectorDetected": {
+      "title": "Definition: data position selector",
+      "description": "True when object is a data position selelctor (Section 4.2.5)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_dataPositionSelectorTypeDetected"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ]
+        }
+      ]
+    },
+    "specificResource.json_definitions_dataPositionSelectorTypeDetected": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "DataPositionSelector"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "specificResource.json_definitions_rangeSelectorDetected": {
+      "title": "Detection: range selector",
+      "description": "True when object is a range selelctor (Section 4.2.9)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_rangeSelectorTypeDetected"
+        },
+        {
+          "type": "object",
+          "patternProperties": {
+            "^(startSelector|endSelector)$": {
+              "type": "object",
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_fragmentSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_cssSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_xpathSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_textQuoteSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_textPositionSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_dataPositionSelectorDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_svgSelectorDetected"
+                }
+              ]
+            }
+          },
+          "required": [
+            "startSelector",
+            "endSelector"
+          ]
+        }
+      ]
+    },
+    "specificResource.json_definitions_rangeSelectorTypeDetected": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "RangeSelector"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "specificResource.json_definitions_svgSelectorDetected": {
+      "title": "Detection: svg selector",
+      "description": "True when object is a svg selelctor (Section 4.2.7)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_svgSelectorTypeDetected"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/definitions/id.json_definitions_arraySingleStringUri"
+            }
+          },
+          "oneOf": [
+            {
+              "required": [
+                "value"
+              ]
+            },
+            {
+              "required": [
+                "id"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "specificResource.json_definitions_svgSelectorTypeDetected": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "SvgSelector"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "specificResource.json_definitions_stateDetected": {
+      "title": "Detection: state type",
+      "description": "True when object tested has state(s) that is(are) recognized as being one or more of the states described in the model (Section 4.3)",
+      "type": "object",
+      "$ref": "#/definitions/specificResource.json_definitions_stateDefined",
+      "required": [
+        "state"
+      ]
+    },
+    "specificResource.json_definitions_stateDefined": {
+      "title": "Definition: state",
+      "description": "True when object tested has state with value matching one or more of the state classes described in the model (Section 4.3)",
+      "type": "object",
+      "properties": {
+        "state": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/id.json_definitions_stringUri"
+            },
+            {
+              "type": "object",
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/id.json_definitions_idValueFound"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_timeStateDetected"
+                },
+                {
+                  "$ref": "#/definitions/specificResource.json_definitions_requestHeaderStateDetected"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/id.json_definitions_stringUri"
+                  },
+                  {
+                    "type": "object",
+                    "anyOf": [
+                      {
+                        "$ref": "#/definitions/id.json_definitions_idValueFound"
+                      },
+                      {
+                        "$ref": "#/definitions/specificResource.json_definitions_timeStateDetected"
+                      },
+                      {
+                        "$ref": "#/definitions/specificResource.json_definitions_requestHeaderStateDetected"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "specificResource.json_definitions_timeStateDetected": {
+      "title": "Detection: time state",
+      "description": "True when object is a time state (Section 4.3.1)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_timeStateTypeDetected"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "sourceDate": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              ]
+            },
+            "sourceDateStart": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "sourceDateEnd": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "cached": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "oneOf": [
+            {
+              "required": [
+                "sourceDate"
+              ]
+            },
+            {
+              "required": [
+                "sourceDateStart",
+                "sourceDateEnd"
+              ]
+            }
+          ],
+          "not": {
+            "required": [
+              "sourceDate",
+              "sourceDateStart",
+              "sourceDateEnd"
+            ]
+          }
+        }
+      ]
+    },
+    "specificResource.json_definitions_timeStateTypeDetected": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "TimeState"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "specificResource.json_definitions_requestHeaderStateDetected": {
+      "title": "Detection: request header state",
+      "description": "True when object is a request header state (Section 4.3.2)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_requestHeaderStateTypeDetected"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value"
+          ]
+        }
+      ]
+    },
+    "specificResource.json_definitions_requestHeaderStateTypeDetected": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "HttpRequestState"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "specificResource.json_definitions_styleClassDetected": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: styleClass key with qualifying body/target classes",
+      "description": "Supports implementation check of styleClass (if/when) used on Specific Resources (Sections 4.4)",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_styleClassDefinition"
+        },
+        {
+          "required": [
+            "styleClass"
+          ]
+        }
+      ]
+    },
+    "specificResource.json_definitions_styleClassDefinition": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: styleClass property value",
+      "description": "True when the object has no styleClass property or has a styleClass property that appears with source and that is a string value or array of string values (Section 4.4)",
+      "properties": {
+        "styleClass": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      },
+      "dependencies": {
+        "styleClass": [
+          "source"
+        ]
+      }
+    },
+    "specificResource.json_definitions_renderedViaDetected": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: renderedVia key with qualifying body/target classes",
+      "description": "Supports implementation check of renderedVia (if/when) used on Specific Resources (Sections 4.4)",
+      "allOf": [
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_sourceDetected"
+        },
+        {
+          "required": [
+            "renderedVia"
+          ]
+        },
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_renderedViaDefinition"
+        }
+      ]
+    },
+    "specificResource.json_definitions_renderedViaDefinition": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: renderedVia property value",
+      "description": "True when the body/target has no renderedVia property or has a valid renderedVia property (Section 4.5)",
+      "type": "object",
+      "properties": {
+        "renderedVia": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/id.json_definitions_arraySingleStringUri"
+            },
+            {
+              "$ref": "#/definitions/id.json_definitions_idValueFound"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/id.json_definitions_arraySingleStringUri"
+                  },
+                  {
+                    "$ref": "#/definitions/id.json_definitions_idValueFound"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "specificResource.json_definitions_scopeDetected": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Collate: scope key with qualifying body/target classes",
+      "description": "Supports implementation check of scope (if/when) used on Specific Resource Body (Sections 4.6)",
+      "allOf": [
+        {
+          "required": [
+            "scope"
+          ]
+        },
+        {
+          "$ref": "#/definitions/specificResource.json_definitions_scopeDefinition"
+        }
+      ]
+    },
+    "specificResource.json_definitions_scopeDefinition": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: scope property value",
+      "description": "True when the body/target has no scope property or has a valid scope property (Section 4.6)",
+      "type": "object",
+      "properties": {
+        "scope": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/id.json_definitions_stringUri"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/id.json_definitions_stringUri"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "choiceSet.json_definitions_choiceOrSetTypeDefinition": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: Choice or Set type",
+      "description": "True when object has type key and object\u0027s type is any of \u0027Choice\u0027, \u0027Composite\u0027, \u0027List\u0027, \u0027Independents\u0027 (Section 3.2.7)",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Choice",
+            "Composite",
+            "List",
+            "Independents"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "choiceSet.json_definitions_compositeDetected": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Detection: Composite",
+      "description": "True when object\u0027s type is \u0027Composite\u0027 and the object has an items array (Section 3.2.8)",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_compositeTypeDefinition"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_itemsDetected"
+        }
+      ]
+    },
+    "choiceSet.json_definitions_compositeTypeDefinition": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: Composite type",
+      "description": "True when object has type key and object\u0027s type is \u0027Composite\u0027 (Section 3.2.7)",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Composite"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "choiceSet.json_definitions_independentsDetected": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Detection: Independents",
+      "description": "True when object\u0027s type is \u0027Independents\u0027 and the object has an items array (Section 3.2.7)",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_independentsTypeDefinition"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_itemsDetected"
+        }
+      ]
+    },
+    "choiceSet.json_definitions_independentsTypeDefinition": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: Independents type",
+      "description": "True when object has type key and object\u0027s type is \u0027Independents\u0027 (Section 3.2.7)",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Independents"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "choiceSet.json_definitions_listDetected": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Detection: List",
+      "description": "True when object\u0027s type is \u0027List\u0027 and the object has an items array (Section 3.2.7)",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_listTypeDefinition"
+        },
+        {
+          "$ref": "#/definitions/choiceSet.json_definitions_itemsDetected"
+        }
+      ]
+    },
+    "choiceSet.json_definitions_listTypeDefinition": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: List type",
+      "description": "True when object has type key and object\u0027s type is \u0027List\u0027 (Section 3.2.7)",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "List"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "otherProperties.json_definitions_creatorValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: creator value",
+      "description": "True when the annotation, body or target has one or more creators (Section 3.3.1)",
+      "type": "object",
+      "properties": {
+        "creator": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/id.json_definitions_stringUri"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/id.json_definitions_stringUri"
+                  },
+                  {
+                    "type": "object"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "otherProperties.json_definitions_generatorValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: generator value",
+      "description": "True when the annotation, body or target has a single generator (Section 3.3.1)",
+      "type": "object",
+      "properties": {
+        "generator": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/id.json_definitions_stringUri"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/id.json_definitions_stringUri"
+                  },
+                  {
+                    "type": "object"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "otherProperties.json_definitions_audienceValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: audience value",
+      "description": "True when no audience or audience property of the annotation, body, target, ... is valid (Section 3.3.3)",
+      "type": "object",
+      "properties": {
+        "audience": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/id.json_definitions_stringUri"
+            },
+            {
+              "$ref": "#/definitions/otherProperties.json_definitions_audienceDefinition"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/id.json_definitions_stringUri"
+                  },
+                  {
+                    "$ref": "#/definitions/otherProperties.json_definitions_audienceDefinition"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "otherProperties.json_definitions_audienceDefinition": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Definition: audience object",
+      "description": "True when object meets our requirements for audience value (Section 3.3.3)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/id.json_definitions_arraySingleStringUri"
+        },
+        "type": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^(schema:)"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "pattern": "^(schema:)"
+              }
+            }
+          ]
+        }
+      },
+      "patternProperties": {
+        "^(schema:)": {
+          "type": [
+            "string",
+            "object",
+            "array"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "otherProperties.json_definitions_accessibilityValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: accessibility value",
+      "description": "True when no accessibility or accessibility property of the body, target, ... is valid (Section 3.3.4)",
+      "type": "object",
+      "properties": {
+        "accessibility": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "otherProperties.json_definitions_createdValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: created value",
+      "description": "True when the object being tested (annotation, body, target...) has no created or has a single created of format date-time (Section 3.3.1)",
+      "type": "object",
+      "properties": {
+        "created": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "otherProperties.json_definitions_generatedValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: generated value",
+      "description": "True when the annotation, body or target has no generated or has a single generated of format date-time (Section 3.3.1)",
+      "type": "object",
+      "properties": {
+        "generated": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "otherProperties.json_definitions_modifiedValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: modified value",
+      "description": "True when the annotation, body or target has no modified or has a single modified of format date-time (Section 3.3.1)",
+      "type": "object",
+      "properties": {
+        "modified": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "otherProperties.json_definitions_rightsValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: rights value",
+      "description": "True when the annotation, body or target has 0 or more rights properties that are strings of format uri (Section 3.3.6)",
+      "type": "object",
+      "properties": {
+        "rights": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/id.json_definitions_stringUri"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/id.json_definitions_stringUri"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "otherProperties.json_definitions_canonicalValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: canonical value",
+      "description": "True when the annotation, body or target has 0 or 1 canonical properties that are strings of format uri (Section 3.3.7)",
+      "type": "object",
+      "properties": {
+        "canonical": {
+          "$ref": "#/definitions/id.json_definitions_arraySingleStringUri"
+        }
+      }
+    },
+    "otherProperties.json_definitions_viaValidIfPresent": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Validation: via value",
+      "description": "True when the annotation, body or target has 0 or more via properties that are strings of format uri (Section 3.3.7)",
+      "type": "object",
+      "properties": {
+        "via": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/id.json_definitions_stringUri"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/id.json_definitions_stringUri"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

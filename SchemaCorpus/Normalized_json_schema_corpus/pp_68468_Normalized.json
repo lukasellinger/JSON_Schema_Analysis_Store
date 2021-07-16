@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "ProviderPerformance": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Provider Performance schema.",
+      "properties": {
+        "start_date": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "end_date": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "provider_id": {
+          "$ref": "#/definitions/common.json_definitions_BsonObjectId"
+        }
+      }
+    },
+    "common.json_definitions_SecondsSinceEpoch": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "multipleOf": 1,
+      "title": "Milliseconds since Epoch",
+      "description": "Number of milliseconds since Jan 1, 1970"
+    },
+    "common.json_definitions_BsonObjectId": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "maxLength": 12,
+      "minLength": 12
+    }
+  }
+}

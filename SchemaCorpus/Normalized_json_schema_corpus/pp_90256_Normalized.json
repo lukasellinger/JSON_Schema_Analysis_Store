@@ -1,0 +1,229 @@
+{
+  "title": "PathSymbol3DLayer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "PathSymbol3DLayer renders polyline geometries by extruding a 2D profile along the line, resulting in visualizations like tubes, walls, etc.",
+  "properties": {
+    "anchor": {
+      "type": "string",
+      "description": "The position of the extrusion profile with respect to the polyline geometry.",
+      "enum": [
+        "bottom",
+        "center",
+        "top"
+      ],
+      "default": "center"
+    },
+    "cap": {
+      "type": "string",
+      "description": "Shape of the beginning and the end of each line geometry.",
+      "enum": [
+        "butt",
+        "none",
+        "round",
+        "square"
+      ],
+      "default": "butt"
+    },
+    "castShadows": {
+      "type": "boolean",
+      "description": "Boolean to control the shadow casting behaviour of the rendered geometries.",
+      "default": true
+    },
+    "enable": {
+      "type": "boolean"
+    },
+    "height": {
+      "type": "number",
+      "description": "Path height in meters. If unspecified, it is equal to `width`.",
+      "minimum": 0
+    },
+    "join": {
+      "type": "string",
+      "description": "Shape of the intersection of two line segments.",
+      "enum": [
+        "bevel",
+        "miter",
+        "round"
+      ],
+      "default": "miter"
+    },
+    "material": {
+      "$ref": "#/definitions/material_schema.json"
+    },
+    "profile": {
+      "type": "string",
+      "description": "The shape which is extruded along the line.",
+      "enum": [
+        "circle",
+        "quad"
+      ],
+      "default": "circle"
+    },
+    "profileRotation": {
+      "type": "string",
+      "description": "Specifies the axes about which the profile may be rotated at the joins. Constraining the rotation axes leads to a fixed orientation of the profile for the specified directions.",
+      "enum": [
+        "all",
+        "heading"
+      ],
+      "default": "all"
+    },
+    "size": {
+      "type": "number",
+      "description": "Path size (diameter) in meters. Ignored if either `width` or `height` are present.",
+      "minimum": 0
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of symbol used.",
+      "enum": [
+        "Path"
+      ]
+    },
+    "width": {
+      "type": "number",
+      "description": "Path width in meters. If unspecified, it is equal to `height`.",
+      "minimum": 0
+    }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "type",
+        "size"
+      ]
+    },
+    {
+      "required": [
+        "type",
+        "width"
+      ]
+    },
+    {
+      "required": [
+        "type",
+        "height"
+      ]
+    }
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "Red tube",
+        "code": {
+          "symbolLayers": [
+            {
+              "type": "Path",
+              "material": {
+                "color": [
+                  255,
+                  0,
+                  0
+                ]
+              },
+              "size": 12
+            }
+          ]
+        }
+      },
+      {
+        "title": "Thin wall",
+        "code": {
+          "symbolLayers": [
+            {
+              "type": "Path",
+              "profile": "quad",
+              "width": 0,
+              "height": 50,
+              "anchor": "bottom",
+              "profileRotation": "heading"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Strip",
+        "code": {
+          "symbolLayers": [
+            {
+              "type": "Path",
+              "profile": "quad",
+              "width": 10,
+              "height": 1,
+              "anchor": "center",
+              "profileRotation": "heading"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "material_schema.json": {
+      "title": "Material",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The material used to shade the geometry.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "A value between `100` (full transparency) and `0` (full opacity). Ignored if no color is specified.",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "material",
+            "code": {
+              "material": {
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "transparency": 20
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

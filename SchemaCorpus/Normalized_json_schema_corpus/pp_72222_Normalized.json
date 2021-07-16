@@ -1,0 +1,1663 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "Webhook Schema",
+  "description": "The types of webhooks supported by SaaSquatch with their corresponding structures.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Webhook Id",
+      "description": "A unique Id associated with this webhook"
+    },
+    "type": {
+      "type": "string",
+      "title": "Webhook Type",
+      "description": "The type of this webhook",
+      "enum": [
+        "user.created",
+        "coupon.created",
+        "reward.created",
+        "referral.started",
+        "referral.converted",
+        "export.created",
+        "export.completed",
+        "user.reward.balance.changed"
+      ]
+    },
+    "tenantAlias": {
+      "type": "string",
+      "title": "Tenant Alias",
+      "description": "The identifier for the tenant that generated this webhook"
+    },
+    "live": {
+      "type": "boolean",
+      "title": "Is Live Tenant",
+      "description": "Indicates whether this is a live or test tenant"
+    },
+    "created": {
+      "type": "integer",
+      "title": "Created",
+      "description": "The date this webhook was created"
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "tenantAlias",
+    "live",
+    "created"
+  ],
+  "dependencies": {
+    "type": {
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "user.created"
+              ]
+            },
+            "data": {
+              "$ref": "#/definitions/UserCreatedData.schema.json"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "coupon.created"
+              ]
+            },
+            "data": {
+              "$ref": "#/definitions/CouponCreatedData.schema.json"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "reward.created"
+              ]
+            },
+            "data": {
+              "$ref": "#/definitions/RewardCreatedData.schema.json"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "referral.started"
+              ]
+            },
+            "data": {
+              "$ref": "#/definitions/ReferralData.schema.json"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "referral.converted"
+              ]
+            },
+            "data": {
+              "$ref": "#/definitions/ReferralData.schema.json"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "export.created"
+              ]
+            },
+            "data": {
+              "$ref": "#/definitions/ExportData.schema.json"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "export.completed"
+              ]
+            },
+            "data": {
+              "$ref": "#/definitions/ExportData.schema.json"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "user.reward.balance.changed"
+              ]
+            },
+            "data": {
+              "$ref": "#/definitions/UserRewardBalanceChanged.schema.json"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "UserCreatedData.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Classic User Created Webhook Schema",
+      "description": "Sent whenever a new user is created in SaaSquatch program where the classic program is enabled.",
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/UserCreatedClassic.schema.json"
+        },
+        {
+          "$ref": "#/definitions/UserCreatedClassicDisabled.schema.json"
+        }
+      ]
+    },
+    "UserCreatedClassic.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Classic User Created Webhook Schema",
+      "description": "Sent whenever a new user is created in SaaSquatch program where the classic program is enabled.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "User Id",
+          "description": "The user\u0027s unique identifier"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account Id",
+          "description": "The user\u0027s unique account identifier"
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Email",
+          "description": "The user\u0027s email address"
+        },
+        "firstName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "First Name",
+          "description": "The user\u0027s first name"
+        },
+        "lastName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Last Name",
+          "description": "The user\u0027s last name"
+        },
+        "lastInitial": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Last Initial",
+          "description": "The initial of the user\u0027s last name"
+        },
+        "referralCode": {
+          "type": "string",
+          "title": "Referral Code",
+          "description": "The referral code this user will share to refer others"
+        },
+        "imageUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Image Url",
+          "description": "The URL to an image of this user"
+        },
+        "firstSeenIP": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "First Seen IP",
+          "description": "The IP address of this user when they were first seen by SaaSquatch"
+        },
+        "lastSeenIP": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Last Seen IP",
+          "description": "The IP address of this user when they were most recently seen by SaaSquatch"
+        },
+        "dateCreated": {
+          "type": "integer",
+          "title": "Date Created",
+          "description": "A timestamp of the date this user was created"
+        },
+        "emailHash": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Email Hash",
+          "description": "An MD5 has of this user\u0027s email address"
+        },
+        "referralSource": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Referral Source",
+          "description": "The source of the referral as defined by referral cookie (deprecated)"
+        },
+        "locale": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Locale",
+          "description": "This user\u0027s unique locale"
+        },
+        "countryCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Country Code",
+          "description": "The user\u0027s country code"
+        },
+        "referralCodes": {
+          "$ref": "#/definitions/..\\ReferralCodes.schema.json"
+        },
+        "cookieId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Anonymous Cookie User Id",
+          "description": "The anonymous cookie user identifier associated with this user if applicable (see anonymous users)"
+        },
+        "paymentProviderId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Payment Provider Id",
+          "description": "Unique user identifier for tenants using a v1 payment provider integration (e.g. Stripe/Recurly)"
+        },
+        "referable": {
+          "type": "boolean",
+          "title": "Referable",
+          "description": "True if this user can be referred in a program by other users"
+        },
+        "dateBlocked": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Date Blocked",
+          "description": "The date the referral was blocked"
+        },
+        "shareLinks": {
+          "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_classicShareLinks"
+        },
+        "referredByCodes": {
+          "type": "array",
+          "title": "Referred By Codes",
+          "description": "Any codes used to refer this user",
+          "items": {
+            "type": "string"
+          }
+        },
+        "customFields": {
+          "title": "Custom Fields",
+          "description": "Any custom fields set for this user",
+          "$ref": "#/definitions/..\\UserCustomFields.schema.json"
+        },
+        "segments": {
+          "type": "array",
+          "title": "User Segments",
+          "description": "Any segments this user belongs to",
+          "items": {
+            "type": "string"
+          }
+        },
+        "programShareLinks": {
+          "$ref": "#/definitions/..\\ProgramShareLinks.schema.json"
+        }
+      },
+      "required": [
+        "id",
+        "accountId",
+        "referralCode",
+        "dateCreated",
+        "referralCodes",
+        "referable",
+        "shareLinks"
+      ],
+      "additionalProperties": false,
+      "definitions": {
+        "classicShareLinks": {
+          "type": "object",
+          "title": "Share Links",
+          "description": "Links this user can share to make referrals",
+          "properties": {
+            "shareLink": {
+              "type": "string",
+              "title": "Direct Share Link",
+              "description": "The share link tracked with DIRECT share medium and UNKNOWN engagement medium"
+            },
+            "facebookShareLink": {
+              "type": "string",
+              "title": "Facebook Share Link",
+              "description": "The share link tracked with FACEBOOK share medium and UNKNOWN engagement medium"
+            },
+            "twitterShareLink": {
+              "type": "string",
+              "title": "Twitter Share Link",
+              "description": "The share link tracked with TWITTER share medium and UNKNOWN engagement medium"
+            },
+            "emailShareLink": {
+              "type": "string",
+              "title": "Email Share Link",
+              "description": "The share link tracked with EMAIL share medium and UNKNOWN engagement medium"
+            },
+            "linkedinShareLink": {
+              "type": "string",
+              "title": "LinkedIn Share Link",
+              "description": "The share link tracked with LINKEDIN share medium and UNKNOWN engagement medium"
+            },
+            "mobileShareLink": {
+              "type": "string",
+              "title": "Mobile Direct Share Link",
+              "description": "The share link tracked with DIRECT share medium and MOBILE engagement medium"
+            },
+            "mobileFacebookShareLink": {
+              "type": "string",
+              "title": "Mobile Facebook Share Link",
+              "description": "The share link tracked with FACEBOOK share medium and MOBILE engagement medium"
+            },
+            "mobileTwitterShareLink": {
+              "type": "string",
+              "title": "Mobile Twitter Share Link",
+              "description": "The share link tracked with TWITTER share medium and MOBILE engagement medium"
+            },
+            "mobileEmailShareLink": {
+              "type": "string",
+              "title": "Mobile Email Share Link",
+              "description": "The share link tracked with EMAIL share medium and MOBILE engagement medium"
+            },
+            "EMBED": {
+              "title": "Embedded Widget Share Links",
+              "description": "A list of share links associated with the EMBED engagement medium",
+              "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_subClassicShareLinks"
+            },
+            "POPUP": {
+              "title": "Popup Widget Share Links",
+              "description": "A list of share links associated with the POPUP engagement medium",
+              "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_subClassicShareLinks"
+            },
+            "HOSTED": {
+              "title": "Hosted Widget Share Links",
+              "description": "A list of share links associated with the HOSTED engagement medium",
+              "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_subClassicShareLinks"
+            },
+            "MOBILE": {
+              "title": "Mobile Widget Share Links",
+              "description": "A list of share links associated with the MOBILE engagement medium",
+              "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_subClassicShareLinks"
+            },
+            "EMAIL": {
+              "title": "Email Widget Share Links",
+              "description": "A list of share links associated with the EMAIL engagement medium",
+              "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_subClassicShareLinks"
+            }
+          },
+          "required": [
+            "shareLink",
+            "facebookShareLink",
+            "twitterShareLink",
+            "emailShareLink",
+            "linkedinShareLink",
+            "mobileShareLink",
+            "mobileFacebookShareLink",
+            "mobileTwitterShareLink",
+            "mobileEmailShareLink",
+            "EMBED",
+            "POPUP",
+            "HOSTED",
+            "MOBILE",
+            "EMAIL"
+          ],
+          "additionalProperties": false
+        },
+        "subClassicShareLinks": {
+          "type": "object",
+          "properties": {
+            "shareLink": {
+              "type": "string",
+              "title": "Direct Share Link",
+              "description": "The share link tracked with DIRECT share medium"
+            },
+            "facebookShareLink": {
+              "type": "string",
+              "title": "Facebook Share Link",
+              "description": "The share link tracked with FACEBOOK share medium"
+            },
+            "twitterShareLink": {
+              "type": "string",
+              "title": "Twitter Share Link",
+              "description": "The share link tracked with TWITTER share medium"
+            },
+            "emailShareLink": {
+              "type": "string",
+              "title": "Email Share Link",
+              "description": "The share link tracked with EMAIL share medium"
+            },
+            "linkedinShareLink": {
+              "type": "string",
+              "title": "LinkedIn Share Link",
+              "description": "The share link tracked with LINKEDIN share medium"
+            }
+          },
+          "required": [
+            "shareLink",
+            "facebookShareLink",
+            "twitterShareLink",
+            "emailShareLink",
+            "linkedinShareLink"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "..\\ReferralCodes.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Referral Codes",
+      "description": "A map of programs to referral codes.",
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9-]{1,64}$": {
+          "type": "string",
+          "title": "Referral Code",
+          "description": "The primary referral code associated with the programId key"
+        }
+      },
+      "additionalProperties": false
+    },
+    "UserCreatedClassic.schema.json_definitions_classicShareLinks": {
+      "type": "object",
+      "title": "Share Links",
+      "description": "Links this user can share to make referrals",
+      "properties": {
+        "shareLink": {
+          "type": "string",
+          "title": "Direct Share Link",
+          "description": "The share link tracked with DIRECT share medium and UNKNOWN engagement medium"
+        },
+        "facebookShareLink": {
+          "type": "string",
+          "title": "Facebook Share Link",
+          "description": "The share link tracked with FACEBOOK share medium and UNKNOWN engagement medium"
+        },
+        "twitterShareLink": {
+          "type": "string",
+          "title": "Twitter Share Link",
+          "description": "The share link tracked with TWITTER share medium and UNKNOWN engagement medium"
+        },
+        "emailShareLink": {
+          "type": "string",
+          "title": "Email Share Link",
+          "description": "The share link tracked with EMAIL share medium and UNKNOWN engagement medium"
+        },
+        "linkedinShareLink": {
+          "type": "string",
+          "title": "LinkedIn Share Link",
+          "description": "The share link tracked with LINKEDIN share medium and UNKNOWN engagement medium"
+        },
+        "mobileShareLink": {
+          "type": "string",
+          "title": "Mobile Direct Share Link",
+          "description": "The share link tracked with DIRECT share medium and MOBILE engagement medium"
+        },
+        "mobileFacebookShareLink": {
+          "type": "string",
+          "title": "Mobile Facebook Share Link",
+          "description": "The share link tracked with FACEBOOK share medium and MOBILE engagement medium"
+        },
+        "mobileTwitterShareLink": {
+          "type": "string",
+          "title": "Mobile Twitter Share Link",
+          "description": "The share link tracked with TWITTER share medium and MOBILE engagement medium"
+        },
+        "mobileEmailShareLink": {
+          "type": "string",
+          "title": "Mobile Email Share Link",
+          "description": "The share link tracked with EMAIL share medium and MOBILE engagement medium"
+        },
+        "EMBED": {
+          "title": "Embedded Widget Share Links",
+          "description": "A list of share links associated with the EMBED engagement medium",
+          "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_subClassicShareLinks"
+        },
+        "POPUP": {
+          "title": "Popup Widget Share Links",
+          "description": "A list of share links associated with the POPUP engagement medium",
+          "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_subClassicShareLinks"
+        },
+        "HOSTED": {
+          "title": "Hosted Widget Share Links",
+          "description": "A list of share links associated with the HOSTED engagement medium",
+          "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_subClassicShareLinks"
+        },
+        "MOBILE": {
+          "title": "Mobile Widget Share Links",
+          "description": "A list of share links associated with the MOBILE engagement medium",
+          "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_subClassicShareLinks"
+        },
+        "EMAIL": {
+          "title": "Email Widget Share Links",
+          "description": "A list of share links associated with the EMAIL engagement medium",
+          "$ref": "#/definitions/UserCreatedClassic.schema.json_definitions_subClassicShareLinks"
+        }
+      },
+      "required": [
+        "shareLink",
+        "facebookShareLink",
+        "twitterShareLink",
+        "emailShareLink",
+        "linkedinShareLink",
+        "mobileShareLink",
+        "mobileFacebookShareLink",
+        "mobileTwitterShareLink",
+        "mobileEmailShareLink",
+        "EMBED",
+        "POPUP",
+        "HOSTED",
+        "MOBILE",
+        "EMAIL"
+      ],
+      "additionalProperties": false
+    },
+    "UserCreatedClassic.schema.json_definitions_subClassicShareLinks": {
+      "type": "object",
+      "properties": {
+        "shareLink": {
+          "type": "string",
+          "title": "Direct Share Link",
+          "description": "The share link tracked with DIRECT share medium"
+        },
+        "facebookShareLink": {
+          "type": "string",
+          "title": "Facebook Share Link",
+          "description": "The share link tracked with FACEBOOK share medium"
+        },
+        "twitterShareLink": {
+          "type": "string",
+          "title": "Twitter Share Link",
+          "description": "The share link tracked with TWITTER share medium"
+        },
+        "emailShareLink": {
+          "type": "string",
+          "title": "Email Share Link",
+          "description": "The share link tracked with EMAIL share medium"
+        },
+        "linkedinShareLink": {
+          "type": "string",
+          "title": "LinkedIn Share Link",
+          "description": "The share link tracked with LINKEDIN share medium"
+        }
+      },
+      "required": [
+        "shareLink",
+        "facebookShareLink",
+        "twitterShareLink",
+        "emailShareLink",
+        "linkedinShareLink"
+      ],
+      "additionalProperties": false
+    },
+    "..\\UserCustomFields.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "User Custom Fields Schema",
+      "description": "Defines how custom fields can be specified on a user. Allows alphanumeric numbers and underscores.",
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9_]{1,64}$": {
+          "$ref": "#/definitions/..\\user\\fields\\DefaultCustomField.schema.json"
+        }
+      },
+      "additionalProperties": false,
+      "maxProperties": 100
+    },
+    "..\\user\\fields\\DefaultCustomField.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 1024
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "..\\ProgramShareLinks.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Program Share Links",
+      "description": "Links this user can share to make referrals",
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9-]{1,64}$": {
+          "type": "object",
+          "title": "Program Share Link",
+          "description": "The primary share links available for this program",
+          "properties": {
+            "cleanShareLink": {
+              "type": "string",
+              "title": "Clean Link for Given Program",
+              "description": "If the program\u0027s primary link is a vanity link then this will be the unencoded link, if not it is the UNKNOWN engagement medium and UNKOWN share medium link"
+            },
+            "MOBILE": {
+              "title": "Mobile Share Links",
+              "description": "Share links tracked with the MOBILE engagement medium",
+              "$ref": "#/definitions/..\\ProgramShareLinks.schema.json_definitions_subShareLinks"
+            },
+            "EMAIL": {
+              "title": "Email Share Links",
+              "description": "Share links tracked with the EMAIL engagement medium",
+              "$ref": "#/definitions/..\\ProgramShareLinks.schema.json_definitions_subShareLinks"
+            },
+            "UNKNOWN": {
+              "title": "Share Links",
+              "description": "Share links tracked with the UNKNOWN engagement medium",
+              "$ref": "#/definitions/..\\ProgramShareLinks.schema.json_definitions_subShareLinks"
+            }
+          },
+          "required": [
+            "cleanShareLink",
+            "MOBILE",
+            "EMAIL",
+            "UNKNOWN"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "definitions": {
+        "subShareLinks": {
+          "type": "object",
+          "properties": {
+            "DIRECT": {
+              "type": "string",
+              "title": "Direct Share Link",
+              "description": "Share link associated with the DIRECT share medium"
+            }
+          },
+          "required": [
+            "DIRECT"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\ProgramShareLinks.schema.json_definitions_subShareLinks": {
+      "type": "object",
+      "properties": {
+        "DIRECT": {
+          "type": "string",
+          "title": "Direct Share Link",
+          "description": "Share link associated with the DIRECT share medium"
+        }
+      },
+      "required": [
+        "DIRECT"
+      ],
+      "additionalProperties": false
+    },
+    "UserCreatedClassicDisabled.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Classic User Created Webhook Schema",
+      "description": "Sent whenever a new user is created in SaaSquatch program where the classic program is enabled.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "User Id",
+          "description": "The user\u0027s unique identifier"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account Id",
+          "description": "The user\u0027s unique account identifier"
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Email",
+          "description": "The user\u0027s email address"
+        },
+        "firstName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "First Name",
+          "description": "The user\u0027s first name"
+        },
+        "lastName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Last Name",
+          "description": "The user\u0027s last name"
+        },
+        "imageUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Image Url",
+          "description": "The URL to an image of this user"
+        },
+        "firstSeenIP": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "First Seen IP",
+          "description": "The IP address of this user when they were first seen by SaaSquatch"
+        },
+        "lastSeenIP": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Last Seen IP",
+          "description": "The IP address of this user when they were most recently seen by SaaSquatch"
+        },
+        "dateCreated": {
+          "type": "integer",
+          "title": "Date Created",
+          "description": "A timestamp of the date this user was created"
+        },
+        "locale": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Locale",
+          "description": "This user\u0027s unique locale"
+        },
+        "countryCode": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Country Code",
+          "description": "The user\u0027s country code"
+        },
+        "referralCodes": {
+          "$ref": "#/definitions/..\\ReferralCodes.schema.json"
+        },
+        "referable": {
+          "type": "boolean",
+          "title": "Referable",
+          "description": "True if this user can be referred in a program by other users"
+        },
+        "referredByCodes": {
+          "type": "array",
+          "title": "Referred By Codes",
+          "description": "Any codes used to refer this user",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cookieId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Anonymous Cookie User Id",
+          "description": "The anonymous cookie user identifier associated with this user if applicable (see anonymous users)"
+        },
+        "dateBlocked": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Date Blocked",
+          "description": "The date the referral was blocked"
+        },
+        "customFields": {
+          "title": "Custom Fields",
+          "description": "Any custom fields set for this user",
+          "$ref": "#/definitions/..\\UserCustomFields.schema.json"
+        },
+        "segments": {
+          "type": "array",
+          "title": "User Segments",
+          "description": "Any segments this user belongs to",
+          "items": {
+            "type": "string"
+          }
+        },
+        "programShareLinks": {
+          "$ref": "#/definitions/..\\ProgramShareLinks.schema.json"
+        }
+      },
+      "required": [
+        "id",
+        "accountId",
+        "dateCreated",
+        "referable"
+      ],
+      "additionalProperties": false
+    },
+    "CouponCreatedData.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Coupon Created Webhook Schema",
+      "description": "Sent when a new coupon (referral code) is created, often when the user is created or interacts with a newly activated program",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "title": "Code",
+          "description": "The code to be shared"
+        },
+        "dateCreated": {
+          "type": "integer",
+          "title": "Date Created",
+          "description": "The date this code was created"
+        },
+        "programId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Program Id",
+          "description": "The Id of the program this code was created for"
+        }
+      },
+      "required": [
+        "code",
+        "dateCreated"
+      ],
+      "additionalProperties": false
+    },
+    "RewardCreatedData.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Reward Created Webhook Schema",
+      "description": "Sent whenever a reward is created (when it becomes available, e.g. not pending).",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Reward Id",
+          "description": "The unique identifier associated with this reward"
+        },
+        "type": {
+          "type": "string",
+          "title": "Reward Type",
+          "enum": [
+            "PCT_DISCOUNT",
+            "FUELTANK",
+            "CREDIT",
+            "INTEGRATION"
+          ]
+        },
+        "dateCreated": {
+          "type": "integer",
+          "title": "Date Reward Created",
+          "description": "The date this reward was created"
+        },
+        "dateScheduledFor": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Scheduled For",
+          "description": "The date this reward is scheduled to be given if it starts in a pending state"
+        },
+        "dateGiven": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Given",
+          "description": "The date this reward was given (became available for use)"
+        },
+        "dateExpires": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Expires",
+          "description": "The date this reward will expire"
+        },
+        "dateCancelled": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Cancelled",
+          "description": "The date this reward was cancelled"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account Id",
+          "description": "The account Id for the user who received this reward"
+        },
+        "userId": {
+          "type": "string",
+          "title": "User Id",
+          "description": "The user Id for the user who received this reward"
+        },
+        "cancellable": {
+          "type": "boolean",
+          "title": "Is Cancellable",
+          "description": "Whether this reward can be cancelled (e.g. rewards that have already been fulfilled externally cannot be cancelled)"
+        },
+        "programId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Program Id",
+          "description": "The program that issued this reward"
+        },
+        "rewardSource": {
+          "type": "string",
+          "title": "Reward Source",
+          "description": "The source of this reward (e.g. insight into why this reward was created)",
+          "enum": [
+            "FRIEND_SIGNUP",
+            "REFERRED",
+            "MANUAL",
+            "ACTIVATION",
+            "ACQUISITION",
+            "RETENTION",
+            "REACTIVATION",
+            "AUTOMATED"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "dateCreated",
+        "accountId",
+        "userId",
+        "cancellable",
+        "rewardSource"
+      ],
+      "dependencies": {
+        "type": {
+          "oneOf": [
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "PCT_DISCOUNT"
+                  ]
+                },
+                "discountPercent": {
+                  "type": "integer",
+                  "title": "Discount Percent",
+                  "description": "The percent discount to be given (e.g. 1-100)"
+                },
+                "unit": {
+                  "type": "string",
+                  "title": "Reward Unit",
+                  "description": "The unit of this reward",
+                  "const": "%"
+                },
+                "name": {
+                  "type": "string",
+                  "title": "Reward Name",
+                  "description": "The name given to this discount reward (e.g. Referrer Reward)"
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "FUELTANK"
+                  ]
+                },
+                "fuelTankCode": {
+                  "type": "string",
+                  "title": "Reward Code",
+                  "description": "The code associated with this reward (e.g. used in fulfillment)"
+                },
+                "unit": {
+                  "type": "string",
+                  "title": "Reward Unit",
+                  "description": "The unit of this reward"
+                },
+                "amount": {
+                  "type": "integer",
+                  "title": "Reward Amount",
+                  "description": "The value associated with this reward (e.g. 10% or $100)"
+                },
+                "fuelTankType": {
+                  "type": "string",
+                  "title": "Reward Code Type",
+                  "description": "The type of the redeemable reward associated with the fuel tank code (e.g. is it a discount or credit)",
+                  "enum": [
+                    "PCT_DISCOUNT",
+                    "CREDIT"
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "CREDIT"
+                  ]
+                },
+                "unit": {
+                  "type": "string",
+                  "title": "Reward Unit",
+                  "description": "The unit of this reward (e.g. USD)"
+                },
+                "assignedCredit": {
+                  "type": "integer",
+                  "title": "Assigned Credit",
+                  "description": "The credit assigned to this reward (e.g. amount that can be redeemed)"
+                },
+                "redeemedCredit": {
+                  "type": "integer",
+                  "title": "Redeemed Credit",
+                  "description": "The amount of credit that has already been redeemed from this reward"
+                },
+                "name": {
+                  "type": "string",
+                  "title": "Reward Name",
+                  "description": "The name given to this credit reward (e.g. Referrer Reward)"
+                },
+                "redemptions": {
+                  "type": "array",
+                  "title": "Reward Redemptions",
+                  "description": "A record of how credit was redeemed from this reward",
+                  "items": {
+                    "$ref": "#/definitions/RewardCreatedData.schema.json_definitions_rewardRedemption"
+                  }
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "INTEGRATION"
+                  ]
+                },
+                "name": {
+                  "type": "string",
+                  "title": "Reward Name",
+                  "description": "The name of this reward (e.g. Amazon Gift Card)"
+                },
+                "description": {
+                  "type": "string",
+                  "title": "Reward Description",
+                  "description": "This describe the reward in more detail"
+                },
+                "unit": {
+                  "type": "string",
+                  "title": "Reward Unit",
+                  "description": "The unit of this reward (e.g. USD)"
+                },
+                "valueInCents": {
+                  "type": "integer",
+                  "title": "Reward Value",
+                  "description": "The monetary value of this reward in its fractional unit (e.g. cents)"
+                },
+                "integrationId": {
+                  "type": "string",
+                  "title": "Integration Id",
+                  "description": "The identifier for the integration that issued this reward"
+                },
+                "rewardDetails": {
+                  "type": "object",
+                  "title": "Reward Details",
+                  "description": "A map of details about this reward provided by the underlying giftcard provider (e.g. Tango\u0027s utid)"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "definitions": {
+        "rewardRedemption": {
+          "type": "object",
+          "title": "Reward Redemption",
+          "description": "An instance of credit being withdrawn from a reward",
+          "properties": {
+            "id": {
+              "type": "string",
+              "title": "Redemption Id",
+              "description": "The unique identifier of this redemption"
+            },
+            "dateRedeemed": {
+              "type": "integer",
+              "title": "Date Redeemed",
+              "description": "The date this redemption was made"
+            },
+            "quantityRedeemed": {
+              "type": "string",
+              "title": "Quantity Redeemed",
+              "description": "The amount that was withdrawn from this reward"
+            }
+          },
+          "required": [
+            "id",
+            "dateRedeemed",
+            "quantityRedeemed"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "RewardCreatedData.schema.json_definitions_rewardRedemption": {
+      "type": "object",
+      "title": "Reward Redemption",
+      "description": "An instance of credit being withdrawn from a reward",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Redemption Id",
+          "description": "The unique identifier of this redemption"
+        },
+        "dateRedeemed": {
+          "type": "integer",
+          "title": "Date Redeemed",
+          "description": "The date this redemption was made"
+        },
+        "quantityRedeemed": {
+          "type": "string",
+          "title": "Quantity Redeemed",
+          "description": "The amount that was withdrawn from this reward"
+        }
+      },
+      "required": [
+        "id",
+        "dateRedeemed",
+        "quantityRedeemed"
+      ],
+      "additionalProperties": false
+    },
+    "ReferralData.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Referral Data Webhook Schema",
+      "description": "Sent whenever a referral event happens",
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/ReferralClassic.schema.json"
+        },
+        {
+          "$ref": "#/definitions/ReferralClassicDisabled.schema.json"
+        }
+      ]
+    },
+    "ReferralClassic.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Classic Referral Webhook Schema",
+      "description": "Sent whenever a classic referral event happens",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Referral Id",
+          "description": "The unique referral identifier"
+        },
+        "referrer": {
+          "title": "Referrer User",
+          "description": "The referrer user in who initiated this referral",
+          "$ref": "#/definitions/..\\UserIdentifier.schema.json"
+        },
+        "referred": {
+          "title": "Referred User",
+          "description": "The referred user who initiated this referral",
+          "$ref": "#/definitions/..\\UserIdentifier.schema.json"
+        },
+        "referralCodeUsed": {
+          "type": "string",
+          "title": "Referral Code Used",
+          "description": "The referrers code that was used by the referred for the referral"
+        },
+        "shareLinkUsed": {
+          "type": "string",
+          "title": "Share Link Used",
+          "description": "The sharelink that was used by the referred for the referral"
+        },
+        "dateReferralStarted": {
+          "type": "integer",
+          "title": "Date Referral Started",
+          "description": "The date this referral was created"
+        },
+        "dateConverted": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Referral Converted",
+          "description": "The date the referral converted"
+        },
+        "dateModified": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Referral Modified",
+          "description": "The date this referral was last modified for any reason (e.g. converted, reward added, etc.)"
+        },
+        "dateUserModified": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date User Modified",
+          "description": "The date a user was added to or removed from the referral (e.g. removed as a result of user deletion)"
+        },
+        "programId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Program Id",
+          "description": "The Id of the program this code was created for"
+        },
+        "referrerUser": {
+          "type": "string",
+          "title": "Referrer User",
+          "description": "The userId of the referrer user (Classic-Only)"
+        },
+        "referredUser": {
+          "type": "string",
+          "title": "Referred User",
+          "description": "The userId of the referred user (Classic-Only)"
+        },
+        "fraudSignals": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "title": "Fraud Signals",
+          "description": "A set of fraud flags generated for the classic referral program (Classic-Only)"
+        },
+        "moderationStatus": {
+          "type": "string",
+          "title": "Moderation Status",
+          "description": "The referral fraud moderation status for the classic program (Classic-Only)",
+          "enum": [
+            "PENDING",
+            "ACTIONED"
+          ]
+        },
+        "referrerModerationStatus": {
+          "type": "string",
+          "title": "Referrer Moderation Status",
+          "description": "The referral moderation status for the referrer user classic program (Classic-Only)",
+          "enum": [
+            "PENDING",
+            "APPROVED",
+            "DENIED"
+          ]
+        },
+        "dateReferralPaid": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Referral Paid",
+          "description": "The date the referral was marked as paid (Classic-Only)"
+        },
+        "dateReferralEnded": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Referral Ended",
+          "description": "The date the referral ended (Classic-Only)"
+        },
+        "referredModerationStatus": {
+          "type": "string",
+          "title": "Referred Moderation Status",
+          "description": "The moderation status for the referred user in the classic program (Classic-Only)",
+          "enum": [
+            "PENDING",
+            "APPROVED",
+            "DENIED"
+          ]
+        },
+        "dateModerated": {
+          "type": "integer",
+          "title": "Date Moderated",
+          "description": "The date the referral was moderated (Classic-Only)"
+        },
+        "referredReward": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Referred Reward",
+          "description": "The rewardId of the classic program referred user\u0027s reward if available (Classic-Only)"
+        },
+        "referrerReward": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Referrer Reward",
+          "description": "The rewardId of the classic program referrer user\u0027s reward if available (Classic-Only)"
+        }
+      },
+      "required": [
+        "id",
+        "referrerUser",
+        "dateReferralStarted",
+        "moderationStatus",
+        "referrerModerationStatus",
+        "referredModerationStatus",
+        "dateModerated"
+      ],
+      "additionalProperties": false
+    },
+    "..\\UserIdentifier.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "User Identifier Schema",
+      "description": "The unique identifiers used to distinguish a user.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "User Id",
+          "description": "This user\u0027s unique identifier"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account Id",
+          "description": "The unique identifier of the account this user belongs to"
+        }
+      },
+      "required": [
+        "id",
+        "accountId"
+      ],
+      "additionalProperties": false
+    },
+    "ReferralClassicDisabled.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Classic Disabled Referral Webhook Schema",
+      "description": "Sent whenever a referral event happens and the classic program is disabled",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Referral Id",
+          "description": "The unique referral identifier"
+        },
+        "referrer": {
+          "title": "Referrer User",
+          "description": "The referrer user in who initiated this referral",
+          "$ref": "#/definitions/..\\UserIdentifier.schema.json"
+        },
+        "referred": {
+          "title": "Referred User",
+          "description": "The referred user who initiated this referral",
+          "$ref": "#/definitions/..\\UserIdentifier.schema.json"
+        },
+        "referralCodeUsed": {
+          "type": "string",
+          "title": "Referral Code Used",
+          "description": "The referrers code that was used by the referred for the referral"
+        },
+        "shareLinkUsed": {
+          "type": "string",
+          "title": "Share Link Used",
+          "description": "The sharelink that was used by the referred for the referral"
+        },
+        "dateReferralStarted": {
+          "type": "integer",
+          "title": "Date Referral Started",
+          "description": "The date this referral was created"
+        },
+        "dateConverted": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Referral Converted",
+          "description": "The date the referral converted"
+        },
+        "dateModified": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Referral Modified",
+          "description": "The date this referral was last modified for any reason (e.g. converted, reward added, etc.)"
+        },
+        "dateUserModified": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date User Modified",
+          "description": "The date a user was added to or removed from the referral (e.g. removed as a result of user deletion)"
+        },
+        "programId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Program Id",
+          "description": "The Id of the program this code was created for"
+        }
+      },
+      "required": [
+        "id",
+        "referrer",
+        "referred",
+        "dateReferralStarted"
+      ],
+      "additionalProperties": false
+    },
+    "ExportData.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Export Webhook Schema",
+      "description": "Sent whenever a data export activity happens (e.g. export created/completed)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Export Id",
+          "description": "The unique identifier for this export"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Export Name",
+          "description": "The name of this export (e.g. User Details)"
+        },
+        "requester": {
+          "type": "string",
+          "title": "Requester",
+          "description": "The person or machine that requested this export"
+        },
+        "status": {
+          "type": "string",
+          "title": "Status",
+          "description": "The status of this export (e.g. is it running/finished?)",
+          "enum": [
+            "PENDING",
+            "ABORTED",
+            "COMPLETED"
+          ]
+        },
+        "dateCreated": {
+          "type": "integer",
+          "title": "Date Created",
+          "description": "The date this export was created"
+        },
+        "dateCompleted": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Completed",
+          "description": "The date this export completed"
+        },
+        "mailtoEmail": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Notification Email Address",
+          "description": "The email address that will receive a download link for this export when it completes"
+        },
+        "dateExpires": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "title": "Date Expires",
+          "description": "The date this export expires (e.g. when it will no longer be downloadable)"
+        },
+        "outputFormat": {
+          "type": "string",
+          "title": "Output Format",
+          "description": "The format this export will be generated in (e.g. CSV or Excel)",
+          "enum": [
+            "XLSX",
+            "CSV"
+          ]
+        },
+        "task": {
+          "type": "string",
+          "title": "Export Type",
+          "description": "The type of export generated",
+          "enum": [
+            "USER",
+            "REFERRAL",
+            "REWARD_BALANCE",
+            "USER_REWARD_BALANCE",
+            "USER_REFERRAL",
+            "REFERRAL_PARTICIPANT",
+            "REDEEMABLE_REWARD_BALANCE"
+          ]
+        },
+        "operation": {
+          "type": "string",
+          "title": "Operation",
+          "description": "The operation being performed (for exports this is always QUERY)"
+        },
+        "params": {
+          "type": "object",
+          "title": "Export Filters",
+          "description": "These parameters are used to filter the export (e.g. by date or program)"
+        },
+        "stats": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "title": "Export Stats",
+          "description": "Statistics recorded upon completions of the export",
+          "properties": {
+            "recordsProcessed": {
+              "type": "integer",
+              "title": "Records Processed",
+              "description": "The number of records that were processed to complete this export"
+            },
+            "errors": {
+              "type": "integer",
+              "title": "Errors",
+              "description": "The number of errors that occurred while running this export"
+            }
+          },
+          "additionalProperties": false
+        },
+        "fileRef": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Uploaded File Reference",
+          "description": "A link to an uploaded file, if this export was based on an uploaded file (e.g. a list of redemption)"
+        }
+      },
+      "required": [
+        "id",
+        "requester",
+        "status",
+        "dateCreated",
+        "outputFormat",
+        "task",
+        "operation"
+      ],
+      "additionalProperties": false
+    },
+    "UserRewardBalanceChanged.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "User Reward Balance Changed Webhook Schema",
+      "description": "Sent whenever something happens to change this user\u0027s available reward balance (e.g. rewards given/expired/etc)",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "title": "User Id",
+          "description": "The user\u0027s unique identifier"
+        },
+        "accountId": {
+          "type": "string",
+          "title": "Account Id",
+          "description": "The user\u0027s unique account identifier"
+        },
+        "unit": {
+          "type": "string",
+          "title": "Reward Balance Unit",
+          "description": "The unit corresponding to this reward balance"
+        },
+        "availableValue": {
+          "title": "Available Reward Balance",
+          "type": "integer",
+          "description": "The reward balance available to be redeemed"
+        },
+        "resourceVersion": {
+          "title": "Resource Version",
+          "type": "integer",
+          "description": "An integer value reflective of when the balance was generated, the greater the value the more recent the balance"
+        }
+      }
+    }
+  }
+}

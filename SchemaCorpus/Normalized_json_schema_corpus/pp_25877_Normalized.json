@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/beerjson/beerjson/master/json/boil_step.json",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "BoilStepType": {
+      "type": "object",
+      "description": "BoilStepType - a per step representation of a boil process, can be used to support preboil steps, non-boiling pasteurization steps, boiling, whirlpool steps, and chilling.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "start_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "end_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "ramp_time": {
+          "description": "The amount of time that passes before this step begins. eg moving from a boiling step (step 1) to a whirlpool step (step 2) may take 5 minutes. Step 2 would have a ramp time of 5 minutes, hop isomerization and bitterness calculations will need to account for this accordingly.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "step_time": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "start_gravity": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "end_gravity": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "start_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "end_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "chilling_type": {
+          "description": "Chilling type seperates batch chilling, eg immersion chillers, where the entire volume of wort is brought down in temperture as a whole, vs inline chilling where the wort is chilled while it is being drained, which can leave a significant amount of hop isomerization occuring in the boil kettle.",
+          "type": "string",
+          "enum": [
+            "batch",
+            "inline"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureUnitType": {
+      "type": "string",
+      "enum": [
+        "C",
+        "F"
+      ]
+    },
+    "measureable_units.json_definitions_TimeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeUnitType"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TimeUnitType": {
+      "type": "string",
+      "enum": [
+        "sec",
+        "min",
+        "hr",
+        "day",
+        "week"
+      ]
+    },
+    "measureable_units.json_definitions_GravityType": {
+      "type": "object",
+      "description": "Gravity refers to the both the measurements of percent of sugar content, ie plato and brix, as well as relative density ie specific gravity.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_GravityUnitType": {
+      "type": "string",
+      "enum": [
+        "sg",
+        "plato",
+        "brix"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityUnitType": {
+      "type": "string",
+      "enum": [
+        "pH"
+      ]
+    }
+  }
+}

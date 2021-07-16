@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ModuleDescriptor",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "tags": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "provides": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "requires": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "routingEntries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "methods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "path": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "permissionsRequired": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "permissionsDesired": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "modulePermissions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "uiDescriptor": {
+      "$ref": "#/definitions/UiModuleDescriptor.json"
+    },
+    "launchDescriptor": {
+      "$ref": "#/definitions/http:__okapi_launch_descriptor"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "routingEntries"
+  ],
+  "definitions": {
+    "UiModuleDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "UiModuleDescriptor",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "npm": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "local": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "args": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "http:__okapi_launch_descriptor": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "LaunchDescriptor",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "exec": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cmdlineStart": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cmdlineStop": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dockerImage": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

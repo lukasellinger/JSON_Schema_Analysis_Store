@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "autonomous-system",
+  "description": "The AS object represents the properties of an Autonomous Systems (AS).",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\common\\cyber-observable-core.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The value of this property MUST be `autonomous-system`.",
+          "enum": [
+            "autonomous-system"
+          ]
+        },
+        "number": {
+          "type": "integer",
+          "description": "Specifies the number assigned to the AS. Such assignments are typically performed by a Regional Internet Registries (RIR)."
+        },
+        "name": {
+          "type": "string",
+          "description": "Specifies the name of the AS."
+        },
+        "rir": {
+          "type": "string",
+          "description": "Specifies the name of the Regional Internet Registry (RIR) that assigned the number to the AS."
+        }
+      },
+      "required": [
+        "number"
+      ]
+    }
+  ],
+  "definitions": {
+    "..\\common\\cyber-observable-core.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "core",
+      "description": "Common properties and behavior across all Cyber Observable Objects.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "pattern": "^\\-?[a-z0-9]+(-[a-z0-9]+)*\\-?$",
+          "minLength": 3,
+          "maxLength": 250,
+          "description": "Indicates that this object is an Observable Object. The value of this property MUST be a valid Observable Object type name, but to allow for custom objects this has been removed from the schema.",
+          "not": {
+            "enum": [
+              "action"
+            ]
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Specifies a textual description of the Object."
+        },
+        "extensions": {
+          "$ref": "#/definitions/..\\common\\dictionary.json",
+          "description": "Specifies any extensions of the object, as a dictionary."
+        }
+      },
+      "patternProperties": {
+        "^[a-z0-9_]{3,250}$": {
+          "anyOf": [
+            {
+              "type": "array",
+              "minItems": 1
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "action"
+            ]
+          }
+        ]
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "..\\common\\dictionary.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "dictionary",
+      "description": "A dictionary captures a set of key/value pairs",
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]{3,256}$": {
+          "anyOf": [
+            {
+              "type": "array",
+              "minItems": 1
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

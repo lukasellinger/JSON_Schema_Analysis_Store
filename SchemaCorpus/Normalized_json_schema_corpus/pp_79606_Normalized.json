@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "definitions": {
+    "userRead.json_definitions_activeFlag": {
+      "type": "boolean"
+    },
+    "categoriesActual.json_definitions_categoryActual": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "integer"
+        },
+        "values": {
+          "$ref": "#/definitions/categoriesActual.json_definitions_values"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "values"
+      ]
+    },
+    "categoriesActual.json_definitions_values": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "person.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "definitions": {
+        "givenName": {
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "$ref": "#/definitions/person.json_definitions_givenName"
+        },
+        "familyName": {
+          "$ref": "#/definitions/person.json_definitions_familyName"
+        },
+        "email": {
+          "$ref": "#/definitions/person.json_definitions_email"
+        },
+        "image": {
+          "$ref": "#/definitions/person.json_definitions_image"
+        },
+        "vcard": {
+          "$ref": "#/definitions/jcard.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "person.json_definitions_givenName": {
+      "type": "string"
+    },
+    "person.json_definitions_familyName": {
+      "type": "string"
+    },
+    "person.json_definitions_email": {
+      "type": "string"
+    },
+    "person.json_definitions_image": {
+      "type": "string",
+      "format": "uri"
+    },
+    "jcard.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "array",
+      "description": "A jcard holding personal details, as per https://tools.ietf.org/html/rfc7095"
+    },
+    "login.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "definitions": {
+        "entityID": {
+          "type": "string",
+          "description": "entity ID for the principal"
+        },
+        "nameID": {
+          "type": "string",
+          "description": "name ID for the principal"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "entityID": {
+          "$ref": "#/definitions/login.json_definitions_entityID"
+        },
+        "nameID": {
+          "$ref": "#/definitions/login.json_definitions_nameID"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "entityID",
+        "nameID"
+      ]
+    },
+    "login.json_definitions_entityID": {
+      "type": "string",
+      "description": "entity ID for the principal"
+    },
+    "login.json_definitions_nameID": {
+      "type": "string",
+      "description": "name ID for the principal"
+    },
+    "userRead.json_definitions_managerDetail": {
+      "type": "object"
+    },
+    "userRead.json_definitions_recruiterDetail": {
+      "type": "object"
+    }
+  },
+  "properties": {
+    "activeFlag": {
+      "$ref": "#/definitions/userRead.json_definitions_activeFlag"
+    },
+    "orgs": {
+      "$ref": "#/definitions/categoriesActual.json_definitions_categoryActual"
+    },
+    "person": {
+      "$ref": "#/definitions/person.json"
+    },
+    "login": {
+      "$ref": "#/definitions/login.json"
+    },
+    "manager": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/userRead.json_definitions_managerDetail"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "recruiter": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/userRead.json_definitions_recruiterDetail"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

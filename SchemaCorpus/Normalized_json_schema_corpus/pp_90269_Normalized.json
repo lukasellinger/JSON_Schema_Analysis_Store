@@ -1,0 +1,66 @@
+{
+  "title": "PointCloud Size Algorithm",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Size algorithms for point cloud performance.",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/pointCloudFixedSizeAlgorithm_schema.json"
+    },
+    {
+      "$ref": "#/definitions/pointCloudSplatAlgorithm_schema.json"
+    }
+  ],
+  "definitions": {
+    "pointCloudFixedSizeAlgorithm_schema.json": {
+      "title": "PointCloud FixedSize Algorithm",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Render points with fixed real world or screen space size.",
+      "properties": {
+        "size": {
+          "type": "number",
+          "description": "Symbol size in real world units or display unit"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "pointCloudFixedSizeAlgorithm"
+          ]
+        },
+        "useRealWorldSymbolSizes": {
+          "type": "boolean",
+          "description": " If true symbol size is in meters, display unit (pt) otherwise"
+        }
+      },
+      "required": [
+        "size",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "pointCloudSplatAlgorithm_schema.json": {
+      "title": "PointCloud Splat Algorithm",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Render points using sizes depending on point density.",
+      "properties": {
+        "scaleFactor": {
+          "type": "number",
+          "description": "Scale factor to applied to the computed point size (in real world)"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "pointCloudSplatAlgorithm"
+          ]
+        }
+      },
+      "required": [
+        "scaleFactor",
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

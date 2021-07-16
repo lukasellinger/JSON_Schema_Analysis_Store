@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "tags": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeTagsDictionary"
+    }
+  },
+  "description": "# Brief\n\nResource `data` attributes tags API endpont.\n",
+  "$schema": "http://json-schema.org/schema#",
+  "definitions": {
+    "_definitions.json_definitions_attributeTagsDictionary": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "example": {
+        "linux": 10,
+        "docker": 4
+      },
+      "description": "# Brief\n\nUnique values for tags with count for each tag value.\n"
+    }
+  }
+}

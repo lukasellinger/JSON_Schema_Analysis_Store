@@ -1,0 +1,46 @@
+{
+  "title": "visibleLayer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Object with layer id, used to indicate layer visibility in a slide.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The id of the layer as listed on the operational layer."
+    },
+    "subLayerIds": {
+      "type": "array",
+      "description": "List of visible sublayer ids, as listed on the service of the layer.",
+      "items": {
+        "type": "integer"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "visibleLayer",
+        "code": {
+          "visibleLayers": [
+            {}
+          ]
+        }
+      },
+      {
+        "title": "visibleLayer",
+        "code": {
+          "visibleLayers": [
+            {
+              "subLayerIds": [
+                0,
+                3,
+                5
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

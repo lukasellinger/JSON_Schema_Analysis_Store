@@ -1,0 +1,17 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/TextEditorBase/EditMask/EditMask.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Маска ввода данных",
+  "type": "object",
+  "properties": {
+    "NumberEditMask": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/TextEditorBase/EditMask/NumberEditMask.json"
+    },
+    "DateTimeEditMask": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/TextEditorBase/EditMask/DateTimeEditMask.json"
+    },
+    "TemplateEditMask": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/TextEditorBase/EditMask/TemplateEditMask.json"
+    }
+  }
+}

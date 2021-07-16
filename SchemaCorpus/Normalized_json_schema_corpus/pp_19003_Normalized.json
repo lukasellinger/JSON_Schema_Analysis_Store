@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "bbox.json#",
+  "description": "A GeoJSON object MAY have a member named \u0027bbox\u0027 to include information on the coordinate range for its Geometries, Features, or FeatureCollections. The value of the bbox member MUST be an array of length 2 * n where n is the number of dimensions represented in the contained geometries, with all axes of the most southwesterly point followed by all axes of the more northeasterly point. The axes order of a bbox follows the axes order of geometries. The values of a \u0027bbox\u0027 array are[west, south, east, north].",
+  "translation": {
+    "ISO 19115-2": [
+      "EX_Extent \u003e geographicElement \u003e EX_GeographicBoundingBox, EX_GeographicBoundingBox \u003e westBoundLongitude \u003e Decimal {west}, EX_GeographicBoundingBox \u003e eastBoundLongitude \u003e Decimal {east}, EX_GeographicBoundingBox \u003e southBoundLatitude \u003e Decimal {south}, EX_GeographicBoundingBox \u003e northBoundLatitude \u003e Decimal {north}"
+    ],
+    "FGDC CSDGM": [
+      "[idinfo \u003e spdom \u003e bounding \u003e westbc], [idinfo \u003e spdom \u003e bounding \u003e eastbc], [idinfo \u003e spdom \u003e bounding \u003e northbc], [idinfo \u003e spdom \u003e bounding \u003e southbc]"
+    ]
+  },
+  "example": "../examples/boundingBox.json",
+  "type": "array",
+  "minItems": 4,
+  "items": {
+    "type": "number"
+  }
+}

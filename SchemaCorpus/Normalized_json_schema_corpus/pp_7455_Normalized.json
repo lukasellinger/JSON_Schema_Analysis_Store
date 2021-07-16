@@ -1,0 +1,10 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/BindingMode.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Направление потока данных в привязке",
+  "enum": [
+    "TwoWay",
+    "ToSource",
+    "ToElement"
+  ]
+}

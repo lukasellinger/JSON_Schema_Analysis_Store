@@ -1,0 +1,7 @@
+{
+  "patternProperties": {
+    "^🐲*$": {
+      "type": "integer"
+    }
+  }
+}

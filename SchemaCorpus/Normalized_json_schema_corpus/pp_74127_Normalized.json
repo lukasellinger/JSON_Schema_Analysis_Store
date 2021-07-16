@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\device.json_definitions_device-status"
+    }
+  ],
+  "definitions": {
+    "..\\definitions\\device.json_definitions_device-status": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9a-z.@_-]*$": {
+          "$ref": "#/definitions/..\\definitions\\device.json_definitions_device-status-entry"
+        }
+      }
+    },
+    "..\\definitions\\device.json_definitions_device-status-entry": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "$ref": "#/definitions/..\\definitions\\device.json_definitions_errors"
+        },
+        "last_seen": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_timestamp"
+        },
+        "status": {
+          "$ref": "#/definitions/..\\definitions\\device.json_definitions_status-value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "last_seen",
+        "status"
+      ]
+    },
+    "..\\definitions\\device.json_definitions_errors": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "..\\definitions\\common.json_definitions_timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "..\\definitions\\device.json_definitions_status-value": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "missing",
+        "error",
+        "unknown"
+      ]
+    }
+  }
+}

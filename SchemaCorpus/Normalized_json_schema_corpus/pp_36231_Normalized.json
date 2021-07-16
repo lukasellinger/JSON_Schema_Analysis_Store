@@ -1,0 +1,3686 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://schemas.digitallinguistics.io/Language-9.0.0.json",
+  "title": "Language",
+  "type": "object",
+  "description": "DLx uses the term *language* broadly to refer to any speech variety - whether a language, dialect, idiolect, or even a historical variety. The DLx `Language` object groups together all the information about the language, including writing systems, its phonological inventory, and metadata (e.g. names and language codes).",
+  "$comment": "This is a top-level database object",
+  "required": [
+    "name"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "const": "Language",
+      "readOnly": true,
+      "description": "The type of object. Must be set to `Language`."
+    },
+    "id": {
+      "title": "ID",
+      "description": "A unique database identifier for this Language"
+    },
+    "abbreviation": {
+      "title": "Abbreviation",
+      "type": "string",
+      "$ref": "#/definitions/Abbreviation-2.1.0.json",
+      "description": "A short, human-readable abbreviation for this Language"
+    },
+    "access": {
+      "title": "Access Rights",
+      "type": "object",
+      "$ref": "#/definitions/Access-3.2.0.json",
+      "description": "An object describing who may have access to materials on this language."
+    },
+    "autonyms": {
+      "title": "Autonyms",
+      "type": "array",
+      "description": "A list of objects describing autonyms for this language (names for this language _in_ the language itself). For the canonical scientific name, use the `name` field instead. For other ways of referring to this language by outsiders, use the `exonyms` field.",
+      "items": {
+        "title": "Autonym",
+        "type": "object",
+        "required": [
+          "transcription"
+        ],
+        "properties": {
+          "transcription": {
+            "title": "Autonym Transcription",
+            "$ref": "#/definitions/Transcription-2.1.0.json",
+            "description": "A transcription of this autonym, optionally in multiple orthographies."
+          },
+          "note": {
+            "title": "Note",
+            "$ref": "#/definitions/Note-5.0.0.json",
+            "description": "A note about this autonym, such as who uses this name and where, or perhaps its etymology."
+          }
+        }
+      }
+    },
+    "bibliography": {
+      "title": "Bibliography",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A collection of citations to bibliographic references about this language.",
+      "items": {
+        "title": "Citation",
+        "$ref": "#/definitions/Citation-1.0.0.json",
+        "description": "A citation to a bibliographic source about this language"
+      }
+    },
+    "classification": {
+      "title": "Genetic Classification",
+      "type": "array",
+      "description": "The genetic classification of this language. This property must be an array of language families (in English), with larger family groupings listed before smaller ones. For example, Spanish might have an array of the following strings: `Indo-European`, `Romance`, `Ibero-Romance`. For language isolates, this property should be an array containing the single string, `isolate`.",
+      "items": {
+        "title": "Language Family",
+        "type": "string",
+        "description": "The name of a language family, as a string, in English."
+      }
+    },
+    "contributors": {
+      "title": "Contributors",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A collection of people who contributed to the documentation, analysis, or curation of this language data in some way. It is strongly recommended that each Person object in this collection have its `roles` property specified, so that the contribution of each person is known.",
+      "items": {
+        "title": "Contributor (Person - Database Reference)",
+        "type": "object",
+        "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+        "description": "A database reference to a Person object describing a contributor"
+      }
+    },
+    "dateCreated": {
+      "title": "Date Created",
+      "type": "string",
+      "description": "The date and optionally time that this Language object was created",
+      "oneOf": [
+        {
+          "format": "date"
+        },
+        {
+          "format": "date-time"
+        }
+      ]
+    },
+    "dateModified": {
+      "title": "Date Modified",
+      "type": "string",
+      "description": "The date and optionally time that this Language object was last modified",
+      "oneOf": [
+        {
+          "format": "date"
+        },
+        {
+          "format": "date-time"
+        }
+      ]
+    },
+    "demographics": {
+      "title": "Demographics",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "An array of Demographic objects, each of which contain demographic information about the Language at a specific point in time, and/or at a specific location",
+      "items": {
+        "title": "Demographic Data",
+        "type": "object",
+        "description": "The demographic data of this Language, at a specific point in time, and/or at a specific location",
+        "properties": {
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "description": "The date and optionally time that this Demographic data was created",
+            "oneOf": [
+              {
+                "format": "date"
+              },
+              {
+                "format": "date-time"
+              }
+            ]
+          },
+          "location": {
+            "title": "Location",
+            "type": "object",
+            "$ref": "#/definitions/Location-3.0.0.json",
+            "description": "The geographic Location of this Demographic data"
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "array",
+            "uniqueItems": true,
+            "description": "A collection of notes about this Demographic data",
+            "items": {
+              "title": "Note",
+              "type": "object",
+              "$ref": "#/definitions/Note-5.0.0.json",
+              "description": "A Note about this Demographic data"
+            }
+          },
+          "population": {
+            "title": "Population",
+            "type": "integer",
+            "minimum": 0,
+            "description": "The Population of speakers included in this Demographic data"
+          },
+          "status": {
+            "title": "Status",
+            "type": "object",
+            "description": "The Status of this Demographic data on one or more of the following scales: EGIDS, ELCat (using the LEI), GIDS, and/or UNESCO. The official status scales can be found [here](http://langlxmelanesia.com/Paris%20-%20EGIDS%20The%20Expanded%20Graded%20Intergenerational%20Disrupt.pdf).",
+            "minimumProperties": 1,
+            "properties": {
+              "AES": {
+                "title": "Agglomerated Endangerment Scale",
+                "type": "string",
+                "enum": [
+                  "Not Endangered",
+                  "Threatened",
+                  "Shifting",
+                  "Moribund",
+                  "Nearly Extinct",
+                  "Extinct"
+                ],
+                "description": "The Agglomerated Endangerment Scale status of this Demographic data. The details of the AES, along with AES language data, can be found [here](https://glottolog.org/langdoc/status)."
+              },
+              "EGIDS": {
+                "title": "EGIDS",
+                "type": "string",
+                "description": "The Expanded Graded Intergenerational Disruption Scale, or EGIDS, status of this Demographic data. Either the official level or the official label representing the EGIDS status of the data, as a string.",
+                "oneOf": [
+                  {
+                    "pattern": "^[0-9|10|6a|6b|8a|8b]$"
+                  },
+                  {
+                    "enum": [
+                      "International",
+                      "National",
+                      "Regional",
+                      "Trade",
+                      "Educational",
+                      "Written",
+                      "Vigorous",
+                      "Threatened",
+                      "Shifting",
+                      "Moribund",
+                      "Nearly Extinct",
+                      "Dormant",
+                      "Extinct"
+                    ]
+                  }
+                ]
+              },
+              "ELCat": {
+                "title": "ELCat Level of Endangerment",
+                "type": "string",
+                "enum": [
+                  "Safe",
+                  "Vulnerable",
+                  "Threatened",
+                  "Endangered",
+                  "Severely Endangered",
+                  "Critically Endangered"
+                ],
+                "description": "The ELCat status of this Demographic data. ELCat uses the Language Endangerment Index, or LEI, scale. This status should be the LEI level of endangerment of this Demographic data, as a string."
+              },
+              "GIDS": {
+                "title": "GIDS",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 8,
+                "description": "The Graded Intergenerational Disruption Scale, or GIDS, status of this Demographic data. This is the scale created by Thomas Fishman in his 1991 work *Reversing Language Shift*. The GIDS status should be represented by the integer, 1-8, that corresponds with the GIDS Stage of the data."
+              },
+              "UNESCO": {
+                "title": "UNESCO",
+                "type": "string",
+                "enum": [
+                  "Safe",
+                  "Vulnerable",
+                  "Definitely Endangered",
+                  "Severely Endangered",
+                  "Critically Endangered",
+                  "Extinct"
+                ],
+                "description": "The UNESCO Language Degree of Endangerment for this Demographic data. This status should be the string representation of the Degree of endangerment level."
+              }
+            }
+          }
+        }
+      }
+    },
+    "description": {
+      "title": "Description",
+      "$ref": "#/definitions/MultiLangString-5.0.0.json",
+      "description": "A high-level overview of the Language and the sociohistorical and documentary context for the accompanying data"
+    },
+    "exonyms": {
+      "title": "Exonyms",
+      "type": "array",
+      "description": "A list of exonyms for this language (names of the language in _other_ languages). For the canonical scientific name of the language (usually in English), use the `name` field. This field is for any additional exonyms beyond the canonical scientific name. For autonyms (names of the language _in_ the language), use the `autonyms` field.",
+      "items": {
+        "title": "Exonym",
+        "type": "object",
+        "required": [
+          "transcription"
+        ],
+        "properties": {
+          "transcription": {
+            "title": "Exonym Transcription",
+            "$ref": "#/definitions/MultiLangString-5.0.0.json",
+            "description": "A transcription of this exonym, optionally in multiple languages."
+          },
+          "note": {
+            "title": "Note",
+            "$ref": "#/definitions/Note-5.0.0.json",
+            "description": "A note about this exonym, such as who uses this name and where, or perhaps its etymology."
+          }
+        }
+      }
+    },
+    "glottolog": {
+      "title": "Glottolog Code",
+      "type": "string",
+      "pattern": "^[a-z]{4}[0-9]{4}$",
+      "description": "The Glottolog code for this language variety, as a String in the format abcd1234"
+    },
+    "iso": {
+      "title": "ISO 639-3 Code",
+      "type": "string",
+      "pattern": "^[a-z]{3}$",
+      "description": "The ISO 639-3 code for this language variety, as a 3-letter String"
+    },
+    "link": {
+      "title": "Link",
+      "type": "string",
+      "format": "uri",
+      "description": "A URL where a presentational format for this resource may be viewed"
+    },
+    "locations": {
+      "title": "Locations",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Geographic locations where this language variety is spoken, optionally with geographic coordinate data",
+      "items": {
+        "title": "Location (Database Reference)",
+        "type": "object",
+        "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+        "description": "A database reference to a Location object describing a location where this language variety is spoken"
+      }
+    },
+    "name": {
+      "title": "Language Name",
+      "$ref": "#/definitions/MultiLangString-5.0.0.json",
+      "minProperties": 1,
+      "description": "The canonical scientific name of this language, usually in English, and also optionally in multiple languages. There must be a name provided in at least one language. Use the `exonyms` field to list other ways this language is referred to, and the `autonyms` field to list names for the language _in_ the language itself (a.k.a. endonyms)."
+    },
+    "notes": {
+      "title": "Notes",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A collection of notes about this language",
+      "items": {
+        "title": "Note",
+        "type": "object",
+        "$ref": "#/definitions/Note-5.0.0.json",
+        "description": "A Note about this Language"
+      }
+    },
+    "orthographies": {
+      "title": "Orthographies",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A collection of orthographies used to represent this Language",
+      "items": {
+        "title": "Orthography",
+        "type": "object",
+        "$ref": "#/definitions/Orthography-3.3.0.json",
+        "description": "An orthography used to represent this language"
+      }
+    },
+    "phonemes": {
+      "title": "Phonemes",
+      "type": "array",
+      "description": "The phonological inventory for this language, i.e. a collection of phonemes",
+      "items": {
+        "title": "Phoneme",
+        "type": "object",
+        "$ref": "#/definitions/Phoneme-5.0.0.json",
+        "description": "A Phoneme object"
+      }
+    },
+    "tags": {
+      "title": "Tags",
+      "type": "object",
+      "$ref": "#/definitions/Tags-2.1.0.json",
+      "description": "A set of tags for this Language"
+    },
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "format": "uri",
+      "description": "A URL where the JSON data for this language can be found"
+    }
+  },
+  "examples": [
+    {
+      "abbreviation": "chiti",
+      "access": {
+        "AILLA": "password",
+        "note": {
+          "eng": "Materials on this language should not be made available to non-tribal members without permission."
+        }
+      },
+      "autonyms": [
+        {
+          "transcription": {
+            "APA": "sitimaša",
+            "IPA": "sitimaʃa",
+            "Mod": "sitimaxa",
+            "Swad": "sitimaša"
+          },
+          "note": {
+            "text": "This is the traditional name used for the Chitimacha language by the Chitimacha people themselves. It most likely derives from _siit‑_ \u0027body of water\u0027 + _‑ma_ pluractional + _‑x_ topic marker, meaning \u0027people of the waters\u0027. This is most likely a reference to the fact that the Chitimacha people live deep in the bayou waterways of Louisiana."
+          }
+        }
+      ],
+      "bibliography": [
+        {
+          "citationKey": "Swadesh1946"
+        }
+      ],
+      "contributors": [
+        {
+          "abbreviation": "DWH",
+          "roles": [
+            "researcher"
+          ]
+        },
+        {
+          "abbreviation": "BP",
+          "roles": [
+            "speaker"
+          ]
+        },
+        {
+          "abbreviation": "Swad",
+          "roles": [
+            "researcher"
+          ]
+        }
+      ],
+      "dateCreated": "2018-10-13T18:16:57.497Z",
+      "dateModified": "2018-10-13T18:17:06.515Z",
+      "defaultOrthography": "modern",
+      "exonyms": [
+        {
+          "transcription": "Shetimashas",
+          "note": {
+            "text": "This is the name commonly used for the language by French colonials, borrowed from the Chitimacha name for the language, _Sitimaxa_."
+          }
+        },
+        {
+          "transcription": "Chetimachas"
+        }
+      ],
+      "glottolog": "chit1248",
+      "iso": "ctm",
+      "link": "https://data.digitallinguistics.io/languages/Chitimacha",
+      "locations": [
+        {
+          "name": "Charenton"
+        }
+      ],
+      "name": {
+        "eng": "Chitimacha",
+        "fra": "Chitimachas",
+        "spa": "chitimacha"
+      },
+      "notes": [
+        {
+          "text": "The best documentary materials on this language are those compiled by Morris Swadesh in 1930–1934."
+        },
+        {
+          "text": "Chitimacha is a language isolate."
+        }
+      ],
+      "orthographies": [
+        {
+          "abbreviation": "Mod",
+          "graphemes": [
+            {
+              "form": "a",
+              "pronunciation": [
+                "a"
+              ]
+            },
+            {
+              "form": "aa",
+              "pronunciation": [
+                "aː"
+              ]
+            },
+            {
+              "form": "b",
+              "pronunciation": [
+                "pˀ"
+              ]
+            },
+            {
+              "form": "c",
+              "pronunciation": [
+                "t͡ʃ"
+              ]
+            },
+            {
+              "form": "d",
+              "pronunciation": [
+                "tˀ"
+              ]
+            },
+            {
+              "form": "dz",
+              "pronunciation": [
+                "t͡sˀ"
+              ]
+            },
+            {
+              "form": "e",
+              "pronunciation": [
+                "e"
+              ]
+            },
+            {
+              "form": "ee",
+              "pronunciation": [
+                "eː"
+              ]
+            },
+            {
+              "form": "g",
+              "pronunciation": [
+                "kˀ"
+              ]
+            },
+            {
+              "form": "h",
+              "pronunciation": [
+                "h"
+              ]
+            },
+            {
+              "form": "j",
+              "pronunciation": [
+                "t͡ʃˀ"
+              ]
+            },
+            {
+              "form": "k",
+              "pronunciation": [
+                "k"
+              ]
+            },
+            {
+              "form": "m",
+              "pronunciation": [
+                "m"
+              ]
+            },
+            {
+              "form": "mq",
+              "pronunciation": [
+                "ˀm"
+              ]
+            },
+            {
+              "form": "n",
+              "pronunciation": [
+                "n"
+              ]
+            },
+            {
+              "form": "nq",
+              "pronunciation": [
+                "ˀn"
+              ]
+            },
+            {
+              "form": "o",
+              "pronunciation": [
+                "o"
+              ]
+            },
+            {
+              "form": "oo",
+              "pronunciation": [
+                "oː"
+              ]
+            },
+            {
+              "form": "p",
+              "pronunciation": [
+                "p"
+              ]
+            },
+            {
+              "form": "q",
+              "pronunciation": [
+                "ʔ"
+              ]
+            },
+            {
+              "form": "s",
+              "pronunciation": [
+                "s"
+              ]
+            },
+            {
+              "form": "t",
+              "pronunciation": [
+                "t"
+              ]
+            },
+            {
+              "form": "ts",
+              "pronunciation": [
+                "t͡s"
+              ]
+            },
+            {
+              "form": "u",
+              "pronunciation": [
+                "u"
+              ]
+            },
+            {
+              "form": "uu",
+              "pronunciation": [
+                "uː"
+              ]
+            },
+            {
+              "form": "w",
+              "pronunciation": [
+                "w"
+              ]
+            },
+            {
+              "form": "x",
+              "pronunciation": [
+                "ʃ"
+              ]
+            },
+            {
+              "form": "y",
+              "pronunciation": [
+                "j"
+              ]
+            }
+          ],
+          "link": "https://data.digitallinguistics.io/languages/Chitimacha/orthographies/Modern",
+          "name": "Modern",
+          "notes": [
+            {
+              "text": "This is the official orthography used by the Chitimacha Tribe."
+            }
+          ],
+          "punctuation": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "abbreviation": "APA",
+          "graphemes": [],
+          "link": "https://data.digitallinguistics.io/languages/Chitimacha/orthographies/APA",
+          "name": "Americanist"
+        }
+      ],
+      "phonemes": [
+        {
+          "airstream": "pulmonic",
+          "ipa": "t",
+          "manner": "plosive",
+          "place": "alveolar",
+          "voicing": "voiceless"
+        },
+        {
+          "airstream": "pulmonic",
+          "ipa": "t͡ʃ",
+          "manner": "affricate",
+          "place": "post-alveolar",
+          "voicing": "voiceless"
+        },
+        {
+          "airstream": "ejective",
+          "ipa": "t͡ʃˀ",
+          "manner": "affricate",
+          "place": "post-alveolar",
+          "voicing": "voiceless"
+        }
+      ],
+      "tags": {
+        "morphologicalType": "synthetic"
+      },
+      "type": "Language",
+      "url": "https://data.digitallinguistics.io/languages/Chitimacha"
+    },
+    {
+      "name": "Shangaji",
+      "description": "Shangaji is spoken in three small villages in the Nampula province of Mozambique. The deposit focuses on the variant spoken in Naatthembo village, just west of the Sangage peninsula which begins north of Angoche town. Naatthembo has more or less 4000 inhabitants and represents the major Shangaji speaking centre with the two other locations; Nakonya village and the Likookha area in Mogincual adding more or less 500 and 700 speakers to this number of speakers which is in decline due to a lack of intergenerational language transfer. Nthamala village, some 10 km away from Naatthembo, no longer has Shangaji speakers because of a complete shift to the regional lingua franca Makhuwa (Enlai). The Shangaji deposit thus responds to an urgent documentation need, also because the language is one of four coastal languages that are believed to bear traces of the Swahili world which once stretched from Somalia to the south of Mozambique."
+    },
+    {
+      "name": "Muskogee",
+      "demographics": [
+        {
+          "date": "2015-01-01",
+          "location": {
+            "name": "Oklahoma"
+          },
+          "notes": [
+            {
+              "text": "Muskogee is also spoken in Florida"
+            },
+            {
+              "text": "This population data is based on a 2015 census"
+            }
+          ],
+          "population": 4470,
+          "status": {
+            "AES": "Moribund",
+            "EGIDS": "Shifting",
+            "ELCat": "Severely Endangered",
+            "GIDS": 7,
+            "UNESCO": "Definitely Endangered"
+          }
+        }
+      ]
+    },
+    {
+      "abbreviation": "gusii",
+      "access": {
+        "note": {
+          "eng": "Unless otherwise noted, materials for this language may be made publicly accessible, and the speakers in the content identified."
+        }
+      },
+      "autonyms": [
+        {
+          "transcription": {
+            "IPA": "ékeɣusií",
+            "Gus": "ékegusií",
+            "Swa": "ekegusii"
+          }
+        }
+      ],
+      "classification": [
+        "Niger-Congo",
+        "Atlantic-Congo",
+        "Benue-Congo",
+        "Bantoid",
+        "Bantu",
+        "Northeast Bantu",
+        "Great Lakes Bantu",
+        "Logooli-Kuria (E40)"
+      ],
+      "contributors": [
+        {
+          "abbreviation": "KB",
+          "roles": [
+            "lexicographer",
+            "speaker"
+          ]
+        },
+        {
+          "abbreviation": "GM",
+          "roles": [
+            "lexicographer",
+            "reviewer",
+            "speaker"
+          ]
+        },
+        {
+          "abbreviation": "DWH",
+          "roles": [
+            "researcher"
+          ]
+        }
+      ],
+      "dateCreated": "2018-10-13T18:17:24.477Z",
+      "dateModified": "2018-10-13T18:17:34.512Z",
+      "exonyms": [
+        {
+          "transcription": {
+            "swa": "Kisii"
+          },
+          "note": {
+            "text": "This is the most typical way that Swahili speakers refer to the language."
+          }
+        },
+        {
+          "transcription": {
+            "swa": "Kikisii"
+          },
+          "note": {
+            "text": "This is a Swahili version of the name of this language. It is an alternate for simply `Kisii`."
+          }
+        }
+      ],
+      "glottolog": "gusi1247",
+      "iso": "guz",
+      "link": "https://data.digitallinguistics.io/languages/Gusii",
+      "locations": [
+        {
+          "key": "Kisii"
+        }
+      ],
+      "name": {
+        "eng": "Gusii",
+        "spa": "gusii",
+        "swa": "Kisii"
+      },
+      "notes": [
+        {
+          "text": "In older versions of your notes, you referred to this language as Kisii rather than Gusii."
+        }
+      ],
+      "orthographies": [
+        {
+          "abbreviation": "Practical",
+          "direction": "ltr-ttb",
+          "graphemes": [],
+          "link": "https://data.digitallinguistics.io/languages/Gusii/orthographies/Practical",
+          "name": "Practical",
+          "punctuation": [
+            ".",
+            "?",
+            "!"
+          ]
+        },
+        {
+          "abbreviation": "Swahili",
+          "direction": "ltr-ttb",
+          "graphemes": [],
+          "link": "https://data.digitallinguistics.io/languages/Gusii/orthographies/Swahili",
+          "name": "Swahili",
+          "notes": [
+            {
+              "text": "This orthography represents the way that the language is written when using the Swahili orthography. Tone is omitted from this orthography."
+            }
+          ],
+          "punctuation": [
+            ".",
+            "?",
+            "!"
+          ]
+        }
+      ],
+      "phonemes": [],
+      "type": "Language"
+    }
+  ],
+  "definitions": {
+    "Abbreviation-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Abbreviation",
+      "type": "string",
+      "pattern": "^[(a-z)|(A-Z)|(0-9)]+$",
+      "description": "A human-readable abbreviation, containing on letters `a-z`, `A-Z`, and numbers `0-9` (no spaces allowed).",
+      "examples": [
+        "chiti",
+        "ctm"
+      ]
+    },
+    "Access-3.2.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Access Rights",
+      "type": "object",
+      "description": "The Access Rights object provides information for archives on who should be allowed to access the current resource. Some access protocols used by language archives are already supported, and custom protocols may be used as, e.g. `online: false` or `permission: researcher only`, etc. **Note:** The Access object does not have a `type` property.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "properties": {
+        "note": {
+          "title": "Access Note",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "A note about access rights for this resource, or any other special considerations regarding who should have Access. This attribute should be a MultiLangString rather than an Array of Note objects."
+        },
+        "AILLA": {
+          "title": "AILLA Access Level",
+          "type": "string",
+          "description": "For users who are depositing their materials at The Archive of the Indigenous Languages of Latin America (AAILA) in Texas, an `AILLA` attribute may be added, and its value set to one of the access levels set forth by the archive.",
+          "enum": [
+            "public access",
+            "password",
+            "time limit",
+            "depositor control"
+          ],
+          "default": "depository control"
+        },
+        "ELAR": {
+          "title": "ELAR Access Level",
+          "type": "string",
+          "description": "For users who are depositing their materials at the Endangered Language Archive (ELAR) in London, an `ELAR` attribute may be added, and its value set to one of the access levels set forth by the archive. See [ELAR\u0027s protocols for access management](https://www.soas.ac.uk/elar/using-elar/access-protocol/) for more information.",
+          "enum": [
+            "User",
+            "Researcher",
+            "Community Member",
+            "Subscriber"
+          ],
+          "default": "Researcher"
+        },
+        "license": {
+          "title": "License",
+          "type": "string",
+          "description": "The license under which you want to release this resource, most likely a [SPDX abbreviation](https://spdx.org/licenses/). If you do not want to release this data to others, set this to `UNLICENSED.` Otherwise, use [choosealicense.com](https://choosealicense.com/) to decide which license is right for your usage.",
+          "default": "UNLICENSED"
+        }
+      },
+      "examples": [
+        {
+          "AILLA": "password",
+          "ELAR": "Community Member",
+          "license": "UNLICENSED",
+          "note": {
+            "eng": "Speaker also requested that this text only be shared with family members."
+          },
+          "speaker": "family"
+        },
+        {
+          "note": {
+            "eng": "The tribe has requested that language materials only be made available to academic researchers who have been given permission, and enrolled tribal members."
+          }
+        }
+      ]
+    },
+    "MultiLangString-5.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Multi-Language Text / String",
+      "description": "A piece of text in multiple languages. This is typically used for analyses, database properties, and information in metalanguages rather than transcriptions or translations of data (for those, see the [Transcription](https://spec.digitallinguistics.github.io/schemas/Transcription.html) and [Translation](https://spec.digitallinguistics.github.io/schemas/Translation.html) schemas). For example, the part of speech for a lexeme might be given as both English *noun* and Spanish *nombre*. Each key must be a valid IETF language tag for a language (see the [IETF](https://www.w3.org/International/articles/language-tags/) reference page), and the value for that key must be the string of text in that language. **Note:** MultiLangStrings do not have a `type` property.\n\nIf the text is in only one language and that language is English, it may be represented as a simple string instead of an object. Thus instead of `gloss: { en: \"M.SG\" }` you can simply write `gloss: \"M.SG\"`.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))|((([A-Za-z]{2,3}(-([A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-([A-Za-z]{4}))?(-([A-Za-z]{2}|[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-([0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(x(-[A-Za-z0-9]{1,8})+))?)|(x(-[A-Za-z0-9]{1,8})+))$": {
+              "title": "Text",
+              "type": "string",
+              "description": "The string of text in the specified language"
+            }
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "examples": [
+        "man",
+        {
+          "en": "man",
+          "fr": "homme"
+        }
+      ]
+    },
+    "Transcription-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Transcription",
+      "type": "object",
+      "description": "A transcription of a piece of data in a language, optionally in multiple orthographies. For example, a transcription might be written in both a practical orthography and IPA. Each key must be the abbreviation for an orthography (see the [Abbreviation](https://spec.digitallinguistics.github.io/schemas/Abbreviation.html) schema), and the value for that key is the transcription of the data in that particular orthography. **Note:** The Transcription does not have a `type` property.",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[(a-z)|(A-Z)|(0-9)]+$": {
+          "title": "Text",
+          "type": "string",
+          "description": "The transcription for the specified orthography"
+        }
+      },
+      "examples": [
+        {
+          "APA": "wetkš",
+          "IPA": "wetkʃ",
+          "Mod": "wetkx",
+          "Swad": "wetkš"
+        }
+      ]
+    },
+    "Note-5.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Note",
+      "type": "object",
+      "description": "A note about this resource. Notes may also include `type` and `language` attributes.",
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "Note",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `Note`."
+        },
+        "dateCreated": {
+          "title": "Date Created",
+          "type": "string",
+          "description": "The date and optionally time that this note was created",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "dateModified": {
+          "title": "Date Modified",
+          "type": "string",
+          "description": "The date and optionally time that this note was last modified",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "language": {
+          "title": "Note Language",
+          "type": "string",
+          "description": "A language code or language name of the language that this note is written in. Assumed to be English if not otherwise specified."
+        },
+        "noteType": {
+          "title": "Note Type",
+          "type": "string",
+          "description": "The type of Note. Required for notes on Lexemes."
+        },
+        "source": {
+          "title": "Source (Person - Database Reference)",
+          "type": "object",
+          "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+          "referenceType": "Person",
+          "description": "A database reference to a Person object describing the person who is the source of the information in this Note. This is not necessarily the person who wrote it. For example, a linguist could make a note based on something that a speaker reports, in which case the speaker should be listed as the source."
+        },
+        "tags": {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "A set of tags that apply to this Note. Useful for tagging notes that need review or responses, or marking a note as resolved."
+        },
+        "text": {
+          "title": "Note Text",
+          "type": "string",
+          "minLength": 1,
+          "description": "The text of the note itself"
+        }
+      },
+      "examples": [
+        {
+          "dateCreated": "2018-10-31T18:00:09.433Z",
+          "dateModified": "2018-10-31T18:00:23.691Z",
+          "language": "swa",
+          "source": {
+            "abbreviation": "DWH"
+          },
+          "text": "Msemaji huyu ni Janet Kerubo Momanyi.",
+          "type": "Note"
+        },
+        {
+          "dateCreated": "2018-10-31T18:00:09.433Z",
+          "dateModified": "2018-10-31T18:00:23.691Z",
+          "language": "eng",
+          "noteType": "encyclopedic",
+          "source": {
+            "name": "Morris Swadesh"
+          },
+          "text": "Box turtles are known for eating strawberries.",
+          "type": "Note"
+        }
+      ]
+    },
+    "DatabaseReference-4.3.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Database Reference",
+      "type": "object",
+      "description": "A reference to an item in a database, used when you wish to store an item separately in the database (following a relational database model), rather than inline. A disadvantage of this approach is that it often requires making multiple database calls. To avoid this, in most cases the actual object can be used instead of a database reference. For example, instead of making a reference to a separate Person file, you can simply include the Person object directly in place of the database reference. This is useful when you don\u0027t want to deal with cross references and multiple database calls. In this case, it is often a good idea to include just a minimal set of data. For a person, for example, you might include just the ID, abbreviation, family name, and given name. This prevents you from having to replicate all of the data about that Person each time it is used.",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "DatabaseReference",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `DatabaseReference`."
+        },
+        "abbreviation": {
+          "title": "Referenced Abbreviation",
+          "type": "string",
+          "$ref": "#/definitions/Abbreviation-2.1.0.json",
+          "description": "The abbreviation of the referenced database item."
+        },
+        "id": {
+          "title": "Referenced ID",
+          "description": "The ID of the referenced database item"
+        },
+        "filename": {
+          "title": "Filename",
+          "type": "string",
+          "description": "If the reference database item is a media item, use this field for the name of the referenced file."
+        },
+        "index": {
+          "title": "Referenced Index",
+          "type": "integer",
+          "minimum": 1,
+          "description": "The index of the referenced database item. Indexes should start at 1 rather than 0 to increase human readability."
+        },
+        "key": {
+          "title": "Referenced Key",
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "description": "The key of the referenced database item"
+        },
+        "name": {
+          "title": "Name",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "The name of the referenced database item, optionally in multiple languages."
+        },
+        "referenceType": {
+          "title": "Referenced Item Type",
+          "type": "string",
+          "description": "The type of database item being referenced",
+          "enum": [
+            "BibliographicReference",
+            "Bundle",
+            "Language",
+            "Lexeme",
+            "Location",
+            "Media",
+            "Morpheme",
+            "Orthography",
+            "Person",
+            "Sense",
+            "Text",
+            "Utterance",
+            "Word"
+          ]
+        },
+        "url": {
+          "title": "Referenced URL",
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the referenced database item"
+        }
+      },
+      "examples": [
+        {
+          "index": 2,
+          "referenceType": "Utterance",
+          "type": "DatabaseReference",
+          "url": "https://api.digitallinguistics.io/languages/Chitimacha/texts/A1/utterances/2"
+        },
+        {
+          "key": "Omoiseke",
+          "name": "Ómoíséké ósokérété chíséese",
+          "referenceType": "Text",
+          "type": "DatabaseReference",
+          "url": "https://api.digitallinguistics.io/languages/Gusii/texts/Omoiseke"
+        }
+      ]
+    },
+    "Tags-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Tags",
+      "type": "object",
+      "description": "A tag is a piece of metadata that can be applied to almost any DLx object. The tags object contains a set of tags for this resource as pairs of attributes and values. For example, a researcher might tag a suffix with the attribute `person`, and a value of `3`, to indicate that the particular suffix is 3rd Person. If no value is needed, the value may also be set to `true` or `false` (but not `null`), however users are encouraged to use both attribute and value for every tag, since this helps identify the larger category that the tag value belongs to. Note: The Tags object does not have a `type` property.",
+      "additionalProperties": {
+        "title": "Tag",
+        "description": "A single tag, as an attribute-value pair.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "role": "subject",
+          "activated": true
+        },
+        {
+          "VOT": 0.012
+        }
+      ]
+    },
+    "Citation-1.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Citation",
+      "type": "object",
+      "description": "A citation to a bibliographic source. Citation objects consist of an optional `pages` property which indicates the relevant page numbers within the cited publication, and either a `citationKey` field or a `bibliographicSource` field. If the `citationKey` field is used, it contains a reference to the citation key of a bibliographic source stored elsewhere. If the `bibliographicSource` field is used, it contains an entire bibliographicSource. This allows developers to dereference their bibliographies, if they choose to.",
+      "allOf": [
+        {
+          "properties": {
+            "pages": {
+              "title": "Pages",
+              "type": "string",
+              "description": "The relevant page numbers within the cited publication"
+            }
+          }
+        },
+        {
+          "oneOf": [
+            {
+              "required": [
+                "citationKey"
+              ],
+              "properties": {
+                "citationKey": {
+                  "title": "Citation Key",
+                  "$ref": "#/definitions/Abbreviation-2.1.0.json",
+                  "description": "The citation key for the bibliographic source being reference. Must be a valid Abbreviation."
+                }
+              }
+            },
+            {
+              "required": [
+                "bibliographicSource"
+              ],
+              "properties": {
+                "bibliographicSource": {
+                  "title": "Bibliographic Source",
+                  "$ref": "#/definitions/BibliographicSource-1.0.0.json",
+                  "description": "The bibliographic source being referenced."
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "citationKey": "Hieber2018",
+          "pages": "1-15"
+        }
+      ]
+    },
+    "BibliographicSource-1.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Bibliographic Source",
+      "type": "object",
+      "description": "A bibliographic source, such as a book or journal article",
+      "$comment": "This is a top-level database object",
+      "required": [
+        "title"
+      ],
+      "additionalProperties": true,
+      "definitions": {
+        "person": {
+          "title": "Person",
+          "type": "object",
+          "description": "An object representing a Person",
+          "additionalProperties": false,
+          "properties": {
+            "firstName": {
+              "title": "First Name",
+              "type": "string",
+              "description": "The first name(s) of this author"
+            },
+            "lastName": {
+              "title": "Last Name",
+              "type": "string",
+              "description": "The last name(s) of this author"
+            }
+          }
+        }
+      },
+      "properties": {
+        "id": {
+          "title": "ID",
+          "description": "A unique database identifier for this bibliographic source"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "BibliographicSource",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `BibliographicSource`."
+        },
+        "authors": {
+          "title": "Authors",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "An array of authors for this bibliographic source",
+          "items": {
+            "title": "Author",
+            "type": "object",
+            "$ref": "#/definitions/BibliographicSource-1.0.0.json_definitions_person",
+            "description": "A Person object representing an author"
+          }
+        },
+        "citationKey": {
+          "title": "Citation Key",
+          "$ref": "#/definitions/Abbreviation-2.1.0.json",
+          "description": "A citation key which must be a valid Abbreviation. This field can be used by bibliographic reference management software like Mendeley or Zotero to store the citation key for a source."
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "description": "The city in which this bibliographic source was published"
+        },
+        "doi": {
+          "title": "Digital Object Identifier (DOI)",
+          "type": "string",
+          "pattern": "^10.\\d{4,9}/[-._;()/:A-Za-z0-9]+$",
+          "description": "The Digtial Object Identifier (DOI) for this publication. This should be just the DOI itself, not a URL, and should not include the `doi:` prefix (e.g. `10.1075/cal.20.02hie` not `https://doi.org/10.1075/cal.20.02hie` or `doi:10.1075/cal.20.02hie`)."
+        },
+        "edition": {
+          "title": "Edition",
+          "type": "integer",
+          "minimum": 1,
+          "description": "The edition of this publication, formatted as an integer"
+        },
+        "editors": {
+          "title": "Editors",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "An array of editors for this bibliographic source",
+          "items": {
+            "title": "Editor",
+            "type": "object",
+            "$ref": "#/definitions/BibliographicSource-1.0.0.json_definitions_person",
+            "description": "A Person object representing an editor"
+          }
+        },
+        "issue": {
+          "title": "Issue",
+          "type": "string",
+          "description": "The publication issue"
+        },
+        "link": {
+          "title": "Link",
+          "type": "string",
+          "format": "uri",
+          "description": "A link to a web page where this publication may be viewed or downloaded"
+        },
+        "pages": {
+          "title": "Pages",
+          "type": "string",
+          "description": "The page numbers of this publication"
+        },
+        "publication": {
+          "title": "Publication",
+          "type": "string",
+          "description": "The publication that this bibliographic source is published in"
+        },
+        "publicationType": {
+          "title": "Publication Type",
+          "type": "string",
+          "description": "The type of publication",
+          "enum": [
+            "journal article",
+            "book",
+            "generic",
+            "book section",
+            "conference proceedings",
+            "working paper",
+            "report",
+            "web page",
+            "thesis",
+            "magazine article",
+            "newspaper article",
+            "television broadcast",
+            "encyclopedia article",
+            "film"
+          ]
+        },
+        "publisher": {
+          "title": "Publisher (or Institution)",
+          "type": "string",
+          "description": "The name of the publisher of this soruce, or the institution where it was published"
+        },
+        "series": {
+          "title": "Series",
+          "type": "string",
+          "description": "The series in which this publication was published"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "minLength": 1,
+          "description": "The title of this publication"
+        },
+        "translators": {
+          "title": "Translators",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "An array of translators for this bibliographic source",
+          "items": {
+            "title": "Translator (Person)",
+            "type": "object",
+            "$ref": "#/definitions/BibliographicSource-1.0.0.json_definitions_person",
+            "description": "A Person object representing a translator"
+          }
+        },
+        "url": {
+          "title": "JSON URL",
+          "type": "string",
+          "format": "uri",
+          "description": "A URL for the JSON data for this bibliographic source"
+        },
+        "volume": {
+          "title": "Volume",
+          "type": "integer",
+          "minimum": 1,
+          "description": "The volume number for this publication"
+        },
+        "year": {
+          "title": "Year",
+          "type": "integer",
+          "description": "The year this item was published. Use a positive integer for AD / ACE, and a negative integer for BC / BCE."
+        }
+      },
+      "examples": [
+        {
+          "authors": [
+            {
+              "firstName": "Daniel W.",
+              "lastName": "Hieber"
+            }
+          ],
+          "citationKey": "Hieber2018",
+          "city": "Amsterdam",
+          "doi": "10.1075/cal.20.02hie",
+          "editors": [
+            {
+              "firstName": "Kristel",
+              "lastName": "Van Goethem"
+            },
+            {
+              "firstName": "Muriel",
+              "lastName": "Norde"
+            },
+            {
+              "firstName": "Evie",
+              "lastName": "Coussé"
+            },
+            {
+              "firstName": "Gudrun",
+              "lastName": "Vanderbauwhede"
+            }
+          ],
+          "publication": "Category change from a constructional perspective",
+          "publicationType": "book section",
+          "publisher": "John Benjamins",
+          "series": "Constructional approaches to language",
+          "title": "Category genesis in Chitimacha",
+          "type": "BibliographicSource",
+          "url": "https://api.digitallinguistics.io/references/Hieber2018.json",
+          "volume": 20,
+          "year": 2018
+        },
+        {
+          "authors": [
+            {
+              "firstName": "Daniel W.",
+              "lastName": "Hieber"
+            }
+          ],
+          "doi": "10.1515/lingty-2013-0013",
+          "issue": "2",
+          "link": "https://benjamins.com/catalog/cal.20.02hie",
+          "pages": "15–46",
+          "publication": "Linguistic Typology",
+          "publicationType": "journal article",
+          "title": "On linguistics, linguists, and our times: A linguist’s personal narrative reviewed",
+          "type": "BibliographicSource",
+          "url": "https://api.digitallinguistics.io/references/Hieber2013.json",
+          "year": 2013
+        }
+      ]
+    },
+    "BibliographicSource-1.0.0.json_definitions_person": {
+      "title": "Person",
+      "type": "object",
+      "description": "An object representing a Person",
+      "additionalProperties": false,
+      "properties": {
+        "firstName": {
+          "title": "First Name",
+          "type": "string",
+          "description": "The first name(s) of this author"
+        },
+        "lastName": {
+          "title": "Last Name",
+          "type": "string",
+          "description": "The last name(s) of this author"
+        }
+      }
+    },
+    "Location-3.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Location",
+      "type": "object",
+      "description": "A location, optionally with accompanying geographic coordinate data",
+      "$comment": "This is a top-level database object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "Location",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `Location`."
+        },
+        "id": {
+          "title": "ID",
+          "description": "A unique database identifier for this Location"
+        },
+        "abbreviation": {
+          "title": "Abbreviation",
+          "type": "string",
+          "$ref": "#/definitions/Abbreviation-2.1.0.json",
+          "description": "An abbreviation for this Location"
+        },
+        "access": {
+          "title": "Access Rights",
+          "type": "object",
+          "$ref": "#/definitions/Access-3.2.0.json",
+          "description": "Since locations sometimes contain personal information like addresses, it is important to consider the proper access management policy for them."
+        },
+        "address": {
+          "title": "Address",
+          "type": "object",
+          "$ref": "#/definitions/Address-2.2.0.json",
+          "description": "An address associated with this location"
+        },
+        "bibliography": {
+          "title": "Bibliography",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A collection of citations to bibliographic sources about this location",
+          "items": {
+            "title": "Citation",
+            "type": "object",
+            "$ref": "#/definitions/Citation-1.0.0.json",
+            "description": "A citation to a bibliographic source about this location"
+          }
+        },
+        "date": {
+          "title": "Date",
+          "type": "string",
+          "description": "The date and optionally time that a language was spoken in this location",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "dateCreated": {
+          "title": "Date Created",
+          "type": "string",
+          "description": "The date and optionally time that this Location object was created",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "dateModified": {
+          "title": "Date Modified",
+          "type": "string",
+          "description": "The date and optionally time that this Location was last modified",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "geoJSON": {
+          "title": "GeoJSON Geometry Object",
+          "type": "object",
+          "$ref": "#/definitions/https:__geojson.org_schema_GeoJSON.json",
+          "description": "A GeoJSON object describing this Location. Must adhere to the GeoJSON format: https://geojson.org/."
+        },
+        "link": {
+          "title": "Link",
+          "type": "string",
+          "format": "uri",
+          "description": "A URL where a presentational format for this resource may be viewed"
+        },
+        "name": {
+          "title": "Name",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "A name for this location, e.g. `Susan’s House` or `Valley High School`, or `Shenandoah River`, optionally in multiple languages. The name must be provided in at least one language."
+        },
+        "notes": {
+          "title": "Notes",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A collection of notes about this Location",
+          "items": {
+            "title": "Note",
+            "type": "object",
+            "$ref": "#/definitions/Note-5.0.0.json",
+            "description": "A note about this location"
+          }
+        },
+        "tags": {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "A set of tags for this Location"
+        },
+        "url": {
+          "title": "URL",
+          "type": "string",
+          "format": "uri",
+          "description": "The URL where information about this location can be retrieved"
+        }
+      },
+      "examples": [
+        {
+          "abbreviation": "Charenton",
+          "access": {
+            "note": {
+              "eng": "There are no restrictions on access to this location."
+            }
+          },
+          "date": "2018-10-30",
+          "dateCreated": "2018-10-30T01:54:19.901Z",
+          "dateModified": "2018-10-30T01:54:39.394Z",
+          "geoJSON": {
+            "type": "Point",
+            "coordinates": [
+              29.874408,
+              -91.547868
+            ]
+          },
+          "name": "Charenton",
+          "notes": [
+            {
+              "text": "Built on the site of the Chitimacha village Kas Kec Namu.",
+              "language": "eng"
+            }
+          ],
+          "type": "Location",
+          "url": "https://api.digitallinguistics.io/locations/Charenton"
+        },
+        {
+          "abbreviation": "Kisii",
+          "date": "2018-10-19",
+          "dateCreated": "2018-10-30T01:54:19.901Z",
+          "dateModified": "2018-10-30T01:54:39.394Z",
+          "geoJSON": {
+            "type": "Point",
+            "coordinates": [
+              -0.67677,
+              34.77905
+            ]
+          },
+          "name": "Kisii",
+          "type": "Location",
+          "url": "https://api.digitallinguistics.io/locations/Kisii"
+        }
+      ]
+    },
+    "Address-2.2.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Address",
+      "type": "object",
+      "description": "A postal Address",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "Address",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `Address`."
+        },
+        "streetAddress": {
+          "title": "Street Address",
+          "type": "string",
+          "description": "The street address, not including apartment or unit number"
+        },
+        "apartmentNumber": {
+          "title": "Apartment / Unit Number",
+          "type": "string",
+          "description": "The apartment or unit number, along with any abbreviations, e.g. `Apt 20`"
+        },
+        "postalBoxNumber": {
+          "title": "Postal Box Number",
+          "type": "string",
+          "description": "The postal box number"
+        },
+        "locality": {
+          "title": "Locality / City",
+          "type": "string",
+          "description": "The locality or city for this Address"
+        },
+        "region": {
+          "title": "Region / State",
+          "type": "string",
+          "description": "The region or state for this Address"
+        },
+        "country": {
+          "title": "Country",
+          "type": "string",
+          "description": "The country this address is located in"
+        },
+        "postalCode": {
+          "title": "Postal Code",
+          "type": "string",
+          "description": "The postal code for this address (as a string rather than a number)"
+        }
+      },
+      "examples": [
+        {
+          "locality": "Kisii Town",
+          "country": "Kenya"
+        },
+        {
+          "locality": "Charenton",
+          "region": "Louisiana",
+          "country": "United States"
+        },
+        {
+          "apartmentNumber": "B",
+          "country": "United States",
+          "locality": "New York",
+          "postalBoxNumber": "1234",
+          "postalCode": "12345-1234",
+          "region": "New York",
+          "streetAddress": "555 Market St.",
+          "type": "Address"
+        }
+      ]
+    },
+    "https:__geojson.org_schema_GeoJSON.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GeoJSON",
+      "oneOf": [
+        {
+          "title": "GeoJSON Point",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "number"
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON LineString",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "LineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON Polygon",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 4,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiPoint",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiLineString",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiPolygon",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "minItems": 4,
+                  "items": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON GeometryCollection",
+          "type": "object",
+          "required": [
+            "type",
+            "geometries"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "GeometryCollection"
+              ]
+            },
+            "geometries": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "title": "GeoJSON Point",
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "coordinates"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "Point"
+                        ]
+                      },
+                      "coordinates": {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "bbox": {
+                        "type": "array",
+                        "minItems": 4,
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "title": "GeoJSON LineString",
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "coordinates"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "LineString"
+                        ]
+                      },
+                      "coordinates": {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": {
+                          "type": "array",
+                          "minItems": 2,
+                          "items": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "bbox": {
+                        "type": "array",
+                        "minItems": 4,
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "title": "GeoJSON Polygon",
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "coordinates"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "Polygon"
+                        ]
+                      },
+                      "coordinates": {
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "minItems": 4,
+                          "items": {
+                            "type": "array",
+                            "minItems": 2,
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      "bbox": {
+                        "type": "array",
+                        "minItems": 4,
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "title": "GeoJSON MultiPoint",
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "coordinates"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "MultiPoint"
+                        ]
+                      },
+                      "coordinates": {
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "minItems": 2,
+                          "items": {
+                            "type": "number"
+                          }
+                        }
+                      },
+                      "bbox": {
+                        "type": "array",
+                        "minItems": 4,
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "title": "GeoJSON MultiLineString",
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "coordinates"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "MultiLineString"
+                        ]
+                      },
+                      "coordinates": {
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "minItems": 2,
+                          "items": {
+                            "type": "array",
+                            "minItems": 2,
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      "bbox": {
+                        "type": "array",
+                        "minItems": 4,
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "title": "GeoJSON MultiPolygon",
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "coordinates"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "MultiPolygon"
+                        ]
+                      },
+                      "coordinates": {
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "array",
+                            "minItems": 4,
+                            "items": {
+                              "type": "array",
+                              "minItems": 2,
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "bbox": {
+                        "type": "array",
+                        "minItems": 4,
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON Feature",
+          "type": "object",
+          "required": [
+            "type",
+            "properties",
+            "geometry"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Feature"
+              ]
+            },
+            "properties": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object"
+                }
+              ]
+            },
+            "geometry": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "title": "GeoJSON Point",
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "coordinates"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "Point"
+                      ]
+                    },
+                    "coordinates": {
+                      "type": "array",
+                      "minItems": 2,
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "bbox": {
+                      "type": "array",
+                      "minItems": 4,
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "GeoJSON LineString",
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "coordinates"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "LineString"
+                      ]
+                    },
+                    "coordinates": {
+                      "type": "array",
+                      "minItems": 2,
+                      "items": {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "bbox": {
+                      "type": "array",
+                      "minItems": 4,
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "GeoJSON Polygon",
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "coordinates"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "Polygon"
+                      ]
+                    },
+                    "coordinates": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "minItems": 4,
+                        "items": {
+                          "type": "array",
+                          "minItems": 2,
+                          "items": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    },
+                    "bbox": {
+                      "type": "array",
+                      "minItems": 4,
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "GeoJSON MultiPoint",
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "coordinates"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "MultiPoint"
+                      ]
+                    },
+                    "coordinates": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "bbox": {
+                      "type": "array",
+                      "minItems": 4,
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "GeoJSON MultiLineString",
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "coordinates"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "MultiLineString"
+                      ]
+                    },
+                    "coordinates": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": {
+                          "type": "array",
+                          "minItems": 2,
+                          "items": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    },
+                    "bbox": {
+                      "type": "array",
+                      "minItems": 4,
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "GeoJSON MultiPolygon",
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "coordinates"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "MultiPolygon"
+                      ]
+                    },
+                    "coordinates": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "array",
+                          "minItems": 4,
+                          "items": {
+                            "type": "array",
+                            "minItems": 2,
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "bbox": {
+                      "type": "array",
+                      "minItems": 4,
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                {
+                  "title": "GeoJSON GeometryCollection",
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "geometries"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "GeometryCollection"
+                      ]
+                    },
+                    "geometries": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "title": "GeoJSON Point",
+                            "type": "object",
+                            "required": [
+                              "type",
+                              "coordinates"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "Point"
+                                ]
+                              },
+                              "coordinates": {
+                                "type": "array",
+                                "minItems": 2,
+                                "items": {
+                                  "type": "number"
+                                }
+                              },
+                              "bbox": {
+                                "type": "array",
+                                "minItems": 4,
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "GeoJSON LineString",
+                            "type": "object",
+                            "required": [
+                              "type",
+                              "coordinates"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "LineString"
+                                ]
+                              },
+                              "coordinates": {
+                                "type": "array",
+                                "minItems": 2,
+                                "items": {
+                                  "type": "array",
+                                  "minItems": 2,
+                                  "items": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "bbox": {
+                                "type": "array",
+                                "minItems": 4,
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "GeoJSON Polygon",
+                            "type": "object",
+                            "required": [
+                              "type",
+                              "coordinates"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "Polygon"
+                                ]
+                              },
+                              "coordinates": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "minItems": 4,
+                                  "items": {
+                                    "type": "array",
+                                    "minItems": 2,
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  }
+                                }
+                              },
+                              "bbox": {
+                                "type": "array",
+                                "minItems": 4,
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "GeoJSON MultiPoint",
+                            "type": "object",
+                            "required": [
+                              "type",
+                              "coordinates"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "MultiPoint"
+                                ]
+                              },
+                              "coordinates": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "minItems": 2,
+                                  "items": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "bbox": {
+                                "type": "array",
+                                "minItems": 4,
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "GeoJSON MultiLineString",
+                            "type": "object",
+                            "required": [
+                              "type",
+                              "coordinates"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "MultiLineString"
+                                ]
+                              },
+                              "coordinates": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "minItems": 2,
+                                  "items": {
+                                    "type": "array",
+                                    "minItems": 2,
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  }
+                                }
+                              },
+                              "bbox": {
+                                "type": "array",
+                                "minItems": 4,
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "title": "GeoJSON MultiPolygon",
+                            "type": "object",
+                            "required": [
+                              "type",
+                              "coordinates"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "MultiPolygon"
+                                ]
+                              },
+                              "coordinates": {
+                                "type": "array",
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "array",
+                                    "minItems": 4,
+                                    "items": {
+                                      "type": "array",
+                                      "minItems": 2,
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "bbox": {
+                                "type": "array",
+                                "minItems": 4,
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "bbox": {
+                      "type": "array",
+                      "minItems": 4,
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON FeatureCollection",
+          "type": "object",
+          "required": [
+            "type",
+            "features"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "FeatureCollection"
+              ]
+            },
+            "features": {
+              "type": "array",
+              "items": {
+                "title": "GeoJSON Feature",
+                "type": "object",
+                "required": [
+                  "type",
+                  "properties",
+                  "geometry"
+                ],
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "Feature"
+                    ]
+                  },
+                  "properties": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "geometry": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "title": "GeoJSON Point",
+                        "type": "object",
+                        "required": [
+                          "type",
+                          "coordinates"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "Point"
+                            ]
+                          },
+                          "coordinates": {
+                            "type": "array",
+                            "minItems": 2,
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "bbox": {
+                            "type": "array",
+                            "minItems": 4,
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "title": "GeoJSON LineString",
+                        "type": "object",
+                        "required": [
+                          "type",
+                          "coordinates"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "LineString"
+                            ]
+                          },
+                          "coordinates": {
+                            "type": "array",
+                            "minItems": 2,
+                            "items": {
+                              "type": "array",
+                              "minItems": 2,
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "bbox": {
+                            "type": "array",
+                            "minItems": 4,
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "title": "GeoJSON Polygon",
+                        "type": "object",
+                        "required": [
+                          "type",
+                          "coordinates"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "Polygon"
+                            ]
+                          },
+                          "coordinates": {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "minItems": 4,
+                              "items": {
+                                "type": "array",
+                                "minItems": 2,
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          "bbox": {
+                            "type": "array",
+                            "minItems": 4,
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "title": "GeoJSON MultiPoint",
+                        "type": "object",
+                        "required": [
+                          "type",
+                          "coordinates"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "MultiPoint"
+                            ]
+                          },
+                          "coordinates": {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "minItems": 2,
+                              "items": {
+                                "type": "number"
+                              }
+                            }
+                          },
+                          "bbox": {
+                            "type": "array",
+                            "minItems": 4,
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "title": "GeoJSON MultiLineString",
+                        "type": "object",
+                        "required": [
+                          "type",
+                          "coordinates"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "MultiLineString"
+                            ]
+                          },
+                          "coordinates": {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "minItems": 2,
+                              "items": {
+                                "type": "array",
+                                "minItems": 2,
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          "bbox": {
+                            "type": "array",
+                            "minItems": 4,
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "title": "GeoJSON MultiPolygon",
+                        "type": "object",
+                        "required": [
+                          "type",
+                          "coordinates"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "MultiPolygon"
+                            ]
+                          },
+                          "coordinates": {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "type": "array",
+                                "minItems": 4,
+                                "items": {
+                                  "type": "array",
+                                  "minItems": 2,
+                                  "items": {
+                                    "type": "number"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "bbox": {
+                            "type": "array",
+                            "minItems": 4,
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "title": "GeoJSON GeometryCollection",
+                        "type": "object",
+                        "required": [
+                          "type",
+                          "geometries"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "GeometryCollection"
+                            ]
+                          },
+                          "geometries": {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "title": "GeoJSON Point",
+                                  "type": "object",
+                                  "required": [
+                                    "type",
+                                    "coordinates"
+                                  ],
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "Point"
+                                      ]
+                                    },
+                                    "coordinates": {
+                                      "type": "array",
+                                      "minItems": 2,
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "bbox": {
+                                      "type": "array",
+                                      "minItems": 4,
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "title": "GeoJSON LineString",
+                                  "type": "object",
+                                  "required": [
+                                    "type",
+                                    "coordinates"
+                                  ],
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "LineString"
+                                      ]
+                                    },
+                                    "coordinates": {
+                                      "type": "array",
+                                      "minItems": 2,
+                                      "items": {
+                                        "type": "array",
+                                        "minItems": 2,
+                                        "items": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    },
+                                    "bbox": {
+                                      "type": "array",
+                                      "minItems": 4,
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "title": "GeoJSON Polygon",
+                                  "type": "object",
+                                  "required": [
+                                    "type",
+                                    "coordinates"
+                                  ],
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "Polygon"
+                                      ]
+                                    },
+                                    "coordinates": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "array",
+                                        "minItems": 4,
+                                        "items": {
+                                          "type": "array",
+                                          "minItems": 2,
+                                          "items": {
+                                            "type": "number"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "bbox": {
+                                      "type": "array",
+                                      "minItems": 4,
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "title": "GeoJSON MultiPoint",
+                                  "type": "object",
+                                  "required": [
+                                    "type",
+                                    "coordinates"
+                                  ],
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "MultiPoint"
+                                      ]
+                                    },
+                                    "coordinates": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "array",
+                                        "minItems": 2,
+                                        "items": {
+                                          "type": "number"
+                                        }
+                                      }
+                                    },
+                                    "bbox": {
+                                      "type": "array",
+                                      "minItems": 4,
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "title": "GeoJSON MultiLineString",
+                                  "type": "object",
+                                  "required": [
+                                    "type",
+                                    "coordinates"
+                                  ],
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "MultiLineString"
+                                      ]
+                                    },
+                                    "coordinates": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "array",
+                                        "minItems": 2,
+                                        "items": {
+                                          "type": "array",
+                                          "minItems": 2,
+                                          "items": {
+                                            "type": "number"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "bbox": {
+                                      "type": "array",
+                                      "minItems": 4,
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "title": "GeoJSON MultiPolygon",
+                                  "type": "object",
+                                  "required": [
+                                    "type",
+                                    "coordinates"
+                                  ],
+                                  "properties": {
+                                    "type": {
+                                      "type": "string",
+                                      "enum": [
+                                        "MultiPolygon"
+                                      ]
+                                    },
+                                    "coordinates": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "array",
+                                          "minItems": 4,
+                                          "items": {
+                                            "type": "array",
+                                            "minItems": 2,
+                                            "items": {
+                                              "type": "number"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "bbox": {
+                                      "type": "array",
+                                      "minItems": 4,
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "bbox": {
+                            "type": "array",
+                            "minItems": 4,
+                            "items": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "bbox": {
+                    "type": "array",
+                    "minItems": 4,
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Orthography-3.3.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Orthography",
+      "type": "object",
+      "description": "An orthography is a way of representing a particular language variety in writing. An orthography can include a set of acceptable graphemes (characters), punctuation, and word separators.",
+      "required": [
+        "graphemes",
+        "name"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "Orthography",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `Orthography`."
+        },
+        "id": {
+          "title": "ID",
+          "description": "A unique database identifier for this Orthography"
+        },
+        "abbreviation": {
+          "title": "Abbreviation",
+          "type": "string",
+          "$ref": "#/definitions/Abbreviation-2.1.0.json",
+          "description": "An abbreviation for this Orthography"
+        },
+        "direction": {
+          "title": "Text Direction",
+          "type": "string",
+          "description": "The direction that this orthography is typically written in. If an orthography can be written in more than one direction, you should create a second Orthography for each direction it can be written in. The value of the `direction` field consists of two parts: the horizontal direction and the vertical direction, separated by a hyphen. Horizontal direction may be `ltr` (left-to-right), `rtl` (right-to-left), or `boustrophedon` (alternately left-to-right and right-to-left). Vertical direction may be either `ttb` (top-to-bottom) or `btt` (bottom-to-top).",
+          "enum": [
+            "ltr-ttb",
+            "rtl-ttb",
+            "ltr-btt",
+            "rtl-btt",
+            "boustrophedon-ttb",
+            "boustrophedon-btt"
+          ],
+          "default": "ltr-ttb"
+        },
+        "graphemes": {
+          "title": "Graphemes",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A collection of graphemes, i.e. units of writing within a writing system, for this Orthography. Each grapheme is an attribute, and the value of that attribute is an object containing information about it. Punctuation characters should not be included in this collection (see the `punctuation` attribute instead).",
+          "items": {
+            "title": "Grapheme",
+            "type": "object",
+            "description": "An object representing a grapheme",
+            "required": [
+              "form"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "allographs": {
+                "title": "Allographs",
+                "type": "array",
+                "uniqueItems": true,
+                "description": "A list of all the allographs (graphical / writing variants) of the current grapheme. For example, `t` in an English orthography would have the allograph `T`. Generally the lowercase form of a letter should be used as the default.",
+                "items": {
+                  "title": "Allograph",
+                  "type": "string"
+                }
+              },
+              "description": {
+                "title": "Description",
+                "$ref": "#/definitions/MultiLangString-5.0.0.json",
+                "description": "A learner-friendly description of the pronunciation of this grapheme"
+              },
+              "form": {
+                "title": "Grapheme Form",
+                "type": "string",
+                "minLength": 1,
+                "description": "The written form of this grapheme. Graphemes should include their diacritics. For example, `c` and `č` should be considered separate graphemes, unless they are allographs. Do not include graphemes for characters that only occur as part of a digraph (or trigraph, etc.). For example, standard Swahili orthography has a grapheme `ch`, but no grapheme `c` by itself, so `c` would not be listed as a grapheme, only `ch`."
+              },
+              "name": {
+                "title": "Grapheme Name",
+                "type": "string",
+                "description": "The name of this grapheme, if any"
+              },
+              "pronunciation": {
+                "title": "Pronunciation",
+                "description": "The pronunciation, or, if there is more than one, a list of the possible pronunciations of this grapheme, in IPA. It may be difficult or impossible to fill in this field for all orthographies (like English).",
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "title": "Pronunciation",
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "link": {
+          "title": "Link",
+          "type": "string",
+          "format": "uri",
+          "description": "A URL where a presentational format for this resource may be viewed"
+        },
+        "name": {
+          "title": "Orthography Name",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "The name of this orthography (e.g. `Practical`, `Phonemic`), optionally in multiple languages (e.g. both `Phonemic` and `Fonémica`). The name of the orthography must be provided in at least one language."
+        },
+        "notes": {
+          "title": "Notes",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A collection of notes about this Orthography",
+          "items": {
+            "title": "Note",
+            "type": "object",
+            "$ref": "#/definitions/Note-5.0.0.json",
+            "description": "A note about this orthography"
+          }
+        },
+        "punctuation": {
+          "title": "Punctuation",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of all the punctuation characters in this orthography, including white space and non-breaking characters.",
+          "items": {
+            "title": "Punctuation Character",
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "tags": {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "A set of tags for this orthography"
+        },
+        "url": {
+          "title": "URL",
+          "type": "string",
+          "format": "uri",
+          "description": "A URL where this Orthography may be accessed in JSON format"
+        }
+      },
+      "examples": [
+        {
+          "abbreviation": "Mod",
+          "direction": "ltr-ttb",
+          "graphemes": [
+            {
+              "allographs": [
+                "A"
+              ],
+              "description": "Pronounced like the a in \u0027hat\u0027",
+              "form": "a",
+              "pronunciation": [
+                "a"
+              ]
+            },
+            {
+              "form": "aa",
+              "pronunciation": [
+                "aː"
+              ]
+            },
+            {
+              "allographs": [
+                "B"
+              ],
+              "form": "b",
+              "pronunciation": [
+                "pˀ"
+              ]
+            },
+            {
+              "allographs": [
+                "C"
+              ],
+              "form": "c",
+              "pronunciation": [
+                "t͡ʃ"
+              ]
+            },
+            {
+              "allographs": [
+                "D"
+              ],
+              "form": "d",
+              "pronunciation": [
+                "tˀ"
+              ]
+            }
+          ],
+          "name": "Modern",
+          "notes": [
+            {
+              "text": "This orthography was originally developed by Julien Granberry, and later modified in line with suggestions from Daniel W. Hieber."
+            }
+          ],
+          "punctuation": [
+            " ",
+            ".",
+            "?",
+            "!",
+            "\u0027",
+            "\""
+          ],
+          "type": "Orthography",
+          "url": "https://data.digitallinguistics.io/languages/Chitimacha/orthographies/Modern"
+        }
+      ]
+    },
+    "Phoneme-5.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Phoneme",
+      "type": "object",
+      "description": "An object representing a single phoneme in a language, and its allophones.",
+      "required": [
+        "ipa"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "Phoneme",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `Phoneme`."
+        },
+        "airstream": {
+          "title": "Airstream Mechanism",
+          "type": "string",
+          "description": "The airstream mechanism used to pronounce this Phoneme. `Pulmonic` (egressive) sounds are created by pushing air out of the lungs. `Ejective` sounds are glottalic egressive sounds where the air column is compressed by upward movement of the glottis. `Implosive` sounds are glottalic ingressives where air is pulled in by a downward movement of the glottis. `Click` sounds, i.e. lingual / velaric ingressive sounds, pull air in with a downward movement of the tongue.",
+          "enum": [
+            "click",
+            "ejective",
+            "implosive",
+            "ingressive",
+            "pulmonic"
+          ],
+          "default": "pulmonic"
+        },
+        "allophones": {
+          "title": "Allophones",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of allophones of this phoneme, following the same format as for Phoneme objects.",
+          "items": {
+            "title": "Allophone",
+            "type": "object",
+            "$ref": "#/definitions/Phoneme-5.0.0.json",
+            "description": "An allophone of this phoneme. Allophones are formatted exactly the same way as Phoneme objects."
+          }
+        },
+        "backness": {
+          "title": "Backness",
+          "type": "string",
+          "description": "Describes the backness of a vowel.",
+          "enum": [
+            "front",
+            "near-front",
+            "central",
+            "near-back",
+            "back"
+          ]
+        },
+        "bibliography": {
+          "title": "Bibliography",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A collection of citations to bibliographic sources about this phoneme",
+          "items": {
+            "title": "Citation",
+            "type": "object",
+            "$ref": "#/definitions/Citation-1.0.0.json",
+            "description": "A citation to a bibliographic source about this phoneme"
+          }
+        },
+        "features": {
+          "title": "Features",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of the phonemically distinctive features of this Phoneme. These are what are listed under `diacritics` in the IPA chart. For example, if a language distinguishes between a palatalized `/t/` and a plain `/t/`, the first should include the feature `palatalized` and the second `plain` (or no features). Note that most features are also a manner of articulation as well, so it up to the linguist to decide when a given phonetic detail is a manner, or when it is a feature (i.e. a diacritic). For example, a language might distinguish phonemically between a palatal plosive `/c/` and a palatalized plosive `/tʲ/`. The first would list `palatal` as its place of articulation, while the second would list `palatalized` as a distinctive feature. Do not include features here if they are already used for manner, unless your analysis is that this feature is *both* a manner and a feature of this phoneme, e.g. a palatalized palatal stop. This field is used primarily for consonants, but may also apply to vowels as well (e.g. the `close` and `open` features).",
+          "items": {
+            "title": "Feature",
+            "type": "string",
+            "description": "A phonemically distinctive feature, taken from the set of features (diacritics) in the IPA chart.",
+            "enum": [
+              "advanced",
+              "advanced tongue root",
+              "affricativized",
+              "alveolar",
+              "apical",
+              "aspirated",
+              "breathy",
+              "centralized",
+              "close",
+              "creaky",
+              "dental",
+              "fortis",
+              "fricativized",
+              "labialized",
+              "laminal",
+              "lateral release",
+              "lax",
+              "lenis",
+              "lightly aspirated",
+              "linguolabial",
+              "lowered",
+              "mid-centralized",
+              "nasal release",
+              "nasalized",
+              "no release",
+              "non-syllabic",
+              "open",
+              "palatalized",
+              "pharyngealized",
+              "plain",
+              "raised",
+              "retracted",
+              "retracted tongue root",
+              "retroflexed",
+              "rhotic",
+              "rounded",
+              "sibilant",
+              "syllabic",
+              "tense",
+              "unrounded",
+              "velarized",
+              "voiced",
+              "voiceless",
+              "weakly aspirated"
+            ]
+          }
+        },
+        "height": {
+          "title": "Height",
+          "type": "string",
+          "description": "The height of a vowel",
+          "enum": [
+            "close",
+            "near-close",
+            "close-mid",
+            "mid",
+            "open-mid",
+            "near-open",
+            "open"
+          ]
+        },
+        "ipa": {
+          "title": "IPA Transcription",
+          "type": "string",
+          "minLength": 1,
+          "description": "The IPA representation of this phoneme / allophone. Transcriptions of phonemes should contain only the phonemically contrastive sounds. Transcriptions of allophones should contain only the regularly-conditioned alternations."
+        },
+        "length": {
+          "title": "Length",
+          "type": "string",
+          "description": "The length of this phoneme, whether for consonants (e.g. `short` vs. `geminate`) or vowels",
+          "enum": [
+            "extra short",
+            "short",
+            "half long",
+            "long",
+            "extra long",
+            "geminate"
+          ]
+        },
+        "manner": {
+          "title": "Manner of Articulation",
+          "type": "string",
+          "description": "The manner of articulation, for consonants. Only one manner of articulation may be listed. Additional manners must be listed under the `features` attribute. For example, the lateral fricative `ɬ` might have a `manner` set to `fricative` and a feature `lateral`, or vice versa, depending on the linguist’s analysis.",
+          "enum": [
+            "affricate",
+            "approximate",
+            "flap",
+            "fricative",
+            "lateral",
+            "nasal",
+            "plosive",
+            "tap",
+            "trill"
+          ]
+        },
+        "notes": {
+          "title": "Notes",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "Notes about this Phoneme",
+          "items": {
+            "title": "Note",
+            "type": "object",
+            "$ref": "#/definitions/Note-5.0.0.json",
+            "description": "A Note about this Phoneme"
+          }
+        },
+        "place": {
+          "title": "Place of Articulation",
+          "type": "string",
+          "description": "The place of articulation for consonants. Only one place of articulation may be listed. Additional places must be listed as features under the `features` attribute. For example, a palatalized alveolar `/tʲ/` would list `alveolar` under `manner`, and `palatalized` under `features`.",
+          "enum": [
+            "bilabial",
+            "labiodental",
+            "labiovelar",
+            "dental",
+            "alveolar",
+            "lateral",
+            "post-alveolar",
+            "alveo-palatal",
+            "palato-alveolar",
+            "retroflex",
+            "palatal",
+            "velar",
+            "uvular",
+            "pharyngeal",
+            "glottal",
+            "epiglottal"
+          ]
+        },
+        "rounding": {
+          "title": "Rounding",
+          "type": "string",
+          "description": "A description of the roundedness of a vowel. Only one type of roundedness may be listed. Rounded vowels may be listed as simply `rounded`, or more specifically as `protruded` or `compressed`.",
+          "enum": [
+            "compressed",
+            "protruded",
+            "rounded",
+            "unrounded"
+          ]
+        },
+        "tags": {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "A set of tags for this phoneme"
+        },
+        "target1": {
+          "title": "Dipthong / Triphthong Target 1",
+          "type": "object",
+          "$ref": "#/definitions/Phoneme-5.0.0.json",
+          "description": "For diphthongs or triphthongs, this should be a Phoneme object representing the features of the first target in the pronunciation of the diphthong/triphthong."
+        },
+        "target2": {
+          "title": "Dipthong / Triphthong Target 2",
+          "type": "object",
+          "$ref": "#/definitions/Phoneme-5.0.0.json",
+          "description": "For diphthongs or thriphthongs, this should be a Phoneme object representing the features of the second target in the pronunciation of the diphthong/triphthong."
+        },
+        "target3": {
+          "title": "Triphthong Target 3",
+          "type": "object",
+          "$ref": "#/definitions/Phoneme-5.0.0.json",
+          "description": "For triphthongs, this should be a Phoneme object representing the features of the third target in the pronunciation of the triphthong."
+        },
+        "tone": {
+          "title": "Tone",
+          "type": "string",
+          "description": "An abstract representation of the tone of this phoneme, e.g. `H`, `13`, `falling`, etc."
+        },
+        "voicing": {
+          "title": "Voicing",
+          "type": "string",
+          "description": "Whether the phoneme is voiced, voiceless, or partially voiced",
+          "enum": [
+            "semivoiced",
+            "voiced",
+            "voiceless"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "airstream": "pulmonic",
+          "ipa": "t",
+          "manner": "plosive",
+          "place": "alveolar",
+          "voicing": "voiceless"
+        },
+        {
+          "airstream": "pulmonic",
+          "ipa": "t͡ʃ",
+          "manner": "affricate",
+          "place": "post-alveolar",
+          "voicing": "voiceless"
+        },
+        {
+          "airstream": "ejective",
+          "ipa": "t͡ʃˀ",
+          "manner": "affricate",
+          "place": "post-alveolar",
+          "voicing": "voiceless"
+        }
+      ]
+    }
+  }
+}

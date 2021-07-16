@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/..\\definitions\\rule.json_definitions_rule-output"
+  },
+  "definitions": {
+    "..\\definitions\\rule.json_definitions_rule-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "alg": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "any": {
+          "$ref": "#/definitions/..\\definitions\\rule.json_definitions_rule-items"
+        },
+        "all": {
+          "$ref": "#/definitions/..\\definitions\\rule.json_definitions_rule-items"
+        },
+        "disabled": {
+          "type": "boolean"
+        }
+      },
+      "x-sdk-model": "rule"
+    },
+    "..\\definitions\\rule.json_definitions_rule-items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "file.type",
+              "file.name",
+              "file.measurements",
+              "container.has-type",
+              "container.has-measurement"
+            ]
+          },
+          "value": {
+            "type": "string"
+          },
+          "regex": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "type",
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

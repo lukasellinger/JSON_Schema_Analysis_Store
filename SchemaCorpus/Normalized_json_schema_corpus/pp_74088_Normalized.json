@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-query"
+    }
+  ],
+  "example": {
+    "return_type": "session",
+    "search_string": "amyg"
+  },
+  "definitions": {
+    "..\\definitions\\search.json_definitions_search-query": {
+      "type": "object",
+      "properties": {
+        "return_type": {
+          "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-type"
+        },
+        "search_string": {
+          "type": "string",
+          "description": "Represents the plain text search query"
+        },
+        "all_data": {
+          "type": "boolean",
+          "description": "When set will include all data that the user does not have access to read",
+          "default": false
+        },
+        "filters": {
+          "type": "object",
+          "description": "See https://www.elastic.co/guide/en/elasticsearch/reference/current/term-level-queries.html"
+        }
+      },
+      "required": [
+        "return_type"
+      ]
+    },
+    "..\\definitions\\search.json_definitions_search-type": {
+      "type": "string",
+      "enum": [
+        "file",
+        "acquisition",
+        "session",
+        "analysis",
+        "collection"
+      ],
+      "description": "Sets the type of search results to return"
+    }
+  }
+}

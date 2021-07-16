@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "endPointsIds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "address"
+        ]
+      },
+      "required": [
+        "2"
+      ]
+    },
+    "processList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "processName": {
+            "type": "string"
+          },
+          "processPath": {
+            "type": "string"
+          },
+          "endPoint": {
+            "type": "string"
+          },
+          "subscriptions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "endPoint": {
+                  "type": "string"
+                },
+                "topics": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "processName",
+          "processPath",
+          "endPoint"
+        ]
+      }
+    }
+  },
+  "required": [
+    "endPointsIds",
+    "processList"
+  ]
+}

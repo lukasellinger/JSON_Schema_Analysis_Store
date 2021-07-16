@@ -1,0 +1,253 @@
+{
+  "id": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/master/schemas/v1.2/parameterObject.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/dataTypeBase.json"
+    },
+    {
+      "required": [
+        "paramType",
+        "name"
+      ],
+      "properties": {
+        "paramType": {
+          "enum": [
+            "path",
+            "query",
+            "body",
+            "header",
+            "form"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "allowMultiple": {
+          "type": "boolean"
+        }
+      }
+    },
+    {
+      "description": "type File requires special paramType and consumes",
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "not": {
+                "enum": [
+                  "File"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "File"
+              ]
+            },
+            "paramType": {
+              "enum": [
+                "form"
+              ]
+            },
+            "consumes": {
+              "enum": [
+                "multipart/form-data"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "dataTypeBase.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Data type fields (section 4.3.3)",
+      "type": "object",
+      "oneOf": [
+        {
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "required": [
+            "$ref"
+          ]
+        }
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "$ref": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "defaultValue": {
+          "not": {
+            "type": [
+              "array",
+              "object",
+              "null"
+            ]
+          }
+        },
+        "enum": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "minimum": {
+          "type": "string"
+        },
+        "maximum": {
+          "type": "string"
+        },
+        "items": {
+          "$ref": "#/definitions/dataTypeBase.json_definitions_itemsObject"
+        },
+        "uniqueItems": {
+          "type": "boolean"
+        }
+      },
+      "dependencies": {
+        "format": {
+          "oneOf": [
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "integer"
+                  ]
+                },
+                "format": {
+                  "enum": [
+                    "int32",
+                    "int64"
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "number"
+                  ]
+                },
+                "format": {
+                  "enum": [
+                    "float",
+                    "double"
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "string"
+                  ]
+                },
+                "format": {
+                  "enum": [
+                    "byte",
+                    "date",
+                    "date-time"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "definitions": {
+        "itemsObject": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "$ref"
+              ],
+              "properties": {
+                "$ref": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/dataTypeBase.json"
+                },
+                {
+                  "required": [
+                    "type"
+                  ],
+                  "properties": {
+                    "type": {},
+                    "format": {}
+                  },
+                  "additionalProperties": false
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "dataTypeBase.json_definitions_itemsObject": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "$ref"
+          ],
+          "properties": {
+            "$ref": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/definitions/dataTypeBase.json"
+            },
+            {
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {},
+                "format": {}
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

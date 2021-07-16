@@ -1,0 +1,279 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-response"
+  },
+  "example": [],
+  "definitions": {
+    "..\\definitions\\search.json_definitions_search-response": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-project-response"
+        },
+        "group": {
+          "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-group-response"
+        },
+        "session": {
+          "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-session-response"
+        },
+        "acquisition": {
+          "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-acquisition-response"
+        },
+        "subject": {
+          "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-subject-response"
+        },
+        "file": {
+          "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-file-response"
+        },
+        "collection": {
+          "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-collection-response"
+        },
+        "analysis": {
+          "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-analysis-response"
+        },
+        "parent": {
+          "$ref": "#/definitions/..\\definitions\\search.json_definitions_search-parent-response"
+        },
+        "permissions": {
+          "$ref": "#/definitions/..\\definitions\\permission.json_definitions_permission-output-list"
+        }
+      },
+      "description": "Single search response entry"
+    },
+    "..\\definitions\\search.json_definitions_search-project-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        }
+      },
+      "description": "Fields for project search response"
+    },
+    "..\\definitions\\container.json_definitions__id": {
+      "type": "string"
+    },
+    "..\\definitions\\common.json_definitions_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "..\\definitions\\search.json_definitions_search-group-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        }
+      },
+      "description": "Fields for group search response"
+    },
+    "..\\definitions\\search.json_definitions_search-session-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        },
+        "timestamp": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_timestamp"
+        },
+        "created": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_created"
+        }
+      },
+      "description": "Fields for session search response"
+    },
+    "..\\definitions\\common.json_definitions_timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "..\\definitions\\created-modified.json_definitions_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "..\\definitions\\search.json_definitions_search-acquisition-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        },
+        "timestamp": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_timestamp"
+        },
+        "created": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_created"
+        }
+      },
+      "description": "Fields for acquisition search response"
+    },
+    "..\\definitions\\search.json_definitions_search-subject-response": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/..\\definitions\\subject.json_definitions_code"
+        }
+      },
+      "description": "Fields for subject search response"
+    },
+    "..\\definitions\\subject.json_definitions_code": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "..\\definitions\\search.json_definitions_search-file-response": {
+      "type": "object",
+      "properties": {
+        "measurements": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_measurements"
+        },
+        "created": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_created"
+        },
+        "type": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_file-type"
+        },
+        "name": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_name"
+        },
+        "size": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_size"
+        }
+      },
+      "description": "Fields for file search response"
+    },
+    "..\\definitions\\file.json_definitions_measurements": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "..\\definitions\\file.json_definitions_file-type": {
+      "type": "string"
+    },
+    "..\\definitions\\file.json_definitions_name": {
+      "type": "string"
+    },
+    "..\\definitions\\file.json_definitions_size": {
+      "type": "integer"
+    },
+    "..\\definitions\\search.json_definitions_search-collection-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        },
+        "curator": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_user-id"
+        },
+        "created": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_created"
+        }
+      },
+      "description": "Fields for collection search response"
+    },
+    "..\\definitions\\common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    },
+    "..\\definitions\\search.json_definitions_search-analysis-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        },
+        "user": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_user-id"
+        },
+        "created": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_created"
+        }
+      },
+      "description": "Fields for acquisition search response"
+    },
+    "..\\definitions\\search.json_definitions_search-parent-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions__id"
+        },
+        "type": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_container-type"
+        }
+      },
+      "description": "Fields for parent search response"
+    },
+    "..\\definitions\\container.json_definitions_container-type": {
+      "type": "string",
+      "enum": [
+        "group",
+        "project",
+        "session",
+        "acquisition",
+        "collection",
+        "analysis"
+      ],
+      "description": "The type of container (e.g. session)"
+    },
+    "..\\definitions\\permission.json_definitions_permission-output-list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\definitions\\permission.json_definitions_permission-output-default-required"
+      },
+      "uniqueItems": true
+    },
+    "..\\definitions\\permission.json_definitions_permission-output-default-required": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\definitions\\permission.json_definitions_permission"
+        }
+      ],
+      "required": [
+        "_id",
+        "access"
+      ],
+      "x-sdk-model": "permission"
+    },
+    "..\\definitions\\permission.json_definitions_permission": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_user-id"
+        },
+        "access": {
+          "$ref": "#/definitions/..\\definitions\\permission.json_definitions_access"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "permission"
+    },
+    "..\\definitions\\permission.json_definitions_access": {
+      "type": "string",
+      "enum": [
+        "ro",
+        "rw",
+        "admin"
+      ]
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Transitland Datastore RouteStopPattern",
+  "type": "object",
+  "required": [
+    "onestopId"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "tags": {
+      "type": "object"
+    },
+    "geometry": {
+      "type": "object"
+    },
+    "stopPattern": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "stop-onestop-id"
+      }
+    },
+    "stopDistances": {
+      "type": "array",
+      "items": {
+        "type": [
+          "number",
+          "null"
+        ]
+      }
+    },
+    "geometrySource": {
+      "type": "string"
+    },
+    "addImportedFromFeeds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/imported_from_feed.json"
+      }
+    },
+    "notImportedFromFeeds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/imported_from_feed.json"
+      }
+    },
+    "onestopId": {
+      "type": "string"
+    },
+    "newOnestopId": {
+      "type": "string"
+    },
+    "onestopIdsToMerge": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "traversedBy": {
+      "type": "string",
+      "format": "route-onestop-id"
+    },
+    "trips": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "definitions": {
+    "imported_from_feed.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Transitland: Imported From Feed",
+      "type": "object",
+      "required": [
+        "feedVersion"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "feedVersion": {
+          "type": "string"
+        },
+        "gtfsId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

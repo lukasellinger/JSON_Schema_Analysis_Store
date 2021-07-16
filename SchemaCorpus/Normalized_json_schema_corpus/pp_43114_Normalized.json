@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://revereries-project.fr",
+  "type": "object",
+  "properties": {
+    "activityName": {
+      "type": "string",
+      "default": "Unit Activity",
+      "description": "This string describe activity to the user"
+    },
+    "class": {
+      "type": "string",
+      "description": "Internal hack to be deleted",
+      "default": "disabled"
+    },
+    "started": {
+      "type": "boolean",
+      "description": "Is the activity started?",
+      "default": "false"
+    },
+    "completed": {
+      "type": "boolean",
+      "description": "Is the activity completed?",
+      "default": "false"
+    },
+    "indice": {
+      "type": "object",
+      "properties": {
+        "isBasic": {
+          "type": "boolean"
+        },
+        "isGmap": {
+          "type": "boolean"
+        },
+        "question": {
+          "type": "string"
+        },
+        "response": {
+          "type": "string"
+        },
+        "index": {
+          "type": "integer"
+        }
+      }
+    },
+    "mcq": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "The question of a SA MCQ activity"
+        },
+        "resp": {
+          "type": "object",
+          "properties": {
+            "resp1": {
+              "type": "string"
+            },
+            "resp2": {
+              "type": "string"
+            },
+            "resp3": {
+              "type": "string"
+            },
+            "resp4": {
+              "type": "string"
+            },
+            "correct": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "activityName",
+    "class",
+    "started",
+    "completed",
+    "mcq"
+  ],
+  "description": "This item is the high level json descrption from which code is generated"
+}

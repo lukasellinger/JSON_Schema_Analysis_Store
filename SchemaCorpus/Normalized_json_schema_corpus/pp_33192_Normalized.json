@@ -1,0 +1,116 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://factry.io/opcua-logger-config-schema.json",
+  "type": "object",
+  "title": "The Configuration Schema for OPCUA data logger",
+  "required": [
+    "opcua",
+    "influx",
+    "metrics"
+  ],
+  "properties": {
+    "opcua": {
+      "type": "object",
+      "title": "The Opcua Schema",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "title": "The Url Schema",
+          "default": "",
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "influx": {
+      "type": "object",
+      "title": "The Influx Schema",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "title": "The Url Schema",
+          "default": "",
+          "pattern": "^(.*)$"
+        },
+        "writeInterval": {
+          "type": "integer",
+          "title": "The Writeinterval Schema",
+          "default": 1000
+        },
+        "writeMaxPoints": {
+          "type": "integer",
+          "title": "The Maxpoints Schema",
+          "default": 1000
+        }
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "title": "The Metrics Schema",
+      "items": {
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "measurement",
+          "datatype",
+          "nodeId",
+          "method",
+          "interval"
+        ],
+        "properties": {
+          "measurement": {
+            "type": "string",
+            "title": "The Measurement Schema",
+            "default": "",
+            "pattern": "^(.*)$"
+          },
+          "datatype": {
+            "type": "string",
+            "title": "The Datatype Schema",
+            "default": "number",
+            "enum": [
+              "number",
+              "boolean",
+              "string"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "tags": {
+            "type": "object",
+            "title": "The Tags Schema"
+          },
+          "nodeId": {
+            "type": "string",
+            "title": "The NodeId Schema",
+            "default": "",
+            "pattern": "^ns\u003d\\d+;((s|b)\u003d\\S+.*\\S+|i\u003d\\d+|g\u003d[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$"
+          },
+          "method": {
+            "type": "string",
+            "title": "The Method Schema",
+            "default": "polled",
+            "enum": [
+              "polled",
+              "monitored"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "interval": {
+            "type": "integer",
+            "title": "The Interval Schema",
+            "default": 1000,
+            "examples": [
+              1000
+            ]
+          }
+        }
+      }
+    }
+  }
+}

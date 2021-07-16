@@ -1,0 +1,84 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/TextEditorBase/DisplayFormat/DisplayFormat.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Формат отображения",
+  "anyOf": [
+    {
+      "type": "string"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "BooleanFormat": {
+          "$ref": "#/definitions/BooleanFormat.json"
+        },
+        "DateTimeFormat": {
+          "$ref": "#/definitions/DateTimeFormat.json"
+        },
+        "NumberFormat": {
+          "$ref": "#/definitions/NumberFormat.json"
+        },
+        "ObjectFormat": {
+          "$ref": "#/definitions/ObjectFormat.json"
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "BooleanFormat.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Формат отображения логического значения",
+      "type": "object",
+      "properties": {
+        "TrueText": {
+          "type": "string",
+          "description": "Текст для отображения истинного значения",
+          "default": "True"
+        },
+        "FalseText": {
+          "type": "string",
+          "description": "Текст для отображения ложного значения",
+          "default": "False"
+        }
+      }
+    },
+    "DateTimeFormat.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Формат отображения даты/времени",
+      "type": "object",
+      "properties": {
+        "Format": {
+          "description": "Формат отображения",
+          "type": "string",
+          "default": "G"
+        }
+      }
+    },
+    "NumberFormat.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Формат отображения числового значения",
+      "type": "object",
+      "properties": {
+        "Format": {
+          "description": "Формат отображения",
+          "type": "string",
+          "default": "n"
+        }
+      }
+    },
+    "ObjectFormat.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Формат отображения объекта",
+      "type": "object",
+      "properties": {
+        "Format": {
+          "description": "Формат отображения",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Format"
+      ]
+    }
+  }
+}

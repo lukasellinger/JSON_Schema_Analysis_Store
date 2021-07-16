@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Senpy Emotion analysis",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/analysis.json"
+    },
+    {
+      "properties": {
+        "onyx:usesEmotionModel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/emotionModel.json"
+            }
+          ]
+        }
+      },
+      "required": [
+        "onyx:hasEmotionModel",
+        "@type"
+      ]
+    }
+  ],
+  "definitions": {
+    "analysis.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Senpy analysis",
+      "type": "object",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "string",
+          "description": "Type of the analysis. e.g. marl:SentimentAnalysis"
+        },
+        "prov:wasAssociatedWith": {
+          "@type": "string",
+          "description": "Algorithm/plugin that was used"
+        },
+        "prov:used": {
+          "description": "Parameters of the algorithm",
+          "@type": "array",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/parameter.json"
+          }
+        }
+      },
+      "required": [
+        "@type",
+        "prov:wasAssociatedWith"
+      ]
+    },
+    "parameter.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Parameters for a senpy analysis",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the parameter"
+        },
+        "prov:value": {
+          "@type": "any",
+          "description": "Value of the parameter"
+        }
+      },
+      "required": [
+        "name",
+        "prov:value"
+      ]
+    },
+    "emotionModel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "nif:beginIndex": {
+          "type": "integer"
+        },
+        "nif:endIndex": {
+          "type": "integer"
+        },
+        "nif:anchorOf": {
+          "description": "Piece of context that contains the Emotion",
+          "type": "string"
+        },
+        "onyx:hasDimension": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dimensions.json"
+          },
+          "uniqueItems": true
+        },
+        "onyx:hasEmotionCategory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/emotion.json"
+          }
+        }
+      },
+      "required": [
+        "@id",
+        "onyx:hasEmotion"
+      ]
+    },
+    "dimensions.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "minValue": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "maxValue",
+        "minValue"
+      ]
+    },
+    "emotion.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Buffer View",
+  "type": "object",
+  "description": "A view into a buffer generally representing a subset of the buffer.",
+  "allOf": [
+    {
+      "$ref": "#/definitions/glTFChildOfRootProperty.schema.json"
+    }
+  ],
+  "properties": {
+    "buffer": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFid.schema.json"
+        }
+      ],
+      "description": "The index of the buffer."
+    },
+    "byteOffset": {
+      "type": "integer",
+      "description": "The offset into the buffer in bytes.",
+      "minimum": 0,
+      "default": 0
+    },
+    "byteLength": {
+      "type": "integer",
+      "description": "The length of the bufferView in bytes.",
+      "minimum": 1
+    },
+    "byteStride": {
+      "type": "integer",
+      "description": "The stride, in bytes.",
+      "minimum": 4,
+      "maximum": 252,
+      "multipleOf": 4,
+      "gltf_detailedDescription": "The stride, in bytes, between vertex attributes.  When this is not defined, data is tightly packed. When two or more accessors use the same bufferView, this field must be defined.",
+      "gltf_webgl": "`vertexAttribPointer()` stride parameter"
+    },
+    "target": {
+      "description": "The target that the GPU buffer should be bound to.",
+      "gltf_webgl": "`bindBuffer()`",
+      "anyOf": [
+        {
+          "enum": [
+            34962
+          ],
+          "description": "ARRAY_BUFFER"
+        },
+        {
+          "enum": [
+            34963
+          ],
+          "description": "ELEMENT_ARRAY_BUFFER"
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "name": {},
+    "extensions": {},
+    "extras": {}
+  },
+  "required": [
+    "buffer",
+    "byteLength"
+  ],
+  "definitions": {
+    "glTFChildOfRootProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Child of Root Property",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The user-defined name of this object.",
+          "gltf_detailedDescription": "The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name."
+        }
+      }
+    },
+    "glTFProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Property",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extension.schema.json"
+        },
+        "extras": {
+          "$ref": "#/definitions/extras.schema.json"
+        }
+      }
+    },
+    "extension.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extension",
+      "type": "object",
+      "description": "Dictionary object with extension-specific objects.",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "extras.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extras",
+      "description": "Application-specific data."
+    },
+    "glTFid.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Id",
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

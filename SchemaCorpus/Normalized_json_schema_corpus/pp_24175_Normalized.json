@@ -1,0 +1,204 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Collection of items",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/item.json"
+      }
+    },
+    "resultInfo": {
+      "$ref": "#/definitions/..\\resultInfo.schema"
+    }
+  },
+  "required": [
+    "items",
+    "resultInfo"
+  ],
+  "definitions": {
+    "item.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Codex Item Schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "instanceId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "altTitle": {
+          "type": "string"
+        },
+        "series": {
+          "type": "string"
+        },
+        "contributor": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalItems": true,
+          "uniqueItems": true
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalItems": true,
+          "uniqueItems": true
+        },
+        "source": {
+          "type": "string"
+        },
+        "language": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rights": {
+          "type": "string"
+        },
+        "copyNumber": {
+          "type": "number"
+        },
+        "barcode": {
+          "type": "string"
+        },
+        "vendorPackage": {
+          "type": "string"
+        },
+        "coverage": {
+          "type": "object"
+        },
+        "location": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "additionalItems": true
+        },
+        "itemStatus": {
+          "type": "string"
+        },
+        "isSelected": {
+          "type": "boolean"
+        },
+        "isCustomized": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "instanceId",
+        "title"
+      ]
+    },
+    "..\\resultInfo.schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Faceting of result sets",
+      "type": "object",
+      "properties": {
+        "totalRecords": {
+          "type": "integer"
+        },
+        "responseTime": {
+          "type": "number"
+        },
+        "facets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "facetValues": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "value": {}
+                  }
+                },
+                "additionalProperties": false
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "module": {
+                "type": "string"
+              },
+              "recordCount": {
+                "type": "integer"
+              },
+              "query": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

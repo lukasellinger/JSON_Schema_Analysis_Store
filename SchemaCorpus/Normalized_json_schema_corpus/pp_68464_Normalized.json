@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "Person": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Person schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/personable.json_definitions_Personable"
+        },
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "personable.json_definitions_Personable": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Personable schema.",
+      "properties": {
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "given_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "family_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "addresses": {
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "additionalItems": true,
+          "items": {
+            "$ref": "#/definitions/address.json_definitions_Locatable"
+          }
+        },
+        "telecoms": {
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "additionalItems": true,
+          "items": {
+            "$ref": "#/definitions/telecom.json_definitions_Contactable"
+          }
+        }
+      }
+    },
+    "address.json_definitions_Locatable": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Locatable schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/address.json_definitions_Address"
+        }
+      ]
+    },
+    "address.json_definitions_Address": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Address schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {
+        "street": {
+          "type": "array",
+          "minItems": 0,
+          "additionalItems": true,
+          "title": "street schema.",
+          "description": "An explanation about the purpose of this instance described by this schema.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "city": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "zip": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "use": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      }
+    },
+    "telecom.json_definitions_Contactable": {
+      "type": "object",
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "$ref": "#/definitions/telecom.json_definitions_Telecom"
+        }
+      ]
+    },
+    "telecom.json_definitions_Telecom": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Telecom schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "preferred": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "use": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

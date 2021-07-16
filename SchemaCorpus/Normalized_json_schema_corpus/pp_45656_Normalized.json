@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "groups": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeGroupsDictionary"
+    }
+  },
+  "description": "# Brief\n\nResource `data` attributes groups API endpont.\n",
+  "$schema": "http://json-schema.org/schema#",
+  "definitions": {
+    "_definitions.json_definitions_attributeGroupsDictionary": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "example": {
+        "python": 8,
+        "java": 1
+      },
+      "description": "# Brief\n\nUnique values for groups with count for each group value.\n"
+    }
+  }
+}

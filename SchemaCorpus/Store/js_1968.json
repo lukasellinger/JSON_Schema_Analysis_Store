@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "verticalDatum.json#",
+  "type": "object",
+  "title": "verticalDatum",
+  "description": "The reference frame or system from which vertical distances (altitudes or depths) are measured.",
+  "example": "../examples/verticalDatum.json",
+  "translation": {
+    "ISO 19115-2": [
+      "referenceSystemInfo \u003e MD_CRS \u003e datum"
+    ],
+    "FGDC CSDGM": [
+      "metadata \u003e spref \u003e vertdef",
+      "metadata \u003e spref \u003e depthsys"
+    ]
+  },
+  "required": [
+    "datumIdentifier"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "datumIdentifier": {
+      "description": "The identification given to the surface taken as the surface of reference from which altitudes or depths are measured.",
+      "translation": {
+        "ISO 19115-2": [
+          "referenceSystemInfo \u003e MD_CRS \u003e datum \u003e RS_Identifier \u003e code"
+        ],
+        "FGDC CSDGM": [
+          "metadata \u003e spref \u003e vertdef \u003e altsys \u003e altdatum",
+          "metadata \u003e spref \u003e vertdef \u003e depthsys \u003e depthdn"
+        ]
+      },
+      "$ref": "./identifier.json#"
+    },
+    "encodingMethod": {
+      "type": "string",
+      "description": "The means used to encode the altitudes.",
+      "translation": {
+        "FGDC CSDGM": [
+          "metadata \u003e spref \u003e vertdef \u003e altsys \u003e altenc",
+          "metadata \u003e spref \u003e vertdef \u003e depthsys \u003e depthem"
+        ]
+      }
+    },
+    "isDepthSystem": {
+      "type": "boolean",
+      "description": "True if depth system, false if altitude system.",
+      "default": false
+    },
+    "verticalResolution": {
+      "type": "number",
+      "description": "The minimum distance possible between two adjacent altitude or depth values, expressed in units of measure.",
+      "translation": {
+        "FGDC CSDGM": [
+          "metadata \u003e spref \u003e vertdef \u003e altsys \u003e altres",
+          "metadata \u003e spref \u003e vertdef \u003e depthsys \u003e depthres"
+        ]
+      }
+    },
+    "unitOfMeasure": {
+      "type": "string",
+      "description": "The units of measure for altitude or depth measurements.",
+      "translation": {
+        "FGDC CSDGM": [
+          "metadata \u003e spref \u003e vertdef \u003e altsys \u003e altunits",
+          "metadata \u003e spref \u003e vertdef \u003e depthsys \u003e depthdu"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "encodingMethod": [
+      "isDepthSystem",
+      "verticalResolution",
+      "unitOfMeasure",
+      "datumIdentifier"
+    ],
+    "isDepthSystem": [
+      "encodingMethod",
+      "verticalResolution",
+      "unitOfMeasure",
+      "datumIdentifier"
+    ],
+    "verticalResolution": [
+      "isDepthSystem",
+      "encodingMethod",
+      "unitOfMeasure",
+      "datumIdentifier"
+    ],
+    "unitOfMeasure": [
+      "isDepthSystem",
+      "verticalResolution",
+      "encodingMethod",
+      "datumIdentifier"
+    ]
+  }
+}

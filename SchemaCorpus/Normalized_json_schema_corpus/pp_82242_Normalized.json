@@ -1,0 +1,862 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Transitland Datastore Changeset",
+  "type": "object",
+  "properties": {
+    "changes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "action"
+        ],
+        "oneOf": [
+          {
+            "required": [
+              "feed"
+            ],
+            "properties": {
+              "feed": {
+                "$ref": "#/definitions/feed.json"
+              }
+            }
+          },
+          {
+            "required": [
+              "gtfsRealtimeFeed"
+            ],
+            "properties": {
+              "feed": {
+                "$ref": "#/definitions/feed.json"
+              }
+            }
+          },
+          {
+            "required": [
+              "stop"
+            ],
+            "properties": {
+              "stop": {
+                "$ref": "#/definitions/stop.json"
+              }
+            }
+          },
+          {
+            "required": [
+              "stopPlatform"
+            ],
+            "properties": {
+              "stopPlatform": {
+                "$ref": "#/definitions/stop.json"
+              }
+            }
+          },
+          {
+            "required": [
+              "stopEgress"
+            ],
+            "properties": {
+              "stopPlatform": {
+                "$ref": "#/definitions/stop.json"
+              }
+            }
+          },
+          {
+            "required": [
+              "operator"
+            ],
+            "properties": {
+              "operator": {
+                "$ref": "#/definitions/operator.json"
+              }
+            }
+          },
+          {
+            "required": [
+              "route"
+            ],
+            "properties": {
+              "route": {
+                "$ref": "#/definitions/route.json"
+              }
+            }
+          },
+          {
+            "required": [
+              "scheduleStopPair"
+            ],
+            "properties": {
+              "scheduleStopPair": {
+                "$ref": "#/definitions/schedule_stop_pair.json"
+              }
+            }
+          },
+          {
+            "required": [
+              "routeStopPattern"
+            ],
+            "properties": {
+              "routeStopPattern": {
+                "$ref": "#/definitions/route_stop_pattern.json"
+              }
+            }
+          }
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "createUpdate",
+              "destroy",
+              "changeOnestopID",
+              "changeStopType",
+              "merge"
+            ]
+          },
+          "issuesResolved": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "feed.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Transitland Datastore Feed",
+      "type": "object",
+      "required": [
+        "onestopId"
+      ],
+      "properties": {
+        "onestopId": {
+          "type": "string",
+          "format": "feed-onestop-id"
+        },
+        "newOnestopId": {
+          "type": "string",
+          "format": "feed-onestop-id"
+        },
+        "onestopIdsToMerge": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "feed-onestop-id"
+          }
+        },
+        "geometry": {
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "object"
+        },
+        "url": {
+          "type": "string"
+        },
+        "feedFormat": {
+          "type": "string"
+        },
+        "licenseName": {
+          "type": "string"
+        },
+        "licenseUrl": {
+          "type": "string"
+        },
+        "licenseUseWithoutAttribution": {
+          "type": "string"
+        },
+        "licenseAttributionText": {
+          "type": "string"
+        },
+        "licenseCreateDerivedProduct": {
+          "type": "string"
+        },
+        "licenseRedistribute": {
+          "type": "string"
+        },
+        "includesOperators": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "operatorOnestopId",
+              "gtfsAgencyId"
+            ],
+            "operatorOnestopId": {
+              "type": "string",
+              "format": "operator-onestop-id"
+            },
+            "gtfsAgencyId": {
+              "type": "string"
+            }
+          }
+        },
+        "doesNotIncludeOperators": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "operatorOnestopId",
+              "gtfsAgencyId"
+            ],
+            "operatorOnestopId": {
+              "type": "string",
+              "format": "operator-onestop-id"
+            },
+            "gtfsAgencyId": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "stop.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Transitland Datastore Stop",
+      "type": "object",
+      "required": [
+        "onestopId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "onestopId": {
+          "type": "string",
+          "format": "stop-onestop-id"
+        },
+        "newOnestopId": {
+          "type": "string",
+          "format": "stop-onestop-id"
+        },
+        "onestopIdsToMerge": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "stop-onestop-id"
+          }
+        },
+        "platformName": {
+          "type": "string"
+        },
+        "stopType": {
+          "type": "string"
+        },
+        "geometry": {
+          "type": "object"
+        },
+        "geometryReversegeo": {
+          "type": "object"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "object"
+        },
+        "name": {
+          "type": "string"
+        },
+        "osmWayId": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "parentStopOnestopId": {
+          "type": "string",
+          "format": "stop-onestop-id"
+        },
+        "addImportedFromFeeds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/imported_from_feed.json"
+          }
+        },
+        "notImportedFromFeeds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/imported_from_feed.json"
+          }
+        },
+        "servedBy": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "format": "operator-onestop-id"
+          }
+        },
+        "notServedBy": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "format": "operator-onestop-id"
+          }
+        },
+        "includesStopTransfers": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "toStopOnestopId",
+              "transferType"
+            ],
+            "toStopOnestopId": {
+              "type": "string",
+              "format": "stop-onestop-id"
+            },
+            "transferType": {
+              "type": "string"
+            },
+            "minTransferTime": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "doesNotIncludeStopTransfers": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "destinationOnestopId"
+            ],
+            "destinationOnestopId": {
+              "type": "string",
+              "format": "stop-onestop-id"
+            }
+          }
+        },
+        "wheelchairBoarding": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "directionality": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "enter",
+            "exit"
+          ]
+        }
+      }
+    },
+    "imported_from_feed.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Transitland: Imported From Feed",
+      "type": "object",
+      "required": [
+        "feedVersion"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "feedVersion": {
+          "type": "string"
+        },
+        "gtfsId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "operator.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Transitland Datastore Operator",
+      "type": "object",
+      "required": [
+        "onestopId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "associatedFeeds": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "onestopId": {
+          "type": "string",
+          "format": "operator-onestop-id"
+        },
+        "newOnestopId": {
+          "type": "string",
+          "format": "operator-onestop-id"
+        },
+        "onestopIdsToMerge": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "operator-onestop-id"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "shortName": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "metro": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "object"
+        },
+        "geometry": {
+          "type": "object"
+        },
+        "addImportedFromFeeds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/imported_from_feed.json"
+          }
+        },
+        "notImportedFromFeeds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/imported_from_feed.json"
+          }
+        },
+        "serves": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "stop-onestop-id"
+          }
+        },
+        "doesNotServe": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "stop-onestop-id"
+          }
+        },
+        "website": {
+          "type": "string"
+        }
+      }
+    },
+    "route.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Transitland Datastore Route",
+      "type": "object",
+      "required": [
+        "onestopId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "onestopId": {
+          "type": "string",
+          "format": "route-onestop-id"
+        },
+        "newOnestopId": {
+          "type": "string",
+          "format": "route-onestop-id"
+        },
+        "onestopIdsToMerge": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "route-onestop-id"
+          }
+        },
+        "operatedBy": {
+          "type": "string",
+          "format": "operator-onestop-id"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "object"
+        },
+        "color": {
+          "type": "string"
+        },
+        "geometry": {
+          "type": "object"
+        },
+        "wheelchairAccessible": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "all_trips",
+            "no_trips",
+            "some_trips"
+          ]
+        },
+        "bikesAllowed": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "all_trips",
+            "no_trips",
+            "some_trips"
+          ]
+        },
+        "vehicleType": {
+          "type": [
+            "string",
+            "integer"
+          ],
+          "format": "vehicle-type"
+        },
+        "addImportedFromFeeds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/imported_from_feed.json"
+          }
+        },
+        "notImportedFromFeeds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/imported_from_feed.json"
+          }
+        },
+        "serves": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "stop-onestop-id"
+          }
+        },
+        "doesNotServe": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "stop-onestop-id"
+          }
+        }
+      }
+    },
+    "schedule_stop_pair.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Transitland Datastore ScheduleStopPair",
+      "type": "object",
+      "required": [
+        "originOnestopId",
+        "destinationOnestopId",
+        "routeOnestopId",
+        "routeStopPatternOnestopId",
+        "originArrivalTime",
+        "originDepartureTime",
+        "destinationArrivalTime",
+        "destinationDepartureTime",
+        "originTimezone",
+        "destinationTimezone",
+        "serviceStartDate",
+        "serviceEndDate",
+        "windowStart",
+        "windowEnd"
+      ],
+      "additionalProperties": false,
+      "dependencies": {
+        "frequencyType": [
+          "frequencyStartTime",
+          "frequencyEndTime",
+          "frequencyHeadwaySeconds"
+        ]
+      },
+      "properties": {
+        "originOnestopId": {
+          "type": "string",
+          "format": "stop-onestop-id"
+        },
+        "destinationOnestopId": {
+          "type": "string",
+          "format": "stop-onestop-id"
+        },
+        "routeOnestopId": {
+          "type": "string",
+          "format": "route-onestop-id"
+        },
+        "routeStopPatternOnestopId": {
+          "type": "string"
+        },
+        "originArrivalTime": {
+          "type": "string"
+        },
+        "originDepartureTime": {
+          "type": "string"
+        },
+        "destinationArrivalTime": {
+          "type": "string"
+        },
+        "destinationDepartureTime": {
+          "type": "string"
+        },
+        "originTimezone": {
+          "type": "string"
+        },
+        "destinationTimezone": {
+          "type": "string"
+        },
+        "windowStart": {
+          "type": "string"
+        },
+        "windowEnd": {
+          "type": "string"
+        },
+        "originTimepointSource": {
+          "type": "string"
+        },
+        "destinationTimepointSource": {
+          "type": "string"
+        },
+        "originDistTraveled": {
+          "type": "number"
+        },
+        "destinationDistTraveled": {
+          "type": "number"
+        },
+        "serviceStartDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "serviceEndDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "serviceAddedDates": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "serviceExceptDates": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "serviceDaysOfWeek": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "type": "boolean"
+          }
+        },
+        "trip": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tripHeadsign": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tripShortName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "blockId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "frequencyType": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "window",
+            "exact",
+            null
+          ]
+        },
+        "frequencyStartTime": {
+          "type": [
+            "string"
+          ]
+        },
+        "frequencyEndTime": {
+          "type": [
+            "string"
+          ]
+        },
+        "frequencyHeadwaySeconds": {
+          "type": [
+            "integer"
+          ]
+        },
+        "wheelchairAccessible": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "bikesAllowed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "pickupType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dropOffType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "shapeDistTraveled": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "tags": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "route_stop_pattern.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Transitland Datastore RouteStopPattern",
+      "type": "object",
+      "required": [
+        "onestopId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "object"
+        },
+        "geometry": {
+          "type": "object"
+        },
+        "stopPattern": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "stop-onestop-id"
+          }
+        },
+        "stopDistances": {
+          "type": "array",
+          "items": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "geometrySource": {
+          "type": "string"
+        },
+        "addImportedFromFeeds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/imported_from_feed.json"
+          }
+        },
+        "notImportedFromFeeds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/imported_from_feed.json"
+          }
+        },
+        "onestopId": {
+          "type": "string"
+        },
+        "newOnestopId": {
+          "type": "string"
+        },
+        "onestopIdsToMerge": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "traversedBy": {
+          "type": "string",
+          "format": "route-onestop-id"
+        },
+        "trips": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

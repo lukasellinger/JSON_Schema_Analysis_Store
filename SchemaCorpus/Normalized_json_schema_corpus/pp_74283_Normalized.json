@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\job.json_definitions_job-log"
+    }
+  ],
+  "example": {
+    "_id": "57ac7394c700190017123fb8",
+    "logs": [
+      {
+        "fd": 1,
+        "msg": "Hello World!"
+      }
+    ]
+  },
+  "definitions": {
+    "..\\definitions\\job.json_definitions_job-log": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_objectid"
+        },
+        "logs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\definitions\\job.json_definitions_job-log-statement"
+          }
+        }
+      }
+    },
+    "..\\definitions\\common.json_definitions_objectid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{24}$"
+    },
+    "..\\definitions\\job.json_definitions_job-log-statement": {
+      "type": "object",
+      "properties": {
+        "fd": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "fd",
+        "msg"
+      ]
+    }
+  }
+}

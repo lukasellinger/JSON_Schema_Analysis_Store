@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "start": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "name",
+    "type",
+    "address"
+  ],
+  "additionalProperties": true
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "TenantModuleDescriptorList",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/http:__okapi_TenantModuleDescriptor.json"
+  },
+  "definitions": {
+    "http:__okapi_TenantModuleDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "TenantModuleDescriptor",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

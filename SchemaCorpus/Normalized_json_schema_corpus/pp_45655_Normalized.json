@@ -1,0 +1,157 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "category": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeCategory"
+    },
+    "data": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeData"
+    },
+    "brief": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeBrief"
+    },
+    "description": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeDescription"
+    },
+    "name": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeName"
+    },
+    "groups": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeGroups"
+    },
+    "tags": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeTags"
+    },
+    "links": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeLinks"
+    },
+    "source": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeSource"
+    },
+    "versions": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeVersions"
+    },
+    "languages": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeLanguages"
+    },
+    "filename": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeFilename"
+    },
+    "created": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeCreated"
+    },
+    "updated": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeUpdated"
+    },
+    "uuid": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeUuid"
+    },
+    "digest": {
+      "$ref": "#/definitions/_definitions.json_definitions_attributeDigest"
+    }
+  },
+  "description": "# Brief\n\nResource `data` attributes for all content API endoints.\n\nDifferent resource categories require different attributes. Creating and updating resources have\ndifferent mandatory resource attribute requirements. For example `snippets` require `data` but\n`references` require `links` attribute. PATCH and PUT can be send without `data` attribute for\n`snippets`.\n\nBecause of these reasons, JSON schema definition does not define the required properties.\n",
+  "$schema": "http://json-schema.org/schema#",
+  "definitions": {
+    "_definitions.json_definitions_attributeCategory": {
+      "type": "string",
+      "enum": [
+        "snippet",
+        "solution",
+        "reference"
+      ],
+      "description": "# Brief\n\nAutomatically assigned resource category.\n"
+    },
+    "_definitions.json_definitions_attributeData": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "# Brief\n\nResource data attribute.\n"
+    },
+    "_definitions.json_definitions_attributeBrief": {
+      "type": "string",
+      "default": "",
+      "description": "# Brief\n\nOptional brief description of the resource.\n"
+    },
+    "_definitions.json_definitions_attributeDescription": {
+      "type": "string",
+      "default": "",
+      "description": "# Brief\n\nOptional long description of the resource.\n"
+    },
+    "_definitions.json_definitions_attributeName": {
+      "type": "string",
+      "default": "",
+      "description": "# Brief\n\nOptional name for the resource.\n"
+    },
+    "_definitions.json_definitions_attributeGroups": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "default"
+      ],
+      "description": "# Brief\n\nOptional list of groups to which the resource belongs.\n"
+    },
+    "_definitions.json_definitions_attributeTags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "# Brief\n\nOptional list of tags.\n"
+    },
+    "_definitions.json_definitions_attributeLinks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "# Brief\n\nOptional list of links.\n"
+    },
+    "_definitions.json_definitions_attributeSource": {
+      "type": "string",
+      "default": "",
+      "description": "# Brief\n\nOptional external source for the resource.\"\n"
+    },
+    "_definitions.json_definitions_attributeVersions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "# Brief\n\nOptional list of versions related to the resource.\n"
+    },
+    "_definitions.json_definitions_attributeLanguages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "# Brief\n\nOptional list of languages related to the resource.\n"
+    },
+    "_definitions.json_definitions_attributeFilename": {
+      "type": "string",
+      "default": "",
+      "description": "# Brief\n\nOptional filename. This attribute can be used for example to export the resource into file\nwhich name is defined by this attribute-\n"
+    },
+    "_definitions.json_definitions_attributeCreated": {
+      "type": "string",
+      "description": "# Brief\n\nAutomatically generated UTC timestamp when the resource is created. The time is defined with\nRFC 3339 profile of the ISO 8601 specification.\n"
+    },
+    "_definitions.json_definitions_attributeUpdated": {
+      "type": "string",
+      "description": "# Brief\n\nAutomatically generated UTC timestamp for the latest update. The time is defined with RFC 3339\nprofile of the ISO 8601 specification.\n"
+    },
+    "_definitions.json_definitions_attributeUuid": {
+      "type": "string",
+      "description": "# Brief\n\nAutomatically assigned UUID for the resource.\n"
+    },
+    "_definitions.json_definitions_attributeDigest": {
+      "type": "string",
+      "description": "# Brief\n\nAutomatically assigned message digest that uniquely identifies the resource.\n"
+    }
+  }
+}

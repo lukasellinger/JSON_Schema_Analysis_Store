@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Analysis",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\analysis.json_definitions_analysis-update"
+    }
+  ],
+  "definitions": {
+    "..\\definitions\\analysis.json_definitions_analysis-update": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\definitions\\common.json_definitions_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    }
+  }
+}

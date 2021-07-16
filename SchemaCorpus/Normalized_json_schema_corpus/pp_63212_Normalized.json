@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "artifactId": {
+      "type": "string"
+    },
+    "groupId": {
+      "type": "string"
+    },
+    "handlerPackage": {
+      "type": "string"
+    },
+    "modelPackage": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "overwriteHandler": {
+      "type": "boolean"
+    },
+    "overwriteHandlerTest": {
+      "type": "boolean"
+    },
+    "rootPackage": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

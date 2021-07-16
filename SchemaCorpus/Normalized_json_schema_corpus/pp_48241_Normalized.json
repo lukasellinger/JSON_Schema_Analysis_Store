@@ -1,0 +1,375 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "https://itssimple.se/share/u/haproxy.json",
+  "properties": {
+    "backend": {
+      "items": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "servers": {
+            "items": {
+              "properties": {
+                "host": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "options": {
+                  "items": {},
+                  "type": "array"
+                },
+                "port": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "defaults": {
+      "properties": {
+        "balance": {
+          "type": "string"
+        },
+        "errorfile": {
+          "properties": {
+            "400": {
+              "type": "string"
+            },
+            "403": {
+              "type": "string"
+            },
+            "408": {
+              "type": "string"
+            },
+            "500": {
+              "type": "string"
+            },
+            "502": {
+              "type": "string"
+            },
+            "503": {
+              "type": "string"
+            },
+            "504": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "log": {
+          "type": "string"
+        },
+        "maxconn": {
+          "type": "integer"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "option": {
+          "properties": {
+            "contstats": {
+              "type": "boolean"
+            },
+            "dontlognull": {
+              "type": "boolean"
+            },
+            "forwardfor": {
+              "type": "boolean"
+            },
+            "http-server-close": {
+              "type": "boolean"
+            },
+            "httplog": {
+              "type": "boolean"
+            },
+            "redispatch": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "retries": {
+          "type": "integer"
+        },
+        "timeout": {
+          "properties": {
+            "client": {
+              "type": "string"
+            },
+            "connect": {
+              "type": "string"
+            },
+            "http-request": {
+              "type": "string"
+            },
+            "queue": {
+              "type": "string"
+            },
+            "server": {
+              "type": "string"
+            },
+            "tarpit": {
+              "type": "string"
+            },
+            "tunnel": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "frontend": {
+      "items": {
+        "properties": {
+          "acl": {
+            "items": {
+              "properties": {
+                "conditions": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "bind": {
+            "items": {
+              "properties": {
+                "host": {
+                  "type": "string"
+                },
+                "options": {
+                  "type": [
+                    "boolean",
+                    "array"
+                  ]
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "capture": {
+            "properties": {
+              "request": {
+                "items": {
+                  "items": {
+                    "type": [
+                      "object",
+                      "string",
+                      "integer"
+                    ]
+                  },
+                  "type": "array"
+                },
+                "type": "array"
+              },
+              "response": {
+                "items": {
+                  "items": {
+                    "type": [
+                      "object",
+                      "string",
+                      "integer"
+                    ]
+                  },
+                  "type": "array"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "default_backend": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rspidel": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "use_backend": {
+            "items": {
+              "properties": {
+                "backend": {
+                  "type": "string"
+                },
+                "conditions": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "global": {
+      "properties": {
+        "ca-base": {
+          "type": "string"
+        },
+        "chroot": {
+          "type": "string"
+        },
+        "crt-base": {
+          "type": "string"
+        },
+        "daemon": {
+          "type": "boolean"
+        },
+        "group": {
+          "type": "string"
+        },
+        "hard-stop-after": {
+          "type": "string"
+        },
+        "log": {
+          "items": {
+            "properties": {
+              "facility": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "maxconn": {
+          "type": "integer"
+        },
+        "spread-checks": {
+          "type": "integer"
+        },
+        "ssl-default-bind-ciphers": {
+          "type": "string"
+        },
+        "ssl-default-bind-options": {
+          "type": "string"
+        },
+        "ssl-server-verify": {
+          "type": "string"
+        },
+        "stats": {
+          "properties": {
+            "socket": {
+              "type": "string"
+            },
+            "timeout": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "tune": {
+          "properties": {
+            "bufsize": {
+              "type": "integer"
+            },
+            "maxrewrite": {
+              "type": "integer"
+            },
+            "ssl": {
+              "properties": {
+                "default-dh-param": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "listen": {
+      "items": {},
+      "type": "array"
+    },
+    "userlists": {
+      "items": {
+        "properties": {
+          "groups": {
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "users": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "name": {
+            "type": "string"
+          },
+          "users": {
+            "items": {
+              "properties": {
+                "groups": {
+                  "items": {},
+                  "type": "array"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "password-type": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/kloiasoft/eventapis/blob/master/spec/schema/published-event-wrapper.json",
+  "title": "EventApis Published Event Wrapper",
+  "description": "EventApis Published Event Wrapper Schema",
+  "type": "object",
+  "properties": {
+    "event": {
+      "type": "string",
+      "description": "Encapsulated Published Event see event.json"
+    },
+    "context": {
+      "$ref": "#/definitions/context.json"
+    },
+    "sender": {
+      "type": "string",
+      "description": "Sender of Event - Service Name"
+    },
+    "opDate": {
+      "type": "integer",
+      "description": "Event Send Epoch"
+    },
+    "userContext": {
+      "type": "object",
+      "description": "User Context extension to carry with events",
+      "additionalProperties": true
+    }
+  },
+  "required": [],
+  "definitions": {
+    "context.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "EventApis Event Context",
+      "description": "EventApis Event Context Schema",
+      "type": "object",
+      "properties": {
+        "opId": {
+          "type": "string",
+          "description": "Operation Id initially given while invoking command"
+        },
+        "parentOpId": {
+          "type": "string",
+          "description": "Parent Operation Id for nested invocations"
+        },
+        "commandContext": {
+          "type": "string",
+          "description": "Name of Initial Command"
+        },
+        "commandTimeout": {
+          "type": "integer",
+          "description": "Timeout in Milliseconds, After this timeout Operation will be assumed as finalized"
+        },
+        "startTime": {
+          "type": "integer",
+          "description": "Reference starting time of Operation"
+        }
+      },
+      "required": [
+        "opId",
+        "commandContext",
+        "commandTimeout",
+        "startTime"
+      ]
+    }
+  }
+}

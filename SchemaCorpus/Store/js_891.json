@@ -1,0 +1,24 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataSource/ObjectDataSource/ObjectDataSource.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Источник данных представления для произвольного массива",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataSource/BaseDataSource.json"
+    }
+  ],
+  "properties": {
+    "Items": {
+      "description": "Список элементов источника данных",
+      "oneOf": [
+        {
+          "type": "array"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ]
+    }
+  }
+}

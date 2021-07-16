@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "patient_history": {
+      "type": "object",
+      "properties": {
+        "prescription": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ]
+          },
+          "required": [
+            "0"
+          ]
+        },
+        "lab_test": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "results": {
+                "type": "object",
+                "properties": {
+                  "findings": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "imaging": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "image_location": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "observation": {
+          "type": "object",
+          "properties": {
+            "temperature": {
+              "type": "string"
+            },
+            "height": {
+              "type": "string"
+            },
+            "weight": {
+              "type": "string"
+            },
+            "respiratory_rate": {
+              "type": "string"
+            },
+            "systolic_bp": {
+              "type": "string"
+            },
+            "diastolic_bp": {
+              "type": "integer"
+            },
+            "pulse_rate": {
+              "type": "integer"
+            }
+          }
+        },
+        "diagnosis": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "presenting_complaints": {
+                "type": "string"
+              },
+              "examinations_findings": {
+                "type": "string"
+              },
+              "history_of_presenting_complaints": {
+                "type": "string"
+              },
+              "diagnosis_results": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "plan_of_management": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "prescription",
+        "lab_test",
+        "imaging",
+        "observation",
+        "diagnosis"
+      ]
+    },
+    "patient_metadata": {
+      "type": "object",
+      "properties": {
+        "organization_code": {
+          "type": "integer"
+        },
+        "location": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "patient_history",
+    "patient_metadata"
+  ]
+}

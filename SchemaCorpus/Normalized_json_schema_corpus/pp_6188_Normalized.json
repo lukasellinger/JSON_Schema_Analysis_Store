@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "keyName": {
+      "title": "Storage Key",
+      "type": "string",
+      "minLength": 1
+    },
+    "valuePath": {
+      "title": "Value",
+      "description": "JSON path for getting value to store. If \u0027Value\u0027 is empty, the current value at the provided \u0027Storage Key\u0027 is deleted.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "keyName",
+    "valuePath"
+  ]
+}

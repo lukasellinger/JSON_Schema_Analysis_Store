@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\session.json_definitions_session-template-recalc-output",
+  "definitions": {
+    "..\\definitions\\session.json_definitions_session-template-recalc-output": {
+      "type": "object",
+      "properties": {
+        "sessions_changed": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/definitions/..\\definitions\\common.json_definitions_objectid"
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "sessions_changed"
+      ]
+    },
+    "..\\definitions\\common.json_definitions_objectid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{24}$"
+    }
+  }
+}

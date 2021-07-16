@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "NodeDescriptorList",
+  "description": "List of Nodes",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/NodeDescriptor.json"
+  },
+  "definitions": {
+    "NodeDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "NodeDescriptor",
+      "description": "Deployment node information",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "nodeId": {
+          "description": "Node ID",
+          "type": "string"
+        },
+        "url": {
+          "description": "Host:port for for this node",
+          "type": "string"
+        },
+        "nodeName": {
+          "description": "Human readable node name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "nodeId",
+        "url"
+      ]
+    }
+  }
+}

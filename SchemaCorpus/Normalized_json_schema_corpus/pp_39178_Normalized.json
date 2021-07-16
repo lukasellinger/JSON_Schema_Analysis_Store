@@ -1,0 +1,430 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": [
+    "name",
+    "mail",
+    "token",
+    "acceptedTerms",
+    "acceptedPrivacy"
+  ],
+  "allOf": [
+    {
+      "$ref": "#/definitions/definitions.json_optional-user-properties"
+    },
+    {
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions.json_username"
+        },
+        "mail": {
+          "$ref": "#/definitions/definitions.json_mail"
+        },
+        "token": {
+          "type": "string"
+        },
+        "acceptedTerms": {
+          "type": "boolean"
+        },
+        "acceptedPrivacy": {
+          "type": "boolean"
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "definitions.json_optional-user-properties": {
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/definitions/geometry.json"
+        },
+        "aboutMe": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "dayOfBirth": {
+          "type": "string",
+          "format": "date"
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "m",
+            "f"
+          ]
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2}[-_][A-Z]{2}$"
+        },
+        "badges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "acceptedTermsOfUseVersion": {
+          "type": "string",
+          "format": "date"
+        },
+        "acceptedPrivacyStatementVersion": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "geometry.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "required": [
+                "type",
+                "coordinates"
+              ]
+            },
+            {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_Point"
+                },
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_MultiPoint"
+                },
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_LineString"
+                },
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_MultiLineString"
+                },
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_Polygon"
+                },
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_MultiPolygon"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "required": [
+            "type",
+            "geometries"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "GeometryCollection"
+              ]
+            },
+            "geometries": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geometry.json"
+              }
+            }
+          }
+        }
+      ],
+      "definitions": {
+        "Point": {
+          "title": "Point",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geometry.json_definitions_position"
+            }
+          }
+        },
+        "MultiPoint": {
+          "title": "MultiPoint",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geometry.json_definitions_positionArray"
+            }
+          }
+        },
+        "LineString": {
+          "title": "LineString",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "LineString"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geometry.json_definitions_lineString"
+            }
+          }
+        },
+        "MultiLineString": {
+          "title": "MultiLineString",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geometry.json_definitions_lineString"
+              }
+            }
+          }
+        },
+        "Polygon": {
+          "title": "Polygon",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geometry.json_definitions_polygonCoordinates"
+            }
+          }
+        },
+        "MultiPolygon": {
+          "title": "MultiPolygon",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geometry.json_definitions_polygonCoordinates"
+              }
+            }
+          }
+        },
+        "lineString": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/geometry.json_definitions_positionArray"
+            },
+            {
+              "minItems": 2
+            }
+          ]
+        },
+        "linearRingCoordinates": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/geometry.json_definitions_positionArray"
+            },
+            {
+              "minItems": 4
+            }
+          ]
+        },
+        "polygonCoordinates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/geometry.json_definitions_linearRingCoordinates"
+          }
+        },
+        "position": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "additionalItems": false,
+          "items": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "positionArray": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geometry.json_definitions_position"
+          }
+        }
+      }
+    },
+    "geometry.json_definitions_Point": {
+      "title": "Point",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "Point"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/geometry.json_definitions_position"
+        }
+      }
+    },
+    "geometry.json_definitions_position": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "additionalItems": false,
+      "items": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "geometry.json_definitions_MultiPoint": {
+      "title": "MultiPoint",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "MultiPoint"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/geometry.json_definitions_positionArray"
+        }
+      }
+    },
+    "geometry.json_definitions_positionArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/geometry.json_definitions_position"
+      }
+    },
+    "geometry.json_definitions_LineString": {
+      "title": "LineString",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "LineString"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/geometry.json_definitions_lineString"
+        }
+      }
+    },
+    "geometry.json_definitions_lineString": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/geometry.json_definitions_positionArray"
+        },
+        {
+          "minItems": 2
+        }
+      ]
+    },
+    "geometry.json_definitions_MultiLineString": {
+      "title": "MultiLineString",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "MultiLineString"
+          ]
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geometry.json_definitions_lineString"
+          }
+        }
+      }
+    },
+    "geometry.json_definitions_Polygon": {
+      "title": "Polygon",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "Polygon"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/geometry.json_definitions_polygonCoordinates"
+        }
+      }
+    },
+    "geometry.json_definitions_polygonCoordinates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/geometry.json_definitions_linearRingCoordinates"
+      }
+    },
+    "geometry.json_definitions_linearRingCoordinates": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/geometry.json_definitions_positionArray"
+        },
+        {
+          "minItems": 4
+        }
+      ]
+    },
+    "geometry.json_definitions_MultiPolygon": {
+      "title": "MultiPolygon",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "MultiPolygon"
+          ]
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geometry.json_definitions_polygonCoordinates"
+          }
+        }
+      }
+    },
+    "definitions.json_username": {
+      "pattern": "^[_A-Za-z0-9-]{4,}$",
+      "type": "string"
+    },
+    "definitions.json_mail": {
+      "pattern": "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",
+      "type": "string"
+    }
+  }
+}

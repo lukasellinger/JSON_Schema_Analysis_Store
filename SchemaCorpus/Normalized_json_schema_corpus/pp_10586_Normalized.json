@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "type": "string"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "eonid": {
+        "$ref": "#/definitions/common.json_system_id"
+      },
+      "environment": {
+        "$ref": "#/definitions/common.json_environment"
+      },
+      "admins": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_user"
+        },
+        "minItems": 0
+      }
+    }
+  },
+  "verbs": {
+    "create": {
+      "required": [
+        "environment",
+        "eonid"
+      ]
+    },
+    "update": {
+      "required": [
+        "admins"
+      ]
+    }
+  },
+  "definitions": {
+    "common.json_system_id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "common.json_environment": {
+      "type": "string",
+      "pattern": "^dev$|^qa$|^uat$|^prod$"
+    },
+    "common.json_user": {
+      "type": "string",
+      "pattern": "^[\\w\\-]+(@[\\w\\-\\.]+)?$"
+    }
+  }
+}

@@ -1,0 +1,287 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "billingInformation",
+  "id": "billingInformation",
+  "description": "A billing information to set up a new billing account.",
+  "type": "object",
+  "required": [
+    "objectType"
+  ],
+  "properties": {
+    "objectType": {
+      "type": "string",
+      "enum": [
+        "billingInformation"
+      ],
+      "description": "The type of the object, billingInformation."
+    },
+    "existingBillingAccountNumber": {
+      "type": "string",
+      "description": "Identifies an existing billing account to which the recurring and non-recurring charges for this request will be billed. Must be specified if billing contact and billing address are not specified",
+      "maxLength": 13
+    },
+    "billingContact": {
+      "$ref": "#/definitions/contact",
+      "description": "Identifies the information of the person or office to be contacted on billing matters. Used to establish a new billing account. Must be specified if existingBillingAccountNumber is not specified."
+    },
+    "billingAddressType": {
+      "type": "string",
+      "enum": [
+        "FIELDED_ADDRESS",
+        "FORMATTED_ADDRESS",
+        "ADDRESS_REFERENCE",
+        "GEOGRAPHIC_POINT"
+      ]
+    },
+    "billingAddress": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/formattedAddress"
+        },
+        {
+          "$ref": "#/definitions/fieldedAddress"
+        },
+        {
+          "$ref": "#/definitions/addressReference"
+        }
+      ],
+      "description": "Identifies a property address or postal delivery address. Used to establish a new billing account. Must be specified if existingBillingAccountNumber is not specified."
+    }
+  },
+  "definitions": {
+    "contact": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "contact",
+      "description": "Represents a contact.",
+      "type": "object",
+      "required": [
+        "objectType",
+        "name",
+        "telephoneNumber"
+      ],
+      "properties": {
+        "objectType": {
+          "type": "string",
+          "enum": [
+            "contact"
+          ],
+          "description": "The type of the object, contact."
+        },
+        "name": {
+          "type": "string",
+          "description": "Identifies the name of the person or office.",
+          "maxLength": 50
+        },
+        "telephoneNumber": {
+          "type": "string",
+          "description": "Identifies the telephone number (excluding extension) of the Contact.",
+          "maxLength": 15
+        },
+        "telephoneNumberExt": {
+          "type": "string",
+          "description": "Identifies the telephone number extension of the Contact.",
+          "maxLength": 6
+        },
+        "email": {
+          "type": "string",
+          "description": "Identifies the electronic mail address of the Contact.",
+          "maxLength": 60
+        }
+      }
+    },
+    "formattedAddress": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "formattedAddress",
+      "description": "A structured textual way of describing how to find an address, using unformatted strings for the street address.",
+      "type": "object",
+      "required": [
+        "objectType"
+      ],
+      "properties": {
+        "objectType": {
+          "type": "string",
+          "enum": [
+            "formattedAddress"
+          ],
+          "description": "The type of the object, formattedAddress."
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "A formatted address line that contains a non-fielded street address.",
+          "maxLength": 60
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "A formatted address line that contains a non-fielded street address, sub-address (e.g. Suite number), etc.",
+          "maxLength": 60
+        },
+        "locality": {
+          "type": "string",
+          "description": "A bounded locality within a city, town or shire principally of urban character.",
+          "maxLength": 50
+        },
+        "city": {
+          "type": "string",
+          "description": "City that the address is in.",
+          "maxLength": 50
+        },
+        "stateOrProvince": {
+          "type": "string",
+          "description": "The state or province that the address is in.",
+          "maxLength": 50
+        },
+        "postcode": {
+          "type": "string",
+          "description": "A descriptor for a postal delivery area, used to speed and simplify the delivery of mail.",
+          "maxLength": 6
+        },
+        "postcodeExtension": {
+          "type": "string",
+          "description": "The four-digit extension on an American postal code, what comes after the hyphen when specified.",
+          "maxLength": 4
+        },
+        "country": {
+          "type": "string",
+          "description": "The country that the address is in.",
+          "maxLength": 50
+        }
+      }
+    },
+    "fieldedAddress": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "fieldedAddress",
+      "description": "A full representation of an address, as well as geocoding reference for the property.",
+      "type": "object",
+      "required": [
+        "objectType"
+      ],
+      "properties": {
+        "objectType": {
+          "type": "string",
+          "enum": [
+            "fieldedAddress"
+          ],
+          "description": "The type of the object, fieldedAddress."
+        },
+        "streetNr": {
+          "type": "string",
+          "description": "Number identifying a specific property on a public street. It may be combined with streetNrLast for ranged addresses.",
+          "maxLength": 10
+        },
+        "streetNrSuffix": {
+          "type": "string",
+          "description": "The suffix of the first street number (in a street number range) or the suffix for the street number if there is no range.",
+          "maxLength": 10
+        },
+        "streetNrLast": {
+          "type": "string",
+          "description": "Last number in a range of street numbers allocated to an address.",
+          "maxLength": 10
+        },
+        "streetName": {
+          "type": "string",
+          "description": "The name of the street or other street type.",
+          "maxLength": 60
+        },
+        "streetType": {
+          "type": "string",
+          "description": "The type of street (e.g., Street, St., Road, Rd., Alley).",
+          "maxLength": 25
+        },
+        "streetSuffix": {
+          "type": "string",
+          "description": "A modifier denoting a relative direction.",
+          "maxLength": 2
+        },
+        "subUnitType": {
+          "type": "string",
+          "description": "The type of subunit (e.g., Flat, Suite, Tower, Unit).",
+          "maxLength": 25
+        },
+        "subUnitNr": {
+          "type": "string",
+          "description": "The discriminator used for the subunit, often just a sumple number but may also be a range.",
+          "maxLength": 10
+        },
+        "levelType": {
+          "type": "string",
+          "description": "Describes level types within a building (e.g., Floor).",
+          "maxLength": 25
+        },
+        "levelNr": {
+          "type": "string",
+          "description": "Used where a level type may be repeated (e.g., BASEMENT 1, BASEMENT 2).",
+          "maxLength": 25
+        },
+        "buildingName": {
+          "type": "string",
+          "description": "Allows for buildings with well-known names to be used in an address.",
+          "maxLength": 60
+        },
+        "privateStreetName": {
+          "type": "string",
+          "description": "Private streets internal to a property (e.g., a university) with an internal name not recorded by the land title office.",
+          "maxLength": 60
+        },
+        "locality": {
+          "type": "string",
+          "description": "A bounded locality within a city, town or shire principally of urban character.",
+          "maxLength": 50
+        },
+        "city": {
+          "type": "string",
+          "description": "The city that the address is in.",
+          "maxLength": 50
+        },
+        "stateOrProvince": {
+          "type": "string",
+          "description": "The state or province that the address is in.",
+          "maxLength": 50
+        },
+        "postcode": {
+          "type": "string",
+          "description": "A descriptor for a postal delivery area, used to speed and simplify the delivery of mail.",
+          "maxLength": 6
+        },
+        "postcodeExtension": {
+          "type": "string",
+          "description": "The four-digit extension on an American postal code, what comes after the hyphen when specified.",
+          "maxLength": 4
+        },
+        "country": {
+          "type": "string",
+          "description": "The country that the address is in.",
+          "maxLength": 50
+        }
+      }
+    },
+    "addressReference": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "addressReference",
+      "description": "This represents a reference to an address. The reference should be an address id from an address inventory, a geocoded reference from a geospatial system, etc.",
+      "type": "object",
+      "required": [
+        "objectType"
+      ],
+      "properties": {
+        "objectType": {
+          "type": "string",
+          "enum": [
+            "addressReference"
+          ],
+          "description": "The type of the object, addressReference."
+        },
+        "referenceType": {
+          "type": "string",
+          "description": "The type of the reference.",
+          "maxLength": 25
+        },
+        "reference": {
+          "type": "string",
+          "description": "The reference can be used to identify an address.",
+          "maxLength": 60
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "wskey": {
+      "type": "string"
+    },
+    "wsalias": {
+      "type": "string"
+    },
+    "snapshotName": {
+      "type": "string"
+    },
+    "snapshotDate": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "wskey"
+  ]
+}

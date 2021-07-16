@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "careerSitesForApp": {
+      "type": "object",
+      "properties": {
+        "app": {
+          "type": "string",
+          "description": "the app that is hosting these career sites"
+        },
+        "careerSites": {
+          "$ref": "#/definitions/careerSites.json"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "app",
+        "careerSites"
+      ]
+    },
+    "careerSites.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/careerSite.json"
+      }
+    },
+    "careerSite.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "immutable id for this career site"
+        },
+        "label": {
+          "type": "string",
+          "description": "label for this career site, e.g. Graduate recruitment site"
+        },
+        "homePage": {
+          "type": "string",
+          "format": "uri",
+          "description": "the homepage for this career site"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "homePage"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/careerSitesForApp"
+  },
+  "description": "An array of career sites rolled up across all producing apps"
+}

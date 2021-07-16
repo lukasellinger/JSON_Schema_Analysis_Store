@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://www.atilf.fr/tcof/01#",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "nom_corpus": {
+      "type": "string"
+    },
+    "type_corpus": {
+      "type": "string"
+    },
+    "cadre": {
+      "type": "string"
+    },
+    "genre": {
+      "type": "string"
+    },
+    "canal": {
+      "type": "string"
+    },
+    "association": {
+      "type": "string"
+    },
+    "support_dialogue": {
+      "type": "string"
+    },
+    "resume": {
+      "type": "string"
+    },
+    "relation": {
+      "type": "string"
+    }
+  }
+}

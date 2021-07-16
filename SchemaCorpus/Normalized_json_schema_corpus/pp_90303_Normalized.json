@@ -1,0 +1,130 @@
+{
+  "title": "search",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "An object specifying the search parameters set within the web scene.",
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "description": "A boolean value indicating whether search functionality is enabled in the web scene.",
+      "default": true
+    },
+    "hintText": {
+      "type": "string",
+      "description": "A string value used to indicate the hint provided with the search dialog."
+    },
+    "layers": {
+      "type": "array",
+      "description": "An array of layers to be included in search.",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/search_layer_schema.json"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "layers"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "search",
+        "code": {
+          "search": {
+            "enabled": true,
+            "hintText": "Search by Address or State name",
+            "layers": [
+              {
+                "field": {
+                  "name": "STATE_NAME",
+                  "exactMatch": false,
+                  "type": "esriFieldTypeString"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "search_layer_schema.json": {
+      "title": "search layer",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Layer configuration for search.",
+      "properties": {
+        "field": {
+          "$ref": "#/definitions/search_layer_field_schema.json"
+        },
+        "id": {
+          "type": "string",
+          "description": "A string identifying the layer."
+        },
+        "subLayer": {
+          "type": "integer",
+          "description": "Optional index for a sublayer."
+        }
+      },
+      "required": [
+        "field",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "search_layer_field_schema.json": {
+      "title": "search layer field",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Contains information about an attribute field in search layer configuration.",
+      "properties": {
+        "exactMatch": {
+          "type": "boolean",
+          "description": "A Boolean defining whether or not the field is an exact match."
+        },
+        "name": {
+          "type": "string",
+          "description": "A string defining the field name."
+        },
+        "type": {
+          "type": "string",
+          "description": "A string defining the field type.",
+          "enum": [
+            "esriFieldTypeBlob",
+            "esriFieldTypeDate",
+            "esriFieldTypeDouble",
+            "esriFieldTypeGUID",
+            "esriFieldTypeGeometry",
+            "esriFieldTypeGlobalID",
+            "esriFieldTypeInteger",
+            "esriFieldTypeLong",
+            "esriFieldTypeOID",
+            "esriFieldTypeRaster",
+            "esriFieldTypeSingle",
+            "esriFieldTypeSmallInteger",
+            "esriFieldTypeString",
+            "esriFieldTypeXML"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "search layer field",
+            "code": {
+              "field": {
+                "name": "relationships/2/Postcode",
+                "type": "esriFieldTypeString",
+                "exactMatch": true
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

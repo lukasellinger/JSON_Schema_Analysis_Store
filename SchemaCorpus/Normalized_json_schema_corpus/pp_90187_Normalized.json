@@ -1,0 +1,667 @@
+{
+  "title": "dataSource",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "This object applies if the [layerDefinition](layerDefinition.md) source is set to `DynamicDataLayer`.",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/joinTableDataSource_schema.json"
+    },
+    {
+      "$ref": "#/definitions/queryTableDataSource_schema.json"
+    },
+    {
+      "$ref": "#/definitions/rasterDataSource_schema.json"
+    },
+    {
+      "$ref": "#/definitions/tableDataSource_schema.json"
+    }
+  ],
+  "definitions": {
+    "joinTableDataSource_schema.json": {
+      "title": "Join Table DataSource",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Join Table data source is the result of a join operation. Nested joins are supported. To use nested joins, set either leftTableSource or rightTableSource to be a joinTable.",
+      "properties": {
+        "joinType": {
+          "type": "string",
+          "description": "The type of join (left outer or left inner).",
+          "enum": [
+            "esriLeftInnerJoin",
+            "esriLeftOuterJoin"
+          ]
+        },
+        "leftTableKey": {
+          "type": "string",
+          "description": "Field name from the left table."
+        },
+        "leftTableSource": {
+          "type": "object",
+          "description": "The left source. If the leftTableSource is a table, the resulting joinTable is a table. If the leftTableSource is a layer, the resulting joinTable is a layer.",
+          "$ref": "#/definitions/source_schema.json"
+        },
+        "rightTableKey": {
+          "type": "string",
+          "description": "Field name from the right table."
+        },
+        "rightTableSource": {
+          "type": "object",
+          "description": "The right table source.",
+          "$ref": "#/definitions/source_schema.json"
+        },
+        "type": {
+          "type": "string",
+          "description": "String value indicating the type for the dataSource.",
+          "enum": [
+            "joinTable"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Join Table DataSource",
+            "code": {
+              "dataSource": {
+                "type": "joinTable",
+                "leftTableSource": {
+                  "type": "mapLayer",
+                  "mapLayerId": 0
+                },
+                "rightTableSource": {
+                  "type": "dataLayer",
+                  "dataSource": {
+                    "type": "table",
+                    "workspaceId": "MAP",
+                    "dataSourceName": "MAP.user1.TaxLots",
+                    "gdbVersion": "MAP.Version1"
+                  }
+                },
+                "leftTableKey": "STATE_FIPS",
+                "rightTableKey": "FIPS",
+                "joinType": "esriLeftOuterJoin"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "source_schema.json": {
+      "title": "source",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Contains [dynamicDataLayer](dynamicDataLayer_source.md) object and [dynamicMapLayer](dynamicDataLayer_source.md) object. If the service supports dynamic layers, the [layerDefinition\u0027s ](layerDefinition.md) source property must be specified.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/dynamicDataLayer_source_schema.json"
+        },
+        {
+          "$ref": "#/definitions/dynamicMapLayer_source_schema.json"
+        }
+      ]
+    },
+    "dynamicDataLayer_source_schema.json": {
+      "title": "Dynamic data layer",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "A dynamic data layer derived from a registered workspace. More information on this can be found in the [ArcGIS REST API help](http://resources.arcgis.com/en/help/rest/apiref/layersource.html).",
+      "properties": {
+        "dataSource": {
+          "type": "object",
+          "description": "The layer\u0027s data source.",
+          "$ref": "#/definitions/dataSource_schema.json"
+        },
+        "fields": {
+          "type": "array",
+          "description": "An array of objects specifying information about an attribute field.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/field_schema.json"
+          },
+          "uniqueItems": true
+        },
+        "type": {
+          "type": "string",
+          "description": "A string value indicating the type.",
+          "enum": [
+            "dataLayer"
+          ]
+        }
+      },
+      "required": [
+        "dataSource",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "dataSource_schema.json": {
+      "title": "dataSource",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "This object applies if the [layerDefinition](layerDefinition.md) source is set to `DynamicDataLayer`.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/joinTableDataSource_schema.json"
+        },
+        {
+          "$ref": "#/definitions/queryTableDataSource_schema.json"
+        },
+        {
+          "$ref": "#/definitions/rasterDataSource_schema.json"
+        },
+        {
+          "$ref": "#/definitions/tableDataSource_schema.json"
+        }
+      ]
+    },
+    "queryTableDataSource_schema.json": {
+      "title": "Query Table DataSource",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Query table data source is a layer/table that is defined by a SQL query.",
+      "properties": {
+        "geometryType": {
+          "type": "string",
+          "description": "The geometry type. When querying a table that does not have a geometry column, do not include geometryType.",
+          "enum": [
+            "esriGeometryMultipoint",
+            "esriGeometryPoint",
+            "esriGeometryPolygon",
+            "esriGeometryPolyline"
+          ]
+        },
+        "oidFields": {
+          "type": "string",
+          "description": "Comma separated list of identifier fields. There are only certain field types that can be used as a unique identifier. These field types include integer, string, GUID, and date. If a single integer field is specified, map server uses the values in that field directly to uniquely identify all features and rows returned from a queryTable. However, if a single string field or a group of fields is used as the unique identifier, map server maps those unique values to an integer."
+        },
+        "query": {
+          "type": "string",
+          "description": "The SQL query."
+        },
+        "spatialReference": {
+          "type": "object",
+          "description": "The spatial reference of the geometry column. When querying a table that does not have a geometry column, do not include spatialReference.",
+          "$ref": "#/definitions/spatialReference_schema.json"
+        },
+        "type": {
+          "type": "string",
+          "description": "String value indicating the type for the dataSource.",
+          "enum": [
+            "queryTable"
+          ]
+        },
+        "workspaceId": {
+          "type": "string",
+          "description": "The unique string value used to identify the datasource\u0027s workspace."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Query Table dataSource",
+            "code": {
+              "dataSource": {
+                "type": "queryTable",
+                "workspaceId": "SqlMAP",
+                "oidFields": "taxlotid",
+                "query": "SELECT * FROM TaxLots",
+                "geometryType": "esriGeometryPolygon",
+                "spatialReference": {
+                  "wkid": 4326
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "spatialReference_schema.json": {
+      "title": "spatialReference",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The spatialReference object is located at the top level of the JSON hierarchy. In addition to this, it is also available within the operationalLayer and basemap objects.\n\nMany predefined spatial references have already been defined and are available for use. A spatial reference can be defined using a well-known ID (WKID) or well-known text (WKT). The default tolerance and resolution values for the associated coordinate system are used.\n\nA spatial reference can optionally include a definition for a vertical coordinate system (VCS), which is used to interpret the z values of a geometry.",
+      "properties": {
+        "latestVcsWkid": {
+          "type": "number",
+          "description": "(Optional) The current wkid value of the vertical coordinate system."
+        },
+        "latestWkid": {
+          "type": "number",
+          "description": "(Optional) Identifies the current wkid value associated with the same spatial reference. For example a WKID of \u0027102100\u0027 (Web Mercator) has a latestWKid of \u00273857\u0027."
+        },
+        "vcsWkid": {
+          "type": "number",
+          "description": "(Optional) The wkid value of the vertical coordinate system."
+        },
+        "wkid": {
+          "type": "number",
+          "description": "The well-known ID (WKID) of the coordinate system. Specify either WKID or the well-known text (WKT) of the coordinate system."
+        },
+        "wkt": {
+          "type": "string",
+          "description": "The well-known text (WKT) of the coordinate system. Specify either WKT or WKID of the coordinate system."
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "wkt"
+          ]
+        },
+        {
+          "required": [
+            "wkid"
+          ]
+        }
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "additionalInformation": "All operational layers in the scene are drawn or requested in the spatial reference of the basemap layers.\n\nThe **basemap** defines the spatial reference and tiling scheme of the scene. Each **baseMapLayer** must be in the same spatial reference and tiling scheme.\n\n\n\nFor a complete list of supported IDs and their corresponding definition strings, see:\n\n[Projected Coordinate Systems Listing](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Projected_coordinate_systems/02r3000000vt000000/)\n\n[Geographic Coordinate Systems Listing](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geographic_coordinate_systems/02r300000105000000/)\n\n[Vertical Coordinate Systems Listing](http://resources.arcgis.com/en/help/rest/apiref/vcs.html)\n\n\n\nAdditional information regarding how web scenes work with geometry and spatial reference can be found on the Resource Center:\n\n[ArcGIS Server REST API Geometry object](http://resources.arcgis.com/en/help/rest/apiref/geometry.html)\n\n[Using spatial references](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Using_spatial_references/02r3000000qq000000/)\n\n[Working with Geometry Objects](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_Objects/02r3000000n1000000/)",
+        "examples": [
+          {
+            "title": "wkid",
+            "code": {
+              "spatialreference": {
+                "wkid": 102100,
+                "latestWkid": 3857
+              }
+            }
+          }
+        ]
+      }
+    },
+    "rasterDataSource_schema.json": {
+      "title": "Raster DataSource",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Raster data source is a file-based raster that resides in a registered raster workspace.",
+      "properties": {
+        "dataSourceName": {
+          "type": "string",
+          "description": "The raster datasource\u0027s name."
+        },
+        "type": {
+          "type": "string",
+          "description": "String value indicating the type for the dataSource.",
+          "enum": [
+            "raster"
+          ]
+        },
+        "workspaceId": {
+          "type": "string",
+          "description": "The unique string value used to identify the datasource\u0027s workspace."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Raster DataSource",
+            "code": {
+              "dataSource": {
+                "type": "raster",
+                "workspaceId": "rasterWS",
+                "dataSourceName": "NewOrleans.tif"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "tableDataSource_schema.json": {
+      "title": "Table DataSource",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Table data source is a table, feature class, or raster that resides in a registered workspace (either a folder or geodatabase). In the case of a geodatabase, if versioned, use version to switch to an alternate geodatabase version. If version is empty or missing, the registered geodatabase version will be used.",
+      "properties": {
+        "dataSourceName": {
+          "type": "string",
+          "description": "The fully-qualified string value used to specify where the dataSource is derived."
+        },
+        "gdbVersion": {
+          "type": "string",
+          "description": "If applicable, the value indicating the version of the geodatabase."
+        },
+        "type": {
+          "type": "string",
+          "description": "String value indicating the type for the dataSource. The value for a Table DataSource is `table`.",
+          "enum": [
+            "table"
+          ]
+        },
+        "workspaceId": {
+          "type": "string",
+          "description": "The unique string value used to identify the datasource\u0027s workspace."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Table DataSource",
+            "code": {
+              "dataSource": {
+                "type": "table",
+                "workspaceId": "MyDatabaseWorkspaceIDSSR2",
+                "dataSourceName": "ss6.gdb.Lakes"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "field_schema.json": {
+      "title": "field",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Contains information about an attribute field.",
+      "properties": {
+        "alias": {
+          "type": "string",
+          "description": "A string defining the field alias."
+        },
+        "defaultValue": {
+          "type": [
+            "null",
+            "number",
+            "string"
+          ],
+          "description": "The default value set for the field."
+        },
+        "domain": {
+          "type": "object",
+          "description": "The domain objects if applicable.",
+          "$ref": "#/definitions/domain_schema.json"
+        },
+        "editable": {
+          "type": "boolean",
+          "description": "A Boolean defining whether this field is editable."
+        },
+        "length": {
+          "type": "integer",
+          "description": "A number defining how many characters are allowed in a string field."
+        },
+        "name": {
+          "type": "string",
+          "description": "A string defining the field name."
+        },
+        "nullable": {
+          "type": "boolean",
+          "description": "A Boolean defining whether this field can have a null value."
+        },
+        "type": {
+          "type": "string",
+          "description": "A string defining the field type.",
+          "enum": [
+            "esriFieldTypeBlob",
+            "esriFieldTypeDate",
+            "esriFieldTypeDouble",
+            "esriFieldTypeGUID",
+            "esriFieldTypeGeometry",
+            "esriFieldTypeGlobalID",
+            "esriFieldTypeInteger",
+            "esriFieldTypeLong",
+            "esriFieldTypeOID",
+            "esriFieldTypeRaster",
+            "esriFieldTypeSingle",
+            "esriFieldTypeSmallInteger",
+            "esriFieldTypeString",
+            "esriFieldTypeXML"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "field",
+            "code": {
+              "field": {
+                "alias": "Postcode",
+                "name": "relationships/2/Postcode",
+                "editable": false,
+                "type": "esriFieldTypeString"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "domain_schema.json": {
+      "title": "domain",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Domains specify the set of valid values for a field. The links below are the available domains.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/codedValue_domain_schema.json"
+        },
+        {
+          "$ref": "#/definitions/inherited_domain_schema.json"
+        },
+        {
+          "$ref": "#/definitions/range_domain_schema.json"
+        }
+      ]
+    },
+    "codedValue_domain_schema.json": {
+      "title": "codedValue",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The coded value domain includes both the actual value that is stored in a database and a description of what the code value means.",
+      "properties": {
+        "codedValues": {
+          "type": "array",
+          "description": "A set of valid values with unique names.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/codedValue_schema.json"
+          },
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string",
+          "description": "The domain name."
+        },
+        "type": {
+          "type": "string",
+          "description": "String value representing the domain type.",
+          "enum": [
+            "codedValue"
+          ]
+        }
+      },
+      "required": [
+        "codedValues",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "codedValue",
+            "code": {
+              "codedValue": {
+                "type": "codedValue",
+                "name": "Material",
+                "codedValues": [
+                  {
+                    "name": "Aluminum",
+                    "code": "AL"
+                  },
+                  {
+                    "name": "Copper",
+                    "code": "CU"
+                  },
+                  {
+                    "name": "Steel",
+                    "code": "STEL"
+                  },
+                  {
+                    "name": "Not Applicable",
+                    "code": "NA"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "codedValue_schema.json": {
+      "title": "codedValue",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "A set of valid coded values with unique names.",
+      "properties": {
+        "code": {
+          "type": [
+            "number",
+            "string"
+          ],
+          "description": "The value stored in the feature attribute."
+        },
+        "name": {
+          "type": "string",
+          "description": "User-friendly name for what the code means."
+        }
+      },
+      "required": [
+        "code",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "inherited_domain_schema.json": {
+      "title": "inheritedDomain",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "This domain applies to domains on subtypes. It implies that the domain for a field at the subtype level is the same as the domain for the field at the layer level.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The domain name."
+        },
+        "type": {
+          "type": "string",
+          "description": "String value representing the domain type.",
+          "enum": [
+            "inherited"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "range_domain_schema.json": {
+      "title": "rangeDomain",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Range domain specifies a range of valid values for a field.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The domain name."
+        },
+        "range": {
+          "type": "array",
+          "description": "The first element is the minValue and the second element is the maxValue.",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "type": {
+          "type": "string",
+          "description": "String value representing the domain type.",
+          "enum": [
+            "range"
+          ]
+        }
+      },
+      "required": [
+        "range",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "rangeDomain",
+            "code": {
+              "domain": {
+                "type": "range",
+                "name": "Measured Length",
+                "range": [
+                  1,
+                  10000
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "dynamicMapLayer_source_schema.json": {
+      "title": "Dynamic map layer",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "A dynamic map layer refers to a layer in the current map service. More information on this can be found in the [ArcGIS REST API help](http://resources.arcgis.com/en/help/rest/apiref/layersource.html).",
+      "properties": {
+        "gdbVersion": {
+          "type": "string",
+          "description": "If applicable, specify this to use an alternate geodatabase version."
+        },
+        "mapLayerId": {
+          "type": "integer",
+          "description": "The current map layer\u0027s id."
+        },
+        "type": {
+          "type": "string",
+          "description": "A string value indicating the type.",
+          "enum": [
+            "mapLayer"
+          ]
+        }
+      },
+      "required": [
+        "mapLayerId",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "dynamicMapLayer",
+            "code": {
+              "source": {
+                "type": "mapLayer",
+                "mapLayerId": 3,
+                "gdbVersion": "SDE.dynamicLayers"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

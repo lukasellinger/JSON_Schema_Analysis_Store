@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "type": [
+    "object"
+  ],
+  "definitions": {
+    "sock": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Socks",
+      "description": "Where socks go",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of sock",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "title": {
+          "description": "title of the sock",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "body": {
+          "description": "body describing of the sock",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "latitude": {
+          "description": "latitude of sock coordinates",
+          "readOnly": true,
+          "type": [
+            "number"
+          ]
+        },
+        "longitude": {
+          "description": "longitude of sock coordinates",
+          "readOnly": true,
+          "type": [
+            "number"
+          ]
+        },
+        "identity": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/definitions_sock_definitions_id"
+            }
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "List existing socks.",
+          "href": "/api/socks",
+          "http_header": {
+            "Accept": "application/vnd.wheresocksgo+json; version\u003d1"
+          },
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/definitions_sock_definitions_id"
+        },
+        "title": {
+          "$ref": "#/definitions/definitions_sock_definitions_title"
+        },
+        "body": {
+          "$ref": "#/definitions/definitions_sock_definitions_body"
+        },
+        "latitude": {
+          "$ref": "#/definitions/definitions_sock_definitions_latitude"
+        },
+        "longitude": {
+          "$ref": "#/definitions/definitions_sock_definitions_longitude"
+        }
+      }
+    },
+    "definitions_sock_definitions_id": {
+      "description": "unique identifier of sock",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_sock_definitions_title": {
+      "description": "title of the sock",
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_sock_definitions_body": {
+      "description": "body describing of the sock",
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_sock_definitions_latitude": {
+      "description": "latitude of sock coordinates",
+      "readOnly": true,
+      "type": [
+        "number"
+      ]
+    },
+    "definitions_sock_definitions_longitude": {
+      "description": "longitude of sock coordinates",
+      "readOnly": true,
+      "type": [
+        "number"
+      ]
+    }
+  },
+  "properties": {
+    "sock": {
+      "$ref": "#/definitions/sock"
+    }
+  },
+  "description": "Wheresocksgo API",
+  "id": "wheresocksgo-api",
+  "links": [
+    {
+      "href": "https://wheresocksgo.herokuapp.com",
+      "rel": "self"
+    }
+  ],
+  "title": "Wheresocksgo"
+}

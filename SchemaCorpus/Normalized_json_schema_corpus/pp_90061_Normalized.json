@@ -1,0 +1,121 @@
+{
+  "title": "mediaInfo",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Defines an image or a chart to be displayed in a popup window.",
+  "properties": {
+    "caption": {
+      "type": "string",
+      "description": "A string caption describing the media."
+    },
+    "refreshInterval": {
+      "type": "number",
+      "description": "Refresh interval of the layer in minutes. Non-zero value indicates automatic layer refresh at the specified interval. Value of 0 indicates auto refresh is not enabled. If the property does not exist, it\u0027s equivalent to having a value of 0. Only applicable when `type` is set to `image`.",
+      "default": 0
+    },
+    "title": {
+      "description": "A string title for the media.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "type": {
+      "type": "string",
+      "description": "A string defining the type of media.",
+      "enum": [
+        "image",
+        "barchart",
+        "columnchart",
+        "linechart",
+        "piechart"
+      ]
+    },
+    "value": {
+      "description": "A value object containing information about how the image should be retrieved or how the chart should be constructed.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/value_schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "mediaInfo",
+        "code": {
+          "mediaInfo": {
+            "title": "Chart stats",
+            "type": "barchart",
+            "caption": "For a better idea...",
+            "value": {
+              "fields": [
+                "relationships/0/Pledge"
+              ],
+              "tooltipField": "relationships/2/Official"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "value_schema.json": {
+      "title": "value",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The value object contains information for popup windows about how images should be retrieved or charts constructed.",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "description": "Used with charts. An array of strings, with each string containing the name of a field to display in the chart.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "linkURL": {
+          "type": "string",
+          "description": "Used with images. A string containing a URL to be launched in a browser when a user clicks the image."
+        },
+        "normalizeField": {
+          "type": "string",
+          "description": "Used with charts. An optional string containing the name of a field. The values of all fields in the chart will be normalized (divided) by the value of this field."
+        },
+        "sourceURL": {
+          "type": "string",
+          "description": "Used with images. A string containing the URL to the image."
+        },
+        "tooltipField": {
+          "type": "string",
+          "description": "String value indicating the tooltip for a chart specified from another field. This field is needed when related records are not sued. It is used for showing tooltips from another field in the same layer or related layer/table."
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "value",
+            "code": {
+              "value": {
+                "fields": [
+                  "relationships/0/Pledge"
+                ],
+                "tooltipField": "relationships/2/Official"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

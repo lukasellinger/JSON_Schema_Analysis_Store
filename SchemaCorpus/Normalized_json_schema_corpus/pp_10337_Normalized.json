@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "nestedtest",
+  "type": "object",
+  "properties": {},
+  "required": [
+    "top"
+  ],
+  "definitions": {
+    "top": {
+      "type": "object",
+      "properties": {
+        "basic": {
+          "type": "string"
+        },
+        "nested": {
+          "$ref": "#/definitions/definitions_top_definitions_defnested"
+        }
+      },
+      "definitions": {
+        "defnested": {
+          "type": "object",
+          "properties": {
+            "append": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "definitions_top_definitions_defnested": {
+      "type": "object",
+      "properties": {
+        "append": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

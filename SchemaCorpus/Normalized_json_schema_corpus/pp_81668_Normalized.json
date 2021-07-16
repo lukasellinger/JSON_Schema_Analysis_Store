@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "type": "string"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "memory": {
+        "$ref": "#/definitions/common.json_memory"
+      },
+      "cpu": {
+        "$ref": "#/definitions/common.json_cpu"
+      },
+      "disk": {
+        "$ref": "#/definitions/common.json_disk"
+      },
+      "rank": {
+        "$ref": "#/definitions/common.json_rank"
+      },
+      "label": {
+        "$ref": "#/definitions/common.json_label"
+      }
+    }
+  },
+  "verbs": {
+    "create": {
+      "required": [
+        "memory",
+        "cpu",
+        "disk"
+      ]
+    },
+    "update": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "memory": {
+          "$ref": "#/definitions/resource_properties_memory"
+        },
+        "cpu": {
+          "$ref": "#/definitions/resource_properties_cpu"
+        },
+        "disk": {
+          "$ref": "#/definitions/resource_properties_disk"
+        },
+        "label": {
+          "$ref": "#/definitions/resource_properties_label"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "common.json_memory": {
+      "$ref": "#/definitions/common.json__priv_bytes"
+    },
+    "common.json__priv_bytes": {
+      "type": "string",
+      "pattern": "^\\d+[KkMmGg]$"
+    },
+    "common.json_cpu": {
+      "type": "string",
+      "pattern": "^\\d+%$"
+    },
+    "common.json_disk": {
+      "$ref": "#/definitions/common.json__priv_bytes"
+    },
+    "common.json_rank": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "common.json_label": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 32
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "resource_properties_memory": {
+      "$ref": "#/definitions/common.json_memory"
+    },
+    "resource_properties_cpu": {
+      "$ref": "#/definitions/common.json_cpu"
+    },
+    "resource_properties_disk": {
+      "$ref": "#/definitions/common.json_disk"
+    },
+    "resource_properties_label": {
+      "$ref": "#/definitions/common.json_label"
+    }
+  }
+}

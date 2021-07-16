@@ -1,0 +1,2573 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "javaType": "com.tas.api....",
+  "properties": {
+    "api": {
+      "$ref": "#/definitions/..\\schemas\\api.json"
+    },
+    "apiList": {
+      "$ref": "#/definitions/..\\schemas\\apiList.json"
+    },
+    "app": {
+      "$ref": "#/definitions/..\\schemas\\app.json"
+    },
+    "appPublic": {
+      "$ref": "#/definitions/..\\schemas\\appPublic.json"
+    },
+    "assertionHooks": {
+      "$ref": "#/definitions/..\\schemas\\assertionHooks.json"
+    },
+    "attributeMappings": {
+      "$ref": "#/definitions/..\\schemas\\attributeMappings.json"
+    },
+    "passwordManagerAccount": {
+      "$ref": "#/definitions/..\\schemas\\passwordManagerAccount.json"
+    },
+    "passwordManagerCapabilities": {
+      "$ref": "#/definitions/..\\schemas\\passwordManagerCapabilities.json"
+    },
+    "patchSet": {
+      "$ref": "#/definitions/..\\schemas\\patchSet.json"
+    },
+    "patchSetPreparer": {
+      "$ref": "#/definitions/..\\schemas\\patchSetPreparer.json"
+    },
+    "rebootLaunchKey": {
+      "$ref": "#/definitions/..\\schemas\\rebootLaunchKey.json"
+    },
+    "rebootStatus": {
+      "$ref": "#/definitions/..\\schemas\\rebootStatus.json"
+    },
+    "rolesList": {
+      "$ref": "#/definitions/..\\schemas\\rolesList.json"
+    },
+    "routeBase": {
+      "$ref": "#/definitions/..\\schemas\\routeBase.json"
+    },
+    "route": {
+      "$ref": "#/definitions/..\\schemas\\route.json"
+    },
+    "routes": {
+      "$ref": "#/definitions/..\\schemas\\routes.json"
+    },
+    "samlKey": {
+      "$ref": "#/definitions/..\\schemas\\samlKey.json"
+    },
+    "samlSubject": {
+      "$ref": "#/definitions/..\\schemas\\samlSubject.json"
+    },
+    "simplePatchSet": {
+      "$ref": "#/definitions/..\\schemas\\simplePatchSet.json"
+    },
+    "storeFrontMainPage": {
+      "$ref": "#/definitions/..\\schemas\\storeFrontMainPage.json"
+    },
+    "tenantExtended": {
+      "$ref": "#/definitions/..\\schemas\\tenantExtended.json"
+    },
+    "tenantInstallsAppStatus": {
+      "$ref": "#/definitions/..\\schemas\\tenantInstallsAppStatus.json"
+    },
+    "tenant": {
+      "$ref": "#/definitions/..\\schemas\\tenant.json"
+    },
+    "tenantList": {
+      "$ref": "#/definitions/..\\schemas\\tenantList.json"
+    },
+    "tenantStatus": {
+      "$ref": "#/definitions/..\\schemas\\tenantStatus.json"
+    },
+    "tokenJwt": {
+      "$ref": "#/definitions/..\\schemas\\tokenJwt.json"
+    },
+    "tokenResponse": {
+      "$ref": "#/definitions/..\\schemas\\tokenResponse.json"
+    },
+    "wellKnownSamlAttributes": {
+      "$ref": "#/definitions/..\\schemas\\wellKnownSamlAttributes.json"
+    }
+  },
+  "definitions": {
+    "..\\schemas\\api.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "developer": {
+          "type": "string"
+        },
+        "uriTemplate": {
+          "type": "string"
+        },
+        "principalType": {
+          "$ref": "#/definitions/..\\schemas\\samlSubject.json_definitions_principalType",
+          "description": "the principal type of this API (not present if this is not an on-behalf API)"
+        },
+        "raml": {
+          "type": "string",
+          "format": "uri",
+          "description": "link to a RAML document describing this API (if any)"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "developer",
+        "uriTemplate"
+      ]
+    },
+    "..\\schemas\\samlSubject.json_definitions_principalType": {
+      "enum": [
+        "user",
+        "candidate"
+      ],
+      "description": "a class of principal (typically a human) identifiable by SSO. In theory developer-defined but for now only TAS can create."
+    },
+    "..\\schemas\\apiList.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "api": {
+          "type": "string",
+          "description": "the API\u0027s URI template"
+        }
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\apiList.json_definitions_api"
+      }
+    },
+    "..\\schemas\\apiList.json_definitions_api": {
+      "type": "string",
+      "description": "the API\u0027s URI template"
+    },
+    "..\\schemas\\app.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "details about a specific app",
+      "additionalProperties": false,
+      "properties": {
+        "principalType": {
+          "type": "string",
+          "description": "the app\u0027s principal type. Not present if the app does not use SSO"
+        },
+        "principalCookieSecretKey": {
+          "type": "string",
+          "description": "the secret key used by the proxy to encrypt the principal cookie. Not present if the app does not use SSO"
+        }
+      }
+    },
+    "..\\schemas\\appPublic.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "developer": {
+          "type": "object",
+          "properties": {
+            "shortCode": {
+              "type": "string",
+              "description": "the developer\u0027s shortcode"
+            },
+            "name": {
+              "type": "string",
+              "description": "the developer\u0027s name"
+            },
+            "blurb": {
+              "type": "string",
+              "description": "the developer\u0027s blurb"
+            },
+            "description": {
+              "type": "string",
+              "description": "the developer\u0027s description"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "shortCode",
+            "name",
+            "blurb"
+          ]
+        }
+      },
+      "type": "object",
+      "description": "details about a specific app",
+      "additionalProperties": false,
+      "properties": {
+        "shortCode": {
+          "type": "string",
+          "description": "the app\u0027s shortcode"
+        },
+        "name": {
+          "type": "string",
+          "description": "the app\u0027s name"
+        },
+        "blurb": {
+          "type": "string",
+          "description": "the app\u0027s blurb"
+        },
+        "description": {
+          "type": "string",
+          "description": "the app\u0027s description"
+        },
+        "logoUrl": {
+          "type": "string",
+          "format": "url",
+          "description": "the app\u0027s logo"
+        },
+        "learnMoreUrl": {
+          "type": "string",
+          "description": "the app\u0027s learnMoreUrl"
+        },
+        "principalType": {
+          "type": "string",
+          "description": "the app\u0027s principal type (if it is SSO)"
+        },
+        "developer": {
+          "$ref": "#/definitions/..\\schemas\\appPublic.json_definitions_developer"
+        }
+      },
+      "required": [
+        "shortCode",
+        "name",
+        "blurb",
+        "developer"
+      ]
+    },
+    "..\\schemas\\appPublic.json_definitions_developer": {
+      "type": "object",
+      "properties": {
+        "shortCode": {
+          "type": "string",
+          "description": "the developer\u0027s shortcode"
+        },
+        "name": {
+          "type": "string",
+          "description": "the developer\u0027s name"
+        },
+        "blurb": {
+          "type": "string",
+          "description": "the developer\u0027s blurb"
+        },
+        "description": {
+          "type": "string",
+          "description": "the developer\u0027s description"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "shortCode",
+        "name",
+        "blurb"
+      ]
+    },
+    "..\\schemas\\assertionHooks.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "wildCardCondition": {
+          "type": "object",
+          "properties": {
+            "attribute": {
+              "type": "string",
+              "description": "the SAML attribute to run the wildcard against"
+            },
+            "wildCard": {
+              "type": "string",
+              "description": "the wildcard, with * supported"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "attribute",
+            "wildCard"
+          ]
+        },
+        "alwaysCondition": {
+          "type": "boolean"
+        },
+        "notCondition": {
+          "type": "object",
+          "properties": {
+            "not": {
+              "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_condition"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "not"
+          ]
+        },
+        "condition": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_wildCardCondition"
+            },
+            {
+              "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_notCondition"
+            },
+            {
+              "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_alwaysCondition"
+            }
+          ]
+        },
+        "injectRoles": {
+          "type": "object",
+          "properties": {
+            "injectRoles": {
+              "type": "object",
+              "properties": {
+                "condition": {
+                  "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_condition"
+                },
+                "roles": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "condition",
+                "roles"
+              ]
+            }
+          },
+          "required": [
+            "injectRoles"
+          ]
+        },
+        "allowLogin": {
+          "type": "object",
+          "properties": {
+            "allowLogin": {
+              "type": "object",
+              "properties": {
+                "condition": {
+                  "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_condition"
+                }
+              },
+              "required": [
+                "condition"
+              ]
+            }
+          },
+          "required": [
+            "allowLogin"
+          ]
+        }
+      },
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_allowLogin"
+          },
+          {
+            "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_injectRoles"
+          }
+        ]
+      }
+    },
+    "..\\schemas\\assertionHooks.json_definitions_condition": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_wildCardCondition"
+        },
+        {
+          "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_notCondition"
+        },
+        {
+          "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_alwaysCondition"
+        }
+      ]
+    },
+    "..\\schemas\\assertionHooks.json_definitions_wildCardCondition": {
+      "type": "object",
+      "properties": {
+        "attribute": {
+          "type": "string",
+          "description": "the SAML attribute to run the wildcard against"
+        },
+        "wildCard": {
+          "type": "string",
+          "description": "the wildcard, with * supported"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "attribute",
+        "wildCard"
+      ]
+    },
+    "..\\schemas\\assertionHooks.json_definitions_notCondition": {
+      "type": "object",
+      "properties": {
+        "not": {
+          "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_condition"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "not"
+      ]
+    },
+    "..\\schemas\\assertionHooks.json_definitions_alwaysCondition": {
+      "type": "boolean"
+    },
+    "..\\schemas\\assertionHooks.json_definitions_allowLogin": {
+      "type": "object",
+      "properties": {
+        "allowLogin": {
+          "type": "object",
+          "properties": {
+            "condition": {
+              "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_condition"
+            }
+          },
+          "required": [
+            "condition"
+          ]
+        }
+      },
+      "required": [
+        "allowLogin"
+      ]
+    },
+    "..\\schemas\\assertionHooks.json_definitions_injectRoles": {
+      "type": "object",
+      "properties": {
+        "injectRoles": {
+          "type": "object",
+          "properties": {
+            "condition": {
+              "$ref": "#/definitions/..\\schemas\\assertionHooks.json_definitions_condition"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "condition",
+            "roles"
+          ]
+        }
+      },
+      "required": [
+        "injectRoles"
+      ]
+    },
+    "..\\schemas\\attributeMappings.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "mapping": {
+          "type": "object",
+          "properties": {
+            "tas.personal.givenName": {
+              "type": "string"
+            },
+            "tas.personal.familyName": {
+              "type": "string"
+            },
+            "tas.personal.email": {
+              "type": "string"
+            },
+            "tas.personal.image": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\attributeMappings.json_definitions_mapping"
+      }
+    },
+    "..\\schemas\\attributeMappings.json_definitions_mapping": {
+      "type": "object",
+      "properties": {
+        "tas.personal.givenName": {
+          "type": "string"
+        },
+        "tas.personal.familyName": {
+          "type": "string"
+        },
+        "tas.personal.email": {
+          "type": "string"
+        },
+        "tas.personal.image": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\schemas\\passwordManagerAccount.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string"
+        },
+        "givenName": {
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string",
+          "format": "url"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "email": {
+          "$ref": "#/definitions/..\\schemas\\passwordManagerAccount.json_definitions_email"
+        },
+        "password": {
+          "$ref": "#/definitions/..\\schemas\\passwordManagerAccount.json_definitions_password"
+        },
+        "givenName": {
+          "$ref": "#/definitions/..\\schemas\\passwordManagerAccount.json_definitions_givenName"
+        },
+        "familyName": {
+          "$ref": "#/definitions/..\\schemas\\passwordManagerAccount.json_definitions_familyName"
+        },
+        "image": {
+          "$ref": "#/definitions/..\\schemas\\passwordManagerAccount.json_definitions_image"
+        }
+      }
+    },
+    "..\\schemas\\passwordManagerAccount.json_definitions_email": {
+      "type": "string",
+      "format": "email"
+    },
+    "..\\schemas\\passwordManagerAccount.json_definitions_password": {
+      "type": "string"
+    },
+    "..\\schemas\\passwordManagerAccount.json_definitions_givenName": {
+      "type": "string"
+    },
+    "..\\schemas\\passwordManagerAccount.json_definitions_familyName": {
+      "type": "string"
+    },
+    "..\\schemas\\passwordManagerAccount.json_definitions_image": {
+      "type": "string",
+      "format": "url"
+    },
+    "..\\schemas\\passwordManagerCapabilities.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "canCreateAccounts": {
+          "type": "boolean",
+          "description": "true if this account manager can create accounts - in which case TAS SSO will display a sign up button"
+        },
+        "createAccountTermsAndConditionsUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "A link to the terms and conditions that the user must agree to before creating an account. Only present if canCerateAccounts is true."
+        }
+      },
+      "required": [
+        "canCreateAccounts"
+      ],
+      "additionalProperties": false
+    },
+    "..\\schemas\\patchSet.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "op": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "path",
+            "value"
+          ],
+          "properties": {
+            "op": {
+              "enum": [
+                "add",
+                "remove",
+                "move",
+                "copy",
+                "replace",
+                "test"
+              ]
+            },
+            "path": {
+              "type": "string"
+            },
+            "value": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "allow patching any string attribute"
+                },
+                {
+                  "type": "number",
+                  "description": "allow patching any number attribute"
+                },
+                {
+                  "$ref": "#/definitions/..\\schemas\\tenantExtended.json"
+                },
+                {
+                  "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_install"
+                },
+                {
+                  "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_installs"
+                },
+                {
+                  "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_servers"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\patchSet.json_definitions_op"
+      }
+    },
+    "..\\schemas\\tenantExtended.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "singleValueAttributeOp": {
+          "type": "object",
+          "description": "operation on a single (non-array) SAML attribute",
+          "required": [
+            "name",
+            "value"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "multiValueAttributeOp": {
+          "type": "object",
+          "description": "operation on a multi-valued SAML attribute",
+          "required": [
+            "name",
+            "values"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "attributeOp": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_singleValueAttributeOp"
+            },
+            {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_multiValueAttributeOp"
+            }
+          ]
+        },
+        "ifMatched": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOp"
+          }
+        },
+        "attributeOverride": {
+          "type": "object",
+          "required": [
+            "filter",
+            "ifMatched"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "filter": {
+              "type": "string"
+            },
+            "ifMatched": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_ifMatched"
+            }
+          }
+        },
+        "attributeOverrides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverride"
+          }
+        },
+        "id": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "samlIdentitySource": {
+          "type": "object",
+          "required": [
+            "kind",
+            "metadata",
+            "description"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "samlIdentitySource"
+              ],
+              "description": "always set to: samlIdentitySource"
+            },
+            "id": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_id"
+            },
+            "metadata": {
+              "type": "string"
+            },
+            "description": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_description"
+            },
+            "attributeOverrides": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverrides"
+            }
+          }
+        },
+        "emailIdentitySource": {
+          "type": "object",
+          "required": [
+            "kind",
+            "description"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "emailIdentitySource"
+              ],
+              "description": "always set to: emailIdentitySource"
+            },
+            "id": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_id"
+            },
+            "description": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_description"
+            },
+            "attributeOverrides": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverrides"
+            }
+          }
+        },
+        "legacyAppIdentitySource": {
+          "type": "object",
+          "required": [
+            "kind",
+            "apiBase",
+            "description"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "legacyAppIdentitySource"
+              ],
+              "description": "always set to: legacyAppIdentitySource"
+            },
+            "id": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_id"
+            },
+            "apiBase": {
+              "type": "string"
+            },
+            "description": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_description"
+            },
+            "attributeOverrides": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverrides"
+            }
+          }
+        },
+        "socialIdentitySource": {
+          "type": "object",
+          "required": [
+            "kind",
+            "network",
+            "description"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "socialIdentitySource"
+              ],
+              "description": "always set to: socialIdentitySource"
+            },
+            "id": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_id"
+            },
+            "network": {
+              "enum": [
+                "LinkedIn",
+                "Facebook"
+              ]
+            },
+            "description": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_description"
+            },
+            "attributeOverrides": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverrides"
+            }
+          }
+        },
+        "bootstrapIdentitySource": {
+          "type": "object",
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "bootstrapIdentitySource"
+              ],
+              "description": "always set to: bootstrapIdentitySource"
+            },
+            "description": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_description"
+            },
+            "attributeOverrides": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverrides"
+            }
+          }
+        },
+        "identitySources": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_samlIdentitySource"
+              },
+              {
+                "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_emailIdentitySource"
+              },
+              {
+                "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_legacyAppIdentitySource"
+              },
+              {
+                "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_socialIdentitySource"
+              },
+              {
+                "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_bootstrapIdentitySource"
+              }
+            ]
+          }
+        },
+        "identitySourceSet": {
+          "type": "object",
+          "properties": {
+            "principalType": {
+              "$ref": "#/definitions/..\\schemas\\samlSubject.json_definitions_principalType"
+            },
+            "identitySources": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_identitySources"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "principalType",
+            "identitySources"
+          ]
+        },
+        "identitySourceSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_identitySourceSet"
+          }
+        },
+        "basicAuthCredentials": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "user",
+            "password"
+          ],
+          "properties": {
+            "user": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        },
+        "server": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "baseUri",
+            "basicAuthCredentials"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "baseUri": {
+              "type": "string"
+            },
+            "basicAuthCredentials": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_basicAuthCredentials"
+            }
+          }
+        },
+        "servers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_server"
+          }
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "organizationName": {
+              "type": "string",
+              "description": "The legal name of the organization"
+            },
+            "shortCode": {
+              "type": "string",
+              "description": "a short, alpha only, lower case identifier for the tenant, e.g. acme"
+            },
+            "description": {
+              "type": "string",
+              "description": "a description for this store"
+            },
+            "country": {
+              "type": "string",
+              "description": "the country code for the organization using the store"
+            },
+            "industry": {
+              "enum": [
+                "Banking",
+                "Healthcare",
+                "Hospitality",
+                "IT",
+                "Manufacturing",
+                "Other"
+              ],
+              "description": "The organization\u0027s primary industry"
+            }
+          }
+        },
+        "install": {
+          "type": "object",
+          "required": [
+            "app"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "app": {
+              "type": "string"
+            },
+            "servers": {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_servers"
+            },
+            "status": {
+              "$ref": "#/definitions/..\\schemas\\tenantInstallsAppStatus.json"
+            }
+          }
+        },
+        "installs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_install"
+          }
+        }
+      },
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "details": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_details"
+        },
+        "installs": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_installs"
+        },
+        "identitySourceSets": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_identitySourceSets"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_singleValueAttributeOp": {
+      "type": "object",
+      "description": "operation on a single (non-array) SAML attribute",
+      "required": [
+        "name",
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_multiValueAttributeOp": {
+      "type": "object",
+      "description": "operation on a multi-valued SAML attribute",
+      "required": [
+        "name",
+        "values"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_attributeOp": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_singleValueAttributeOp"
+        },
+        {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_multiValueAttributeOp"
+        }
+      ]
+    },
+    "..\\schemas\\tenantExtended.json_definitions_ifMatched": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOp"
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_attributeOverride": {
+      "type": "object",
+      "required": [
+        "filter",
+        "ifMatched"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "filter": {
+          "type": "string"
+        },
+        "ifMatched": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_ifMatched"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_id": {
+      "type": "integer"
+    },
+    "..\\schemas\\tenantExtended.json_definitions_description": {
+      "type": "string"
+    },
+    "..\\schemas\\tenantExtended.json_definitions_attributeOverrides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverride"
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_samlIdentitySource": {
+      "type": "object",
+      "required": [
+        "kind",
+        "metadata",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "samlIdentitySource"
+          ],
+          "description": "always set to: samlIdentitySource"
+        },
+        "id": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_id"
+        },
+        "metadata": {
+          "type": "string"
+        },
+        "description": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_description"
+        },
+        "attributeOverrides": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverrides"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_emailIdentitySource": {
+      "type": "object",
+      "required": [
+        "kind",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "emailIdentitySource"
+          ],
+          "description": "always set to: emailIdentitySource"
+        },
+        "id": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_id"
+        },
+        "description": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_description"
+        },
+        "attributeOverrides": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverrides"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_legacyAppIdentitySource": {
+      "type": "object",
+      "required": [
+        "kind",
+        "apiBase",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "legacyAppIdentitySource"
+          ],
+          "description": "always set to: legacyAppIdentitySource"
+        },
+        "id": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_id"
+        },
+        "apiBase": {
+          "type": "string"
+        },
+        "description": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_description"
+        },
+        "attributeOverrides": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverrides"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_socialIdentitySource": {
+      "type": "object",
+      "required": [
+        "kind",
+        "network",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "socialIdentitySource"
+          ],
+          "description": "always set to: socialIdentitySource"
+        },
+        "id": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_id"
+        },
+        "network": {
+          "enum": [
+            "LinkedIn",
+            "Facebook"
+          ]
+        },
+        "description": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_description"
+        },
+        "attributeOverrides": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverrides"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_bootstrapIdentitySource": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "bootstrapIdentitySource"
+          ],
+          "description": "always set to: bootstrapIdentitySource"
+        },
+        "description": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_description"
+        },
+        "attributeOverrides": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_attributeOverrides"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_identitySources": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_samlIdentitySource"
+          },
+          {
+            "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_emailIdentitySource"
+          },
+          {
+            "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_legacyAppIdentitySource"
+          },
+          {
+            "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_socialIdentitySource"
+          },
+          {
+            "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_bootstrapIdentitySource"
+          }
+        ]
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_identitySourceSet": {
+      "type": "object",
+      "properties": {
+        "principalType": {
+          "$ref": "#/definitions/..\\schemas\\samlSubject.json_definitions_principalType"
+        },
+        "identitySources": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_identitySources"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "principalType",
+        "identitySources"
+      ]
+    },
+    "..\\schemas\\tenantExtended.json_definitions_basicAuthCredentials": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "user",
+        "password"
+      ],
+      "properties": {
+        "user": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_server": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "baseUri",
+        "basicAuthCredentials"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "baseUri": {
+          "type": "string"
+        },
+        "basicAuthCredentials": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_basicAuthCredentials"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_servers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_server"
+      }
+    },
+    "..\\schemas\\tenantInstallsAppStatus.json": {},
+    "..\\schemas\\tenantExtended.json_definitions_install": {
+      "type": "object",
+      "required": [
+        "app"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "app": {
+          "type": "string"
+        },
+        "servers": {
+          "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_servers"
+        },
+        "status": {
+          "$ref": "#/definitions/..\\schemas\\tenantInstallsAppStatus.json"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_details": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "organizationName": {
+          "type": "string",
+          "description": "The legal name of the organization"
+        },
+        "shortCode": {
+          "type": "string",
+          "description": "a short, alpha only, lower case identifier for the tenant, e.g. acme"
+        },
+        "description": {
+          "type": "string",
+          "description": "a description for this store"
+        },
+        "country": {
+          "type": "string",
+          "description": "the country code for the organization using the store"
+        },
+        "industry": {
+          "enum": [
+            "Banking",
+            "Healthcare",
+            "Hospitality",
+            "IT",
+            "Manufacturing",
+            "Other"
+          ],
+          "description": "The organization\u0027s primary industry"
+        }
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_installs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_install"
+      }
+    },
+    "..\\schemas\\tenantExtended.json_definitions_identitySourceSets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_identitySourceSet"
+      }
+    },
+    "..\\schemas\\patchSet.json_definitions_op": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "op",
+        "path",
+        "value"
+      ],
+      "properties": {
+        "op": {
+          "enum": [
+            "add",
+            "remove",
+            "move",
+            "copy",
+            "replace",
+            "test"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "allow patching any string attribute"
+            },
+            {
+              "type": "number",
+              "description": "allow patching any number attribute"
+            },
+            {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json"
+            },
+            {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_install"
+            },
+            {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_installs"
+            },
+            {
+              "$ref": "#/definitions/..\\schemas\\tenantExtended.json_definitions_servers"
+            }
+          ]
+        }
+      }
+    },
+    "..\\schemas\\patchSetPreparer.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "continuePage": {
+          "type": "string",
+          "description": "the URI that your storefront app thinks the user should be redirected to on patch completion, unless some other storefront app gets installed and hence makes that decision"
+        },
+        "bumpSecurityGeneration": {
+          "type": "boolean",
+          "description": "true to request that the tenant\u0027s security generation is incremented as the patch is applied"
+        },
+        "patchSet": {
+          "$ref": "#/definitions/..\\schemas\\patchSet.json"
+        }
+      },
+      "required": [
+        "patchSet",
+        "bumpSecurityGeneration"
+      ]
+    },
+    "..\\schemas\\rebootLaunchKey.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "launchKey": {
+          "type": "string",
+          "description": "an unguessable key used to get information about a previously launched patchSet"
+        }
+      },
+      "required": [
+        "launchKey"
+      ]
+    },
+    "..\\schemas\\rebootStatus.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "app": {
+          "type": "string"
+        },
+        "elapsedTime": {
+          "description": "elapsed time of the operation in milliseconds",
+          "type": "integer"
+        },
+        "tenantEvent": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "patchSetApplyRebootStart",
+                "bumpSecurityGenerationRebootStart",
+                "simpleRebootStart",
+                "tenantPreHaltStart",
+                "tenantPreHaltComplete",
+                "tenantHaltStart",
+                "tenantHaltComplete",
+                "appPatchesApplyStart",
+                "appPatchesApplyComplete",
+                "bumpSecurityGenerationComplete",
+                "tenantPreStartStart",
+                "tenantPreStartComplete",
+                "tenantStartStart",
+                "tenantStartComplete",
+                "patchSetApplyRebootComplete",
+                "bumpSecurityGenerationRebootComplete",
+                "simpleRebootComplete"
+              ]
+            }
+          }
+        },
+        "appEvent": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "app"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "appPreHaltStart",
+                "appPreHaltError",
+                "appPreHaltTimeout",
+                "appPreHaltComplete",
+                "appHaltStart",
+                "appHaltError",
+                "appHaltTimeout",
+                "appHaltComplete",
+                "appPreStartStart",
+                "appPreStartError",
+                "appPreStartTimeout",
+                "appPreStartComplete",
+                "appStartStart",
+                "appStartError",
+                "appStartTimeout",
+                "appStartComplete",
+                "appInstallStart",
+                "appInstallError",
+                "appInstallTimeout",
+                "appInstallComplete",
+                "appUninstallStart",
+                "appUninstallError",
+                "appUninstallTimeout",
+                "appUninstallComplete",
+                "appEditComplete"
+              ]
+            },
+            "app": {
+              "$ref": "#/definitions/..\\schemas\\rebootStatus.json_definitions_app"
+            }
+          }
+        },
+        "tenantStatusEvent": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "incarnation",
+            "securityGeneration"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "tenantStatusEvent"
+              ]
+            },
+            "incarnation": {
+              "type": "integer"
+            },
+            "securityGeneration": {
+              "type": "integer"
+            }
+          }
+        },
+        "orderedEvent": {
+          "type": "object",
+          "properties": {
+            "seq": {
+              "type": "integer"
+            },
+            "time": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "event": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/..\\schemas\\rebootStatus.json_definitions_tenantEvent"
+                },
+                {
+                  "$ref": "#/definitions/..\\schemas\\rebootStatus.json_definitions_appEvent"
+                },
+                {
+                  "$ref": "#/definitions/..\\schemas\\rebootStatus.json_definitions_tenantStatusEvent"
+                }
+              ]
+            }
+          },
+          "required": [
+            "seq",
+            "time",
+            "event"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "notLaunched",
+            "inProcess",
+            "complete"
+          ]
+        },
+        "latestEvent": {
+          "type": "integer"
+        },
+        "continuePage": {
+          "type": "string",
+          "description": "the URI that the browser should redirect the user to once this reboot is complete, possibly at a new storefront if a patch set apply swapped out the current one"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\schemas\\rebootStatus.json_definitions_orderedEvent"
+          }
+        }
+      }
+    },
+    "..\\schemas\\rebootStatus.json_definitions_app": {
+      "type": "string"
+    },
+    "..\\schemas\\rebootStatus.json_definitions_tenantEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "patchSetApplyRebootStart",
+            "bumpSecurityGenerationRebootStart",
+            "simpleRebootStart",
+            "tenantPreHaltStart",
+            "tenantPreHaltComplete",
+            "tenantHaltStart",
+            "tenantHaltComplete",
+            "appPatchesApplyStart",
+            "appPatchesApplyComplete",
+            "bumpSecurityGenerationComplete",
+            "tenantPreStartStart",
+            "tenantPreStartComplete",
+            "tenantStartStart",
+            "tenantStartComplete",
+            "patchSetApplyRebootComplete",
+            "bumpSecurityGenerationRebootComplete",
+            "simpleRebootComplete"
+          ]
+        }
+      }
+    },
+    "..\\schemas\\rebootStatus.json_definitions_appEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "app"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "appPreHaltStart",
+            "appPreHaltError",
+            "appPreHaltTimeout",
+            "appPreHaltComplete",
+            "appHaltStart",
+            "appHaltError",
+            "appHaltTimeout",
+            "appHaltComplete",
+            "appPreStartStart",
+            "appPreStartError",
+            "appPreStartTimeout",
+            "appPreStartComplete",
+            "appStartStart",
+            "appStartError",
+            "appStartTimeout",
+            "appStartComplete",
+            "appInstallStart",
+            "appInstallError",
+            "appInstallTimeout",
+            "appInstallComplete",
+            "appUninstallStart",
+            "appUninstallError",
+            "appUninstallTimeout",
+            "appUninstallComplete",
+            "appEditComplete"
+          ]
+        },
+        "app": {
+          "$ref": "#/definitions/..\\schemas\\rebootStatus.json_definitions_app"
+        }
+      }
+    },
+    "..\\schemas\\rebootStatus.json_definitions_tenantStatusEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "incarnation",
+        "securityGeneration"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "tenantStatusEvent"
+          ]
+        },
+        "incarnation": {
+          "type": "integer"
+        },
+        "securityGeneration": {
+          "type": "integer"
+        }
+      }
+    },
+    "..\\schemas\\rebootStatus.json_definitions_orderedEvent": {
+      "type": "object",
+      "properties": {
+        "seq": {
+          "type": "integer"
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "event": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\schemas\\rebootStatus.json_definitions_tenantEvent"
+            },
+            {
+              "$ref": "#/definitions/..\\schemas\\rebootStatus.json_definitions_appEvent"
+            },
+            {
+              "$ref": "#/definitions/..\\schemas\\rebootStatus.json_definitions_tenantStatusEvent"
+            }
+          ]
+        }
+      },
+      "required": [
+        "seq",
+        "time",
+        "event"
+      ],
+      "additionalProperties": false
+    },
+    "..\\schemas\\rolesList.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "role": {
+          "type": "string",
+          "description": "role held by a principal"
+        }
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\rolesList.json_definitions_role"
+      }
+    },
+    "..\\schemas\\rolesList.json_definitions_role": {
+      "type": "string",
+      "description": "role held by a principal"
+    },
+    "..\\schemas\\routeBase.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "methods": {
+          "description": "The subset of the http methods (a) listed against an API and required from all producers (SoT or not); or (b) listed on an API consumer as being used.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "HEAD",
+              "GET",
+              "DELETE",
+              "PATCH",
+              "POST",
+              "PUT"
+            ]
+          }
+        },
+        "installDetail": {
+          "type": "object",
+          "properties": {
+            "tenant": {
+              "type": "string"
+            },
+            "app": {
+              "type": "string"
+            },
+            "methods": {
+              "$ref": "#/definitions/..\\schemas\\routeBase.json_definitions_methods"
+            },
+            "securityGeneration": {
+              "type": "integer"
+            },
+            "endPoint": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "tenant",
+            "app",
+            "securityGeneration"
+          ],
+          "additionalProperties": false
+        },
+        "consumedApi": {
+          "type": "object",
+          "properties": {
+            "apiDeveloper": {
+              "type": "string"
+            },
+            "apiUriTemplate": {
+              "type": "string"
+            },
+            "consumedAsSourceOfTruth": {
+              "type": "boolean"
+            },
+            "methods": {
+              "$ref": "#/definitions/..\\schemas\\routeBase.json_definitions_methods"
+            },
+            "principalType": {
+              "$ref": "#/definitions/..\\schemas\\samlSubject.json_definitions_principalType",
+              "description": "the principal type of this API (not present if this is not an on-behalf API)"
+            }
+          },
+          "required": [
+            "apiDeveloper",
+            "apiUriTemplate",
+            "consumedAsSourceOfTruth",
+            "methods"
+          ]
+        }
+      }
+    },
+    "..\\schemas\\routeBase.json_definitions_methods": {
+      "description": "The subset of the http methods (a) listed against an API and required from all producers (SoT or not); or (b) listed on an API consumer as being used.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "HEAD",
+          "GET",
+          "DELETE",
+          "PATCH",
+          "POST",
+          "PUT"
+        ]
+      }
+    },
+    "..\\schemas\\route.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "consumingAppInstall": {
+          "$ref": "#/definitions/..\\schemas\\routeBase.json_definitions_installDetail"
+        },
+        "consumedApi": {
+          "$ref": "#/definitions/..\\schemas\\routeBase.json_definitions_consumedApi"
+        },
+        "producingAppInstall": {
+          "$ref": "#/definitions/..\\schemas\\routeBase.json_definitions_installDetail"
+        }
+      }
+    },
+    "..\\schemas\\routeBase.json_definitions_installDetail": {
+      "type": "object",
+      "properties": {
+        "tenant": {
+          "type": "string"
+        },
+        "app": {
+          "type": "string"
+        },
+        "methods": {
+          "$ref": "#/definitions/..\\schemas\\routeBase.json_definitions_methods"
+        },
+        "securityGeneration": {
+          "type": "integer"
+        },
+        "endPoint": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tenant",
+        "app",
+        "securityGeneration"
+      ],
+      "additionalProperties": false
+    },
+    "..\\schemas\\routeBase.json_definitions_consumedApi": {
+      "type": "object",
+      "properties": {
+        "apiDeveloper": {
+          "type": "string"
+        },
+        "apiUriTemplate": {
+          "type": "string"
+        },
+        "consumedAsSourceOfTruth": {
+          "type": "boolean"
+        },
+        "methods": {
+          "$ref": "#/definitions/..\\schemas\\routeBase.json_definitions_methods"
+        },
+        "principalType": {
+          "$ref": "#/definitions/..\\schemas\\samlSubject.json_definitions_principalType",
+          "description": "the principal type of this API (not present if this is not an on-behalf API)"
+        }
+      },
+      "required": [
+        "apiDeveloper",
+        "apiUriTemplate",
+        "consumedAsSourceOfTruth",
+        "methods"
+      ]
+    },
+    "..\\schemas\\routes.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "consumingAppInstall": {
+          "$ref": "#/definitions/..\\schemas\\routeBase.json_definitions_installDetail"
+        },
+        "consumedApi": {
+          "$ref": "#/definitions/..\\schemas\\routeBase.json_definitions_consumedApi"
+        },
+        "producingAppInstalls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\schemas\\routeBase.json_definitions_installDetail"
+          }
+        }
+      }
+    },
+    "..\\schemas\\samlKey.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "key of the SAML assertion with the the TAS core SAML database",
+      "additionalProperties": false,
+      "required": [
+        "samlKey"
+      ],
+      "properties": {
+        "samlKey": {
+          "type": "string",
+          "description": "key of the SAML assertion with the the TAS core SAML database"
+        }
+      }
+    },
+    "..\\schemas\\samlSubject.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "principalType": {
+          "enum": [
+            "user",
+            "candidate"
+          ],
+          "description": "a class of principal (typically a human) identifiable by SSO. In theory developer-defined but for now only TAS can create."
+        }
+      },
+      "type": "object",
+      "description": "A set of SAML values that uniquely identify this person, consistently across TAS apps, and with any number of potential IdPs",
+      "additionalProperties": false,
+      "required": [
+        "pt",
+        "samlKey",
+        "nameID",
+        "entityID"
+      ],
+      "properties": {
+        "pt": {
+          "$ref": "#/definitions/..\\schemas\\samlSubject.json_definitions_principalType",
+          "description": "principal type"
+        },
+        "samlKey": {
+          "type": "string",
+          "description": "key of the SAML assertion with the the TAS core SAML database"
+        },
+        "nameID": {
+          "type": "string"
+        },
+        "entityID": {
+          "type": "string"
+        }
+      }
+    },
+    "..\\schemas\\simplePatchSet.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "app": {
+          "type": "string",
+          "description": "the shortCode of an app"
+        },
+        "appList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\schemas\\simplePatchSet.json_definitions_app"
+          }
+        }
+      },
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "installs": {
+          "description": "apps to be installed",
+          "$ref": "#/definitions/..\\schemas\\simplePatchSet.json_definitions_appList"
+        },
+        "unInstalls": {
+          "description": "apps to be uninstalled",
+          "$ref": "#/definitions/..\\schemas\\simplePatchSet.json_definitions_appList"
+        }
+      }
+    },
+    "..\\schemas\\simplePatchSet.json_definitions_app": {
+      "type": "string",
+      "description": "the shortCode of an app"
+    },
+    "..\\schemas\\simplePatchSet.json_definitions_appList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\simplePatchSet.json_definitions_app"
+      }
+    },
+    "..\\schemas\\storeFrontMainPage.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "description": "If your app is a storeFrontapp, you use this API to declare where you would prefer newly logged in users to be sent to. Sometime TAS will need to direct users to this page, e.g. when someone inside some other storeFront app clicks and unInstalls that same storeFront. That storeFront then becomes dead, and the user needs to be directed to one of the remaining storeFront apps, e.g. this one.",
+      "required": [
+        "kind",
+        "uri"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "storeFrontMainPage"
+          ],
+          "description": "always set to: storeFrontMainPage"
+        },
+        "uri": {
+          "type": "string",
+          "description": "your app\u0027s main uri - i.e. the default place to send users on login"
+        }
+      }
+    },
+    "..\\schemas\\tenant.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "definitions": {
+        "cidr": {
+          "type": "string",
+          "description": "a single block of IP addresses in CIDR format (e.g. 102.33.52.0/255). Apps may assume that anyone browsing from these addresses would be given the role \u0027internal\u0027 were they to authenticate as principal type of candidate, i.e. this is within a corporate network"
+        },
+        "internalIPs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\schemas\\tenant.json_definitions_cidr"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "name of the tenant"
+        },
+        "contactEmail": {
+          "type": "string",
+          "format": "email",
+          "description": "contact address for the person in charge of this tenant"
+        },
+        "shortCode": {
+          "type": "string",
+          "description": "a short, lower case identifier for the tenant, e.g. acme"
+        },
+        "type": {
+          "enum": [
+            "PRODUCTION",
+            "SANDBOX"
+          ],
+          "description": "The type of tenant, i.e. sandbox or not. Apps may behave differently when installed in a sandbox, e.g. not send email."
+        },
+        "country": {
+          "description": "tenant\u0027s default country, in ISO 3166-1 alpha-2 form",
+          "enum": [
+            "AC",
+            "AD",
+            "AE",
+            "AF",
+            "AG",
+            "AI",
+            "AL",
+            "AM",
+            "AN",
+            "AO",
+            "AQ",
+            "AR",
+            "AS",
+            "AT",
+            "AU",
+            "AW",
+            "AX",
+            "AZ",
+            "BA",
+            "BB",
+            "BD",
+            "BE",
+            "BF",
+            "BG",
+            "BH",
+            "BI",
+            "BJ",
+            "BM",
+            "BN",
+            "BO",
+            "BR",
+            "BS",
+            "BT",
+            "BV",
+            "BW",
+            "BY",
+            "BZ",
+            "CA",
+            "CC",
+            "CD",
+            "CF",
+            "CG",
+            "CH",
+            "CI",
+            "CK",
+            "CL",
+            "CM",
+            "CN",
+            "CO",
+            "CR",
+            "CU",
+            "CV",
+            "CX",
+            "CY",
+            "CZ",
+            "DE",
+            "DJ",
+            "DK",
+            "DM",
+            "DO",
+            "DZ",
+            "EC",
+            "EE",
+            "EG",
+            "ER",
+            "ES",
+            "ET",
+            "FI",
+            "FJ",
+            "FK",
+            "FM",
+            "FO",
+            "FR",
+            "GA",
+            "GB",
+            "GD",
+            "GE",
+            "GF",
+            "GG",
+            "GH",
+            "GI",
+            "GL",
+            "GM",
+            "GN",
+            "GP",
+            "GQ",
+            "GR",
+            "GS",
+            "GT",
+            "GU",
+            "GW",
+            "GY",
+            "HK",
+            "HM",
+            "HN",
+            "HR",
+            "HT",
+            "HU",
+            "ID",
+            "IE",
+            "IL",
+            "IM",
+            "IN",
+            "IO",
+            "IQ",
+            "IR",
+            "IS",
+            "IT",
+            "JE",
+            "JM",
+            "JO",
+            "JP",
+            "KE",
+            "KG",
+            "KH",
+            "KI",
+            "KM",
+            "KN",
+            "KP",
+            "KR",
+            "KW",
+            "KY",
+            "KZ",
+            "LA",
+            "LB",
+            "LC",
+            "LI",
+            "LK",
+            "LR",
+            "LS",
+            "LT",
+            "LU",
+            "LV",
+            "LY",
+            "MA",
+            "MC",
+            "MD",
+            "ME",
+            "MG",
+            "MH",
+            "MK",
+            "ML",
+            "MM",
+            "MN",
+            "MO",
+            "MP",
+            "MQ",
+            "MR",
+            "MS",
+            "MT",
+            "MU",
+            "MV",
+            "MW",
+            "MX",
+            "MY",
+            "MZ",
+            "NA",
+            "NC",
+            "NE",
+            "NF",
+            "NG",
+            "NI",
+            "NL",
+            "NO",
+            "NP",
+            "NR",
+            "NU",
+            "NZ",
+            "OM",
+            "PA",
+            "PE",
+            "PF",
+            "PG",
+            "PH",
+            "PK",
+            "PL",
+            "PM",
+            "PN",
+            "PR",
+            "PT",
+            "PW",
+            "PY",
+            "QA",
+            "RE",
+            "RO",
+            "RS",
+            "RU",
+            "RW",
+            "SA",
+            "SB",
+            "SC",
+            "SD",
+            "SE",
+            "SG",
+            "SH",
+            "SI",
+            "SJ",
+            "SK",
+            "SL",
+            "SM",
+            "SN",
+            "SO",
+            "SR",
+            "ST",
+            "SV",
+            "SY",
+            "SZ",
+            "TA",
+            "TC",
+            "TD",
+            "TF",
+            "TG",
+            "TH",
+            "TJ",
+            "TK",
+            "TL",
+            "TM",
+            "TN",
+            "TO",
+            "TR",
+            "TT",
+            "TV",
+            "TW",
+            "TZ",
+            "UA",
+            "UG",
+            "UM",
+            "US",
+            "UY",
+            "UZ",
+            "VA",
+            "VC",
+            "VE",
+            "VG",
+            "VI",
+            "VN",
+            "VU",
+            "WF",
+            "WS",
+            "YE",
+            "YT",
+            "ZA",
+            "ZM",
+            "ZW"
+          ]
+        },
+        "timeZone": {
+          "type": "string",
+          "description": "the default timezone for the tenant\u0027s principals, as per https://en.wikipedia.org/wiki/Tz_database"
+        },
+        "logoUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "url for the tenant\u0027s logo"
+        },
+        "internalIPs": {
+          "$ref": "#/definitions/..\\schemas\\tenant.json_definitions_internalIPs"
+        },
+        "privacyPolicyUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "url for the tenant\u0027s privacy policy"
+        }
+      },
+      "required": [
+        "name",
+        "shortCode",
+        "type",
+        "contactEmail"
+      ]
+    },
+    "..\\schemas\\tenant.json_definitions_cidr": {
+      "type": "string",
+      "description": "a single block of IP addresses in CIDR format (e.g. 102.33.52.0/255). Apps may assume that anyone browsing from these addresses would be given the role \u0027internal\u0027 were they to authenticate as principal type of candidate, i.e. this is within a corporate network"
+    },
+    "..\\schemas\\tenant.json_definitions_internalIPs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\tenant.json_definitions_cidr"
+      }
+    },
+    "..\\schemas\\tenantList.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "tenant": {
+          "type": "string",
+          "description": "shortcode of a tenant"
+        }
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\schemas\\tenantList.json_definitions_tenant"
+      }
+    },
+    "..\\schemas\\tenantList.json_definitions_tenant": {
+      "type": "string",
+      "description": "shortcode of a tenant"
+    },
+    "..\\schemas\\tenantStatus.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "incarnation": {
+          "type": "integer",
+          "description": "a number representing the \u0027configuration version\u0027 of this tenant. Incremented on any changes to the installed apps."
+        },
+        "securityGeneration": {
+          "type": "integer",
+          "description": "a number representing the \u0027security version\u0027 of this tenant. Incremented when tenant signals such during a patch operation."
+        },
+        "state": {
+          "enum": [
+            "PREHALTING",
+            "PREHALTED",
+            "HALTING",
+            "HALTED",
+            "PRESTARTING",
+            "PRESTARTED",
+            "STARTING",
+            "STARTED",
+            "BROKEN"
+          ],
+          "description": "The tenant\u0027s current status."
+        }
+      },
+      "required": [
+        "incarnation",
+        "securityGeneration"
+      ]
+    },
+    "..\\schemas\\tokenJwt.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "description": "reference to http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html",
+      "properties": {
+        "sub": {
+          "$ref": "#/definitions/..\\schemas\\samlSubject.json"
+        },
+        "cons": {
+          "description": "details of the app consuming the API",
+          "type": "object",
+          "properties": {
+            "ct": {
+              "type": "string",
+              "description": "the tenant who has installed the app consuming the API"
+            },
+            "ca": {
+              "type": "string",
+              "description": "the app consuming the API"
+            },
+            "sgen": {
+              "type": "integer",
+              "description": "the security generation of the tenant"
+            }
+          },
+          "required": [
+            "ct",
+            "ca",
+            "sgen"
+          ]
+        },
+        "aud": {
+          "description": "audience - details of the app producing the API",
+          "type": "object",
+          "properties": {
+            "pt": {
+              "type": "string",
+              "description": "the tenant who has installed the app producing the API"
+            },
+            "pa": {
+              "type": "string",
+              "description": "the app producing the API"
+            },
+            "sgen": {
+              "type": "integer",
+              "description": "the security generation of the tenant"
+            }
+          },
+          "required": [
+            "pt",
+            "pa",
+            "sgen"
+          ]
+        },
+        "dev": {
+          "type": "string",
+          "description": "the API\u0027s developer"
+        },
+        "api": {
+          "type": "string",
+          "description": "the URI template of the API"
+        },
+        "sot": {
+          "type": "boolean",
+          "description": "whether the API is being consumed as SoT (if true) or not"
+        },
+        "iat": {
+          "type": "string",
+          "description": "time the token was issued, as per the spec."
+        },
+        "exp": {
+          "type": "string",
+          "description": "time the token expires, as per the spec."
+        }
+      },
+      "required": [
+        "cons",
+        "aud",
+        "dev",
+        "api",
+        "iat",
+        "exp"
+      ]
+    },
+    "..\\schemas\\tokenResponse.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "description": "result of a call to POST /token",
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "description": "the token (a JWT signed by the core and with the structure described in the schema tokenJwt.json)"
+        },
+        "expires_in": {
+          "type": "integer",
+          "description": "The remaining lifetime of the access token, in seconds"
+        },
+        "token_type": {
+          "enum": [
+            "Bearer"
+          ]
+        },
+        "refresh_token": {
+          "type": "string",
+          "description": "An optional refresh token, when the response was a result of a call to POST /token with scope of offline"
+        }
+      },
+      "required": [
+        "access_token",
+        "expires_in",
+        "token_type"
+      ]
+    },
+    "..\\schemas\\wellKnownSamlAttributes.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "entityID": {
+          "type": "string"
+        },
+        "nameID": {
+          "type": "string"
+        },
+        "tas.personal.givenName": {
+          "type": "string"
+        },
+        "tas.personal.familyName": {
+          "type": "string"
+        },
+        "tas.personal.email": {
+          "type": "string"
+        },
+        "tas.personal.image": {
+          "type": "string",
+          "format": "uri"
+        },
+        "tas.roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

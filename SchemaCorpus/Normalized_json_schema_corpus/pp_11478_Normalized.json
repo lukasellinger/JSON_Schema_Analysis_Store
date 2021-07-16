@@ -1,0 +1,77 @@
+{
+  "id": "#location.json",
+  "title": "JSON Schema for OLE responses for Locations",
+  "$schema": "http://json-schema.org/schema#",
+  "description": "Constrains OLE Locations output by the OLE server; input restrictions are more limited",
+  "allOf": [
+    {
+      "$ref": "#/definitions/baseObject.json"
+    }
+  ],
+  "definitions": {
+    "locationLevel": {
+      "description": "Specialization of the locationLevel to eliminate the need to specify \u0027code\u0027",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "http://ole.kuali.org/standards/api/locationLevel.jsonld"
+        },
+        "@id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "name": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@context",
+        "@id",
+        "name"
+      ]
+    },
+    "baseObject.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "type": "object",
+      "description": "Base definition for maintenance object objects in the API.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "description": "This is the resource URI for the specific object",
+          "format": "uri"
+        },
+        "@context": {
+          "type": "string",
+          "description": "Indicates the type of object; individual extending types may use \u0027pattern\u0027 to match a specific URI",
+          "format": "uri"
+        },
+        "code": {
+          "description": "A short(-ish) code used as an alternate (contextual) reference for the object",
+          "type": "string"
+        },
+        "name": {
+          "description": "A human readable name for the object",
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "code",
+        "name"
+      ]
+    }
+  },
+  "properties": {
+    "@context": {
+      "pattern": "http://ole.kuali.org/standards/api/location.jsonld"
+    },
+    "level": {
+      "$ref": "#/definitions/locationLevel"
+    }
+  }
+}

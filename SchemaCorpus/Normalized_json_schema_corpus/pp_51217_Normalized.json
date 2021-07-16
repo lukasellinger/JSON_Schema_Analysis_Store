@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "data-marking",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id.json",
+      "description": "The ID of this marking"
+    },
+    "producer_ref": {
+      "$ref": "#/definitions/id.json",
+      "description": "The producer of this marking"
+    }
+  },
+  "required": [
+    "id",
+    "producer_ref"
+  ],
+  "definitions": {
+    "id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "id",
+      "description": "The format used for all IDs in TWIGS",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9-]+--[A-Za-z0-9-]{36}$"
+    }
+  }
+}

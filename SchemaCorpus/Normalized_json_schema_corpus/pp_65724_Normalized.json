@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "DemandProfiles",
+  "type": "array",
+  "items": [
+    {
+      "$ref": "#/definitions/demand-profile.json"
+    }
+  ],
+  "definitions": {
+    "demand-profile.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "DemandProfile",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/definitions/demand-profile-string.json"
+        },
+        "config_json": {
+          "$ref": "#/definitions/demand-profile-string.json"
+        },
+        "config_filename": {
+          "type": "string"
+        },
+        "load_duration": {
+          "type": "integer"
+        },
+        "created": {
+          "type": "string"
+        }
+      }
+    },
+    "demand-profile-string.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "DemandProfileConfig",
+      "type": "string"
+    }
+  }
+}

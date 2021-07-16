@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Collection of Todos for user",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/todo.json"
+  },
+  "definitions": {
+    "todo.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Todo",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  }
+}

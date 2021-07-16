@@ -1,0 +1,4 @@
+{
+  "pattern": "^\\t$",
+  "type": "string"
+}

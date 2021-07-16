@@ -1,0 +1,70 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "root",
+  "title": "Multi-Tenant Service Definition",
+  "name": "Service Definition",
+  "options": {
+    "disable_properties": true,
+    "disable_collapse": true
+  },
+  "required": [
+    "serviceName",
+    "cartridgeType",
+    "deploymentPolicyName",
+    "autoscalingPolicyName",
+    "clusterDomain",
+    "clusterSubDomain",
+    "tenantRange"
+  ],
+  "properties": {
+    "serviceName": {
+      "type": "string",
+      "title": "Service Name",
+      "name": "Service Name",
+      "default": "appserver"
+    },
+    "isPublic": {
+      "type": "string",
+      "title": "Is Public",
+      "name": "Is Public",
+      "default": "true"
+    },
+    "cartridgeType": {
+      "type": "string",
+      "title": "Cartridge Type",
+      "name": "Cartridge Type",
+      "default": "appserver"
+    },
+    "deploymentPolicyName": {
+      "type": "string",
+      "title": "Deployment Policy Name",
+      "name": "Deployment Policy Name",
+      "default": "D1"
+    },
+    "autoscalingPolicyName": {
+      "type": "string",
+      "title": "Autoscaling Policy Name",
+      "name": "Autoscaling Policy Name",
+      "default": "AS1"
+    },
+    "clusterDomain": {
+      "type": "string",
+      "title": "Cluster Domain",
+      "name": "Cluster Domain",
+      "default": "appserverdev.dev.domain"
+    },
+    "clusterSubDomain": {
+      "type": "string",
+      "title": "Cluster Sub Domain",
+      "name": "Cluster Sub Domain",
+      "default": "subdomain2"
+    },
+    "tenantRange": {
+      "type": "string",
+      "title": "Tenant Range",
+      "name": "Tenant Range",
+      "default": "*"
+    }
+  }
+}

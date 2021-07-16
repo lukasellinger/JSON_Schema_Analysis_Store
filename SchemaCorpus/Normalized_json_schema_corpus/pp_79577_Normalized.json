@@ -1,0 +1,1243 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "label": {
+      "type": "string",
+      "description": "label for this job board, e.g. Super grads"
+    },
+    "logo": {
+      "type": "string",
+      "format": "uri",
+      "description": "A url that contains the logo for your app"
+    },
+    "domain": {
+      "type": "string",
+      "description": "e.g. www.supergrads.com - used for source tracking"
+    },
+    "defaultAdvertisementDuration": {
+      "type": "integer",
+      "description": "how many days do advertisement remain open on the site, e.g. 30"
+    },
+    "defaultLegacySourceCode": {
+      "type": "string",
+      "description": "a default for legacy source code when this board is installed, e.g. SK."
+    },
+    "defaultSetupErrorMessage": {
+      "type": "string",
+      "description": "a default value for the installed board\u0027s setup error message. If not null, setup required will light up on the app for all new installs."
+    },
+    "applicationURLRules": {
+      "$ref": "#/definitions/validationMeta.json_definitions_stringValidationMeta"
+    },
+    "titleRules": {
+      "$ref": "#/definitions/validationMeta.json_definitions_stringValidationMeta"
+    },
+    "referenceCodeRules": {
+      "$ref": "#/definitions/validationMeta.json_definitions_stringValidationMeta"
+    },
+    "shortSummaryRules": {
+      "$ref": "#/definitions/validationMeta.json_definitions_stringValidationMeta"
+    },
+    "descriptionRules": {
+      "$ref": "#/definitions/validationMeta.json_definitions_stringValidationMeta"
+    },
+    "recruiterNameRules": {
+      "$ref": "#/definitions/validationMeta.json_definitions_stringValidationMeta"
+    },
+    "recruiterEmailRules": {
+      "$ref": "#/definitions/validationMeta.json_definitions_stringValidationMeta"
+    },
+    "advertisementRules": {
+      "$ref": "#/definitions/advertisementMetas.json"
+    }
+  },
+  "required": [
+    "label",
+    "domain",
+    "defaultAdvertisementDuration",
+    "defaultLegacySourceCode",
+    "advertisementModel"
+  ],
+  "definitions": {
+    "validationMeta.json_definitions_stringValidationMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "string"
+          ]
+        },
+        "minLength": {
+          "type": "integer"
+        },
+        "maxLength": {
+          "type": "integer"
+        },
+        "mandatory": {
+          "type": "boolean"
+        },
+        "pattern": {
+          "type": "string"
+        }
+      }
+    },
+    "advertisementMetas.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/advertisementMeta.json"
+      }
+    },
+    "advertisementMeta.json": {
+      "definitions": {
+        "title": {
+          "type": "string",
+          "description": "The heading that appears above the group of fields"
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Instruction text for the group of fields. Appears beneath the heading"
+        }
+      },
+      "type": "object",
+      "description": "A group of fields that will be displayed on the posting form for the board",
+      "properties": {
+        "advertisementFields": {
+          "$ref": "#/definitions/itemMetas.json"
+        },
+        "title": {
+          "$ref": "#/definitions/advertisementMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/advertisementMeta.json_definitions_instructions"
+        }
+      }
+    },
+    "itemMetas.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemMeta.json"
+      }
+    },
+    "itemMeta.json": {
+      "definitions": {
+        "title": {
+          "type": "string",
+          "description": "a short, markdown-formatted label for this item, e.g. \u0027Date of birth\u0027"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "description": "markdown-formatted description to a person as to what this option is used for if it\u0027s not clear from the title"
+        },
+        "instructions": {
+          "type": "string",
+          "description": "markdown-formatted instructions to a person as to how to complete/interpret this item, if it\u0027s not obvious from the title"
+        },
+        "footer": {
+          "type": "string"
+        },
+        "elementId": {
+          "type": "string",
+          "description": "It will be used as the id attribute of the form element. This will be the values of payloadElements and reRenderElements in the callback object"
+        },
+        "callback": {
+          "type": "object",
+          "description": "The callback object dictates where the additional info will be taken from and how it should render the form elements on the page",
+          "properties": {
+            "apiUri": {
+              "type": "string",
+              "format": "uri",
+              "description": "the API endpoint to be called"
+            },
+            "method": {
+              "enum": [
+                "GET",
+                "POST"
+              ]
+            },
+            "formEvent": {
+              "enum": [
+                "onChange"
+              ]
+            },
+            "reRenderWholePage": {
+              "type": "boolean",
+              "description": "If this is set to true, all the elements on the page should be re-rendered"
+            },
+            "payloadElements": {
+              "type": "array",
+              "description": "It is only applicable to GET method. The values of the elements should be included in the request",
+              "items": {
+                "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+              }
+            },
+            "autoComplete": {
+              "type": "boolean",
+              "description": "If this is set to true, this input field will be treated as auto complete field. It only applies to string question type and singleLine format and it only applicable to GET method"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "apiUri",
+            "method"
+          ]
+        },
+        "sectionMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "section"
+              ]
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "subMetas": {
+              "$ref": "#/definitions/itemMetas.json"
+            }
+          }
+        },
+        "booleanMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "boolean"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "presentation": {
+              "enum": [
+                "checkbox",
+                "select"
+              ],
+              "description": "a hint as to how the item should be rendered"
+            },
+            "nullLabel": {
+              "type": "string",
+              "description": "The label that should be used for the \u0027no selection\u0027 choice. When present, implies presentation \u003d\u003d select"
+            },
+            "defaultValue": {
+              "type": "boolean",
+              "description": "defaults to false if not present"
+            },
+            "trueLabel": {
+              "type": "string",
+              "description": "defaults to \u0027yes\u0027"
+            },
+            "falseLabel": {
+              "type": "string",
+              "description": "defaults to \u0027no\u0027"
+            },
+            "mandatory": {
+              "type": "boolean"
+            }
+          }
+        },
+        "numberMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "number"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "precision": {
+              "type": "integer"
+            },
+            "scale": {
+              "type": "integer"
+            },
+            "minValue": {
+              "type": "number"
+            },
+            "maxValue": {
+              "type": "number"
+            },
+            "defaultValue": {
+              "type": "number"
+            },
+            "mandatory": {
+              "type": "boolean"
+            }
+          }
+        },
+        "stringMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "string"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "format": {
+              "enum": [
+                "singleLine",
+                "multiLine",
+                "markDown"
+              ],
+              "description": "what sort of string the item holds"
+            },
+            "minLength": {
+              "type": "integer"
+            },
+            "maxLength": {
+              "type": "integer"
+            },
+            "defaultValue": {
+              "type": "string"
+            },
+            "mandatory": {
+              "type": "boolean"
+            },
+            "pattern": {
+              "type": "string"
+            },
+            "hidden": {
+              "type": "boolean",
+              "description": "If this is set to true, user wouldn\u0027t see this item from UI."
+            }
+          }
+        },
+        "dateMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "date"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "showTime": {
+              "type": "boolean",
+              "description": "whether time component should be shown - entered dates default to midnight if false"
+            },
+            "nullLabel": {
+              "type": "string",
+              "description": "if present, results in a selectable UI element that equates to no selection"
+            },
+            "minDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "maxDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "defaultValue": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "mandatory": {
+              "type": "boolean"
+            }
+          }
+        },
+        "fileMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "file"
+              ]
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "purpose": {
+              "enum": [
+                "audio",
+                "document",
+                "image",
+                "video"
+              ]
+            },
+            "accept": {
+              "type": "array",
+              "description": "the allowable internet media types (mime types) for the resume, e.g. word and pdf files",
+              "items": {
+                "$ref": "#/definitions/fileDownload.json_definitions_mediaType"
+              }
+            },
+            "maxSize": {
+              "type": "integer",
+              "description": "maximum file size in bytes"
+            },
+            "mandatory": {
+              "type": "boolean"
+            }
+          }
+        },
+        "tableMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "table"
+              ]
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "minRows": {
+              "type": "integer"
+            },
+            "maxRows": {
+              "type": "integer"
+            },
+            "columns": {
+              "$ref": "#/definitions/itemMeta.json_definitions_columns"
+            }
+          }
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json"
+          },
+          "description": "a series of itemMetas, each representing a column within the table"
+        },
+        "picklistMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "picklist"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "nullLabel": {
+              "type": "string",
+              "description": "if present,  and presentation \u003d\u003d showOne, then a pseudo-choice will be injected"
+            },
+            "minChoices": {
+              "type": "integer"
+            },
+            "maxChoices": {
+              "type": "integer"
+            },
+            "presentation": {
+              "enum": [
+                "showOne",
+                "showAll"
+              ],
+              "description": "showOne is only usable when maxChoices \u003d\u003d 1"
+            },
+            "choices": {
+              "$ref": "#/definitions/itemMeta.json_definitions_picklistChoices"
+            }
+          }
+        },
+        "picklistChoices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json_definitions_picklistChoice"
+          },
+          "description": "a bunch of choices that are \u0027unlocked\u0027 due to the user selecting their enclosing choice within the picklist"
+        },
+        "picklistChoice": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "an unique id for picklist choice"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "name": {
+              "type": "string",
+              "description": "this choice - ideally immutable"
+            },
+            "isDefault": {
+              "type": "boolean",
+              "description": "will always be compatible with minChoices, maxChoices"
+            },
+            "choices": {
+              "$ref": "#/definitions/itemMeta.json_definitions_picklistChoices"
+            }
+          }
+        },
+        "cascadeMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "cascade"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "nullLabel": {
+              "type": "string",
+              "description": "if present,  and presentation \u003d\u003d showOne, then a pseudo-choice will be injected"
+            },
+            "minChoices": {
+              "type": "integer"
+            },
+            "maxChoices": {
+              "type": "integer"
+            },
+            "presentation": {
+              "enum": [
+                "showOne",
+                "showAll",
+                "showCards"
+              ],
+              "description": "showOne is only usable when maxChoices \u003d\u003d 1. If it\u0027s showCards, maxChoices must be 1 and it will display all options as card components."
+            },
+            "choices": {
+              "$ref": "#/definitions/itemMeta.json_definitions_cascadeChoices"
+            }
+          }
+        },
+        "cascadeChoices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json_definitions_cascadeChoice"
+          },
+          "description": "a bunch of items that are \u0027unlocked\u0027 due to the user selecting their enclosing choice within the picklist"
+        },
+        "cascadeChoice": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "this choice - ideally immutable"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "subtitle": {
+              "$ref": "#/definitions/itemMeta.json_definitions_subtitle",
+              "description": "It\u0027s only usable when presentation of cascade item is showCards"
+            },
+            "description": {
+              "$ref": "#/definitions/itemMeta.json_definitions_description",
+              "description": "It\u0027s only usable when presentation of cascade item is showCards"
+            },
+            "footer": {
+              "$ref": "#/definitions/itemMeta.json_definitions_footer",
+              "description": "It\u0027s only usable when presentation of cascade item is showCards"
+            },
+            "level": {
+              "type": "number",
+              "description": "defines the colour of the card components when the presentation of cascade item is showCards. Starts at zero."
+            },
+            "isDisabled": {
+              "type": "boolean",
+              "description": "will disable this cascade choice on the UI"
+            },
+            "isDefault": {
+              "type": "boolean",
+              "description": "will always be compatible with minChoices, maxChoices"
+            },
+            "subItems": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/itemMeta.json"
+              },
+              "description": "items unlocked based on a choice"
+            }
+          }
+        }
+      },
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_sectionMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_booleanMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_numberMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_stringMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_dateMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_fileMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_picklistMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_cascadeMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_tableMeta"
+        }
+      ]
+    },
+    "itemMeta.json_definitions_elementId": {
+      "type": "string",
+      "description": "It will be used as the id attribute of the form element. This will be the values of payloadElements and reRenderElements in the callback object"
+    },
+    "itemRead.json_definitions_name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "itemMeta.json_definitions_title": {
+      "type": "string",
+      "description": "a short, markdown-formatted label for this item, e.g. \u0027Date of birth\u0027"
+    },
+    "itemMeta.json_definitions_instructions": {
+      "type": "string",
+      "description": "markdown-formatted instructions to a person as to how to complete/interpret this item, if it\u0027s not obvious from the title"
+    },
+    "itemMeta.json_definitions_callback": {
+      "type": "object",
+      "description": "The callback object dictates where the additional info will be taken from and how it should render the form elements on the page",
+      "properties": {
+        "apiUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "the API endpoint to be called"
+        },
+        "method": {
+          "enum": [
+            "GET",
+            "POST"
+          ]
+        },
+        "formEvent": {
+          "enum": [
+            "onChange"
+          ]
+        },
+        "reRenderWholePage": {
+          "type": "boolean",
+          "description": "If this is set to true, all the elements on the page should be re-rendered"
+        },
+        "payloadElements": {
+          "type": "array",
+          "description": "It is only applicable to GET method. The values of the elements should be included in the request",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+          }
+        },
+        "autoComplete": {
+          "type": "boolean",
+          "description": "If this is set to true, this input field will be treated as auto complete field. It only applies to string question type and singleLine format and it only applicable to GET method"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apiUri",
+        "method"
+      ]
+    },
+    "fileDownload.json_definitions_mediaType": {
+      "description": "keep in synch with the trait document_asStream",
+      "enum": [
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/msword",
+        "application/rtf",
+        "text/plain",
+        "image/png",
+        "image/jpeg",
+        "image/gif",
+        "text/html",
+        "audio/x-mpeg-3",
+        "video/x-msvideo",
+        "video/mp4"
+      ]
+    },
+    "itemMeta.json_definitions_columns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemMeta.json"
+      },
+      "description": "a series of itemMetas, each representing a column within the table"
+    },
+    "itemMeta.json_definitions_picklistChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemMeta.json_definitions_picklistChoice"
+      },
+      "description": "a bunch of choices that are \u0027unlocked\u0027 due to the user selecting their enclosing choice within the picklist"
+    },
+    "itemMeta.json_definitions_picklistChoice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "an unique id for picklist choice"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "name": {
+          "type": "string",
+          "description": "this choice - ideally immutable"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "will always be compatible with minChoices, maxChoices"
+        },
+        "choices": {
+          "$ref": "#/definitions/itemMeta.json_definitions_picklistChoices"
+        }
+      }
+    },
+    "itemMeta.json_definitions_cascadeChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemMeta.json_definitions_cascadeChoice"
+      },
+      "description": "a bunch of items that are \u0027unlocked\u0027 due to the user selecting their enclosing choice within the picklist"
+    },
+    "itemMeta.json_definitions_cascadeChoice": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "this choice - ideally immutable"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "subtitle": {
+          "$ref": "#/definitions/itemMeta.json_definitions_subtitle",
+          "description": "It\u0027s only usable when presentation of cascade item is showCards"
+        },
+        "description": {
+          "$ref": "#/definitions/itemMeta.json_definitions_description",
+          "description": "It\u0027s only usable when presentation of cascade item is showCards"
+        },
+        "footer": {
+          "$ref": "#/definitions/itemMeta.json_definitions_footer",
+          "description": "It\u0027s only usable when presentation of cascade item is showCards"
+        },
+        "level": {
+          "type": "number",
+          "description": "defines the colour of the card components when the presentation of cascade item is showCards. Starts at zero."
+        },
+        "isDisabled": {
+          "type": "boolean",
+          "description": "will disable this cascade choice on the UI"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "will always be compatible with minChoices, maxChoices"
+        },
+        "subItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json"
+          },
+          "description": "items unlocked based on a choice"
+        }
+      }
+    },
+    "itemMeta.json_definitions_subtitle": {
+      "type": "string"
+    },
+    "itemMeta.json_definitions_description": {
+      "type": "string",
+      "description": "markdown-formatted description to a person as to what this option is used for if it\u0027s not clear from the title"
+    },
+    "itemMeta.json_definitions_footer": {
+      "type": "string"
+    },
+    "itemMeta.json_definitions_sectionMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "section"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "subMetas": {
+          "$ref": "#/definitions/itemMetas.json"
+        }
+      }
+    },
+    "itemMeta.json_definitions_booleanMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "boolean"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "presentation": {
+          "enum": [
+            "checkbox",
+            "select"
+          ],
+          "description": "a hint as to how the item should be rendered"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "The label that should be used for the \u0027no selection\u0027 choice. When present, implies presentation \u003d\u003d select"
+        },
+        "defaultValue": {
+          "type": "boolean",
+          "description": "defaults to false if not present"
+        },
+        "trueLabel": {
+          "type": "string",
+          "description": "defaults to \u0027yes\u0027"
+        },
+        "falseLabel": {
+          "type": "string",
+          "description": "defaults to \u0027no\u0027"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "itemMeta.json_definitions_numberMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "number"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "precision": {
+          "type": "integer"
+        },
+        "scale": {
+          "type": "integer"
+        },
+        "minValue": {
+          "type": "number"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "defaultValue": {
+          "type": "number"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "itemMeta.json_definitions_stringMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "string"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "format": {
+          "enum": [
+            "singleLine",
+            "multiLine",
+            "markDown"
+          ],
+          "description": "what sort of string the item holds"
+        },
+        "minLength": {
+          "type": "integer"
+        },
+        "maxLength": {
+          "type": "integer"
+        },
+        "defaultValue": {
+          "type": "string"
+        },
+        "mandatory": {
+          "type": "boolean"
+        },
+        "pattern": {
+          "type": "string"
+        },
+        "hidden": {
+          "type": "boolean",
+          "description": "If this is set to true, user wouldn\u0027t see this item from UI."
+        }
+      }
+    },
+    "itemMeta.json_definitions_dateMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "date"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "showTime": {
+          "type": "boolean",
+          "description": "whether time component should be shown - entered dates default to midnight if false"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "if present, results in a selectable UI element that equates to no selection"
+        },
+        "minDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "maxDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "defaultValue": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "itemMeta.json_definitions_fileMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "file"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "purpose": {
+          "enum": [
+            "audio",
+            "document",
+            "image",
+            "video"
+          ]
+        },
+        "accept": {
+          "type": "array",
+          "description": "the allowable internet media types (mime types) for the resume, e.g. word and pdf files",
+          "items": {
+            "$ref": "#/definitions/fileDownload.json_definitions_mediaType"
+          }
+        },
+        "maxSize": {
+          "type": "integer",
+          "description": "maximum file size in bytes"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "itemMeta.json_definitions_picklistMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "picklist"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "if present,  and presentation \u003d\u003d showOne, then a pseudo-choice will be injected"
+        },
+        "minChoices": {
+          "type": "integer"
+        },
+        "maxChoices": {
+          "type": "integer"
+        },
+        "presentation": {
+          "enum": [
+            "showOne",
+            "showAll"
+          ],
+          "description": "showOne is only usable when maxChoices \u003d\u003d 1"
+        },
+        "choices": {
+          "$ref": "#/definitions/itemMeta.json_definitions_picklistChoices"
+        }
+      }
+    },
+    "itemMeta.json_definitions_cascadeMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "cascade"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "if present,  and presentation \u003d\u003d showOne, then a pseudo-choice will be injected"
+        },
+        "minChoices": {
+          "type": "integer"
+        },
+        "maxChoices": {
+          "type": "integer"
+        },
+        "presentation": {
+          "enum": [
+            "showOne",
+            "showAll",
+            "showCards"
+          ],
+          "description": "showOne is only usable when maxChoices \u003d\u003d 1. If it\u0027s showCards, maxChoices must be 1 and it will display all options as card components."
+        },
+        "choices": {
+          "$ref": "#/definitions/itemMeta.json_definitions_cascadeChoices"
+        }
+      }
+    },
+    "itemMeta.json_definitions_tableMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "table"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "minRows": {
+          "type": "integer"
+        },
+        "maxRows": {
+          "type": "integer"
+        },
+        "columns": {
+          "$ref": "#/definitions/itemMeta.json_definitions_columns"
+        }
+      }
+    },
+    "advertisementMeta.json_definitions_title": {
+      "type": "string",
+      "description": "The heading that appears above the group of fields"
+    },
+    "advertisementMeta.json_definitions_instructions": {
+      "type": "string",
+      "description": "Instruction text for the group of fields. Appears beneath the heading"
+    }
+  }
+}

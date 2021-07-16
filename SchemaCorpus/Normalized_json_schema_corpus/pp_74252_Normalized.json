@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "_id": {},
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "age": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "sex": {
+      "enum": [
+        "male",
+        "female",
+        "other",
+        "unknown",
+        null
+      ]
+    },
+    "race": {
+      "enum": [
+        "American Indian or Alaska Native",
+        "Asian",
+        "Native Hawaiian or Other Pacific Islander",
+        "Black or African American",
+        "White",
+        "More Than One Race",
+        "Unknown or Not Reported",
+        null
+      ]
+    },
+    "ethnicity": {
+      "enum": [
+        "Not Hispanic or Latino",
+        "Hispanic or Latino",
+        "Unknown or Not Reported",
+        null
+      ]
+    },
+    "code": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "files": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/definitions/file.json"
+      }
+    },
+    "info": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "file.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "created": {},
+        "modified": {},
+        "type": {
+          "type": "string"
+        },
+        "mimetype": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "modality": {
+          "type": "string"
+        },
+        "measurements": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "created",
+        "modified",
+        "size",
+        "hash"
+      ],
+      "key_fields": [
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

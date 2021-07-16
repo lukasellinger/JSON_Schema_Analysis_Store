@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "Feature"
+      ]
+    },
+    "bbox": {
+      "$ref": "#/definitions/http:__json.schemastore.org_geojson_properties_bbox"
+    },
+    "geometry": {
+      "$ref": "#/definitions/http:__json.schemastore.org_geojson_definitions_geometry"
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "url"
+      ],
+      "properties": {
+        "name": {
+          "description": "The name of the imagery source",
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "tms",
+            "wms",
+            "bing",
+            "scanex"
+          ]
+        },
+        "url": {
+          "description": "A URL template for imagery tiles",
+          "type": "string"
+        },
+        "min_zoom": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_zoom": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "license_url": {
+          "description": "A URL for the license or permissions for the imagery",
+          "type": "string"
+        },
+        "id": {
+          "description": "A unique identifier for the source; used in imagery_used changeset tag",
+          "pattern": "^[-_.A-Za-z0-9]+$",
+          "type": "string"
+        },
+        "description": {
+          "description": "A short English-language description of the source",
+          "type": "string"
+        },
+        "country_code": {
+          "description": "The ISO 3166-1 alpha-2 two letter country code in upper case",
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "default": {
+          "description": "Whether this imagery should be shown in the default world-wide menu",
+          "type": "boolean"
+        },
+        "best": {
+          "description": "Whether this imagery is the best source for the region",
+          "type": "boolean"
+        },
+        "start_date": {
+          "description": "The age of the oldest imagery or data in the source, as an RFC3339 date or leading portion of one",
+          "type": "string",
+          "pattern": "^\\d\\d\\d\\d(-\\d\\d(-\\d\\d)?)?$"
+        },
+        "end_date": {
+          "description": "The age of the newest imagery or data in the source, as an RFC3339 date or leading portion of one",
+          "type": "string",
+          "pattern": "^\\d\\d\\d\\d(-\\d\\d(-\\d\\d)?)?$"
+        },
+        "overlay": {
+          "description": "\u0027true\u0027 if tiles are transparent and can be overlaid on another source",
+          "type": "boolean"
+        },
+        "available_projections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attribution": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "html": {
+              "type": "string"
+            },
+            "required": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "icon": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "http:__json.schemastore.org_geojson_properties_bbox": {
+      "title": "Bounding Box",
+      "type": "array",
+      "description": "To include information on the coordinate range for geometries, features, or feature collections, a GeoJSON object may have a member named `bbox`. The value of the bbox member must be a 2*n array where n is the number of dimensions represented in the contained geometries, with the lowest values for all axes followed by the highest values. The axes order of a bbox follows the axes order of geometries. In addition, the coordinate reference system for the bbox is assumed to match the coordinate reference system of the GeoJSON object of which it is a member.",
+      "minItems": 4,
+      "items": {
+        "type": "number"
+      }
+    },
+    "http:__json.schemastore.org_geojson_definitions_geometry": {
+      "title": "Geometry",
+      "description": "A geometry is a GeoJSON object where the type member\u0027s value is one of the following strings: `Point`, `MultiPoint`, `LineString`, `MultiLineString`, `Polygon`, `MultiPolygon`, or `GeometryCollection`.",
+      "properties": {
+        "type": {
+          "enum": [
+            "Point",
+            "MultiPoint",
+            "LineString",
+            "MultiLineString",
+            "Polygon",
+            "MultiPolygon",
+            "GeometryCollection"
+          ]
+        }
+      }
+    }
+  }
+}

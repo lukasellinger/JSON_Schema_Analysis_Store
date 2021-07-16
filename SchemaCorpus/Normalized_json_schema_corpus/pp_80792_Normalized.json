@@ -1,0 +1,28 @@
+{
+  "allow_all": true,
+  "fullname": "YAML Publisher",
+  "is_deposit": false,
+  "jsonschema": {
+    "title": "YAML Publisher",
+    "required": [
+      "publisher_type",
+      "yamlfile"
+    ],
+    "additionalProperties": false,
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "publisher_type": {
+        "default": "fromyaml-pub",
+        "enum": [
+          "fromyaml-pub"
+        ],
+        "type": "string"
+      },
+      "yamlfile": {
+        "type": "string",
+        "title": "YAML file"
+      }
+    }
+  }
+}

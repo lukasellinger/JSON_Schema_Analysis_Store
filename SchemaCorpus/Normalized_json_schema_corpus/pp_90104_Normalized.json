@@ -1,0 +1,252 @@
+{
+  "title": "Raster Stretch Renderer",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Displays continuous raster cell values across a gradual ramp of colors. Use this renderer to draw a single band of continuous data. This renderer works well when you have a large range of values to display, such as with imagery or scientific data.",
+  "properties": {
+    "colorRamp": {
+      "type": "object",
+      "$ref": "#/definitions/colorRamp_schema.json"
+    },
+    "computeGamma": {
+      "type": "boolean",
+      "description": "Indicates if gamma values should be computed by default."
+    },
+    "dra": {
+      "type": "boolean",
+      "description": "Indicates if Dynamic Range Adjustment should be applied."
+    },
+    "gamma": {
+      "type": "array",
+      "description": "The list of Gamma value(s).",
+      "items": {
+        "type": "number"
+      }
+    },
+    "max": {
+      "type": "number",
+      "description": "The current maximum output value."
+    },
+    "maxPercent": {
+      "type": "number",
+      "description": "The current maximum percent value."
+    },
+    "min": {
+      "type": "number",
+      "description": "The current minimum output value."
+    },
+    "minPercent": {
+      "type": "number",
+      "description": "The current minimum percent value."
+    },
+    "numberOfStandardDeviations": {
+      "type": "integer",
+      "description": "The number of standard deviations for standard deviation stretch."
+    },
+    "sigmoidStrengthLevel": {
+      "type": "number",
+      "description": "Set this from (1 to 6) to adjust the curvature of Sigmoid curve used in color stretch."
+    },
+    "statistics": {
+      "type": "array",
+      "description": "The custom raster stretch statistics.",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number",
+          "minItems": 4,
+          "maxItems": 4
+        }
+      }
+    },
+    "stretchType": {
+      "type": "string",
+      "description": "The stretch types for stretch raster function.",
+      "enum": [
+        "none",
+        "standardDeviation",
+        "histogramEqualization",
+        "minMax",
+        "percentClip",
+        "sigmoid"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of renderer used.",
+      "enum": [
+        "rasterStretch"
+      ]
+    },
+    "useGamma": {
+      "type": "boolean",
+      "description": "Indicates if the renderer applies Gamma stretch."
+    }
+  },
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "additionalInformation": "For each `stretchType` there are specific sets of requirements that are as follows: \u003cbr\u003e`none`: does not require other parameters.\u003cbr\u003e`standardDeviation`: requires numberOfStandardDeviations, statistics, or dra.\u003cbr\u003e`histogramEqualization`: requires the source dataset to have histograms or additional dra.\u003cbr\u003e`minMax`: requires statistics or dra.\u003cbr\u003e`percentClip`: requires minPercent, maxPercent, and dra.\u003cbr\u003e`sigmoid`: does not require other parameters. Optionally, set the sigmoidStrengthLevel (1 to 6) to adjust the curvature of Sigmoid curve used in color stretch.",
+    "examples": [
+      {
+        "code": {
+          "renderer": {
+            "type": "rasterStretch",
+            "stretchType": "minMax",
+            "statistics": [
+              [
+                -6.621397972106934,
+                337.17144775390625,
+                10.955521397698623,
+                20.044026002479463
+              ]
+            ],
+            "dra": false,
+            "useGamma": true,
+            "gamma": [
+              1
+            ],
+            "computeGamma": false
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "colorRamp_schema.json": {
+      "title": "Color Ramp",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "A colorRamp object is used to specify a range of colors that are applied to a group of symbols.",
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "description": "Algorithm used for calculating the ramp.",
+          "enum": [
+            "esriHSVAlgorithm",
+            "esriCIELabAlgorithm",
+            "esriLabLChAlgorithm"
+          ]
+        },
+        "colorRamps": {
+          "type": "array",
+          "description": "A multipart color ramp is defined by a list of constituent color ramps.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/colorRamp_schema.json"
+          }
+        },
+        "fromColor": {
+          "description": "Array representing the initial color to start the ramp from.",
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "toColor": {
+          "description": "Array representing the final color to end the ramp with.",
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "type": {
+          "type": "string",
+          "description": "Value indicating the type of colorRamp.",
+          "enum": [
+            "algorithmic",
+            "multipart"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Algorithmic",
+            "code": {
+              "colorRamp": {
+                "type": "algorithmic",
+                "fromColor": [
+                  115,
+                  76,
+                  0,
+                  255
+                ],
+                "toColor": [
+                  255,
+                  25,
+                  86,
+                  255
+                ],
+                "algorithm": "esriHSVAlgorithm"
+              }
+            }
+          },
+          {
+            "title": "Multipart",
+            "code": {
+              "colorRamp": {
+                "type": "multipart",
+                "colorRamps": [
+                  {
+                    "type": "algorithmic",
+                    "fromColor": [
+                      255,
+                      0,
+                      0,
+                      255
+                    ],
+                    "toColor": [
+                      255,
+                      255,
+                      0,
+                      255
+                    ],
+                    "algorithm": "esriHSVAlgorithm"
+                  },
+                  {
+                    "type": "algorithmic",
+                    "fromColor": [
+                      0,
+                      255,
+                      255,
+                      255
+                    ],
+                    "toColor": [
+                      0,
+                      0,
+                      255,
+                      255
+                    ],
+                    "algorithm": "esriHSVAlgorithm"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

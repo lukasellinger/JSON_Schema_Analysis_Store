@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Expenses",
+  "description": "Furnished Holiday Lettings Expenses",
+  "properties": {
+    "premisesRunningCosts": {
+      "title": "Premises running costs",
+      "description": "Rent, rates, insurance, ground rents etc",
+      "$ref": "#/definitions/..\\..\\SimpleExpense.json"
+    },
+    "repairsAndMaintenance": {
+      "title": "Repairs and maintenance",
+      "description": "Property repairs and maintenance",
+      "$ref": "#/definitions/..\\..\\SimpleExpense.json"
+    },
+    "financialCosts": {
+      "title": "Financial costs",
+      "description": "Loan interest and other financial costs",
+      "$ref": "#/definitions/..\\..\\SimpleExpense.json"
+    },
+    "professionalFees": {
+      "title": "Professional fees",
+      "description": "Legal, management and other professional fees",
+      "$ref": "#/definitions/..\\..\\SimpleExpense.json"
+    },
+    "other": {
+      "title": "Other",
+      "description": "Other allowable property expenses",
+      "$ref": "#/definitions/..\\..\\SimpleExpense.json"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "..\\..\\SimpleExpense.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Expense",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "title": "Amount",
+          "description": "Expenses associated with the running of the business",
+          "type": "number",
+          "multipleOf": 0.01,
+          "minimum": 0
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

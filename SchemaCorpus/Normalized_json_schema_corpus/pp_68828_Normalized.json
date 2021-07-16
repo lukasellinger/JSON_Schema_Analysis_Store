@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "pyblish-starter:asset-1.0",
+  "description": "A unit of data",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "name",
+    "versions"
+  ],
+  "properties": {
+    "schema": {
+      "description": "Schema identifier for payload",
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of directory",
+      "type": "string"
+    },
+    "versions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/version.json"
+      }
+    }
+  },
+  "definitions": {
+    "version.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "title": "pyblish-starter:version-1.0",
+      "description": "An individual version",
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "schema",
+        "version",
+        "path",
+        "time",
+        "author",
+        "source",
+        "representations"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string"
+        },
+        "representations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/representation.json"
+          }
+        },
+        "time": {
+          "description": "ISO formatted, file-system compatible time",
+          "type": "string"
+        },
+        "author": {
+          "description": "User logged on to the machine at time of publish",
+          "type": "string"
+        },
+        "version": {
+          "description": "Number of this version",
+          "type": "number"
+        },
+        "path": {
+          "description": "Unformatted path",
+          "type": "string"
+        },
+        "source": {
+          "description": "Original file from which this version was made.",
+          "type": "string"
+        }
+      }
+    },
+    "representation.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "title": "pyblish-starter:representation-1.0",
+      "description": "The inverse of an instance",
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "schema",
+        "format",
+        "path"
+      ],
+      "properties": {
+        "schema": {
+          "type": "string"
+        },
+        "format": {
+          "description": "File extension",
+          "type": "string"
+        },
+        "path": {
+          "description": "Unformatted path",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

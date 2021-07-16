@@ -1,0 +1,405 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://readium.org/webpub-manifest/schema/properties.schema.json",
+  "title": "Link Properties",
+  "type": "object",
+  "properties": {
+    "orientation": {
+      "description": "Suggested orientation for the device when displaying the linked resource",
+      "type": "string",
+      "enum": [
+        "auto",
+        "landscape",
+        "portrait"
+      ]
+    },
+    "page": {
+      "description": "Indicates how the linked resource should be displayed in a reading environment that displays synthetic spreads",
+      "type": "string",
+      "enum": [
+        "left",
+        "right",
+        "center"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "#/definitions/https:__drafts.opds.io_schema_properties.schema.json"
+    },
+    {
+      "$ref": "#/definitions/extensions\\epub\\properties.schema.json"
+    }
+  ],
+  "definitions": {
+    "https:__drafts.opds.io_schema_properties.schema.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "OPDS Link Properties",
+      "type": "object",
+      "properties": {
+        "numberOfItems": {
+          "description": "Provide a hint about the expected number of items returned",
+          "type": "integer",
+          "minimum": 0
+        },
+        "price": {
+          "description": "The price of a publication is tied to its acquisition link",
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number",
+              "minimum": 0
+            },
+            "currency": {
+              "type": "string",
+              "enum": [
+                "AED",
+                "AFN",
+                "ALL",
+                "AMD",
+                "ANG",
+                "AOA",
+                "ARS",
+                "AUD",
+                "AWG",
+                "AZN",
+                "BAM",
+                "BBD",
+                "BDT",
+                "BGN",
+                "BHD",
+                "BIF",
+                "BMD",
+                "BND",
+                "BOB",
+                "BOV",
+                "BRL",
+                "BSD",
+                "BTN",
+                "BWP",
+                "BYN",
+                "BZD",
+                "CAD",
+                "CDF",
+                "CHE",
+                "CHF",
+                "CHW",
+                "CLF",
+                "CLP",
+                "CNY",
+                "COP",
+                "COU",
+                "CRC",
+                "CUC",
+                "CUP",
+                "CVE",
+                "CZK",
+                "DJF",
+                "DKK",
+                "DOP",
+                "DZD",
+                "EGP",
+                "ERN",
+                "ETB",
+                "EUR",
+                "FJD",
+                "FKP",
+                "GBP",
+                "GEL",
+                "GHS",
+                "GIP",
+                "GMD",
+                "GNF",
+                "GTQ",
+                "GYD",
+                "HKD",
+                "HNL",
+                "HRK",
+                "HTG",
+                "HUF",
+                "IDR",
+                "ILS",
+                "INR",
+                "IQD",
+                "IRR",
+                "ISK",
+                "JMD",
+                "JOD",
+                "JPY",
+                "KES",
+                "KGS",
+                "KHR",
+                "KMF",
+                "KPW",
+                "KRW",
+                "KWD",
+                "KYD",
+                "KZT",
+                "LAK",
+                "LBP",
+                "LKR",
+                "LRD",
+                "LSL",
+                "LYD",
+                "MAD",
+                "MDL",
+                "MGA",
+                "MKD",
+                "MMK",
+                "MNT",
+                "MOP",
+                "MRU",
+                "MUR",
+                "MVR",
+                "MWK",
+                "MXN",
+                "MXV",
+                "MYR",
+                "MZN",
+                "NAD",
+                "NGN",
+                "NIO",
+                "NOK",
+                "NPR",
+                "NZD",
+                "OMR",
+                "PAB",
+                "PEN",
+                "PGK",
+                "PHP",
+                "PKR",
+                "PLN",
+                "PYG",
+                "QAR",
+                "RON",
+                "RSD",
+                "RUB",
+                "RWF",
+                "SAR",
+                "SBD",
+                "SCR",
+                "SDG",
+                "SEK",
+                "SGD",
+                "SHP",
+                "SLL",
+                "SOS",
+                "SRD",
+                "SSP",
+                "STN",
+                "SVC",
+                "SYP",
+                "SZL",
+                "THB",
+                "TJS",
+                "TMT",
+                "TND",
+                "TOP",
+                "TRY",
+                "TTD",
+                "TWD",
+                "TZS",
+                "UAH",
+                "UGX",
+                "USD",
+                "USN",
+                "UYI",
+                "UYU",
+                "UZS",
+                "VEF",
+                "VES",
+                "VND",
+                "VUV",
+                "WST",
+                "XAF",
+                "XAG",
+                "XAU",
+                "XBA",
+                "XBB",
+                "XBC",
+                "XBD",
+                "XCD",
+                "XDR",
+                "XOF",
+                "XPD",
+                "XPF",
+                "XPT",
+                "XSU",
+                "XTS",
+                "XUA",
+                "XXX",
+                "YER",
+                "ZAR",
+                "ZMW",
+                "ZWL"
+              ]
+            }
+          },
+          "required": [
+            "currency",
+            "value"
+          ]
+        },
+        "indirectAcquisition": {
+          "description": "Indirect acquisition provides a hint for the expected media type that will be acquired after additional steps",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/https:__drafts.opds.io_schema_acquisition-object.schema.json"
+          }
+        },
+        "holds": {
+          "description": "Library-specific feature for unavailable books that support a hold list",
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "position": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "copies": {
+          "description": "Library-specific feature that contains information about the copies that a library has acquired",
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "available": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "availability": {
+          "description": "Indicates the availability of a given resource",
+          "type": "object",
+          "properties": {
+            "state": {
+              "type": "string",
+              "enum": [
+                "available",
+                "unavailable",
+                "reserved",
+                "ready"
+              ]
+            },
+            "since": {
+              "description": "Timestamp for the previous state change",
+              "type": "string",
+              "anyOf": [
+                {
+                  "format": "date"
+                },
+                {
+                  "format": "date-time"
+                }
+              ]
+            },
+            "until": {
+              "description": "Timestamp for the next state change",
+              "type": "string",
+              "anyOf": [
+                {
+                  "format": "date"
+                },
+                {
+                  "format": "date-time"
+                }
+              ]
+            }
+          },
+          "required": [
+            "state"
+          ]
+        }
+      }
+    },
+    "https:__drafts.opds.io_schema_acquisition-object.schema.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "OPDS Acquisition Object",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "child": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/https:__drafts.opds.io_schema_acquisition-object.schema.json"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "extensions\\epub\\properties.schema.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "EPUB Extension - Link Properties",
+      "type": "object",
+      "properties": {
+        "contains": {
+          "description": "Identifies content contained in the linked resource, that cannot be strictly identified using a media type.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "mathml",
+              "onix",
+              "remote-resources",
+              "js",
+              "svg",
+              "xmp"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "layout": {
+          "description": "Hints how the layout of the resource should be presented",
+          "type": "string",
+          "enum": [
+            "fixed",
+            "reflowable"
+          ]
+        },
+        "encrypted": {
+          "description": "Indicates that a resource is encrypted/obfuscated and provides relevant information for decryption",
+          "type": "object",
+          "properties": {
+            "algorithm": {
+              "description": "Identifies the algorithm used to encrypt the resource",
+              "type": "string",
+              "format": "uri"
+            },
+            "compression": {
+              "description": "Compression method used on the resource",
+              "type": "string"
+            },
+            "originalLength": {
+              "description": "Original length of the resource in bytes before compression and/or encryption",
+              "type": "integer"
+            },
+            "profile": {
+              "description": "Identifies the encryption profile used to encrypt the resource",
+              "type": "string",
+              "format": "uri"
+            },
+            "scheme": {
+              "description": "Identifies the encryption scheme used to encrypt the resource",
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": [
+            "algorithm"
+          ]
+        }
+      }
+    }
+  }
+}

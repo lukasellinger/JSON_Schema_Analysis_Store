@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "type": "object",
+  "javaType": "org.apache.streams.s3.S3ReaderConfiguration",
+  "extends": {
+    "$ref": "#/definitions/S3Configuration.json"
+  },
+  "javaInterfaces": [
+    "java.io.Serializable"
+  ],
+  "properties": {
+    "readerPath": {
+      "type": "string",
+      "description": "Path below root path"
+    },
+    "useTimestampAsPublished": {
+      "type": "boolean",
+      "description": "Whether or not we want to use the timestamp stored in S3 (if it exists) as the document\u0027s published time",
+      "default": false
+    }
+  },
+  "definitions": {
+    "S3Configuration.json": {
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "type": "object",
+      "javaType": "org.apache.streams.s3.S3Configuration",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Your Amazon Key",
+          "required": true
+        },
+        "secretKey": {
+          "type": "string",
+          "description": "Your Amazon Secret Key",
+          "required": true
+        },
+        "bucket": {
+          "type": "string",
+          "description": "Your AWS bucket",
+          "required": true
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Whether you are using HTTP or HTTPS",
+          "enum": [
+            "HTTP",
+            "HTTPS"
+          ],
+          "default": "HTTPS"
+        },
+        "region": {
+          "type": "string",
+          "description": "The AWS region where your bucket resides",
+          "required": false
+        }
+      }
+    }
+  }
+}

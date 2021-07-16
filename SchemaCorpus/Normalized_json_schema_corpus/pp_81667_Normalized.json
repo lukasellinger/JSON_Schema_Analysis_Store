@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "type": "string",
+    "maxLength": 60,
+    "pattern": "^[a-z0-9\\-]+(\\.[a-z0-9\\-]+)*$"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "cells": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_cell"
+        },
+        "minItems": 1
+      },
+      "pattern": {
+        "type": "string"
+      },
+      "endpoint": {
+        "$ref": "#/definitions/common.json_endpoint"
+      },
+      "environment": {
+        "$ref": "#/definitions/common.json_environment"
+      },
+      "lbenv": {
+        "type": "string",
+        "pattern": "^qa|prod$"
+      },
+      "port": {
+        "$ref": "#/definitions/common.json_port"
+      }
+    }
+  },
+  "verbs": {
+    "create": {
+      "required": [
+        "endpoint",
+        "pattern",
+        "environment",
+        "lbenv"
+      ]
+    },
+    "update": {
+      "required": [
+        "lbenv"
+      ]
+    },
+    "delete": {
+      "required": [
+        "lbenv"
+      ]
+    }
+  },
+  "definitions": {
+    "common.json_cell": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[a-zA-Z0-9-]+$"
+    },
+    "common.json_endpoint": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[\\w\\-]+$"
+    },
+    "common.json_environment": {
+      "type": "string",
+      "pattern": "dev|qa|uat|prod"
+    },
+    "common.json_port": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    }
+  }
+}

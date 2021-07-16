@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "Contents": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "properties": {
+          "Key": {
+            "type": "string"
+          },
+          "LastModified": {
+            "type": "object"
+          },
+          "ETag": {
+            "type": "string"
+          },
+          "Size": {
+            "type": "integer"
+          },
+          "StorageClass": {
+            "enum": [
+              "STANDARD",
+              "REDUCED_REDUNDANCY",
+              "GLACIER"
+            ]
+          },
+          "Owner": {
+            "type": "object",
+            "properties": {
+              "DisplayName": {
+                "type": "string"
+              },
+              "ID": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "DisplayName",
+              "ID"
+            ]
+          }
+        },
+        "required": [
+          "Key",
+          "LastModified",
+          "ETag",
+          "Size",
+          "StorageClass",
+          "Owner"
+        ]
+      }
+    },
+    "Marker": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "Prefix": {
+      "type": "string"
+    },
+    "MaxKeys": {
+      "type": "integer"
+    },
+    "CommonPrefixes": {
+      "type": "array"
+    },
+    "IsTruncated": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "IsTruncated",
+    "Marker",
+    "Contents",
+    "Name",
+    "Prefix",
+    "MaxKeys",
+    "CommonPrefixes"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "controller-options-orientation-invert",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ControllerOrientationInvertConfig",
+  "description": "An instance of \u003ca href\u003d\"#controller-options-orientation-invert\"\u003ea controller orientation invert configuration.\u003c/a\u003e",
+  "type": "object",
+  "properties": {
+    "x": {
+      "type": "boolean",
+      "title": "X",
+      "description": "Is the X axis inverted ?",
+      "default": false
+    },
+    "y": {
+      "type": "boolean",
+      "title": "Y",
+      "description": "Is the Y axis inverted ?",
+      "default": false
+    }
+  }
+}

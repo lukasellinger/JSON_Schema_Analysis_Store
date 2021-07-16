@@ -1,0 +1,318 @@
+{
+  "title": "PointCloud UniqueValue Renderer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "PointCloudUniqueValueRenderer allows you to colorize points in a PointCloudLayer based on an attribute. This is done by using unique colors to represent points with equal attribute values.",
+  "properties": {
+    "colorModulation": {
+      "description": "",
+      "$ref": "#/definitions/colorModulationInfo_schema.json"
+    },
+    "colorUniqueValueInfos": {
+      "type": "array",
+      "description": "Unique value infos.",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/colorUniqueValueInfo_schema.json"
+      }
+    },
+    "field": {
+      "type": "string",
+      "description": "The name of the field that is used for the renderer."
+    },
+    "fieldTransformType": {
+      "type": "string",
+      "description": "A transform that is applied to the field value before evaluating the renderer.",
+      "enum": [
+        "none",
+        "lowFourBit",
+        "highFourBit",
+        "absoluteValue",
+        "moduloTen"
+      ]
+    },
+    "legendOptions": {
+      "type": "object",
+      "description": "A legend containing one title, which is a string describing the renderer in the legend.",
+      "$ref": "#/definitions/rendererLegendOptions_schema.json"
+    },
+    "pointSizeAlgorithm": {
+      "description": "",
+      "$ref": "#/definitions/pointSizeAlgorithm_schema.json"
+    },
+    "pointsPerInch": {
+      "type": "number",
+      "description": "Number of points to draw per display inch."
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of renderer used.",
+      "enum": [
+        "pointCloudUniqueValueRenderer"
+      ]
+    }
+  },
+  "required": [
+    "colorUniqueValueInfos",
+    "field",
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "pointCloudUniqueValueRenderer",
+        "description": "",
+        "code": {
+          "renderer": {
+            "type": "pointCloudUniqueValueRenderer",
+            "pointSizeAlgorithm": {
+              "type": "pointCloudFixedSizeAlgorithm",
+              "useRealWorldSymbolSizes": false,
+              "size": 4
+            },
+            "pointsPerInch": 10.0,
+            "field": "CLASS_CODE",
+            "colorUniqueValueInfos": [
+              {
+                "values": [
+                  "1"
+                ],
+                "label": "1",
+                "description": "Unassigned",
+                "color": [
+                  79,
+                  112,
+                  181
+                ]
+              },
+              {
+                "values": [
+                  "2"
+                ],
+                "label": "2",
+                "description": "Ground",
+                "color": [
+                  170,
+                  183,
+                  189
+                ]
+              },
+              {
+                "values": [
+                  "3"
+                ],
+                "label": "3",
+                "description": "Low vegetation",
+                "color": [
+                  247,
+                  255,
+                  188
+                ]
+              },
+              {
+                "values": [
+                  "4"
+                ],
+                "label": "4",
+                "description": "Medium vegetation",
+                "color": [
+                  241,
+                  159,
+                  106
+                ]
+              },
+              {
+                "values": [
+                  "5"
+                ],
+                "label": "5",
+                "description": "High vegetation",
+                "color": [
+                  211,
+                  26,
+                  18
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "colorModulationInfo_schema.json": {
+      "title": "colorModulationInfo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Indicates whether modulation should be used to render the point.",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "the attribute to use as a source for the modulation amplitude"
+        },
+        "maxValue": {
+          "type": "number",
+          "description": "maximum value to compute modulation linear mapping"
+        },
+        "minValue": {
+          "type": "number",
+          "description": "minimum value to compute modulation linear mapping"
+        }
+      },
+      "required": [
+        "field",
+        "maxValue",
+        "minValue"
+      ],
+      "additionalProperties": false
+    },
+    "colorUniqueValueInfo_schema.json": {
+      "title": "colorUniqueValueInfo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The colorUniqueValueInfo object matches a unique value with a specific color.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "description": {
+          "type": "string",
+          "description": "String value used to describe the class."
+        },
+        "label": {
+          "type": "string",
+          "description": "String value used to label the class."
+        },
+        "values": {
+          "type": "array",
+          "description": "List of string or number values used to classifiy points.",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "color",
+        "values"
+      ],
+      "additionalProperties": false
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "rendererLegendOptions_schema.json": {
+      "title": "Renderer Legend Options",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Options available for the renderer legend.",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the legend."
+        }
+      }
+    },
+    "pointSizeAlgorithm_schema.json": {
+      "title": "PointCloud Size Algorithm",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Size algorithms for point cloud performance.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/pointCloudFixedSizeAlgorithm_schema.json"
+        },
+        {
+          "$ref": "#/definitions/pointCloudSplatAlgorithm_schema.json"
+        }
+      ]
+    },
+    "pointCloudFixedSizeAlgorithm_schema.json": {
+      "title": "PointCloud FixedSize Algorithm",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Render points with fixed real world or screen space size.",
+      "properties": {
+        "size": {
+          "type": "number",
+          "description": "Symbol size in real world units or display unit"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "pointCloudFixedSizeAlgorithm"
+          ]
+        },
+        "useRealWorldSymbolSizes": {
+          "type": "boolean",
+          "description": " If true symbol size is in meters, display unit (pt) otherwise"
+        }
+      },
+      "required": [
+        "size",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "pointCloudSplatAlgorithm_schema.json": {
+      "title": "PointCloud Splat Algorithm",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Render points using sizes depending on point density.",
+      "properties": {
+        "minSize": {
+          "type": "number",
+          "description": "Minimum display space point size in points"
+        },
+        "scaleFactor": {
+          "type": "number",
+          "description": "Scale factor to applied to the computed point size (in real world)"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "pointCloudSplatAlgorithm"
+          ]
+        }
+      },
+      "required": [
+        "scaleFactor",
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

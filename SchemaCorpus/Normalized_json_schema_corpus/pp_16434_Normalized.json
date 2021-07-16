@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "hap",
+  "name": "HAP",
+  "defaults": {
+    "_pixelFormat": "rgba"
+  },
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "format",
+          "control": {
+            "items": [
+              {
+                "value": "hap"
+              },
+              {
+                "value": "hap_alpha"
+              },
+              {
+                "value": "hap_q"
+              }
+            ],
+            "selectedIndex": 0,
+            "type": "combobox"
+          }
+        },
+        {
+          "parameter": "chunks",
+          "control": {
+            "maximum": 64,
+            "minimum": 1,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 1
+          }
+        },
+        {
+          "parameter": "compressor",
+          "control": {
+            "items": [
+              {
+                "value": "none"
+              },
+              {
+                "value": "snappy"
+              }
+            ],
+            "selectedIndex": 1,
+            "type": "combobox"
+          }
+        }
+      ]
+    }
+  ]
+}

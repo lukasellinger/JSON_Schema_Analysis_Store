@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Capacity plans",
+  "type": "array",
+  "items": [
+    {
+      "$ref": "#/definitions/capacity-plan.json"
+    }
+  ],
+  "definitions": {
+    "capacity-plan.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Capacity plan",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "is_auto": {
+          "type": "boolean"
+        },
+        "demand_profile_id": {
+          "type": "integer"
+        },
+        "SetConfigs": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/setconfig.json"
+            }
+          ]
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "CREATED",
+            "STARTED",
+            "IN_PROGRESS",
+            "VALIDATING",
+            "COMPLETED"
+          ]
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "setconfig.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "SetConfig",
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "replicas": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "replicas",
+        "kind"
+      ]
+    }
+  }
+}

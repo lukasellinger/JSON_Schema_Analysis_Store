@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://holi0317.net/schemas",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "baseUrl": {
+      "type": "string"
+    },
+    "repo": {
+      "type": "string"
+    },
+    "index": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "uid": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "uid",
+          "url"
+        ]
+      }
+    }
+  },
+  "required": [
+    "repo",
+    "index"
+  ]
+}

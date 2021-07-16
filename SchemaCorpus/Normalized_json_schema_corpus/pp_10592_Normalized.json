@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "type": "string",
+    "maxLength": 60,
+    "pattern": "^[a-zA-Z0-9\\-_]+(\\.[a-zA-Z0-9\\-_^#]+)+$"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "group-type": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9\\-_]+$"
+      },
+      "cells": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_cell"
+        },
+        "minItems": 1
+      },
+      "pattern": {
+        "type": "string"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_key_value"
+        }
+      }
+    }
+  },
+  "verbs": {
+    "create": {
+      "required": [
+        "group-type"
+      ]
+    },
+    "update": {
+      "required": []
+    }
+  },
+  "definitions": {
+    "common.json_cell": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[a-zA-Z0-9-]+$"
+    },
+    "common.json_key_value": {
+      "type": "string",
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9-_]+\u003d[a-zA-Z0-9\\-_\\.]+$"
+    }
+  }
+}

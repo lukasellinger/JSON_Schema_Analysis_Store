@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Graph steps reference schema",
+  "description": "Description of the steps for initialising a Graph.",
+  "type": "object",
+  "properties": {
+    "graph_id": {
+      "$ref": "#/definitions/common.json_graph_id"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/references.json_graph_step"
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "graph_id",
+    "steps"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "common.json_graph_id": {
+      "type": "string",
+      "title": "Graph ID",
+      "description": "ID of a graph",
+      "pattern": "^[a-zA-Z0-9_-]*$"
+    },
+    "references.json_graph_step": {
+      "type": "object",
+      "title": "Graph Step",
+      "description": "Description of a step reference for graphs",
+      "properties": {
+        "step_id": {
+          "$ref": "#/definitions/common.json_step_id"
+        },
+        "requires": {
+          "type": "array",
+          "description": "step_alias of prerequisite steps",
+          "items": {
+            "$ref": "#/definitions/common.json_step_id"
+          },
+          "default": []
+        }
+      },
+      "required": [
+        "step_id"
+      ],
+      "additionalProperties": false
+    },
+    "common.json_step_id": {
+      "type": "string",
+      "title": "Step ID",
+      "description": "ID of a step",
+      "pattern": "^[a-zA-Z0-9_-]*$"
+    }
+  }
+}

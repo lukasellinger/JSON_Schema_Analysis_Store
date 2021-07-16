@@ -1,0 +1,336 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "id": "https://raw.githubusercontent.com/evoldoers/machineboss/master/schema/params.json",
+  "description": "MachineBoss function definitions schema",
+  "type": "object",
+  "patternProperties": {
+    ".*": {
+      "$ref": "#/definitions/expr.json"
+    }
+  },
+  "definitions": {
+    "expr.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "description": "MachineBoss expression schema",
+      "definitions": {
+        "expr": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "required": [
+                "expr"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "expr": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "log"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "log": {
+                  "$ref": "#/definitions/expr.json_definitions_expr"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "exp"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "exp": {
+                  "$ref": "#/definitions/expr.json_definitions_expr"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "geomsum"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "geomsum": {
+                  "$ref": "#/definitions/expr.json_definitions_expr"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "not"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "not": {
+                  "$ref": "#/definitions/expr.json_definitions_expr"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "*"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "*": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "$ref": "#/definitions/expr.json_definitions_expr"
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "+"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "+": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "$ref": "#/definitions/expr.json_definitions_expr"
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "/"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "/": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "$ref": "#/definitions/expr.json_definitions_expr"
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "-"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "-": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "$ref": "#/definitions/expr.json_definitions_expr"
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "pow"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "pow": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "$ref": "#/definitions/expr.json_definitions_expr"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "$ref": "#/definitions/expr.json_definitions_expr"
+    },
+    "expr.json_definitions_expr": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "required": [
+            "expr"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "expr": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "log"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "log": {
+              "$ref": "#/definitions/expr.json_definitions_expr"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "exp"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "exp": {
+              "$ref": "#/definitions/expr.json_definitions_expr"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "geomsum"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "geomsum": {
+              "$ref": "#/definitions/expr.json_definitions_expr"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "not"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "not": {
+              "$ref": "#/definitions/expr.json_definitions_expr"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "*"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "*": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/definitions/expr.json_definitions_expr"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "+"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "+": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/definitions/expr.json_definitions_expr"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "/"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "/": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/definitions/expr.json_definitions_expr"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "-"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "-": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/definitions/expr.json_definitions_expr"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "pow"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "pow": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/definitions/expr.json_definitions_expr"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

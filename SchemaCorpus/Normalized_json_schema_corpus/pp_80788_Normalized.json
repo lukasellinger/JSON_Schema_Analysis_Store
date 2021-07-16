@@ -1,0 +1,27 @@
+{
+  "allow_all": true,
+  "fullname": "Constant Publisher",
+  "is_deposit": false,
+  "jsonschema": {
+    "title": "Constant Publisher",
+    "required": [
+      "publisher_type",
+      "publish"
+    ],
+    "additionalProperties": false,
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "publisher_type": {
+        "default": "constant-pub",
+        "enum": [
+          "constant-pub"
+        ],
+        "type": "string"
+      },
+      "publish": {
+        "type": "object"
+      }
+    }
+  }
+}

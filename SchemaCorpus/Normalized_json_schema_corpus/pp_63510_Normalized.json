@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Scene",
+  "type": "object",
+  "description": "The root nodes of a scene.",
+  "allOf": [
+    {
+      "$ref": "#/definitions/glTFChildOfRootProperty.schema.json"
+    }
+  ],
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "description": "The indices of each root node.",
+      "items": {
+        "$ref": "#/definitions/glTFid.schema.json"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "name": {},
+    "extensions": {},
+    "extras": {}
+  },
+  "definitions": {
+    "glTFChildOfRootProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Child of Root Property",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The user-defined name of this object.",
+          "gltf_detailedDescription": "The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name."
+        }
+      }
+    },
+    "glTFProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Property",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extension.schema.json"
+        },
+        "extras": {
+          "$ref": "#/definitions/extras.schema.json"
+        }
+      }
+    },
+    "extension.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extension",
+      "type": "object",
+      "description": "Dictionary object with extension-specific objects.",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "extras.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extras",
+      "description": "Application-specific data."
+    },
+    "glTFid.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Id",
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

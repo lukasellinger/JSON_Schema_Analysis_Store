@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://localhost:9999/schemas/workspaceSummary.json",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "integer"
+    },
+    "point": {
+      "type": "integer"
+    },
+    "completed": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "environment",
+    "point",
+    "completed"
+  ]
+}

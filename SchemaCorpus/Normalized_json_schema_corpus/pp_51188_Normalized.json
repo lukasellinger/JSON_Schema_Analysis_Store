@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "email-addr",
+  "description": "The Email Address Object represents a single email address.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\common\\cyber-observable-core.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The value of this property MUST be `email-addr`.",
+          "enum": [
+            "email-addr"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "pattern": "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)",
+          "description": "Specifies a single email address. This MUST not include the display name."
+        },
+        "display_name": {
+          "type": "string",
+          "description": "Specifies a single email display name, i.e., the name that is displayed to the human user of a mail application."
+        },
+        "belongs_to_ref": {
+          "type": "string",
+          "description": "Specifies the user account that the email address belongs to, as a reference to a User Account Object."
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  ],
+  "definitions": {
+    "..\\common\\cyber-observable-core.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "core",
+      "description": "Common properties and behavior across all Cyber Observable Objects.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "pattern": "^\\-?[a-z0-9]+(-[a-z0-9]+)*\\-?$",
+          "minLength": 3,
+          "maxLength": 250,
+          "description": "Indicates that this object is an Observable Object. The value of this property MUST be a valid Observable Object type name, but to allow for custom objects this has been removed from the schema.",
+          "not": {
+            "enum": [
+              "action"
+            ]
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Specifies a textual description of the Object."
+        },
+        "extensions": {
+          "$ref": "#/definitions/..\\common\\dictionary.json",
+          "description": "Specifies any extensions of the object, as a dictionary."
+        }
+      },
+      "patternProperties": {
+        "^[a-z0-9_]{3,250}$": {
+          "anyOf": [
+            {
+              "type": "array",
+              "minItems": 1
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "action"
+            ]
+          }
+        ]
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "..\\common\\dictionary.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "dictionary",
+      "description": "A dictionary captures a set of key/value pairs",
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]{3,256}$": {
+          "anyOf": [
+            {
+              "type": "array",
+              "minItems": 1
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

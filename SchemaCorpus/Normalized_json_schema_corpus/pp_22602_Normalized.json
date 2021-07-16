@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "hook_url": {
+      "type": "string"
+    },
+    "mod_date": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "hook_url",
+    "mod_date",
+    "url",
+    "_id",
+    "type"
+  ]
+}

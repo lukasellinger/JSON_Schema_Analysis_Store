@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\resolver.json_definitions_resolver-input"
+    }
+  ],
+  "example": {
+    "path": [
+      "scitran",
+      "Neuroscience"
+    ]
+  },
+  "definitions": {
+    "..\\definitions\\resolver.json_definitions_resolver-input": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "array",
+          "minLength": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "path"
+      ]
+    }
+  }
+}

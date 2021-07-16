@@ -1,0 +1,22 @@
+{
+  "description": "Open Container Runtime Socket Response Schema",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://opencontainers.org/schema/runtime/socket/response",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "success",
+        "error"
+      ]
+    },
+    "message": {
+      "description": "A phrase describing the response.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type"
+  ]
+}

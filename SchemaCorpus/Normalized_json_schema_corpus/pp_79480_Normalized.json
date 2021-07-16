@@ -1,0 +1,874 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "continuePage": {
+      "type": "string",
+      "description": "the URI that your storefront app thinks the user should be redirected to on patch completion, unless some other storefront app gets installed and hence makes that decision"
+    },
+    "bumpSecurityGeneration": {
+      "type": "boolean",
+      "description": "true to request that the tenant\u0027s security generation is incremented as the patch is applied"
+    },
+    "patchSet": {
+      "$ref": "#/definitions/patchSet.json"
+    }
+  },
+  "required": [
+    "patchSet",
+    "bumpSecurityGeneration"
+  ],
+  "definitions": {
+    "patchSet.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "op": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "path",
+            "value"
+          ],
+          "properties": {
+            "op": {
+              "enum": [
+                "add",
+                "remove",
+                "move",
+                "copy",
+                "replace",
+                "test"
+              ]
+            },
+            "path": {
+              "type": "string"
+            },
+            "value": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "description": "allow patching any string attribute"
+                },
+                {
+                  "type": "number",
+                  "description": "allow patching any number attribute"
+                },
+                {
+                  "$ref": "#/definitions/tenantExtended.json"
+                },
+                {
+                  "$ref": "#/definitions/tenantExtended.json_definitions_install"
+                },
+                {
+                  "$ref": "#/definitions/tenantExtended.json_definitions_installs"
+                },
+                {
+                  "$ref": "#/definitions/tenantExtended.json_definitions_servers"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/patchSet.json_definitions_op"
+      }
+    },
+    "tenantExtended.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "singleValueAttributeOp": {
+          "type": "object",
+          "description": "operation on a single (non-array) SAML attribute",
+          "required": [
+            "name",
+            "value"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "multiValueAttributeOp": {
+          "type": "object",
+          "description": "operation on a multi-valued SAML attribute",
+          "required": [
+            "name",
+            "values"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "attributeOp": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/tenantExtended.json_definitions_singleValueAttributeOp"
+            },
+            {
+              "$ref": "#/definitions/tenantExtended.json_definitions_multiValueAttributeOp"
+            }
+          ]
+        },
+        "ifMatched": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tenantExtended.json_definitions_attributeOp"
+          }
+        },
+        "attributeOverride": {
+          "type": "object",
+          "required": [
+            "filter",
+            "ifMatched"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "filter": {
+              "type": "string"
+            },
+            "ifMatched": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_ifMatched"
+            }
+          }
+        },
+        "attributeOverrides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverride"
+          }
+        },
+        "id": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "samlIdentitySource": {
+          "type": "object",
+          "required": [
+            "kind",
+            "metadata",
+            "description"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "samlIdentitySource"
+              ],
+              "description": "always set to: samlIdentitySource"
+            },
+            "id": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_id"
+            },
+            "metadata": {
+              "type": "string"
+            },
+            "description": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_description"
+            },
+            "attributeOverrides": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverrides"
+            }
+          }
+        },
+        "emailIdentitySource": {
+          "type": "object",
+          "required": [
+            "kind",
+            "description"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "emailIdentitySource"
+              ],
+              "description": "always set to: emailIdentitySource"
+            },
+            "id": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_id"
+            },
+            "description": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_description"
+            },
+            "attributeOverrides": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverrides"
+            }
+          }
+        },
+        "legacyAppIdentitySource": {
+          "type": "object",
+          "required": [
+            "kind",
+            "apiBase",
+            "description"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "legacyAppIdentitySource"
+              ],
+              "description": "always set to: legacyAppIdentitySource"
+            },
+            "id": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_id"
+            },
+            "apiBase": {
+              "type": "string"
+            },
+            "description": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_description"
+            },
+            "attributeOverrides": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverrides"
+            }
+          }
+        },
+        "socialIdentitySource": {
+          "type": "object",
+          "required": [
+            "kind",
+            "network",
+            "description"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "socialIdentitySource"
+              ],
+              "description": "always set to: socialIdentitySource"
+            },
+            "id": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_id"
+            },
+            "network": {
+              "enum": [
+                "LinkedIn",
+                "Facebook"
+              ]
+            },
+            "description": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_description"
+            },
+            "attributeOverrides": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverrides"
+            }
+          }
+        },
+        "bootstrapIdentitySource": {
+          "type": "object",
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "bootstrapIdentitySource"
+              ],
+              "description": "always set to: bootstrapIdentitySource"
+            },
+            "description": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_description"
+            },
+            "attributeOverrides": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverrides"
+            }
+          }
+        },
+        "identitySources": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/tenantExtended.json_definitions_samlIdentitySource"
+              },
+              {
+                "$ref": "#/definitions/tenantExtended.json_definitions_emailIdentitySource"
+              },
+              {
+                "$ref": "#/definitions/tenantExtended.json_definitions_legacyAppIdentitySource"
+              },
+              {
+                "$ref": "#/definitions/tenantExtended.json_definitions_socialIdentitySource"
+              },
+              {
+                "$ref": "#/definitions/tenantExtended.json_definitions_bootstrapIdentitySource"
+              }
+            ]
+          }
+        },
+        "identitySourceSet": {
+          "type": "object",
+          "properties": {
+            "principalType": {
+              "$ref": "#/definitions/samlSubject.json_definitions_principalType"
+            },
+            "identitySources": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_identitySources"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "principalType",
+            "identitySources"
+          ]
+        },
+        "identitySourceSets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tenantExtended.json_definitions_identitySourceSet"
+          }
+        },
+        "basicAuthCredentials": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "user",
+            "password"
+          ],
+          "properties": {
+            "user": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        },
+        "server": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "baseUri",
+            "basicAuthCredentials"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "baseUri": {
+              "type": "string"
+            },
+            "basicAuthCredentials": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_basicAuthCredentials"
+            }
+          }
+        },
+        "servers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tenantExtended.json_definitions_server"
+          }
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "organizationName": {
+              "type": "string",
+              "description": "The legal name of the organization"
+            },
+            "shortCode": {
+              "type": "string",
+              "description": "a short, alpha only, lower case identifier for the tenant, e.g. acme"
+            },
+            "description": {
+              "type": "string",
+              "description": "a description for this store"
+            },
+            "country": {
+              "type": "string",
+              "description": "the country code for the organization using the store"
+            },
+            "industry": {
+              "enum": [
+                "Banking",
+                "Healthcare",
+                "Hospitality",
+                "IT",
+                "Manufacturing",
+                "Other"
+              ],
+              "description": "The organization\u0027s primary industry"
+            }
+          }
+        },
+        "install": {
+          "type": "object",
+          "required": [
+            "app"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "app": {
+              "type": "string"
+            },
+            "servers": {
+              "$ref": "#/definitions/tenantExtended.json_definitions_servers"
+            },
+            "status": {
+              "$ref": "#/definitions/tenantInstallsAppStatus.json"
+            }
+          }
+        },
+        "installs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tenantExtended.json_definitions_install"
+          }
+        }
+      },
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "details": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_details"
+        },
+        "installs": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_installs"
+        },
+        "identitySourceSets": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_identitySourceSets"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_singleValueAttributeOp": {
+      "type": "object",
+      "description": "operation on a single (non-array) SAML attribute",
+      "required": [
+        "name",
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_multiValueAttributeOp": {
+      "type": "object",
+      "description": "operation on a multi-valued SAML attribute",
+      "required": [
+        "name",
+        "values"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tenantExtended.json_definitions_attributeOp": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/tenantExtended.json_definitions_singleValueAttributeOp"
+        },
+        {
+          "$ref": "#/definitions/tenantExtended.json_definitions_multiValueAttributeOp"
+        }
+      ]
+    },
+    "tenantExtended.json_definitions_ifMatched": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/tenantExtended.json_definitions_attributeOp"
+      }
+    },
+    "tenantExtended.json_definitions_attributeOverride": {
+      "type": "object",
+      "required": [
+        "filter",
+        "ifMatched"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "filter": {
+          "type": "string"
+        },
+        "ifMatched": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_ifMatched"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_id": {
+      "type": "integer"
+    },
+    "tenantExtended.json_definitions_description": {
+      "type": "string"
+    },
+    "tenantExtended.json_definitions_attributeOverrides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverride"
+      }
+    },
+    "tenantExtended.json_definitions_samlIdentitySource": {
+      "type": "object",
+      "required": [
+        "kind",
+        "metadata",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "samlIdentitySource"
+          ],
+          "description": "always set to: samlIdentitySource"
+        },
+        "id": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_id"
+        },
+        "metadata": {
+          "type": "string"
+        },
+        "description": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_description"
+        },
+        "attributeOverrides": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverrides"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_emailIdentitySource": {
+      "type": "object",
+      "required": [
+        "kind",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "emailIdentitySource"
+          ],
+          "description": "always set to: emailIdentitySource"
+        },
+        "id": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_id"
+        },
+        "description": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_description"
+        },
+        "attributeOverrides": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverrides"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_legacyAppIdentitySource": {
+      "type": "object",
+      "required": [
+        "kind",
+        "apiBase",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "legacyAppIdentitySource"
+          ],
+          "description": "always set to: legacyAppIdentitySource"
+        },
+        "id": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_id"
+        },
+        "apiBase": {
+          "type": "string"
+        },
+        "description": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_description"
+        },
+        "attributeOverrides": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverrides"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_socialIdentitySource": {
+      "type": "object",
+      "required": [
+        "kind",
+        "network",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "socialIdentitySource"
+          ],
+          "description": "always set to: socialIdentitySource"
+        },
+        "id": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_id"
+        },
+        "network": {
+          "enum": [
+            "LinkedIn",
+            "Facebook"
+          ]
+        },
+        "description": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_description"
+        },
+        "attributeOverrides": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverrides"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_bootstrapIdentitySource": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "bootstrapIdentitySource"
+          ],
+          "description": "always set to: bootstrapIdentitySource"
+        },
+        "description": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_description"
+        },
+        "attributeOverrides": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_attributeOverrides"
+        }
+      }
+    },
+    "samlSubject.json_definitions_principalType": {
+      "enum": [
+        "user",
+        "candidate"
+      ],
+      "description": "a class of principal (typically a human) identifiable by SSO. In theory developer-defined but for now only TAS can create."
+    },
+    "tenantExtended.json_definitions_identitySources": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/tenantExtended.json_definitions_samlIdentitySource"
+          },
+          {
+            "$ref": "#/definitions/tenantExtended.json_definitions_emailIdentitySource"
+          },
+          {
+            "$ref": "#/definitions/tenantExtended.json_definitions_legacyAppIdentitySource"
+          },
+          {
+            "$ref": "#/definitions/tenantExtended.json_definitions_socialIdentitySource"
+          },
+          {
+            "$ref": "#/definitions/tenantExtended.json_definitions_bootstrapIdentitySource"
+          }
+        ]
+      }
+    },
+    "tenantExtended.json_definitions_identitySourceSet": {
+      "type": "object",
+      "properties": {
+        "principalType": {
+          "$ref": "#/definitions/samlSubject.json_definitions_principalType"
+        },
+        "identitySources": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_identitySources"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "principalType",
+        "identitySources"
+      ]
+    },
+    "tenantExtended.json_definitions_basicAuthCredentials": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "user",
+        "password"
+      ],
+      "properties": {
+        "user": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_server": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "baseUri",
+        "basicAuthCredentials"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "baseUri": {
+          "type": "string"
+        },
+        "basicAuthCredentials": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_basicAuthCredentials"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_servers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/tenantExtended.json_definitions_server"
+      }
+    },
+    "tenantInstallsAppStatus.json": {},
+    "tenantExtended.json_definitions_install": {
+      "type": "object",
+      "required": [
+        "app"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "app": {
+          "type": "string"
+        },
+        "servers": {
+          "$ref": "#/definitions/tenantExtended.json_definitions_servers"
+        },
+        "status": {
+          "$ref": "#/definitions/tenantInstallsAppStatus.json"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_details": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "organizationName": {
+          "type": "string",
+          "description": "The legal name of the organization"
+        },
+        "shortCode": {
+          "type": "string",
+          "description": "a short, alpha only, lower case identifier for the tenant, e.g. acme"
+        },
+        "description": {
+          "type": "string",
+          "description": "a description for this store"
+        },
+        "country": {
+          "type": "string",
+          "description": "the country code for the organization using the store"
+        },
+        "industry": {
+          "enum": [
+            "Banking",
+            "Healthcare",
+            "Hospitality",
+            "IT",
+            "Manufacturing",
+            "Other"
+          ],
+          "description": "The organization\u0027s primary industry"
+        }
+      }
+    },
+    "tenantExtended.json_definitions_installs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/tenantExtended.json_definitions_install"
+      }
+    },
+    "tenantExtended.json_definitions_identitySourceSets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/tenantExtended.json_definitions_identitySourceSet"
+      }
+    },
+    "patchSet.json_definitions_op": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "op",
+        "path",
+        "value"
+      ],
+      "properties": {
+        "op": {
+          "enum": [
+            "add",
+            "remove",
+            "move",
+            "copy",
+            "replace",
+            "test"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "allow patching any string attribute"
+            },
+            {
+              "type": "number",
+              "description": "allow patching any number attribute"
+            },
+            {
+              "$ref": "#/definitions/tenantExtended.json"
+            },
+            {
+              "$ref": "#/definitions/tenantExtended.json_definitions_install"
+            },
+            {
+              "$ref": "#/definitions/tenantExtended.json_definitions_installs"
+            },
+            {
+              "$ref": "#/definitions/tenantExtended.json_definitions_servers"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

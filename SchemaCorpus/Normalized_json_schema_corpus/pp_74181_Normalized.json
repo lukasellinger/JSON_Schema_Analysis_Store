@@ -1,0 +1,571 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "upload-acquisition-metadata-input": {
+      "type": "object",
+      "properties": {
+        "public": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "info": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "uid": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timestamp": {
+          "$ref": "#/definitions/container.json_definitions_timestamp"
+        },
+        "timezone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "files": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-input"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "engine-upload-input": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "$ref": "#/definitions/project.json_definitions_project-metadata-input"
+        },
+        "session": {
+          "$ref": "#/definitions/session.json_definitions_session-metadata-input"
+        },
+        "acquisition": {
+          "$ref": "#/definitions/acquisition.json_definitions_acquisition-metadata-input"
+        }
+      },
+      "additionalProperties": false
+    },
+    "label-upload-input": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/group.json_definitions_group-metadata-input"
+            }
+          ],
+          "required": [
+            "_id"
+          ]
+        },
+        "project": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/project.json_definitions_project-metadata-input"
+            }
+          ],
+          "required": [
+            "label"
+          ]
+        },
+        "session": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/session.json_definitions_session-metadata-input"
+            }
+          ],
+          "required": [
+            "label"
+          ]
+        },
+        "acquisition": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/upload-acquisition-metadata-input"
+            }
+          ],
+          "required": [
+            "label"
+          ]
+        }
+      },
+      "required": [
+        "group",
+        "project"
+      ],
+      "additionalProperties": false
+    },
+    "uid-upload-input": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/group.json_definitions_group-metadata-input"
+            }
+          ],
+          "required": [
+            "_id"
+          ]
+        },
+        "project": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/project.json_definitions_project-metadata-input"
+            }
+          ],
+          "required": [
+            "label"
+          ]
+        },
+        "session": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/session.json_definitions_session-metadata-input"
+            }
+          ],
+          "required": [
+            "uid"
+          ]
+        },
+        "acquisition": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/upload-acquisition-metadata-input"
+            }
+          ],
+          "required": [
+            "uid"
+          ]
+        }
+      },
+      "required": [
+        "acquisition",
+        "group",
+        "project",
+        "session"
+      ],
+      "additionalProperties": false
+    },
+    "uid-match-upload-input": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "$ref": "#/definitions/project.json_definitions_project-metadata-input"
+        },
+        "session": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/session.json_definitions_session-metadata-input"
+            }
+          ],
+          "required": [
+            "uid"
+          ]
+        },
+        "acquisition": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/upload-acquisition-metadata-input"
+            }
+          ],
+          "required": [
+            "uid"
+          ]
+        }
+      },
+      "required": [
+        "acquisition",
+        "session"
+      ],
+      "additionalProperties": false
+    },
+    "container.json_definitions_timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "file.json_definitions_file-input": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/file.json_definitions_name"
+        },
+        "type": {
+          "$ref": "#/definitions/file.json_definitions_file-type"
+        },
+        "mimetype": {
+          "$ref": "#/definitions/file.json_definitions_mimetype"
+        },
+        "modality": {
+          "$ref": "#/definitions/file.json_definitions_modality"
+        },
+        "measurements": {
+          "$ref": "#/definitions/file.json_definitions_measurements"
+        },
+        "tags": {
+          "$ref": "#/definitions/file.json_definitions_tags"
+        },
+        "info": {
+          "$ref": "#/definitions/common.json_definitions_info"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "file-entry"
+    },
+    "file.json_definitions_name": {
+      "type": "string"
+    },
+    "file.json_definitions_file-type": {
+      "type": "string"
+    },
+    "file.json_definitions_mimetype": {
+      "type": "string"
+    },
+    "file.json_definitions_modality": {
+      "type": "string"
+    },
+    "file.json_definitions_measurements": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "file.json_definitions_tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "common.json_definitions_info": {
+      "type": "object"
+    },
+    "project.json_definitions_project-metadata-input": {
+      "type": "object",
+      "properties": {
+        "public": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "info": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "files": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-input"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "session.json_definitions_session-metadata-input": {
+      "type": "object",
+      "properties": {
+        "public": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "info": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "operator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uid": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timestamp": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "timezone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "subject": {
+          "$ref": "#/definitions/subject.json_definitions_subject-input"
+        },
+        "files": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-input"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "subject.json_definitions_subject-input": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/subject.json_definitions__id"
+        },
+        "firstname": {
+          "$ref": "#/definitions/subject.json_definitions_firstname"
+        },
+        "lastname": {
+          "$ref": "#/definitions/subject.json_definitions_lastname"
+        },
+        "age": {
+          "$ref": "#/definitions/subject.json_definitions_age"
+        },
+        "sex": {
+          "$ref": "#/definitions/subject.json_definitions_sex"
+        },
+        "race": {
+          "$ref": "#/definitions/subject.json_definitions_race"
+        },
+        "ethnicity": {
+          "$ref": "#/definitions/subject.json_definitions_ethnicity"
+        },
+        "code": {
+          "$ref": "#/definitions/subject.json_definitions_code"
+        },
+        "tags": {
+          "$ref": "#/definitions/subject.json_definitions_tags"
+        },
+        "info": {
+          "$ref": "#/definitions/common.json_definitions_info"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-input"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "subject"
+    },
+    "subject.json_definitions__id": {
+      "$ref": "#/definitions/common.json_definitions_objectid"
+    },
+    "common.json_definitions_objectid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{24}$"
+    },
+    "subject.json_definitions_firstname": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "subject.json_definitions_lastname": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "subject.json_definitions_age": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "subject.json_definitions_sex": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "male",
+            "female",
+            "other",
+            "unknown"
+          ]
+        }
+      ]
+    },
+    "subject.json_definitions_race": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "American Indian or Alaska Native",
+            "Asian",
+            "Native Hawaiian or Other Pacific Islander",
+            "Black or African American",
+            "White",
+            "More Than One Race",
+            "Unknown or Not Reported"
+          ]
+        }
+      ]
+    },
+    "subject.json_definitions_ethnicity": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "Not Hispanic or Latino",
+            "Hispanic or Latino",
+            "Unknown or Not Reported"
+          ]
+        }
+      ]
+    },
+    "subject.json_definitions_code": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "subject.json_definitions_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "acquisition.json_definitions_acquisition-metadata-input": {
+      "type": "object",
+      "x-note": "Are all of these fields still used/valid? Can this be reconciled with enginemetadata.json#/definitions/uid-upload-input?",
+      "properties": {
+        "public": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "info": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "metadata": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "measurement": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instrument": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uid": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timestamp": {
+          "$ref": "#/definitions/container.json_definitions_timestamp"
+        },
+        "timezone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "files": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-input"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "group.json_definitions_group-metadata-input": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

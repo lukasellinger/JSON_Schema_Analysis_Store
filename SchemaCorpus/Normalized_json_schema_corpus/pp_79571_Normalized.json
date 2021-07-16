@@ -1,0 +1,378 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/booleanItem"
+    },
+    {
+      "$ref": "#/definitions/stringItem"
+    },
+    {
+      "$ref": "#/definitions/numberItem"
+    },
+    {
+      "$ref": "#/definitions/dateItem"
+    },
+    {
+      "$ref": "#/definitions/fileItem"
+    },
+    {
+      "$ref": "#/definitions/cascadeItem"
+    },
+    {
+      "$ref": "#/definitions/picklistItem"
+    },
+    {
+      "$ref": "#/definitions/tableItem"
+    }
+  ],
+  "definitions": {
+    "picklistItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "picklist"
+          ]
+        },
+        "id": {
+          "type": "integer",
+          "description": "id of the item"
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "$ref": "#/definitions/pickChoices"
+        },
+        "selectedIds": {
+          "$ref": "#/definitions/selectedIds"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "selectedIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/selectedId"
+      }
+    },
+    "pickChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/pickChoice"
+      }
+    },
+    "selectedId": {
+      "type": "integer",
+      "description": "the id of a choice that the user selected"
+    },
+    "pickChoice": {
+      "type": "string",
+      "description": "the name of a choice that the user selected"
+    },
+    "tableItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "table"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "$ref": "#/definitions/tableRows"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "tableRows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/tableRow"
+      }
+    },
+    "tableRow": {
+      "type": "array",
+      "items": {
+        "$ref": "#"
+      }
+    },
+    "cascadeItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "cascade"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "$ref": "#/definitions/cascadeChoices"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "cascadeChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/cascadeChoice"
+      }
+    },
+    "cascadeChoice": {
+      "type": "object",
+      "properties": {
+        "choice": {
+          "type": "string",
+          "description": "the name of a choice that the user selected"
+        },
+        "subItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#"
+          },
+          "description": "items unlocked based on a cascade choice"
+        }
+      },
+      "required": [
+        "choice"
+      ],
+      "additionalProperties": false
+    },
+    "name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "booleanItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "boolean"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "type": "boolean",
+          "description": "json representation of a boolean item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "stringItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "string"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "type": "string",
+          "description": "json representation of a string item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "numberItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "number"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "type": "number",
+          "description": "json representation of a number item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "dateItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "date"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "type": "string",
+          "format": "date-time",
+          "description": "json representation of a date item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "fileItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "file"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "value": {
+          "$ref": "#/definitions/fileDownload.json"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "fileDownload.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "details for a previously uploaded file",
+      "definitions": {
+        "via": {
+          "type": "string",
+          "description": "the mechanism via which the file was uploaded - either \u0027device\u0027 or the fqdn of a cloud storage platform (e.g. dropbox.com)"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "mediaType": {
+          "description": "keep in synch with the trait document_asStream",
+          "enum": [
+            "application/pdf",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/msword",
+            "application/rtf",
+            "text/plain",
+            "image/png",
+            "image/jpeg",
+            "image/gif",
+            "text/html",
+            "audio/x-mpeg-3",
+            "video/x-msvideo",
+            "video/mp4"
+          ]
+        },
+        "data": {
+          "type": "string",
+          "media": {
+            "binaryEncoding": "base64"
+          }
+        }
+      },
+      "type": "object",
+      "properties": {
+        "fileName": {
+          "$ref": "#/definitions/fileDownload.json_definitions_fileName"
+        },
+        "via": {
+          "$ref": "#/definitions/fileDownload.json_definitions_via"
+        },
+        "mediaType": {
+          "$ref": "#/definitions/fileDownload.json_definitions_mediaType"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "md5": {
+          "type": "string",
+          "description": "hash of the file\u0027s binary content"
+        },
+        "dateUploaded": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the date and time the file was uploaded"
+        },
+        "preSignedUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "pre-signed link as per http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html to access the raw data. Includes file name as the trailing component so that browsers name the download correctly."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "fileName",
+        "size",
+        "mediaType",
+        "preSignedUri"
+      ]
+    },
+    "fileDownload.json_definitions_fileName": {
+      "type": "string"
+    },
+    "fileDownload.json_definitions_via": {
+      "type": "string",
+      "description": "the mechanism via which the file was uploaded - either \u0027device\u0027 or the fqdn of a cloud storage platform (e.g. dropbox.com)"
+    },
+    "fileDownload.json_definitions_mediaType": {
+      "description": "keep in synch with the trait document_asStream",
+      "enum": [
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/msword",
+        "application/rtf",
+        "text/plain",
+        "image/png",
+        "image/jpeg",
+        "image/gif",
+        "text/html",
+        "audio/x-mpeg-3",
+        "video/x-msvideo",
+        "video/mp4"
+      ]
+    }
+  }
+}

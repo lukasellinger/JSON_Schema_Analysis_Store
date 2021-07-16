@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/beerjson/beerjson/master/json/fermentation.json",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "FermentationProcedureType": {
+      "type": "object",
+      "description": "FermentationProcedureType defines the procedure for performing fermentation.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "fermentation_steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/fermentation_step.json_definitions_FermentationStepType"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "fermentation_steps"
+      ]
+    },
+    "fermentation_step.json_definitions_FermentationStepType": {
+      "type": "object",
+      "description": "FermentationStepType - a per step representation of a fermentation action.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "start_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "end_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "step_time": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "free_rise": {
+          "description": "Free rise is used to indicate a fermentation step where the exothermic fermentation is allowed to raise the temperature without restriction This is either True or false.",
+          "type": "boolean"
+        },
+        "start_gravity": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "end_gravity": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "start_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "end_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "vessel": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureUnitType": {
+      "type": "string",
+      "enum": [
+        "C",
+        "F"
+      ]
+    },
+    "measureable_units.json_definitions_TimeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeUnitType"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TimeUnitType": {
+      "type": "string",
+      "enum": [
+        "sec",
+        "min",
+        "hr",
+        "day",
+        "week"
+      ]
+    },
+    "measureable_units.json_definitions_GravityType": {
+      "type": "object",
+      "description": "Gravity refers to the both the measurements of percent of sugar content, ie plato and brix, as well as relative density ie specific gravity.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_GravityUnitType": {
+      "type": "string",
+      "enum": [
+        "sg",
+        "plato",
+        "brix"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityUnitType": {
+      "type": "string",
+      "enum": [
+        "pH"
+      ]
+    }
+  }
+}

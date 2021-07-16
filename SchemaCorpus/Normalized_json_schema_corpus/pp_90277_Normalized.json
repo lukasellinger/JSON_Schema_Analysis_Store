@@ -1,0 +1,244 @@
+{
+  "title": "popupElement media",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Configures media in popup elements.",
+  "properties": {
+    "mediaInfos": {
+      "type": "array",
+      "description": "An array of `mediaInfo` objects representing an image or chart for display. If no `mediaInfos` property is provided, the popupElement will display whatever is specified in the `popupInfo.mediaInfos` property.",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/mediaInfo_schema.json"
+      }
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "media"
+      ]
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "additionalInformation": "Each popupElement has a `type` property. This string value indicates the type of popupElement used.",
+    "examples": [
+      {
+        "title": "popupElement media imag",
+        "code": {
+          "popupElements": [
+            {
+              "mediaInfos": [
+                {
+                  "type": "image",
+                  "title": "\u003cdiv\u003e\u003cp style\u003d\u0027font-weight:bold;\u0027\u003e\u003cspan\u003eImage\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                  "caption": "\u003cdiv\u003e\u003cp\u003e\u003cspan\u003ecaliforniaa flag\u003c/span\u003e\u003c/p\u003e\u003cp\u003e\u003cspan /\u003e\u003c/p\u003e\u003c/div\u003e",
+                  "value": {
+                    "sourceURL": "http://www.50states.com/flag/image/nunst0006.gif"
+                  }
+                }
+              ],
+              "type": "media"
+            }
+          ]
+        }
+      },
+      {
+        "title": "popupElement media chart",
+        "code": {
+          "popupElements": [
+            {
+              "mediaInfos": [
+                {
+                  "type": "columnchart",
+                  "title": "\u003cdiv\u003e\u003cp style\u003d\u0027font-weight:bold;\u0027\u003e\u003cspan\u003eChart\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                  "caption": "\u003cdiv\u003e\u003cp\u003e\u003cspan style\u003d\"color:#DF73FF;\"\u003eThis shows Rotation and size.\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                  "value": {
+                    "fields": [
+                      "rotation",
+                      "size"
+                    ]
+                  }
+                }
+              ],
+              "type": "media"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "mediaInfo_schema.json": {
+      "title": "mediaInfo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Defines an image or a chart to be displayed in a popup window.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/mediaInfo_chart_schema.json"
+        },
+        {
+          "$ref": "#/definitions/mediaInfo_image_schema.json"
+        }
+      ]
+    },
+    "mediaInfo_chart_schema.json": {
+      "title": "mediaInfo chart",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Defines a chart to be displayed in a popup window.",
+      "properties": {
+        "caption": {
+          "type": "string",
+          "description": "A string caption describing the media."
+        },
+        "title": {
+          "type": "string",
+          "description": "A string title for the media."
+        },
+        "type": {
+          "type": "string",
+          "description": "A string defining the type of media.",
+          "enum": [
+            "barchart",
+            "columnchart",
+            "linechart",
+            "piechart"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/mediaInfo_chart_value_schema.json"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "mediaInfo",
+            "code": {
+              "mediaInfo": {
+                "title": "Chart stats",
+                "type": "barchart",
+                "caption": "For a better idea...",
+                "value": {
+                  "fields": [
+                    "relationships/0/Pledge"
+                  ],
+                  "tooltipField": "relationships/2/Official"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "mediaInfo_chart_value_schema.json": {
+      "title": "mediaInfo chart value",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The value object contains information for popup windows about how charts should be constructed.",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "description": "An array of strings, with each string containing the name of a field to display in the chart.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "normalizeField": {
+          "type": "string",
+          "description": "An optional string containing the name of a field. The values of all fields in the chart will be normalized (divided) by the value of this field."
+        },
+        "tooltipField": {
+          "type": "string",
+          "description": "String value indicating the tooltip for a chart specified from another field. This field is needed when related records are not used. It is used for showing tooltips from another field in the same layer or related layer/table."
+        }
+      },
+      "required": [
+        "fields"
+      ],
+      "additionalProperties": false
+    },
+    "mediaInfo_image_schema.json": {
+      "title": "mediaInfo image",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Defines an image to be displayed in a popup window.",
+      "properties": {
+        "caption": {
+          "type": "string",
+          "description": "A string caption describing the media."
+        },
+        "refreshInterval": {
+          "type": "number",
+          "description": "Refresh interval of the layer in minutes. Non-zero value indicates automatic layer refresh at the specified interval. Value of 0 indicates auto refresh is not enabled. If the property does not exist, it\u0027s equivalent to having a value of 0."
+        },
+        "title": {
+          "type": "string",
+          "description": "A string title for the media."
+        },
+        "type": {
+          "type": "string",
+          "description": "A string defining the type of media.",
+          "enum": [
+            "image"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/mediaInfo_image_value_schema.json"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "mediaInfo",
+            "code": {
+              "mediaInfo": {
+                "type": "image",
+                "title": "\u003cdiv\u003e\u003cp style\u003d\u0027font-weight:bold;\u0027\u003e\u003cspan\u003eImage\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                "caption": "\u003cdiv\u003e\u003cp\u003e\u003cspan\u003ecaliforniaa flag\u003c/span\u003e\u003c/p\u003e\u003cp\u003e\u003cspan /\u003e\u003c/p\u003e\u003c/div\u003e",
+                "value": {
+                  "sourceURL": "http://www.50states.com/flag/image/nunst0006.gif"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "mediaInfo_image_value_schema.json": {
+      "title": "mediaInfo image value",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The value object contains information for popup windows about how images should be retrieved.",
+      "properties": {
+        "linkURL": {
+          "type": "string",
+          "description": "A string containing a URL to be launched in a browser when a user clicks the image."
+        },
+        "sourceURL": {
+          "type": "string",
+          "description": "A string containing the URL to the image."
+        }
+      },
+      "required": [
+        "sourceURL"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

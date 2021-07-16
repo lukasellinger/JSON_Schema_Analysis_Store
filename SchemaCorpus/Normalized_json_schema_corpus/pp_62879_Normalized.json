@@ -1,0 +1,803 @@
+{
+  "$schema": "http://json-schema.org/draft-05/schema#",
+  "definitions": {
+    "ServiceOptionsType": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "This element describes service options, subset type, supported SRSs, interpolation types, formats, exceptions and whether the service is synchronous or asyncronous.",
+      "properties": {
+        "SubsetType": {
+          "description": "This element is used to identify the list of supported subsetting requests.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubsetTypeEnum"
+          },
+          "minItems": 1
+        },
+        "SupportedSRS": {
+          "description": "This element is used to identify the list of supported Spatial Reference Systems (SRS).",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SupportedSRSType"
+          },
+          "minItems": 0
+        },
+        "InterpolationType": {
+          "description": "This element is used to identify the list of supported interpolation types. These are used in regridding.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InterpolationTypeEnum"
+          },
+          "minItems": 1
+        },
+        "NativeResolution": {
+          "description": "This entity represents the default (native) spatial resolution of the variable in units of km. See the \u003cgml:offsetVector\u003e flag in the DescribeCoverage request for that coverage.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10
+        },
+        "ResX": {
+          "description": "Resolution of the x dimension of the requested coverage or map. (Use ResX and ResY or Width and Height - but not both in the same request).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10
+        },
+        "ResY": {
+          "description": "Resolution of the y dimension of the requested coverage or map. (Use ResX and ResY or Width and Height - but not both in the same request).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10
+        },
+        "TemporalResolution": {
+          "description": "This entity represents the default (native) temporal resolution of the variable in units of km.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10
+        },
+        "SupportedFormats": {
+          "description": "The project element describes the list of names of the formats supported by the service.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FormatType"
+          },
+          "minItems": 1
+        },
+        "Exceptions": {
+          "description": "This field describes the list of exceptions for the service.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10
+        },
+        "Synchronous": {
+          "description": "This provides a field to state whether the service is deemed either synchronous or asynchronous.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10
+        }
+      }
+    },
+    "ServiceKeywordType": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "This element enables specification of service keywords.",
+      "properties": {
+        "Category": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "Topic": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "Term": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "ServiceSpecificName": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        }
+      },
+      "required": [
+        "Category",
+        "Topic",
+        "Term"
+      ]
+    },
+    "SubsetTypeEnum": {
+      "description": "This element is used to identify the subset type of the variable.",
+      "type": "string",
+      "enum": [
+        "Spatial",
+        "Temporal",
+        "Variable",
+        "Regridding",
+        "Reprojection",
+        "Resampling",
+        "Mosaicing"
+      ]
+    },
+    "SupportedSRSType": {
+      "description": "This element is used to identify the Spatial Reference System (SRS) of the variable.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20
+    },
+    "InterpolationTypeEnum": {
+      "description": "This element is used to identify the interpolation type of the variable.",
+      "type": "string",
+      "enum": [
+        "Bilinear Interpolation",
+        "Bicubic Interpolation",
+        "Distance-weighted average resampling",
+        "Nearest Neighbor"
+      ]
+    },
+    "FormatType": {
+      "description": "The distribution format of the variable provided by the service.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "VersionType": {
+      "description": "Version of the service, e.g. 1.1.1.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20
+    },
+    "LayerType": {
+      "description": "The name of the layer (or identifier) available via the service.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "SupportedRequestEnum": {
+      "description": "This element is used to identify the request type for the service, GetCapabilities, DescribeCoverage, GetCoverage, etc.",
+      "type": "string",
+      "enum": [
+        "GetCapabilities",
+        "DescribeMap",
+        "GetMap",
+        "GetLegendGraphic",
+        "DescribeFeatureType",
+        "GetFeature",
+        "DescribeCoverage",
+        "GetCoverage"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_KeywordStringType": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "[\\w\\-\u0026\u0027()\\[\\]/.\"#$%\\^@!*+\u003d,][\\w\\-\u0026\u0027()\\[\\]/.\"#$%\\^@!*+\u003d, ]{1,79}"
+    },
+    "umm-cmn-json-schema.json_definitions_EntryTitleType": {
+      "description": "The title of the data described by the metadata.",
+      "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_TitleType"
+    },
+    "umm-cmn-json-schema.json_definitions_TitleType": {
+      "description": "A title type that defines the min and max lengths of all titles.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1030
+    },
+    "umm-cmn-json-schema.json_definitions_AbstractType": {
+      "description": "A brief description of the collection. This allows potential users to determine if the collection is useful for their needs.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 40000
+    },
+    "umm-s-json-schema.json_definitions_ServiceKeywordType": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "This element enables specification of service keywords.",
+      "properties": {
+        "Category": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "Topic": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "Term": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "ServiceSpecificName": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        }
+      },
+      "required": [
+        "Category",
+        "Topic",
+        "Term"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_ScienceKeywordType": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Enables specification of Earth science keywords related to the collection.  The Earth Science keywords are chosen from a controlled keyword hierarchy maintained in the Keyword Management System (KMS).",
+      "properties": {
+        "Category": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "Topic": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "Term": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "VariableLevel1": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "VariableLevel2": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "VariableLevel3": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        },
+        "DetailedVariable": {
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_KeywordStringType"
+        }
+      },
+      "required": [
+        "Category",
+        "Topic",
+        "Term"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_RelatedUrlType": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Represents Internet sites that contain information related to the data, as well as related Internet sites such as project home pages, related data archives/servers, metadata extensions, online software packages, web mapping services, and calibration/validation data.",
+      "properties": {
+        "Title": {
+          "description": "The Title is a one-line description of the resource, could be used a caption when a browse image is displayed. The title is especially useful for images such as graphs and photos.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_TitleType"
+        },
+        "Description": {
+          "description": "Description of the web page at this URL.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Relation": {
+          "description": "An array of keywords describing the relation of the online resource to this resource.",
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        },
+        "URLs": {
+          "description": "The URL for the relevant web page (e.g., the URL of the responsible organization\u0027s home page, the URL of the collection landing page, the URL of the download site for the collection).",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "minItems": 1
+        },
+        "MimeType": {
+          "description": "The mime type of files downloaded from this site (e.g., pdf, doc, zip, tiff, jpg, readme).",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "FileSize": {
+          "description": "The estimated or average size of a file downloaded from this site.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_FileSizeType"
+        }
+      },
+      "required": [
+        "URLs"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_FileSizeType": {
+      "description": "Represents a data file size.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Size": {
+          "description": "The size of the data.",
+          "type": "number"
+        },
+        "Unit": {
+          "description": "Unit of information, together with Size determines total size in bytes of the data.",
+          "type": "string",
+          "enum": [
+            "KB",
+            "MB",
+            "GB",
+            "TB",
+            "PB"
+          ]
+        }
+      },
+      "required": [
+        "Size",
+        "Unit"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_ContactPersonType": {
+      "type": "object",
+      "properties": {
+        "Roles": {
+          "description": "This is the roles of the data contact.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_DataContactRoleEnum"
+          },
+          "minItems": 1
+        },
+        "Uuid": {
+          "description": "Uuid of the data contact.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_UuidType"
+        },
+        "NonDataCenterAffiliation": {
+          "description": "This is the contact person or group that is not affiliated with the data centers.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "ContactInformation": {
+          "description": "This is the contact information of the data contact.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_ContactInformationType"
+        },
+        "FirstName": {
+          "description": "First name of the individual.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "MiddleName": {
+          "description": "Middle name of the individual.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        },
+        "LastName": {
+          "description": "Last name of the individual.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "Roles",
+        "LastName"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_DataContactRoleEnum": {
+      "description": "Defines the possible values of a data contact role.",
+      "type": "string",
+      "enum": [
+        "Data Center Contact",
+        "Technical Contact",
+        "Science Contact",
+        "Investigator",
+        "Metadata Author",
+        "User Services",
+        "Science Software Development"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_UuidType": {
+      "description": "A Level 3 UUID, see wiki link http://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29",
+      "type": "string",
+      "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89abAB][0-9a-f]{3}-[0-9a-f]{12}"
+    },
+    "umm-cmn-json-schema.json_definitions_ContactInformationType": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Defines the contact information of a data center or data contact.",
+      "properties": {
+        "RelatedUrls": {
+          "description": "A URL associated with the contact, e.g., the home page for the DAAC which is responsible for the collection.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_RelatedUrlType"
+          },
+          "minItems": 0
+        },
+        "ServiceHours": {
+          "description": "Time period when the contact answers questions or provides services.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "ContactInstruction": {
+          "description": "Supplemental instructions on how or when to contact the responsible party.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "ContactMechanisms": {
+          "description": "Mechanisms of contacting.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_ContactMechanismType"
+          }
+        },
+        "Addresses": {
+          "description": "Contact addresses.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_AddressType"
+          }
+        }
+      }
+    },
+    "umm-cmn-json-schema.json_definitions_ContactMechanismType": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Method for contacting the data contact. A contact can be available via phone, email, Facebook, or Twitter.",
+      "properties": {
+        "Type": {
+          "description": "This is the method type for contacting the responsible party - phone, email, Facebook, or Twitter.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_ContactMechanismTypeEnum"
+        },
+        "Value": {
+          "description": "This is the contact phone number, email address, Facebook address, or Twitter handle associated with the contact method.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024
+        }
+      },
+      "required": [
+        "Type",
+        "Value"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_ContactMechanismTypeEnum": {
+      "description": "Defines the possible contact mechanism types.",
+      "type": "string",
+      "enum": [
+        "Direct Line",
+        "Email",
+        "Facebook",
+        "Fax",
+        "Mobile",
+        "Modem",
+        "Primary",
+        "TDD/TTY Phone",
+        "Telephone",
+        "Twitter",
+        "U.S. toll free",
+        "Other"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_AddressType": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "This entity contains the physical address details for the contact.",
+      "properties": {
+        "StreetAddresses": {
+          "description": "An address line for the street address, used for mailing or physical addresses of organizations or individuals who serve as contacts for the collection.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1024
+          },
+          "minItems": 0
+        },
+        "City": {
+          "description": "The city portion of the physical address.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "StateProvince": {
+          "description": "The state or province portion of the physical address.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "Country": {
+          "description": "The country of the physical address.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "PostalCode": {
+          "description": "The zip or other postal code portion of the physical address.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20
+        }
+      }
+    },
+    "umm-cmn-json-schema.json_definitions_DataCenterType": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Defines a data center which is either an organization or institution responsible for distributing, archiving, or processing the data, etc.",
+      "properties": {
+        "Roles": {
+          "description": "This is the roles of the data center.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_DataCenterRoleEnum"
+          },
+          "minItems": 1
+        },
+        "ShortName": {
+          "description": "This is the short name of the data center.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_ShortNameType"
+        },
+        "LongName": {
+          "description": "This is the long name of the data center.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_LongNameType"
+        },
+        "Uuid": {
+          "description": "Uuid of the data center.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_UuidType"
+        },
+        "ContactGroups": {
+          "description": "This is the contact groups of the data center.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_ContactGroupType"
+          }
+        },
+        "ContactPersons": {
+          "description": "This is the contact persons of the data center.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_ContactPersonType"
+          }
+        },
+        "ContactInformation": {
+          "description": "This is the contact information of the data center.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_ContactInformationType"
+        }
+      },
+      "required": [
+        "Roles",
+        "ShortName"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_DataCenterRoleEnum": {
+      "description": "Defines the possible values of a data center role.",
+      "type": "string",
+      "enum": [
+        "ARCHIVER",
+        "DISTRIBUTOR",
+        "PROCESSOR",
+        "ORIGINATOR"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_ShortNameType": {
+      "description": "The unique name.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 85
+    },
+    "umm-cmn-json-schema.json_definitions_LongNameType": {
+      "description": "The expanded or long name related to the short name.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "umm-cmn-json-schema.json_definitions_ContactGroupType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Roles": {
+          "description": "This is the roles of the data contact.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_DataContactRoleEnum"
+          },
+          "minItems": 1
+        },
+        "Uuid": {
+          "description": "Uuid of the data contact.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_UuidType"
+        },
+        "NonDataCenterAffiliation": {
+          "description": "This is the contact person or group that is not affiliated with the data centers.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024
+        },
+        "ContactInformation": {
+          "description": "This is the contact information of the data contact.",
+          "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_ContactInformationType"
+        },
+        "GroupName": {
+          "description": "This is the contact group name.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "Roles",
+        "GroupName"
+      ]
+    },
+    "umm-cmn-json-schema.json_definitions_AccessConstraintsType": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Information about any constraints for accessing the data set. This includes any special restrictions, legal prerequisites, limitations and/or warnings on obtaining the data set.",
+      "properties": {
+        "Description": {
+          "description": "Free-text description of the constraint.  In DIF, this field is called Access_Constraint.   In ECHO, this field is called RestrictionComment.  Examples of text in this field are Public, In-house, Limited.  Additional detailed instructions on how to access the collection data may be entered in this field.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Value": {
+          "description": "Numeric value that is used with Access Control Language (ACLs) to restrict access to this collection.  For example, a provider might specify a collection level ACL that hides all collections with a value element set to 15.   In ECHO, this field is called RestrictionFlag.  This field does not exist in DIF.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "Description"
+      ]
+    }
+  },
+  "title": "UMM-S",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Name": {
+      "description": "The name of the service.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20
+    },
+    "Title": {
+      "description": "The title of the service described by the metadata.",
+      "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_EntryTitleType"
+    },
+    "Abstract": {
+      "description": "Abstract provides a brief description of the service the metadata represents.",
+      "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_AbstractType"
+    },
+    "Description": {
+      "description": "This element contains a description of the service.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "ServiceKeywords": {
+      "description": "This element enables specification of service keywords.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/umm-s-json-schema.json_definitions_ServiceKeywordType"
+      },
+      "minItems": 1
+    },
+    "ScienceKeywords": {
+      "description": "This element enables specification of Earth science keywords.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_ScienceKeywordType"
+      },
+      "minItems": 1
+    },
+    "Type": {
+      "description": "Specification of the service, e.g. Web Mapping Service.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20
+    },
+    "Version": {
+      "description": "Version of the service, e.g. 1.1.1.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20
+    },
+    "SupportedRequests": {
+      "description": "Supported requests of the service.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SupportedRequestEnum"
+      },
+      "minItems": 1
+    },
+    "Layers": {
+      "description": "This element is used to provide a list of layer names (identifiers) which are available via the service.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LayerType"
+      },
+      "minItems": 1
+    },
+    "Format": {
+      "description": "The default format for delivery of the service for the specified layer(s).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "Width": {
+      "description": "The width of the requested map.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "Height": {
+      "description": "The height of the requested map.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "BBox": {
+      "description": "Bounding box corners \u003d lower left (min x, min y), and upper right (max x and max y).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "RelatedUrls": {
+      "description": "This element describes any data/service related URLs that include project home pages, services, related data archives/servers, metadata extensions, direct links to online software packages, web mapping services, links to images, or other data.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_RelatedUrlType"
+      },
+      "minItems": 1
+    },
+    "ContactPerson": {
+      "description": "The name of the contact person who maintains the service.",
+      "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_ContactPersonType"
+    },
+    "ContactOrganization": {
+      "description": "The name of the contact organization whhic maintains the service.",
+      "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_DataCenterType"
+    },
+    "AccessConstraints": {
+      "description": "This element with the description field allows the author to provide information about any constraints for accessing the service. This includes any special restrictions, legal prerequisites, limitations and/or warnings on obtaining the service. Some words that may be used in this element\u0027s value include: Public, In-house, Limited, None. The value field is used for special ACL rules (Access Control Lists (http://en.wikipedia.org/wiki/Access_control_list)). For example it can be used to hide metadata when it isn\u0027t ready for public consumption.",
+      "$ref": "#/definitions/umm-cmn-json-schema.json_definitions_AccessConstraintsType"
+    },
+    "AcceptVersions": {
+      "description": "This element is used to identify which versions of the services are available to accept requests.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/VersionType"
+      },
+      "minItems": 1
+    },
+    "Fees": {
+      "description": "The fee for obtaining data through the provided service. The fee is entered as a number, in US dollars.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "CreationDate": {
+      "description": "This provides the date (day and time) for which the service record was originally created.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "ReviewDate": {
+      "description": "This provides the date (day and time) for which the service record was last reviewed.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "ServiceOptions": {
+      "description": "This provides a object to define the set of options for the service.",
+      "$ref": "#/definitions/ServiceOptionsType"
+    }
+  },
+  "required": [
+    "Name",
+    "Title",
+    "Abstract",
+    "Description",
+    "ServiceKeywords",
+    "ScienceKeywords",
+    "Type",
+    "Version",
+    "SupportedRequests",
+    "Layers",
+    "Format",
+    "Width",
+    "Height",
+    "BBox",
+    "RelatedUrls",
+    "ContactPerson",
+    "ContactOrganization",
+    "AccessConstraints",
+    "AcceptVersions",
+    "Fees",
+    "CreationDate",
+    "ReviewDate"
+  ]
+}

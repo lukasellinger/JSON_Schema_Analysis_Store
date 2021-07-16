@@ -1,0 +1,1036 @@
+{
+  "description": "Open Container Initiative Runtime Specification Container Configuration Schema",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "ociVersion": {
+      "$ref": "#/definitions/defs.json_definitions_ociVersion"
+    },
+    "hooks": {
+      "type": "object",
+      "properties": {
+        "prestart": {
+          "$ref": "#/definitions/defs.json_definitions_ArrayOfHooks"
+        },
+        "poststart": {
+          "$ref": "#/definitions/defs.json_definitions_ArrayOfHooks"
+        },
+        "poststop": {
+          "$ref": "#/definitions/defs.json_definitions_ArrayOfHooks"
+        }
+      }
+    },
+    "annotations": {
+      "$ref": "#/definitions/defs.json_definitions_annotations"
+    },
+    "hostname": {
+      "type": "string"
+    },
+    "mounts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/defs.json_definitions_Mount"
+      }
+    },
+    "root": {
+      "description": "Configures the container\u0027s root filesystem.",
+      "type": "object",
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/definitions/defs.json_definitions_FilePath"
+        },
+        "readonly": {
+          "type": "boolean"
+        }
+      }
+    },
+    "process": {
+      "type": "object",
+      "required": [
+        "cwd",
+        "args"
+      ],
+      "properties": {
+        "args": {
+          "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+        },
+        "consoleSize": {
+          "type": "object",
+          "required": [
+            "height",
+            "width"
+          ],
+          "properties": {
+            "height": {
+              "$ref": "#/definitions/defs.json_definitions_uint64"
+            },
+            "width": {
+              "$ref": "#/definitions/defs.json_definitions_uint64"
+            }
+          }
+        },
+        "cwd": {
+          "type": "string"
+        },
+        "env": {
+          "$ref": "#/definitions/defs.json_definitions_Env"
+        },
+        "terminal": {
+          "type": "boolean"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "uid": {
+              "$ref": "#/definitions/defs.json_definitions_UID"
+            },
+            "gid": {
+              "$ref": "#/definitions/defs.json_definitions_GID"
+            },
+            "additionalGids": {
+              "$ref": "#/definitions/defs.json_definitions_ArrayOfGIDs"
+            },
+            "username": {
+              "type": "string"
+            }
+          }
+        },
+        "capabilities": {
+          "type": "object",
+          "properties": {
+            "bounding": {
+              "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+            },
+            "permitted": {
+              "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+            },
+            "effective": {
+              "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+            },
+            "inheritable": {
+              "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+            },
+            "ambient": {
+              "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+            }
+          }
+        },
+        "apparmorProfile": {
+          "type": "string"
+        },
+        "oomScoreAdj": {
+          "type": "integer"
+        },
+        "selinuxLabel": {
+          "type": "string"
+        },
+        "noNewPrivileges": {
+          "type": "boolean"
+        },
+        "rlimits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "soft",
+              "hard"
+            ],
+            "properties": {
+              "hard": {
+                "$ref": "#/definitions/defs.json_definitions_uint64"
+              },
+              "soft": {
+                "$ref": "#/definitions/defs.json_definitions_uint64"
+              },
+              "type": {
+                "type": "string",
+                "pattern": "^RLIMIT_[A-Z]+$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "linux": {
+      "$ref": "#/definitions/config-linux.json_linux"
+    },
+    "solaris": {
+      "$ref": "#/definitions/config-solaris.json_solaris"
+    },
+    "windows": {
+      "$ref": "#/definitions/config-windows.json_windows"
+    },
+    "vm": {
+      "$ref": "#/definitions/config-vm.json_vm"
+    }
+  },
+  "required": [
+    "ociVersion"
+  ],
+  "definitions": {
+    "defs.json_definitions_ociVersion": {
+      "description": "The version of Open Container Initiative Runtime Specification that the document complies with",
+      "type": "string"
+    },
+    "defs.json_definitions_ArrayOfHooks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/defs.json_definitions_Hook"
+      }
+    },
+    "defs.json_definitions_Hook": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "$ref": "#/definitions/defs.json_definitions_FilePath"
+        },
+        "args": {
+          "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+        },
+        "env": {
+          "$ref": "#/definitions/defs.json_definitions_Env"
+        },
+        "timeout": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "defs.json_definitions_FilePath": {
+      "type": "string"
+    },
+    "defs.json_definitions_ArrayOfStrings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "defs.json_definitions_Env": {
+      "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+    },
+    "defs.json_definitions_annotations": {
+      "$ref": "#/definitions/defs.json_definitions_mapStringString"
+    },
+    "defs.json_definitions_mapStringString": {
+      "type": "object",
+      "patternProperties": {
+        ".{1,}": {
+          "type": "string"
+        }
+      }
+    },
+    "defs.json_definitions_Mount": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/defs.json_definitions_FilePath"
+        },
+        "destination": {
+          "$ref": "#/definitions/defs.json_definitions_FilePath"
+        },
+        "options": {
+          "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "destination"
+      ]
+    },
+    "defs.json_definitions_uint64": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709552000
+    },
+    "defs.json_definitions_UID": {
+      "$ref": "#/definitions/defs.json_definitions_uint32"
+    },
+    "defs.json_definitions_uint32": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "defs.json_definitions_GID": {
+      "$ref": "#/definitions/defs.json_definitions_uint32"
+    },
+    "defs.json_definitions_ArrayOfGIDs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/defs.json_definitions_GID"
+      }
+    },
+    "config-linux.json_linux": {
+      "description": "Linux platform-specific configurations",
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/defs-linux.json_definitions_Device"
+          }
+        },
+        "uidMappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/defs.json_definitions_IDMapping"
+          }
+        },
+        "gidMappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/defs.json_definitions_IDMapping"
+          }
+        },
+        "namespaces": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/defs-linux.json_definitions_NamespaceReference"
+              }
+            ]
+          }
+        },
+        "resources": {
+          "type": "object",
+          "properties": {
+            "devices": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/defs-linux.json_definitions_DeviceCgroup"
+              }
+            },
+            "pids": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "$ref": "#/definitions/defs.json_definitions_int64"
+                }
+              },
+              "required": [
+                "limit"
+              ]
+            },
+            "blockIO": {
+              "type": "object",
+              "properties": {
+                "weight": {
+                  "$ref": "#/definitions/defs-linux.json_definitions_weight"
+                },
+                "leafWeight": {
+                  "$ref": "#/definitions/defs-linux.json_definitions_weight"
+                },
+                "throttleReadBpsDevice": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/defs-linux.json_definitions_blockIODeviceThrottle"
+                  }
+                },
+                "throttleWriteBpsDevice": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/defs-linux.json_definitions_blockIODeviceThrottle"
+                  }
+                },
+                "throttleReadIOPSDevice": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/defs-linux.json_definitions_blockIODeviceThrottle"
+                  }
+                },
+                "throttleWriteIOPSDevice": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/defs-linux.json_definitions_blockIODeviceThrottle"
+                  }
+                },
+                "weightDevice": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/defs-linux.json_definitions_blockIODeviceWeight"
+                  }
+                }
+              }
+            },
+            "cpu": {
+              "type": "object",
+              "properties": {
+                "cpus": {
+                  "type": "string"
+                },
+                "mems": {
+                  "type": "string"
+                },
+                "period": {
+                  "$ref": "#/definitions/defs.json_definitions_uint64"
+                },
+                "quota": {
+                  "$ref": "#/definitions/defs.json_definitions_int64"
+                },
+                "realtimePeriod": {
+                  "$ref": "#/definitions/defs.json_definitions_uint64"
+                },
+                "realtimeRuntime": {
+                  "$ref": "#/definitions/defs.json_definitions_int64"
+                },
+                "shares": {
+                  "$ref": "#/definitions/defs.json_definitions_uint64"
+                }
+              }
+            },
+            "hugepageLimits": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "pageSize": {
+                    "type": "string"
+                  },
+                  "limit": {
+                    "$ref": "#/definitions/defs.json_definitions_uint64"
+                  }
+                },
+                "required": [
+                  "pageSize",
+                  "limit"
+                ]
+              }
+            },
+            "memory": {
+              "type": "object",
+              "properties": {
+                "kernel": {
+                  "$ref": "#/definitions/defs.json_definitions_int64"
+                },
+                "kernelTCP": {
+                  "$ref": "#/definitions/defs.json_definitions_int64"
+                },
+                "limit": {
+                  "$ref": "#/definitions/defs.json_definitions_int64"
+                },
+                "reservation": {
+                  "$ref": "#/definitions/defs.json_definitions_int64"
+                },
+                "swap": {
+                  "$ref": "#/definitions/defs.json_definitions_int64"
+                },
+                "swappiness": {
+                  "$ref": "#/definitions/defs.json_definitions_uint64"
+                },
+                "disableOOMKiller": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "network": {
+              "type": "object",
+              "properties": {
+                "classID": {
+                  "$ref": "#/definitions/defs.json_definitions_uint32"
+                },
+                "priorities": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/defs-linux.json_definitions_NetworkInterfacePriority"
+                  }
+                }
+              }
+            },
+            "rdma": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/defs-linux.json_definitions_Rdma"
+              }
+            }
+          }
+        },
+        "cgroupsPath": {
+          "type": "string"
+        },
+        "rootfsPropagation": {
+          "$ref": "#/definitions/defs-linux.json_definitions_RootfsPropagation"
+        },
+        "seccomp": {
+          "type": "object",
+          "properties": {
+            "defaultAction": {
+              "$ref": "#/definitions/defs-linux.json_definitions_SeccompAction"
+            },
+            "architectures": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/defs-linux.json_definitions_SeccompArch"
+              }
+            },
+            "syscalls": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/defs-linux.json_definitions_Syscall"
+              }
+            }
+          },
+          "required": [
+            "defaultAction"
+          ]
+        },
+        "sysctl": {
+          "$ref": "#/definitions/defs.json_definitions_mapStringString"
+        },
+        "maskedPaths": {
+          "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+        },
+        "readonlyPaths": {
+          "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+        },
+        "mountLabel": {
+          "type": "string"
+        },
+        "intelRdt": {
+          "type": "object",
+          "properties": {
+            "l3CacheSchema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "defs-linux.json_definitions_Device": {
+      "type": "object",
+      "required": [
+        "type",
+        "path"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/defs-linux.json_definitions_FileType"
+        },
+        "path": {
+          "$ref": "#/definitions/defs.json_definitions_FilePath"
+        },
+        "fileMode": {
+          "$ref": "#/definitions/defs-linux.json_definitions_FileMode"
+        },
+        "major": {
+          "$ref": "#/definitions/defs-linux.json_definitions_Major"
+        },
+        "minor": {
+          "$ref": "#/definitions/defs-linux.json_definitions_Minor"
+        },
+        "uid": {
+          "$ref": "#/definitions/defs.json_definitions_UID"
+        },
+        "gid": {
+          "$ref": "#/definitions/defs.json_definitions_GID"
+        }
+      }
+    },
+    "defs-linux.json_definitions_FileType": {
+      "description": "Type of a block or special character device",
+      "type": "string",
+      "pattern": "^[cbup]$"
+    },
+    "defs-linux.json_definitions_FileMode": {
+      "description": "File permissions mode (typically an octal value)",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 512
+    },
+    "defs-linux.json_definitions_Major": {
+      "description": "major device number",
+      "$ref": "#/definitions/defs.json_definitions_int64"
+    },
+    "defs.json_definitions_int64": {
+      "type": "integer",
+      "minimum": -9223372036854776000,
+      "maximum": 9223372036854776000
+    },
+    "defs-linux.json_definitions_Minor": {
+      "description": "minor device number",
+      "$ref": "#/definitions/defs.json_definitions_int64"
+    },
+    "defs.json_definitions_IDMapping": {
+      "type": "object",
+      "properties": {
+        "containerID": {
+          "$ref": "#/definitions/defs.json_definitions_uint32"
+        },
+        "hostID": {
+          "$ref": "#/definitions/defs.json_definitions_uint32"
+        },
+        "size": {
+          "$ref": "#/definitions/defs.json_definitions_uint32"
+        }
+      },
+      "required": [
+        "containerID",
+        "hostID",
+        "size"
+      ]
+    },
+    "defs-linux.json_definitions_NamespaceReference": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/defs-linux.json_definitions_NamespaceType"
+        },
+        "path": {
+          "$ref": "#/definitions/defs.json_definitions_FilePath"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "defs-linux.json_definitions_NamespaceType": {
+      "type": "string",
+      "enum": [
+        "mount",
+        "pid",
+        "network",
+        "uts",
+        "ipc",
+        "user",
+        "cgroup"
+      ]
+    },
+    "defs-linux.json_definitions_DeviceCgroup": {
+      "type": "object",
+      "properties": {
+        "allow": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string"
+        },
+        "major": {
+          "$ref": "#/definitions/defs-linux.json_definitions_Major"
+        },
+        "minor": {
+          "$ref": "#/definitions/defs-linux.json_definitions_Minor"
+        },
+        "access": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "allow"
+      ]
+    },
+    "defs-linux.json_definitions_weight": {
+      "type": "integer"
+    },
+    "defs-linux.json_definitions_blockIODeviceThrottle": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/defs-linux.json_definitions_blockIODevice"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "rate": {
+              "$ref": "#/definitions/defs.json_definitions_uint64"
+            }
+          }
+        }
+      ]
+    },
+    "defs-linux.json_definitions_blockIODevice": {
+      "type": "object",
+      "properties": {
+        "major": {
+          "$ref": "#/definitions/defs-linux.json_definitions_Major"
+        },
+        "minor": {
+          "$ref": "#/definitions/defs-linux.json_definitions_Minor"
+        }
+      },
+      "required": [
+        "major",
+        "minor"
+      ]
+    },
+    "defs-linux.json_definitions_blockIODeviceWeight": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/defs-linux.json_definitions_blockIODevice"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "weight": {
+              "$ref": "#/definitions/defs-linux.json_definitions_weight"
+            },
+            "leafWeight": {
+              "$ref": "#/definitions/defs-linux.json_definitions_weight"
+            }
+          }
+        }
+      ]
+    },
+    "defs-linux.json_definitions_NetworkInterfacePriority": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "priority": {
+          "$ref": "#/definitions/defs.json_definitions_uint32"
+        }
+      },
+      "required": [
+        "name",
+        "priority"
+      ]
+    },
+    "defs-linux.json_definitions_Rdma": {
+      "type": "object",
+      "properties": {
+        "hcaHandles": {
+          "$ref": "#/definitions/defs.json_definitions_uint32"
+        },
+        "hcaObjects": {
+          "$ref": "#/definitions/defs.json_definitions_uint32"
+        }
+      }
+    },
+    "defs-linux.json_definitions_RootfsPropagation": {
+      "type": "string",
+      "enum": [
+        "private",
+        "shared",
+        "slave",
+        "unbindable"
+      ]
+    },
+    "defs-linux.json_definitions_SeccompAction": {
+      "type": "string",
+      "enum": [
+        "SCMP_ACT_KILL",
+        "SCMP_ACT_TRAP",
+        "SCMP_ACT_ERRNO",
+        "SCMP_ACT_TRACE",
+        "SCMP_ACT_ALLOW"
+      ]
+    },
+    "defs-linux.json_definitions_SeccompArch": {
+      "type": "string",
+      "enum": [
+        "SCMP_ARCH_X86",
+        "SCMP_ARCH_X86_64",
+        "SCMP_ARCH_X32",
+        "SCMP_ARCH_ARM",
+        "SCMP_ARCH_AARCH64",
+        "SCMP_ARCH_MIPS",
+        "SCMP_ARCH_MIPS64",
+        "SCMP_ARCH_MIPS64N32",
+        "SCMP_ARCH_MIPSEL",
+        "SCMP_ARCH_MIPSEL64",
+        "SCMP_ARCH_MIPSEL64N32",
+        "SCMP_ARCH_PPC",
+        "SCMP_ARCH_PPC64",
+        "SCMP_ARCH_PPC64LE",
+        "SCMP_ARCH_S390",
+        "SCMP_ARCH_S390X",
+        "SCMP_ARCH_PARISC",
+        "SCMP_ARCH_PARISC64"
+      ]
+    },
+    "defs-linux.json_definitions_Syscall": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "action": {
+          "$ref": "#/definitions/defs-linux.json_definitions_SeccompAction"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/defs-linux.json_definitions_SyscallArg"
+          }
+        }
+      },
+      "required": [
+        "names",
+        "action"
+      ]
+    },
+    "defs-linux.json_definitions_SyscallArg": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "$ref": "#/definitions/defs.json_definitions_uint32"
+        },
+        "value": {
+          "$ref": "#/definitions/defs.json_definitions_uint64"
+        },
+        "valueTwo": {
+          "$ref": "#/definitions/defs.json_definitions_uint64"
+        },
+        "op": {
+          "$ref": "#/definitions/defs-linux.json_definitions_SeccompOperators"
+        }
+      },
+      "required": [
+        "index",
+        "value",
+        "op"
+      ]
+    },
+    "defs-linux.json_definitions_SeccompOperators": {
+      "type": "string",
+      "enum": [
+        "SCMP_CMP_NE",
+        "SCMP_CMP_LT",
+        "SCMP_CMP_LE",
+        "SCMP_CMP_EQ",
+        "SCMP_CMP_GE",
+        "SCMP_CMP_GT",
+        "SCMP_CMP_MASKED_EQ"
+      ]
+    },
+    "config-solaris.json_solaris": {
+      "description": "Solaris platform-specific configurations",
+      "type": "object",
+      "properties": {
+        "milestone": {
+          "type": "string"
+        },
+        "limitpriv": {
+          "type": "string"
+        },
+        "maxShmMemory": {
+          "type": "string"
+        },
+        "cappedCPU": {
+          "type": "object",
+          "properties": {
+            "ncpus": {
+              "type": "string"
+            }
+          }
+        },
+        "cappedMemory": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "string"
+            },
+            "swap": {
+              "type": "string"
+            }
+          }
+        },
+        "anet": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "linkname": {
+                "type": "string"
+              },
+              "lowerLink": {
+                "type": "string"
+              },
+              "allowedAddress": {
+                "type": "string"
+              },
+              "configureAllowedAddress": {
+                "type": "string"
+              },
+              "defrouter": {
+                "type": "string"
+              },
+              "macAddress": {
+                "type": "string"
+              },
+              "linkProtection": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "config-windows.json_windows": {
+      "description": "Windows platform-specific configurations",
+      "type": "object",
+      "properties": {
+        "layerFolders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/defs.json_definitions_FilePath"
+          },
+          "minItems": 1
+        },
+        "resources": {
+          "type": "object",
+          "properties": {
+            "memory": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "$ref": "#/definitions/defs.json_definitions_uint64"
+                }
+              }
+            },
+            "cpu": {
+              "type": "object",
+              "properties": {
+                "count": {
+                  "$ref": "#/definitions/defs.json_definitions_uint64"
+                },
+                "shares": {
+                  "$ref": "#/definitions/defs.json_definitions_uint16"
+                },
+                "maximum": {
+                  "$ref": "#/definitions/defs.json_definitions_uint16"
+                }
+              }
+            },
+            "storage": {
+              "type": "object",
+              "properties": {
+                "iops": {
+                  "$ref": "#/definitions/defs.json_definitions_uint64"
+                },
+                "bps": {
+                  "$ref": "#/definitions/defs.json_definitions_uint64"
+                },
+                "sandboxSize": {
+                  "$ref": "#/definitions/defs.json_definitions_uint64"
+                }
+              }
+            }
+          }
+        },
+        "network": {
+          "type": "object",
+          "properties": {
+            "endpointList": {
+              "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+            },
+            "allowUnqualifiedDNSQuery": {
+              "type": "boolean"
+            },
+            "DNSSearchList": {
+              "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+            },
+            "networkSharedContainerName": {
+              "type": "string"
+            }
+          }
+        },
+        "credentialSpec": {
+          "type": "object"
+        },
+        "servicing": {
+          "type": "boolean"
+        },
+        "ignoreFlushesDuringBoot": {
+          "type": "boolean"
+        },
+        "hyperv": {
+          "type": "object",
+          "properties": {
+            "utilityVMPath": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "layerFolders"
+      ]
+    },
+    "defs.json_definitions_uint16": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    },
+    "config-vm.json_vm": {
+      "description": "configuration for virtual-machine-based containers",
+      "type": "object",
+      "required": [
+        "kernel"
+      ],
+      "properties": {
+        "hypervisor": {
+          "description": "hypervisor config used by VM-based containers",
+          "type": "object",
+          "required": [
+            "path"
+          ],
+          "properties": {
+            "path": {
+              "$ref": "#/definitions/defs.json_definitions_FilePath"
+            },
+            "parameters": {
+              "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+            }
+          }
+        },
+        "kernel": {
+          "description": "kernel config used by VM-based containers",
+          "type": "object",
+          "required": [
+            "path"
+          ],
+          "properties": {
+            "path": {
+              "$ref": "#/definitions/defs.json_definitions_FilePath"
+            },
+            "parameters": {
+              "$ref": "#/definitions/defs.json_definitions_ArrayOfStrings"
+            },
+            "initrd": {
+              "$ref": "#/definitions/defs.json_definitions_FilePath"
+            }
+          }
+        },
+        "image": {
+          "description": "root image config used by VM-based containers",
+          "type": "object",
+          "required": [
+            "path",
+            "format"
+          ],
+          "properties": {
+            "path": {
+              "$ref": "#/definitions/defs.json_definitions_FilePath"
+            },
+            "format": {
+              "$ref": "#/definitions/defs-vm.json_definitions_RootImageFormat"
+            }
+          }
+        }
+      }
+    },
+    "defs-vm.json_definitions_RootImageFormat": {
+      "type": "string",
+      "enum": [
+        "raw",
+        "qcow2",
+        "vdi",
+        "vmdk",
+        "vhd"
+      ]
+    }
+  }
+}

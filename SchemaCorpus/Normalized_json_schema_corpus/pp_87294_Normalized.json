@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.7.1/utils/tag.json",
+  "title": "Tag",
+  "description": "Models a keyword used in describing a piece of content.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "_id": {
+      "$ref": "#/definitions/..\\traits\\trait_id.json"
+    },
+    "text": {
+      "type": "string",
+      "description": "The text of the tag as displayed to users."
+    },
+    "description": {
+      "type": "string",
+      "description": "A more detailed description of the tag."
+    },
+    "additional_properties": {
+      "$ref": "#/definitions/..\\traits\\trait_additional_properties.json"
+    },
+    "slug": {
+      "$ref": "#/definitions/..\\traits\\trait_slug.json"
+    }
+  },
+  "required": [
+    "text"
+  ],
+  "definitions": {
+    "..\\traits\\trait_id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "A globally unique identifier of the content in the ANS repository.",
+      "type": "string"
+    },
+    "..\\traits\\trait_additional_properties.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Has additional properties",
+      "description": "A grab-bag object for non-validatable data.",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "..\\traits\\trait_slug.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Slug",
+      "description": "A short reference name for internal editorial use",
+      "type": "string"
+    }
+  }
+}

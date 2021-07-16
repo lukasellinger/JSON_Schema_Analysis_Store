@@ -1,0 +1,26 @@
+{
+  "id": "action-property",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ActionPropertyConfig",
+  "description": "An instance of \u003ca href\u003d\"#action-property\"\u003ean action property.\u003c/a\u003e",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The name of the property.",
+      "example": "fov"
+    },
+    "value": {
+      "title": "Value",
+      "description": "The value you want to set to this property, can be of any valid JSON type.",
+      "example": 10
+    },
+    "operation": {
+      "type": "string",
+      "title": "Operation",
+      "description": "The kind of operation you want to apply to this property. Can be one of the following: \u003cul\u003e\u003cli\u003e\u003ci\u003eset\u003c/i\u003e - set the current value to the passed value\u003c/li\u003e\u003cli\u003e\u003ci\u003eadd\u003c/i\u003e - add the passed value to the current value\u003c/li\u003e\u003cli\u003e\u003ci\u003esubstract\u003c/i\u003e - substract the passed value to the current value\u003c/li\u003e\u003cli\u003e\u003ci\u003emultiply\u003c/i\u003e - multiply the current value by the passed value\u003c/li\u003e\u003cli\u003e\u003ci\u003edivide\u003c/i\u003e - divide the current value by the passed value\u003c/li\u003e\u003cli\u003e\u003ci\u003etoggle\u003c/i\u003e - toggle the current value to \u003ci\u003efalse\u003c/i\u003e if it was \u003ci\u003etrue\u003c/i\u003e, or the other way around (only work if the property is of \u003ci\u003eboolean\u003c/i\u003e type)\u003c/li\u003e\u003c/ul\u003e",
+      "example": "add"
+    }
+  }
+}

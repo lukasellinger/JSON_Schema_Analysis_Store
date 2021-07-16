@@ -1,0 +1,631 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.fullcontact.api.PersonSubscriptionRequest",
+  "extends": {
+    "$ref": "#/definitions/..\\pojo\\PersonSummary.json"
+  },
+  "properties": {
+    "webhookUrl": {
+      "type": "string",
+      "description": "Some description about webhook URL."
+    },
+    "subscriptionId": {
+      "type": "string",
+      "description": "Some description about webhook URL."
+    }
+  },
+  "definitions": {
+    "..\\pojo\\PersonSummary.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.PersonSummary",
+      "properties": {
+        "ageRange": {
+          "type": "string",
+          "description": "Age range of the contact."
+        },
+        "avatar": {
+          "type": "string",
+          "description": "URL of the contact\u0027s photo."
+        },
+        "bio": {
+          "type": "string",
+          "description": "Biography of the contact."
+        },
+        "dataAddons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "applied": {
+                "type": "boolean"
+              },
+              "description": {
+                "type": "string"
+              },
+              "docLink": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "details": {
+          "type": "object",
+          "description": "When included, additional details about the contact provided through Data Add-ons will be available here.",
+          "$ref": "#/definitions/..\\pojo\\PersonDetails.json"
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the contact. (Queryable)"
+        },
+        "emailHash": {
+          "type": "string",
+          "description": "Either an MD5 or SHA-256 hash representation of the email address to query. Be certain to lowercase and trim the email address prior to hashing. (Queryable)"
+        },
+        "facebook": {
+          "type": "string",
+          "description": "URL of the contact\u0027s Facebook profile."
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Full name of the contact."
+        },
+        "gender": {
+          "type": "string",
+          "description": "Gender of the contact."
+        },
+        "linkedin": {
+          "type": "string",
+          "description": "URL of the contact\u0027s LinkedIn profile."
+        },
+        "location": {
+          "type": "string",
+          "description": "Location of the contact. Depending on data quality, the exactness of this value may vary."
+        },
+        "organization": {
+          "type": "string",
+          "description": "Current or most recent place of work."
+        },
+        "title": {
+          "type": "string",
+          "description": "Current or most recent job title."
+        },
+        "twitter": {
+          "type": "string",
+          "description": "Twitter handle of the contact. Acceptable formats include handle (with or without \"@\"), as well as the URL to the profile. (Queryable)"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the contact. (Queryable)"
+        },
+        "updated": {
+          "type": "string",
+          "description": "Date-time last updated."
+        },
+        "website": {
+          "type": "string",
+          "description": "URL of the contact\u0027s website."
+        }
+      }
+    },
+    "..\\pojo\\PersonDetails.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.PersonDetails",
+      "properties": {
+        "age": {
+          "$ref": "#/definitions/..\\pojo\\PersonAge.json"
+        },
+        "education": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\pojo\\PersonEducationItem.json"
+          }
+        },
+        "emails": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "employment": {
+          "type": "array",
+          "description": "The Employment History Data Add-on returns current and historical employment history for a given contact. This data includes the organization and title during employment and approximate start and end dates.",
+          "items": {
+            "$ref": "#/definitions/..\\pojo\\PersonEmploymentItem.json"
+          }
+        },
+        "gender": {
+          "type": "string",
+          "description": "Gender of the contact."
+        },
+        "interests": {
+          "type": "array",
+          "description": "The Affinities Data Add-on enables API consumers to better understand the interests of a contact. The data returned includes a list of interests that have been attributed to the contact, along with the level of affinity for the given interest and the category that the interest is within.",
+          "items": {
+            "$ref": "#/definitions/..\\pojo\\PersonInterestItem.json"
+          }
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\pojo\\LocationItem.json"
+          }
+        },
+        "name": {
+          "$ref": "#/definitions/..\\pojo\\PersonName.json"
+        },
+        "phones": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "photos": {
+          "type": "array",
+          "description": "Additionally, any profile pictures and URLs to other websites associated width the contact will be returned.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "profiles": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfiles.json"
+        },
+        "topics": {
+          "type": "array",
+          "description": "The Topics Data Add-on includes a list of topics or subjects that the contact is associated with. This information is determined based off of several indicators of the contact\u0027s online and social presence.",
+          "items": {
+            "$ref": "#/definitions/..\\pojo\\PersonInterestItem.json"
+          }
+        },
+        "urls": {
+          "type": "array",
+          "description": "Additionally, any profile pictures and URLs to other websites associated width the contact will be returned.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "..\\pojo\\PersonAge.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.PersonAge",
+      "properties": {
+        "birthday": {
+          "type": "object",
+          "$ref": "#/definitions/..\\pojo\\Day.json"
+        },
+        "range": {
+          "type": "string"
+        },
+        "value": {
+          "type": "integer"
+        }
+      }
+    },
+    "..\\pojo\\Day.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.Day",
+      "properties": {
+        "year": {
+          "type": "integer"
+        },
+        "month": {
+          "type": "integer"
+        },
+        "day": {
+          "type": "integer"
+        }
+      }
+    },
+    "..\\pojo\\PersonEducationItem.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.PersonEducation",
+      "properties": {
+        "degree": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "start": {
+          "type": "object",
+          "$ref": "#/definitions/..\\pojo\\Day.json"
+        },
+        "end": {
+          "type": "object",
+          "$ref": "#/definitions/..\\pojo\\Day.json"
+        }
+      }
+    },
+    "..\\pojo\\PersonEmploymentItem.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.PersonEmploymentItem",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the organization/place of employment."
+        },
+        "domain": {
+          "type": "string",
+          "description": "The domain of the organization/place of employment."
+        },
+        "current": {
+          "type": "boolean",
+          "description": "Indicator of whether or not this is the current place of employment."
+        },
+        "title": {
+          "type": "string",
+          "description": "Job or position title."
+        },
+        "start": {
+          "type": "object",
+          "$ref": "#/definitions/..\\pojo\\Day.json",
+          "description": "Object representing start date."
+        },
+        "end": {
+          "type": "string",
+          "$ref": "#/definitions/..\\pojo\\Day.json",
+          "description": "Object representing start date."
+        }
+      }
+    },
+    "..\\pojo\\PersonInterestItem.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.PersonInterestItem",
+      "properties": {
+        "affinity": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parentIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "..\\pojo\\LocationItem.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.LocationItem",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "countryCode": {
+          "type": "string"
+        },
+        "formatted": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "regionCode": {
+          "type": "string"
+        }
+      }
+    },
+    "..\\pojo\\PersonName.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.PersonName",
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "given": {
+          "type": "string"
+        },
+        "middle": {
+          "type": "string"
+        }
+      }
+    },
+    "..\\pojo\\SocialProfiles.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.SocialProfiles",
+      "description": "The All Social Profiles Data Add-on enables API consumers to retrieve a list of all known social profiles of a given contact, returning data for each social platform such as any applicable usernames/handles, the URL of the platform, any bio that the user supplied, and more.",
+      "properties": {
+        "aboutme": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "angellist": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "bandcamp": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "behance": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "blogger": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "crunchbase": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "delicious": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "deviantart": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "dribbble": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "facebook": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "facebookpage": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "flavorsme": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "flickr": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "foursquare": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "getsatisfaction": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "github": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "goodreads": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "google": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "googleplus": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "gravatar": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "hackernews": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "hiim": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "identica": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "instagram": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "intensedebate": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "keybase": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "klout": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "lastfm": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "linkedin": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "livejournal": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "medium": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "myspace": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "pandora": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "pinboard": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "pinterest": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "plancast": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "posterous": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "quora": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "reddit": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "reverbnation": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "scribd": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "slideshare": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "soundcloud": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "spotify": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "tripit": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "tumblr": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "twitter": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "vimeo": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "weibo": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "wordpress": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "yahoo": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "yelp": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        },
+        "youtube": {
+          "$ref": "#/definitions/..\\pojo\\SocialProfile.json"
+        }
+      }
+    },
+    "..\\pojo\\SocialProfile.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.SocialProfile",
+      "properties": {
+        "bio": {
+          "type": "string",
+          "description": "Bio of the profile form the social platform."
+        },
+        "followers": {
+          "type": "integer",
+          "description": "Number of follows of the profile, if applicable."
+        },
+        "following": {
+          "type": "integer",
+          "description": "Number of profiles or topics the user is following, if applicable."
+        },
+        "score": {
+          "type": "integer",
+          "description": "Only present on klout profiles."
+        },
+        "service": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to the profile on the social platform."
+        },
+        "userid": {
+          "type": "string",
+          "description": "User ID associated with the profile."
+        },
+        "username": {
+          "type": "string",
+          "description": "Displayable username of the profile."
+        }
+      }
+    }
+  }
+}

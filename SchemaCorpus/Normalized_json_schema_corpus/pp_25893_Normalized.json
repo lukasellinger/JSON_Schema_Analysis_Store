@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/beerjson/beerjson/master/json/water.json",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "WaterBase": {
+      "type": "object",
+      "description": "WaterBase provides unique properties to identify individual records of  brewing water.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "calcium": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "bicarbonate": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "carbonate": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "potassium": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "iron": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "nitrate": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "nitrite": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "flouride": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "sulfate": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "chloride": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "sodium": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "magnesium": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        }
+      },
+      "required": [
+        "name",
+        "calcium",
+        "bicarbonate",
+        "sulfate",
+        "chloride",
+        "sodium",
+        "magnesium"
+      ]
+    },
+    "WaterType": {
+      "type": "object",
+      "description": "WaterType collects the attributes of a brewing water to store as record information",
+      "allOf": [
+        {
+          "$ref": "#/definitions/WaterBase"
+        },
+        {
+          "properties": {
+            "pH": {
+              "type": "number"
+            },
+            "notes": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "WaterAdditionType": {
+      "type": "object",
+      "description": "WaterAdditionType collects the attributes of each water addition for use in a recipe",
+      "allOf": [
+        {
+          "$ref": "#/definitions/WaterBase"
+        },
+        {
+          "properties": {
+            "amount": {
+              "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+            }
+          }
+        }
+      ]
+    },
+    "measureable_units.json_definitions_ConcentrationType": {
+      "type": "object",
+      "description": "Examples for concentration include ppm, ppb, and mg/l. ",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_ConcentrationUnitType": {
+      "type": "string",
+      "enum": [
+        "ppm",
+        "ppb",
+        "mg/l"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeUnitType": {
+      "type": "string",
+      "enum": [
+        "ml",
+        "l",
+        "tsp",
+        "tbsp",
+        "floz",
+        "cup",
+        "pt",
+        "qt",
+        "gal",
+        "bbl",
+        "ifloz",
+        "ipt",
+        "iqt",
+        "igal",
+        "ibbl"
+      ]
+    }
+  }
+}

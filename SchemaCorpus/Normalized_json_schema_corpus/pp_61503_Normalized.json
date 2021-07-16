@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Output list",
+  "description": "A list of outputs to be created from a round of voting pool outBailment consensus",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "outBailmentID": {
+        "$ref": "#/definitions/https:__raw.githubusercontent.com_Open-Transactions_rfc_draft_json_schema_outbailmentid-01.json",
+        "description": "the identifier of the originating nym\u0027s outBailment message"
+      },
+      "address": {
+        "type": "string",
+        "description": "the destination address for the outBailment"
+      },
+      "amount": {
+        "type": "number",
+        "description": "the monetary value of the outBailment, in fundamental units (satoshis for Bitcoin)",
+        "minimum": 0,
+        "exclusiveMinimum": true
+      }
+    },
+    "required": [
+      "outBailmentID",
+      "address",
+      "amount"
+    ]
+  },
+  "minItems": 1,
+  "uniqueItems": true,
+  "definitions": {
+    "https:__raw.githubusercontent.com_Open-Transactions_rfc_draft_json_schema_outbailmentid-01.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "outBailment Identifier",
+      "description": "A UUID which selects a specific outBailment for tracking purposes",
+      "type": "object",
+      "properties": {
+        "pool": {
+          "type": "string",
+          "description": "The voting pool identifier for the pool in which the outBailment originated"
+        },
+        "server": {
+          "type": "string",
+          "description": "The OT server nym for the notary which issued the transaction number"
+        },
+        "transaction": {
+          "type": "number",
+          "description": "The OT transaction number associated with the outBailment",
+          "minimum": 0,
+          "exclusiveMinimum": true
+        }
+      },
+      "required": [
+        "pool",
+        "server",
+        "transaction"
+      ]
+    }
+  }
+}

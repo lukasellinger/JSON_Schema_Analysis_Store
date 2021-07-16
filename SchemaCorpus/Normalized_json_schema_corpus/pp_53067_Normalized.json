@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string"
+    },
+    "_rev": {
+      "type": "string"
+    },
+    "_revisions": {
+      "type": "object"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "room": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "pattern": "^message$"
+    },
+    "user": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "created_at",
+    "message",
+    "room",
+    "type",
+    "user"
+  ]
+}

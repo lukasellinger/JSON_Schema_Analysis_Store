@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "filter.bwdif",
+  "name": "bwdif",
+  "defaults": {},
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "mode",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "send_frame"
+              },
+              {
+                "value": "send_field"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "parity",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "auto"
+              },
+              {
+                "value": "tff"
+              },
+              {
+                "value": "bff"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "deint",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "all"
+              },
+              {
+                "value": "interlaced"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

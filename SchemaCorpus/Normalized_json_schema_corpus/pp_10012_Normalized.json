@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "OAuthClientResponse",
+  "description": "OAuthClient response when created",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[ !\"#$%\u0026\\\u0027()*+,\\-./0-9:;\u003c\u003d\u003e?@A-Z[\\\\\\]\\^_`a-z{\\|}]+$",
+      "minLength": 30,
+      "maxLength": 30
+    },
+    "secret": {
+      "type": "string",
+      "pattern": "^[ !\"#$%\u0026\\\u0027()*+,\\-./0-9:;\u003c\u003d\u003e?@A-Z[\\\\\\]\\^_`a-z{\\|}]+$",
+      "minLength": 30
+    }
+  },
+  "additionalProperties": false
+}

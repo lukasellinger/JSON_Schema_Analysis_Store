@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.8.0/story_elements/raw_html.json",
+  "description": "An html content element",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "enum": [
+        "raw_html"
+      ]
+    },
+    "_id": {
+      "$ref": "#/definitions/..\\traits\\trait_id.json"
+    },
+    "subtype": {
+      "$ref": "#/definitions/..\\traits\\trait_subtype.json"
+    },
+    "channels": {
+      "$ref": "#/definitions/..\\traits\\trait_channel.json"
+    },
+    "alignment": {
+      "$ref": "#/definitions/..\\traits\\trait_alignment.json"
+    },
+    "additional_properties": {
+      "$ref": "#/definitions/..\\traits\\trait_additional_properties.json"
+    },
+    "content": {
+      "description": "Any arbitrary chunk of  HTML.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "content"
+  ],
+  "definitions": {
+    "..\\traits\\trait_id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "A globally unique identifier of the content in the ANS repository.",
+      "type": "string"
+    },
+    "..\\traits\\trait_subtype.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Subtype trait",
+      "type": "string",
+      "description": "A more granular type than story, gallery, etc. (E.g., column, blog_post)"
+    },
+    "..\\traits\\trait_channel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Channel trait",
+      "description": "An optional list of output types for which this element should be visible",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "..\\traits\\trait_alignment.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Alignment",
+      "type": "string",
+      "description": "A property used to determine horizontal positioning of a content element relative to the elements that immediately follow it in the element sequence.",
+      "enum": [
+        "left",
+        "right",
+        "center"
+      ]
+    },
+    "..\\traits\\trait_additional_properties.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Has additional properties",
+      "description": "A grab-bag object for non-validatable data.",
+      "type": "object",
+      "additionalProperties": {}
+    }
+  }
+}

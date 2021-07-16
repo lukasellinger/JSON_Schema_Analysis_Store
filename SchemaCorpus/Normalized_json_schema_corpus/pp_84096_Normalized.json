@@ -1,0 +1,398 @@
+{
+  "id": "http://schema.management.azure.com/schemas/2015-06-01/Microsoft.KeyVault.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Microsoft.KeyVault",
+  "description": "Microsoft KeyVault Resource Types",
+  "resourceDefinitions": {
+    "secrets": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/secretsCommon"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "Microsoft.KeyVault/vaults/secrets"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "secretsChild": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/secretsCommon"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "secrets"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "vaults": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "Microsoft.KeyVault/vaults"
+          ]
+        },
+        "apiVersion": {
+          "enum": [
+            "2014-12-19-preview",
+            "2015-06-01"
+          ]
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "sku": {
+              "$ref": "#/definitions/sku"
+            },
+            "tenantId": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$",
+              "description": "Microsoft.KeyVault/vaults: The tenant ID of the Azure Active Directory Tenant to use for authorization."
+            },
+            "accessPolicies": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/accessPolicy"
+              }
+            },
+            "enabledForDeployment": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "tenantId",
+            "sku",
+            "accessPolicies"
+          ]
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/definitions/https:__schema.management.azure.com_schemas_2015-01-01_deploymentTemplate.json_definitions_resourceBase"
+              },
+              {
+                "$ref": "#/definitions/resourceDefinitions_secretsChild"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "apiVersion",
+        "properties",
+        "type"
+      ]
+    }
+  },
+  "definitions": {
+    "accessPolicy": {
+      "type": "object",
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$",
+          "description": "Microsoft.KeyVault/vaults: The tenant ID of the Azure Active Directory Tenant containing the objectId in this access policy."
+        },
+        "objectId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}(-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$",
+          "description": "Microsoft.KeyVault/vaults: The object ID of the Azure Active Directory object to apply this access policy to.  For example, the object ID of a Service Principal, or of a User Principal."
+        },
+        "permissions": {
+          "$ref": "#/definitions/permissions"
+        }
+      },
+      "required": [
+        "tenantId",
+        "objectId",
+        "permissions"
+      ]
+    },
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "keys": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "all",
+              "backup",
+              "create",
+              "decrypt",
+              "delete",
+              "encrypt",
+              "get",
+              "import",
+              "list",
+              "restore",
+              "sign",
+              "unwrapKey",
+              "update",
+              "verify",
+              "wrapKey"
+            ]
+          },
+          "minItems": 1,
+          "description": "Microsoft.KeyVault/vaults: The permissions granted on keys in this vault to this Active Directory object."
+        },
+        "secrets": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "all",
+              "delete",
+              "get",
+              "list",
+              "set"
+            ]
+          },
+          "minItems": 1,
+          "description": "Microsoft.KeyVault/vaults: The permissions granted on secrets in this vault to this Active Directory object."
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "secrets"
+          ]
+        },
+        {
+          "required": [
+            "keys"
+          ]
+        }
+      ],
+      "description": "Microsoft.KeyVault/vaults: The permissions granted on this vault to this Active Directory object."
+    },
+    "secretsCommon": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "enum": [
+            "2014-12-19-preview",
+            "2015-06-01"
+          ]
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "description": "Microsoft.KeyVault/vaults/secrets: Use a parameter of type securestring for this value.  The secret value to store in KeyVault."
+        }
+      },
+      "required": [
+        "apiVersion",
+        "properties",
+        "type"
+      ]
+    },
+    "sku": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "enum": [
+            "standard",
+            "premium"
+          ],
+          "description": "Microsoft.KeyVault/vaults: The service tier of KeyVault to use.  Standard supports secrets and software-protected keys.  Premium adds support for HSM-protected keys."
+        },
+        "family": {
+          "enum": [
+            "A"
+          ],
+          "description": "Microsoft.KeyVault/vaults: The SKU family to use."
+        }
+      },
+      "required": [
+        "family",
+        "name"
+      ]
+    },
+    "https:__schema.management.azure.com_schemas_2015-01-01_deploymentTemplate.json_definitions_resourceBase": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/https:__schema.management.azure.com_schemas_2015-01-01_deploymentTemplate.json_definitions_ARMResourceBase"
+        },
+        {
+          "properties": {
+            "location": {
+              "$ref": "#/definitions/https:__schema.management.azure.com_schemas_2015-01-01_deploymentTemplate.json_definitions_resourceLocations",
+              "description": "Location to deploy resource to"
+            },
+            "tags": {
+              "type": "object",
+              "description": "Name-value pairs to add to the resource"
+            },
+            "copy": {
+              "$ref": "#/definitions/https:__schema.management.azure.com_schemas_2015-01-01_deploymentTemplate.json_definitions_resourceCopy"
+            },
+            "scope": {
+              "type": "string",
+              "description": "Scope for the resource or deployment. Today, this works for two cases: 1) setting the scope for extension resources 2) deploying resources to the tenant scope in non-tenant scope deployments"
+            },
+            "comments": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "https:__schema.management.azure.com_schemas_2015-01-01_deploymentTemplate.json_definitions_ARMResourceBase": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "Resource type"
+        },
+        "condition": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/https:__schema.management.azure.com_schemas_common_definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Condition of the resource"
+        },
+        "apiVersion": {
+          "type": "string",
+          "description": "API Version of the resource type, optional when apiProfile is used on the template"
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Collection of resources this resource depends on"
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    "https:__schema.management.azure.com_schemas_common_definitions.json_definitions_expression": {
+      "type": "string",
+      "pattern": "^\\[([^\\[].*)?\\]$",
+      "description": "Deployment template expression. See https://aka.ms/arm-template-expressions for more details on the ARM expression syntax."
+    },
+    "https:__schema.management.azure.com_schemas_2015-01-01_deploymentTemplate.json_definitions_resourceLocations": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "enum": [
+            "East Asia",
+            "Southeast Asia",
+            "Central US",
+            "East US",
+            "East US 2",
+            "West US",
+            "North Central US",
+            "South Central US",
+            "North Europe",
+            "West Europe",
+            "Japan West",
+            "Japan East",
+            "Brazil South",
+            "Australia East",
+            "Australia Southeast",
+            "Central India",
+            "West India",
+            "South India",
+            "Canada Central",
+            "Canada East",
+            "West Central US",
+            "West US 2",
+            "UK South",
+            "UK West",
+            "Korea Central",
+            "Korea South",
+            "global"
+          ]
+        }
+      ]
+    },
+    "https:__schema.management.azure.com_schemas_2015-01-01_deploymentTemplate.json_definitions_resourceCopy": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the copy"
+        },
+        "count": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/https:__schema.management.azure.com_schemas_common_definitions.json_definitions_expression"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "description": "Count of the copy"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "Parallel",
+            "Serial"
+          ],
+          "description": "The copy mode"
+        },
+        "batchSize": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/https:__schema.management.azure.com_schemas_common_definitions.json_definitions_expression"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "description": "The serial copy batch size"
+        }
+      }
+    },
+    "resourceDefinitions_secretsChild": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/secretsCommon"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "secrets"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

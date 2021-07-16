@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "message": {
+    "type": "object",
+    "properties": {
+      "topic": {
+        "$ref": "#/definitions/common.json_message_topic"
+      },
+      "since": {
+        "$ref": "#/definitions/common.json_message_since"
+      },
+      "snapshot": {
+        "$ref": "#/definitions/common.json_message_snapshot"
+      },
+      "filter": {
+        "$ref": "#/definitions/common.json_message_filter"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "topic",
+      "filter"
+    ]
+  },
+  "definitions": {
+    "common.json_message_topic": {
+      "type": "string",
+      "pattern": "^/[a-z\\-]+$"
+    },
+    "common.json_message_since": {
+      "type": "number"
+    },
+    "common.json_message_snapshot": {
+      "type": "boolean"
+    },
+    "common.json_message_filter": {
+      "type": "string",
+      "maxLength": 137,
+      "pattern": "^[\\w\\-\\.#@\\*\\[\\]\\?]+$"
+    }
+  }
+}

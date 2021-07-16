@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Links",
+  "description": "",
+  "type": "array",
+  "items": {
+    "$ref": "https://us1.api.mailchimp.com/schema/3.0/Generics/ResourceLink.json"
+  },
+  "readonly": true
+}

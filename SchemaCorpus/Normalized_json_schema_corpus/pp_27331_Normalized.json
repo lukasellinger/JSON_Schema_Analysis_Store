@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "type": "string",
+    "maxLength": 128,
+    "pattern": "^[a-z0-9_\\-]+(\\.[\\w\\-]+)*$"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "cells": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_cell"
+        }
+      },
+      "pattern": {
+        "type": "string"
+      },
+      "endpoint": {
+        "$ref": "#/definitions/common.json_endpoint"
+      },
+      "port": {
+        "$ref": "#/definitions/common.json_port"
+      },
+      "options": {
+        "type": "object",
+        "properties": {
+          "conn_timeout": {
+            "type": "integer",
+            "minimum": 60
+          },
+          "lb_method": {
+            "type": "string"
+          },
+          "min_active": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "persist_type": {
+            "type": "string"
+          },
+          "persist_timeout": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "svc_down_action": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "lbenv": {
+    "type": "string",
+    "pattern": "^qa$|^prod$"
+  },
+  "verbs": {
+    "create": {
+      "required": [
+        "endpoint",
+        "pattern"
+      ],
+      "not": {
+        "required": [
+          "options"
+        ]
+      }
+    },
+    "update": {
+      "not": {
+        "required": [
+          "port"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "common.json_cell": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[a-zA-Z0-9-]+$"
+    },
+    "common.json_endpoint": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[\\w\\-]+$"
+    },
+    "common.json_port": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    }
+  }
+}

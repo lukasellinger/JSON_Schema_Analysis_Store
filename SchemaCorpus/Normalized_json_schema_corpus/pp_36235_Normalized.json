@@ -1,0 +1,586 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://schemas.digitallinguistics.io/Media-5.3.0.json",
+  "title": "Media File",
+  "type": "object",
+  "description": "An object containing information about a media file. The file itself should be stored at the URL indicated in the `mediaURL` field. Media files generally contain primary data. Examples might include audio/video recordings, scans of archival materials, photos taken during fieldwork, or scans of field notes.",
+  "$comment": "This is a top-level database object",
+  "required": [
+    "filename"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "const": "Media",
+      "readOnly": true,
+      "description": "The type of object. Must be set to `Media`."
+    },
+    "id": {
+      "title": "ID",
+      "description": "A unique database identifier for this Media Item"
+    },
+    "abbreviation": {
+      "title": "Abbreviation",
+      "type": "string",
+      "$ref": "#/definitions/Abbreviation-2.1.0.json",
+      "description": "An abbreviation for referring to this file"
+    },
+    "access": {
+      "title": "Access Rights",
+      "type": "object",
+      "$ref": "#/definitions/Access-3.2.0.json",
+      "description": "Access rights for this media file"
+    },
+    "content": {
+      "title": "Content",
+      "$ref": "#/definitions/MultiLangString-5.0.0.json",
+      "description": "A description of the content of this file, optionally in multiple languages"
+    },
+    "contentType": {
+      "title": "MIME Content Type",
+      "type": "string",
+      "description": "The media type of the file. Must be a valid MIME type. Examples: `audio/wav`, `application/pdf`, `video/mpeg`"
+    },
+    "creator": {
+      "title": "Creator (Person - Database Reference)",
+      "type": "object",
+      "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+      "description": "A database reference to the person who created this specific file"
+    },
+    "dateCreated": {
+      "title": "Date Created",
+      "type": "string",
+      "description": "The date and optionally time that this metadata object was originally created. *Not* the date the media file was created. For that, see the `dateRecorded` property.",
+      "oneOf": [
+        {
+          "format": "date"
+        },
+        {
+          "format": "date-time"
+        }
+      ]
+    },
+    "dateModified": {
+      "title": "Date Modified",
+      "type": "string",
+      "description": "The date and optionally time that this metadata was last modified. *Not* the date that the media file was modified.",
+      "oneOf": [
+        {
+          "format": "date"
+        },
+        {
+          "format": "date-time"
+        }
+      ]
+    },
+    "dateRecorded": {
+      "title": "Date Recorded",
+      "type": "string",
+      "description": "The date and optionally time that this media file was recorded or photographed. Or, if the file is a scan of field notes, the date that the scan was made. *Not* the date that this metadata object was created. For that, see the `dateCreated` property.",
+      "oneOf": [
+        {
+          "format": "date"
+        },
+        {
+          "format": "date-time"
+        }
+      ]
+    },
+    "endTime": {
+      "title": "End Time",
+      "type": "number",
+      "minimum": 0.001,
+      "description": "Within an audiovisual file, the time at which the relevant linguistic data ends. Programs may use this field in different ways. For example, if the camera recorded for five minutes after the speaker finished talking, the `End Time` would be the time 5 minutes before the end of the file. The time stamp should be in seconds and milliseconds, separated by a period, e.g. `12.573`, or `1.234`, or `167.780`, etc."
+    },
+    "filename": {
+      "title": "Filename",
+      "type": "string",
+      "pattern": "^[^ ]+\\.[^ ]+",
+      "description": "The filename for this media item without spaces, but including the extension"
+    },
+    "format": {
+      "title": "Format (File Extension)",
+      "type": "string",
+      "description": "The format (file extension) of the media file, without a period. Examples: `wav`, `mp4`, `pdf`"
+    },
+    "languages": {
+      "title": "Languages",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "An array of the languages that are used in this media file",
+      "items": {
+        "title": "Language (Database Reference)",
+        "type": "object",
+        "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+        "description": "A database reference to this language"
+      }
+    },
+    "length": {
+      "title": "Length (in Time / Pages)",
+      "type": "number",
+      "minimum": 0.001,
+      "description": "The length of the file, in seconds and milliseconds if an audio/video file (in `SS.MMM` format), or pages if a document"
+    },
+    "link": {
+      "title": "Link",
+      "type": "string",
+      "format": "uri",
+      "description": "A URL where a presentational format for this resource may be viewed"
+    },
+    "location": {
+      "title": "Location (Database Reference)",
+      "type": "object",
+      "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+      "description": "A database reference to the location where the content in this media file was recorded or produced"
+    },
+    "mediaURL": {
+      "title": "Media URL",
+      "type": "string",
+      "format": "uri",
+      "description": "The URL where the media file can be found."
+    },
+    "notes": {
+      "title": "Notes",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A collection of notes about this media item.",
+      "items": {
+        "title": "Note",
+        "$ref": "#/definitions/Note-5.0.0.json"
+      }
+    },
+    "original": {
+      "title": "Original Media Item",
+      "type": "string",
+      "format": "uri",
+      "description": "The URL of the Media object (*not* the URL to the media file itself) that this file is derived from"
+    },
+    "people": {
+      "title": "Persons in File",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A list of all the people who appear in this file. Often a list of speakers.",
+      "items": {
+        "title": "Person (Database Reference)",
+        "type": "object",
+        "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+        "description": "A database reference to a person who appears in this file"
+      }
+    },
+    "size": {
+      "title": "File Size",
+      "type": "integer",
+      "minimum": 1,
+      "description": "The size of the file, in bytes."
+    },
+    "startTime": {
+      "title": "Start Time",
+      "type": "number",
+      "minimum": 0,
+      "description": "Within an audiovisual file, the time at which the relevant linguistic data starts, or the time at which an offset should be calibrated from. This may also be used to synchronize the starting point of multiple media files associated with a single Text. For example, if the camera started recording five minutes before the speaker began speaking, the `Start Time` might be 5 minutes from the start of the file (so 300.00 seconds). The time stamp should be in seconds and milliseconds, separated by a period, e.g. `12.573`, or `1.2`, or `167.78012`, etc."
+    },
+    "tags": {
+      "title": "Tags",
+      "type": "object",
+      "$ref": "#/definitions/Tags-2.1.0.json",
+      "description": "A set of tags for this media item"
+    },
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "format": "uri",
+      "description": "The URL where this media data can be retrieved. *NOT* the URL of the media file itself (for that, see the `mediaURL` attribute)."
+    }
+  },
+  "examples": [
+    {
+      "abbreviation": "Omoiseke",
+      "access": {
+        "ELAR": "User"
+      },
+      "content": "A folktale told by Helen Makana about a girl who gets married to dogs.",
+      "contentType": "audio/wav",
+      "creator": {
+        "key": "DWH"
+      },
+      "dateCreated": "2018-10-31T17:25:28.347Z",
+      "dateModified": "2018-10-31T17:25:46.239Z",
+      "dateRecorded": "2014-08-14",
+      "filename": "Gusii_HM_2014-08-14_Omoiseke.wav",
+      "format": "wav",
+      "languages": [
+        {
+          "key": "Gusii",
+          "url": "https://api.digitallinguistics.io/languages/Gusii"
+        }
+      ],
+      "length": 62.417,
+      "location": {
+        "key": "KennedyFarm"
+      },
+      "mediaURL": "https://files.digitallinguistics.io/audio/Gusii_HM_2014-08-14_Omoiseke.wav",
+      "people": [
+        {
+          "key": "HM"
+        }
+      ],
+      "size": 11010618,
+      "type": "Media",
+      "url": "https://api.digitallinguistics.io/languages/Gusii/media/Gusii_HM_2014-08-14_Omoiseke.wav"
+    },
+    {
+      "abbreviation": "enderema",
+      "access": {
+        "ELAR": "User"
+      },
+      "content": "Photo of *ɛ́ndɛrɛma* \u0027slippery vegetable vine\u0027",
+      "contentType": "image/jpeg",
+      "creator": {
+        "key": "DWH"
+      },
+      "dateCreated": "2018-10-31T17:25:28.347Z",
+      "dateModified": "2018-10-31T17:25:46.239Z",
+      "dateRecorded": "2014-08-04",
+      "filename": "Gusii_2014-08-04_enderema.jpg",
+      "format": "jpg",
+      "link": "https://files.digitallinguistics.io/images/Gusii_2014-08-04_enderema.jpg",
+      "location": {
+        "key": "KennedyFarm"
+      },
+      "mediaURL": "https://files.digitallinguistics.io/images/Gusii_2014-08-04_enderema.jpg",
+      "notes": [
+        {
+          "text": "ɛ́ndɛrɛma \u0027slippery vegetable vine\u0027"
+        }
+      ],
+      "people": [
+        {
+          "key": "JKM"
+        }
+      ],
+      "size": 3374489,
+      "url": "https://api.digitallinguistics.io/languages/Gusii/media/enderema.jpg"
+    }
+  ],
+  "definitions": {
+    "Abbreviation-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Abbreviation",
+      "type": "string",
+      "pattern": "^[(a-z)|(A-Z)|(0-9)]+$",
+      "description": "A human-readable abbreviation, containing on letters `a-z`, `A-Z`, and numbers `0-9` (no spaces allowed).",
+      "examples": [
+        "chiti",
+        "ctm"
+      ]
+    },
+    "Access-3.2.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Access Rights",
+      "type": "object",
+      "description": "The Access Rights object provides information for archives on who should be allowed to access the current resource. Some access protocols used by language archives are already supported, and custom protocols may be used as, e.g. `online: false` or `permission: researcher only`, etc. **Note:** The Access object does not have a `type` property.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "properties": {
+        "note": {
+          "title": "Access Note",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "A note about access rights for this resource, or any other special considerations regarding who should have Access. This attribute should be a MultiLangString rather than an Array of Note objects."
+        },
+        "AILLA": {
+          "title": "AILLA Access Level",
+          "type": "string",
+          "description": "For users who are depositing their materials at The Archive of the Indigenous Languages of Latin America (AAILA) in Texas, an `AILLA` attribute may be added, and its value set to one of the access levels set forth by the archive.",
+          "enum": [
+            "public access",
+            "password",
+            "time limit",
+            "depositor control"
+          ],
+          "default": "depository control"
+        },
+        "ELAR": {
+          "title": "ELAR Access Level",
+          "type": "string",
+          "description": "For users who are depositing their materials at the Endangered Language Archive (ELAR) in London, an `ELAR` attribute may be added, and its value set to one of the access levels set forth by the archive. See [ELAR\u0027s protocols for access management](https://www.soas.ac.uk/elar/using-elar/access-protocol/) for more information.",
+          "enum": [
+            "User",
+            "Researcher",
+            "Community Member",
+            "Subscriber"
+          ],
+          "default": "Researcher"
+        },
+        "license": {
+          "title": "License",
+          "type": "string",
+          "description": "The license under which you want to release this resource, most likely a [SPDX abbreviation](https://spdx.org/licenses/). If you do not want to release this data to others, set this to `UNLICENSED.` Otherwise, use [choosealicense.com](https://choosealicense.com/) to decide which license is right for your usage.",
+          "default": "UNLICENSED"
+        }
+      },
+      "examples": [
+        {
+          "AILLA": "password",
+          "ELAR": "Community Member",
+          "license": "UNLICENSED",
+          "note": {
+            "eng": "Speaker also requested that this text only be shared with family members."
+          },
+          "speaker": "family"
+        },
+        {
+          "note": {
+            "eng": "The tribe has requested that language materials only be made available to academic researchers who have been given permission, and enrolled tribal members."
+          }
+        }
+      ]
+    },
+    "MultiLangString-5.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Multi-Language Text / String",
+      "description": "A piece of text in multiple languages. This is typically used for analyses, database properties, and information in metalanguages rather than transcriptions or translations of data (for those, see the [Transcription](https://spec.digitallinguistics.github.io/schemas/Transcription.html) and [Translation](https://spec.digitallinguistics.github.io/schemas/Translation.html) schemas). For example, the part of speech for a lexeme might be given as both English *noun* and Spanish *nombre*. Each key must be a valid IETF language tag for a language (see the [IETF](https://www.w3.org/International/articles/language-tags/) reference page), and the value for that key must be the string of text in that language. **Note:** MultiLangStrings do not have a `type` property.\n\nIf the text is in only one language and that language is English, it may be represented as a simple string instead of an object. Thus instead of `gloss: { en: \"M.SG\" }` you can simply write `gloss: \"M.SG\"`.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))|((([A-Za-z]{2,3}(-([A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-([A-Za-z]{4}))?(-([A-Za-z]{2}|[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-([0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(x(-[A-Za-z0-9]{1,8})+))?)|(x(-[A-Za-z0-9]{1,8})+))$": {
+              "title": "Text",
+              "type": "string",
+              "description": "The string of text in the specified language"
+            }
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "examples": [
+        "man",
+        {
+          "en": "man",
+          "fr": "homme"
+        }
+      ]
+    },
+    "DatabaseReference-4.3.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Database Reference",
+      "type": "object",
+      "description": "A reference to an item in a database, used when you wish to store an item separately in the database (following a relational database model), rather than inline. A disadvantage of this approach is that it often requires making multiple database calls. To avoid this, in most cases the actual object can be used instead of a database reference. For example, instead of making a reference to a separate Person file, you can simply include the Person object directly in place of the database reference. This is useful when you don\u0027t want to deal with cross references and multiple database calls. In this case, it is often a good idea to include just a minimal set of data. For a person, for example, you might include just the ID, abbreviation, family name, and given name. This prevents you from having to replicate all of the data about that Person each time it is used.",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "DatabaseReference",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `DatabaseReference`."
+        },
+        "abbreviation": {
+          "title": "Referenced Abbreviation",
+          "type": "string",
+          "$ref": "#/definitions/Abbreviation-2.1.0.json",
+          "description": "The abbreviation of the referenced database item."
+        },
+        "id": {
+          "title": "Referenced ID",
+          "description": "The ID of the referenced database item"
+        },
+        "filename": {
+          "title": "Filename",
+          "type": "string",
+          "description": "If the reference database item is a media item, use this field for the name of the referenced file."
+        },
+        "index": {
+          "title": "Referenced Index",
+          "type": "integer",
+          "minimum": 1,
+          "description": "The index of the referenced database item. Indexes should start at 1 rather than 0 to increase human readability."
+        },
+        "key": {
+          "title": "Referenced Key",
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "description": "The key of the referenced database item"
+        },
+        "name": {
+          "title": "Name",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "The name of the referenced database item, optionally in multiple languages."
+        },
+        "referenceType": {
+          "title": "Referenced Item Type",
+          "type": "string",
+          "description": "The type of database item being referenced",
+          "enum": [
+            "BibliographicReference",
+            "Bundle",
+            "Language",
+            "Lexeme",
+            "Location",
+            "Media",
+            "Morpheme",
+            "Orthography",
+            "Person",
+            "Sense",
+            "Text",
+            "Utterance",
+            "Word"
+          ]
+        },
+        "url": {
+          "title": "Referenced URL",
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the referenced database item"
+        }
+      },
+      "examples": [
+        {
+          "index": 2,
+          "referenceType": "Utterance",
+          "type": "DatabaseReference",
+          "url": "https://api.digitallinguistics.io/languages/Chitimacha/texts/A1/utterances/2"
+        },
+        {
+          "key": "Omoiseke",
+          "name": "Ómoíséké ósokérété chíséese",
+          "referenceType": "Text",
+          "type": "DatabaseReference",
+          "url": "https://api.digitallinguistics.io/languages/Gusii/texts/Omoiseke"
+        }
+      ]
+    },
+    "Note-5.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Note",
+      "type": "object",
+      "description": "A note about this resource. Notes may also include `type` and `language` attributes.",
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "Note",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `Note`."
+        },
+        "dateCreated": {
+          "title": "Date Created",
+          "type": "string",
+          "description": "The date and optionally time that this note was created",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "dateModified": {
+          "title": "Date Modified",
+          "type": "string",
+          "description": "The date and optionally time that this note was last modified",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "language": {
+          "title": "Note Language",
+          "type": "string",
+          "description": "A language code or language name of the language that this note is written in. Assumed to be English if not otherwise specified."
+        },
+        "noteType": {
+          "title": "Note Type",
+          "type": "string",
+          "description": "The type of Note. Required for notes on Lexemes."
+        },
+        "source": {
+          "title": "Source (Person - Database Reference)",
+          "type": "object",
+          "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+          "referenceType": "Person",
+          "description": "A database reference to a Person object describing the person who is the source of the information in this Note. This is not necessarily the person who wrote it. For example, a linguist could make a note based on something that a speaker reports, in which case the speaker should be listed as the source."
+        },
+        "tags": {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "A set of tags that apply to this Note. Useful for tagging notes that need review or responses, or marking a note as resolved."
+        },
+        "text": {
+          "title": "Note Text",
+          "type": "string",
+          "minLength": 1,
+          "description": "The text of the note itself"
+        }
+      },
+      "examples": [
+        {
+          "dateCreated": "2018-10-31T18:00:09.433Z",
+          "dateModified": "2018-10-31T18:00:23.691Z",
+          "language": "swa",
+          "source": {
+            "abbreviation": "DWH"
+          },
+          "text": "Msemaji huyu ni Janet Kerubo Momanyi.",
+          "type": "Note"
+        },
+        {
+          "dateCreated": "2018-10-31T18:00:09.433Z",
+          "dateModified": "2018-10-31T18:00:23.691Z",
+          "language": "eng",
+          "noteType": "encyclopedic",
+          "source": {
+            "name": "Morris Swadesh"
+          },
+          "text": "Box turtles are known for eating strawberries.",
+          "type": "Note"
+        }
+      ]
+    },
+    "Tags-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Tags",
+      "type": "object",
+      "description": "A tag is a piece of metadata that can be applied to almost any DLx object. The tags object contains a set of tags for this resource as pairs of attributes and values. For example, a researcher might tag a suffix with the attribute `person`, and a value of `3`, to indicate that the particular suffix is 3rd Person. If no value is needed, the value may also be set to `true` or `false` (but not `null`), however users are encouraged to use both attribute and value for every tag, since this helps identify the larger category that the tag value belongs to. Note: The Tags object does not have a `type` property.",
+      "additionalProperties": {
+        "title": "Tag",
+        "description": "A single tag, as an attribute-value pair.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "role": "subject",
+          "activated": true
+        },
+        {
+          "VOT": 0.012
+        }
+      ]
+    }
+  }
+}

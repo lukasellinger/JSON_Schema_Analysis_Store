@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Resource Link",
+  "description": "This object represents a link from the resource where it is found to another resource or action that may be performed.",
+  "properties": {
+    "rel": {
+      "type": "string",
+      "description": "As with an HTML \u0027rel\u0027 attribute, this describes the type of link.",
+      "example": "self"
+    },
+    "href": {
+      "type": "string",
+      "description": "This property contains a fully-qualified URL that can be called to retrieve the linked resource or perform the linked action.",
+      "example": "https://us2.api.mailchimp.com/3.0/lists"
+    },
+    "method": {
+      "type": "string",
+      "description": "The HTTP method that should be used when accessing the URL defined in \u0027href\u0027.",
+      "enum": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "OPTIONS",
+        "HEAD"
+      ],
+      "example": "GET"
+    },
+    "targetSchema": {
+      "type": "string",
+      "description": "For GETs, this is a URL representing the schema that the response should conform to.",
+      "example": "https://us2.api.mailchimp.com/schema/3.0/Lists/Collection.json"
+    },
+    "schema": {
+      "type": "string",
+      "description": "For HTTP methods that can receive bodies (POST and PUT), this is a URL representing the schema that the body should conform to.",
+      "example": "https://us2.api.mailchimp.com/schema/3.0/Lists/Instance.json"
+    }
+  }
+}

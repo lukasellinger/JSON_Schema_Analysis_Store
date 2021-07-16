@@ -1,0 +1,129 @@
+{
+  "title": "LineSymbol3DLayer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "LineSymbol3DLayer renders Polyline geometries using a flat 2D line with a LineSymbol3D in a 3D SceneView.",
+  "properties": {
+    "enable": {
+      "type": "boolean"
+    },
+    "material": {
+      "$ref": "#/definitions/material_schema.json"
+    },
+    "size": {
+      "type": "number",
+      "description": "Line width in points, positive only",
+      "minimum": 0
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of symbol used.",
+      "enum": [
+        "Line"
+      ]
+    }
+  },
+  "required": [
+    "size",
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "Line SymbolLayer",
+        "code": {
+          "symbolLayers": [
+            {
+              "type": "Line",
+              "material": {
+                "color": [
+                  255,
+                  0,
+                  0
+                ]
+              },
+              "size": 12
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "material_schema.json": {
+      "title": "Material",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The material used to shade the geometry.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "colorMixMode": {
+          "type": "string",
+          "description": "Controls how symbolLayer or visualVariable color is applied onto the underlying geometry color/texture. This property only applies to FillSymbol3DLayer within MeshSymbol3D.\u003cbr\u003e\u003cul\u003e\u003cli\u003e`tint`: the feature\u0027s appearance (in terms of color) should be altered to match the symbol / visual variable color.\u003c/li\u003e\u003cli\u003e`replace`: the feature\u0027s color is replaced with the symbol / visual variable color.\u003c/li\u003e\u003cli\u003e`multiply`: the feature\u0027s color is multiplied with the symbol color.\u003c/li\u003e\u003c/ul\u003e",
+          "enum": [
+            "tint",
+            "replace",
+            "multiply"
+          ],
+          "default": "tint"
+        },
+        "transparency": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "material",
+            "code": {
+              "material": {
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "transparency": 20,
+                "colorMixMode": "tint"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

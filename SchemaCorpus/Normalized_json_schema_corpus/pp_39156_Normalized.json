@@ -1,0 +1,702 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "geometry",
+    "properties"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "Feature"
+      ]
+    },
+    "geometry": {
+      "$ref": "#/definitions/geometry.json"
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "time",
+        "phenomenons"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sensor": {
+          "$ref": "#/definitions/sensor.json"
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "user": {
+          "$ref": "#/definitions/user.json"
+        },
+        "track": {
+          "type": "string"
+        },
+        "phenomenons": {
+          "type": "object",
+          "additionalItems": {
+            "type": "object",
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "$ref": "#/definitions/phenomenon.json"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": [
+                      "string",
+                      "number",
+                      "boolean"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "geometry.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "required": [
+                "type",
+                "coordinates"
+              ]
+            },
+            {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_Point"
+                },
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_MultiPoint"
+                },
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_LineString"
+                },
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_MultiLineString"
+                },
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_Polygon"
+                },
+                {
+                  "$ref": "#/definitions/geometry.json_definitions_MultiPolygon"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "required": [
+            "type",
+            "geometries"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "GeometryCollection"
+              ]
+            },
+            "geometries": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geometry.json"
+              }
+            }
+          }
+        }
+      ],
+      "definitions": {
+        "Point": {
+          "title": "Point",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geometry.json_definitions_position"
+            }
+          }
+        },
+        "MultiPoint": {
+          "title": "MultiPoint",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geometry.json_definitions_positionArray"
+            }
+          }
+        },
+        "LineString": {
+          "title": "LineString",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "LineString"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geometry.json_definitions_lineString"
+            }
+          }
+        },
+        "MultiLineString": {
+          "title": "MultiLineString",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geometry.json_definitions_lineString"
+              }
+            }
+          }
+        },
+        "Polygon": {
+          "title": "Polygon",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geometry.json_definitions_polygonCoordinates"
+            }
+          }
+        },
+        "MultiPolygon": {
+          "title": "MultiPolygon",
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geometry.json_definitions_polygonCoordinates"
+              }
+            }
+          }
+        },
+        "lineString": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/geometry.json_definitions_positionArray"
+            },
+            {
+              "minItems": 2
+            }
+          ]
+        },
+        "linearRingCoordinates": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/geometry.json_definitions_positionArray"
+            },
+            {
+              "minItems": 4
+            }
+          ]
+        },
+        "polygonCoordinates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/geometry.json_definitions_linearRingCoordinates"
+          }
+        },
+        "position": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "additionalItems": false,
+          "items": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "positionArray": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geometry.json_definitions_position"
+          }
+        }
+      }
+    },
+    "geometry.json_definitions_Point": {
+      "title": "Point",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "Point"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/geometry.json_definitions_position"
+        }
+      }
+    },
+    "geometry.json_definitions_position": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "additionalItems": false,
+      "items": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    },
+    "geometry.json_definitions_MultiPoint": {
+      "title": "MultiPoint",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "MultiPoint"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/geometry.json_definitions_positionArray"
+        }
+      }
+    },
+    "geometry.json_definitions_positionArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/geometry.json_definitions_position"
+      }
+    },
+    "geometry.json_definitions_LineString": {
+      "title": "LineString",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "LineString"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/geometry.json_definitions_lineString"
+        }
+      }
+    },
+    "geometry.json_definitions_lineString": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/geometry.json_definitions_positionArray"
+        },
+        {
+          "minItems": 2
+        }
+      ]
+    },
+    "geometry.json_definitions_MultiLineString": {
+      "title": "MultiLineString",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "MultiLineString"
+          ]
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geometry.json_definitions_lineString"
+          }
+        }
+      }
+    },
+    "geometry.json_definitions_Polygon": {
+      "title": "Polygon",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "Polygon"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/geometry.json_definitions_polygonCoordinates"
+        }
+      }
+    },
+    "geometry.json_definitions_polygonCoordinates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/geometry.json_definitions_linearRingCoordinates"
+      }
+    },
+    "geometry.json_definitions_linearRingCoordinates": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/geometry.json_definitions_positionArray"
+        },
+        {
+          "minItems": 4
+        }
+      ]
+    },
+    "geometry.json_definitions_MultiPolygon": {
+      "title": "MultiPolygon",
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "MultiPolygon"
+          ]
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geometry.json_definitions_polygonCoordinates"
+          }
+        }
+      }
+    },
+    "sensor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "allOf": [
+        {
+          "$ref": "#/definitions/sensor.json_definitions_base"
+        },
+        {
+          "$ref": "#/definitions/sensor.json_definitions_with-id"
+        },
+        {
+          "oneOf": [
+            {
+              "not": {
+                "$ref": "#/definitions/sensor.json_definitions_car-type"
+              }
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/sensor.json_definitions_car-type"
+                },
+                {
+                  "$ref": "#/definitions/sensor.json_definitions_car-properties"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "definitions": {
+        "base": {
+          "type": "object",
+          "required": [
+            "type",
+            "properties"
+          ],
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "properties": {
+              "type": "object"
+            }
+          }
+        },
+        "with-id": {
+          "properties": {
+            "properties": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "car-type": {
+          "properties": {
+            "type": {
+              "enum": [
+                "car"
+              ]
+            }
+          }
+        },
+        "car-properties": {
+          "properties": {
+            "properties": {
+              "properties": {
+                "manufacturer": {
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "fuelType": {
+                  "type": "string",
+                  "enum": [
+                    "diesel",
+                    "gasoline",
+                    "biodiesel",
+                    "kerosene",
+                    "electric",
+                    "hybrid"
+                  ]
+                },
+                "constructionYear": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "VIN": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "sensor.json_definitions_base": {
+      "type": "object",
+      "required": [
+        "type",
+        "properties"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object"
+        }
+      }
+    },
+    "sensor.json_definitions_with-id": {
+      "properties": {
+        "properties": {
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "sensor.json_definitions_car-type": {
+      "properties": {
+        "type": {
+          "enum": [
+            "car"
+          ]
+        }
+      }
+    },
+    "sensor.json_definitions_car-properties": {
+      "properties": {
+        "properties": {
+          "properties": {
+            "manufacturer": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "fuelType": {
+              "type": "string",
+              "enum": [
+                "diesel",
+                "gasoline",
+                "biodiesel",
+                "kerosene",
+                "electric",
+                "hybrid"
+              ]
+            },
+            "constructionYear": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "VIN": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "user.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions.json_optional-user-properties"
+        },
+        {
+          "properties": {
+            "created": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "mail": {
+              "$ref": "#/definitions/definitions.json_mail"
+            },
+            "modified": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "name": {
+              "$ref": "#/definitions/definitions.json_username"
+            }
+          }
+        }
+      ]
+    },
+    "definitions.json_optional-user-properties": {
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/definitions/geometry.json"
+        },
+        "aboutMe": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "dayOfBirth": {
+          "type": "string",
+          "format": "date"
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "m",
+            "f"
+          ]
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2}[-_][A-Z]{2}$"
+        },
+        "badges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "acceptedTermsOfUseVersion": {
+          "type": "string",
+          "format": "date"
+        },
+        "acceptedPrivacyStatementVersion": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "definitions.json_mail": {
+      "pattern": "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",
+      "type": "string"
+    },
+    "definitions.json_username": {
+      "pattern": "^[_A-Za-z0-9-]{4,}$",
+      "type": "string"
+    },
+    "phenomenon.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "unit"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

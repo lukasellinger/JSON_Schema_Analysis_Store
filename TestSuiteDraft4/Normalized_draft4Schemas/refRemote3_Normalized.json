@@ -1,0 +1,13 @@
+{
+  "id": "http://localhost:1234/",
+  "items": {
+    "items": {
+      "$ref": "#/definitions/baseUriChange_folderInteger.json"
+    }
+  },
+  "definitions": {
+    "baseUriChange_folderInteger.json": {
+      "type": "integer"
+    }
+  }
+}

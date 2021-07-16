@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\note.json_definitions_note-output"
+    }
+  ],
+  "definitions": {
+    "..\\definitions\\note.json_definitions_note-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_objectid"
+        },
+        "text": {
+          "$ref": "#/definitions/..\\definitions\\note.json_definitions_text"
+        },
+        "created": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_modified"
+        },
+        "user": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_user-id"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "_id",
+        "text",
+        "created",
+        "modified",
+        "user"
+      ],
+      "x-sdk-model": "note"
+    },
+    "..\\definitions\\common.json_definitions_objectid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{24}$"
+    },
+    "..\\definitions\\note.json_definitions_text": {
+      "type": "string",
+      "x-sdk-positional": true
+    },
+    "..\\definitions\\created-modified.json_definitions_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "..\\definitions\\created-modified.json_definitions_modified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "..\\definitions\\common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    }
+  }
+}

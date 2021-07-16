@@ -1,0 +1,1163 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "title": "oxauth-config.xml",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "sessionAsJwt": {
+      "description": "Experimental feature. Do not use in production!",
+      "type": "boolean"
+    },
+    "issuer": {
+      "description": "URL using the https scheme with no query or fragment component that the OP asserts as its Issuer Identifier.",
+      "title": "Issuer",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "loginPage": {
+      "description": "URL of the login page.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "authorizationPage": {
+      "description": "URL of the oxAuth authorization page.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "baseEndpoint": {
+      "description": "Base URL of the Endpoints.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "authorizationEndpoint": {
+      "description": "The URL of the Authorization Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "tokenEndpoint": {
+      "description": "The URL of the Token Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "userInfoEndpoint": {
+      "description": "The URL of the User Info Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "clientInfoEndpoint": {
+      "description": "The URL of the Client Info Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "checkSessionIFrame": {
+      "description": "URL of an OP iframe that supports cross-origin communications for session state information with the RP Client, using the HTML5 postMessage API.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "endSessionEndpoint": {
+      "description": "URL at the OP to which an RP can perform a redirect to request that the End-User be logged out at the OP.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "jwksUri": {
+      "description": "URL of the OP\u0027s JSON Web Key Set (JWK) document. This contains the signing key(s) the RP uses to validate signatures from the OP.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "registrationEndpoint": {
+      "description": "URL of the Registration Enpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "openIdDiscoveryEndpoint": {
+      "description": "URL for the Discovery Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "openIdConfigurationEndpoint": {
+      "description": "URL for the Open ID Connect Configuration Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "idGenerationEndpoint": {
+      "description": "URL for the ID Generation Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "introspectionEndpoint": {
+      "description": "URL for the Introspection Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "umaConfigurationEndpoint": {
+      "description": "URL for the UMA Configuration Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "sectorIdentifierEndpoint": {
+      "description": "URL for the Sector Identifier Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "oxElevenGenerateKeyEndpoint": {
+      "description": "URL for the oxEleven Generate Key Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "oxElevenSignEndpoint": {
+      "description": "URL for the oxEleven Sign Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "oxElevenVerifySignatureEndpoint": {
+      "description": "URL for the oxEleven Verify Signature Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "oxElevenDeleteKeyEndpoint": {
+      "description": "URL for the oxEleven Delete Key Endpoint.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "openidSubAttribute": {
+      "description": "LDAP attribute used for the sub claim.",
+      "type": "string",
+      "minLength": 1
+    },
+    "responseTypesSupported": {
+      "description": "A list of the OAuth 2.0 response_type values that this OP supports.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "array",
+        "format": "select",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "type": "string",
+          "enum": [
+            "code",
+            "token",
+            "id_token"
+          ]
+        }
+      }
+    },
+    "grantTypesSupported": {
+      "description": "A list of the OAuth 2.0 Grant Type values that this OP supports.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "authorization_code",
+          "implicit",
+          "password",
+          "client_credentials",
+          "refresh_token",
+          "urn:ietf:params:oauth:grant-type:uma-ticket"
+        ]
+      }
+    },
+    "dynamicGrantTypeDefault": {
+      "description": "A list of the OAuth 2.0 Grant Type values that it\u0027s possible to set via client registration API.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "authorization_code",
+          "implicit",
+          "password",
+          "client_credentials",
+          "refresh_token",
+          "urn:ietf:params:oauth:grant-type:uma-ticket"
+        ]
+      }
+    },
+    "subjectTypesSupported": {
+      "description": "A list of the Subject Identifier types that this OP supports. Valid types include pairwise and public.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "public",
+          "pairwise"
+        ]
+      }
+    },
+    "defaultSubjectType": {
+      "description": "Default Subject Type used for Dynamic Client Registration.",
+      "type": "string",
+      "enum": [
+        "public",
+        "pairwise"
+      ]
+    },
+    "userInfoSigningAlgValuesSupported": {
+      "description": "A list of the JWS signing algorithms (alg values) JWA supported by the UserInfo Endpoint to encode the Claims in a JWT.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "HS256",
+          "HS384",
+          "HS512",
+          "RS256",
+          "RS384",
+          "RS512",
+          "ES256",
+          "ES384",
+          "ES512"
+        ]
+      }
+    },
+    "userInfoEncryptionAlgValuesSupported": {
+      "description": "A list of the JWE encryption algorithms (alg values) JWA supported by the UserInfo Endpoint to encode the Claims in a JWT.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "RSA1_5",
+          "RSA-OAEP",
+          "A128KW",
+          "A256KW"
+        ]
+      }
+    },
+    "userInfoEncryptionEncValuesSupported": {
+      "description": "A list of the JWE encryption algorithms (enc values) JWA supported by the UserInfo Endpoint to encode the Claims in a JWT.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "A128CBC+HS256",
+          "A256CBC+HS512",
+          "A128GCM",
+          "A256GCM"
+        ]
+      }
+    },
+    "idTokenSigningAlgValuesSupported": {
+      "description": "A list of the JWS signing algorithms (alg values) supported by the OP for the ID Token to encode the Claims in a JWT.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "none",
+          "HS256",
+          "HS384",
+          "HS512",
+          "RS256",
+          "RS384",
+          "RS512",
+          "ES256",
+          "ES384",
+          "ES512"
+        ]
+      }
+    },
+    "idTokenEncryptionAlgValuesSupported": {
+      "description": "A list of the JWE encryption algorithms (alg values) supported by the OP for the ID Token to encode the Claims in a JWT.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "RSA1_5",
+          "RSA-OAEP",
+          "A128KW",
+          "A256KW"
+        ]
+      }
+    },
+    "idTokenEncryptionEncValuesSupported": {
+      "description": "A list of the JWE encryption algorithms (enc values) supported by the OP for the ID Token to encode the Claims in a JWT.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "A128CBC+HS256",
+          "A256CBC+HS512",
+          "A128GCM",
+          "A256GCM"
+        ]
+      }
+    },
+    "requestObjectSigningAlgValuesSupported": {
+      "description": "A list of the JWS signing algorithms (alg values) supported by the OP for Request Objects.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "none",
+          "HS256",
+          "HS384",
+          "HS512",
+          "RS256",
+          "RS384",
+          "RS512",
+          "ES256",
+          "ES384",
+          "ES512"
+        ]
+      }
+    },
+    "requestObjectEncryptionAlgValuesSupported": {
+      "description": "A list of the JWE encryption algorithms (alg values) supported by the OP for Request Objects.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "RSA1_5",
+          "RSA-OAEP",
+          "A128KW",
+          "A256KW"
+        ]
+      }
+    },
+    "requestObjectEncryptionEncValuesSupported": {
+      "description": "A list of the JWE encryption algorithms (enc values) supported by the OP for Request Objects.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "A128CBC+HS256",
+          "A256CBC+HS512",
+          "A128GCM",
+          "A256GCM"
+        ]
+      }
+    },
+    "tokenEndpointAuthMethodsSupported": {
+      "description": "A list of Client Authentication methods supported by this Token Endpoint.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "client_secret_basic",
+          "client_secret_post",
+          "client_secret_jwt",
+          "private_key_jwt"
+        ]
+      }
+    },
+    "tokenEndpointAuthSigningAlgValuesSupported": {
+      "description": "A list of the JWS signing algorithms (alg values) supported by the Token Endpoint for the signature on the JWT used to authenticate the Client at the Token Endpoint for the private_key_jwt and client_secret_jwt authentication methods.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "HS256",
+          "HS384",
+          "HS512",
+          "RS256",
+          "RS384",
+          "RS512",
+          "ES256",
+          "ES384",
+          "ES512"
+        ]
+      }
+    },
+    "dynamicRegistrationCustomAttributes": {
+      "description": "Custom attributes for the Dynamic registration.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "displayValuesSupported": {
+      "description": "A list of the display parameter values that the OpenID Provider supports.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "page",
+          "popup"
+        ]
+      }
+    },
+    "claimTypesSupported": {
+      "description": "A list of the Claim Types that the OpenID Provider supports.",
+      "type": "array",
+      "format": "select",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "normal"
+        ]
+      }
+    },
+    "serviceDocumentation": {
+      "description": "URL of a page containing human-readable information that developers might want or need to know when using the OpenID Provider.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "claimsLocalesSupported": {
+      "description": "Languages and scripts supported for values in Claims being returned.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "uiLocalesSupported": {
+      "description": "Languages and scripts supported for the user interface.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "persistIdTokenInLdap": {
+      "description": "Specifies whether to persist id_token into LDAP (otherwise saves into cache).",
+      "type": "boolean"
+    },
+    "persistRefreshTokenInLdap": {
+      "description": "Specifies whether to persist refresh_token into LDAP (otherwise saves into cache).",
+      "type": "boolean"
+    },
+    "claimsParameterSupported": {
+      "description": "Specifies whether the OP supports use of the claims parameter.",
+      "type": "boolean"
+    },
+    "requestParameterSupported": {
+      "description": "Boolean value specifying whether the OP supports use of the request parameter.",
+      "type": "boolean"
+    },
+    "requestUriParameterSupported": {
+      "description": "Boolean value specifying whether the OP supports use of the request_uri parameter.",
+      "type": "boolean"
+    },
+    "requireRequestUriRegistration": {
+      "description": "Boolean value specifying whether the OP requires any request_uri values used to be pre-registered using the request_uris registration parameter.",
+      "type": "boolean"
+    },
+    "opPolicyUri": {
+      "description": "URL that the OpenID Provider provides to the person registering the Client to read about the OP\u0027s requirements on how the Relying Party can use the data provided by the OP.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "opTosUri": {
+      "description": "URL that the OpenID Provider provides to the person registering the Client to read about OpenID Provider\u0027s terms of service.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "authorizationCodeLifetime": {
+      "description": "The lifetime of the Authorization Code.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "refreshTokenLifetime": {
+      "description": "The lifetime of the Refresh Token.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "idTokenLifetime": {
+      "description": "The lifetime of the ID Token.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "accessTokenLifetime": {
+      "description": "The lifetime of the short lived Access Token.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "umaRptLifetime": {
+      "description": "UMA RPT lifetime",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "umaPctLifetime": {
+      "description": "UMA PCT lifetime",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "umaResourceLifetime": {
+      "description": "UMA Resource lifetime",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "umaAddScopesAutomatically": {
+      "description": "Add UMA scopes automatically if it is not registered yet",
+      "type": "boolean"
+    },
+    "umaValidateClaimToken": {
+      "description": "Validate claim_token as id_token assuming it is issued by local idp.",
+      "type": "boolean"
+    },
+    "umaGrantAccessIfNoPolicies": {
+      "description": "Specify whether to grant access to resources if there is no any policies associated with scopes.",
+      "type": "boolean"
+    },
+    "umaKeepClientDuringResourceSetRegistration": {
+      "description": "Save client information during resource registration",
+      "type": "boolean"
+    },
+    "umaRptAsJwt": {
+      "description": "Issue RPT as JWT or as random string.",
+      "type": "boolean"
+    },
+    "cleanServiceInterval": {
+      "description": "Time interval for the Clean Service in seconds.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "keyRegenerationEnabled": {
+      "description": "Boolean value specifying whether to regenerate keys.",
+      "type": "boolean"
+    },
+    "keyRegenerationInterval": {
+      "description": "The interval for key regeneration in hours.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "defaultSignatureAlgorithm": {
+      "description": "The default signature algorithm to sign ID Tokens.",
+      "type": "string",
+      "enum": [
+        "HS256",
+        "HS384",
+        "HS512",
+        "RS256",
+        "RS384",
+        "RS512",
+        "ES256",
+        "ES384",
+        "ES512"
+      ]
+    },
+    "oxOpenIdConnectVersion": {
+      "description": "OpenID Connect Version.",
+      "type": "string",
+      "minLength": 1
+    },
+    "organizationInum": {
+      "description": "The Organization Inum.",
+      "type": "string",
+      "minLength": 1
+    },
+    "oxId": {
+      "description": "URL for the Inum generator Service.",
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "dynamicRegistrationEnabled": {
+      "description": "Boolean value specifying whether to enable Dynamic Registration.",
+      "type": "boolean"
+    },
+    "dynamicRegistrationExpirationTime": {
+      "description": "Expiration time in seconds for clients created with dynamic registration, 0 means never expire.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 0,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "dynamicRegistrationPersistClientAuthorizations": {
+      "description": "Boolean value specifying whether to persist client authorizations.",
+      "type": "boolean"
+    },
+    "trustedClientEnabled": {
+      "description": "Boolean value specifying whether a client is trusted and no authorization is required.",
+      "type": "boolean"
+    },
+    "dynamicRegistrationScopesParamEnabled": {
+      "description": "Boolean value specifying whether to enable scopes parameter in dynamic registration.",
+      "type": "boolean"
+    },
+    "dynamicRegistrationCustomObjectClass": {
+      "description": "LDAP custom object class for dynamic registration.",
+      "type": "string",
+      "minLength": 1
+    },
+    "personCustomObjectClassList": {
+      "description": "LDAP custom object class list for dynamic person enrollment.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "authenticationFiltersEnabled": {
+      "description": "Boolean value specifying whether to enable user authentication filters.",
+      "type": "boolean"
+    },
+    "clientAuthenticationFiltersEnabled": {
+      "description": "Boolean value specifying whether to enable client authentication filters.",
+      "type": "boolean"
+    },
+    "authenticationFilters": {
+      "description": "User authentication filters.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "filter": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bind": {
+            "type": "boolean"
+          },
+          "bindPasswordAttribute": {
+            "type": "string",
+            "minLength": 1
+          },
+          "baseDn": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "clientAuthenticationFilters": {
+      "description": "Client authentication filters.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "filter": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bindPasswordAttribute": {
+            "type": "string",
+            "minLength": 1
+          },
+          "baseDn": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "applianceInum": {
+      "description": "The Appliance Inum",
+      "type": "string",
+      "minLength": 1
+    },
+    "sessionIdUnusedLifetime": {
+      "description": "The lifetime for unused session states.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "sessionIdUnauthenticatedUnusedLifetime": {
+      "description": "The lifetime for unused unauthenticated session states.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "sessionIdLifetime": {
+      "description": "The lifetime of session id in seconds.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "sessionIdEnabled": {
+      "description": "Boolean value specifying whether to enable session ID parameter.",
+      "type": "boolean"
+    },
+    "sessionIdPersistOnPromptNone": {
+      "description": "Boolean value specifying whether to persist session ID on prompt none.",
+      "type": "boolean"
+    },
+    "configurationUpdateInterval": {
+      "description": "The interval for configuration update in seconds.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "cssLocation": {
+      "description": "The location for CSS files.",
+      "type": "string",
+      "minLength": 1
+    },
+    "jsLocation": {
+      "description": "The location for JavaScript files.",
+      "type": "string",
+      "minLength": 1
+    },
+    "imgLocation": {
+      "description": "The location for image files.",
+      "type": "string",
+      "minLength": 1
+    },
+    "metricReporterInterval": {
+      "description": "The interval for metric reporter in seconds.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "metricReporterKeepDataDays": {
+      "description": "The days to keep metric reported data.",
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "pairwiseIdType": {
+      "description": "The pairwise ID type.",
+      "type": "string",
+      "enum": [
+        "persistent",
+        "algorithmic"
+      ]
+    },
+    "pairwiseCalculationKey": {
+      "description": "Key to calculate algorithmic pairwise IDs.",
+      "type": "string",
+      "minLength": 1
+    },
+    "pairwiseCalculationSalt": {
+      "description": "Salt to calculate algorithmic pairwise IDs.",
+      "type": "string",
+      "minLength": 1
+    },
+    "webKeysStorage": {
+      "description": "Web Key Storage Type.",
+      "type": "string",
+      "enum": [
+        "keystore",
+        "pkcs11"
+      ]
+    },
+    "dnName": {
+      "description": "DN of certificate issuer.",
+      "type": "string",
+      "minLength": 1
+    },
+    "keyStoreFile": {
+      "description": "The Key Store File (JKS).",
+      "type": "string",
+      "minLength": 1
+    },
+    "keyStoreSecret": {
+      "description": "The password of the Key Store.",
+      "type": "string",
+      "minLength": 1
+    },
+    "endSessionWithAccessToken": {
+      "description": "Accept access token to call end_session endpoint.",
+      "type": "boolean"
+    },
+    "clientWhiteList": {
+      "description": "White List for Client Redirection URIs.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "clientBlackList": {
+      "description": "Black List for Client Redirection URIs.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "legacyIdTokenClaims": {
+      "description": "Include Claims in ID Token.",
+      "type": "boolean"
+    },
+    "customHeadersWithAuthorizationResponse": {
+      "description": "Boolean value specifying whether to enable Custom Response Header parameter to return custom headers with the Authorization Response.",
+      "type": "boolean"
+    },
+    "frontChannelLogoutSessionSupported": {
+      "description": "Boolean value to specify support for front channel logout session.",
+      "type": "boolean"
+    },
+    "useCacheForAllImplicitFlowObjects": {
+      "description": "Boolean value to specify whether to persist all objects into cache during Implicit Flow.",
+      "type": "boolean"
+    },
+    "updateUserLastLogonTime": {
+      "description": "Boolean value to specify if application should update oxLastLogonTime attribute on user authentication.",
+      "type": "boolean"
+    },
+    "updateClientAccessTime": {
+      "description": "Boolean value to specify if application should update oxLastAccessTime/oxLastLogonTime attributes on client authentication.",
+      "type": "boolean"
+    },
+    "enableClientGrantTypeUpdate": {
+      "description": "Boolean value to specify if client can update Grant Type values.",
+      "type": "boolean"
+    },
+    "loggingLevel": {
+      "description": "Logging level for oxAuth logers.",
+      "type": "string",
+      "format": "select",
+      "enum": [
+        "DEFAULT",
+        "OFF",
+        "FATAL",
+        "ERROR",
+        "WARN",
+        "INFO",
+        "DEBUG",
+        "TRACE",
+        "ALL"
+      ]
+    },
+    "corsConfigurationFilters": {
+      "description": "CORS Configuration filters.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "filterName": {
+            "description": "",
+            "type": "string",
+            "minLength": 1
+          },
+          "corsAllowedOrigins": {
+            "description": "",
+            "type": "string",
+            "minLength": 1
+          },
+          "corsAllowedMethods": {
+            "description": "",
+            "type": "string",
+            "minLength": 1
+          },
+          "corsAllowedHeaders": {
+            "description": "",
+            "type": "string",
+            "minLength": 1
+          },
+          "corsExposedHeaders": {
+            "description": "",
+            "type": "string",
+            "minLength": 1
+          },
+          "corsSupportCredentials": {
+            "description": "",
+            "type": "boolean"
+          },
+          "corsLoggingEnabled": {
+            "description": "",
+            "type": "boolean"
+          },
+          "corsPreflightMaxAge": {
+            "description": "",
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 2147483647,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false
+          },
+          "corsRequestDecorate": {
+            "description": "",
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "logClientIdOnClientAuthentication": {
+      "description": "Boolean value to specify if application should log the Client ID on client authentication.",
+      "type": "boolean"
+    },
+    "logClientNameOnClientAuthentication": {
+      "description": "Boolean value to specify if application should log the Client Name on client authentication.",
+      "type": "boolean"
+    },
+    "authorizationRequestCustomAllowedParameters": {
+      "description": "Authorization Request Custom Allowed Parameters.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "legacyDynamicRegistrationScopeParam": {
+      "description": "Legacy Dynamic Registration Scopes JSON Array Param.",
+      "type": "boolean"
+    },
+    "skipAuthorizationForOpenIdScopeAndPairwiseId": {
+      "description": "If a client has only openid scope and pairwise id, person should not have to authorize.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "issuer",
+    "loginPage",
+    "authorizationPage",
+    "baseEndpoint",
+    "authorizationEndpoint",
+    "tokenEndpoint",
+    "userInfoEndpoint",
+    "clientInfoEndpoint",
+    "checkSessionIFrame",
+    "endSessionEndpoint",
+    "jwksUri",
+    "registrationEndpoint",
+    "openIdDiscoveryEndpoint",
+    "openIdConfigurationEndpoint",
+    "idGenerationEndpoint",
+    "introspectionEndpoint",
+    "umaConfigurationEndpoint",
+    "sectorIdentifierEndpoint",
+    "oxElevenGenerateKeyEndpoint",
+    "oxElevenSignEndpoint",
+    "oxElevenVerifySignatureEndpoint",
+    "oxElevenDeleteKeyEndpoint",
+    "openidSubAttribute",
+    "responseTypesSupported",
+    "grantTypesSupported",
+    "dynamicGrantTypeDefault",
+    "subjectTypesSupported",
+    "defaultSubjectType",
+    "userInfoSigningAlgValuesSupported",
+    "userInfoEncryptionAlgValuesSupported",
+    "userInfoEncryptionEncValuesSupported",
+    "idTokenSigningAlgValuesSupported",
+    "idTokenEncryptionAlgValuesSupported",
+    "idTokenEncryptionEncValuesSupported",
+    "requestObjectSigningAlgValuesSupported",
+    "requestObjectEncryptionAlgValuesSupported",
+    "requestObjectEncryptionEncValuesSupported",
+    "tokenEndpointAuthMethodsSupported",
+    "tokenEndpointAuthSigningAlgValuesSupported",
+    "dynamicRegistrationCustomAttributes",
+    "displayValuesSupported",
+    "claimTypesSupported",
+    "serviceDocumentation",
+    "claimsLocalesSupported",
+    "uiLocalesSupported",
+    "claimsParameterSupported",
+    "requestParameterSupported",
+    "requestUriParameterSupported",
+    "requireRequestUriRegistration",
+    "opPolicyUri",
+    "opTosUri",
+    "authorizationCodeLifetime",
+    "refreshTokenLifetime",
+    "idTokenLifetime",
+    "accessTokenLifetime",
+    "umaRptLifetime",
+    "umaPctLifetime",
+    "umaAddScopesAutomatically",
+    "umaKeepClientDuringResourceSetRegistration",
+    "cleanServiceInterval",
+    "keyRegenerationEnabled",
+    "keyRegenerationInterval",
+    "defaultSignatureAlgorithm",
+    "oxOpenIdConnectVersion",
+    "organizationInum",
+    "oxId",
+    "dynamicRegistrationEnabled",
+    "dynamicRegistrationExpirationTime",
+    "dynamicRegistrationPersistClientAuthorizations",
+    "trustedClientEnabled",
+    "dynamicRegistrationScopesParamEnabled",
+    "dynamicRegistrationCustomObjectClass",
+    "personCustomObjectClassList",
+    "authenticationFiltersEnabled",
+    "clientAuthenticationFiltersEnabled",
+    "authenticationFilters",
+    "clientAuthenticationFilters",
+    "applianceInum",
+    "sessionIdUnusedLifetime",
+    "sessionIdUnauthenticatedUnusedLifetime",
+    "sessionIdEnabled",
+    "sessionIdPersistOnPromptNone",
+    "sessionIdLifetime",
+    "configurationUpdateInterval",
+    "cssLocation",
+    "jsLocation",
+    "imgLocation",
+    "metricReporterInterval",
+    "metricReporterKeepDataDays",
+    "pairwiseIdType",
+    "pairwiseCalculationKey",
+    "pairwiseCalculationSalt",
+    "webKeysStorage",
+    "dnName",
+    "keyStoreFile",
+    "keyStoreSecret",
+    "endSessionWithAccessToken",
+    "legacyIdTokenClaims",
+    "customHeadersWithAuthorizationResponse",
+    "frontChannelLogoutSessionSupported",
+    "updateUserLastLogonTime",
+    "updateClientAccessTime",
+    "enableClientGrantTypeUpdate",
+    "loggingLevel",
+    "corsConfigurationFilters",
+    "logClientIdOnClientAuthentication",
+    "logClientNameOnClientAuthentication",
+    "authorizationRequestCustomAllowedParameters",
+    "legacyDynamicRegistrationScopeParam",
+    "skipAuthorizationForOpenIdScopeAndPairwiseId"
+  ]
+}

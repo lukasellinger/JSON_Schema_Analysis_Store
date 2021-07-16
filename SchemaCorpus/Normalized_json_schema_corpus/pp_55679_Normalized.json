@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/user.json"
+  },
+  "definitions": {
+    "user.json": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/name.json_definitions_name"
+        },
+        "age": {
+          "description": "Age in years",
+          "type": "integer",
+          "minimum": 20
+        }
+      },
+      "required": [
+        "name",
+        "age"
+      ]
+    },
+    "name.json_definitions_name": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName"
+      ]
+    }
+  }
+}

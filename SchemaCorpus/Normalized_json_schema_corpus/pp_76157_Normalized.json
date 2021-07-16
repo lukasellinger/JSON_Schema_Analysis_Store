@@ -1,0 +1,266 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/example.json",
+  "additionalProperties": false,
+  "definitions": {},
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "default": "xunit-schema.json",
+      "description": "Path of xunit-schema.json.",
+      "title": "The $schema Schema",
+      "type": "string"
+    },
+    "smoke": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "СтрогийПорядокВыполнения": {
+          "type": "boolean",
+          "title": "The Строгийпорядоквыполнения Schema ",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "ВыводитьСообщенияВЖурналРегистрации": {
+          "type": "boolean",
+          "title": "The ВыводитьСообщенияВЖурналРегистрации Schema ",
+          "default": true,
+          "examples": [
+            true
+          ]
+        },
+        "ИсключитьФормыЗависящиеОтОтключенныхФункциональныхОпций": {
+          "type": "boolean",
+          "title": "The Исключитьформызависящиеототключенныхфункциональныхопций Schema ",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "СпособГруппировки": {
+          "type": "string",
+          "title": "The Способгруппировки Schema ",
+          "default": "НеГруппировать",
+          "examples": [
+            "НеГруппировать",
+            "ПоВидуМетаданных",
+            "ПоВидуОбъекта",
+            "ПоКоличеству"
+          ]
+        },
+        "КоличествоВГруппе": {
+          "type": "number",
+          "title": "The Количествовгруппе Schema ",
+          "default": "",
+          "examples": [
+            "1"
+          ]
+        },
+        "Справочники": {
+          "type": [
+            "boolean",
+            "object"
+          ],
+          "items": [
+            {
+              "type": "object",
+              "items": [
+                {
+                  "type": "string",
+                  "title": "The Подчиненные Schema ",
+                  "default": "",
+                  "examples": [
+                    "Контрагенты"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "object",
+              "items": [
+                {
+                  "type": "object"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "title": "The 0th Schema ",
+                "default": "",
+                "examples": [
+                  "ПростойСправочник",
+                  "Справочник2.Форма.ФормаСписка"
+                ]
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "title": "The 0th Schema ",
+                "default": "",
+                "examples": [
+                  "Справочник2",
+                  "ПростойСправочник.Форма.ФормаВыбора"
+                ]
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "title": "The 0th Schema ",
+                "default": "",
+                "examples": [
+                  "ПростойСправочник",
+                  "Справочник2.Форма.ФормаВыбора"
+                ]
+              }
+            }
+          ]
+        },
+        "Документы": {
+          "type": [
+            "boolean",
+            "object"
+          ],
+          "items": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "title": "The 0th Schema ",
+                "default": "",
+                "examples": [
+                  "Документ1",
+                  "Документ2.Форма.ФормаСписка"
+                ]
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "title": "The 0th Schema ",
+                "default": "",
+                "examples": [
+                  "Документ1",
+                  "Документ2.Форма.УпрФормаЭлемента"
+                ]
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "title": "The 0th Schema ",
+                "default": "",
+                "examples": [
+                  "Документ1",
+                  "Документ2.Форма.УпрФормаЭлемента"
+                ]
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "title": "The 0th Schema ",
+                "default": "",
+                "examples": [
+                  "Документ2",
+                  "Документ2.Форма.УпрФормаЭлемента"
+                ]
+              }
+            }
+          ]
+        },
+        "Отчеты": {
+          "type": [
+            "boolean",
+            "array"
+          ],
+          "items": {
+            "type": "string",
+            "title": "The 0th Schema ",
+            "default": "",
+            "examples": [
+              "ОтчетСКД",
+              "ОтчетСКД.Форма.ФормаОтчета"
+            ]
+          }
+        },
+        "Обработки": {
+          "type": [
+            "boolean",
+            "array"
+          ],
+          "items": {
+            "type": "string",
+            "title": "The 0th Schema ",
+            "default": "",
+            "examples": [
+              "ВыполнениеЗапросов",
+              "ВыполнениеЗапросов.Форма.ФормаВыполнения"
+            ]
+          }
+        },
+        "ПропускаемыеИсключения": {
+          "type": [
+            "object"
+          ],
+          "items": {
+            "type": "string",
+            "title": "The 0th Schema ",
+            "default": "",
+            "examples": [
+              "ВыполнениеЗапросов",
+              "ВыполнениеЗапросов.Форма.ФормаВыполнения"
+            ]
+          }
+        }
+      }
+    },
+    "Отладка": {
+      "type": "boolean",
+      "title": "The Отладка Schema ",
+      "default": false,
+      "examples": [
+        false,
+        true
+      ]
+    },
+    "ДелатьЛогВыполненияСценариевВТекстовыйФайл": {
+      "type": "boolean",
+      "title": "The Делатьлогвыполнениясценариеввтекстовыйфайл Schema ",
+      "default": false,
+      "examples": [
+        false,
+        true
+      ]
+    },
+    "ИмяФайлаЛогВыполненияСценариев": {
+      "type": "string",
+      "title": "The Имяфайлалогвыполнениясценариев Schema ",
+      "default": "",
+      "examples": [
+        "$workspaceRoot/build/ServiceBases/log-xunit.txt",
+        "build/ServiceBases/log-xunit.txt",
+        "./build/ServiceBases/log-xunit.txt",
+        "c:/build/ServiceBases/log-xunit.txt"
+      ]
+    },
+    "ДобавлятьИмяПользователяВПредставлениеТеста": {
+      "type": "boolean",
+      "title": "The ДобавлятьИмяПользователяВПредставлениеТеста Schema ",
+      "default": false,
+      "examples": [
+        true
+      ]
+    }
+  }
+}

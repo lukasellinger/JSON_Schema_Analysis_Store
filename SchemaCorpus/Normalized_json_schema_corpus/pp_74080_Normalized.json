@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\permission.json_definitions_permission"
+    }
+  ],
+  "key_fields": [
+    "_id"
+  ],
+  "required": [
+    "_id",
+    "access"
+  ],
+  "example": {
+    "_id": "coltonlw@flywheel.io",
+    "access": "admin"
+  },
+  "definitions": {
+    "..\\definitions\\permission.json_definitions_permission": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_user-id"
+        },
+        "access": {
+          "$ref": "#/definitions/..\\definitions\\permission.json_definitions_access"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "permission"
+    },
+    "..\\definitions\\common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    },
+    "..\\definitions\\permission.json_definitions_access": {
+      "type": "string",
+      "enum": [
+        "ro",
+        "rw",
+        "admin"
+      ]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/ListBox/ListBox.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Список",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/ListEditorBase/ListEditorBase.json"
+    }
+  ],
+  "properties": {
+    "ViewMode": {
+      "description": "Режим отображения списка",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/ListBox/ListBoxMode.json",
+      "default": "common"
+    }
+  }
+}

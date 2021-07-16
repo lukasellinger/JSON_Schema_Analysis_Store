@@ -1,0 +1,484 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "https://fiware.github.io/data-models/specs/StreetLighting/StreetlightGroup/schema.json",
+  "title": "FIWARE - Street Lighting / Streetlight Group",
+  "description": "A Street light group",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_GSMA-Commons"
+    },
+    {
+      "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_Location-Commons"
+    },
+    {
+      "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_PhysicalObject-Commons"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "StreetlightGroup"
+          ]
+        },
+        "areaServed": {
+          "type": "string"
+        },
+        "powerState": {
+          "type": "string",
+          "enum": [
+            "on",
+            "off",
+            "low",
+            "bootingUp"
+          ]
+        },
+        "refStreetlightControlCabinet": {
+          "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+        },
+        "dateLastSwitchingOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateLastSwitchingOff": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "switchingOnHours": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "oneOf": [
+                  {
+                    "format": "date"
+                  },
+                  {
+                    "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_DateYearLess"
+                  }
+                ]
+              },
+              "to": {
+                "type": "string",
+                "oneOf": [
+                  {
+                    "format": "date"
+                  },
+                  {
+                    "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_DateYearLess"
+                  }
+                ]
+              },
+              "hours": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "hours"
+            ]
+          }
+        },
+        "switchingMode": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "night-ON",
+              "night-OFF",
+              "night-LOW",
+              "always-ON",
+              "day-ON",
+              "day-OFF",
+              "day-LOW"
+            ]
+          }
+        },
+        "illuminanceLevel": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "activeProgramId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "refStreetlight": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    }
+  ],
+  "required": [
+    "id",
+    "type",
+    "location"
+  ],
+  "definitions": {
+    "..\\..\\..\\common-schema.json_definitions_GSMA-Commons": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "alternateName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "dataProvider": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+          }
+        },
+        "seeAlso": {
+          "oneOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": [
+                {
+                  "type": "string",
+                  "format": "uri"
+                }
+              ]
+            },
+            {
+              "type": "string",
+              "format": "uri"
+            }
+          ]
+        }
+      }
+    },
+    "..\\..\\..\\common-schema.json_definitions_EntityIdentifierType": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[\\w\\-\\.\\{\\}\\$\\+\\*\\[\\]`|~^@!,:\\\\]+$"
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    },
+    "..\\..\\..\\common-schema.json_definitions_Location-Commons": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/definitions/https:__geojson.org_schema_Geometry.json"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "streetAddress": {
+              "type": "string"
+            },
+            "addressLocality": {
+              "type": "string"
+            },
+            "addressRegion": {
+              "type": "string"
+            },
+            "addressCountry": {
+              "type": "string"
+            },
+            "postalCode": {
+              "type": "string"
+            },
+            "postOfficeBoxNumber": {
+              "type": "string"
+            },
+            "areaServed": {
+              "type": "string"
+            }
+          }
+        },
+        "areaServed": {
+          "type": "string"
+        }
+      }
+    },
+    "https:__geojson.org_schema_Geometry.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GeoJSON Geometry",
+      "oneOf": [
+        {
+          "title": "GeoJSON Point",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "number"
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON LineString",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "LineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON Polygon",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 4,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiPoint",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiLineString",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiPolygon",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "minItems": 4,
+                  "items": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "..\\..\\..\\common-schema.json_definitions_PhysicalObject-Commons": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "..\\..\\..\\common-schema.json_definitions_DateYearLess": {
+      "type": "string",
+      "pattern": "^--((0[13578]|1[02])-31|(0[1,3-9]|1[0-2])-30|(0\\d|1[0-2])-([0-2]\\d))$"
+    }
+  }
+}

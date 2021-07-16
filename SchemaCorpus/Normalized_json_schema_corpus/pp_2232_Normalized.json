@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "musicJson-helpers",
+  "definitions": {
+    "nameOrNames": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      ]
+    },
+    "namedObject": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "moreThanOneInteger": {
+      "type": "integer",
+      "minimum": 1
+    }
+  }
+}

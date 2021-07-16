@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "filters",
+  "properties": {
+    "filters": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "last_update": {
+      "type": "string"
+    }
+  }
+}

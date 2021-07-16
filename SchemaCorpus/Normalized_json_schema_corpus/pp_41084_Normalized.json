@@ -1,0 +1,62 @@
+{
+  "id": "testsuites.json",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Expectation list",
+  "description": "Array of Expectation",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/expectation.json"
+  },
+  "definitions": {
+    "expectation.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Expectation",
+      "description": "An expectation on data.",
+      "type": "object",
+      "properties": {
+        "path": {
+          "$ref": "#/definitions/base.json_definitions_JsonPath",
+          "description": "JSONPath to run messages data through. Result is passed to assertion predicate."
+        },
+        "equals": {
+          "description": "Strict equality"
+        },
+        "above": {
+          "description": "Greater than (\u003e)",
+          "type": "number"
+        },
+        "below": {
+          "description": "Less than than (\u003c)",
+          "type": "number"
+        },
+        "type": {
+          "description": "JSON type",
+          "type": "string"
+        },
+        "haveKeys": {
+          "description": "Object has only these keys",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "includeKeys": {
+          "description": "Object has at least these keys",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contains": {
+          "description": "String or array contains substring/item"
+        }
+      }
+    },
+    "base.json_definitions_JsonPath": {
+      "type": "string",
+      "description": "JsonPath, see http://goessner.net/articles/JsonPath/",
+      "format": "jsonpath",
+      "example": "products.book[2]"
+    }
+  }
+}

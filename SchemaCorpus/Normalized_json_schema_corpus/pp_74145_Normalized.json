@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\packfile.json_definitions_packfile-start",
+  "definitions": {
+    "..\\definitions\\packfile.json_definitions_packfile-start": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "x-sdk-return": "token"
+    }
+  }
+}

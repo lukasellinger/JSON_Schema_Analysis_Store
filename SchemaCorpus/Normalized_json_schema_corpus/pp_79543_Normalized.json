@@ -1,0 +1,782 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "candidateData": {
+      "$ref": "#/definitions/candidateWrite.json"
+    },
+    "applicationData": {
+      "type": "object",
+      "properties": {
+        "job": {
+          "type": "integer"
+        },
+        "applicationWrite": {
+          "$ref": "#/definitions/applicationWrite.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidateWrite.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "notifications": {
+          "$ref": "#/definitions/candidateRead.json_definitions_notifications"
+        },
+        "internalFlag": {
+          "$ref": "#/definitions/candidateRead.json_definitions_internalFlag"
+        },
+        "person": {
+          "$ref": "#/definitions/person.json"
+        },
+        "resume": {
+          "$ref": "#/definitions/fileUpload.json"
+        },
+        "items": {
+          "$ref": "#/definitions/itemsWrite.json"
+        },
+        "categories": {
+          "$ref": "#/definitions/categoriesActual.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidateRead.json_definitions_notifications": {
+      "type": "boolean",
+      "description": "whether this candidate wants to receive email alerts about new jobs"
+    },
+    "candidateRead.json_definitions_internalFlag": {
+      "type": "boolean",
+      "description": "whether this candidate is an internal"
+    },
+    "person.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "definitions": {
+        "givenName": {
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "$ref": "#/definitions/person.json_definitions_givenName"
+        },
+        "familyName": {
+          "$ref": "#/definitions/person.json_definitions_familyName"
+        },
+        "email": {
+          "$ref": "#/definitions/person.json_definitions_email"
+        },
+        "image": {
+          "$ref": "#/definitions/person.json_definitions_image"
+        },
+        "vcard": {
+          "$ref": "#/definitions/jcard.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "person.json_definitions_givenName": {
+      "type": "string"
+    },
+    "person.json_definitions_familyName": {
+      "type": "string"
+    },
+    "person.json_definitions_email": {
+      "type": "string"
+    },
+    "person.json_definitions_image": {
+      "type": "string",
+      "format": "uri"
+    },
+    "jcard.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "array",
+      "description": "A jcard holding personal details, as per https://tools.ietf.org/html/rfc7095"
+    },
+    "fileUpload.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "Details for a file upload operation",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/fileDownload.json_definitions_data"
+        },
+        "fileName": {
+          "$ref": "#/definitions/fileDownload.json_definitions_fileName"
+        },
+        "via": {
+          "$ref": "#/definitions/fileDownload.json_definitions_via"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "data",
+        "fileName",
+        "via"
+      ]
+    },
+    "fileDownload.json_definitions_data": {
+      "type": "string",
+      "media": {
+        "binaryEncoding": "base64"
+      }
+    },
+    "fileDownload.json_definitions_fileName": {
+      "type": "string"
+    },
+    "fileDownload.json_definitions_via": {
+      "type": "string",
+      "description": "the mechanism via which the file was uploaded - either \u0027device\u0027 or the fqdn of a cloud storage platform (e.g. dropbox.com)"
+    },
+    "itemsWrite.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemWrite.json"
+      }
+    },
+    "itemWrite.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_booleanItem"
+        },
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_stringItem"
+        },
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_numberItem"
+        },
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_dateItem"
+        },
+        {
+          "$ref": "#/definitions/itemWrite.json_definitions_fileItem"
+        },
+        {
+          "$ref": "#/definitions/itemWrite.json_definitions_cascadeItem"
+        },
+        {
+          "$ref": "#/definitions/itemWrite.json_definitions_picklistItem"
+        },
+        {
+          "$ref": "#/definitions/itemWrite.json_definitions_tableItem"
+        }
+      ],
+      "definitions": {
+        "fileItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "file"
+              ]
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "$ref": "#/definitions/fileUpload.json"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "cascadeItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "cascade"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "$ref": "#/definitions/itemWrite.json_definitions_cascadeChoices"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "cascadeChoices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemWrite.json_definitions_cascadeChoice"
+          }
+        },
+        "cascadeChoice": {
+          "type": "object",
+          "properties": {
+            "choice": {
+              "type": "string",
+              "description": "the name of a choice that the user selected"
+            },
+            "subItems": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/itemWrite.json"
+              },
+              "description": "items unlocked based on a cascade choice"
+            }
+          },
+          "required": [
+            "choice"
+          ],
+          "additionalProperties": false
+        },
+        "picklistItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "picklist"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "id": {
+              "type": "integer",
+              "description": "a unique id for picklist choice",
+              "deprecated": true
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "$ref": "#/definitions/itemWrite.json_definitions_pickChoices"
+            },
+            "selectedIds": {
+              "$ref": "#/definitions/itemWrite.json_definitions_selectedIds"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "pickChoices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemWrite.json_definitions_pickChoice"
+          }
+        },
+        "pickChoice": {
+          "type": "string",
+          "description": "the name of a choice that the user selected"
+        },
+        "selectedIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemWrite.json_definitions_selectedId"
+          }
+        },
+        "selectedId": {
+          "type": "integer",
+          "description": "the id of a choice that the user selected"
+        },
+        "tableItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "table"
+              ]
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "$ref": "#/definitions/itemWrite.json_definitions_tableRows"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "tableRows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemWrite.json_definitions_tableRow"
+          }
+        },
+        "tableRow": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemWrite.json"
+          }
+        }
+      }
+    },
+    "itemRead.json_definitions_booleanItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "boolean"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "type": "boolean",
+          "description": "json representation of a boolean item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemMeta.json_definitions_elementId": {
+      "type": "string",
+      "description": "It will be used as the id attribute of the form element. This will be the values of payloadElements and reRenderElements in the callback object"
+    },
+    "itemMeta.json_definitions_callback": {
+      "type": "object",
+      "description": "The callback object dictates where the additional info will be taken from and how it should render the form elements on the page",
+      "properties": {
+        "apiUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "the API endpoint to be called"
+        },
+        "method": {
+          "enum": [
+            "GET",
+            "POST"
+          ]
+        },
+        "formEvent": {
+          "enum": [
+            "onChange"
+          ]
+        },
+        "reRenderWholePage": {
+          "type": "boolean",
+          "description": "If this is set to true, all the elements on the page should be re-rendered"
+        },
+        "payloadElements": {
+          "type": "array",
+          "description": "It is only applicable to GET method. The values of the elements should be included in the request",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+          }
+        },
+        "autoComplete": {
+          "type": "boolean",
+          "description": "If this is set to true, this input field will be treated as auto complete field. It only applies to string question type and singleLine format and it only applicable to GET method"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apiUri",
+        "method"
+      ]
+    },
+    "itemRead.json_definitions_name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "itemRead.json_definitions_stringItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "string"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "type": "string",
+          "description": "json representation of a string item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemRead.json_definitions_numberItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "number"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "type": "number",
+          "description": "json representation of a number item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemRead.json_definitions_dateItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "date"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "type": "string",
+          "format": "date-time",
+          "description": "json representation of a date item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemWrite.json_definitions_fileItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "file"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "$ref": "#/definitions/fileUpload.json"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemWrite.json_definitions_cascadeItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "cascade"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "$ref": "#/definitions/itemWrite.json_definitions_cascadeChoices"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemWrite.json_definitions_cascadeChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemWrite.json_definitions_cascadeChoice"
+      }
+    },
+    "itemWrite.json_definitions_cascadeChoice": {
+      "type": "object",
+      "properties": {
+        "choice": {
+          "type": "string",
+          "description": "the name of a choice that the user selected"
+        },
+        "subItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemWrite.json"
+          },
+          "description": "items unlocked based on a cascade choice"
+        }
+      },
+      "required": [
+        "choice"
+      ],
+      "additionalProperties": false
+    },
+    "itemWrite.json_definitions_picklistItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "picklist"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "id": {
+          "type": "integer",
+          "description": "a unique id for picklist choice",
+          "deprecated": true
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "$ref": "#/definitions/itemWrite.json_definitions_pickChoices"
+        },
+        "selectedIds": {
+          "$ref": "#/definitions/itemWrite.json_definitions_selectedIds"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemWrite.json_definitions_pickChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemWrite.json_definitions_pickChoice"
+      }
+    },
+    "itemWrite.json_definitions_pickChoice": {
+      "type": "string",
+      "description": "the name of a choice that the user selected"
+    },
+    "itemWrite.json_definitions_selectedIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemWrite.json_definitions_selectedId"
+      }
+    },
+    "itemWrite.json_definitions_selectedId": {
+      "type": "integer",
+      "description": "the id of a choice that the user selected"
+    },
+    "itemWrite.json_definitions_tableItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "table"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "$ref": "#/definitions/itemWrite.json_definitions_tableRows"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemWrite.json_definitions_tableRows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemWrite.json_definitions_tableRow"
+      }
+    },
+    "itemWrite.json_definitions_tableRow": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemWrite.json"
+      }
+    },
+    "categoriesActual.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "categoryActual": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "integer"
+            },
+            "values": {
+              "$ref": "#/definitions/categoriesActual.json_definitions_values"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "category",
+            "values"
+          ]
+        }
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/categoriesActual.json_definitions_categoryActual"
+      }
+    },
+    "categoriesActual.json_definitions_values": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "categoriesActual.json_definitions_categoryActual": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "integer"
+        },
+        "values": {
+          "$ref": "#/definitions/categoriesActual.json_definitions_values"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "values"
+      ]
+    },
+    "applicationWrite.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "definitions": {},
+      "properties": {
+        "source": {
+          "$ref": "#/definitions/applicationRead.json_definitions_source"
+        },
+        "formFactor": {
+          "$ref": "#/definitions/applicationRead.json_definitions_formFactor"
+        },
+        "tracker": {
+          "$ref": "#/definitions/applicationRead.json_definitions_tracker"
+        },
+        "items": {
+          "$ref": "#/definitions/itemsWrite.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "applicationRead.json_definitions_source": {
+      "type": "string"
+    },
+    "applicationRead.json_definitions_formFactor": {
+      "enum": [
+        "mobile",
+        "desktop",
+        "tablet",
+        "other"
+      ]
+    },
+    "applicationRead.json_definitions_tracker": {
+      "type": "integer",
+      "description": "The tracker, if any, associated with this application. This is fixed at the time that application is made."
+    }
+  },
+  "type": "object",
+  "properties": {
+    "tracker": {
+      "type": "integer"
+    },
+    "candidateData": {
+      "$ref": "#/definitions/candidateData"
+    },
+    "applicationData": {
+      "$ref": "#/definitions/applicationData"
+    }
+  },
+  "additionalProperties": false
+}

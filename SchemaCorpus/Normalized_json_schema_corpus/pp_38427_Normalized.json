@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "nullable": "false",
+  "id": "http://wso2jsonschema.org",
+  "title": "root",
+  "type": "object",
+  "properties": {
+    "queryResponse": {
+      "type": "object",
+      "nullable": "false",
+      "properties": {
+        "result": {
+          "type": "object",
+          "nullable": "false",
+          "properties": {
+            "done": {
+              "type": "boolean",
+              "nullable": "false"
+            },
+            "queryLocator": {
+              "type": "object",
+              "nullable": "false",
+              "properties": {},
+              "attributes": {
+                "nil": {
+                  "type": "string",
+                  "nullable": "false"
+                }
+              }
+            },
+            "records": {
+              "type": "array",
+              "nullable": "false",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "nullable": "false"
+                    },
+                    "Id": {
+                      "type": "object",
+                      "nullable": "false",
+                      "properties": {},
+                      "attributes": {
+                        "nil": {
+                          "type": "string",
+                          "nullable": "false"
+                        }
+                      }
+                    },
+                    "FirstName": {
+                      "type": "string",
+                      "nullable": "false"
+                    },
+                    "LastName": {
+                      "type": "string",
+                      "nullable": "false"
+                    },
+                    "Email": {
+                      "type": "object",
+                      "nullable": "false",
+                      "properties": {},
+                      "attributes": {
+                        "nil": {
+                          "type": "string",
+                          "nullable": "false"
+                        }
+                      }
+                    }
+                  },
+                  "attributes": {
+                    "type": {
+                      "type": "string",
+                      "nullable": "false"
+                    }
+                  }
+                }
+              ]
+            },
+            "size": {
+              "type": "number",
+              "nullable": "false"
+            }
+          },
+          "attributes": {
+            "type": {
+              "type": "string",
+              "nullable": "false"
+            }
+          }
+        }
+      }
+    }
+  }
+}

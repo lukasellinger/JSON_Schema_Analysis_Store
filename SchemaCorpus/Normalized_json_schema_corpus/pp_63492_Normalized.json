@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Camera Orthographic",
+  "type": "object",
+  "description": "An orthographic camera containing properties to create an orthographic projection matrix.",
+  "allOf": [
+    {
+      "$ref": "#/definitions/glTFProperty.schema.json"
+    }
+  ],
+  "properties": {
+    "xmag": {
+      "type": "number",
+      "description": "The floating-point horizontal magnification of the view. Must not be zero."
+    },
+    "ymag": {
+      "type": "number",
+      "description": "The floating-point vertical magnification of the view. Must not be zero."
+    },
+    "zfar": {
+      "type": "number",
+      "description": "The floating-point distance to the far clipping plane. `zfar` must be greater than `znear`.",
+      "minimum": 0.0,
+      "exclusiveMinimum": true
+    },
+    "znear": {
+      "type": "number",
+      "description": "The floating-point distance to the near clipping plane.",
+      "minimum": 0.0
+    },
+    "extensions": {},
+    "extras": {}
+  },
+  "required": [
+    "xmag",
+    "ymag",
+    "zfar",
+    "znear"
+  ],
+  "definitions": {
+    "glTFProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Property",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extension.schema.json"
+        },
+        "extras": {
+          "$ref": "#/definitions/extras.schema.json"
+        }
+      }
+    },
+    "extension.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extension",
+      "type": "object",
+      "description": "Dictionary object with extension-specific objects.",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "extras.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extras",
+      "description": "Application-specific data."
+    }
+  }
+}

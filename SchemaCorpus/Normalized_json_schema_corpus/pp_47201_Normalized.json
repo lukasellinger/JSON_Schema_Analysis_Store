@@ -1,0 +1,537 @@
+{
+  "collection": "reports",
+  "class": "schema",
+  "_id": "reports/schema/reportopd",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "OPD Report",
+  "type": "object",
+  "properties": {
+    "1": {
+      "line_number": "1",
+      "en": "OPD attendance",
+      "sw": "Mahudhurio ya OPD",
+      "condition": "FIXME"
+    },
+    "2": {
+      "line_number": "2",
+      "en": "Patient who visited for the first time this year\n",
+      "sw": "Wagonjwa waliohudhuria kwa mara ya kwanza mwaka huu (*)",
+      "condition": "FIXME"
+    },
+    "3": {
+      "line_number": "3",
+      "en": "Repeated attendance",
+      "sw": "Mahudhurio ya Marudio",
+      "condition": "FIXME"
+    },
+    "": {
+      "en": "Diagnoses for OPD",
+      "sw": "Diagnoses za OPD"
+    },
+    "4": {
+      "line_number": "4",
+      "en": "Acute Flacid Paralysis",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Acute Flacid Paralysis\u0027"
+    },
+    "5": {
+      "line_number": "5",
+      "en": "Cholera",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Cholera\u0027"
+    },
+    "6": {
+      "line_number": "6",
+      "en": "Dysentery",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Dysentery\u0027"
+    },
+    "7": {
+      "line_number": "7",
+      "en": "Measles",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Measles\u0027"
+    },
+    "8": {
+      "line_number": "8",
+      "en": "Meningitis",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Meningitis\u0027"
+    },
+    "9": {
+      "line_number": "9",
+      "en": "Neonatal Tetanus",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Neonatal Tetanus\u0027"
+    },
+    "10": {
+      "line_number": "10",
+      "en": "Plague",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Plague\u0027"
+    },
+    "11": {
+      "line_number": "11",
+      "en": "Relapsing Fever (Louse borne typhus)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Relapsing Fever (Louse borne typhus)\u0027"
+    },
+    "12": {
+      "line_number": "12",
+      "en": "Yellow Fever",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Yellow Fever\u0027"
+    },
+    "13": {
+      "line_number": "13",
+      "en": "Influenza",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Influenza\u0027"
+    },
+    "14": {
+      "line_number": "14",
+      "en": "Typhoid",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Typhoid\u0027"
+    },
+    "15": {
+      "line_number": "15",
+      "en": "Rabies/Suspected rabies bites",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Rabies/Suspected rabies bites\u0027"
+    },
+    "16": {
+      "line_number": "16",
+      "en": "Trachoma",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Trachoma\u0027"
+    },
+    "17": {
+      "line_number": "17",
+      "en": "Onchocerciasis",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Onchocerciasis\u0027"
+    },
+    "18": {
+      "line_number": "18",
+      "en": "Trypanosomiasis",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Trypanosomiasis\u0027"
+    },
+    "19": {
+      "line_number": "19",
+      "en": "Viral haemorrhagic fevers",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Viral haemorrhagic fevers\u0027"
+    },
+    "20": {
+      "line_number": "20",
+      "en": "Keratoconjuctivitis",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Keratoconjuctivitis\u0027"
+    },
+    "21": {
+      "line_number": "21",
+      "en": "Diarrhea, Acute (\u003c 14 days)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Diarrhea, Acute (\u003c 14 days)\u0027"
+    },
+    "22": {
+      "line_number": "22",
+      "en": "Diarrhea, Chronic (.\u003e 14 days)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Diarrhea, Chronic (.\u003e 14 days)\u0027"
+    },
+    "23": {
+      "line_number": "23",
+      "en": "Malaria",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Malaria\u0027"
+    },
+    "23a": {
+      "line_number": "23a",
+      "en": "Blood Slide positive",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Blood Slide positive\u0027"
+    },
+    "23b": {
+      "line_number": "23b",
+      "en": "mRDT postivie",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027mRDT postivie\u0027"
+    },
+    "23c": {
+      "line_number": "23c",
+      "en": "Clinical (No Test)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Clinical (No Test)\u0027"
+    },
+    "23d": {
+      "line_number": "23d",
+      "en": "In Pregnancy",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027In Pregnancy\u0027"
+    },
+    "24": {
+      "line_number": "24",
+      "en": "Schistosomiasis",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Schistosomiasis\u0027"
+    },
+    "25": {
+      "line_number": "25",
+      "en": "STI Genital Discharge Syndrome (GDS)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027STI Genital Discharge Syndrome (GDS)\u0027"
+    },
+    "26": {
+      "line_number": "26",
+      "en": "STI Genital Ulcer Diseases (GUD)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027STI Genital Ulcer Diseases (GUD)\u0027"
+    },
+    "27": {
+      "line_number": "27",
+      "en": "STI Pelvic Inflammatory Diseases (PID)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027STI Pelvic Inflammatory Diseases (PID)\u0027"
+    },
+    "28": {
+      "line_number": "28",
+      "en": "Sexually Transmitted Infections, Other",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Sexually Transmitted Infections, Other\u0027"
+    },
+    "29": {
+      "line_number": "29",
+      "en": "Tuberculosis",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Tuberculosis\u0027"
+    },
+    "30": {
+      "line_number": "30",
+      "en": "Leprosy",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Leprosy\u0027"
+    },
+    "31": {
+      "line_number": "31",
+      "en": "Intestinal Worms",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Intestinal Worms\u0027"
+    },
+    "32": {
+      "line_number": "32",
+      "en": "Anaemia, Mild / Moderate ",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Anaemia, Mild / Moderate \u0027"
+    },
+    "33": {
+      "line_number": "33",
+      "en": "Anaemia, Severe",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Anaemia, Severe\u0027"
+    },
+    "34": {
+      "line_number": "34",
+      "en": "Sickle cell Disease ",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Sickle cell Disease \u0027"
+    },
+    "35": {
+      "line_number": "35",
+      "en": "HIV Positive",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027HIV Positive\u0027"
+    },
+    "36": {
+      "line_number": "36",
+      "en": "HIV Infection, Symptomatic",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027HIV Infection, Symptomatic\u0027"
+    },
+    "37": {
+      "line_number": "37",
+      "en": "Ear Infection, Acute",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Ear Infection, Acute\u0027"
+    },
+    "38": {
+      "line_number": "38",
+      "en": "Ear Infection, Chronic",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Ear Infection, Chronic\u0027"
+    },
+    "39": {
+      "line_number": "39",
+      "en": "Eye Infection",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Eye Infection\u0027"
+    },
+    "40": {
+      "line_number": "40",
+      "en": "Cataract",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Cataract\u0027"
+    },
+    "41": {
+      "line_number": "41",
+      "en": "Eye Diseases, Other non-infectious",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Eye Diseases, Other non-infectious\u0027"
+    },
+    "42": {
+      "line_number": "42",
+      "en": "Skin Infection, Non-Fungal",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Skin Infection, Non-Fungal\u0027"
+    },
+    "43": {
+      "line_number": "43",
+      "en": "Skin Infection, Fungal",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Skin Infection, Fungal\u0027"
+    },
+    "44": {
+      "line_number": "44",
+      "en": "Skin Diseases, Non-infectious",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Skin Diseases, Non-infectious\u0027"
+    },
+    "45": {
+      "line_number": "45",
+      "en": "Fungal Infection, Non-skin",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Fungal Infection, Non-skin\u0027"
+    },
+    "46": {
+      "line_number": "46",
+      "en": "Osteomyelitis",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Osteomyelitis\u0027"
+    },
+    "47": {
+      "line_number": "47",
+      "en": "Neonatal sepsis",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Neonatal sepsis\u0027"
+    },
+    "48": {
+      "line_number": "48",
+      "en": "Low birth weight and Prematurity complications",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Low birth weight and Prematurity complications\u0027"
+    },
+    "49": {
+      "line_number": "49",
+      "en": "Birth asphyxia",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Birth asphyxia\u0027"
+    },
+    "50": {
+      "line_number": "50",
+      "en": "Acute Respiratory Infection (ARI)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Acute Respiratory Infection (ARI)\u0027"
+    },
+    "51": {
+      "line_number": "51",
+      "en": "Pneumonia, Non-Severe",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Pneumonia, Non-Severe\u0027"
+    },
+    "52": {
+      "line_number": "52",
+      "en": "Cerebral palsy",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Cerebral palsy\u0027"
+    },
+    "53": {
+      "line_number": "53",
+      "en": "Pneumonia, Severe",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Pneumonia, Severe\u0027"
+    },
+    "54": {
+      "line_number": "54",
+      "en": "Upper Respiratory Infections (Pharyngitis, Tonsillitis, Rhinitis)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Upper Respiratory Infections (Pharyngitis, Tonsillitis, Rhinitis)\u0027"
+    },
+    "55": {
+      "line_number": "55",
+      "en": "Urinary Tract Infections (UTI)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Urinary Tract Infections (UTI)\u0027"
+    },
+    "56": {
+      "line_number": "56",
+      "en": "Gynaecological diseases, Other",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Gynaecological diseases, Other\u0027"
+    },
+    "57": {
+      "line_number": "57",
+      "en": "Kwashiokor",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Kwashiokor\u0027"
+    },
+    "58": {
+      "line_number": "58",
+      "en": "Marasmus",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Marasmus\u0027"
+    },
+    "59": {
+      "line_number": "59",
+      "en": "Marasmic Kwashiokor",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Marasmic Kwashiokor\u0027"
+    },
+    "60": {
+      "line_number": "60",
+      "en": "Moderate Malnutrition",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Moderate Malnutrition\u0027"
+    },
+    "61": {
+      "line_number": "61",
+      "en": "Vitamin A Deficiency",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Vitamin A Deficiency\u0027"
+    },
+    "62": {
+      "line_number": "62",
+      "en": "Other Nutritional Disorders",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Other Nutritional Disorders\u0027"
+    },
+    "63": {
+      "line_number": "63",
+      "en": "Caries",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Caries\u0027"
+    },
+    "64": {
+      "line_number": "64",
+      "en": "Periodontal Diseases",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Periodontal Diseases\u0027"
+    },
+    "65": {
+      "line_number": "65",
+      "en": "Dental Emergency Care",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Dental Emergency Care\u0027"
+    },
+    "66": {
+      "line_number": "66",
+      "en": "Dental Conditions, Other",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Dental Conditions, Other\u0027"
+    },
+    "67": {
+      "line_number": "67",
+      "en": "Fractures / Dislocations",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Fractures / Dislocations\u0027"
+    },
+    "68": {
+      "line_number": "68",
+      "en": "Burn",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Burn\u0027"
+    },
+    "69": {
+      "line_number": "69",
+      "en": "Poisoning",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Poisoning\u0027"
+    },
+    "70": {
+      "line_number": "70",
+      "en": "Road Traffic Accidents",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Road Traffic Accidents\u0027"
+    },
+    "71": {
+      "line_number": "71",
+      "en": "Pregnancy complications",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Pregnancy complications\u0027"
+    },
+    "72": {
+      "line_number": "72",
+      "en": "Abortion",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Abortion\u0027"
+    },
+    "73": {
+      "line_number": "73",
+      "en": "Snake and Insect Bites",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Snake and Insect Bites\u0027"
+    },
+    "74": {
+      "line_number": "74",
+      "en": "Emergencies, Other",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Emergencies, Other\u0027"
+    },
+    "75": {
+      "line_number": "75",
+      "en": "Surgical conditions, other",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Surgical conditions, other\u0027"
+    },
+    "76": {
+      "line_number": "76",
+      "en": "Epilepsy",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Epilepsy\u0027"
+    },
+    "77": {
+      "line_number": "77",
+      "en": "Psychoses",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Psychoses\u0027"
+    },
+    "78": {
+      "line_number": "78",
+      "en": "Neurosis",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Neurosis\u0027"
+    },
+    "79": {
+      "line_number": "79",
+      "en": "Mental conditions, Other",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Mental conditions, Other\u0027"
+    },
+    "80": {
+      "line_number": "80",
+      "en": "Hypertension",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Hypertension\u0027"
+    },
+    "81": {
+      "line_number": "81",
+      "en": "Rheumatic Fever",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Rheumatic Fever\u0027"
+    },
+    "82": {
+      "line_number": "82",
+      "en": "Cardiovascular Diseases, Other",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Cardiovascular Diseases, Other\u0027"
+    },
+    "83": {
+      "line_number": "83",
+      "en": "Bronchial Asthma",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Bronchial Asthma\u0027"
+    },
+    "84": {
+      "line_number": "84",
+      "en": "Peptic Ulcers",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Peptic Ulcers\u0027"
+    },
+    "85": {
+      "line_number": "85",
+      "en": "GIT Diseases, Other Non-infectious",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027GIT Diseases, Other Non-infectious\u0027"
+    },
+    "86": {
+      "line_number": "86",
+      "en": "Diabetes Mellitus",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Diabetes Mellitus\u0027"
+    },
+    "87": {
+      "line_number": "87",
+      "en": "Rheumatoid and Joint Diseases",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Rheumatoid and Joint Diseases\u0027"
+    },
+    "88": {
+      "line_number": "88",
+      "en": "Thyroid Diseases",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Thyroid Diseases\u0027"
+    },
+    "89": {
+      "line_number": "89",
+      "en": "Neoplasms",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Neoplasms\u0027"
+    },
+    "90": {
+      "line_number": "90",
+      "en": "Ill Defined Symptoms (no Diagnosis)",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Ill Defined Symptoms (no Diagnosis)\u0027"
+    },
+    "91": {
+      "line_number": "91",
+      "en": "Diagnoses, Other",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Diagnoses, Other\u0027"
+    },
+    "92": {
+      "line_number": "92",
+      "en": "Waliopewa Rufaa",
+      "condition": "disease_diagnosis.diagnosis \u003d\u003d \u0027Waliopewa Rufaa\u0027"
+    },
+    "definitions": {
+      "columns": {
+        "lessthan1male": {
+          "title": "Males",
+          "condition": "FIXME \u0026\u0026 patient.gender \u003d\u003d \u0027male\u0027"
+        },
+        "lessthan1female": {
+          "title": "Less than 1 Month - Females",
+          "condition": "FIXME \u0026\u0026 patient.gender \u003d\u003d \u0027female\u0027"
+        },
+        "lessthan1total": {
+          "title": "Less than 1 Month - Total",
+          "condition": "FIXME"
+        },
+        "more1momale": {
+          "title": "More than 1 month and less than 1 Year - Male",
+          "condition": "FIXME \u0026\u0026 patient.gender \u003d\u003d \u0027male\u0027"
+        },
+        "more1mofemale": {
+          "title": "More than 1 month and less than 1 Year - Females",
+          "condition": "FIXME \u0026\u0026 patient.gender \u003d\u003d \u0027female\u0027"
+        },
+        "more1mototal": {
+          "title": "More than 1 month and less than 1 Year - Total",
+          "condition": "FIXME "
+        },
+        "above1below5male": {
+          "title": "More than 1 year and less than 5 Years - Male",
+          "condition": "patient.approxage \u003e 1 \u0026\u0026 patient.approxage \u003c 5 \u0026\u0026 patient.gender \u003d\u003d \u0027male\u0027"
+        },
+        "above1below5female": {
+          "title": "More than 1 year and less than 5 Years - Females",
+          "condition": "patient.approxage \u003e 1 \u0026\u0026 patient.approxage \u003c 5 \u0026\u0026 patient.gender \u003d\u003d \u0027female\u0027"
+        },
+        "above1below5total": {
+          "title": "More than 1 year and less than 5 Years - Total",
+          "condition": "patient.approxage \u003e 1 \u0026\u0026 patient.approxage \u003c 5"
+        }
+      }
+    }
+  }
+}

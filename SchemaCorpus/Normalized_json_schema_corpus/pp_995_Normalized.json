@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/AlekseyBuzmakov/FCAPS/master/FCAPS/schemas/ContextProcessorModules/ClassifierContextProcessorModule.json",
+  "title": "Classifier Context Processor",
+  "description": "This context processor classifies the objects in the context by a classifier",
+  "allOf": [
+    {
+      "description": "It is a context processor",
+      "$ref": "#/definitions/ContextProcessorModule.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "enum": [
+            "ClassifierContextProcessorModule"
+          ]
+        },
+        "Params": {
+          "title": "Params of Classifier CP",
+          "type": "object",
+          "properties": {
+            "Classifier": {
+              "title": "Classifier of Object Descriptions",
+              "description": "A specific algorithm for classification",
+              "$ref": "#/definitions/..\\ClassifierModules\\ClassifierModule.json"
+            },
+            "ClassesPath": {
+              "title": "Path to Classes File",
+              "description": "Path to file containing the correspondance between objectnames and classes. File should satisfy https://raw.githubusercontent.com/AlekseyBuzmakov/FCAPS/master/FCAPS/schemas/Other/ClassifierClasses.json",
+              "type": "string"
+            },
+            "OutputParams": {
+              "title": "Output Params for Classification Results",
+              "description": "Params that specify what kind of results should be saved",
+              "type": "object",
+              "properties": {
+                "OutAccuracy": {
+                  "title": "Should Output Accuracy?",
+                  "type": "boolean"
+                },
+                "OutConfusion": {
+                  "title": "Should Output Confusion Matrix?",
+                  "type": "boolean"
+                },
+                "OutObjectClassification": {
+                  "title": "Should Output Prediction for every Single Object?",
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "required": [
+            "Classifier",
+            "ClassesPath"
+          ]
+        }
+      },
+      "required": [
+        "Name"
+      ]
+    }
+  ],
+  "definitions": {
+    "ContextProcessorModule.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Schema for all Context Processor Modules",
+      "description": "A schema, all context processor modules should sattisfy to",
+      "allOf": [
+        {
+          "description": "It is a module",
+          "$ref": "#/definitions/..\\module.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Type": {
+              "type": "string",
+              "description": "It is a pattern manager module",
+              "enum": [
+                "ContextProcessorModules"
+              ]
+            },
+            "Name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Type",
+            "Name"
+          ]
+        }
+      ]
+    },
+    "..\\module.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Module Params",
+      "description": "Json file give the type, name, and params of a module that should be created by a program",
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "title": "Module Type",
+          "descripton": "A name of module type"
+        },
+        "Name": {
+          "type": "string",
+          "title": "Module Name",
+          "descripton": "A name of module, given by the creator of the module"
+        },
+        "Params": {
+          "type": "object",
+          "description": "Params of the created module"
+        }
+      },
+      "required": [
+        "Type",
+        "Name"
+      ]
+    },
+    "..\\ClassifierModules\\ClassifierModule.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Schema for all Classifier Modules",
+      "description": "A schema, all classifier modules should sattisfy to",
+      "allOf": [
+        {
+          "description": "It is a module",
+          "$ref": "#/definitions/..\\module.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Type": {
+              "type": "string",
+              "description": "It is a classifier module",
+              "enum": [
+                "ClassifierModules"
+              ]
+            },
+            "Name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Type",
+            "Name"
+          ]
+        }
+      ]
+    }
+  }
+}

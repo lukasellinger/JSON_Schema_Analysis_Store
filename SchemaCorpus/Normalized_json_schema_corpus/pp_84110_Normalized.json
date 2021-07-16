@@ -1,0 +1,190 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "title": "Test API",
+  "type": "object",
+  "definitions": {
+    "hash": {
+      "type": "string",
+      "format": "[0-9]{32}"
+    },
+    "magical": {
+      "type": "boolean"
+    },
+    "spell": {
+      "type": "object",
+      "definitions": {
+        "name": {
+          "type": "string"
+        },
+        "element": {
+          "type": "string"
+        },
+        "power": {
+          "type": "integer"
+        },
+        "all": {
+          "type": "boolean"
+        }
+      },
+      "links": [
+        {
+          "title": "Info for a spell",
+          "href": "/spells/{(#/definitions/spell/definitions/name)}",
+          "method": "GET",
+          "rel": "one",
+          "targetSchema": {
+            "$ref": "#/definitions/spell"
+          }
+        }
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_spell_definitions_name"
+        },
+        "element": {
+          "$ref": "#/definitions/definitions_spell_definitions_element"
+        },
+        "power": {
+          "$ref": "#/definitions/definitions_spell_definitions_power"
+        },
+        "all": {
+          "$ref": "#/definitions/definitions_spell_definitions_all"
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "definitions": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "links": [
+        {
+          "title": "Info for a location",
+          "href": "/locations/{(#/definitions/location/definitions/id)}",
+          "method": "GET",
+          "rel": "one",
+          "targetSchema": {
+            "$ref": "#/definitions/location"
+          }
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/definitions_location_definitions_id"
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_location_definitions_name"
+        }
+      }
+    },
+    "weapon": {
+      "type": "object",
+      "definitions": {
+        "id": {
+          "$ref": "#/definitions/hash"
+        },
+        "name": {
+          "type": "string"
+        },
+        "magical": {
+          "$ref": "#/definitions/magical"
+        }
+      },
+      "links": [
+        {
+          "title": "Info for a weapon",
+          "href": "/weapons/{(#/definitions/weapon/definitions/id)}",
+          "method": "GET",
+          "rel": "one",
+          "targetSchema": {
+            "$ref": "#/definitions/weapon"
+          }
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/definitions_weapon_definitions_id"
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_weapon_definitions_name"
+        },
+        "magical": {
+          "$ref": "#/definitions/definitions_weapon_definitions_magical"
+        }
+      }
+    },
+    "materia": {
+      "type": "object",
+      "definitions": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "links": [
+        {
+          "title": "Info for a materia",
+          "href": "/materias/{name}",
+          "method": "GET",
+          "rel": "one",
+          "targetSchema": {
+            "$ref": "#/definitions/materia"
+          }
+        }
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_materia_definitions_name"
+        }
+      }
+    },
+    "definitions_spell_definitions_name": {
+      "type": "string"
+    },
+    "definitions_spell_definitions_element": {
+      "type": "string"
+    },
+    "definitions_spell_definitions_power": {
+      "type": "integer"
+    },
+    "definitions_spell_definitions_all": {
+      "type": "boolean"
+    },
+    "definitions_location_definitions_id": {
+      "type": "integer"
+    },
+    "definitions_location_definitions_name": {
+      "type": "string"
+    },
+    "definitions_weapon_definitions_id": {
+      "$ref": "#/definitions/hash"
+    },
+    "definitions_weapon_definitions_name": {
+      "type": "string"
+    },
+    "definitions_weapon_definitions_magical": {
+      "$ref": "#/definitions/magical"
+    },
+    "definitions_materia_definitions_name": {
+      "type": "string"
+    }
+  },
+  "properties": {
+    "spell": {
+      "$ref": "#/definitions/spell"
+    },
+    "location": {
+      "$ref": "#/definitions/location"
+    },
+    "weapon": {
+      "$ref": "#/definitions/weapon"
+    },
+    "materia": {
+      "$ref": "#/definitions/materia"
+    }
+  }
+}

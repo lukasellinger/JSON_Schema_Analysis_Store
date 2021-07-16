@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "$ref": "#/definitions/common.json_cell"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "archive_server": {
+        "type": "string"
+      },
+      "archive_username": {
+        "type": "string"
+      },
+      "location": {
+        "$ref": "#/definitions/common.json_location"
+      },
+      "ssq_namespace": {
+        "type": "string"
+      },
+      "treadmill_root": {
+        "type": "string"
+      },
+      "treadmillid": {
+        "$ref": "#/definitions/common.json_proid"
+      },
+      "version": {
+        "type": "string"
+      }
+    }
+  },
+  "verbs": {
+    "create": {
+      "required": [
+        "treadmillid",
+        "version",
+        "location"
+      ]
+    },
+    "update": {
+      "required": []
+    }
+  },
+  "definitions": {
+    "common.json_cell": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[a-zA-Z0-9-]+$"
+    },
+    "common.json_location": {
+      "type": "string",
+      "pattern": "^[a-zA-Z]+$"
+    },
+    "common.json_proid": {
+      "type": "string",
+      "maxLength": 16,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    }
+  }
+}

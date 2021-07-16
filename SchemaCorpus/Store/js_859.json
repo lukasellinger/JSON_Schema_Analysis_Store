@@ -1,0 +1,30 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/PasswordBox/PasswordBox.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Редактор пароля",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/Element.json"
+    },
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/EditorBase/EditorBase.json"
+    }
+  ],
+  "properties": {
+    "LabelText": {
+      "description": "Текст метки",
+      "type": "string"
+    },
+    "LabelFloating": {
+      "description": "Является ли метка плавающей",
+      "type": "boolean",
+      "default": false
+    },
+    "Autocomplete": {
+      "description": "Автоподстановка сохраненных в браузере паролей",
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

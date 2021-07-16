@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/professor.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "evaluations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/evaluation_with_course_author.json"
+          }
+        }
+      },
+      "required": [
+        "evaluations"
+      ]
+    }
+  ],
+  "definitions": {
+    "professor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "required": [
+        "id",
+        "first_name",
+        "last_name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        }
+      }
+    },
+    "evaluation_with_course_author.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "allOf": [
+        {
+          "$ref": "#/definitions/evaluation.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "professor": {
+              "$ref": "#/definitions/course.json"
+            },
+            "author": {
+              "$ref": "#/definitions/author.json"
+            }
+          },
+          "required": [
+            "course",
+            "author"
+          ]
+        }
+      ]
+    },
+    "evaluation.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "post_time",
+        "data",
+        "votes_score"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "post_time": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object"
+        },
+        "votes_score": {
+          "type": "integer"
+        }
+      }
+    },
+    "course.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "required": [
+        "id",
+        "number",
+        "title",
+        "department_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "department_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "author.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "self": {
+          "type": "boolean"
+        },
+        "graduation_year": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "majors": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "self",
+        "graduation_year",
+        "majors"
+      ]
+    }
+  }
+}

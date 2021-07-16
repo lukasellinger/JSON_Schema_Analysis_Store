@@ -1,0 +1,27 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/LayoutPanel/ExtensionPanel/ExtensionPanel.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Контейнер для встраивания внешнего компонента",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Container/Container.json"
+    }
+  ],
+  "properties": {
+    "ExtensionName": {
+      "description": "Наименование внешнего компонента",
+      "type": "string"
+    },
+    "Parameters": {
+      "description": "Правила передачи параметров во внешний компонент",
+      "type": "array",
+      "items": {
+        "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/View/Parameter.json"
+      }
+    }
+  },
+  "required": [
+    "ExtensionName"
+  ]
+}

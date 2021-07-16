@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "definitions": {
+    "givenName": {
+      "type": "string"
+    },
+    "familyName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string",
+      "format": "uri"
+    },
+    "jcard.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "array",
+      "description": "A jcard holding personal details, as per https://tools.ietf.org/html/rfc7095"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "givenName": {
+      "$ref": "#/definitions/givenName"
+    },
+    "familyName": {
+      "$ref": "#/definitions/familyName"
+    },
+    "email": {
+      "$ref": "#/definitions/email"
+    },
+    "image": {
+      "$ref": "#/definitions/image"
+    },
+    "vcard": {
+      "$ref": "#/definitions/jcard.json"
+    }
+  },
+  "additionalProperties": false
+}

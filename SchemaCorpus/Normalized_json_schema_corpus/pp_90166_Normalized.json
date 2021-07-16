@@ -1,0 +1,427 @@
+{
+  "title": "Building Scene Layer Filter",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Filter allows client applications to reduce the drawn elements of a building to specific types and values. Filters on the webscene override the list of existing filters on the service.",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "Description of the filter."
+    },
+    "filterAuthoringInfo": {
+      "type": "object",
+      "description": "Metadata about the athoring process for this filter.",
+      "$ref": "#/definitions/buildingSceneLayer_filterAuthoringInfoCheckbox_schema.json"
+    },
+    "filterBlocks": {
+      "type": "array",
+      "description": "Array of filter blocks defining the filter. A filter contains at least one filter block.",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/buildingSceneLayer_filterBlock_schema.json"
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "description": "unique filter id (uuid). Either a new id to extend the list of filters, or an existing id to override properties of an existing filter."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the filter."
+    }
+  },
+  "required": [
+    "filterBlocks",
+    "id",
+    "name"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "Building Scene Layer Filter",
+        "code": {
+          "filter": {
+            "name": "Test Filter",
+            "description": "Example Filter for webscene spec",
+            "filterBlocks": [
+              {
+                "title": "Solid",
+                "filterExpression": "floorId \u003d 5 AND deletedPhase IS NULL",
+                "filterMode": {
+                  "type": "solid"
+                }
+              },
+              {
+                "title": "Wireframe",
+                "filterExpression": "floorId \u003c 5 AND deletedPhase IS NULL",
+                "filterMode": {
+                  "type": "wireFrame",
+                  "edges": {
+                    "type": "solid",
+                    "color": [
+                      120,
+                      120,
+                      120
+                    ],
+                    "size": 0.75,
+                    "transparency": 50
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "buildingSceneLayer_filterAuthoringInfoCheckbox_schema.json": {
+      "title": "Metadata for checkbox based filter UI",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Client UI with checkbox representation for each filter type and filter value.",
+      "properties": {
+        "filterBlocks": {
+          "type": "array",
+          "description": "Array of filter block authoring infos.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/buildingSceneLayer_filterAuthoringInfo_filterBlock_schema.json"
+          }
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of filter authoring info.",
+          "enum": [
+            "checkbox"
+          ]
+        }
+      },
+      "required": [
+        "filterBlocks",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Building Scene Layer filter authoring info",
+            "code": {
+              "filterAuthoringInfo": {
+                "type": "checkbox",
+                "filterBlocks": [
+                  {
+                    "filterTypes": [
+                      {
+                        "filterType": "BldgLevel",
+                        "filterValues": [
+                          "3"
+                        ]
+                      },
+                      {
+                        "filterType": "CreatedPhase",
+                        "filterValues": [
+                          "1"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "buildingSceneLayer_filterAuthoringInfo_filterBlock_schema.json": {
+      "title": "Filter Authoring Info for Filter Blocks",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The filter authoring info object contains metadata about the authoring process for creating a filter block object. This allows the authoring client to save specific, overridable settings.  The next time it is accessed via an authoring client, their selections are remembered. Non-authoring clients can ignore it.",
+      "properties": {
+        "filterTypes": {
+          "type": "array",
+          "description": "Array of defined filter types. Each filter type has an array of filter values.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/buildingSceneLayer_filterAuthoringInfo_filterType_schema.json"
+          }
+        }
+      },
+      "required": [
+        "filterTypes"
+      ],
+      "additionalProperties": false
+    },
+    "buildingSceneLayer_filterAuthoringInfo_filterType_schema.json": {
+      "title": "Filter Type",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The file authoring information for a filter, including the filter type and its value settings.",
+      "properties": {
+        "filterType": {
+          "type": "string",
+          "description": "Represents the filter type name. Name is a unique identifier."
+        },
+        "filterValues": {
+          "type": "array",
+          "description": "Array of filter values. Filter values are the attributes that can be stored for individual fields in a layer.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "filterType",
+        "filterValues"
+      ],
+      "additionalProperties": false
+    },
+    "buildingSceneLayer_filterBlock_schema.json": {
+      "title": "Building Scene Layer Filter Block",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "A filter block defines what elements will be filtered with a specific filter mode.  To ensure performance on client applications, it is not recommended to declare multiple filter blocks with the same filter mode. Filter blocks are contained in a filter for a building scene layer. Each filter includes at least one filter block.",
+      "properties": {
+        "filterExpression": {
+          "type": "string",
+          "description": "SQL expression to select features that belong to this filter block."
+        },
+        "filterMode": {
+          "type": "object",
+          "description": "Filter mode defines how features are drawn. For example, the filter mode of a filter can be solid or wire frame.",
+          "$ref": "#/definitions/buildingSceneLayer_filterMode_schema.json"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the filter block."
+        }
+      },
+      "required": [
+        "filterExpression",
+        "filterMode",
+        "title"
+      ],
+      "additionalProperties": false
+    },
+    "buildingSceneLayer_filterMode_schema.json": {
+      "title": "Filter Mode",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Filter mode represents the way elements draw when participating in a filter block.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/buildingSceneLayer_filterModeSolid_schema.json"
+        },
+        {
+          "$ref": "#/definitions/buildingSceneLayer_filterModeWireFrame_schema.json"
+        }
+      ]
+    },
+    "buildingSceneLayer_filterModeSolid_schema.json": {
+      "title": "Filter mode solid",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Draw elements of this filter block in solid mode. This mode does not change the display of features.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Declares filter mode of type solid.",
+          "enum": [
+            "solid"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "buildingSceneLayer_filterModeWireFrame_schema.json": {
+      "title": "Filter mode wire frame",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Draw elements of this filter block in wireframe mode. This mode draws only the edges of the features with the specified edge style.",
+      "properties": {
+        "edges": {
+          "type": "object",
+          "description": "An object defining edges of a feature.",
+          "$ref": "#/definitions/edges_schema.json"
+        },
+        "type": {
+          "type": "string",
+          "description": "Declares filter mode of type wire frame.",
+          "enum": [
+            "wireFrame"
+          ]
+        }
+      },
+      "required": [
+        "edges",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "edges_schema.json": {
+      "title": "Edges",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Edges describe additional styles applied to visually important edges of 3D objects.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/sketchEdges_schema.json"
+        },
+        {
+          "$ref": "#/definitions/solidEdges_schema.json"
+        }
+      ]
+    },
+    "sketchEdges_schema.json": {
+      "title": "Sketch Edges",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The sketch edge rendering configuration of a symbol layer. Edges of type `sketch` are rendered with a hand-drawn look in mind.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "extensionLength": {
+          "type": "number",
+          "description": "A size in points by which to extend edges beyond their original end points."
+        },
+        "size": {
+          "type": "number",
+          "description": "Edge size in points, positive only",
+          "minimum": 0
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "The value has to lie between `100` (full transparency) and `0` (full opacity).",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of edge visualization.",
+          "enum": [
+            "sketch"
+          ]
+        }
+      },
+      "required": [
+        "color",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "edges",
+            "code": {
+              "edges": {
+                "type": "sketch",
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "size": 0.75,
+                "transparency": 10,
+                "extensionLength": 5
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "solidEdges_schema.json": {
+      "title": "Solid Edges",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The solid edge rendering configuration of a symbol layer. Edges of type `solid` are rendered in a single color, unaffected by scene lighting.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "extensionLength": {
+          "type": "number",
+          "description": "A size in points by which to extend edges beyond their original end points."
+        },
+        "size": {
+          "type": "number",
+          "description": "Edge size in points, positive only",
+          "minimum": 0
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "The value has to lie between `100` (full transparency) and `0` (full opacity).",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of edge visualization.",
+          "enum": [
+            "solid"
+          ]
+        }
+      },
+      "required": [
+        "color",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "edges",
+            "code": {
+              "edges": {
+                "type": "solid",
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "size": 0.75,
+                "transparency": 10,
+                "extensionLength": 5
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

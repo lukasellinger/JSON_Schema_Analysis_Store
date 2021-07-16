@@ -1,0 +1,1076 @@
+{
+  "definitions": {
+    "dataprovider": {
+      "type": "object",
+      "description": "A Data Provider is the controller of the source data set used to construct the details for this POI. Data has been transformed and interpreted from it\u0027s original form. Each Data Provider provides data either by an explicit license or agreement.",
+      "required": [
+        "IsRestrictedEdit",
+        "ID",
+        "Title"
+      ],
+      "properties": {
+        "WebsiteURL": {
+          "type": "string",
+          "description": "Website URL for this data provider",
+          "examples": [
+            "https://openchargemap.org"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "Comments": {
+          "type": "string",
+          "description": "General public comments with information about this Data Provider."
+        },
+        "DataProviderStatusType": {
+          "type": "object",
+          "description": "Status object describing whether this data provider is currently enabled and the type of source (manual entry, imported etc)",
+          "required": [
+            "IsProviderEnabled",
+            "ID",
+            "Title"
+          ],
+          "properties": {
+            "IsProviderEnabled": {
+              "type": "boolean",
+              "description": "If false, results from this data provider are not currently enabled",
+              "default": false,
+              "examples": [
+                true
+              ]
+            },
+            "ID": {
+              "type": "integer",
+              "description": "The reference ID for this provider status type",
+              "default": 0,
+              "examples": [
+                1
+              ]
+            },
+            "Title": {
+              "type": "string",
+              "description": "The Title of this status type",
+              "examples": [
+                "Manual Data Entry"
+              ],
+              "pattern": "^(.*)$"
+            }
+          }
+        },
+        "IsRestrictedEdit": {
+          "type": "boolean",
+          "description": "Currently not implemented. Indicates a potential editing restriction.",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "IsOpenDataLicensed": {
+          "type": "boolean",
+          "description": "If true, data provider uses an Open Data license",
+          "examples": [
+            null,
+            true
+          ]
+        },
+        "IsApprovedImport": {
+          "type": "boolean",
+          "description": "If false, data may not be imported for this provider.",
+          "examples": [
+            null,
+            true
+          ]
+        },
+        "License": {
+          "type": "string",
+          "description": "Summary of the licensing which applies for this Data Provider. Each Data Provider has one specific license or agreement. Usage of the data requires acceptance of the given license.",
+          "examples": [
+            "Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "DateLastImported": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date and time (UTC) the last import was performed for this data provider (if an import).",
+          "examples": [
+            null,
+            "2020-02-04T23:09:00Z"
+          ]
+        },
+        "ID": {
+          "type": "integer",
+          "description": "The reference ID for this Data Provider",
+          "default": 0,
+          "examples": [
+            1
+          ]
+        },
+        "Title": {
+          "type": "string",
+          "description": "The Title for this Data Provider",
+          "examples": [
+            "Open Charge Map Contributors"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "operatorinfo": {
+      "type": "object",
+      "title": "The Operatorinfo Schema",
+      "required": [
+        "WebsiteURL",
+        "Comments",
+        "PhonePrimaryContact",
+        "PhoneSecondaryContact",
+        "IsPrivateIndividual",
+        "AddressInfo",
+        "BookingURL",
+        "ContactEmail",
+        "FaultReportEmail",
+        "IsRestrictedEdit",
+        "ID",
+        "Title"
+      ],
+      "properties": {
+        "WebsiteURL": {
+          "type": "string",
+          "title": "The Websiteurl Schema",
+          "default": "",
+          "examples": [
+            "http://www.pod-point.com/"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "Comments": {
+          "type": "null",
+          "title": "The Comments Schema",
+          "examples": [
+            null
+          ]
+        },
+        "PhonePrimaryContact": {
+          "type": "null",
+          "title": "The Phoneprimarycontact Schema",
+          "examples": [
+            null
+          ]
+        },
+        "PhoneSecondaryContact": {
+          "type": "string",
+          "title": "The Phonesecondarycontact Schema",
+          "default": "",
+          "examples": [
+            "020 7247 4114"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "IsPrivateIndividual": {
+          "type": "boolean",
+          "title": "The Isprivateindividual Schema",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "AddressInfo": {
+          "type": "null",
+          "title": "The Addressinfo Schema",
+          "examples": [
+            null
+          ]
+        },
+        "BookingURL": {
+          "type": "null",
+          "title": "The Bookingurl Schema",
+          "examples": [
+            null
+          ]
+        },
+        "ContactEmail": {
+          "type": "string",
+          "title": "The Contactemail Schema",
+          "default": "",
+          "examples": [
+            "enquiries@pod-point.com"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "FaultReportEmail": {
+          "type": "string",
+          "title": "The Faultreportemail Schema",
+          "default": "",
+          "examples": [
+            "enquiries@pod-point.com"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "IsRestrictedEdit": {
+          "type": "null",
+          "title": "The Isrestrictededit Schema",
+          "examples": [
+            null
+          ]
+        },
+        "ID": {
+          "type": "integer",
+          "title": "Id",
+          "default": 0,
+          "examples": [
+            3
+          ]
+        },
+        "Title": {
+          "type": "string",
+          "title": "Title",
+          "default": "",
+          "examples": [
+            "POD Point (UK)"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "usagetype": {
+      "type": "object",
+      "title": "Usage Type",
+      "required": [
+        "IsPayAtLocation",
+        "IsMembershipRequired",
+        "IsAccessKeyRequired",
+        "ID",
+        "Title"
+      ],
+      "properties": {
+        "IsPayAtLocation": {
+          "type": "boolean",
+          "description": "If true, usage requires paying at location",
+          "default": false,
+          "examples": [
+            false
+          ]
+        },
+        "IsMembershipRequired": {
+          "type": "boolean",
+          "title": "The Ismembershiprequired Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "IsAccessKeyRequired": {
+          "type": "boolean",
+          "title": "The Isaccesskeyrequired Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "ID": {
+          "type": "integer",
+          "title": "The Id Schema",
+          "default": 0,
+          "examples": [
+            4
+          ]
+        },
+        "Title": {
+          "type": "string",
+          "title": "The Title Schema",
+          "default": "",
+          "examples": [
+            "Public - Membership Required"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "statustype": {
+      "type": "object",
+      "title": "The Statustype Schema",
+      "required": [
+        "IsOperational",
+        "IsUserSelectable",
+        "ID",
+        "Title"
+      ],
+      "properties": {
+        "IsOperational": {
+          "type": "boolean",
+          "title": "The Isoperational Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "IsUserSelectable": {
+          "type": "boolean",
+          "title": "The Isuserselectable Schema",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "ID": {
+          "type": "integer",
+          "title": "The Id Schema",
+          "default": 0,
+          "examples": [
+            50
+          ]
+        },
+        "Title": {
+          "type": "string",
+          "title": "The Title Schema",
+          "default": "",
+          "examples": [
+            "Operational"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "submissionstatustype": {
+      "type": "object",
+      "description": "Submission Status object, detailing the POI listing status",
+      "required": [
+        "IsLive",
+        "ID",
+        "Title"
+      ],
+      "properties": {
+        "IsLive": {
+          "type": "boolean",
+          "description": "If true, POI listing is live (not draft or de-listed)",
+          "default": false,
+          "examples": [
+            true
+          ]
+        },
+        "ID": {
+          "type": "integer",
+          "description": "Submission Status Type reference ID",
+          "default": 0,
+          "examples": [
+            200
+          ]
+        },
+        "Title": {
+          "type": "string",
+          "title": "The Title Schema",
+          "default": "",
+          "examples": [
+            "Submission Published"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "country": {
+      "type": "object",
+      "description": "Country details",
+      "required": [
+        "ISOCode",
+        "ContinentCode",
+        "ID",
+        "Title"
+      ],
+      "properties": {
+        "ISOCode": {
+          "type": "string",
+          "title": "The Isocode Schema",
+          "default": "",
+          "examples": [
+            "GB"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "ContinentCode": {
+          "type": "string",
+          "title": "The Continentcode Schema",
+          "default": "",
+          "examples": [
+            "EU"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "ID": {
+          "type": "integer",
+          "title": "The Id Schema",
+          "default": 0,
+          "examples": [
+            1
+          ]
+        },
+        "Title": {
+          "type": "string",
+          "title": "The Title Schema",
+          "default": "",
+          "examples": [
+            "United Kingdom"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "addressinfo": {
+      "type": "object",
+      "description": "Geographic position for site and address component information",
+      "required": [
+        "ID",
+        "Title",
+        "CountryID",
+        "Latitude",
+        "Longitude"
+      ],
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "title": "ID",
+          "default": 0,
+          "examples": [
+            148879
+          ]
+        },
+        "Title": {
+          "type": "string",
+          "title": "Title",
+          "default": "",
+          "examples": [
+            "Coneygear Centre"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "AddressLine1": {
+          "type": "string",
+          "description": "First line of nearby street address",
+          "default": "",
+          "examples": [
+            "Buttsgrove Way"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "AddressLine2": {
+          "type": "null",
+          "description": "Second line of nearby street address",
+          "examples": [
+            null
+          ]
+        },
+        "Town": {
+          "type": "string",
+          "description": "Town or City",
+          "examples": [
+            "Huntingdon"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "StateOrProvince": {
+          "type": "null",
+          "description": "State or Province",
+          "examples": [
+            null
+          ]
+        },
+        "Postcode": {
+          "type": "string",
+          "description": "Postal code or Zipcode",
+          "examples": [
+            "PE29 1PE"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "CountryID": {
+          "type": "integer",
+          "description": "The reference ID for the Country",
+          "default": 0,
+          "examples": [
+            1
+          ]
+        },
+        "Country": {
+          "$ref": "#/definitions/country"
+        },
+        "Latitude": {
+          "type": "number",
+          "title": "The Latitude Schema",
+          "default": 0,
+          "examples": [
+            52.343197
+          ]
+        },
+        "Longitude": {
+          "type": "number",
+          "title": "The Longitude Schema",
+          "default": 0,
+          "examples": [
+            -0.170632
+          ]
+        },
+        "ContactTelephone1": {
+          "type": "null",
+          "title": "The Contacttelephone1 Schema",
+          "examples": [
+            null
+          ]
+        },
+        "ContactTelephone2": {
+          "type": "null",
+          "title": "The Contacttelephone2 Schema",
+          "examples": [
+            null
+          ]
+        },
+        "ContactEmail": {
+          "type": "null",
+          "title": "The Contactemail Schema",
+          "examples": [
+            null
+          ]
+        },
+        "AccessComments": {
+          "type": "null",
+          "title": "The Accesscomments Schema",
+          "examples": [
+            null
+          ]
+        },
+        "RelatedURL": {
+          "type": "null",
+          "title": "The Relatedurl Schema",
+          "examples": [
+            null
+          ]
+        },
+        "Distance": {
+          "type": "null",
+          "title": "The Distance Schema",
+          "examples": [
+            null
+          ]
+        },
+        "DistanceUnit": {
+          "type": "integer",
+          "title": "The Distanceunit Schema",
+          "default": 0,
+          "examples": [
+            0
+          ]
+        }
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://openchargemap.org/json-schema/poi",
+  "type": "object",
+  "title": "POI",
+  "description": "A POI (Point of Interest) is the top-level set of information regarding a Site with electric vehicle charging. With the exception of the AddressInfo property, other object properties may not be populated in a compact result set and instead only the associated reference IDs will be set (e.g. UsageTypeID, DataProviderID etc)",
+  "properties": {
+    "DataProvider": {
+      "$ref": "#/definitions/dataprovider"
+    },
+    "OperatorInfo": {
+      "$ref": "#/definitions/operatorinfo"
+    },
+    "UsageType": {
+      "$ref": "#/definitions/usagetype"
+    },
+    "StatusType": {
+      "$ref": "#/definitions/statustype"
+    },
+    "SubmissionStatus": {
+      "$ref": "#/definitions/submissionstatustype"
+    },
+    "UserComments": {
+      "type": "array",
+      "description": "A list of user comments or check-ins for this site",
+      "examples": [
+        null
+      ]
+    },
+    "PercentageSimilarity": {
+      "type": "integer",
+      "description": "If applicable, the approximate percentage similarity compared to another target POI",
+      "examples": [
+        null,
+        50
+      ]
+    },
+    "MediaItems": {
+      "type": "array",
+      "description": "A list of user submitted photos for this site",
+      "examples": [
+        null
+      ]
+    },
+    "IsRecentlyVerified": {
+      "type": "boolean",
+      "description": "A dynamically computed value indicating of any recenty confirmation activity has taken place for this site (positive check-ins etc)",
+      "default": false,
+      "examples": [
+        true
+      ]
+    },
+    "DateLastVerified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "A dynamically computed value, the date and time (UTC, ISO 8601) this POI was last confirmed by a user edit or related user comment",
+      "examples": [
+        "2020-02-04T06:33:00Z"
+      ]
+    },
+    "ID": {
+      "type": "integer",
+      "description": "The OCM reference ID for this POI (Point of Interest). A POI refers to a general site location and collection of equipment.",
+      "examples": [
+        148527
+      ]
+    },
+    "UUID": {
+      "type": "string",
+      "description": "A universally unique identifier used as surrogate key. ID and UUID must be preserved when submitting POI update information. ",
+      "default": "",
+      "examples": [
+        "4C524AA1-3413-4D56-804C-480304FEB0FB"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "ParentChargePointID": {
+      "type": "integer",
+      "description": "If present, this data in this POI supercedes information in another POI. Generally not relevant to consumers."
+    },
+    "DataProviderID": {
+      "type": "integer",
+      "description": "The reference ID for the Data Provider of this POI",
+      "default": 0,
+      "examples": [
+        1
+      ]
+    },
+    "DataProvidersReference": {
+      "type": "string",
+      "description": "If present, this is the Data Providers own key for this POI within their source data set"
+    },
+    "OperatorID": {
+      "type": "integer",
+      "description": "The reference ID of the equipment network operator or owner",
+      "default": 0,
+      "examples": [
+        3
+      ]
+    },
+    "OperatorsReference": {
+      "type": "string",
+      "description": "The network operators own reference for this site (may be a site reference or a single equipment reference)",
+      "default": "",
+      "examples": [
+        "PG-84306"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "UsageTypeID": {
+      "type": "integer",
+      "description": "The reference ID for the site Usage Type, 0 \u003d\u003d Unknown",
+      "default": 0,
+      "examples": [
+        4
+      ]
+    },
+    "UsageCost": {
+      "type": "string",
+      "description": "Free text description of likely usage costs associated with this site. Generally relates to parking charges whether network operates this site as Free",
+      "examples": [
+        "Free",
+        "Parking Fees apply",
+        "See network operators app for current charges"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "AddressInfo": {
+      "$ref": "#/definitions/addressinfo"
+    },
+    "Connections": {
+      "type": "array",
+      "title": "The Connections Schema",
+      "items": {
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "ID",
+          "ConnectionTypeID",
+          "ConnectionType",
+          "Reference",
+          "StatusTypeID",
+          "StatusType",
+          "LevelID",
+          "Level",
+          "Amps",
+          "Voltage",
+          "PowerKW",
+          "CurrentTypeID",
+          "CurrentType",
+          "Quantity",
+          "Comments"
+        ],
+        "properties": {
+          "ID": {
+            "type": "integer",
+            "title": "The Id Schema",
+            "default": 0,
+            "examples": [
+              206241
+            ]
+          },
+          "ConnectionTypeID": {
+            "type": "integer",
+            "title": "The Connectiontypeid Schema",
+            "default": 0,
+            "examples": [
+              25
+            ]
+          },
+          "ConnectionType": {
+            "type": "object",
+            "title": "The Connectiontype Schema",
+            "required": [
+              "FormalName",
+              "IsDiscontinued",
+              "IsObsolete",
+              "ID",
+              "Title"
+            ],
+            "properties": {
+              "FormalName": {
+                "type": "string",
+                "title": "The Formalname Schema",
+                "default": "",
+                "examples": [
+                  "IEC 62196-2 Type 2"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "IsDiscontinued": {
+                "type": "boolean",
+                "title": "The Isdiscontinued Schema",
+                "default": false,
+                "examples": [
+                  false
+                ]
+              },
+              "IsObsolete": {
+                "type": "boolean",
+                "title": "The Isobsolete Schema",
+                "default": false,
+                "examples": [
+                  false
+                ]
+              },
+              "ID": {
+                "type": "integer",
+                "title": "The Id Schema",
+                "default": 0,
+                "examples": [
+                  25
+                ]
+              },
+              "Title": {
+                "type": "string",
+                "title": "The Title Schema",
+                "default": "",
+                "examples": [
+                  "Type 2 (Socket Only)"
+                ],
+                "pattern": "^(.*)$"
+              }
+            }
+          },
+          "Reference": {
+            "type": "null",
+            "title": "The Reference Schema",
+            "examples": [
+              null
+            ]
+          },
+          "StatusTypeID": {
+            "type": "integer",
+            "title": "The Statustypeid Schema",
+            "default": 0,
+            "examples": [
+              50
+            ]
+          },
+          "StatusType": {
+            "type": "object",
+            "title": "The Statustype Schema",
+            "required": [
+              "IsOperational",
+              "IsUserSelectable",
+              "ID",
+              "Title"
+            ],
+            "properties": {
+              "IsOperational": {
+                "type": "boolean",
+                "title": "The Isoperational Schema",
+                "default": false,
+                "examples": [
+                  true
+                ]
+              },
+              "IsUserSelectable": {
+                "type": "boolean",
+                "title": "The Isuserselectable Schema",
+                "default": false,
+                "examples": [
+                  true
+                ]
+              },
+              "ID": {
+                "type": "integer",
+                "title": "The Id Schema",
+                "default": 0,
+                "examples": [
+                  50
+                ]
+              },
+              "Title": {
+                "type": "string",
+                "title": "The Title Schema",
+                "default": "",
+                "examples": [
+                  "Operational"
+                ],
+                "pattern": "^(.*)$"
+              }
+            }
+          },
+          "LevelID": {
+            "type": "integer",
+            "title": "The Levelid Schema",
+            "default": 0,
+            "examples": [
+              2
+            ]
+          },
+          "Level": {
+            "type": "object",
+            "title": "The Level Schema",
+            "required": [
+              "Comments",
+              "IsFastChargeCapable",
+              "ID",
+              "Title"
+            ],
+            "properties": {
+              "Comments": {
+                "type": "string",
+                "title": "The Comments Schema",
+                "default": "",
+                "examples": [
+                  "Over 2 kW, usually non-domestic socket type"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "IsFastChargeCapable": {
+                "type": "boolean",
+                "title": "The Isfastchargecapable Schema",
+                "default": false,
+                "examples": [
+                  false
+                ]
+              },
+              "ID": {
+                "type": "integer",
+                "title": "The Id Schema",
+                "default": 0,
+                "examples": [
+                  2
+                ]
+              },
+              "Title": {
+                "type": "string",
+                "title": "The Title Schema",
+                "default": "",
+                "examples": [
+                  "Level 2 : Medium (Over 2kW)"
+                ],
+                "pattern": "^(.*)$"
+              }
+            }
+          },
+          "Amps": {
+            "type": "integer",
+            "title": "The Amps Schema",
+            "default": 0,
+            "examples": [
+              32
+            ]
+          },
+          "Voltage": {
+            "type": "integer",
+            "title": "The Voltage Schema",
+            "default": 0,
+            "examples": [
+              230
+            ]
+          },
+          "PowerKW": {
+            "type": "integer",
+            "title": "The Powerkw Schema",
+            "default": 0,
+            "examples": [
+              7
+            ]
+          },
+          "CurrentTypeID": {
+            "type": "integer",
+            "title": "The Currenttypeid Schema",
+            "default": 0,
+            "examples": [
+              10
+            ]
+          },
+          "CurrentType": {
+            "type": "object",
+            "title": "The Currenttype Schema",
+            "required": [
+              "Description",
+              "ID",
+              "Title"
+            ],
+            "properties": {
+              "Description": {
+                "type": "string",
+                "title": "The Description Schema",
+                "default": "",
+                "examples": [
+                  "Alternating Current - Single Phase"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "ID": {
+                "type": "integer",
+                "title": "The Id Schema",
+                "default": 0,
+                "examples": [
+                  10
+                ]
+              },
+              "Title": {
+                "type": "string",
+                "title": "The Title Schema",
+                "default": "",
+                "examples": [
+                  "AC (Single-Phase)"
+                ],
+                "pattern": "^(.*)$"
+              }
+            }
+          },
+          "Quantity": {
+            "type": "integer",
+            "title": "The Quantity Schema",
+            "default": 0,
+            "examples": [
+              2
+            ]
+          },
+          "Comments": {
+            "type": "null",
+            "title": "The Comments Schema",
+            "examples": [
+              null
+            ]
+          }
+        }
+      }
+    },
+    "NumberOfPoints": {
+      "type": "integer",
+      "description": "The number of bays or discreet stations available overall at this site. This indicates the limiting for number of simultaneous site users.",
+      "default": 0,
+      "examples": [
+        2
+      ]
+    },
+    "GeneralComments": {
+      "type": "string",
+      "description": "General additional factual information for the POI. Users are discouraged from using this field for opinions on site quality etc.",
+      "default": "",
+      "examples": [
+        "This is an open charge unit installed at the Coneygear Centre at Buttsgrove Way, Huntingdon"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "DatePlanned": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time (UTC, ISO 8601) this POI is or was planned for commissioning. In general planned POIs should not be presented to end users until confirmed operational.",
+      "examples": [
+        "2020-02-04T06:33:00Z"
+      ]
+    },
+    "DateLastConfirmed": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time (UTC, ISO 8601) this POI was last confirmed according to the data provider or a user. See DateLastVerified for a dynamically computed date based on multiple signals.",
+      "examples": [
+        "2020-02-04T06:33:00Z"
+      ]
+    },
+    "StatusTypeID": {
+      "type": "integer",
+      "title": "The overall operational status type reference ID for this POI (i.e. Operational etc). 0 \u003d\u003d Unknown",
+      "default": 0,
+      "examples": [
+        50
+      ]
+    },
+    "DateLastStatusUpdate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time (UTC, ISO 8601) this POI or directly related child properties were updated.",
+      "examples": [
+        "2020-02-04T06:33:00Z"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "MetadataValues": {
+      "type": "array",
+      "title": "Optional array of metadata values. Generally used to indicate data attribution but is also intended for future use to indicate surrounding amenties, links or foreign key values into other data sets.",
+      "examples": [
+        null
+      ]
+    },
+    "DataQualityLevel": {
+      "type": "integer",
+      "description": "A metric applied during imports to indicate a quality level based on available information detail (5 \u003d\u003d best). Largely unused currently.",
+      "examples": [
+        5
+      ]
+    },
+    "DateCreated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time (UTC, ISO 8601) this POI was added to the Open Charge Map database",
+      "examples": [
+        "2020-02-04T06:33:00Z"
+      ]
+    },
+    "SubmissionStatusTypeID": {
+      "type": "integer",
+      "description": "The reference ID for the submission status type which applied to this POI.",
+      "default": 0,
+      "examples": [
+        200
+      ]
+    }
+  },
+  "required": [
+    "ID",
+    "UUID",
+    "DataProviderID",
+    "DateCreated",
+    "SubmissionStatusTypeID"
+  ]
+}

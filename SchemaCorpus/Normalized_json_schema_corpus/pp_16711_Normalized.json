@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "filter.zscale",
+  "name": "zscale",
+  "defaults": {},
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "width",
+          "forced": true,
+          "control": {
+            "type": "integer",
+            "minimum": 320,
+            "maximum": 8192,
+            "singleStep": 16,
+            "value": 1920
+          }
+        },
+        {
+          "parameter": "height",
+          "forced": true,
+          "control": {
+            "type": "integer",
+            "minimum": 240,
+            "maximum": 8192,
+            "singleStep": 16,
+            "value": 1080
+          }
+        },
+        {
+          "parameter": "filter",
+          "forced": true,
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 4,
+            "items": [
+              {
+                "value": "point"
+              },
+              {
+                "value": "bilinear"
+              },
+              {
+                "value": "bicubic"
+              },
+              {
+                "value": "spline16"
+              },
+              {
+                "value": "spline36"
+              },
+              {
+                "value": "lanczos"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "dither",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "ordered"
+              },
+              {
+                "value": "random"
+              },
+              {
+                "value": "error_diffusion"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "npl",
+          "control": {
+            "type": "float",
+            "maximum": 9999999.9,
+            "minimum": 0.0,
+            "singleStep": 0.1,
+            "value": 0.0
+          }
+        },
+        {
+          "parameter": "agamma",
+          "control": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ]
+    }
+  ]
+}

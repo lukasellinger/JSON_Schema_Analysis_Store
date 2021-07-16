@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "description": "Service object",
+  "properties": {
+    "Service": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "AgencyID": {
+          "type": "string"
+        },
+        "SiteID": {
+          "type": "string"
+        },
+        "ServiceGroupID": {
+          "type": "string"
+        },
+        "WaitTime": {
+          "type": "string"
+        },
+        "ApplicationProcess": {
+          "type": "object",
+          "properties": {
+            "Title": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            }
+          }
+        },
+        "ResourceInfo": {
+          "type": "object",
+          "properties": {
+            "Contact": {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "integer"
+                },
+                "AgencyID": {
+                  "type": "string"
+                },
+                "ServiceID": {
+                  "type": "string"
+                },
+                "Department": {
+                  "type": "string"
+                },
+                "Title": {
+                  "type": "string"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "Nickname": {
+                  "type": "string"
+                },
+                "ContactEmail": {
+                  "type": "string"
+                },
+                "ContactPhone": {
+                  "type": "object",
+                  "properties": {
+                    "Phone": {
+                      "type": "string"
+                    },
+                    "Confidential": {
+                      "type": "boolean"
+                    },
+                    "ReasonWithheld": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string"
+                    },
+                    "Type": {
+                      "type": "string"
+                    },
+                    "Function": {
+                      "type": "string"
+                    },
+                    "TollFree": {
+                      "type": "boolean"
+                    },
+                    "Department": {
+                      "type": "string"
+                    },
+                    "CountryPrefix": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "ContactType": {
+                  "type": "string"
+                }
+              }
+            },
+            "ResourceSpecialist": {
+              "type": "string"
+            },
+            "AvailableForDirectory": {
+              "type": "boolean"
+            },
+            "AvailableForReferral": {
+              "type": "boolean"
+            },
+            "AvailableForResearch": {
+              "type": "boolean"
+            },
+            "DateAdded": {
+              "type": "string"
+            },
+            "DateLastVerified": {
+              "type": "string"
+            },
+            "DateOfLastAction": {
+              "type": "string"
+            },
+            "LastActionType": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

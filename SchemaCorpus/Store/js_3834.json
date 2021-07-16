@@ -1,0 +1,11 @@
+{
+  "enum": [
+    "dd",
+    "feet",
+    "inches",
+    "kilometers",
+    "meters",
+    "miles",
+    "nauticalmiles"
+  ]
+}

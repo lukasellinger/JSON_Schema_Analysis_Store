@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "type": "object",
+  "javaType": "org.apache.streams.flink.FlinkStreamingConfiguration",
+  "javaInterfaces": [
+    "java.io.Serializable"
+  ],
+  "extends": {
+    "$ref": "#/definitions/StreamsFlinkConfiguration.json"
+  },
+  "additionalProperties": false,
+  "properties": {
+    "checkpointIntervalMs": {
+      "type": "integer"
+    },
+    "checkpointTimeoutMs": {
+      "type": "integer"
+    },
+    "restartAttempts": {
+      "type": "integer",
+      "description": "number of restart attempts"
+    },
+    "restartDelayMs": {
+      "type": "integer",
+      "description": "delay in milliseconds"
+    }
+  },
+  "definitions": {
+    "StreamsFlinkConfiguration.json": {
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "type": "object",
+      "javaType": "org.apache.streams.flink.StreamsFlinkConfiguration",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "extends": {
+        "$comment": "Absolute $ref: http://streams.apache.org/streams-config/StreamsConfiguration.json",
+        "$ref": "#/definitions/..\\..\\..\\..\\..\\..\\streams-config\\src\\main\\jsonschema\\StreamsConfiguration.json"
+      },
+      "additionalProperties": false,
+      "properties": {
+        "test": {
+          "type": "boolean"
+        },
+        "local": {
+          "type": "boolean"
+        }
+      }
+    },
+    "..\\..\\..\\..\\..\\..\\streams-config\\src\\main\\jsonschema\\StreamsConfiguration.json": {
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "type": "object",
+      "javaType": "org.apache.streams.config.StreamsConfiguration",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "batchFrequencyMs": {
+          "type": "integer",
+          "description": "Frequency of messaging between components"
+        },
+        "batchSize": {
+          "type": "integer",
+          "description": "Default max batch size for batch-based persist readers and writers"
+        },
+        "identifier": {
+          "type": "string",
+          "description": "Name of streams pipeline"
+        },
+        "parallelism": {
+          "type": "integer",
+          "description": "Default parallelism for processors"
+        },
+        "providerTimeoutMs": {
+          "type": "integer",
+          "description": "Kill the stream if all providers supply nothing for this long."
+        },
+        "providerWaitMs": {
+          "type": "integer",
+          "description": "Wait this long before beginning polling providers."
+        },
+        "queueSize": {
+          "type": "integer",
+          "description": "Size of inter-component buffers"
+        },
+        "shutdownCheckDelay": {
+          "type": "integer",
+          "description": "Initial delay before checking for shutdown"
+        },
+        "shutdownCheckInterval": {
+          "type": "integer",
+          "description": "Recurring delay between checking for shutdown"
+        },
+        "startedAt": {
+          "type": "integer",
+          "description": "Timestamp of beginning of stream execution"
+        }
+      }
+    }
+  }
+}

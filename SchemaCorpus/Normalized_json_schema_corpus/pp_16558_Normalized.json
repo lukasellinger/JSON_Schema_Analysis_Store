@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "filter.eq",
+  "name": "eq",
+  "defaults": {},
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "contrast",
+          "control": {
+            "type": "float",
+            "minimum": -1000.0,
+            "maximum": 1000.0,
+            "singleStep": 1,
+            "value": 1
+          }
+        },
+        {
+          "parameter": "brightness",
+          "control": {
+            "type": "float",
+            "minimum": -1.0,
+            "maximum": 1.0,
+            "singleStep": 0.1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "saturation",
+          "control": {
+            "type": "float",
+            "minimum": 0.0,
+            "maximum": 3.0,
+            "singleStep": 0.1,
+            "value": 1
+          }
+        },
+        {
+          "parameter": "gamma",
+          "control": {
+            "type": "float",
+            "minimum": 0.1,
+            "maximum": 10.0,
+            "singleStep": 0.1,
+            "value": 1
+          }
+        },
+        {
+          "parameter": "gamma_r",
+          "control": {
+            "type": "float",
+            "minimum": 0.1,
+            "maximum": 10.0,
+            "singleStep": 0.1,
+            "value": 1
+          }
+        },
+        {
+          "parameter": "gamma_g",
+          "control": {
+            "type": "float",
+            "minimum": 0.1,
+            "maximum": 10.0,
+            "singleStep": 0.1,
+            "value": 1
+          }
+        },
+        {
+          "parameter": "gamma_b",
+          "control": {
+            "type": "float",
+            "minimum": 0.1,
+            "maximum": 10.0,
+            "singleStep": 0.1,
+            "value": 1
+          }
+        },
+        {
+          "parameter": "gamma_weight",
+          "control": {
+            "type": "float",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "singleStep": 0.1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "eval",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "init"
+              },
+              {
+                "value": "frame"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

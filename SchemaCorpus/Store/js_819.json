@@ -1,0 +1,59 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/View/View.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Визуальное представление",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Container/Container.json"
+    }
+  ],
+  "properties": {
+    "Scripts": {
+      "description": "Список скриптов представления",
+      "type": "array",
+      "items": {
+        "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/Script.json"
+      }
+    },
+    "Parameters": {
+      "description": "Список параметров представления",
+      "type": "array",
+      "items": {
+        "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/View/Parameter.json"
+      }
+    },
+    "DataSources": {
+      "description": "Список источников данных представления",
+      "type": "array",
+      "items": {
+        "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataSource/DataSource.json"
+      }
+    },
+    "HeaderTemplate": {
+      "description": "Шаблон заголовка представления",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/VisualElement/VisualElement.json"
+    },
+    "CloseButtonVisibility": {
+      "description": "Флаг видимости кнопки закрытия",
+      "type": "boolean",
+      "default": true
+    },
+    "OnOpening": {
+      "description": "Обработчик события о том, что представление открывается",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnOpened": {
+      "description": "Обработчик события о том, что представление было открыто",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnClosing": {
+      "description": "Обработчик события о том, что представление закрывается",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnClosed": {
+      "description": "Обработчик события о том, что представление было закрыто",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "id": "https://raw.githubusercontent.com/eviratec/schema/master/v1/product.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "schema for a product",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "code",
+    "headline",
+    "full_name",
+    "prices",
+    "date_added",
+    "is_purchaseable"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "code": {
+      "type": "string",
+      "description": "E.g. YEMAYA2017GA",
+      "maxLength": 64
+    },
+    "headline": {
+      "type": "string",
+      "description": "E.g. \u0027Yemaya 2017 GA Ticket\u0027",
+      "maxLength": 64
+    },
+    "full_name": {
+      "type": "string",
+      "description": "E.g. \u0027Yemaya 2017 General Admission Ticket\u0027",
+      "maxLength": 255
+    },
+    "prices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/product\\price.json"
+      },
+      "uniqueItems": true
+    },
+    "date_added": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "is_purchaseable": {
+      "type": "boolean",
+      "value": false
+    }
+  },
+  "definitions": {
+    "product\\price.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "schema for a product price",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "amount",
+        "is_public",
+        "date_from",
+        "date_thru"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "type": {
+          "type": "string",
+          "maxLength": 18
+        },
+        "amount": {
+          "$ref": "#/definitions/currency\\amount.json"
+        },
+        "is_public": {
+          "type": "boolean",
+          "value": false
+        },
+        "date_from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "date_thru": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "currency\\amount.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "schema for a currency amount",
+      "type": "object",
+      "required": [
+        "currency",
+        "units"
+      ],
+      "properties": {
+        "currency": {
+          "$ref": "#/definitions/currency.json"
+        },
+        "units": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "currency.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "schema for a currency",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "code",
+        "label",
+        "separator"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "code": {
+          "type": "string",
+          "maxLength": 4
+        },
+        "label": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "prefix": {
+          "type": "string",
+          "maxLength": 1
+        },
+        "separator": {
+          "type": "object",
+          "required": [
+            "thousands",
+            "decimal"
+          ],
+          "properties": {
+            "thousands": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1
+            },
+            "decimal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

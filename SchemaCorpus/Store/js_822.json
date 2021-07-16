@@ -1,0 +1,31 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Привязка данных между элементом и источником",
+  "type": "object",
+  "properties": {
+    "Mode": {
+      "description": "Направление потока данных в привязке",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/BindingMode.json",
+      "default": "TwoWay"
+    },
+    "Source": {
+      "description": "Наименование источника данных привязки",
+      "type": "string"
+    },
+    "Property": {
+      "description": "Путь к свойству источника данных привязки",
+      "type": "string"
+    },
+    "Converter": {
+      "description": "Преобразователь данных между элементом и источником",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/BindingConverter.json"
+    },
+    "DefaultValue": {
+      "description": "Значение по умолчанию"
+    }
+  },
+  "required": [
+    "Source"
+  ]
+}

@@ -1,0 +1,1322 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Root iAgree schema.",
+  "description": "iAgree v2 JSON schema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string"
+        },
+        "consumer": {
+          "type": "string"
+        },
+        "validity": {
+          "$ref": "#/definitions/properties_validity"
+        },
+        "definitions": {
+          "$ref": "#/definitions/properties_definitions"
+        },
+        "infrastructure": {
+          "$ref": "#/definitions/properties_infrastructure"
+        },
+        "iAgree": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "definitions"
+      ]
+    },
+    "terms": {
+      "type": "object",
+      "properties": {
+        "guarantees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_guarantee"
+          }
+        },
+        "metrics": {
+          "$ref": "#/definitions/properties_metrics"
+        },
+        "configurations": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/properties_configuration"
+          }
+        },
+        "pricing": {
+          "$ref": "#/definitions/properties_pricing"
+        },
+        "quotas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_quota"
+          }
+        },
+        "rates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_rate"
+          }
+        }
+      },
+      "required": [
+        "pricing",
+        "metrics",
+        "guarantees"
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "properties": {
+        "of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_scopedConfiguration"
+          }
+        },
+        "scope": {
+          "$ref": "#/definitions/properties_scope"
+        }
+      },
+      "required": [
+        "of",
+        "scope"
+      ]
+    },
+    "scopedConfiguration": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {}
+          }
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "required": [
+        "scope",
+        "value"
+      ]
+    },
+    "validity": {
+      "type": "object",
+      "properties": {
+        "initial": {
+          "type": "string"
+        },
+        "timeZone": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "initial",
+        "timeZone"
+      ]
+    },
+    "infrastructure": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "string"
+        }
+      }
+    },
+    "definitions": {
+      "type": "object",
+      "properties": {
+        "schemas": {
+          "$ref": "#/definitions/properties__schema"
+        },
+        "scopes": {
+          "$ref": "#/definitions/properties_scopes"
+        },
+        "logs": {
+          "$ref": "#/definitions/properties_log"
+        }
+      },
+      "required": [
+        "schemas",
+        "scopes"
+      ]
+    },
+    "_schema": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "unit": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "scopes": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "metadata": {
+                  "type": "object",
+                  "patternProperties": {
+                    "^[a-zA-Z0-9]*$": {}
+                  }
+                },
+                "format": {
+                  "type": "string"
+                },
+                "default": {}
+              },
+              "required": [
+                "name",
+                "description",
+                "type"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {}
+      }
+    },
+    "log": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "boolean"
+            },
+            "uri": {
+              "type": "string"
+            },
+            "stateUri": {
+              "type": "string"
+            },
+            "measures": {
+              "type": "string"
+            },
+            "scopes": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {
+                  "type": "object",
+                  "patternProperties": {
+                    "^[a-zA-Z0-9]*$": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "uri",
+            "stateUri",
+            "measures"
+          ]
+        }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "properties": {
+        "cost": {
+          "type": "number",
+          "format": "double"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "billing": {
+          "$ref": "#/definitions/properties_billing"
+        }
+      },
+      "required": [
+        "billing"
+      ]
+    },
+    "billing": {
+      "type": "object",
+      "properties": {
+        "period": {
+          "type": "string"
+        },
+        "initial": {
+          "type": "string"
+        },
+        "penalties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_compensation"
+          }
+        },
+        "rewards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_compensation"
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            },
+            "computer": {
+              "type": "string"
+            },
+            "parameters": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            },
+            "scope": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            },
+            "metadata": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            },
+            "defaultStateReload": {
+              "type": "boolean"
+            },
+            "window": {
+              "$ref": "#/definitions/properties_window"
+            }
+          }
+        }
+      }
+    },
+    "rate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            }
+          }
+        },
+        "over": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            }
+          }
+        },
+        "of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_scopedRate"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "scope",
+        "over",
+        "of"
+      ]
+    },
+    "quota": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            }
+          }
+        },
+        "over": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            }
+          }
+        },
+        "of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_scopedQuota"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "scope",
+        "over",
+        "of"
+      ]
+    },
+    "scopedQuota": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {}
+          }
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_limit"
+          }
+        }
+      },
+      "required": [
+        "scope",
+        "limits"
+      ]
+    },
+    "scopedRate": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {}
+          }
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_limit"
+          }
+        }
+      },
+      "required": [
+        "scope",
+        "limits"
+      ]
+    },
+    "limit": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "type": "number"
+        },
+        "period": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "max"
+      ]
+    },
+    "guarantee": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/definitions/properties_guarantee_scope"
+        },
+        "of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_scoped_guarante"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "scope",
+        "of"
+      ]
+    },
+    "guarantee_scope": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {}
+      }
+    },
+    "scoped_guarante": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "$ref": "#/definitions/properties_guarantee_scope"
+        },
+        "objective": {
+          "type": "string"
+        },
+        "with": {
+          "$ref": "#/definitions/properties_with"
+        },
+        "window": {
+          "$ref": "#/definitions/properties_window"
+        },
+        "evidences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_evidence"
+          }
+        },
+        "penalties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_compensation"
+          }
+        },
+        "rewards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_compensation"
+          }
+        }
+      },
+      "required": [
+        "scope",
+        "objective",
+        "with",
+        "window"
+      ]
+    },
+    "with": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {}
+          }
+        }
+      }
+    },
+    "window": {
+      "type": "object",
+      "properties": {
+        "initial": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "period": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "period",
+        "initial"
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "schema": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            },
+            "computer": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "compensation": {
+      "type": "object",
+      "properties": {
+        "over": {
+          "$ref": "#/definitions/properties_over"
+        },
+        "of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_compensation_of"
+          }
+        },
+        "aggegatedBy": {
+          "type": "string"
+        },
+        "groupBy": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            }
+          }
+        },
+        "upTo": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "required": [
+        "over"
+      ]
+    },
+    "compensation_of": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "condition": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "over": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "unit": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "type",
+    "context",
+    "terms"
+  ],
+  "definitions": {
+    "properties_validity": {
+      "type": "object",
+      "properties": {
+        "initial": {
+          "type": "string"
+        },
+        "timeZone": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "initial",
+        "timeZone"
+      ]
+    },
+    "properties_definitions": {
+      "type": "object",
+      "properties": {
+        "schemas": {
+          "$ref": "#/definitions/properties__schema"
+        },
+        "scopes": {
+          "$ref": "#/definitions/properties_scopes"
+        },
+        "logs": {
+          "$ref": "#/definitions/properties_log"
+        }
+      },
+      "required": [
+        "schemas",
+        "scopes"
+      ]
+    },
+    "properties__schema": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "unit": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "properties_scopes": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "metadata": {
+                  "type": "object",
+                  "patternProperties": {
+                    "^[a-zA-Z0-9]*$": {}
+                  }
+                },
+                "format": {
+                  "type": "string"
+                },
+                "default": {}
+              },
+              "required": [
+                "name",
+                "description",
+                "type"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "properties_log": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "boolean"
+            },
+            "uri": {
+              "type": "string"
+            },
+            "stateUri": {
+              "type": "string"
+            },
+            "measures": {
+              "type": "string"
+            },
+            "scopes": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {
+                  "type": "object",
+                  "patternProperties": {
+                    "^[a-zA-Z0-9]*$": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "uri",
+            "stateUri",
+            "measures"
+          ]
+        }
+      }
+    },
+    "properties_infrastructure": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "string"
+        }
+      }
+    },
+    "properties_guarantee": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/definitions/properties_guarantee_scope"
+        },
+        "of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_scoped_guarante"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "scope",
+        "of"
+      ]
+    },
+    "properties_guarantee_scope": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {}
+      }
+    },
+    "properties_scoped_guarante": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "$ref": "#/definitions/properties_guarantee_scope"
+        },
+        "objective": {
+          "type": "string"
+        },
+        "with": {
+          "$ref": "#/definitions/properties_with"
+        },
+        "window": {
+          "$ref": "#/definitions/properties_window"
+        },
+        "evidences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_evidence"
+          }
+        },
+        "penalties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_compensation"
+          }
+        },
+        "rewards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_compensation"
+          }
+        }
+      },
+      "required": [
+        "scope",
+        "objective",
+        "with",
+        "window"
+      ]
+    },
+    "properties_with": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {}
+          }
+        }
+      }
+    },
+    "properties_window": {
+      "type": "object",
+      "properties": {
+        "initial": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "period": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "period",
+        "initial"
+      ]
+    },
+    "properties_evidence": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "schema": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            },
+            "computer": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "properties_compensation": {
+      "type": "object",
+      "properties": {
+        "over": {
+          "$ref": "#/definitions/properties_over"
+        },
+        "of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_compensation_of"
+          }
+        },
+        "aggegatedBy": {
+          "type": "string"
+        },
+        "groupBy": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            }
+          }
+        },
+        "upTo": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "required": [
+        "over"
+      ]
+    },
+    "properties_over": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "unit": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "properties_compensation_of": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "condition": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "properties_metrics": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {
+          "type": "object",
+          "properties": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            },
+            "computer": {
+              "type": "string"
+            },
+            "parameters": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            },
+            "scope": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            },
+            "metadata": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            },
+            "defaultStateReload": {
+              "type": "boolean"
+            },
+            "window": {
+              "$ref": "#/definitions/properties_window"
+            }
+          }
+        }
+      }
+    },
+    "properties_configuration": {
+      "type": "object",
+      "properties": {
+        "of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_scopedConfiguration"
+          }
+        },
+        "scope": {
+          "$ref": "#/definitions/properties_scope"
+        }
+      },
+      "required": [
+        "of",
+        "scope"
+      ]
+    },
+    "properties_scopedConfiguration": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {}
+          }
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "required": [
+        "scope",
+        "value"
+      ]
+    },
+    "properties_scope": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9]*$": {}
+      }
+    },
+    "properties_pricing": {
+      "type": "object",
+      "properties": {
+        "cost": {
+          "type": "number",
+          "format": "double"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "billing": {
+          "$ref": "#/definitions/properties_billing"
+        }
+      },
+      "required": [
+        "billing"
+      ]
+    },
+    "properties_billing": {
+      "type": "object",
+      "properties": {
+        "period": {
+          "type": "string"
+        },
+        "initial": {
+          "type": "string"
+        },
+        "penalties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_compensation"
+          }
+        },
+        "rewards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_compensation"
+          }
+        }
+      }
+    },
+    "properties_quota": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            }
+          }
+        },
+        "over": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            }
+          }
+        },
+        "of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_scopedQuota"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "scope",
+        "over",
+        "of"
+      ]
+    },
+    "properties_scopedQuota": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {}
+          }
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_limit"
+          }
+        }
+      },
+      "required": [
+        "scope",
+        "limits"
+      ]
+    },
+    "properties_limit": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "type": "number"
+        },
+        "period": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "max"
+      ]
+    },
+    "properties_rate": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            }
+          }
+        },
+        "over": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9]*$": {}
+              }
+            }
+          }
+        },
+        "of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_scopedRate"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "scope",
+        "over",
+        "of"
+      ]
+    },
+    "properties_scopedRate": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]*$": {}
+          }
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/properties_limit"
+          }
+        }
+      },
+      "required": [
+        "scope",
+        "limits"
+      ]
+    }
+  }
+}

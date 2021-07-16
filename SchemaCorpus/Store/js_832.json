@@ -1,0 +1,30 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/Button/Button.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Кнопка",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/Element.json"
+    }
+  ],
+  "properties": {
+    "ContentTemplate": {
+      "description": "Шаблон отображения содержимого кнопки",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/Element.json"
+    },
+    "Content": {
+      "description": "Содержимое кнопки",
+      "type": "string"
+    },
+    "Action": {
+      "description": "Действие при нажатии на кнопку",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/Action.json"
+    },
+    "ViewMode": {
+      "description": "Режим отображения",
+      "type": "string",
+      "default": "common"
+    }
+  }
+}

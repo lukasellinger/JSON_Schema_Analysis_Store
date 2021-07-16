@@ -1,0 +1,26 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/ToggleButton/ToggleButton.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Переключатель в виде кнопки",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/Element.json"
+    },
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/EditorBase/EditorBase.json"
+    }
+  ],
+  "properties": {
+    "TextOn": {
+      "description": "Текст на включенное состояние",
+      "type": "string",
+      "default": "ON"
+    },
+    "TextOff": {
+      "description": "Текст на выключенное состояние",
+      "type": "string",
+      "default": "OFF"
+    }
+  }
+}

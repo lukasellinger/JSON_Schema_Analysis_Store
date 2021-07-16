@@ -1,0 +1,466 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "type": "object",
+  "javaType": "org.apache.streams.datasift.twitter.Twitter",
+  "javaInterfaces": [
+    "java.io.Serializable"
+  ],
+  "properties": {
+    "created_at": {
+      "type": "string"
+    },
+    "display_urls": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "domains": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "filter_level": {
+      "type": "string"
+    },
+    "geo": {
+      "javaType": "org.apache.streams.datasift.twitter.Geo",
+      "type": "object",
+      "dynamic": "true",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        }
+      }
+    },
+    "hashtags": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "in_reply_to_screen_name": {
+      "type": "string"
+    },
+    "in_reply_to_status_id": {
+      "type": "string"
+    },
+    "in_reply_to_user_id": {
+      "type": "string"
+    },
+    "lang": {
+      "type": "string"
+    },
+    "links": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "media": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "$ref": "#/definitions/DatasiftTwitterMedia.json"
+        }
+      ]
+    },
+    "mention_ids": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "mentions": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "place": {
+      "javaType": "org.apache.streams.datasift.twitter.Place",
+      "type": "object",
+      "dynamic": "true",
+      "properties": {
+        "attributes": {
+          "dynamic": "true",
+          "properties": {
+            "street_address": {
+              "type": "string"
+            }
+          }
+        },
+        "country": {
+          "type": "string"
+        },
+        "country_code": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "place_type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "retweet": {
+      "javaType": "org.apache.streams.datasift.twitter.Retweet",
+      "type": "object",
+      "dynamic": "true",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "domains": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "hashtags": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        },
+        "links": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "media": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "$ref": "#/definitions/DatasiftTwitterMedia.json"
+            }
+          ]
+        },
+        "mention_ids": {
+          "type": "array",
+          "items": [
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "mentions": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "source": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "user": {
+          "type": "object",
+          "$ref": "#/definitions/DatasiftTwitterUser.json"
+        }
+      }
+    },
+    "retweeted": {
+      "javaType": "org.apache.streams.datasift.twitter.Retweeted",
+      "type": "object",
+      "dynamic": "true",
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "geo": {
+          "dynamic": "true",
+          "properties": {
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            }
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "place": {
+          "dynamic": "true",
+          "properties": {
+            "attributes": {
+              "type": "object",
+              "dynamic": "true"
+            },
+            "country": {
+              "type": "string"
+            },
+            "country_code": {
+              "type": "string"
+            },
+            "full_name": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "place_type": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          }
+        },
+        "source": {
+          "type": "string"
+        },
+        "user": {
+          "type": "object",
+          "$ref": "#/definitions/DatasiftTwitterUser.json"
+        }
+      }
+    },
+    "source": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "user": {
+      "type": "object",
+      "$ref": "#/definitions/DatasiftTwitterUser.json"
+    }
+  },
+  "definitions": {
+    "DatasiftTwitterMedia.json": {
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "type": "object",
+      "javaType": "org.apache.streams.datasift.twitter.Media",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "properties": {
+        "display_url": {
+          "type": "string"
+        },
+        "expanded_url": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "id_str": {
+          "type": "string"
+        },
+        "media_url": {
+          "type": "string"
+        },
+        "media_url_https": {
+          "type": "string"
+        },
+        "sizes": {
+          "properties": {
+            "large": {
+              "properties": {
+                "h": {
+                  "type": "integer"
+                },
+                "resize": {
+                  "type": "string"
+                },
+                "w": {
+                  "type": "integer"
+                }
+              }
+            },
+            "medium": {
+              "properties": {
+                "h": {
+                  "type": "integer"
+                },
+                "resize": {
+                  "type": "string"
+                },
+                "w": {
+                  "type": "integer"
+                }
+              }
+            },
+            "small": {
+              "dynamic": "true",
+              "properties": {
+                "h": {
+                  "type": "integer"
+                },
+                "resize": {
+                  "type": "string"
+                },
+                "w": {
+                  "type": "integer"
+                }
+              }
+            },
+            "thumb": {
+              "properties": {
+                "h": {
+                  "type": "integer"
+                },
+                "resize": {
+                  "type": "string"
+                },
+                "w": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "source_status_id": {
+          "type": "integer"
+        },
+        "source_status_id_str": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "DatasiftTwitterUser.json": {
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "type": "object",
+      "javaType": "org.apache.streams.datasift.twitter.DatasiftTwitterUser",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "favourites_count": {
+          "type": "integer"
+        },
+        "followers_count": {
+          "type": "integer"
+        },
+        "friends_count": {
+          "type": "integer"
+        },
+        "geo_enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "id_str": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string"
+        },
+        "listed_count": {
+          "type": "integer"
+        },
+        "location": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "profile_image_url": {
+          "type": "string"
+        },
+        "profile_image_url_https": {
+          "type": "string"
+        },
+        "screen_name": {
+          "type": "string"
+        },
+        "statuses_count": {
+          "type": "integer"
+        },
+        "time_zone": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "utc_offset": {
+          "type": "integer"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

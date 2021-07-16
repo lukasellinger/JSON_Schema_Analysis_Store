@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "HealthStatusList",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/HealthStatus.json"
+  },
+  "definitions": {
+    "HealthStatus.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "HealthStatus",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ]
+    }
+  }
+}

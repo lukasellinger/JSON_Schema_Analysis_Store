@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Scenario Reasoner input for examples method",
+  "type": "object",
+  "properties": {
+    "method": {
+      "description": "The method of the scenario reasoner being called",
+      "type": "string",
+      "enum": [
+        "examples"
+      ]
+    },
+    "params": {
+      "$ref": "#/definitions/id.input.schema.json"
+    },
+    "encoding": {
+      "description": "The encoding of the data",
+      "type": "string",
+      "enum": [
+        "json"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "method",
+    "params",
+    "encoding"
+  ],
+  "definitions": {
+    "id.input.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Input params with only the scenario Id",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": [
+        {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": [
+            {
+              "description": "The unique identifier for the scenario",
+              "type": "string",
+              "example": "gmd4"
+            }
+          ],
+          "additionalItems": false
+        }
+      ],
+      "additionalItems": false
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "DeploymentDescriptorList",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/DeploymentDescriptor.json"
+  },
+  "definitions": {
+    "DeploymentDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "DeploymentDescriptor",
+      "type": "object",
+      "properties": {
+        "srvcId": {
+          "type": "string"
+        },
+        "instId": {
+          "type": "string"
+        },
+        "nodeId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "descriptor": {
+          "$ref": "#/definitions/http:__okapi_launch_descriptor"
+        }
+      },
+      "required": [
+        "srvcId"
+      ]
+    },
+    "http:__okapi_launch_descriptor": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "LaunchDescriptor",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "exec": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cmdlineStart": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cmdlineStop": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dockerImage": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

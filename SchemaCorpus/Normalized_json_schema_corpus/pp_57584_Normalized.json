@@ -1,0 +1,558 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "O3D3xx application configuration",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "Description": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "TriggerMode": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "default": 1
+    },
+    "PcicTcpResultSchema": {
+      "type": "string",
+      "default": "{\n    \"layouter\": \"flexible\",\n    \"format\": { \"dataencoding\": \"ascii\" },\n    \"elements\": [\n        { \"type\": \"string\", \"value\": \"star\", \"id\": \"start_string\" },\n        { \"type\": \"blob\", \"id\": \"normalized_amplitude_image\" },\n        { \"type\": \"blob\", \"id\": \"distance_image\" },\n        { \"type\": \"blob\", \"id\": \"x_image\" },\n        { \"type\": \"blob\", \"id\": \"y_image\" },\n        { \"type\": \"blob\", \"id\": \"z_image\" },\n        { \"type\": \"blob\", \"id\": \"confidence_image\" },\n        { \"type\": \"blob\", \"id\": \"diagnostic_data\" },\n        { \"type\": \"string\", \"value\": \"stop\", \"id\": \"end_string\" }\n    ]\n}"
+    },
+    "PcicEipResultSchema": {
+      "type": "string",
+      "default": "{\"layouter\" : \"flexible\", \"format\": { \"dataencoding\": \"binary\", \"order\": \"little\" }, \"elements\" : [ { \"type\": \"string\", \"value\": \"star\", \"id\": \"start_string\" }, { \"type\": \"records\", \"id\": \"models\", \"elements\": [ { \"type\": \"int16\", \"id\": \"boxFound\" }, { \"type\": \"int16\", \"id\": \"width\", \"format\": { \"scale\": 1000 } }, { \"type\": \"int16\", \"id\": \"height\", \"format\": { \"scale\": 1000 } }, { \"type\": \"int16\", \"id\": \"length\", \"format\": { \"scale\": 1000 } }, { \"type\": \"int16\", \"id\": \"xMidTop\", \"format\": { \"scale\": 1000 } }, { \"type\": \"int16\", \"id\": \"yMidTop\", \"format\": { \"scale\": 1000 } }, { \"type\": \"int16\", \"id\": \"zMidTop\", \"format\": { \"scale\": 1000 } }, { \"type\": \"int16\", \"id\": \"yawAngle\" }, { \"type\": \"int16\", \"id\": \"qualityLength\" }, { \"type\": \"int16\", \"id\": \"qualityWidth\" }, { \"type\": \"int16\", \"id\": \"qualityHeight\" } ] }, { \"type\": \"string\", \"value\": \"stop\", \"id\": \"end_string\" } ] }"
+    },
+    "PcicTcpResultOutputEnabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "ImagerConfiguration": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/imager_config.json"
+      },
+      "minItems": 1,
+      "maxItems": 1
+    },
+    "ModelList": {
+      "type": "string",
+      "attributes": [
+        "private",
+        "noexport"
+      ]
+    },
+    "Models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 999
+          },
+          "Model": {
+            "$ref": "#/definitions/model.json"
+          }
+        },
+        "required": [
+          "Id",
+          "Model"
+        ]
+      }
+    },
+    "NextModelId": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 999,
+      "default": 1,
+      "attributes": [
+        "private"
+      ]
+    },
+    "LogicGraph": {
+      "type": "string"
+    },
+    "Type": {
+      "type": "string",
+      "attributes": [
+        "readonly"
+      ]
+    },
+    "PrivateType": {
+      "type": "string",
+      "default": "Camera",
+      "attributes": [
+        "private",
+        "noexport"
+      ]
+    },
+    "TemplateInfo": {
+      "type": "string"
+    },
+    "IOTeachLight": {
+      "type": "boolean",
+      "default": false,
+      "attributes": [
+        "private",
+        "noexport"
+      ]
+    }
+  },
+  "required": [
+    "Name",
+    "Description",
+    "TriggerMode",
+    "PcicTcpResultSchema",
+    "PcicEipResultSchema",
+    "ImagerConfiguration",
+    "Type"
+  ],
+  "definitions": {
+    "imager_config.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "O3D3xx imager configuration",
+      "type": "object",
+      "properties": {
+        "FrameRate": {
+          "type": "number",
+          "minimum": 0.0167,
+          "maximum": 30,
+          "default": 5
+        },
+        "ClippingLeft": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 0,
+          "default": 0
+        },
+        "ClippingTop": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 0,
+          "default": 0
+        },
+        "ClippingRight": {
+          "type": "integer",
+          "minimum": 175,
+          "maximum": 175,
+          "default": 175
+        },
+        "ClippingBottom": {
+          "type": "integer",
+          "minimum": 131,
+          "maximum": 131,
+          "default": 131
+        },
+        "ReduceMotionArtifacts": {
+          "type": "boolean",
+          "default": false
+        },
+        "SpatialFilterType": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "default": 0
+        },
+        "TemporalFilterType": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "default": 0
+        },
+        "EnableFilterDistanceImage": {
+          "type": "boolean",
+          "default": true
+        },
+        "EnableFilterAmplitudeImage": {
+          "type": "boolean",
+          "default": true
+        },
+        "SymmetryThreshold": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0.4
+        },
+        "MinimumAmplitude": {
+          "type": "number",
+          "minimum": 0,
+          "default": 42
+        },
+        "TwoFreqMaxLineDistPercentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 80
+        },
+        "ThreeFreqMax2FLineDistPercentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 80
+        },
+        "ThreeFreqMax3FLineDistPercentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 80
+        },
+        "EnableAmplitudeCorrection": {
+          "type": "boolean",
+          "default": true
+        },
+        "EnableRectificationDistanceImage": {
+          "type": "boolean",
+          "default": true
+        },
+        "EnableRectificationAmplitudeImage": {
+          "type": "boolean",
+          "default": true
+        },
+        "ContinuousAutoExposure": {
+          "type": "boolean",
+          "default": false
+        },
+        "AutoExposureMinLongShortFactor": {
+          "type": "integer",
+          "minimum": 2,
+          "default": 2,
+          "attributes": [
+            "private"
+          ]
+        },
+        "AutoExposureMaxLongShortFactor": {
+          "type": "integer",
+          "minimum": 2,
+          "default": 50,
+          "attributes": [
+            "private"
+          ]
+        },
+        "AutoExposureReferenceType": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0,
+          "attributes": [
+            "private"
+          ]
+        },
+        "AutoExposureReferenceROI": {
+          "type": "string",
+          "default": "{\"ROIs\":[{\"id\":0,\"group\":0,\"type\":\"Rect\",\"width\":130,\"height\":100,\"angle\":0,\"center_x\":88,\"center_y\":66}]}",
+          "attributes": [
+            "private"
+          ]
+        },
+        "AutoExposureReferencePointX": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 176,
+          "default": 88,
+          "attributes": [
+            "private"
+          ]
+        },
+        "AutoExposureReferencePointY": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 132,
+          "default": 66,
+          "attributes": [
+            "private"
+          ]
+        },
+        "ExposureTimeList": {
+          "type": "string",
+          "attributes": [
+            "readonly"
+          ]
+        },
+        "Output100K": {
+          "type": "boolean",
+          "default": false
+        },
+        "TotalExposureTime": {
+          "type": "integer",
+          "attributes": [
+            "private",
+            "readonly"
+          ]
+        },
+        "EnableFastFrequency": {
+          "type": "boolean",
+          "default": false
+        },
+        "PrivateType": {
+          "type": "string",
+          "default": "under5m_low",
+          "attributes": [
+            "private",
+            "noexport"
+          ]
+        },
+        "Type": {
+          "type": "string",
+          "attributes": [
+            "readonly"
+          ]
+        }
+      },
+      "required": [
+        "FrameRate",
+        "ClippingLeft",
+        "ClippingTop",
+        "ClippingRight",
+        "ClippingBottom",
+        "ReduceMotionArtifacts",
+        "SpatialFilterType",
+        "TemporalFilterType",
+        "Type"
+      ]
+    },
+    "model.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "O3D3xx Model configuration",
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/model_distance.json"
+        },
+        {
+          "$ref": "#/definitions/model_level.json"
+        },
+        {
+          "$ref": "#/definitions/model_dimensioning.json"
+        }
+      ]
+    },
+    "model_distance.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "O3D3xx Distance model configuration",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "PrivateType": {
+          "type": "string",
+          "default": "Distance",
+          "attributes": [
+            "private",
+            "noexport"
+          ]
+        },
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Distance"
+          ],
+          "attributes": [
+            "readonly"
+          ]
+        },
+        "ROIs": {
+          "type": "string"
+        },
+        "SwitchPoint1": {
+          "type": "number"
+        },
+        "SwitchPoint2": {
+          "type": "number"
+        },
+        "ValueOfBenefit": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "default": 0
+        }
+      },
+      "required": [
+        "Name",
+        "Type",
+        "ROIs",
+        "SwitchPoint1",
+        "SwitchPoint2",
+        "ValueOfBenefit"
+      ]
+    },
+    "model_level.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "O3D3xx Level model configuration",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "PrivateType": {
+          "type": "string",
+          "default": "Level",
+          "attributes": [
+            "private",
+            "noexport"
+          ]
+        },
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Level"
+          ],
+          "attributes": [
+            "readonly"
+          ]
+        },
+        "ROIs": {
+          "type": "string"
+        },
+        "PrivateBackgroundType": {
+          "type": "string",
+          "enum": [
+            "undefined",
+            "fixed",
+            "taught"
+          ],
+          "default": "undefined",
+          "attributes": [
+            "private",
+            "noexport"
+          ]
+        },
+        "BackgroundType": {
+          "type": "string",
+          "enum": [
+            "undefined",
+            "fixed",
+            "taught"
+          ],
+          "attributes": [
+            "readonly"
+          ]
+        },
+        "BackgroundFixed": {
+          "type": "number"
+        },
+        "SwitchPoint1": {
+          "type": "number"
+        },
+        "SwitchPoint2": {
+          "type": "number"
+        },
+        "ValueOfBenefit": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "default": 0
+        },
+        "UseAnchorTracking": {
+          "type": "boolean",
+          "default": false
+        },
+        "TeachData": {
+          "type": "string",
+          "attributes": [
+            "private",
+            "noexport"
+          ]
+        },
+        "AnchorData": {
+          "type": "string",
+          "attributes": [
+            "private",
+            "noexport"
+          ]
+        },
+        "CompletenessData": {
+          "type": "string",
+          "attributes": [
+            "private"
+          ]
+        }
+      },
+      "required": [
+        "Name",
+        "Type",
+        "ROIs",
+        "BackgroundType",
+        "BackgroundFixed",
+        "SwitchPoint1",
+        "SwitchPoint2",
+        "ValueOfBenefit"
+      ]
+    },
+    "model_dimensioning.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "O3D3xx Dimensioning model configuration",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "PrivateType": {
+          "type": "string",
+          "default": "Dimensioning",
+          "attributes": [
+            "private",
+            "noexport"
+          ]
+        },
+        "Type": {
+          "type": "string",
+          "enum": [
+            "Dimensioning"
+          ],
+          "attributes": [
+            "readonly"
+          ]
+        },
+        "FlowAngle": {
+          "type": "number"
+        },
+        "UseFlowAngle": {
+          "type": "boolean"
+        },
+        "BackgroundTaught": {
+          "type": "boolean",
+          "attributes": [
+            "readonly",
+            "noexport"
+          ]
+        },
+        "ROIs": {
+          "type": "string",
+          "attributes": [
+            "readonly"
+          ]
+        },
+        "ObjectType": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "TeachData": {
+          "type": "string",
+          "attributes": [
+            "private",
+            "noexport"
+          ]
+        },
+        "TeachROI": {
+          "type": "string",
+          "attributes": [
+            "private",
+            "noexport"
+          ]
+        }
+      },
+      "required": [
+        "Name",
+        "Type",
+        "FlowAngle",
+        "UseFlowAngle",
+        "ObjectType"
+      ]
+    }
+  }
+}

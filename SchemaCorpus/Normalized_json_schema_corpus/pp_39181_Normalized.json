@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "$ref": "#/definitions/definitions.json_username"
+    }
+  },
+  "definitions": {
+    "definitions.json_username": {
+      "pattern": "^[_A-Za-z0-9-]{4,}$",
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Sample Collection schema",
+  "id": "Samples",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "$ref": "#/definitions/Sample Unit"
+  },
+  "definitions": {
+    "Sample Unit": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Sample Schema",
+      "type": "object",
+      "description": "The schema of a Sample",
+      "properties": {
+        "t_string": {
+          "type": "string",
+          "description": "The type string."
+        }
+      }
+    }
+  }
+}

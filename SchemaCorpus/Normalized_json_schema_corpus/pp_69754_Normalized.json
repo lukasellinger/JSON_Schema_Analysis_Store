@@ -1,0 +1,55 @@
+{
+  "_comment": "This Spec is for Phase 1!! Most updated version is at https://github.com/reTHINK-project/specs/tree/master/schemas",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "ProtoStubDescriptor",
+  "type": "object",
+  "required": [
+    "messageSchema",
+    "configuration",
+    "constraints"
+  ],
+  "properties": {
+    "messageSchema": {
+      "type": "string"
+    },
+    "configuration": {
+      "$ref": "#/definitions/ProtostubConfiguration"
+    },
+    "constraints": {
+      "$ref": "#/definitions/HypertyRuntimeDescriptor_RuntimeProtocolCapabilities"
+    }
+  },
+  "ProtostubConfiguration": {
+    "type": "object",
+    "properties": {}
+  },
+  "definitions": {
+    "ProtostubConfiguration": {
+      "type": "object",
+      "properties": {}
+    },
+    "HypertyRuntimeDescriptor_RuntimeProtocolCapabilities": {
+      "type": "object",
+      "properties": {
+        "http": {
+          "type": "boolean"
+        },
+        "https": {
+          "type": "boolean"
+        },
+        "ws": {
+          "type": "boolean"
+        },
+        "wss": {
+          "type": "boolean"
+        },
+        "coap": {
+          "type": "boolean"
+        },
+        "datachannel": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

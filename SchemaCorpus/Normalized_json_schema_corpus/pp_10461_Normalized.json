@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "title": "Root schema.",
+  "description": "An explanation about the puropose of this instance described by this schema.",
+  "name": "/",
+  "properties": {
+    "username": {
+      "type": "string",
+      "title": "Username schema.",
+      "description": "An explanation about the puropose of this instance described by this schema.",
+      "name": "username"
+    },
+    "password": {
+      "type": "string",
+      "title": "Password schema.",
+      "description": "An explanation about the puropose of this instance described by this schema.",
+      "name": "password"
+    },
+    "email": {
+      "type": "string",
+      "title": "Email schema.",
+      "description": "An explanation about the puropose of this instance described by this schema.",
+      "name": "email"
+    }
+  },
+  "required": [
+    "username",
+    "password",
+    "email"
+  ]
+}

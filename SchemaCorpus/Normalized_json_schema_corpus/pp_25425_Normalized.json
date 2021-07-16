@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "name": "Country",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "population": {
+      "type": "integer"
+    },
+    "overlord": {
+      "$ref": "#/definitions/person.json"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "person.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "name": "Person",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

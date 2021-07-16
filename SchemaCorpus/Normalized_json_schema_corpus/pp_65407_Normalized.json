@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "aaa": {
+      "type": "number"
+    },
+    "bbb": {
+      "$ref": "#/definitions/includes\\bbb.json"
+    }
+  },
+  "definitions": {
+    "includes\\bbb.json": {
+      "type": "object",
+      "properties": {
+        "BBB": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

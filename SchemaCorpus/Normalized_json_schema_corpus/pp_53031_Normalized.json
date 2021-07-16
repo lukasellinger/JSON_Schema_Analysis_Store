@@ -1,0 +1,248 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Step",
+  "description": "Description of a single step of the instructions",
+  "type": "object",
+  "properties": {
+    "step_id": {
+      "$ref": "#/definitions/common.json_step_id"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title for this step"
+    },
+    "description": {
+      "type": "string",
+      "description": "Textual description for this step"
+    },
+    "attention": {
+      "type": "string",
+      "description": "Warnings about critical mistakes that can be made",
+      "default": ""
+    },
+    "duration": {
+      "$ref": "#/definitions/common.json_timedelta",
+      "description": "Time of activity required in this step"
+    },
+    "waiting": {
+      "$ref": "#/definitions/common.json_timedelta",
+      "description": "Waiting time required in this step"
+    },
+    "parts": {
+      "$ref": "#/definitions/common.json_object_namespace",
+      "description": "Local aliases of parts in this step"
+    },
+    "tools": {
+      "$ref": "#/definitions/common.json_object_namespace",
+      "description": "Local aliases of tools in this step"
+    },
+    "results": {
+      "$ref": "#/definitions/common.json_object_namespace",
+      "description": "Local aliases of results in this step"
+    },
+    "images": {
+      "$ref": "#/definitions/common.json_image_namespace",
+      "description": "Local aliases of images in this step"
+    },
+    "files": {
+      "$ref": "#/definitions/common.json_file_namespace",
+      "description": "Local aliases of images in this step"
+    },
+    "assertions": {
+      "type": "array",
+      "description": "Assertions about the results of the step",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    }
+  },
+  "required": [
+    "step_id",
+    "title",
+    "description"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "common.json_step_id": {
+      "type": "string",
+      "title": "Step ID",
+      "description": "ID of a step",
+      "pattern": "^[a-zA-Z0-9_-]*$"
+    },
+    "common.json_timedelta": {
+      "type": "object",
+      "title": "Timedelta",
+      "description": "Data representing a timespan.",
+      "properties": {
+        "seconds": {
+          "type": "integer"
+        },
+        "minutes": {
+          "type": "integer"
+        },
+        "hours": {
+          "type": "integer"
+        },
+        "days": {
+          "type": "integer"
+        }
+      },
+      "default": {},
+      "additionalProperties": false
+    },
+    "common.json_object_namespace": {
+      "type": "object",
+      "title": "Object Namespace",
+      "description": "A mapping of local names to Object References",
+      "patternProperties": {
+        "^([a-zA-Z][0-9a-zA-Z_]*)$": {
+          "$ref": "#/definitions/references.json_obj_ref"
+        }
+      },
+      "default": {},
+      "additionalProperties": false
+    },
+    "references.json_obj_ref": {
+      "type": "object",
+      "title": "Object Reference",
+      "description": "Description of a object reference",
+      "properties": {
+        "obj_id": {
+          "$ref": "#/definitions/common.json_obj_id"
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "Number of instances of this object",
+          "default": 1
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "Indicates if this object is strictly required",
+          "default": false
+        },
+        "created": {
+          "type": "boolean",
+          "description": "Indicates if object is created instead of consumed",
+          "default": false
+        }
+      },
+      "required": [
+        "obj_id"
+      ],
+      "additionalProperties": false
+    },
+    "common.json_obj_id": {
+      "type": "string",
+      "title": "Object ID",
+      "description": "ID of an object",
+      "pattern": "^[a-zA-Z0-9_-]*$"
+    },
+    "common.json_image_namespace": {
+      "type": "object",
+      "title": "Image Namespace",
+      "description": "A mapping of local names to Image References",
+      "patternProperties": {
+        "^([a-zA-Z][0-9a-zA-Z_]*)$": {
+          "$ref": "#/definitions/references.json_img_ref"
+        }
+      },
+      "default": {},
+      "additionalProperties": false
+    },
+    "references.json_img_ref": {
+      "type": "object",
+      "title": "Image Reference",
+      "description": "Description of a reference to an image",
+      "properties": {
+        "blob_id": {
+          "$ref": "#/definitions/common.json_blob_id"
+        },
+        "sourcefiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/references.json_source_file_ref"
+          },
+          "default": []
+        },
+        "extension": {
+          "type": "string",
+          "description": "Extension of the image file."
+        },
+        "alt": {
+          "type": "string",
+          "description": "Alternative description of the image."
+        }
+      },
+      "required": [
+        "blob_id",
+        "extension",
+        "alt"
+      ],
+      "additionalProperties": false
+    },
+    "common.json_blob_id": {
+      "type": "string",
+      "title": "Blob ID",
+      "description": "ID of a blob",
+      "pattern": "^[a-zA-Z0-9_-]*$"
+    },
+    "references.json_source_file_ref": {
+      "type": "object",
+      "title": "Source File Reference",
+      "description": "Reference to a file from which others are generated.",
+      "properties": {
+        "blob_id": {
+          "$ref": "#/definitions/common.json_blob_id"
+        },
+        "filename": {
+          "type": "string",
+          "description": "Filename of the file"
+        }
+      },
+      "required": [
+        "blob_id",
+        "filename"
+      ],
+      "additionalProperties": false
+    },
+    "common.json_file_namespace": {
+      "type": "object",
+      "title": "File Namespace",
+      "description": "A mapping of local names to File References",
+      "patternProperties": {
+        "^([a-zA-Z][0-9a-zA-Z_]*)$": {
+          "$ref": "#/definitions/references.json_file_ref"
+        }
+      },
+      "default": {},
+      "additionalProperties": false
+    },
+    "references.json_file_ref": {
+      "type": "object",
+      "title": "File Reference",
+      "description": "Description of a file. ",
+      "properties": {
+        "blob_id": {
+          "$ref": "#/definitions/common.json_blob_id"
+        },
+        "sourcefiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/references.json_source_file_ref"
+          },
+          "default": []
+        },
+        "filename": {
+          "type": "string",
+          "description": "Filename of the file"
+        }
+      },
+      "required": [
+        "blob_id",
+        "filename"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

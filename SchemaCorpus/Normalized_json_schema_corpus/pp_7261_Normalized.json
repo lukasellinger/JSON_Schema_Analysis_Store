@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Must be \u0027first\u0027 or \u0027last\u0027",
+      "chance": {
+        "pickone": [
+          [
+            "first",
+            "last"
+          ]
+        ]
+      },
+      "minLength": 1,
+      "important": ""
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "filter.decimate",
+  "name": "decimate",
+  "defaults": {},
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "cycle",
+          "forced": true,
+          "control": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 25,
+            "singleStep": 1,
+            "value": 5
+          }
+        },
+        {
+          "parameter": "dupthresh",
+          "forced": true,
+          "control": {
+            "type": "float",
+            "minimum": 0,
+            "maximum": 100,
+            "singleStep": 1,
+            "value": 1.1
+          }
+        },
+        {
+          "parameter": "scthresh",
+          "forced": true,
+          "control": {
+            "type": "float",
+            "minimum": 0,
+            "maximum": 100,
+            "singleStep": 1,
+            "value": 15
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "blockx",
+          "control": {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 512,
+            "singleStep": 1,
+            "value": 32
+          }
+        },
+        {
+          "parameter": "blocky",
+          "control": {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 512,
+            "singleStep": 1,
+            "value": 32
+          }
+        },
+        {
+          "parameter": "ppsrc",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "parameter": "chroma",
+          "control": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ]
+    }
+  ]
+}

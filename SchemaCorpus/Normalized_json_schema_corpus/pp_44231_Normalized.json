@@ -1,0 +1,22 @@
+{
+  "id": "animation-track-easing",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "AnimationTrackEasingConfig",
+  "description": "An instance of \u003ca href\u003d\"#animation-track-easing\"\u003ean animation track\u003c/a\u003e.",
+  "type": "object",
+  "properties": {
+    "default": {
+      "type": "string",
+      "title": "Default",
+      "description": "The default easing to apply; available values are : \u003cul\u003e\u003cli\u003elinear\u003c/li\u003e\u003cli\u003eeaseInSine\u003c/li\u003e\u003cli\u003eeaseInOutSine\u003c/li\u003e\u003cli\u003eeaseOutSine\u003c/li\u003e\u003cli\u003eeaseInQuad\u003c/li\u003e\u003cli\u003eeaseInOutQuad\u003c/li\u003e\u003cli\u003eeaseOutQuad\u003c/li\u003e\u003cli\u003eeaseInCubic\u003c/li\u003e\u003cli\u003eeaseInOutCubic\u003c/li\u003e\u003cli\u003eeaseOutCubic\u003c/li\u003e\u003cli\u003eeaseOutBounce\u003c/li\u003e\u003cli\u003eeaseInBounce\u003c/li\u003e\u003c/ul\u003eDefault is \u003cb\u003elinear\u003c/b\u003e.",
+      "example": "easeInQuad"
+    },
+    "start": {
+      "type": "number",
+      "title": "Start",
+      "description": "The time (in ms) to reach the first position of the track from the current position of the camera.",
+      "default": 0,
+      "example": 5000
+    }
+  }
+}

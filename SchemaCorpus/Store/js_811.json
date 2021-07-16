@@ -1,0 +1,12 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/AcceptAction.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Действие закрытия представления со статусом подтверждения",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/BaseAction.json"
+    }
+  ],
+  "properties": {}
+}

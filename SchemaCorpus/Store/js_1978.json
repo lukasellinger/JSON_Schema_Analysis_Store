@@ -1,0 +1,189 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "attribute.json#",
+  "type": "object",
+  "title": "",
+  "description": "",
+  "example": "../examples/attribute.json",
+  "dependencies": {
+    "minValue": [
+      "units"
+    ],
+    "maxValue": [
+      "units"
+    ],
+    "boundMin": [
+      "boundUnits"
+    ],
+    "boundMax": [
+      "boundUnits"
+    ],
+    "sequenceIdentifier": [
+      "sequenceIdentifierType"
+    ]
+  },
+  "additionalProperties": true,
+  "properties": {
+    "sequenceIdentifier": {
+      "type": "string",
+      "description": "Unique name or number that identifies attributes included in the coverage.",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e  gmi:rangeElementDescription \u003e gmi:MI_RangeElementDescription \u003e gmi:name",
+          "MI_CoverageDescription \u003e  gmd:dimension \u003e gmd:MD:Band \u003e gmd:sequenceIdentifier \u003e gco:MemberName \u003e gco:aName"
+        ]
+      }
+    },
+    "sequenceIdentifierType": {
+      "type": "string",
+      "description": "The type of unique name or number that identifies attributes.",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e gmd:dimension \u003e gmd:MD:Band \u003e gmd:sequenceIdentifier \u003e gco:MemberName \u003e gco:attributeType \u003e gco:TypeName \u003e gco:aName"
+        ]
+      }
+    },
+    "attributeDescription": {
+      "type": "string",
+      "description": "Description of the attribute.",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e  gmi:rangeElementDescription \u003e gmi:MI_RangeElementDescription \u003e gmi:definition",
+          "MI_CoverageDescription \u003e  gmd:dimension \u003e gmd:MD_Band \u003e gmd:descriptor ]"
+        ]
+      }
+    },
+    "attributeIdentifier": {
+      "type": "array",
+      "description": "Identifiers for each attribute included in the resource. NOTE: These identifiers can be used to provide names for the attribute from a standard set of names.",
+      "translation": {},
+      "items": {
+        "$ref": "./identifier.json#"
+      }
+    },
+    "minValue": {
+      "type": "number",
+      "description": "The minimum value of data values in the domain of the attribute.",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e gmd:dimension \u003e gmd:MD_Band \u003e gmd:minValue \u003e gco:Real"
+        ]
+      }
+    },
+    "maxValue": {
+      "type": "number",
+      "description": "The maximum value of data values in the domain of the attribute",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e gmd:dimension \u003e gmd:MD_Band \u003e gmd:maxValue \u003e gco:Real"
+        ]
+      }
+    },
+    "units": {
+      "type": "string",
+      "description": "The units of data in which the attribute is expressed.",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e gmd:dimension \u003e gmd:MD_Band \u003e gmd:units \u003e gml:unitDefinition \u003e gml:identifier"
+        ]
+      }
+    },
+    "scaleFactor": {
+      "type": "number",
+      "description": "The scale factor which has been applied to the attribute.",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e gmd:dimension \u003e gmd:MD_Band \u003e gmd:scaleFactor \u003e gco:Real"
+        ]
+      }
+    },
+    "offset": {
+      "type": "number",
+      "description": "The physical value corresponding to an attribute value of zero.",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e gmd:dimension \u003e gmd:MD_Band \u003e gmd:offset \u003e gco:Real"
+        ]
+      }
+    },
+    "meanValue": {
+      "type": "number",
+      "description": "The mean value of data values in the attribute.",
+      "translation": {}
+    },
+    "numberOfValues": {
+      "type": "integer",
+      "description": "Tthe number of values used in a thematic-Classification resource.",
+      "translation": {}
+    },
+    "standardDeviation": {
+      "type": "number",
+      "description": "The standard deviation of data values in the attribute.",
+      "translation": {}
+    },
+    "bitsPerValue": {
+      "type": "integer",
+      "description": "The maximum number of significant bits in the uncompressed representation for the value in each pixel.",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e gmd:dimension \u003e gmd:MD_Band \u003e gmd:bitsPerValue \u003e gco:Integer"
+        ]
+      }
+    },
+    "boundMin": {
+      "type": "number",
+      "description": "The shortest wavelength that the sensor is capable of collecting within a designated band."
+    },
+    "boundMax": {
+      "type": "number",
+      "description": "The longest wavelength that the sensor is capable of collecting within a designated band."
+    },
+    "boundUnits": {
+      "type": "string",
+      "description": "The unit in which sensor wavelengths are expressed."
+    },
+    "peakResponse": {
+      "type": "number",
+      "description": "The wavelength at which the sensor response is highest.",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e gmd:dimension \u003e gmd:MD_Band \u003e gmd:peakResponse \u003e gco:Real"
+        ]
+      }
+    },
+    "toneGradations": {
+      "type": "integer",
+      "description": "The number of discrete numerical values in the grid data.",
+      "translation": {
+        "ISO 19115-2": [
+          "MI_CoverageDescription \u003e gmd:dimension \u003e gmd:MD_Band \u003e gmd:toneGradition \u003e gco:Integer"
+        ]
+      }
+    },
+    "bandBoundaryDefinition": {
+      "type": "string",
+      "description": "Designation of criterion for defining maximum and minimum wavelengths for a spectral band.",
+      "translation": {}
+    },
+    "nominalSpatialResolution": {
+      "type": "number",
+      "description": "The smallest distance between which separate points can be distinguished, as specified in instrument design.",
+      "translation": {}
+    },
+    "transferFunctionType": {
+      "type": "string",
+      "description": "Type of transfer function to be used when scaling a physical value for a given element.",
+      "translation": {}
+    },
+    "transmittedPolarization": {
+      "type": "string",
+      "description": "Polarization of the radiation transmitted.",
+      "translation": {}
+    },
+    "detectedPolarization": {
+      "type": "string",
+      "description": "Polarization of the radiation detected.",
+      "translation": {}
+    }
+  }
+}

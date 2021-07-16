@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "tracker": {
+      "type": "integer"
+    },
+    "notification": {
+      "type": "boolean"
+    },
+    "categories": {
+      "$ref": "#/definitions/categoriesActual.json"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "categoriesActual.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "categoryActual": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "integer"
+            },
+            "values": {
+              "$ref": "#/definitions/categoriesActual.json_definitions_values"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "category",
+            "values"
+          ]
+        }
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/categoriesActual.json_definitions_categoryActual"
+      }
+    },
+    "categoriesActual.json_definitions_values": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "categoriesActual.json_definitions_categoryActual": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "integer"
+        },
+        "values": {
+          "$ref": "#/definitions/categoriesActual.json_definitions_values"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "values"
+      ]
+    }
+  }
+}

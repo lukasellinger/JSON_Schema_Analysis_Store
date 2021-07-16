@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Group",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "title": "ID",
+      "type": "string"
+    },
+    "created": {},
+    "modified": {},
+    "label": {},
+    "permissions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\definitions\\permission.json_definitions_permission"
+      },
+      "title": "Permissions",
+      "default": [],
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "_id",
+    "created",
+    "modified"
+  ],
+  "definitions": {
+    "..\\definitions\\permission.json_definitions_permission": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_user-id"
+        },
+        "access": {
+          "$ref": "#/definitions/..\\definitions\\permission.json_definitions_access"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "permission"
+    },
+    "..\\definitions\\common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    },
+    "..\\definitions\\permission.json_definitions_access": {
+      "type": "string",
+      "enum": [
+        "ro",
+        "rw",
+        "admin"
+      ]
+    }
+  }
+}

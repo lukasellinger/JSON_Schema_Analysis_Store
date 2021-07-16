@@ -1,0 +1,28 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/TextEditorBase/EditMask/NumberEditMask.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Маска ввода числового значения",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/EditMaskBase.json"
+    }
+  ],
+  "properties": {},
+  "definitions": {
+    "EditMaskBase.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Базовый тип маски ввода данных",
+      "type": "object",
+      "properties": {
+        "Mask": {
+          "description": "Маска ввода данных",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Mask"
+      ]
+    }
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Project",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/container.json"
+    }
+  ],
+  "properties": {
+    "_id": {},
+    "created": {},
+    "modified": {},
+    "permissions": {},
+    "files": {},
+    "public": {},
+    "label": {},
+    "template": {
+      "$ref": "#/definitions/..\\definitions\\project-template.json_definitions_project-template"
+    },
+    "tags": {},
+    "info": {},
+    "description": {},
+    "group": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "container.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "created": {},
+        "modified": {},
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/note.json"
+          }
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\definitions\\permission.json_definitions_permission"
+          }
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file.json"
+          }
+        },
+        "public": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "info": {
+          "type": "object"
+        }
+      }
+    },
+    "note.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "created": {},
+        "modified": {},
+        "user": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "_id",
+        "user",
+        "created",
+        "modified",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "..\\definitions\\permission.json_definitions_permission": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_user-id"
+        },
+        "access": {
+          "$ref": "#/definitions/..\\definitions\\permission.json_definitions_access"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "permission"
+    },
+    "..\\definitions\\common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    },
+    "..\\definitions\\permission.json_definitions_access": {
+      "type": "string",
+      "enum": [
+        "ro",
+        "rw",
+        "admin"
+      ]
+    },
+    "file.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "created": {},
+        "modified": {},
+        "type": {
+          "type": "string"
+        },
+        "mimetype": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "modality": {
+          "type": "string"
+        },
+        "measurements": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "info": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "created",
+        "modified",
+        "size",
+        "hash"
+      ],
+      "key_fields": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "..\\definitions\\project-template.json_definitions_project-template": {
+      "description": "A project\u0027s session template",
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "object"
+        },
+        "acquisitions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/..\\definitions\\project-template.json_definitions_requirement"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\definitions\\project-template.json_definitions_requirement": {
+      "anyOf": [
+        {
+          "required": [
+            "minimum"
+          ]
+        },
+        {
+          "required": [
+            "maximum"
+          ]
+        }
+      ],
+      "properties": {
+        "minimum": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maximum": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

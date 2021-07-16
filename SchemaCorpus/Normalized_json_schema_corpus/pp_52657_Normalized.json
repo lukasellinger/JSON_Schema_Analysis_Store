@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/v0_4/story-element/table.json",
+  "description": "A data table content element",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\story-elements\\story-element.json",
+      "properties": {
+        "type": {
+          "enum": [
+            "table"
+          ]
+        },
+        "header": {
+          "type": "array",
+          "description": "The header row of the table",
+          "items": {
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/definitions/..\\story-elements\\text.json"
+              }
+            ]
+          }
+        },
+        "rows": {
+          "type": "array",
+          "description": "The data rows of the table",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/..\\story-elements\\text.json"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "rows"
+      ]
+    }
+  ],
+  "definitions": {
+    "..\\story-elements\\story-element.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "An element that can be saved to a Story",
+      "description": "An item that conforms to this schema can be saved in a Story",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\content-element.json",
+          "properties": {
+            "editable": {
+              "description": "Flag to indicate this content may edited in a story",
+              "type": "boolean",
+              "enum": [
+                true
+              ]
+            }
+          },
+          "required": [
+            "editable"
+          ]
+        }
+      ]
+    },
+    "..\\content-element.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A valid content element.",
+      "description": "Lists the schemas we allow as \u0027content elements\u0027 in our collection schema.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\trait-id.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-type.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-subtype.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-channel.json"
+        }
+      ]
+    },
+    "..\\trait-id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "Trait that applies a globally unique id.",
+      "type": "object",
+      "properties": {
+        "_id": {
+          "description": "A globally unique identifier of the content in the ANS repository.",
+          "type": "string"
+        }
+      }
+    },
+    "..\\trait-type.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Type trait",
+      "description": "Trait that helps support strongly-typed implementations of this schema.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "The concrete type of element the implementing element is.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "..\\trait-subtype.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Subtype trait",
+      "description": "Trait that helps support strongly-typed implementations of this schema.",
+      "properties": {
+        "subtype": {
+          "type": "string",
+          "description": "A more granular type than story, gallery, etc. (E.g., column, blog-post)"
+        }
+      }
+    },
+    "..\\trait-channel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Channel trait",
+      "description": "Trait that captures an optional list of output types for which this element should be visible",
+      "type": "object",
+      "properties": {
+        "channels": {
+          "description": "List of channels in which this content may appear",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "..\\story-elements\\text.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "A textual content element",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\story-elements\\story-element.json"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "text"
+              ]
+            },
+            "text": {
+              "description": "The text of the paragraph.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ]
+        }
+      ]
+    }
+  }
+}

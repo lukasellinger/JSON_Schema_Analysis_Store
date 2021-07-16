@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "$ref": "#/definitions/_definitions.json_definitions_metaInfo"
+    }
+  },
+  "required": [
+    "meta"
+  ],
+  "$schema": "http://json-schema.org/schema#",
+  "definitions": {
+    "_definitions.json_definitions_metaInfo": {
+      "type": "object",
+      "properties": {
+        "docs": {
+          "type": "string",
+          "description": "Location of the public documentation."
+        },
+        "homepage": {
+          "type": "string",
+          "description": "Server homepage."
+        },
+        "openapi": {
+          "type": "string",
+          "description": "OpenAPI specification."
+        },
+        "version": {
+          "type": "string",
+          "description": "Server version."
+        }
+      },
+      "required": [
+        "docs",
+        "homepage",
+        "openapi",
+        "version"
+      ]
+    }
+  }
+}

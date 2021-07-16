@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "An Array of Routes",
+  "type": "object",
+  "properties": {
+    "routes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/route-schema.json"
+      }
+    }
+  },
+  "definitions": {
+    "route-schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A Transport Route",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/definitions-schema.json_definitions_id"
+        },
+        "code": {
+          "type": "string"
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "countryId": {
+          "$ref": "#/definitions/definitions-schema.json_definitions_id"
+        },
+        "transport": {
+          "type": "string"
+        }
+      }
+    },
+    "definitions-schema.json_definitions_id": {
+      "type": "integer",
+      "multipleOf": 1.0,
+      "minimum": 0
+    }
+  }
+}

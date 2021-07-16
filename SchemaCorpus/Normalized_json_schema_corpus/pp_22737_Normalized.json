@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.pipl.pojo.Url",
+  "properties": {
+    "@source_id": {
+      "type": "string",
+      "description": "The source ID (if this URL is a source of data)"
+    },
+    "@domain": {
+      "type": "string",
+      "description": "The domain"
+    },
+    "@name": {
+      "type": "string",
+      "description": "The site name."
+    },
+    "@category": {
+      "type": "string",
+      "description": "One of: \u0027background_reports’, \u0027contact_details’, \u0027email_address’, \u0027media’, \u0027personal_profiles’, \u0027professional_and_business’, \u0027public_records’, \u0027publications’, \u0027school_and_classmates’, \u0027web_pages’"
+    },
+    "url": {
+      "type": "string",
+      "description": "The actual URL"
+    },
+    "@sponsored": {
+      "type": "boolean",
+      "description": "Indicating whether additional data from this source is available behind a website paywall. Omitted if false."
+    }
+  }
+}

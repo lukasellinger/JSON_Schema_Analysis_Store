@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "App",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/definitions/appstatus.json"
+    },
+    "blueprint": {
+      "$ref": "#/definitions/blueprint.json"
+    },
+    "sla": {
+      "$ref": "#/definitions/appsla.json"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "created": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "definitions": {
+    "appstatus.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "AppStatus",
+      "type": "object",
+      "properties": {
+        "phase": {
+          "type": "string",
+          "enum": [
+            "creating",
+            "error",
+            "launched",
+            "planning"
+          ]
+        },
+        "service_count": {
+          "type": "integer"
+        },
+        "pod_count": {
+          "type": "integer"
+        },
+        "container_count": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "phase"
+      ]
+    },
+    "blueprint.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "AppBlueprint",
+      "type": "object",
+      "properties": {
+        "original_type": {
+          "type": "string"
+        },
+        "original_content": {
+          "type": "string"
+        },
+        "edited_content": {
+          "type": "string"
+        },
+        "entry_point": {
+          "type": "string"
+        }
+      }
+    },
+    "appsla.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "AppSla",
+      "type": "object",
+      "properties": {
+        "cost": {
+          "type": "number"
+        },
+        "currency_type": {
+          "type": "string"
+        },
+        "latency": {
+          "type": "number"
+        },
+        "error_rate": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cost",
+        "currency_type",
+        "latency",
+        "error_rate"
+      ]
+    }
+  }
+}

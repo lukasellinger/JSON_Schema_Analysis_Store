@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "https://github.com/landrews33/asteriskmqtt/config.json",
+  "properties": {
+    "asterisk": {
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "port": {
+          "type": "string"
+        },
+        "singleeventpercall": {
+          "type": "boolean"
+        },
+        "user": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "host",
+        "password",
+        "port",
+        "singleeventpercall",
+        "user"
+      ],
+      "type": "object"
+    },
+    "lines": {
+      "items": {
+        "properties": {
+          "channel": {
+            "type": "string"
+          },
+          "dids": {
+            "items": {
+              "properties": {
+                "candial": {
+                  "type": "boolean"
+                },
+                "command_topic": {
+                  "type": "string"
+                },
+                "did": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "status_topic": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "did",
+                "command_topic",
+                "status_topic",
+                "candial",
+                "id"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "internal": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "internal",
+          "dids",
+          "channel"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "mqtt": {
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "username",
+        "password"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "lines",
+    "mqtt",
+    "asterisk"
+  ],
+  "type": "object"
+}

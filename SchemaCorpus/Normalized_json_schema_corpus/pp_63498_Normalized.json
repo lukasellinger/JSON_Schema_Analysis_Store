@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "glTF Child of Root Property",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/glTFProperty.schema.json"
+    }
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The user-defined name of this object.",
+      "gltf_detailedDescription": "The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name."
+    }
+  },
+  "definitions": {
+    "glTFProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Property",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extension.schema.json"
+        },
+        "extras": {
+          "$ref": "#/definitions/extras.schema.json"
+        }
+      }
+    },
+    "extension.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extension",
+      "type": "object",
+      "description": "Dictionary object with extension-specific objects.",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "extras.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extras",
+      "description": "Application-specific data."
+    }
+  }
+}

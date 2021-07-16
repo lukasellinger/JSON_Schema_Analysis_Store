@@ -1,0 +1,658 @@
+{
+  "id": "https://schema.management.azure.com/schemas/2018-06-01/Microsoft.Compute.Galleries.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Microsoft.Compute",
+  "description": "Microsoft Compute Resource Types",
+  "resourceDefinitions": {
+    "galleries": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.Compute/galleries"
+          ]
+        },
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2018-06-01"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Resource location"
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Resource tags"
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GalleryProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/galleries_images_childResource"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "apiVersion",
+        "location",
+        "properties"
+      ],
+      "description": "Microsoft.Compute/galleries"
+    },
+    "galleries_images": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.Compute/galleries/images"
+          ]
+        },
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2018-06-01"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Resource location"
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Resource tags"
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GalleryImageProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/galleries_images_versions_childResource"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "apiVersion",
+        "location",
+        "properties"
+      ],
+      "description": "Microsoft.Compute/galleries/images"
+    },
+    "galleries_images_versions": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.Compute/galleries/images/versions"
+          ]
+        },
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2018-06-01"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Resource location"
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Resource tags"
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GalleryImageVersionProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "apiVersion",
+        "location",
+        "properties"
+      ],
+      "description": "Microsoft.Compute/galleries/images/versions"
+    }
+  },
+  "definitions": {
+    "Disallowed": {
+      "type": "object",
+      "properties": {
+        "diskTypes": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "A list of disk types."
+        }
+      },
+      "description": "Describes the disallowed disk types."
+    },
+    "galleries_images_childResource": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "images"
+          ]
+        },
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2018-06-01"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Resource location"
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Resource tags"
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GalleryImageProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/galleries_images_versions_childResource"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "apiVersion",
+        "location",
+        "properties"
+      ],
+      "description": "Microsoft.Compute/galleries/images"
+    },
+    "galleries_images_versions_childResource": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "versions"
+          ]
+        },
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2018-06-01"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Resource location"
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Resource tags"
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GalleryImageVersionProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "apiVersion",
+        "location",
+        "properties"
+      ],
+      "description": "Microsoft.Compute/galleries/images/versions"
+    },
+    "GalleryArtifactSource": {
+      "type": "object",
+      "properties": {
+        "managedImage": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ManagedArtifact"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        }
+      },
+      "description": "The source of the gallery artifact."
+    },
+    "GalleryIdentifier": {
+      "description": "Describes the gallery unique name."
+    },
+    "GalleryImageIdentifier": {
+      "type": "object",
+      "properties": {
+        "publisher": {
+          "type": "string",
+          "description": "The gallery image publisher name."
+        },
+        "offer": {
+          "type": "string",
+          "description": "The gallery image offer name."
+        },
+        "sku": {
+          "type": "string",
+          "description": "The gallery image sku name."
+        }
+      },
+      "description": "This is the gallery image identifier."
+    },
+    "GalleryImageProperties": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "The description of this gallery image resource."
+        },
+        "eula": {
+          "type": "string",
+          "description": "The Eula agreement for the gallery image."
+        },
+        "privacyStatementUri": {
+          "type": "string",
+          "description": "The privacy statement uri."
+        },
+        "releaseNoteUri": {
+          "type": "string",
+          "description": "The release note uri."
+        },
+        "osType": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Windows",
+                "Linux"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "This property allows you to specify the type of the OS that is included in the disk if creating a VM from user-image or a specialized VHD. \u003cbr\u003e\u003cbr\u003e Possible values are: \u003cbr\u003e\u003cbr\u003e **Windows** \u003cbr\u003e\u003cbr\u003e **Linux**."
+        },
+        "osState": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Generalized",
+                "Specialized"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The OS State."
+        },
+        "endOfLifeDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The end of life of this gallery image."
+        },
+        "identifier": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GalleryImageIdentifier"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "recommended": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/RecommendedMachineConfiguration"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "disallowed": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/Disallowed"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "purchasePlan": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ImagePurchasePlan"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        }
+      },
+      "description": "Describes the properties of a gallery image."
+    },
+    "GalleryImageVersionProperties": {
+      "type": "object",
+      "properties": {
+        "publishingProfile": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GalleryImageVersionPublishingProfile"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        }
+      },
+      "description": "Describes the properties of a gallery image version."
+    },
+    "GalleryImageVersionPublishingProfile": {
+      "type": "object",
+      "properties": {
+        "regions": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The regions where the artifact is going to be published."
+        },
+        "source": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GalleryArtifactSource"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "scaleTier": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "S30",
+                "S100"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The scale tier of the gallery image version. Valid values are \u0027S30\u0027 and \u0027S100\u0027."
+        },
+        "excludeFromLatest": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The flag means that if it is set to true, people deploying VMs with \u0027latest\u0027 as version will not use this version."
+        },
+        "endOfLifeDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The end of life date of the gallery image version."
+        }
+      },
+      "description": "The publishing profile of a gallery image version."
+    },
+    "GalleryProperties": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "The description of this gallery resource."
+        },
+        "identifier": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/GalleryIdentifier"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        }
+      },
+      "description": "Describes the properties of a gallery."
+    },
+    "ImagePurchasePlan": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The plan ID."
+        },
+        "publisher": {
+          "type": "string",
+          "description": "The publisher ID."
+        },
+        "product": {
+          "type": "string",
+          "description": "The product ID."
+        }
+      },
+      "description": "Describes the gallery image purchase plan. This is used by marketplace images."
+    },
+    "ManagedArtifact": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The managed artifact id."
+        }
+      },
+      "description": "The managed artifact."
+    },
+    "RecommendedMachineConfiguration": {
+      "type": "object",
+      "properties": {
+        "vCPUs": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ResourceRange"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "memory": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/ResourceRange"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        }
+      },
+      "description": "Describes the recommended machine configuration."
+    },
+    "ResourceRange": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The minimum number of the resource."
+        },
+        "max": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The maximum number of the resource."
+        }
+      },
+      "description": "Describes the resource range."
+    },
+    "..\\common\\definitions.json_definitions_expression": {
+      "type": "string",
+      "pattern": "^\\[([^\\[].*)?\\]$",
+      "description": "Deployment template expression. See https://aka.ms/arm-template-expressions for more details on the ARM expression syntax."
+    }
+  }
+}

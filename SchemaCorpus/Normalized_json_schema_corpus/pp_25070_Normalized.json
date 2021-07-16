@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/definitions/self_link_schema.json"
+          },
+          {
+            "$ref": "#/definitions/up_link_schema.json"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "self_link_schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "rel": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string",
+              "pattern": "self"
+            }
+          ]
+        },
+        "href": {
+          "type": "string"
+        }
+      }
+    },
+    "up_link_schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "rel": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string",
+              "pattern": "up"
+            }
+          ]
+        },
+        "href": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

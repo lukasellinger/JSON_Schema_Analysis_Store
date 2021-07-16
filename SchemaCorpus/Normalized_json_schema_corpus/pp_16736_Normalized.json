@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "category-schema-v2.json",
+  "type": "object",
+  "title": "Category Definition Schema",
+  "properties": {
+    "name": {
+      "$ref": "#/definitions/name"
+    },
+    "imageUrl": {
+      "$ref": "#/definitions/link"
+    },
+    "description": {
+      "$ref": "#/definitions/description"
+    },
+    "presentation": {
+      "type": "integer",
+      "title": "product ordering, 1000\u003dfeatured",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "imageUrl"
+  ],
+  "definitions": {
+    "name": {
+      "type": "string",
+      "title": "",
+      "minLength": 2
+    },
+    "link": {
+      "type": "string",
+      "format": "uri",
+      "title": "",
+      "pattern": "^(http|https)://[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^\u003d%\u0026amp;:/~\\+#]*[\\w\\-\\@?^\u003d%\u0026amp;/~\\+#])?$"
+    },
+    "description": {
+      "type": "string",
+      "title": "",
+      "minLength": 0
+    }
+  }
+}

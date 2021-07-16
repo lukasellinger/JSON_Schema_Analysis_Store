@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\note.json_definitions_note-input"
+    }
+  ],
+  "required": [
+    "text"
+  ],
+  "example": {
+    "text": "Scitran core!"
+  },
+  "definitions": {
+    "..\\definitions\\note.json_definitions_note-input": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "$ref": "#/definitions/..\\definitions\\note.json_definitions_text"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "note"
+    },
+    "..\\definitions\\note.json_definitions_text": {
+      "type": "string",
+      "x-sdk-positional": true
+    }
+  }
+}

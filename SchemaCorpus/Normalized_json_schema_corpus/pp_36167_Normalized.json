@@ -1,0 +1,470 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "title": "oxtrust.properties",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "baseDN": {
+      "type": "string",
+      "minLength": 1
+    },
+    "orgInum": {
+      "type": "string",
+      "minLength": 1
+    },
+    "orgIname": {
+      "type": "string",
+      "minLength": 1
+    },
+    "orgSupportEmail": {
+      "type": "string",
+      "format": "email",
+      "minLength": 1
+    },
+    "applianceInum": {
+      "type": "string",
+      "minLength": 1
+    },
+    "applianceUrl": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "baseEndpoint": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "schemaAddObjectClassWithoutAttributeTypesDefinition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schemaAddObjectClassWithAttributeTypesDefinition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "personObjectClassTypes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "personCustomObjectClass": {
+      "type": "string",
+      "minLength": 1
+    },
+    "personObjectClassDisplayNames": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "schemaAddAttributeDefinition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contactObjectClassTypes": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "contactObjectClassDisplayNames": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "photoRepositoryRootDir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "photoRepositoryThumbWidth": {
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "photoRepositoryThumbHeight": {
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "photoRepositoryCountLeveles": {
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "photoRepositoryCountFoldersPerLevel": {
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "authMode": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ldifStore": {
+      "type": "string",
+      "minLength": 1
+    },
+    "shibboleth2IdpRootDir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "shibboleth2SpConfDir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pokenApplicationSecret": {
+      "type": "string"
+    },
+    "updateApplianceStatus": {
+      "type": "boolean"
+    },
+    "svnConfigurationStoreRoot": {
+      "type": "string",
+      "minLength": 1
+    },
+    "svnConfigurationStorePassword": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keystorePath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keystorePassword": {
+      "type": "string",
+      "minLength": 1
+    },
+    "allowPersonModification": {
+      "type": "boolean"
+    },
+    "idpUrl": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "velocityLog": {
+      "type": "string",
+      "minLength": 1
+    },
+    "spMetadataPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "logoLocation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "idpSecurityKey": {
+      "type": "string",
+      "minLength": 1
+    },
+    "idpSecurityKeyPassword": {
+      "type": "string",
+      "minLength": 1
+    },
+    "idpSecurityCert": {
+      "type": "string",
+      "minLength": 1
+    },
+    "gluuSpAttributes": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "configGeneration": {
+      "type": "boolean"
+    },
+    "idpLdapProtocol": {
+      "type": "string",
+      "minLength": 1
+    },
+    "idpLdapServer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "idpBindDn": {
+      "type": "string",
+      "minLength": 1
+    },
+    "idpBindPassword": {
+      "type": "string",
+      "minLength": 1
+    },
+    "idpUserFields": {
+      "type": "string"
+    },
+    "gluuSpCert": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mysqlUrl": {
+      "type": "string"
+    },
+    "mysqlUser": {
+      "type": "string"
+    },
+    "mysqlPassword": {
+      "type": "string"
+    },
+    "shibboleth2FederationRootDir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cacheRefreshEnabled": {
+      "type": "boolean"
+    },
+    "cacheRefreshIntervalMinutes": {
+      "type": "integer",
+      "multipleOf": 1,
+      "maximum": 2147483647,
+      "minimum": 1,
+      "exclusiveMaximum": false,
+      "exclusiveMinimum": false
+    },
+    "caCertsLocation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "caCertsPassphrase": {
+      "type": "string"
+    },
+    "tempCertDir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "certDir": {
+      "type": "string",
+      "minLength": 1
+    },
+    "servicesRestartTrigger": {
+      "type": "string",
+      "minLength": 1
+    },
+    "persistSVN": {
+      "type": "boolean"
+    },
+    "oxAuthAuthorizeUrl": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "oxAuthTokenUrl": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "oxAuthValidateTokenUrl": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "oxAuthEndSessionUrl": {
+      "type": "string",
+      "format": "url"
+    },
+    "oxAuthLogoutUrl": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "oxAuthTokenValidationUrl": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "oxAuthUserInfo": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "oxAuthClientId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "oxAuthClientPassword": {
+      "type": "string",
+      "minLength": 1
+    },
+    "oxAuthClientScope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "loginRedirectUrl": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "logoutRedirectUrl": {
+      "type": "string",
+      "format": "url",
+      "minLength": 1
+    },
+    "clusteredInums": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "clientAssociationAttribute": {
+      "type": "string",
+      "minLength": 1
+    },
+    "oxAuthIssuer": {
+      "type": "string"
+    },
+    "ignoreValidation": {
+      "type": "boolean"
+    },
+    "umaIssuer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "umaClientId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "umaClientKeyId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "umaResourceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "umaScope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cssLocation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "jsLocation": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "baseDN",
+    "orgInum",
+    "orgIname",
+    "orgSupportEmail",
+    "applianceInum",
+    "applianceUrl",
+    "baseEndpoint",
+    "schemaAddObjectClassWithoutAttributeTypesDefinition",
+    "schemaAddObjectClassWithAttributeTypesDefinition",
+    "personObjectClassTypes",
+    "personCustomObjectClass",
+    "personObjectClassDisplayNames",
+    "schemaAddAttributeDefinition",
+    "contactObjectClassTypes",
+    "contactObjectClassDisplayNames",
+    "photoRepositoryRootDir",
+    "photoRepositoryThumbWidth",
+    "photoRepositoryThumbHeight",
+    "photoRepositoryCountLeveles",
+    "photoRepositoryCountFoldersPerLevel",
+    "authMode",
+    "ldifStore",
+    "shibboleth2IdpRootDir",
+    "shibboleth2SpConfDir",
+    "pokenApplicationSecret",
+    "updateApplianceStatus",
+    "svnConfigurationStoreRoot",
+    "svnConfigurationStorePassword",
+    "keystorePath",
+    "keystorePassword",
+    "allowPersonModification",
+    "idpUrl",
+    "velocityLog",
+    "spMetadataPath",
+    "logoLocation",
+    "idpSecurityKey",
+    "idpSecurityKeyPassword",
+    "idpSecurityCert",
+    "gluuSpAttributes",
+    "configGeneration",
+    "idpLdapProtocol",
+    "idpLdapServer",
+    "idpBindDn",
+    "idpBindPassword",
+    "idpUserFields",
+    "gluuSpCert",
+    "mysqlUrl",
+    "mysqlUser",
+    "mysqlPassword",
+    "shibboleth2FederationRootDir",
+    "cacheRefreshEnabled",
+    "cacheRefreshIntervalMinutes",
+    "caCertsLocation",
+    "caCertsPassphrase",
+    "tempCertDir",
+    "certDir",
+    "servicesRestartTrigger",
+    "persistSVN",
+    "oxAuthAuthorizeUrl",
+    "oxAuthTokenUrl",
+    "oxAuthValidateTokenUrl",
+    "oxAuthEndSessionUrl",
+    "oxAuthLogoutUrl",
+    "oxAuthTokenValidationUrl",
+    "oxAuthUserInfo",
+    "oxAuthClientId",
+    "oxAuthClientPassword",
+    "oxAuthClientScope",
+    "loginRedirectUrl",
+    "logoutRedirectUrl",
+    "clusteredInums",
+    "clientAssociationAttribute",
+    "oxAuthIssuer",
+    "ignoreValidation",
+    "umaIssuer",
+    "umaClientId",
+    "umaClientKeyId",
+    "umaResourceId",
+    "umaScope",
+    "cssLocation",
+    "jsLocation"
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "title": "oxMemCache-Config",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "cacheProviderType": {
+      "description": "The cacheProvider Type.",
+      "type": "string",
+      "enum": [
+        "IN_MEMORY",
+        "MEMCACHED",
+        "REDIS"
+      ]
+    },
+    "memcachedConfiguration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "servers": {
+          "description": "server details separated by spaces",
+          "title": "servers",
+          "type": "string",
+          "format": "url",
+          "minLength": 1
+        },
+        "maxOperationQueueLength": {
+          "description": "Maximum operation Queue Length.",
+          "type": "integer",
+          "multipleOf": 1,
+          "maximum": 2147483647,
+          "minimum": 1,
+          "exclusiveMaximum": false,
+          "exclusiveMinimum": false
+        },
+        "bufferSize": {
+          "description": "Buffer Size.",
+          "type": "integer",
+          "multipleOf": 1,
+          "maximum": 2147483647,
+          "minimum": 1,
+          "exclusiveMaximum": false,
+          "exclusiveMinimum": false
+        },
+        "defaultPutExpiration": {
+          "description": "Expiration timeout value",
+          "type": "integer",
+          "multipleOf": 1,
+          "maximum": 2147483647,
+          "minimum": 1,
+          "exclusiveMaximum": false,
+          "exclusiveMinimum": false
+        },
+        "MemcachedConnectionFactoryType": {
+          "description": "The MemcachedConnectionFactoryType Type.",
+          "type": "string",
+          "enum": [
+            "IN_MEMORY",
+            "MEMCACHED"
+          ]
+        }
+      },
+      "required": [
+        "servers",
+        "maxOperationQueueLength",
+        "bufferSize",
+        "defaultPutExpiration",
+        "MemcachedConnectionFactoryType"
+      ]
+    },
+    "inMemoryConfiguration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "defaultPutExpiration": {
+          "description": "defaultPutExpiration timeout value",
+          "type": "integer",
+          "multipleOf": 1,
+          "maximum": 2147483647,
+          "minimum": 1,
+          "exclusiveMaximum": false,
+          "exclusiveMinimum": false
+        }
+      }
+    },
+    "redisConfiguration": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "redisProviderType": {
+          "description": "Type of connection.",
+          "type": "string",
+          "enum": [
+            "STANDALONE",
+            "CLUSTER",
+            "SHARDED"
+          ]
+        },
+        "servers": {
+          "description": "server details separated by comma, e.g. \u0027server1:8080,server2:8081\u0027",
+          "title": "servers",
+          "type": "string",
+          "format": "url",
+          "minLength": 3
+        },
+        "defaultPutExpiration": {
+          "description": "defaultPutExpiration timeout value",
+          "type": "integer",
+          "multipleOf": 1,
+          "maximum": 2147483647,
+          "minimum": 1,
+          "exclusiveMaximum": false,
+          "exclusiveMinimum": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "comment",
+  "id": "comment.json",
+  "properties": {
+    "uid": {
+      "$ref": "#/definitions/uid.json"
+    },
+    "author": {
+      "$ref": "#/definitions/person.json",
+      "description": "The person that created this comment"
+    },
+    "text": {
+      "type": "string"
+    },
+    "downvoteCount": {
+      "type": "integer",
+      "description": "A counter for downrates/downvotes of a comment"
+    },
+    "upvoteCount": {
+      "type": "integer",
+      "description": "A counter for uprates/upvotes of a comment"
+    }
+  },
+  "required": [
+    "author",
+    "text"
+  ],
+  "definitions": {
+    "uid.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "uid",
+      "type": "string",
+      "description": "unique identifer"
+    },
+    "person.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "person",
+      "properties": {
+        "uid": {
+          "$ref": "#/definitions/uid.json"
+        },
+        "givenName": {
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "birthDate": {
+          "$ref": "#/definitions/date_string.json"
+        },
+        "deathDate": {
+          "$ref": "#/definitions/date_string.json"
+        }
+      },
+      "required": [
+        "familyName"
+      ]
+    },
+    "date_string.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "date_string",
+      "type": "string",
+      "description": "ISO 8601 date format"
+    }
+  }
+}

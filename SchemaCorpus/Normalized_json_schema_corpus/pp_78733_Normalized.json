@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "instanceID": {
+      "type": "string"
+    },
+    "submissionDate": {
+      "type": "string"
+    },
+    "isComplete": {
+      "type": "string"
+    },
+    "markedAsCompleteDate": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "string"
+    },
+    "boats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "boat_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cars": {
+      "type": [
+        "object",
+        "array"
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "car_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "instanceID": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "instanceID",
+    "submissionDate",
+    "isComplete",
+    "markedAsCompleteDate",
+    "event_name",
+    "start_date",
+    "boats",
+    "cars",
+    "meta"
+  ]
+}

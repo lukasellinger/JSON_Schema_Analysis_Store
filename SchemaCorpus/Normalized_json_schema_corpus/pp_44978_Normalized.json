@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/plugin.json"
+    },
+    {
+      "properties": {
+        "onyx:usesEmotionModel": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/emotionModel.json"
+          }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "plugin.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "required": [
+        "@id",
+        "name",
+        "description",
+        "version",
+        "plugin_type"
+      ],
+      "properties": {
+        "@id": {
+          "type": "string",
+          "description": "Unique identifier for the plugin, usually comprised of the name of the plugin and the version."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the plugin, which will be used in the algorithm detection phase."
+        },
+        "description": {
+          "type": "string",
+          "description": "A summary of what the plugin does, and pointers to further information."
+        },
+        "version": {
+          "type": "string",
+          "description": "The version of the plugin."
+        },
+        "plugin_type": {
+          "type": "string",
+          "description": "Sub-type of plugin. e.g. sentimentPlugin"
+        },
+        "extra_params": {
+          "type": "object"
+        }
+      }
+    },
+    "emotionModel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "nif:beginIndex": {
+          "type": "integer"
+        },
+        "nif:endIndex": {
+          "type": "integer"
+        },
+        "nif:anchorOf": {
+          "description": "Piece of context that contains the Emotion",
+          "type": "string"
+        },
+        "onyx:hasDimension": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dimensions.json"
+          },
+          "uniqueItems": true
+        },
+        "onyx:hasEmotionCategory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/emotion.json"
+          }
+        }
+      },
+      "required": [
+        "@id",
+        "onyx:hasEmotion"
+      ]
+    },
+    "dimensions.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "minValue": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "maxValue",
+        "minValue"
+      ]
+    },
+    "emotion.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object"
+    }
+  }
+}

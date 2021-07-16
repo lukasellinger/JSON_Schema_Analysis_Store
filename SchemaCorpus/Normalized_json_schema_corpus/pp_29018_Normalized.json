@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "message": {
+    "type": "object",
+    "properties": {
+      "sub-id": {
+        "$ref": "#/definitions/common.json_message_sub-id"
+      },
+      "topic": {
+        "$ref": "#/definitions/common.json_message_topic"
+      },
+      "since": {
+        "$ref": "#/definitions/common.json_message_since"
+      },
+      "snapshot": {
+        "$ref": "#/definitions/common.json_message_snapshot"
+      },
+      "filter": {
+        "anyOf": [
+          {
+            "type": "string",
+            "maxLength": 128,
+            "pattern": "^[\\w\\-@]+\\.[\\w\\-\\.#\\*\\[\\]\\?]+$"
+          },
+          {
+            "type": "string",
+            "maxLength": 128,
+            "pattern": "^[\\w\\-\\*\\[\\]\\?]+@[\\w\\-]+\\.[\\w\\-\\*\\[\\]\\?]+$"
+          }
+        ]
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "topic",
+      "filter"
+    ]
+  },
+  "definitions": {
+    "common.json_message_sub-id": {
+      "type": "string",
+      "pattern": "[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}"
+    },
+    "common.json_message_topic": {
+      "type": "string",
+      "pattern": "^/[a-z\\-]+$"
+    },
+    "common.json_message_since": {
+      "type": "number"
+    },
+    "common.json_message_snapshot": {
+      "type": "boolean"
+    }
+  }
+}

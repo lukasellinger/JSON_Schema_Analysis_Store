@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "DeploymentDescriptor",
+  "description": "Module deployment information. There are two modes: deployment managed by Okapi (with nodeId specified) and remote module (with URL specified).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "srvcId": {
+      "description": "The Module ID for the instance",
+      "type": "string"
+    },
+    "instId": {
+      "description": "Instance ID (at least unique for node)",
+      "type": "string"
+    },
+    "nodeId": {
+      "description": "Node ID where module is deployed",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "url": {
+      "description": "URL where module is deployed (not managed by Okapi)",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "descriptor": {
+      "description": "Deployment details",
+      "$ref": "#/definitions/LaunchDescriptor.json"
+    }
+  },
+  "required": [
+    "srvcId"
+  ],
+  "definitions": {
+    "LaunchDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "LaunchDescriptor",
+      "description": "Specifies how a module is deployed and undeployed",
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "exec": {
+          "description": "Process execution with string passed to exec and %p is replaced with assigned port",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cmdlineStart": {
+          "description": "Process start instruction where the idea is that shell or process spawned thereof goes into background on its own. The string is passed to Bourne shell (Unix Only) and %p is replaced with the assigned port",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cmdlineStop": {
+          "description": "Process stop instruction where the idea is that shell or process spawned thereof stops service",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dockerImage": {
+          "description": "Deploy using Docker container and string is Docker image",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dockerPull": {
+          "description": "Whether Docker should attempt pulling",
+          "type": "boolean"
+        },
+        "dockerCMD": {
+          "description": "Override/set CMD of Dockerfile",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "dockerArgs": {
+          "description": "Create Container JSON object passed to create container call for Docker. See https://docs.docker.com/engine/api/v1.37/#operation/ContainerCreate",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "waitIterations": {
+          "description": "Number of iterations that Okapi waits for module to be fully ready",
+          "type": "integer"
+        },
+        "env": {
+          "description": "Default environment for deployment",
+          "$ref": "#/definitions/EnvEntryList.json"
+        }
+      }
+    },
+    "EnvEntryList.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "EnvEntryList",
+      "description": "List of environment variables",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/EnvEntry.json"
+      }
+    },
+    "EnvEntry.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "EnvEntry",
+      "description": "Environment Variable",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Key",
+          "type": "string"
+        },
+        "value": {
+          "description": "Value",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  }
+}

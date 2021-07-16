@@ -1,0 +1,526 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "docs/spec/errors/error.json",
+  "type": "object",
+  "description": "Data captured by an agent representing an event occurring in a monitored app",
+  "properties": {
+    "context": {
+      "$ref": "#/definitions/..\\context.json"
+    },
+    "culprit": {
+      "description": "Function call which was the primary perpetrator of this event.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "exception": {
+      "description": "A standard exception.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "code": {
+          "type": [
+            "string",
+            "number",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "message": {
+          "description": "The exception\u0027s error message.",
+          "type": "string"
+        },
+        "module": {
+          "description": "Describes the exception type\u0027s module namespace.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "attributes": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "stacktrace": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/..\\stacktrace_frame.json"
+          },
+          "minItems": 0
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "uncaught": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
+    "id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "UUID for the error",
+      "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+    },
+    "log": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "level": {
+          "description": "The record severity.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": "error",
+          "enum": [
+            "debug",
+            "info",
+            "warning",
+            "error",
+            "fatal",
+            null
+          ],
+          "maxLength": 1024
+        },
+        "logger_name": {
+          "description": "The name of the logger which created the record.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": "default",
+          "maxLength": 1024
+        },
+        "message": {
+          "description": "The exception\u0027s error message.",
+          "type": "string"
+        },
+        "param_message": {
+          "description": "A parametrized message. E.g. Could not connect to %s. The property message is still required, and should be equal to the param_message, but with placeholders replaced. In some situations the param_message is used to group errors together. The string is not interpreted, so feel free to use whichever placeholders makes sense in the client languange.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "stacktrace": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/..\\stacktrace_frame.json"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$",
+      "description": "Recorded time of the error, UTC based and formatted as YYYY-MM-DDTHH:mm:ss.sssZ"
+    }
+  },
+  "required": [
+    "timestamp"
+  ],
+  "anyOf": [
+    {
+      "required": [
+        "exception"
+      ]
+    },
+    {
+      "required": [
+        "log"
+      ]
+    }
+  ],
+  "definitions": {
+    "..\\context.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Context",
+      "description": "Any arbitrary contextual information regarding the event, captured by the agent, optionally provided by the user",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "custom": {
+          "description": "An arbitrary mapping of additional metadata to store with the event.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "regexProperties": true,
+          "patternProperties": {
+            "^[^.*\"]*$": {}
+          },
+          "additionalProperties": false
+        },
+        "response": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "finished": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "headers": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "content-type": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "headers_sent": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "status_code": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "request": {
+          "$ref": "#/definitions/..\\request.json"
+        },
+        "tags": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "regexProperties": true,
+          "patternProperties": {
+            "^[^.*\"]*$": {
+              "type": "string",
+              "maxLength": 1024
+            }
+          },
+          "additionalProperties": false
+        },
+        "user": {
+          "$ref": "#/definitions/..\\user.json"
+        }
+      }
+    },
+    "..\\request.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Request",
+      "description": "If a log record was generated as a result of a http request, the http interface can be used to collect this information.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "body": {
+          "description": "Data should only contain the request body (not the query string). It can either be a dictionary (for standard HTTP requests) or a raw request body.",
+          "type": [
+            "object",
+            "string",
+            "null"
+          ]
+        },
+        "env": {
+          "description": "The env variable is a compounded of environment information passed from the webserver.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {}
+        },
+        "headers": {
+          "description": "Should include any headers sent by the requester. Cookies will be taken by headers if supplied.",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "content-type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "cookie": {
+              "description": "Cookies sent with the request. It is expected to have values delimited by semicolons.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "user-agent": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "http_version": {
+          "description": "HTTP version.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "method": {
+          "description": "HTTP method.",
+          "type": "string",
+          "maxLength": 1024
+        },
+        "socket": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "encrypted": {
+              "description": "Indicates whether request was sent as SSL/HTTPS request.",
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "remote_address": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "url": {
+          "description": "A complete Url, with scheme, host and path.",
+          "type": "object",
+          "properties": {
+            "raw": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 1024
+            },
+            "protocol": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 1024
+            },
+            "hostname": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 1024
+            },
+            "port": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 1024
+            },
+            "pathname": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 1024
+            },
+            "search": {
+              "description": "The search describes the query string of the request. It is expected to have values delimited by ampersands.",
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 1024
+            },
+            "hash": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "maxLength": 1024
+            }
+          }
+        },
+        "cookies": {
+          "description": "A parsed key-value object of cookies",
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "url",
+        "method"
+      ]
+    },
+    "..\\user.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "User",
+      "description": "Describes the authenticated User for a request.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "number",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "username": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        }
+      }
+    },
+    "..\\stacktrace_frame.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Stacktrace",
+      "type": "object",
+      "description": "A stacktrace frame, contains various bits (most optional) describing the context of the frame",
+      "properties": {
+        "abs_path": {
+          "description": "The absolute path of the file involved in the stack frame",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "colno": {
+          "description": "Column number",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "context_line": {
+          "description": "The line of code part of the stack frame",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "filename": {
+          "description": "The relative filename of the code involved in the stack frame, used e.g. to do error checksumming",
+          "type": "string"
+        },
+        "function": {
+          "description": "The function involved in the stack frame",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "in_app": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "lineno": {
+          "description": "The line number of code part of the stack frame, used e.g. to do error checksumming",
+          "type": "number"
+        },
+        "module": {
+          "description": "The module to which frame belongs to",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "post_context": {
+          "description": "The lines of code after the stack frame",
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 0
+        },
+        "pre_context": {
+          "description": "The lines of code before the stack frame",
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 0
+        },
+        "vars": {
+          "description": "Local variables for this stack frame",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {}
+        }
+      },
+      "required": [
+        "filename",
+        "lineno"
+      ]
+    }
+  }
+}

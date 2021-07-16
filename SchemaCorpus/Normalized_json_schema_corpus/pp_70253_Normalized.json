@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "businesstype",
+  "description": "Business Type",
+  "type": "string",
+  "enum": [
+    "Arts \u0026 Entertainment",
+    "Bakery",
+    "Bars \u0026 Club",
+    "Business \u0026 Professional Services",
+    "Coffee Shop",
+    "Community \u0026 Government",
+    "Education",
+    "Food \u0026 Beverage Retail",
+    "Gas Station",
+    "Legal \u0026 Financial Services",
+    "Medical Services",
+    "Non Food \u0026 Beverage Retail",
+    "Pet Services",
+    "Real Estate",
+    "Residential Services",
+    "Restaurant",
+    "Spas \u0026 Salons",
+    "Sports \u0026 Recreation",
+    "Travel, Tourism \u0026 Lodging",
+    "Non-Profit"
+  ]
+}

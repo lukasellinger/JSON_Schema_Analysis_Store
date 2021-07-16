@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.9.1/utils/oembed_response.json",
+  "description": "An oembed object",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "enum": [
+        "oembed_response"
+      ]
+    },
+    "_id": {
+      "$ref": "#/definitions/..\\traits\\trait_id.json"
+    },
+    "subtype": {
+      "$ref": "#/definitions/..\\traits\\trait_subtype.json"
+    },
+    "channels": {
+      "$ref": "#/definitions/..\\traits\\trait_channel.json"
+    },
+    "additional_properties": {
+      "$ref": "#/definitions/..\\traits\\trait_additional_properties.json"
+    },
+    "raw_oembed": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "referent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "The id passed to the provider to retrieve an ANS document",
+          "type": "string"
+        },
+        "provider": {
+          "description": "A URL that can resolve the id into an ANS element",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider",
+        "id"
+      ]
+    }
+  },
+  "definitions": {
+    "..\\traits\\trait_id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "A globally unique identifier of the content in the ANS repository.",
+      "type": "string"
+    },
+    "..\\traits\\trait_subtype.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Subtype or Template",
+      "type": "string",
+      "description": "A user-defined categorization method to supplement type. In Arc, this field is reserved for organization-defined purposes, such as selecting the PageBuilder template that should be used to render a document."
+    },
+    "..\\traits\\trait_channel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Channel trait",
+      "description": "An optional list of output types for which this element should be visible",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "..\\traits\\trait_additional_properties.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Has additional properties",
+      "description": "A grab-bag object for non-validatable data.",
+      "type": "object",
+      "additionalProperties": {}
+    }
+  }
+}

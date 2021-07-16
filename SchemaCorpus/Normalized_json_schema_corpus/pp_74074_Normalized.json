@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\info.json_definitions_info-update-input",
+  "definitions": {
+    "..\\definitions\\info.json_definitions_info-update-input": {
+      "description": "Helper endpoint for editing an object\u0027s info key",
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/..\\definitions\\info.json_definitions_info-add-remove"
+        },
+        {
+          "$ref": "#/definitions/..\\definitions\\info.json_definitions_info-replace"
+        }
+      ]
+    },
+    "..\\definitions\\info.json_definitions_info-add-remove": {
+      "type": "object",
+      "properties": {
+        "set": {
+          "type": "object",
+          "minProperties": 1
+        },
+        "delete": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\definitions\\info.json_definitions_info-replace": {
+      "type": "object",
+      "properties": {
+        "replace": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

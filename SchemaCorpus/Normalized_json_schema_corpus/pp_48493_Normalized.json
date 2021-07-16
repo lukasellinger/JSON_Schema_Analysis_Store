@@ -1,0 +1,149 @@
+{
+  "$id": "http://pddl-schema.org/ptest.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "defaultDomain": {
+      "type": "string",
+      "title": "The domain file, if common to many of the test cases. The \u0027domain\u0027 property in each individual test case can override this value.",
+      "default": "",
+      "examples": [
+        "domain.pddl"
+      ]
+    },
+    "defaultProblem": {
+      "type": "string",
+      "title": "The problem file, if common to many of the test cases. The \u0027problem\u0027 property in each individual test case can override this value.",
+      "default": "",
+      "examples": [
+        "problem.pddl"
+      ]
+    },
+    "defaultOptions": {
+      "type": "string",
+      "title": "The command line options. Set this to empty string to avoid getting asked every time.",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "The Label for the test case",
+            "default": "Test XYZ",
+            "examples": [
+              "Test case number 1"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "The Description for the test case",
+            "default": "Test XYZ...",
+            "examples": [
+              "Given ... when ... then ..."
+            ]
+          },
+          "domain": {
+            "type": "string",
+            "description": "The Domain file. Use absolute path, or relative to this ptest manifest file.",
+            "default": "domain.pddl",
+            "examples": [
+              "domain.pddl"
+            ]
+          },
+          "problem": {
+            "type": "string",
+            "description": "The Problem file or template.",
+            "default": "problem.pddl",
+            "examples": [
+              "problem.pddl"
+            ]
+          },
+          "options": {
+            "type": "string",
+            "description": "The command-line options",
+            "default": "",
+            "examples": [
+              "-t 0.001"
+            ]
+          },
+          "preProcess": {
+            "description": "Pre-processor to execute before launching the planner.",
+            "type": "object",
+            "required": [
+              "kind"
+            ],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "description": "The kind of pre-processor.",
+                "pattern": "^(nunjucks|jinja2|python|command)$",
+                "default": "nunjucks",
+                "examples": [
+                  "command",
+                  "python",
+                  "nunjucks",
+                  "jinja2"
+                ]
+              },
+              "command": {
+                "type": "string",
+                "description": "The command to execute. Mandatory when \u0027kind\u0027 is set to \u0027command\u0027.",
+                "default": "",
+                "examples": [
+                  "shell",
+                  "script.bat",
+                  "program.exe"
+                ]
+              },
+              "script": {
+                "type": "string",
+                "description": "The python script to execute. Mandatory when \u0027kind\u0027 is set to \u0027python\u0027.",
+                "default": "myscript.py",
+                "examples": [
+                  "script.py"
+                ]
+              },
+              "args": {
+                "type": "array",
+                "description": "Command-line arguments",
+                "items": {
+                  "type": "string",
+                  "title": "The command-line argument",
+                  "default": "",
+                  "examples": [
+                    "script.py",
+                    "data.json"
+                  ]
+                }
+              },
+              "data": {
+                "type": "string",
+                "description": "The JSON data file. This property is mandatory if \u0027kind\u0027 is set to \u0027jinja2\u0027 or \u0027nunjucks\u0027",
+                "default": "case1.json",
+                "examples": [
+                  "data.json"
+                ]
+              }
+            }
+          },
+          "expectedPlans": {
+            "description": "Expected plans - put one or more plan file names here",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "title": "Plan file name",
+              "default": ""
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "prores_ks",
+  "name": "ProRes",
+  "defaults": {},
+  "groups": [
+    {
+      "class": "basic",
+      "properties": [
+        {
+          "parameter": "_pixelFormat",
+          "forced": true,
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "yuv422p10",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": false
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "yuva444p10",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "profile",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "proxy"
+              },
+              {
+                "value": "lt"
+              },
+              {
+                "value": "standard"
+              },
+              {
+                "value": "hq"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "profile",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "4444"
+              },
+              {
+                "value": "4444xq"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "quant_mat",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "proxy"
+              },
+              {
+                "value": "lt"
+              },
+              {
+                "value": "standard"
+              },
+              {
+                "value": "hq"
+              },
+              {
+                "value": "default"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "mbs_per_slice",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 3,
+            "items": [
+              {
+                "value": "1"
+              },
+              {
+                "value": "2"
+              },
+              {
+                "value": "4"
+              },
+              {
+                "value": "8"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "bits_per_mb",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8192,
+            "singleStep": 1,
+            "value": 0
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "alpha_bits",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 2,
+            "items": [
+              {
+                "value": "1"
+              },
+              {
+                "value": "8"
+              },
+              {
+                "value": "16"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "vendor",
+          "control": {
+            "type": "string",
+            "value": "apl0",
+            "regex": "^[a-zA-Z0-9]{0,4}$"
+          }
+        }
+      ]
+    }
+  ]
+}

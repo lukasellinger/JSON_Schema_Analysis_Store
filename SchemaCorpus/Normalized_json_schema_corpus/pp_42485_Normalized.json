@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "root",
+  "type": "object",
+  "title": "Network Partition Definition",
+  "name": "Network Partition",
+  "options": {
+    "disable_properties": true,
+    "disable_collapse": true
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Network Partition Id"
+    },
+    "provider": {
+      "type": "string",
+      "title": "Network Partition provider",
+      "enum": [
+        "mock",
+        "ec2",
+        "openstack",
+        "kubernetes",
+        "gce"
+      ]
+    },
+    "partitions": {
+      "type": "array",
+      "format": "tabs",
+      "title": "Partitions",
+      "items": {
+        "type": "object",
+        "title": "Partition",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Partition Id"
+          },
+          "property": {
+            "type": "array",
+            "title": "Property",
+            "format": "tabs",
+            "items": {
+              "type": "object",
+              "title": "Property",
+              "properties": {
+                "name": {
+                  "title": "Name",
+                  "type": "string"
+                },
+                "value": {
+                  "title": "Value",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "properties": {
+      "type": "array",
+      "title": "Properties",
+      "format": "tabs",
+      "items": {
+        "type": "object",
+        "title": "Property",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "partitions",
+    "provider"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataSource/DataSource.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Контейнер для описания источника данных представления",
+  "type": "object",
+  "properties": {
+    "ObjectDataSource": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataSource/ObjectDataSource/ObjectDataSource.json"
+    },
+    "DocumentDataSource": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataSource/DocumentDataSource/DocumentDataSource.json"
+    },
+    "RestDataSource": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataSource/RestDataSource/RestDataSource.json"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "object",
+        "properties": {
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "string"
+              },
+              "longitude": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "latitude",
+              "longitude"
+            ]
+          },
+          "runway": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Direction": {
+                  "type": "string"
+                },
+                "m": {
+                  "type": "string"
+                },
+                "ft": {
+                  "type": "string"
+                },
+                "Surface": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "nickname": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "iata": {
+            "type": "string"
+          },
+          "icao": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "coordinates",
+          "runway",
+          "name",
+          "nickname",
+          "website",
+          "iata",
+          "icao"
+        ]
+      },
+      "url": {
+        "type": "string"
+      },
+      "baseDir": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "data",
+      "url",
+      "baseDir"
+    ]
+  },
+  "required": [
+    "1"
+  ]
+}

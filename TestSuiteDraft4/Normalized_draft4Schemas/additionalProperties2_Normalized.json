@@ -1,0 +1,9 @@
+{
+  "additionalProperties": {
+    "type": "boolean"
+  },
+  "properties": {
+    "bar": {},
+    "foo": {}
+  }
+}

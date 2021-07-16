@@ -1,0 +1,88 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "The Id Schema ",
+            "default": 0,
+            "examples": [
+              18
+            ]
+          },
+          "number": {
+            "type": "string",
+            "title": "The Number Schema ",
+            "default": "",
+            "examples": [
+              "1"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "title": "The Title Schema ",
+            "default": "",
+            "examples": [
+              "End poverty in all its forms everywhere"
+            ]
+          },
+          "cw_title": {
+            "type": "string",
+            "title": "The Cw_title Schema ",
+            "default": "",
+            "examples": [
+              "No poverty"
+            ]
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "title": "The Id Schema ",
+                  "default": 0,
+                  "examples": [
+                    171
+                  ]
+                },
+                "goal_id": {
+                  "type": "integer",
+                  "title": "The Goal_id Schema ",
+                  "default": 0,
+                  "examples": [
+                    18
+                  ]
+                },
+                "number": {
+                  "type": "string",
+                  "title": "The Number Schema ",
+                  "default": "",
+                  "examples": [
+                    "1.1"
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "title": "The Title Schema ",
+                  "default": "",
+                  "examples": [
+                    "By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

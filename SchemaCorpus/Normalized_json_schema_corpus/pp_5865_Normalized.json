@@ -1,0 +1,363 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "VCMI artifact format",
+  "description": "Format used to define new artifacts in VCMI",
+  "required": [
+    "class",
+    "text",
+    "type",
+    "value"
+  ],
+  "definitions": {
+    "growingBonusList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "level": {
+            "type": "number"
+          },
+          "bonus": {
+            "$ref": "#/definitions/bonus.json"
+          }
+        }
+      }
+    },
+    "bonus.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "VCMI bonus system format",
+      "description": "Subsection of several formats, used to add generic bonuses to objects",
+      "required": [
+        "type"
+      ],
+      "definitions": {
+        "nestedLimiter": {
+          "anyOf": [
+            {
+              "type": "string",
+              "description": "parameterless limiter or boolean operator at start of array"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "type"
+                },
+                "parameters": {
+                  "type": "array",
+                  "description": "parameters",
+                  "additionalItems": true
+                }
+              }
+            },
+            {
+              "type": "array",
+              "additionalItems": {
+                "$ref": "#/definitions/bonus.json_definitions_nestedLimiter",
+                "description": "nested limiters optionally prefixed with boolean operator"
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "addInfo": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyof": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              }
+            }
+          ],
+          "description": "addInfo"
+        },
+        "description": {
+          "type": "string",
+          "description": "description"
+        },
+        "duration": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
+          "description": "duration"
+        },
+        "effectRange": {
+          "type": "string",
+          "description": "effectRange"
+        },
+        "limiters": {
+          "$ref": "#/definitions/bonus.json_definitions_nestedLimiter",
+          "description": "limiter"
+        },
+        "propagator": {
+          "description": "propagator",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "0"
+              }
+            }
+          ]
+        },
+        "updater": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "description": "updater",
+              "type": "object",
+              "required": [
+                "type",
+                "parameters"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "type"
+                },
+                "parameters": {
+                  "type": "array",
+                  "description": "parameters",
+                  "additionalItems": true
+                }
+              }
+            }
+          ]
+        },
+        "sourceID": {
+          "type": "number",
+          "description": "sourceID"
+        },
+        "sourceType": {
+          "type": "string",
+          "description": "sourceType"
+        },
+        "stacking": {
+          "type": "string",
+          "description": "stacking"
+        },
+        "subtype": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "description": "subtype"
+        },
+        "turns": {
+          "type": "number",
+          "description": "turns"
+        },
+        "type": {
+          "type": "string",
+          "description": "type"
+        },
+        "val": {
+          "type": "number",
+          "description": "val"
+        },
+        "valueType": {
+          "type": "string",
+          "description": "valueType"
+        }
+      }
+    },
+    "bonus.json_definitions_nestedLimiter": {
+      "anyOf": [
+        {
+          "type": "string",
+          "description": "parameterless limiter or boolean operator at start of array"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "type"
+            },
+            "parameters": {
+              "type": "array",
+              "description": "parameters",
+              "additionalItems": true
+            }
+          }
+        },
+        {
+          "type": "array",
+          "additionalItems": {
+            "$ref": "#/definitions/bonus.json_definitions_nestedLimiter",
+            "description": "nested limiters optionally prefixed with boolean operator"
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "bonuses": {
+      "type": "array",
+      "description": "Bonuses provided by this artifact using bonus system",
+      "items": {
+        "$ref": "#/definitions/bonus.json"
+      }
+    },
+    "class": {
+      "type": "string",
+      "enum": [
+        "SPECIAL",
+        "TREASURE",
+        "MINOR",
+        "MAJOR",
+        "RELIC"
+      ],
+      "description": "Artifact class, treasure, minor, major or relic"
+    },
+    "index": {
+      "type": "number",
+      "description": "Private field to break things, do not use."
+    },
+    "components": {
+      "type": "array",
+      "description": "Optional, list of components for combinational artifacts",
+      "items": {
+        "type": "string"
+      }
+    },
+    "graphics": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Graphical files associated with the artifact",
+      "required": [
+        "image",
+        "map"
+      ],
+      "properties": {
+        "image": {
+          "type": "string",
+          "description": "Base image for this artifact, used for example in hero screen",
+          "format": "imageFile"
+        },
+        "large": {
+          "type": "string",
+          "description": "Large image, used for drag-and-drop and popup messages",
+          "format": "imageFile"
+        },
+        "map": {
+          "type": "string",
+          "description": ".def file for adventure map",
+          "format": "defFile"
+        }
+      }
+    },
+    "growing": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bonusesPerLevel": {
+          "$ref": "#/definitions/growingBonusList"
+        },
+        "thresholdBonuses": {
+          "$ref": "#/definitions/growingBonusList"
+        }
+      }
+    },
+    "slot": {
+      "description": "Slot to which this artifact can be put, if applicable",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "additionalItems": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "text": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Texts associated with artifact",
+      "required": [
+        "description",
+        "event",
+        "name"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Long description of this artifact"
+        },
+        "event": {
+          "type": "string",
+          "description": "Text that visible on picking this artifact on map"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the artifact"
+        }
+      }
+    },
+    "type": {
+      "type": "array",
+      "description": "Type of this artifact - creature, hero or commander",
+      "items": {
+        "type": "string",
+        "enum": [
+          "HERO",
+          "CREATURE",
+          "COMMANDER"
+        ]
+      }
+    },
+    "value": {
+      "type": "number",
+      "description": "Cost of this artifact, in gold"
+    },
+    "warMachine": {
+      "type": "string",
+      "description": "Creature id to use on battle field. If set, this artifact is war machine"
+    }
+  }
+}

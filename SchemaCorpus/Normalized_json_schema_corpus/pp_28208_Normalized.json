@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "resourceReference",
+  "id": "resourceReference",
+  "description": "A reference to a resource, including it\u0027s ID, type, and a link to retrieve the resource.",
+  "type": "object",
+  "required": [
+    "objectType",
+    "id",
+    "type",
+    "link"
+  ],
+  "properties": {
+    "objectType": {
+      "type": "string",
+      "enum": [
+        "resourceReference"
+      ],
+      "description": "The type of the object, resourceReference."
+    },
+    "id": {
+      "type": "string",
+      "description": "The resource\u0027s unique identifier.",
+      "maxLength": 45
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type for the referenced resource.",
+      "maxLength": 25
+    },
+    "link": {
+      "$ref": "#/definitions/link",
+      "description": "A link for accessing the resource."
+    }
+  },
+  "definitions": {
+    "link": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "link",
+      "description": "Specifies relationships between the current document and an external resource.",
+      "type": "object",
+      "required": [
+        "objectType",
+        "href",
+        "rel"
+      ],
+      "properties": {
+        "objectType": {
+          "type": "string",
+          "description": "The type of the object, link.",
+          "maxLength": 25
+        },
+        "href": {
+          "type": "string",
+          "description": "A URL. Specifies the location of the linked document.",
+          "maxLength": 255
+        },
+        "rel": {
+          "type": "string",
+          "description": "Specifies the relationship between the current document and the linked document.",
+          "maxLength": 25
+        },
+        "title": {
+          "type": "string",
+          "description": "Provide additional / advisory information (expand on the meaning of the link).",
+          "maxLength": 25
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "get",
+            "post"
+          ],
+          "description": "Specifies how to send the data (e.g. get, post)."
+        },
+        "type": {
+          "type": "string",
+          "description": "Specifies the media type of the linked document.",
+          "maxLength": 25
+        }
+      }
+    }
+  }
+}

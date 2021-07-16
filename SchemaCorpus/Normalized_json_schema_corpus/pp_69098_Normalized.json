@@ -1,0 +1,466 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "items": {
+    "additionalProperties": false,
+    "properties": {
+      "Agence": {
+        "default": "MELUN",
+        "description": "Nom de l\u0027agence à laquelle est attaché le patrimoine.",
+        "maxLength": 500,
+        "title": "The agence schema",
+        "type": "string"
+      },
+      "Baux": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "CodePostal": {
+              "default": "77000",
+              "description": "Code Postal.",
+              "maxLength": 10,
+              "minLength": 1,
+              "title": "The codepostal schema",
+              "type": "string"
+            },
+            "Compteurs": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "CodeConstructeur": {
+                    "default": "T016701",
+                    "description": "Code Compteur.",
+                    "maxLength": 200,
+                    "minLength": 1,
+                    "title": "The codeconstructeur schema",
+                    "type": "string"
+                  },
+                  "EmplacementCompteur": {
+                    "default": "Sous évier",
+                    "description": "Emplacement physique du compteur.",
+                    "maxLength": 100,
+                    "title": "The emplacementcompteur schema",
+                    "type": "string"
+                  },
+                  "IndexDebut": {
+                    "default": 1000,
+                    "description": "Index du compteur.",
+                    "title": "The indexdebut schema",
+                    "type": "integer"
+                  },
+                  "LibelleInfo": {
+                    "default": "Compteur jour/nuit",
+                    "description": "Informations complémentaires.",
+                    "maxLength": 200,
+                    "title": "The libelleinfo schema",
+                    "type": "string"
+                  },
+                  "ReferenceExterne": {
+                    "default": "001.230E",
+                    "description": "Référence externe du Compteur.",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "title": "The referenceexterne schema",
+                    "type": "string"
+                  },
+                  "Tarif": {
+                    "default": 10.2,
+                    "description": "Tarif Compteur (e.g. prix kw/h, prix m3).",
+                    "title": "The tarif schema",
+                    "type": "number"
+                  },
+                  "TypeCompteur": {
+                    "default": "Electrique",
+                    "description": "Type de compteur (Eau, eletricité, etc...).",
+                    "maxLength": 500,
+                    "minLength": 1,
+                    "title": "The typecompteur schema",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "TypeCompteur",
+                  "IndexDebut",
+                  "CodeConstructeur",
+                  "ReferenceExterne"
+                ],
+                "title": "Compteurs",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "DateDebutBail": {
+              "default": "2010-12-28",
+              "description": "Date de début de bail (YYYY-MM-DD).",
+              "maxLength": 10,
+              "pattern": "(^\\d{4}-\\d{2}-\\d{2}$)",
+              "title": "The datedebutbail schema",
+              "type": "string"
+            },
+            "DateDepotPreavis": {
+              "default": "2017-02-14",
+              "description": "Date de dépot de garantie de bail (YYYY-MM-DD).",
+              "maxLength": 10,
+              "pattern": "(^(\\d{4}-\\d{2}-\\d{2}|)$)",
+              "title": "The datedepotpreavis schema",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "DateFinBail": {
+              "default": "2017-02-14",
+              "description": "Date de fin de bail (YYYY-MM-DD).",
+              "maxLength": 10,
+              "pattern": "(^(\\d{4}-\\d{2}-\\d{2}|)$)",
+              "title": "The datefinbail schema",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "DateRetourLD": {
+              "default": "2017-02-14",
+              "description": "Date de retour Lettre D (YYYY-MM-DD).",
+              "maxLength": 10,
+              "pattern": "(^(\\d{4}-\\d{2}-\\d{2}|)$)",
+              "title": "The dateretourld schema",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "DepotGarantie": {
+              "default": 345.2,
+              "description": "Montant de dépot de garantie.",
+              "title": "The depotgarantie schema",
+              "type": "number"
+            },
+            "Cautions": {
+              "default": 345.2,
+              "description": "Montant des cautions",
+              "title": "The cautions schema",
+              "type": "number"
+            },
+            "EtatBail": {
+              "default": "O",
+              "description": "Etat du Bail (O)ccupé, (V)acant.",
+              "maxLength": 50,
+              "title": "The etatbail schema",
+              "type": "string"
+            },
+            "LibelleAdresse": {
+              "default": "12 Rue des Bleuets, Appartement 1",
+              "description": "Adresse.",
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "The libelleadresse schema",
+              "type": "string"
+            },
+            "Locataires": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "Civilite": {
+                    "default": "Monsieur",
+                    "description": "Civilité du locataire.",
+                    "maxLength": 10,
+                    "title": "The civilite schema",
+                    "type": "string"
+                  },
+                  "Email": {
+                    "default": "gerard.dupond@mondomaine.fr",
+                    "description": "Email.",
+                    "maxLength": 255,
+                    "title": "The email schema",
+                    "type": "string"
+                  },
+                  "EstLocatairePrincipal": {
+                    "default": true,
+                    "description": "Est le locataire principal du bail.",
+                    "title": "The estlocataireprincipal schema",
+                    "type": "boolean"
+                  },
+                  "Nom": {
+                    "default": "DUPOND",
+                    "description": "Nom du locataire.",
+                    "maxLength": 50,
+                    "minLength": 1,
+                    "title": "The nom schema",
+                    "type": "string"
+                  },
+                  "Prenom": {
+                    "default": "Gérard",
+                    "description": "Prénom du locataire.",
+                    "maxLength": 50,
+                    "minLength": 1,
+                    "title": "The prenom schema",
+                    "type": "string"
+                  },
+                  "ReferenceExterne": {
+                    "default": "ReferenceExterneLocataire",
+                    "description": "An explanation about the purpose of this instance.",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "title": "The referenceexterne schema",
+                    "type": "string"
+                  },
+                  "Telephone": {
+                    "default": "03.20.44.44.44",
+                    "description": "Numéro de téléphone.",
+                    "maxLength": 17,
+                    "title": "The telephone schema",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "Nom",
+                  "Prenom",
+                  "ReferenceExterne"
+                ],
+                "title": "Locataires",
+                "type": "object"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "ReferenceExterne": {
+              "default": "80125",
+              "description": "Référence externe du bail.",
+              "maxLength": 255,
+              "minLength": 1,
+              "title": "The referenceexterne schema",
+              "type": "string"
+            },
+            "SoldeBail": {
+              "default": -10.54,
+              "description": "Solde du bail.",
+              "title": "The soldebail schema",
+              "type": "number"
+            },
+            "Ville": {
+              "default": "MELUN",
+              "description": "Ville.",
+              "maxLength": 100,
+              "minLength": 1,
+              "title": "The ville schema",
+              "type": "string"
+            }
+          },
+          "required": [
+            "LibelleAdresse",
+            "Ville",
+            "DateDebutBail",
+            "DateFinBail",
+            "CodePostal",
+            "ReferenceExterne",
+            "Locataires"
+          ],
+          "title": "Baux",
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "CodePatrimoine": {
+        "default": "001.001.001A",
+        "description": "Référence du patrimoine.",
+        "maxLength": 40,
+        "minLength": 1,
+        "title": "The codepatrimoine schema",
+        "type": "string"
+      },
+      "CodePostal": {
+        "default": "77000",
+        "description": "Code postal.",
+        "maxLength": 10,
+        "minLength": 1,
+        "title": "The codepostal schema",
+        "type": "string"
+      },
+      "DateLocation": {
+        "default": "2010-12-01",
+        "description": "Première date de location.",
+        "maxLength": 10,
+        "pattern": "(^\\d{4}-\\d{2}-\\d{2}$)",
+        "title": "The datelocation schema",
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "DateMiseEnService": {
+        "default": "1999-01-29",
+        "description": "Date de mise en service du patrimoine.",
+        "maxLength": 10,
+        "pattern": "(^\\d{4}-\\d{2}-\\d{2}$)",
+        "title": "The datemiseenservice schema",
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "LibelleAdresse": {
+        "default": "12 Rue des Bleuets, Appartement 1",
+        "description": "Libellé d\u0027adresse.",
+        "maxLength": 100,
+        "minLength": 1,
+        "title": "The libelleadresse schema",
+        "type": "string"
+      },
+      "NomResidence": {
+        "default": "Flandres",
+        "description": "Information complementaire sur l\u0027adresse de l\u0027UG, le nom de la résidence.",
+        "maxLength": 40,
+        "title": "The nomresidence schema",
+        "type": "string"
+      },
+      "NumEtage": {
+        "default": "2",
+        "description": "L\u0027étage si l\u0027unité de gestion se trouve dans un immeuble (RDC, 1 , 2, etc).",
+        "maxLength": 3,
+        "title": "The numetage schema",
+        "type": "string"
+      },
+      "NumImmeuble": {
+        "default": "11",
+        "description": "An explanation about the purpose of this instance.",
+        "maxLength": 10,
+        "title": "The numimmeuble schema",
+        "type": "string"
+      },
+      "Proprietaire": {
+        "additionalProperties": false,
+        "properties": {
+          "Adresse": {
+            "default": "12 Rue des Bleuets, Appartement 1",
+            "description": "Adresse.",
+            "maxLength": 100,
+            "title": "The adresse schema",
+            "type": "string"
+          },
+          "Civilite": {
+            "default": "Monsieur",
+            "description": "Civilité du Propriétaire.",
+            "maxLength": 10,
+            "title": "The civilite schema",
+            "type": "string"
+          },
+          "CodePostal": {
+            "default": "77000",
+            "description": "Code Postal.",
+            "maxLength": 10,
+            "title": "The codepostal schema",
+            "type": "string"
+          },
+          "Email": {
+            "default": "dupond.duront@gmail.com",
+            "description": "Email.",
+            "maxLength": 255,
+            "title": "The email schema",
+            "type": "string"
+          },
+          "Nom": {
+            "default": "Durand",
+            "description": "Nom du Propriétaire.",
+            "maxLength": 50,
+            "minLength": 1,
+            "title": "The nom schema",
+            "type": "string"
+          },
+          "Pays": {
+            "default": "France",
+            "description": "Pays du Propriétaire.",
+            "maxLength": 50,
+            "title": "The pays schema",
+            "type": "string"
+          },
+          "Prenom": {
+            "default": "Robert",
+            "description": "Prenom du Propriétaire.",
+            "maxLength": 50,
+            "minLength": 1,
+            "title": "The prenom schema",
+            "type": "string"
+          },
+          "ReferenceExterne": {
+            "default": "RDurand",
+            "description": "Référence externe du Propriétaire.",
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "The referenceexterne schema",
+            "type": "string"
+          },
+          "Telephone": {
+            "default": "0645127896",
+            "description": "Numéro de téléphone.",
+            "maxLength": 20,
+            "title": "The telephone schema",
+            "type": "string"
+          },
+          "Ville": {
+            "default": "Lille",
+            "description": "Ville.",
+            "maxLength": 100,
+            "title": "The ville schema",
+            "type": "string"
+          }
+        },
+        "required": [
+          "Nom",
+          "ReferenceExterne",
+          "Prenom"
+        ],
+        "title": "Proprietaire",
+        "type": "object"
+      },
+      "ReferenceExterne": {
+        "default": "ReferenceExternePatrimoine",
+        "description": "Référence unique de ce patrimoine.",
+        "maxLength": 255,
+        "minLength": 1,
+        "title": "The referenceexterne schema",
+        "type": "string"
+      },
+      "Ville": {
+        "default": "Lille",
+        "description": "Ville.",
+        "maxLength": 100,
+        "minLength": 1,
+        "title": "The ville schema",
+        "type": "string"
+      },
+      "GroupeUgLibelle": {
+        "default": "Groupe",
+        "description": "Groupe Ug.",
+        "maxLength": 200,
+        "title": "The UG Group schema",
+        "type": "string"
+      },
+      "GroupeUgReferenceExterne": {
+        "default": "ReferenceGroupe",
+        "description": "Référence du Groupe Ug.",
+        "maxLength": 255,
+        "title": "The UG Group reference schema",
+        "type": "string"
+      },
+      "TypeLibelle": {
+        "default": "Type",
+        "description": "Type de patrimoine.",
+        "maxLength": 50,
+        "title": "The type schema",
+        "type": "string"
+      }
+    },
+    "required": [
+      "CodePatrimoine",
+      "LibelleAdresse",
+      "Ville",
+      "CodePostal",
+      "ReferenceExterne"
+    ],
+    "title": "Patrimoine",
+    "type": "object"
+  },
+  "type": "array"
+}

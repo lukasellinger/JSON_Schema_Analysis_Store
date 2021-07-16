@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "id": "#",
+  "properties": {
+    "count": {
+      "type": "number"
+    },
+    "forums": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "num_topics": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "shortname": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "last_post": {
+            "type": "object",
+            "properties": {
+              "flagged_by": {
+                "type": "array"
+              },
+              "status": {
+                "type": "string"
+              },
+              "last_edited": {
+                "type": "null"
+              },
+              "author": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "thread_id": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "author_id": {
+                "type": "string"
+              },
+              "_id": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "subject": {
+                "type": "string"
+              }
+            }
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "limit": {
+      "type": "number"
+    },
+    "page": {
+      "type": "number"
+    }
+  }
+}

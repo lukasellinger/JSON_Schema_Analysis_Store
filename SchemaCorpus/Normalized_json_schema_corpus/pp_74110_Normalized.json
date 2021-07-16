@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "User",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "title": "ID",
+      "type": "string"
+    },
+    "created": {},
+    "modified": {},
+    "firstname": {
+      "title": "First Name",
+      "type": "string"
+    },
+    "lastname": {
+      "title": "Last Name",
+      "type": "string"
+    },
+    "email": {
+      "title": "Email",
+      "type": "string"
+    },
+    "avatars": {
+      "$ref": "#/definitions/..\\definitions\\avatars.json_definitions_avatars"
+    },
+    "avatar": {
+      "title": "Avatar",
+      "type": "string"
+    },
+    "root": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "preferences": {
+      "title": "Preferences",
+      "type": "object"
+    },
+    "api_key": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "created": {},
+        "last_used": {}
+      },
+      "additionalProperties": false
+    },
+    "wechat": {}
+  },
+  "additionalProperties": false,
+  "required": [
+    "_id",
+    "firstname",
+    "lastname",
+    "created",
+    "modified",
+    "root"
+  ],
+  "definitions": {
+    "..\\definitions\\avatars.json_definitions_avatars": {
+      "title": "Avatar",
+      "type": "object",
+      "properties": {
+        "gravatar": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "provider": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "custom": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^https:",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

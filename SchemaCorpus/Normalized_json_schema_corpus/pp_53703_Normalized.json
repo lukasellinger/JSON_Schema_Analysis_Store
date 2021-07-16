@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "List of people for Timezone GNOME Shell Extension",
+  "title": "People",
+  "type": "array",
+  "format": "table",
+  "items": {
+    "type": "object",
+    "title": "Person",
+    "required": [
+      "tz"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Person\u0027s name"
+      },
+      "avatar": {
+        "type": "string",
+        "description": "URL for the person\u0027s avatar"
+      },
+      "city": {
+        "type": "string",
+        "description": "Person\u0027s location (city, country...)"
+      },
+      "tz": {
+        "type": "string",
+        "description": "Person\u0027s timezone. Required. TZ List: http://bit.ly/1BKGEkq"
+      },
+      "gravatar": {
+        "type": "string",
+        "description": "Gravatar ID (person\u0027s email)"
+      },
+      "github": {
+        "type": "string",
+        "description": "GitHub ID"
+      }
+    }
+  }
+}

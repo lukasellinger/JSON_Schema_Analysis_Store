@@ -1,0 +1,10 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/LinkView/OpenMode.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Способ открытия представления",
+  "enum": [
+    "Default",
+    "Container",
+    "Dialog"
+  ]
+}

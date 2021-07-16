@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "message": {
+    "type": "object",
+    "properties": {
+      "topic": {
+        "$ref": "#/definitions/common.json_message_topic"
+      },
+      "since": {
+        "$ref": "#/definitions/common.json_message_since"
+      },
+      "snapshot": {
+        "$ref": "#/definitions/common.json_message_snapshot"
+      },
+      "identity-group": {
+        "type": "string",
+        "maxLength": 128,
+        "pattern": "^[\\w\\-\\.\\*\\[\\]\\?]+$"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "topic"
+    ]
+  },
+  "definitions": {
+    "common.json_message_topic": {
+      "type": "string",
+      "pattern": "^/[a-z\\-]+$"
+    },
+    "common.json_message_since": {
+      "type": "integer"
+    },
+    "common.json_message_snapshot": {
+      "type": "boolean"
+    }
+  }
+}

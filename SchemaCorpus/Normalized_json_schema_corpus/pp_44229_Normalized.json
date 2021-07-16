@@ -1,0 +1,21 @@
+{
+  "id": "action-target",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ActionTargetConfig",
+  "description": "An instance of \u003ca href\u003d\"#action-target\"\u003ean action target.\u003c/a\u003e",
+  "type": "object",
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "title": "Identifier",
+      "description": "The UID of the target.",
+      "example": "hotspot-3d"
+    },
+    "accessor": {
+      "type": "string",
+      "title": "Accessor",
+      "description": "The list of accessor (chained with a dot) to get the target from the \u003cb\u003eUID\u003c/b\u003e object.",
+      "example": "animation"
+    }
+  }
+}

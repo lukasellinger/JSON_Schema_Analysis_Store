@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/sensor.json_definitions_base"
+    },
+    {
+      "oneOf": [
+        {
+          "not": {
+            "$ref": "#/definitions/sensor.json_definitions_car-type"
+          }
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/definitions/sensor.json_definitions_car-type"
+            },
+            {
+              "$ref": "#/definitions/car-properties"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "car-properties": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/sensor.json_definitions_car-properties"
+        },
+        {
+          "properties": {
+            "properties": {
+              "required": [
+                "manufacturer",
+                "model",
+                "fuelType",
+                "constructionYear"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "sensor.json_definitions_base": {
+      "type": "object",
+      "required": [
+        "type",
+        "properties"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object"
+        }
+      }
+    },
+    "sensor.json_definitions_car-type": {
+      "properties": {
+        "type": {
+          "enum": [
+            "car"
+          ]
+        }
+      }
+    },
+    "sensor.json_definitions_car-properties": {
+      "properties": {
+        "properties": {
+          "properties": {
+            "manufacturer": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "fuelType": {
+              "type": "string",
+              "enum": [
+                "diesel",
+                "gasoline",
+                "biodiesel",
+                "kerosene",
+                "electric",
+                "hybrid"
+              ]
+            },
+            "constructionYear": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "VIN": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

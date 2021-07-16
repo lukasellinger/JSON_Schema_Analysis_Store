@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "$ref": "#/definitions/common.json_label"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "location": {
+        "$ref": "#/definitions/common.json_location"
+      },
+      "server": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_hostport"
+        }
+      },
+      "nameservers": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "hostname"
+        }
+      },
+      "rest-server": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_hostport"
+        }
+      },
+      "zkurl": {
+        "type": "string"
+      },
+      "fqdn": {
+        "type": "string",
+        "format": "hostname"
+      },
+      "ttl": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  },
+  "definitions": {
+    "common.json_label": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 32
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "common.json_location": {
+      "type": "string",
+      "pattern": "^[a-zA-Z]+$"
+    },
+    "common.json_hostport": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9\\-_]+(\\.[a-zA-Z0-9\\-_^#]+)+:[1-9][0-9]*$"
+    }
+  }
+}

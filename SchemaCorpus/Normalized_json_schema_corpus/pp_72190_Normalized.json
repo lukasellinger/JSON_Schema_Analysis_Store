@@ -1,0 +1,1635 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Program Template Builder",
+  "description": "Build your program using the magic of magic!",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "ID",
+      "description": "The unique contentful ID associated with this program template"
+    },
+    "name": {
+      "type": "string",
+      "title": "Program Name",
+      "description": "A human-readable name for the program. Dispayed in the SaaSquatch Portal during Program setup."
+    },
+    "summary": {
+      "type": "string",
+      "title": "Program Summary",
+      "description": "A human-readable summary of the program. Dispayed in the SaaSquatch Portal during Program setup."
+    },
+    "longDescription": {
+      "type": "string",
+      "options": {
+        "expand_height": true
+      },
+      "title": "Program Long Description",
+      "description": "A long-form article that sells the benefits of this program. Dispayed in the SaaSquatch Portal during Program setup."
+    },
+    "installGuide": {
+      "type": "string",
+      "title": "Program Install Guide",
+      "description": "This describes how to setup the current program and may update depending on how you\u0027ve configured your program rules"
+    },
+    "rewards": {
+      "type": "array",
+      "title": "Rewards",
+      "description": "A list of all the possible types of rewards this program will give. Your business logic will trigger these based on key",
+      "items": {
+        "headerTemplate": "{{ self.name }}",
+        "$ref": "#/definitions/RewardType"
+      }
+    },
+    "emails": {
+      "type": "array",
+      "title": "Emails",
+      "description": "A list of all the possible types of emails this program will send. Your business logic will trigger these based on key",
+      "items": {
+        "headerTemplate": "{{ self.name }}",
+        "$ref": "#/definitions/EmailType"
+      }
+    },
+    "logo": {
+      "type": "string",
+      "title": "Logo URL",
+      "description": "The URL for the logo associated with this program"
+    },
+    "widgets": {
+      "type": "array",
+      "title": "Widgets",
+      "description": "A list of all the possible types of widgets this program will send. Your business logic will trigger these based on key",
+      "items": {
+        "$ref": "#/definitions/EmailType"
+      }
+    },
+    "globallyInstallable": {
+      "type": "boolean",
+      "title": "Globally Installable",
+      "description": "Indicates whether this program can be installed by any tenant that support GA"
+    },
+    "installableByTenants": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "title": "Installable by Tenants",
+      "description": "The tenants that can install this program if it\u0027s not globally installable",
+      "items": {
+        "type": "string",
+        "title": "Tenant Alias",
+        "description": "The tenant alias for a tenant that can install this program"
+      }
+    },
+    "rules": {
+      "title": "Business Rule Variables",
+      "description": "The business rule variables define a JSON schema of the possible configuration points in the business logic.",
+      "type": "object",
+      "options": {
+        "hidden": true
+      }
+    },
+    "sharing": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "title": "Sharing",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Sharing Enabled",
+          "description": "When sharing is enabled the program will create/support referral share links"
+        },
+        "linksConfig": {
+          "type": "object",
+          "title": "Links Configuration",
+          "description": "Message links configuration (default share text/content for Open Graph/Twitter/etc)",
+          "properties": {
+            "defaults": {
+              "$ref": "#/definitions/ProgramMessages.schema.json"
+            }
+          }
+        }
+      }
+    },
+    "schedule": {
+      "title": "Recurring schedule",
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "userFilter": {
+          "type": "object",
+          "title": "User Filter",
+          "description": "This should be a GraphQL-compatible query json object"
+        },
+        "periodInHours": {
+          "type": "number",
+          "description": "Your program logic will be run on this schedule."
+        }
+      }
+    },
+    "schedules": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "title": "Program Schedules",
+      "description": "The backend schedules that will run at a specified interval and trigger the program for specified users",
+      "items": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Schedule Type",
+            "description": "The type of schedule to run",
+            "enum": [
+              "USER",
+              "REWARD"
+            ]
+          },
+          "key": {
+            "type": "string",
+            "title": "Schedule Key",
+            "description": "A unique identifier for this specific schedule"
+          },
+          "periodInHours": {
+            "type": "integer",
+            "title": "Period in Hours",
+            "description": "The interval by which this schedule will run (e.g. every x hours)"
+          },
+          "filter": {
+            "type": "object",
+            "title": "Filter",
+            "description": "The filter used to determine which users are evaluated when the schedule is run"
+          },
+          "query": {
+            "type": "string",
+            "title": "Query",
+            "description": "The query used to create the program context when a user is evaluated by the schedule"
+          }
+        }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "referrals": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Whether this program supports referrals"
+            }
+          }
+        }
+      }
+    },
+    "rulesUISchema": {
+      "type": "object",
+      "title": "Rules UI Schema",
+      "description": "Defines how the rules will be shown via schema form"
+    },
+    "requirements": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "title": "Program Requirements",
+      "description": "All of these conditions should be satisfied to confirm the program is working",
+      "items": {
+        "$ref": "#/definitions/Requirement"
+      }
+    },
+    "userMetrics": {
+      "type": "array",
+      "title": "Program User Metrics",
+      "description": "Custom metrics defined by this program that will only be activated when the program is live",
+      "items": {
+        "$ref": "#/definitions/UserMetric.schema.json"
+      }
+    },
+    "url": {
+      "type": "string",
+      "title": "Webtask URL",
+      "description": "The URL that will be requested for this program when triggered"
+    },
+    "trigger": {
+      "type": "object",
+      "title": "Program Triggers",
+      "description": "Defines specific triggers for this program",
+      "properties": {
+        "eventKeys": {
+          "type": "array",
+          "title": "Event Keys",
+          "description": "A list of events that can trigger this program",
+          "items": {
+            "type": "string",
+            "title": "Event Key",
+            "description": "When an event with this key is received this program will be triggered"
+          }
+        }
+      }
+    },
+    "rulesMigrationScript": {
+      "type": "string",
+      "title": "Rules Migration Script",
+      "description": "A JSONata script that transforms program rules JSON to be compatible with the most recently published schema version"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "EmailType": {
+      "title": "Email Type",
+      "description": "A type of email that is given by this program.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "title": "Key",
+          "description": "A unique key to identify this email type. Only numbers and latin characers are allowed. Email types must be unique within the scope of a program. e.g. `RewardCreatedEmail`",
+          "pattern": "[a-zA-Z0-9]+",
+          "default": "rewardCreatedEmail"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "A human-readable name for the email type that gets displayed in the SaaSquatch portal during program setup. e.g. `Reward Created Email`",
+          "default": "Reward Created Email"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description",
+          "description": "A human-readable description that explains this email type. Displayed in the SaaSquatch portal during program setup. e.g. `This email is sent when a new reward is created by this program`",
+          "default": "We send this email when a new reward is created by this program"
+        },
+        "defaults": {
+          "oneOf": [
+            {
+              "type": "string",
+              "title": "Default Template Id"
+            },
+            {
+              "$ref": "#/definitions/SimpleEmail.schema.json"
+            },
+            {
+              "$ref": "#/definitions/HtmlEmail.schema.json"
+            }
+          ]
+        }
+      }
+    },
+    "WidgetType": {
+      "title": "Widget Type",
+      "description": "A type of widget that is displayed by this program.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "title": "Key",
+          "description": "A unique key to identify this widget type. Only numbers and latin characers are allowed. Widget types must be unique within the scope of a program. e.g. `ReferrerWidget`",
+          "pattern": "[a-zA-Z0-9]+"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "A human-readable name for the widget type that gets displayed in the SaaSquatch portal during program setup. e.g. `Referrer Widget`"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description",
+          "description": "A human-readable description that explains this widget type. Displayed in the SaaSquatch portal during program setup. e.g. `This widget is sent when a new reward is created by this program`",
+          "default": "We send this widget when a new reward is created by this program"
+        },
+        "defaults": {
+          "$ref": "#/definitions/HtmlWidget.schema.json"
+        }
+      }
+    },
+    "RewardType": {
+      "title": "Reward Type",
+      "description": "A type of reward that is given by this program.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "title": "Key",
+          "description": "A unique key to identify this reward type. Only numbers and latin characers are allowed. Reward types must be unique within the scope of a program. e.g. `FirstPurchaseReward`",
+          "pattern": "[a-zA-Z0-9]+",
+          "default": "firstPurchaseReward"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "A human-readable name for the reward type that gets displayed in the SaaSquatch portal during program setup. e.g. `First Purchase Reward`",
+          "default": "First Purchase Reward"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description",
+          "description": "A human-readable description that explains this reward type. Displayed in the SaaSquatch portal during program setup. e.g. `This reward is given to people when they make their first purchase.`",
+          "default": "This reward is given to people when they make their first purchase."
+        }
+      }
+    },
+    "Requirement": {
+      "title": "Program Requirement",
+      "description": "A condition that should be satified to confirm this program is working",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "title": "Key",
+          "description": "A unique identifier used to validate this requirement"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "The human-friendly name of this requirement"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description",
+          "description": "A description of how this requirement can be satisfied"
+        },
+        "longDescription": {
+          "type": "string",
+          "title": "Long Description",
+          "description": "Rich content regarding the implementation and other details relevant to this requirement"
+        },
+        "query": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "GraphQL Query",
+          "description": "The results of this query will be used to validate this requirement has been satisfied"
+        },
+        "queryVariables": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "title": "GraphQL Query Variables",
+          "description": "These are passed in as parameters to the query"
+        }
+      },
+      "required": [
+        "key",
+        "name",
+        "description"
+      ]
+    },
+    "ProgramMessages.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Program Messaging",
+      "description": "Defines the configurable share messages provided by this program.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shareLinkOpenGraph",
+        "messageLinkOpenGraph",
+        "messages"
+      ],
+      "properties": {
+        "shareLinkOpenGraph": {
+          "$ref": "#/definitions/ProgramMessages.schema.json_definitions_openGraph"
+        },
+        "messageLinkOpenGraph": {
+          "$ref": "#/definitions/ProgramMessages.schema.json_definitions_openGraph"
+        },
+        "messages": {
+          "type": "array",
+          "title": "Share Messages",
+          "items": [
+            {
+              "$ref": "#/definitions/ProgramMessages.schema.json_definitions_twitter"
+            },
+            {
+              "$ref": "#/definitions/ProgramMessages.schema.json_definitions_email"
+            },
+            {
+              "$ref": "#/definitions/ProgramMessages.schema.json_definitions_linkedin"
+            },
+            {
+              "$ref": "#/definitions/ProgramMessages.schema.json_definitions_sms"
+            },
+            {
+              "$ref": "#/definitions/ProgramMessages.schema.json_definitions_whatsapp"
+            },
+            {
+              "$ref": "#/definitions/ProgramMessages.schema.json_definitions_linemessenger"
+            },
+            {
+              "$ref": "#/definitions/ProgramMessages.schema.json_definitions_pinterest"
+            }
+          ],
+          "additionalItems": false
+        }
+      },
+      "definitions": {
+        "openGraph": {
+          "type": "object",
+          "title": "Share Link Open Graph",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": [
+                "HOSTED",
+                "LANDING_PAGE"
+              ],
+              "enumNames": [
+                "Hosted",
+                "Landing Page"
+              ],
+              "default": "LANDING_PAGE"
+            }
+          },
+          "dependencies": {
+            "source": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "source": {
+                      "enum": [
+                        "HOSTED"
+                      ]
+                    },
+                    "title": {
+                      "type": "string",
+                      "title": "Title",
+                      "minLength": 4
+                    },
+                    "description": {
+                      "type": "string",
+                      "title": "Description",
+                      "minLength": 4
+                    },
+                    "image": {
+                      "type": "string",
+                      "title": "Image"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "source",
+                    "title",
+                    "description",
+                    "image"
+                  ]
+                },
+                {
+                  "properties": {
+                    "source": {
+                      "enum": [
+                        "LANDING_PAGE"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "source"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "twitter": {
+          "type": "object",
+          "properties": {
+            "shareMedium": {
+              "type": "string",
+              "default": "TWITTER",
+              "enum": [
+                "TWITTER"
+              ]
+            },
+            "config": {
+              "type": "object",
+              "title": "Twitter",
+              "properties": {
+                "twitterShareBody": {
+                  "type": "string",
+                  "title": "Twitter Share Body",
+                  "minLength": 4
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "twitterShareBody"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "email": {
+          "type": "object",
+          "properties": {
+            "shareMedium": {
+              "type": "string",
+              "default": "EMAIL",
+              "enum": [
+                "EMAIL"
+              ]
+            },
+            "config": {
+              "type": "object",
+              "title": "Email",
+              "properties": {
+                "emailShareSubject": {
+                  "type": "string",
+                  "title": "Email Share Subject",
+                  "minLength": 4
+                },
+                "emailShareBody": {
+                  "type": "string",
+                  "title": "Email Share Body",
+                  "minLength": 4
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "emailShareSubject",
+                "emailShareBody"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "linkedin": {
+          "type": "object",
+          "properties": {
+            "shareMedium": {
+              "type": "string",
+              "default": "LINKEDIN",
+              "enum": [
+                "LINKEDIN"
+              ]
+            },
+            "config": {
+              "type": "object",
+              "title": "LinkedIn",
+              "properties": {
+                "linkedinShareSubject": {
+                  "type": "string",
+                  "title": "LinkedIn Share Subject",
+                  "minLength": 4
+                },
+                "linkedinShareBody": {
+                  "type": "string",
+                  "title": "LinkedIn Share Body",
+                  "minLength": 4
+                },
+                "linkedinShareImageURL": {
+                  "type": "string",
+                  "title": "LinkedIn URL Image"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "linkedinShareSubject",
+                "linkedinShareBody"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "sms": {
+          "type": "object",
+          "properties": {
+            "shareMedium": {
+              "type": "string",
+              "default": "SMS",
+              "enum": [
+                "SMS"
+              ]
+            },
+            "config": {
+              "type": "object",
+              "title": "SMS",
+              "properties": {
+                "smsShareBody": {
+                  "type": "string",
+                  "title": "SMS Share Body",
+                  "minLength": 4
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "smsShareBody"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "whatsapp": {
+          "type": "object",
+          "properties": {
+            "shareMedium": {
+              "type": "string",
+              "default": "WHATSAPP",
+              "enum": [
+                "WHATSAPP"
+              ]
+            },
+            "config": {
+              "type": "object",
+              "title": "WhatsApp",
+              "properties": {
+                "whatsAppShareBody": {
+                  "type": "string",
+                  "title": "WhatsApp Share Body",
+                  "minLength": 4
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "whatsAppShareBody"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "linemessenger": {
+          "type": "object",
+          "properties": {
+            "shareMedium": {
+              "type": "string",
+              "default": "LINEMESSENGER",
+              "enum": [
+                "LINEMESSENGER"
+              ]
+            },
+            "config": {
+              "type": "object",
+              "title": "Line Messenger",
+              "properties": {
+                "lineMessengerShareBody": {
+                  "type": "string",
+                  "title": "Line Messenger Share Body",
+                  "minLength": 4
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "lineMessengerShareBody"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "pinterest": {
+          "type": "object",
+          "properties": {
+            "shareMedium": {
+              "type": "string",
+              "default": "PINTEREST",
+              "enum": [
+                "PINTEREST"
+              ]
+            },
+            "config": {
+              "type": "object",
+              "title": "Pinterest",
+              "properties": {
+                "pinterestImageURL": {
+                  "type": "string",
+                  "title": "Pinterest Image URL"
+                },
+                "pinterestShareBody": {
+                  "type": "string",
+                  "title": "Pinterest Share Body",
+                  "minLength": 4
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "pinterestShareBody",
+                "pinterestImageURL"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "ProgramMessages.schema.json_definitions_openGraph": {
+      "type": "object",
+      "title": "Share Link Open Graph",
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "HOSTED",
+            "LANDING_PAGE"
+          ],
+          "enumNames": [
+            "Hosted",
+            "Landing Page"
+          ],
+          "default": "LANDING_PAGE"
+        }
+      },
+      "dependencies": {
+        "source": {
+          "oneOf": [
+            {
+              "properties": {
+                "source": {
+                  "enum": [
+                    "HOSTED"
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "title": "Title",
+                  "minLength": 4
+                },
+                "description": {
+                  "type": "string",
+                  "title": "Description",
+                  "minLength": 4
+                },
+                "image": {
+                  "type": "string",
+                  "title": "Image"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "source",
+                "title",
+                "description",
+                "image"
+              ]
+            },
+            {
+              "properties": {
+                "source": {
+                  "enum": [
+                    "LANDING_PAGE"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "source"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "ProgramMessages.schema.json_definitions_twitter": {
+      "type": "object",
+      "properties": {
+        "shareMedium": {
+          "type": "string",
+          "default": "TWITTER",
+          "enum": [
+            "TWITTER"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "title": "Twitter",
+          "properties": {
+            "twitterShareBody": {
+              "type": "string",
+              "title": "Twitter Share Body",
+              "minLength": 4
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "twitterShareBody"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProgramMessages.schema.json_definitions_email": {
+      "type": "object",
+      "properties": {
+        "shareMedium": {
+          "type": "string",
+          "default": "EMAIL",
+          "enum": [
+            "EMAIL"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "title": "Email",
+          "properties": {
+            "emailShareSubject": {
+              "type": "string",
+              "title": "Email Share Subject",
+              "minLength": 4
+            },
+            "emailShareBody": {
+              "type": "string",
+              "title": "Email Share Body",
+              "minLength": 4
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "emailShareSubject",
+            "emailShareBody"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProgramMessages.schema.json_definitions_linkedin": {
+      "type": "object",
+      "properties": {
+        "shareMedium": {
+          "type": "string",
+          "default": "LINKEDIN",
+          "enum": [
+            "LINKEDIN"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "title": "LinkedIn",
+          "properties": {
+            "linkedinShareSubject": {
+              "type": "string",
+              "title": "LinkedIn Share Subject",
+              "minLength": 4
+            },
+            "linkedinShareBody": {
+              "type": "string",
+              "title": "LinkedIn Share Body",
+              "minLength": 4
+            },
+            "linkedinShareImageURL": {
+              "type": "string",
+              "title": "LinkedIn URL Image"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "linkedinShareSubject",
+            "linkedinShareBody"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProgramMessages.schema.json_definitions_sms": {
+      "type": "object",
+      "properties": {
+        "shareMedium": {
+          "type": "string",
+          "default": "SMS",
+          "enum": [
+            "SMS"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "title": "SMS",
+          "properties": {
+            "smsShareBody": {
+              "type": "string",
+              "title": "SMS Share Body",
+              "minLength": 4
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "smsShareBody"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProgramMessages.schema.json_definitions_whatsapp": {
+      "type": "object",
+      "properties": {
+        "shareMedium": {
+          "type": "string",
+          "default": "WHATSAPP",
+          "enum": [
+            "WHATSAPP"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "title": "WhatsApp",
+          "properties": {
+            "whatsAppShareBody": {
+              "type": "string",
+              "title": "WhatsApp Share Body",
+              "minLength": 4
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "whatsAppShareBody"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProgramMessages.schema.json_definitions_linemessenger": {
+      "type": "object",
+      "properties": {
+        "shareMedium": {
+          "type": "string",
+          "default": "LINEMESSENGER",
+          "enum": [
+            "LINEMESSENGER"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "title": "Line Messenger",
+          "properties": {
+            "lineMessengerShareBody": {
+              "type": "string",
+              "title": "Line Messenger Share Body",
+              "minLength": 4
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "lineMessengerShareBody"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ProgramMessages.schema.json_definitions_pinterest": {
+      "type": "object",
+      "properties": {
+        "shareMedium": {
+          "type": "string",
+          "default": "PINTEREST",
+          "enum": [
+            "PINTEREST"
+          ]
+        },
+        "config": {
+          "type": "object",
+          "title": "Pinterest",
+          "properties": {
+            "pinterestImageURL": {
+              "type": "string",
+              "title": "Pinterest Image URL"
+            },
+            "pinterestShareBody": {
+              "type": "string",
+              "title": "Pinterest Share Body",
+              "minLength": 4
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "pinterestShareBody",
+            "pinterestImageURL"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "UserMetric.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Metric",
+      "description": "User metrics establish how aggregate functions can be used to update a custom user field with respect to an event.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "Identifier",
+          "description": "A unique identifier for this metric. This should be an ObjectId."
+        },
+        "customFieldKey": {
+          "type": "string",
+          "title": "Custom Field",
+          "description": "The name of the custom field associated with this metric. "
+        },
+        "aggregateId": {
+          "type": "string",
+          "title": "Aggregate Identifier",
+          "description": "An unique identifier for the aggregate operation to perform.",
+          "enum": [
+            "SUM",
+            "COUNT",
+            "FIRST_SEEN",
+            "LAST_SEEN",
+            "FIRST_VALUE",
+            "LAST_VALUE",
+            "THROTTLED_LAST_NUMERIC_VALUE"
+          ]
+        },
+        "dateTriggeredWindow": {
+          "type": "string",
+          "title": "Date Triggered Window",
+          "description": "An ISO 8601 interval. The aggregate operation will only be performed between this window."
+        },
+        "eventKey": {
+          "type": "string",
+          "title": "Event Key",
+          "description": "The event that will be aggregated by this metric."
+        },
+        "fieldsFilters": {
+          "type": "array",
+          "title": "Metric Fields Filters",
+          "description": "The aggregate operation will only be performed for events matching these filters",
+          "items": {
+            "$ref": "#/definitions/UserMetric.schema.json_definitions_filter"
+          }
+        },
+        "filter": {
+          "type": "string",
+          "title": "Filter",
+          "description": "A JSONata expression which will filter out non-matching events"
+        }
+      },
+      "required": [
+        "id",
+        "customFieldKey",
+        "aggregateId",
+        "eventKey"
+      ],
+      "dependencies": {
+        "aggregateId": {
+          "oneOf": [
+            {
+              "properties": {
+                "aggregateId": {
+                  "enum": [
+                    "SUM"
+                  ]
+                },
+                "aggregateRules": {
+                  "$ref": "#/definitions/UserMetric.schema.json_definitions_singleFieldAggregate"
+                }
+              }
+            },
+            {
+              "properties": {
+                "aggregateId": {
+                  "enum": [
+                    "COUNT"
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "aggregateId": {
+                  "enum": [
+                    "FIRST_SEEN"
+                  ]
+                }
+              }
+            },
+            {
+              "properties": {
+                "aggregateId": {
+                  "enum": [
+                    "FIRST_VALUE"
+                  ]
+                },
+                "aggregateRules": {
+                  "$ref": "#/definitions/UserMetric.schema.json_definitions_singleFieldAggregate"
+                }
+              }
+            },
+            {
+              "properties": {
+                "aggregateId": {
+                  "enum": [
+                    "LAST_VALUE"
+                  ]
+                },
+                "aggregateRules": {
+                  "$ref": "#/definitions/UserMetric.schema.json_definitions_singleFieldAggregate"
+                }
+              }
+            },
+            {
+              "properties": {
+                "aggregateId": {
+                  "enum": [
+                    "THROTTLED_LAST_NUMERIC_VALUE"
+                  ]
+                },
+                "aggregateRules": {
+                  "type": "object",
+                  "properties": {
+                    "fieldName": {
+                      "$ref": "#/definitions/UserMetric.schema.json_definitions_fieldName"
+                    },
+                    "diff": {
+                      "type": "string",
+                      "title": "Throttle Interval",
+                      "description": "The minimum interval time that can elapse between recording the value of field name. Default is milliseconds per hour."
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "fieldName"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "definitions": {
+        "singleFieldAggregate": {
+          "type": "object",
+          "properties": {
+            "fieldName": {
+              "$ref": "#/definitions/UserMetric.schema.json_definitions_fieldName"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "fieldName"
+          ]
+        },
+        "fieldName": {
+          "type": "string",
+          "title": "Field Name",
+          "description": "The field on which this aggregate will be performed."
+        },
+        "filter": {
+          "type": "object",
+          "title": "Filter",
+          "description": "Aggregate operator filter",
+          "properties": {
+            "operator": {
+              "type": "string",
+              "title": "Operator",
+              "description": "The operator that will be used in applying the filter",
+              "enum": [
+                "eq",
+                "gt",
+                "gte",
+                "lt",
+                "lte",
+                "exists",
+                "or"
+              ]
+            }
+          },
+          "required": [
+            "operator"
+          ],
+          "dependencies": {
+            "operator": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "operator": {
+                      "enum": [
+                        "or"
+                      ]
+                    },
+                    "value": {
+                      "type": "array",
+                      "title": "OR Filters",
+                      "description": "Filters provided will be evaluated using the OR conditional.",
+                      "items": {
+                        "$ref": "#/definitions/UserMetric.schema.json_definitions_filter"
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "value"
+                  ]
+                },
+                {
+                  "properties": {
+                    "operator": {
+                      "enum": [
+                        "eq",
+                        "gt",
+                        "gte",
+                        "lt",
+                        "lte",
+                        "exists"
+                      ]
+                    },
+                    "field": {
+                      "type": "string",
+                      "title": "Field Name",
+                      "description": "The filter operator will be applied to this event field"
+                    },
+                    "value": {
+                      "type": [
+                        "string",
+                        "integer",
+                        "boolean"
+                      ],
+                      "title": "Field Value",
+                      "description": "The value the filter operator will match on"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "operator",
+                    "value"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "UserMetric.schema.json_definitions_filter": {
+      "type": "object",
+      "title": "Filter",
+      "description": "Aggregate operator filter",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "title": "Operator",
+          "description": "The operator that will be used in applying the filter",
+          "enum": [
+            "eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte",
+            "exists",
+            "or"
+          ]
+        }
+      },
+      "required": [
+        "operator"
+      ],
+      "dependencies": {
+        "operator": {
+          "oneOf": [
+            {
+              "properties": {
+                "operator": {
+                  "enum": [
+                    "or"
+                  ]
+                },
+                "value": {
+                  "type": "array",
+                  "title": "OR Filters",
+                  "description": "Filters provided will be evaluated using the OR conditional.",
+                  "items": {
+                    "$ref": "#/definitions/UserMetric.schema.json_definitions_filter"
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "value"
+              ]
+            },
+            {
+              "properties": {
+                "operator": {
+                  "enum": [
+                    "eq",
+                    "gt",
+                    "gte",
+                    "lt",
+                    "lte",
+                    "exists"
+                  ]
+                },
+                "field": {
+                  "type": "string",
+                  "title": "Field Name",
+                  "description": "The filter operator will be applied to this event field"
+                },
+                "value": {
+                  "type": [
+                    "string",
+                    "integer",
+                    "boolean"
+                  ],
+                  "title": "Field Value",
+                  "description": "The value the filter operator will match on"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "operator",
+                "value"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "UserMetric.schema.json_definitions_singleFieldAggregate": {
+      "type": "object",
+      "properties": {
+        "fieldName": {
+          "$ref": "#/definitions/UserMetric.schema.json_definitions_fieldName"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "fieldName"
+      ]
+    },
+    "UserMetric.schema.json_definitions_fieldName": {
+      "type": "string",
+      "title": "Field Name",
+      "description": "The field on which this aggregate will be performed."
+    },
+    "SimpleEmail.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Simple Email Template Schema",
+      "description": "Defines the customization points available in a Simple Email Template.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "content"
+      ],
+      "properties": {
+        "meta": {
+          "type": "object",
+          "title": "Email",
+          "required": [
+            "fromName",
+            "fromAddress",
+            "subject"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "fromName": {
+              "type": "string",
+              "title": "From Name",
+              "default": "My Company",
+              "propertyOrder": 1,
+              "minLength": 1,
+              "options": {
+                "validate": [
+                  "handlebars"
+                ]
+              }
+            },
+            "fromAddress": {
+              "type": "string",
+              "title": "From Address",
+              "default": "company@example.com",
+              "propertyOrder": 2,
+              "minLength": 5,
+              "options": {
+                "validate": [
+                  "handlebars"
+                ]
+              }
+            },
+            "subject": {
+              "type": "string",
+              "title": "Subject",
+              "propertyOrder": 3,
+              "minLength": 1,
+              "options": {
+                "validate": [
+                  "handlebars"
+                ],
+                "input_height": "50px"
+              }
+            }
+          }
+        },
+        "content": {
+          "type": "object",
+          "title": "Content",
+          "required": [
+            "bodyContent"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "headerImage": {
+              "title": "Header Image",
+              "type": "string"
+            },
+            "headerContent": {
+              "title": "Header",
+              "type": "string",
+              "options": {
+                "validate": [
+                  "handlebars"
+                ],
+                "input_height": "50px"
+              }
+            },
+            "bodyContent": {
+              "title": "Body",
+              "type": "string",
+              "description": "Supports markdown and handlebars expressions. e.g. *bold* _underline_ and [link](https://example.com)",
+              "options": {
+                "validate": [
+                  "handlebars"
+                ]
+              }
+            },
+            "cta": {
+              "type": "object",
+              "title": "Call to Action",
+              "properties": {
+                "enabled": {
+                  "title": "Display CTA button?",
+                  "type": "boolean",
+                  "default": false
+                },
+                "text": {
+                  "title": "Text",
+                  "type": "string"
+                },
+                "link": {
+                  "title": "Link",
+                  "type": "string"
+                }
+              }
+            },
+            "footerContent": {
+              "title": "Footer",
+              "type": "string",
+              "options": {
+                "validate": [
+                  "handlebars"
+                ],
+                "input_height": "50px"
+              }
+            }
+          }
+        }
+      }
+    },
+    "HtmlEmail.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "HTML Email Template Schema",
+      "description": "Defines the customization points available in an HTML body email template.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "htmlContent"
+      ],
+      "properties": {
+        "meta": {
+          "type": "object",
+          "title": "Email",
+          "required": [
+            "fromName",
+            "fromAddress",
+            "subject"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "fromName": {
+              "type": "string",
+              "title": "From Name",
+              "default": "My Company",
+              "propertyOrder": 1,
+              "minLength": 1,
+              "options": {
+                "validate": [
+                  "handlebars"
+                ]
+              }
+            },
+            "fromAddress": {
+              "type": "string",
+              "title": "From Address",
+              "default": "company@example.com",
+              "propertyOrder": 2,
+              "minLength": 5,
+              "options": {
+                "validate": [
+                  "handlebars"
+                ]
+              }
+            },
+            "subject": {
+              "type": "string",
+              "title": "Subject",
+              "propertyOrder": 3,
+              "minLength": 1,
+              "options": {
+                "validate": [
+                  "handlebars"
+                ],
+                "input_height": "50px"
+              }
+            }
+          }
+        },
+        "htmlContent": {
+          "type": "string",
+          "title": "HTML Content",
+          "description": "Raw HTML content that can use {{mergeTags}} from handlebars"
+        }
+      }
+    },
+    "HtmlWidget.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "HTML Widget Template Schema",
+      "description": "Defines a web-component based widget template that uses vanilla HTML.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta",
+        "htmlTemplate"
+      ],
+      "properties": {
+        "meta": {
+          "type": "object",
+          "title": "Template Meta",
+          "additionalProperties": false,
+          "required": [
+            "dependencies",
+            "plugins"
+          ],
+          "properties": {
+            "dependencies": {
+              "type": "array",
+              "description": "A list of NPM resources to load into the widget",
+              "items": {
+                "$ref": "#/definitions/HtmlWidget.schema.json_definitions_npmDependency"
+              }
+            },
+            "plugins": {
+              "type": "array",
+              "description": "A list of component editors used in editing the widget",
+              "items": {
+                "$ref": "#/definitions/HtmlWidget.schema.json_definitions_npmDependency"
+              }
+            }
+          }
+        },
+        "htmlTemplate": {
+          "type": "string",
+          "title": "HTML Template",
+          "description": "Raw HTML content that can use web components."
+        }
+      },
+      "definitions": {
+        "npmDependency": {
+          "type": "object",
+          "properties": {
+            "package": {
+              "type": "string",
+              "description": "An NPM package name or scoped package"
+            },
+            "version": {
+              "type": "string",
+              "description": "An NPM version string, such as Patch releases: 1.0 or 1.0.x or ~1.0.4 Minor releases: 1 or 1.x or ^1.0.4 Major releases: * or x",
+              "default": "latest"
+            },
+            "filePath": {
+              "type": "string",
+              "description": "The path to a resource in the specified package",
+              "default": ""
+            }
+          },
+          "required": [
+            "version",
+            "package"
+          ]
+        }
+      }
+    },
+    "HtmlWidget.schema.json_definitions_npmDependency": {
+      "type": "object",
+      "properties": {
+        "package": {
+          "type": "string",
+          "description": "An NPM package name or scoped package"
+        },
+        "version": {
+          "type": "string",
+          "description": "An NPM version string, such as Patch releases: 1.0 or 1.0.x or ~1.0.4 Minor releases: 1 or 1.x or ^1.0.4 Major releases: * or x",
+          "default": "latest"
+        },
+        "filePath": {
+          "type": "string",
+          "description": "The path to a resource in the specified package",
+          "default": ""
+        }
+      },
+      "required": [
+        "version",
+        "package"
+      ]
+    }
+  }
+}

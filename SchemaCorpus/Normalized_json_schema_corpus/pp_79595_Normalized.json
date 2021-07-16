@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/panelForApp.json"
+  },
+  "description": "An array of panels rolled up across all producing apps",
+  "definitions": {
+    "panelForApp.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "object",
+      "properties": {
+        "app": {
+          "type": "string",
+          "description": "the app that produced this panel"
+        },
+        "panel": {
+          "$ref": "#/definitions/panel.json"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "app",
+        "panel"
+      ]
+    },
+    "panel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "the logical information needed to render a panel (content of an iframe)",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "the url that the iframe will be populated from"
+        }
+      },
+      "required": [
+        "uri"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

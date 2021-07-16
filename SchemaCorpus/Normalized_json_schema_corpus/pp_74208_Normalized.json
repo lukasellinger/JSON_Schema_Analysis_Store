@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Collection",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\collection.json_definitions_collection-input"
+    }
+  ],
+  "required": [
+    "label"
+  ],
+  "example": {
+    "label": "control-group",
+    "description": "Control group collection"
+  },
+  "definitions": {
+    "..\\definitions\\collection.json_definitions_collection-input": {
+      "type": "object",
+      "properties": {
+        "public": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_public"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        },
+        "info": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_info"
+        },
+        "description": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_description"
+        }
+      },
+      "x-sdk-model": "collection",
+      "additionalProperties": false
+    },
+    "..\\definitions\\container.json_definitions_public": {
+      "type": "boolean"
+    },
+    "..\\definitions\\common.json_definitions_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "..\\definitions\\container.json_definitions_info": {
+      "$ref": "#/definitions/..\\definitions\\common.json_definitions_info"
+    },
+    "..\\definitions\\common.json_definitions_info": {
+      "type": "object"
+    },
+    "..\\definitions\\common.json_definitions_description": {
+      "type": "string"
+    }
+  }
+}

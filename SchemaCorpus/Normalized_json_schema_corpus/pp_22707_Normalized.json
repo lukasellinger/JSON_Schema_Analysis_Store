@@ -1,0 +1,221 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.peopledatalabs.pojo.Primary",
+  "properties": {
+    "job": {
+      "$ref": "#/definitions/ExperienceItem.json"
+    },
+    "location": {
+      "$ref": "#/definitions/Location.json"
+    },
+    "name": {
+      "$ref": "#/definitions/Name.json"
+    },
+    "industry": {
+      "type": "string"
+    },
+    "personal_emails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "work_emails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "other_emails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linkedin": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "ExperienceItem.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.peopledatalabs.pojo.ExperienceItem",
+      "properties": {
+        "company": {
+          "type": "object",
+          "javaType": "org.apache.streams.peopledatalabs.pojo.Company",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "size": {
+              "type": "string"
+            },
+            "founded": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "location": {
+              "$ref": "#/definitions/Location.json"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "website": {
+              "type": "string"
+            }
+          }
+        },
+        "title": {
+          "$ref": "#/definitions/Title.json"
+        },
+        "type": {
+          "type": "string"
+        },
+        "is_primary": {
+          "type": "boolean"
+        },
+        "most_recent": {
+          "type": "boolean"
+        },
+        "last_updated": {
+          "type": "string"
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Location.json"
+          }
+        }
+      }
+    },
+    "Location.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.peopledatalabs.pojo.Location",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "locality": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "subregion": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "continent": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "geo": {
+          "type": "boolean"
+        },
+        "postal_code": {
+          "type": "string"
+        },
+        "zip_plus_4": {
+          "type": "string"
+        },
+        "street_address": {
+          "type": "string"
+        },
+        "address_line_2": {
+          "type": "string"
+        },
+        "most_recent": {
+          "type": "boolean"
+        },
+        "is_primary": {
+          "type": "boolean"
+        },
+        "last_updated": {
+          "type": "string"
+        }
+      }
+    },
+    "Title.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.peopledatalabs.pojo.Title",
+      "properties": {
+        "levels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "functions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Name.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.peopledatalabs.pojo.Name",
+      "properties": {
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "suffix": {
+          "type": "string"
+        },
+        "middle_name": {
+          "type": "string"
+        },
+        "middle_initial": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "clean": {
+          "type": "string"
+        },
+        "is_primary": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

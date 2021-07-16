@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "User",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\user.json_definitions_user-input"
+    }
+  ],
+  "example": {
+    "firstname": "Jane",
+    "lastname": "Smith",
+    "email": "jane.smith@gmail.com"
+  },
+  "definitions": {
+    "..\\definitions\\user.json_definitions_user-input": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_user-id"
+        },
+        "firstname": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_firstname"
+        },
+        "lastname": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_lastname"
+        },
+        "email": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_email"
+        },
+        "avatar": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_avatar"
+        },
+        "avatars": {
+          "$ref": "#/definitions/..\\definitions\\avatars.json_definitions_avatars"
+        },
+        "root": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_root"
+        },
+        "disabled": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_disabled"
+        },
+        "preferences": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_preferences"
+        },
+        "wechat": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_wechat"
+        },
+        "firstlogin": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_firstlogin"
+        },
+        "lastlogin": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_lastlogin"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "user"
+    },
+    "..\\definitions\\common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    },
+    "..\\definitions\\user.json_definitions_firstname": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "First Name",
+      "type": "string"
+    },
+    "..\\definitions\\user.json_definitions_lastname": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Last Name",
+      "type": "string"
+    },
+    "..\\definitions\\user.json_definitions_email": {
+      "format": "email",
+      "title": "Email",
+      "type": "string"
+    },
+    "..\\definitions\\user.json_definitions_avatar": {
+      "format": "uri",
+      "title": "Avatar",
+      "type": "string"
+    },
+    "..\\definitions\\avatars.json_definitions_avatars": {
+      "title": "Avatar",
+      "type": "object",
+      "properties": {
+        "gravatar": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "provider": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "custom": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^https:",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\definitions\\user.json_definitions_root": {
+      "type": "boolean"
+    },
+    "..\\definitions\\user.json_definitions_disabled": {
+      "type": "boolean"
+    },
+    "..\\definitions\\user.json_definitions_preferences": {
+      "title": "Preferences",
+      "type": "object"
+    },
+    "..\\definitions\\user.json_definitions_wechat": {},
+    "..\\definitions\\user.json_definitions_firstlogin": {
+      "type": "string"
+    },
+    "..\\definitions\\user.json_definitions_lastlogin": {
+      "type": "string"
+    }
+  }
+}

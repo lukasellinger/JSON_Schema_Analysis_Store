@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/AlekseyBuzmakov/FCAPS/master/FCAPS/schemas/ClassifierModules/CAEPByDongClassifierModule.json",
+  "title": "CAEP classifier by Dong",
+  "description": "A schema, for CAEP classifier by Dong",
+  "allOf": [
+    {
+      "description": "It is a Classifier Module",
+      "$ref": "#/definitions/ClassifierModule.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "enum": [
+            "CAEPByDongClassifierModule"
+          ]
+        },
+        "Params": {
+          "type": "object",
+          "title": "Params of CAEP Classifier",
+          "properties": {
+            "ClassesPath": {
+              "title": "Path to Classes File",
+              "description": "Path to file containing the correspondance between objectnames and classes. File should satisfy https://raw.githubusercontent.com/AlekseyBuzmakov/FCAPS/master/FCAPS/schemas/Other/ClassifierClasses.json",
+              "type": "string"
+            },
+            "TrainPath": {
+              "title": "Path to File with Train Data",
+              "description": "Path to file containing a lattice with train concepts. File should satisfy https://raw.githubusercontent.com/AlekseyBuzmakov/FCAPS/master/FCAPS/schemas/lattice.json",
+              "type": "string"
+            },
+            "PatternManager": {
+              "title": "Pattern Manager for Descriptions",
+              "description": "Pattern manager used to process (intersection, checking subsumption) patterns and objects in the lattice and input objet descriptions",
+              "$ref": "#/definitions/..\\PatternManagersModules\\PatternManagerModule.json"
+            },
+            "EmergencyThld": {
+              "title": "Emergency Threshold for Patterns",
+              "description": "Emergency threshold for patterns that is used  for selecting concepts that are used within the classifier",
+              "type": "number",
+              "minimum": 1.01
+            }
+          },
+          "required": [
+            "ClassesPath",
+            "TrainPath",
+            "PatternManager"
+          ]
+        }
+      },
+      "required": [
+        "Type",
+        "Name",
+        "Params"
+      ]
+    }
+  ],
+  "definitions": {
+    "ClassifierModule.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Schema for all Classifier Modules",
+      "description": "A schema, all classifier modules should sattisfy to",
+      "allOf": [
+        {
+          "description": "It is a module",
+          "$ref": "#/definitions/..\\module.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Type": {
+              "type": "string",
+              "description": "It is a classifier module",
+              "enum": [
+                "ClassifierModules"
+              ]
+            },
+            "Name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Type",
+            "Name"
+          ]
+        }
+      ]
+    },
+    "..\\module.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Module Params",
+      "description": "Json file give the type, name, and params of a module that should be created by a program",
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "title": "Module Type",
+          "descripton": "A name of module type"
+        },
+        "Name": {
+          "type": "string",
+          "title": "Module Name",
+          "descripton": "A name of module, given by the creator of the module"
+        },
+        "Params": {
+          "type": "object",
+          "description": "Params of the created module"
+        }
+      },
+      "required": [
+        "Type",
+        "Name"
+      ]
+    },
+    "..\\PatternManagersModules\\PatternManagerModule.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Schema for all Pattern Manager Modules",
+      "description": "A schema, all pattern managers modules should sattisfy to",
+      "allOf": [
+        {
+          "description": "It is a module",
+          "$ref": "#/definitions/..\\module.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Type": {
+              "type": "string",
+              "description": "It is a pattern manager module",
+              "enum": [
+                "PatternManagerModules"
+              ]
+            },
+            "Name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Type",
+            "Name"
+          ]
+        }
+      ]
+    }
+  }
+}

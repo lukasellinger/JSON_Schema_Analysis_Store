@@ -1,0 +1,432 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "plans": {
+      "type": "array",
+      "itemType": {
+        "$ref": "#/definitions/plan.schema.json"
+      }
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "plan.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "required": [
+        "initialLevel"
+      ],
+      "properties": {
+        "initialLevel": {
+          "$ref": "#/definitions/plan.schema.json_definitions_initialLevel"
+        },
+        "extensionLevels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/plan.schema.json_definitions_extensionLevel"
+          },
+          "default": []
+        }
+      },
+      "definitions": {
+        "initialLevel": {
+          "type": "object",
+          "required": [
+            "functionalityProvisions"
+          ],
+          "properties": {
+            "functionalityProvisions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/plan.schema.json_definitions_functionalityProvision"
+              },
+              "minItems": 1
+            }
+          }
+        },
+        "extensionLevel": {
+          "type": "object",
+          "required": [
+            "actionProvisions"
+          ],
+          "properties": {
+            "actionProvisions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/plan.schema.json_definitions_actionProvision"
+              },
+              "minItems": 1
+            }
+          }
+        },
+        "actionProvision": {
+          "type": "object",
+          "required": [
+            "request"
+          ],
+          "properties": {
+            "requestedAction": {
+              "$ref": "#/definitions/plan.schema.json_definitions_action"
+            },
+            "precursorAction": {
+              "$ref": "#/definitions/plan.schema.json_definitions_action"
+            },
+            "propertyProvisions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/plan.schema.json_definitions_propertyProvision"
+              },
+              "minItems": 1
+            }
+          }
+        },
+        "propertyProvision": {
+          "type": "object",
+          "required": [
+            "request",
+            "offer",
+            "providingAction"
+          ],
+          "properties": {
+            "request": {
+              "$ref": "#/definitions/plan.schema.json_definitions_property"
+            },
+            "offer": {
+              "$ref": "#/definitions/plan.schema.json_definitions_property"
+            },
+            "providingAction": {
+              "$ref": "#/definitions/plan.schema.json_definitions_action"
+            },
+            "distance": {
+              "$ref": "#/definitions/plan.schema.json_definitions_distance"
+            }
+          }
+        },
+        "functionalityProvision": {
+          "type": "object",
+          "required": [
+            "request",
+            "offer",
+            "providingAction"
+          ],
+          "properties": {
+            "request": {
+              "$ref": "#/definitions/plan.schema.json_definitions_functionality"
+            },
+            "offer": {
+              "$ref": "#/definitions/plan.schema.json_definitions_functionality"
+            },
+            "providingAction": {
+              "$ref": "#/definitions/plan.schema.json_definitions_action"
+            },
+            "distance": {
+              "$ref": "#/definitions/plan.schema.json_definitions_distance"
+            }
+          }
+        },
+        "action": {
+          "type": "object",
+          "required": [
+            "widget"
+          ],
+          "properties": {
+            "widget": {
+              "$ref": "#/definitions/plan.schema.json_definitions_widget"
+            },
+            "interactions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/plan.schema.json_definitions_interaction"
+              },
+              "default": []
+            },
+            "publishedProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/plan.schema.json_definitions_property"
+              },
+              "default": []
+            },
+            "realizedFunctionalities": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/plan.schema.json_definitions_functionality"
+              },
+              "default": []
+            }
+          }
+        },
+        "property": {
+          "type": "object",
+          "required": [
+            "name",
+            "type"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "$ref": "#/definitions/plan.schema.json_definitions_type"
+            }
+          }
+        },
+        "interaction": {
+          "type": "object",
+          "required": [
+            "instructionText"
+          ],
+          "properties": {
+            "instructionText": {
+              "type": "string"
+            }
+          }
+        },
+        "widget": {
+          "$ref": "#/definitions/plan.schema.json_definitions_identifiable"
+        },
+        "functionality": {
+          "$ref": "#/definitions/plan.schema.json_definitions_identifiable"
+        },
+        "type": {
+          "$ref": "#/definitions/plan.schema.json_definitions_identifiable"
+        },
+        "identifiable": {
+          "description": "a uniquely identifiable entity",
+          "type": "object",
+          "oneOf": [
+            {
+              "required": [
+                "uri"
+              ],
+              "properties": {
+                "uri": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "a URI identifying the entity"
+                }
+              }
+            },
+            {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "a value uniquely identifying the entity within a single plan, used when the entity cannot identified by a URI"
+                }
+              }
+            }
+          ]
+        },
+        "distance": {
+          "type": "number",
+          "min": 0,
+          "default": 0,
+          "description": "a value indicating the distance between two related concepts, the higher the value the more distant their relation is, value 0 means identical concepts"
+        }
+      }
+    },
+    "plan.schema.json_definitions_initialLevel": {
+      "type": "object",
+      "required": [
+        "functionalityProvisions"
+      ],
+      "properties": {
+        "functionalityProvisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/plan.schema.json_definitions_functionalityProvision"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "plan.schema.json_definitions_functionalityProvision": {
+      "type": "object",
+      "required": [
+        "request",
+        "offer",
+        "providingAction"
+      ],
+      "properties": {
+        "request": {
+          "$ref": "#/definitions/plan.schema.json_definitions_functionality"
+        },
+        "offer": {
+          "$ref": "#/definitions/plan.schema.json_definitions_functionality"
+        },
+        "providingAction": {
+          "$ref": "#/definitions/plan.schema.json_definitions_action"
+        },
+        "distance": {
+          "$ref": "#/definitions/plan.schema.json_definitions_distance"
+        }
+      }
+    },
+    "plan.schema.json_definitions_functionality": {
+      "$ref": "#/definitions/plan.schema.json_definitions_identifiable"
+    },
+    "plan.schema.json_definitions_identifiable": {
+      "description": "a uniquely identifiable entity",
+      "type": "object",
+      "oneOf": [
+        {
+          "required": [
+            "uri"
+          ],
+          "properties": {
+            "uri": {
+              "type": "string",
+              "format": "uri",
+              "description": "a URI identifying the entity"
+            }
+          }
+        },
+        {
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "a value uniquely identifying the entity within a single plan, used when the entity cannot identified by a URI"
+            }
+          }
+        }
+      ]
+    },
+    "plan.schema.json_definitions_action": {
+      "type": "object",
+      "required": [
+        "widget"
+      ],
+      "properties": {
+        "widget": {
+          "$ref": "#/definitions/plan.schema.json_definitions_widget"
+        },
+        "interactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/plan.schema.json_definitions_interaction"
+          },
+          "default": []
+        },
+        "publishedProperties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/plan.schema.json_definitions_property"
+          },
+          "default": []
+        },
+        "realizedFunctionalities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/plan.schema.json_definitions_functionality"
+          },
+          "default": []
+        }
+      }
+    },
+    "plan.schema.json_definitions_widget": {
+      "$ref": "#/definitions/plan.schema.json_definitions_identifiable"
+    },
+    "plan.schema.json_definitions_interaction": {
+      "type": "object",
+      "required": [
+        "instructionText"
+      ],
+      "properties": {
+        "instructionText": {
+          "type": "string"
+        }
+      }
+    },
+    "plan.schema.json_definitions_property": {
+      "type": "object",
+      "required": [
+        "name",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/plan.schema.json_definitions_type"
+        }
+      }
+    },
+    "plan.schema.json_definitions_type": {
+      "$ref": "#/definitions/plan.schema.json_definitions_identifiable"
+    },
+    "plan.schema.json_definitions_distance": {
+      "type": "number",
+      "min": 0,
+      "default": 0,
+      "description": "a value indicating the distance between two related concepts, the higher the value the more distant their relation is, value 0 means identical concepts"
+    },
+    "plan.schema.json_definitions_extensionLevel": {
+      "type": "object",
+      "required": [
+        "actionProvisions"
+      ],
+      "properties": {
+        "actionProvisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/plan.schema.json_definitions_actionProvision"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "plan.schema.json_definitions_actionProvision": {
+      "type": "object",
+      "required": [
+        "request"
+      ],
+      "properties": {
+        "requestedAction": {
+          "$ref": "#/definitions/plan.schema.json_definitions_action"
+        },
+        "precursorAction": {
+          "$ref": "#/definitions/plan.schema.json_definitions_action"
+        },
+        "propertyProvisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/plan.schema.json_definitions_propertyProvision"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "plan.schema.json_definitions_propertyProvision": {
+      "type": "object",
+      "required": [
+        "request",
+        "offer",
+        "providingAction"
+      ],
+      "properties": {
+        "request": {
+          "$ref": "#/definitions/plan.schema.json_definitions_property"
+        },
+        "offer": {
+          "$ref": "#/definitions/plan.schema.json_definitions_property"
+        },
+        "providingAction": {
+          "$ref": "#/definitions/plan.schema.json_definitions_action"
+        },
+        "distance": {
+          "$ref": "#/definitions/plan.schema.json_definitions_distance"
+        }
+      }
+    }
+  }
+}

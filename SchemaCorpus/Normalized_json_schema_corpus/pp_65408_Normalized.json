@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "ccc": {
+      "type": "object",
+      "oneOf": [
+        {
+          "properties": {
+            "ccc_type": {
+              "enum": [
+                "ddd"
+              ]
+            },
+            "ccc_properties": {
+              "$ref": "#/definitions/includes\\ddd.json"
+            }
+          }
+        },
+        {
+          "properties": {
+            "ccc_type": {
+              "enum": [
+                "eee"
+              ]
+            },
+            "ccc_properties": {
+              "$ref": "#/definitions/includes\\eee.json"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "includes\\ddd.json": {
+      "type": "object",
+      "properties": {
+        "ddd": {
+          "type": "number"
+        }
+      }
+    },
+    "includes\\eee.json": {
+      "type": "object",
+      "properties": {
+        "eee": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

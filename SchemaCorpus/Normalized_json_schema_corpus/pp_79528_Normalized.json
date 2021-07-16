@@ -1,0 +1,543 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "accessPoint": {
+      "type": "object",
+      "description": "Link to an external result.",
+      "properties": {
+        "uri": {
+          "title": "URI",
+          "type": "string",
+          "format": "uri"
+        },
+        "typeCode": {
+          "type": "string",
+          "title": "Type",
+          "enum": [
+            "Individual",
+            "Group"
+          ]
+        }
+      }
+    },
+    "scoreNumeric": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "ScoreNumeric"
+          ],
+          "options": {
+            "hidden": true
+          }
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "Percentile",
+            "Raw Score",
+            "Stanine",
+            "Sten",
+            "T-score",
+            "Z-score",
+            "Intelligence Quotient",
+            "Scaled",
+            "Normal Curve",
+            "GPA"
+          ]
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      }
+    },
+    "scoreText": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "Scoretext"
+          ],
+          "options": {
+            "hidden": true
+          }
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "Grade Letter"
+          ]
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        }
+      }
+    },
+    "score": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "title": "Numeric Score",
+            "$ref": "#/definitions/scoreNumeric"
+          },
+          {
+            "title": "Text Score",
+            "$ref": "#/definitions/scoreText"
+          }
+        ]
+      }
+    },
+    "assessedCompetency": {
+      "title": "Assessed Competency",
+      "type": "object",
+      "description": "A specified competency is a reference to a particular competency at a specified level of proficiency",
+      "properties": {
+        "id": {
+          "title": "Name",
+          "type": "integer"
+        },
+        "proficiencyLevel": {
+          "title": "Proficiency Level",
+          "$ref": "#/definitions/score"
+        }
+      }
+    },
+    "passedFlag": {
+      "title": "Pass?",
+      "type": "boolean"
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Result Name",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "passedFlag": {
+          "$ref": "#/definitions/passedFlag"
+        },
+        "score": {
+          "title": "Score",
+          "$ref": "#/definitions/score"
+        },
+        "comment": {
+          "title": "Comment",
+          "type": "string"
+        },
+        "bandID": {
+          "title": "Band",
+          "type": "string"
+        },
+        "assessedCompetency": {
+          "title": "Assessed Competency",
+          "$ref": "#/definitions/assessedCompetency"
+        }
+      }
+    },
+    "attachmentType": {
+      "title": "Name",
+      "type": "string",
+      "description": "Only one document with this name can be attached to an assessment result."
+    },
+    "attachmentWrite": {
+      "type": "object",
+      "properties": {
+        "attachmentType": {
+          "$ref": "#/definitions/attachmentType"
+        },
+        "fileUpload": {
+          "$ref": "#/definitions/fileUpload.json"
+        }
+      },
+      "required": [
+        "attachmentType",
+        "fileUpload"
+      ]
+    },
+    "attachmentRead": {
+      "type": "object",
+      "properties": {
+        "attachmentType": {
+          "$ref": "#/definitions/attachmentType"
+        },
+        "fileDownload": {
+          "$ref": "#/definitions/fileDownload.json"
+        }
+      },
+      "required": [
+        "attachmentType",
+        "fileDownload"
+      ]
+    },
+    "assessmentDetailWrite": {
+      "properties": {
+        "assessmentOverallResult": {
+          "title": "Overall Result",
+          "$ref": "#/definitions/result"
+        },
+        "assessmentDetailedResults": {
+          "title": "Result Details",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/result"
+          }
+        },
+        "accessPoints": {
+          "title": "Links",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accessPoint"
+          }
+        },
+        "attachments": {
+          "title": "Attachments",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attachmentWrite"
+          }
+        }
+      }
+    },
+    "assessmentDetailRead": {
+      "properties": {
+        "overallResult": {
+          "title": "Overall Result",
+          "$ref": "#/definitions/result"
+        },
+        "detailedResults": {
+          "title": "Result Details",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/result"
+          }
+        },
+        "accessPoints": {
+          "title": "Links",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/accessPoint"
+          }
+        },
+        "attachments": {
+          "title": "Attachments",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attachmentRead"
+          }
+        }
+      }
+    },
+    "status": {
+      "description": "The current disposition of an assessment",
+      "enum": [
+        "Started",
+        "In progress",
+        "Complete",
+        "Cancelled",
+        "Opted out",
+        "Error"
+      ]
+    },
+    "userInteractionUri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri",
+      "description": "when present, a uri of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
+    },
+    "interactionUris": {
+      "type": "object",
+      "properties": {
+        "candidateInteractionUri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "description": "when present, a uri that the candidate must follow to complete some part of the assessment"
+        },
+        "userInteractionUri": {
+          "$ref": "#/definitions/userInteractionUri"
+        },
+        "userAttentionRequired": {
+          "type": "boolean",
+          "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when userInteractionUri is non-null."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "candidateInteractionUri",
+        "userInteractionUri",
+        "userAttentionRequired"
+      ]
+    },
+    "imageUrl": {
+      "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment\u0027s status or an unstarted assessment type",
+      "type": "string",
+      "format": "url"
+    },
+    "givenName": {
+      "type": "string"
+    },
+    "familyName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "launchDocument": {
+      "type": "string",
+      "description": "a url-encoded json document containing start paramaters for this assessment, typically captured by the assessment type\u0027s launch UI"
+    },
+    "raiser": {
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "$ref": "#/definitions/givenName"
+        },
+        "familyName": {
+          "$ref": "#/definitions/familyName"
+        },
+        "email": {
+          "$ref": "#/definitions/email"
+        }
+      },
+      "additionalProperties": false
+    },
+    "raisers": {
+      "description": "a list of every user who raised this assessment (i.e., via a linkage). Does not include linkages raised by the system, e.g. an assessment started because a candidate dropped into a bucket",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/raiser"
+      }
+    },
+    "fileUpload.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "Details for a file upload operation",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/fileDownload.json_definitions_data"
+        },
+        "fileName": {
+          "$ref": "#/definitions/fileDownload.json_definitions_fileName"
+        },
+        "via": {
+          "$ref": "#/definitions/fileDownload.json_definitions_via"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "data",
+        "fileName",
+        "via"
+      ]
+    },
+    "fileDownload.json_definitions_data": {
+      "type": "string",
+      "media": {
+        "binaryEncoding": "base64"
+      }
+    },
+    "fileDownload.json_definitions_fileName": {
+      "type": "string"
+    },
+    "fileDownload.json_definitions_via": {
+      "type": "string",
+      "description": "the mechanism via which the file was uploaded - either \u0027device\u0027 or the fqdn of a cloud storage platform (e.g. dropbox.com)"
+    },
+    "fileDownload.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "details for a previously uploaded file",
+      "definitions": {
+        "via": {
+          "type": "string",
+          "description": "the mechanism via which the file was uploaded - either \u0027device\u0027 or the fqdn of a cloud storage platform (e.g. dropbox.com)"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "mediaType": {
+          "description": "keep in synch with the trait document_asStream",
+          "enum": [
+            "application/pdf",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/msword",
+            "application/rtf",
+            "text/plain",
+            "image/png",
+            "image/jpeg",
+            "image/gif",
+            "text/html",
+            "audio/x-mpeg-3",
+            "video/x-msvideo",
+            "video/mp4"
+          ]
+        },
+        "data": {
+          "type": "string",
+          "media": {
+            "binaryEncoding": "base64"
+          }
+        }
+      },
+      "type": "object",
+      "properties": {
+        "fileName": {
+          "$ref": "#/definitions/fileDownload.json_definitions_fileName"
+        },
+        "via": {
+          "$ref": "#/definitions/fileDownload.json_definitions_via"
+        },
+        "mediaType": {
+          "$ref": "#/definitions/fileDownload.json_definitions_mediaType"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "md5": {
+          "type": "string",
+          "description": "hash of the file\u0027s binary content"
+        },
+        "dateUploaded": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the date and time the file was uploaded"
+        },
+        "preSignedUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "pre-signed link as per http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html to access the raw data. Includes file name as the trailing component so that browsers name the download correctly."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "fileName",
+        "size",
+        "mediaType",
+        "preSignedUri"
+      ]
+    },
+    "fileDownload.json_definitions_mediaType": {
+      "description": "keep in synch with the trait document_asStream",
+      "enum": [
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/msword",
+        "application/rtf",
+        "text/plain",
+        "image/png",
+        "image/jpeg",
+        "image/gif",
+        "text/html",
+        "audio/x-mpeg-3",
+        "video/x-msvideo",
+        "video/mp4"
+      ]
+    },
+    "assessmentMeta.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "definitions": {
+        "id": {
+          "type": "integer"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "when the object was created"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/assessmentMeta.json_definitions_id"
+        },
+        "application": {
+          "$ref": "#/definitions/assessmentMeta.json_definitions_id"
+        },
+        "candidate": {
+          "$ref": "#/definitions/assessmentMeta.json_definitions_id"
+        },
+        "job": {
+          "$ref": "#/definitions/assessmentMeta.json_definitions_id"
+        },
+        "created": {
+          "$ref": "#/definitions/assessmentMeta.json_definitions_created"
+        }
+      },
+      "required": [
+        "id",
+        "created"
+      ],
+      "additionalProperties": false
+    },
+    "assessmentMeta.json_definitions_id": {
+      "type": "integer"
+    },
+    "assessmentMeta.json_definitions_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "when the object was created"
+    },
+    "assessmentType.json_definitions_key": {
+      "type": "string",
+      "description": "the assessment app\u0027s unique (within that app) and immutable key for this assessment type"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "meta": {
+      "$ref": "#/definitions/assessmentMeta.json"
+    },
+    "assessmentType": {
+      "type": "integer"
+    },
+    "assessmentTypeKey": {
+      "$ref": "#/definitions/assessmentType.json_definitions_key"
+    },
+    "status": {
+      "$ref": "#/definitions/status"
+    },
+    "view": {
+      "type": "string",
+      "description": "the key of the view instance that will give more details about the subject of this assessment (name, email address, job ID, etc.)"
+    },
+    "passedFlag": {
+      "$ref": "#/definitions/passedFlag"
+    },
+    "interactionUris": {
+      "$ref": "#/definitions/interactionUris"
+    },
+    "image": {
+      "$ref": "#/definitions/imageUrl"
+    },
+    "launchDocument": {
+      "$ref": "#/definitions/launchDocument"
+    },
+    "raisers": {
+      "$ref": "#/definitions/raisers"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "meta",
+    "assessmentType",
+    "assessmentTypeKey",
+    "status",
+    "view",
+    "interactionUris",
+    "raisers"
+  ]
+}

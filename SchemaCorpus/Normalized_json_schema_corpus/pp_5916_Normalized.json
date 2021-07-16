@@ -1,0 +1,521 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "https://fiware.github.io/data-models/specs/KeyPerformanceIndicator/schema.json",
+  "title": "FIWARE - Key Performance Indicator",
+  "description": "A Key Performance Indicator (KPI) is a type of performance measurement. KPIs evaluate the success of an organization or of a particular activity in which it engages.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\..\\common-schema.json_definitions_GSMA-Commons"
+    },
+    {
+      "$ref": "#/definitions/..\\..\\common-schema.json_definitions_Location-Commons"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "KeyPerformanceIndicator"
+          ],
+          "description": "NGSI Entity type"
+        },
+        "category": {
+          "type": "array",
+          "minitems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "quantitative",
+              "qualitative",
+              "leading",
+              "lagging",
+              "input",
+              "process",
+              "output",
+              "practical",
+              "directional",
+              "actionable",
+              "financial"
+            ]
+          }
+        },
+        "organization": {
+          "type": "object"
+        },
+        "process": {
+          "type": "string"
+        },
+        "product": {
+          "type": "object"
+        },
+        "provider": {
+          "type": "object"
+        },
+        "businessTarget": {
+          "type": "string"
+        },
+        "calculationFrequency": {
+          "type": "string",
+          "enum": [
+            "hourly",
+            "daily",
+            "weekly",
+            "monthly",
+            "yearly",
+            "quarterly",
+            "bimonthly",
+            "biweekly"
+          ]
+        },
+        "calculatedBy": {
+          "type": "object"
+        },
+        "calculationMethod": {
+          "type": "string",
+          "enum": [
+            "manual",
+            "automatic",
+            "semiautomatic"
+          ]
+        },
+        "calculationFormula": {
+          "type": "string"
+        },
+        "aggregatedData": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "properties": {
+              "entityType": {
+                "type": "string"
+              },
+              "attrs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "entityType",
+              "attrs"
+            ]
+          }
+        },
+        "calculationPeriod": {
+          "type": "object",
+          "properties": {
+            "from": {
+              "type": "string",
+              "format": "date"
+            },
+            "to": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "required": [
+            "from",
+            "to"
+          ]
+        },
+        "currentStanding": {
+          "type": "string",
+          "enum": [
+            "veryGood",
+            "good",
+            "fair",
+            "bad",
+            "veryBad"
+          ]
+        },
+        "kpiValue": {
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "object",
+            "array"
+          ]
+        },
+        "effectiveSince": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateNextCalculation": {
+          "type": "string",
+          "format": "date"
+        },
+        "dateExpires": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "area": {
+          "type": "string"
+        }
+      }
+    },
+    {
+      "allOf": [
+        {
+          "required": [
+            "id",
+            "type",
+            "name",
+            "organization",
+            "kpiValue",
+            "calculationFrequency",
+            "category",
+            "calculationPeriod"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "required": [
+                "process"
+              ]
+            },
+            {
+              "required": [
+                "product"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "..\\..\\common-schema.json_definitions_GSMA-Commons": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/..\\..\\common-schema.json_definitions_EntityIdentifierType"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "alternateName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "dataProvider": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\..\\common-schema.json_definitions_EntityIdentifierType"
+          }
+        },
+        "seeAlso": {
+          "oneOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": [
+                {
+                  "type": "string",
+                  "format": "uri"
+                }
+              ]
+            },
+            {
+              "type": "string",
+              "format": "uri"
+            }
+          ]
+        }
+      }
+    },
+    "..\\..\\common-schema.json_definitions_EntityIdentifierType": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[\\w\\-\\.\\{\\}\\$\\+\\*\\[\\]`|~^@!,:\\\\]+$"
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    },
+    "..\\..\\common-schema.json_definitions_Location-Commons": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/definitions/https:__geojson.org_schema_Geometry.json"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "streetAddress": {
+              "type": "string"
+            },
+            "addressLocality": {
+              "type": "string"
+            },
+            "addressRegion": {
+              "type": "string"
+            },
+            "addressCountry": {
+              "type": "string"
+            },
+            "postalCode": {
+              "type": "string"
+            },
+            "postOfficeBoxNumber": {
+              "type": "string"
+            },
+            "areaServed": {
+              "type": "string"
+            }
+          }
+        },
+        "areaServed": {
+          "type": "string"
+        }
+      }
+    },
+    "https:__geojson.org_schema_Geometry.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GeoJSON Geometry",
+      "oneOf": [
+        {
+          "title": "GeoJSON Point",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "number"
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON LineString",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "LineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON Polygon",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 4,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiPoint",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiLineString",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiPolygon",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "minItems": 4,
+                  "items": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

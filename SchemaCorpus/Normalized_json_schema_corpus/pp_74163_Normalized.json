@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\common.json_definitions_object-created"
+    }
+  ],
+  "example": {
+    "_id": "jane.doe@gmail.com"
+  },
+  "definitions": {
+    "..\\definitions\\common.json_definitions_object-created": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        }
+      },
+      "x-sdk-return": "_id"
+    }
+  }
+}

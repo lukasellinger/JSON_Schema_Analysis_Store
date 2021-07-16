@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.pipl.pojo.Education",
+  "properties": {
+    "degree": {
+      "type": "string",
+      "description": "Degree. B.Sc, PhD, etc…"
+    },
+    "school": {
+      "type": "string",
+      "description": "Name of the educational institute."
+    },
+    "date_range": {
+      "$ref": "#/definitions/DateRange.json",
+      "description": "Period of study. Date ranges might be partial to designate current study or an unknown start date."
+    },
+    "display": {
+      "type": "string",
+      "description": "The full degree headline for display purposes. Response only."
+    }
+  },
+  "definitions": {
+    "DateRange.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.pipl.pojo.DateRange",
+      "properties": {
+        "start": {
+          "type": "string",
+          "description": "Start date of this range in \u0027YYYY-MM-DD’ format."
+        },
+        "end": {
+          "type": "string",
+          "description": "End date of this range in \u0027YYYY-MM-DD’ format."
+        }
+      }
+    }
+  }
+}

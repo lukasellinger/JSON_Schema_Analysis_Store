@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.6.1/traits/trait_distributor.json",
+  "title": "Distributor",
+  "description": "Information about a third party that provided this content from outside this document\u0027s hosted organization.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "description": "The human-readable name of the distributor of this content. E.g., Reuters.",
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "staff",
+        "wires",
+        "freelance",
+        "other"
+      ],
+      "description": "The machine-readable category of how this content was produced. Use \u0027staff\u0027 if this content was produced on behalf of the organization who owns this document repository. (Multisite note: content produced within a single *organization*, but shared across multiple *websites* should still be considered \u0027staff.\u0027) Use \u0027wires\u0027 if it was produced for another organization and shared with this one. Use \u0027other\u0027 for all other cases."
+    },
+    "subcategory": {
+      "type": "string",
+      "description": "The machine-readable subcategory of how this content was produced. E.g., \u0027freelance - signed\u0027. May vary between organizations."
+    },
+    "additional_properties": {
+      "$ref": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.6.1/traits/trait_additional_properties.json"
+    }
+  }
+}

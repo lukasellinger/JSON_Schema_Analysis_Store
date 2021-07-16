@@ -1,0 +1,273 @@
+{
+  "id": "https://schema.management.azure.com/schemas/2018-10-01-preview/Microsoft.Portal.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Microsoft.Portal",
+  "description": "Microsoft Portal Resource Types",
+  "resourceDefinitions": {
+    "dashboards": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2018-10-01-preview"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Resource location"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 64,
+          "description": "The name of the dashboard."
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/DashboardProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The shared dashboard properties."
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "properties": {}
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Resource tags"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.Portal/dashboards"
+          ]
+        }
+      },
+      "required": [
+        "apiVersion",
+        "location",
+        "name",
+        "properties",
+        "type"
+      ],
+      "description": "Microsoft.Portal/dashboards"
+    }
+  },
+  "definitions": {
+    "DashboardLens": {
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {}
+              },
+              "properties": {}
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard len\u0027s metadata."
+        },
+        "order": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The lens order."
+        },
+        "parts": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/DashboardParts"
+              },
+              "properties": {}
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard parts."
+        }
+      },
+      "required": [
+        "order",
+        "parts"
+      ],
+      "description": "A dashboard lens."
+    },
+    "DashboardParts": {
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {}
+              },
+              "properties": {}
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard part\u0027s metadata."
+        },
+        "position": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/DashboardPartsPosition"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard\u0027s part position."
+        }
+      },
+      "required": [
+        "position"
+      ],
+      "description": "A dashboard part."
+    },
+    "DashboardPartsPosition": {
+      "type": "object",
+      "properties": {
+        "colSpan": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard\u0027s part column span."
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {}
+              },
+              "properties": {}
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard part\u0027s metadata."
+        },
+        "rowSpan": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard\u0027s part row span."
+        },
+        "x": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard\u0027s part x coordinate."
+        },
+        "y": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard\u0027s part y coordinate."
+        }
+      },
+      "required": [
+        "colSpan",
+        "rowSpan",
+        "x",
+        "y"
+      ],
+      "description": "The dashboard\u0027s part position."
+    },
+    "DashboardProperties": {
+      "type": "object",
+      "properties": {
+        "lenses": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/DashboardLens"
+              },
+              "properties": {}
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard lenses."
+        },
+        "metadata": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {}
+              },
+              "properties": {}
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The dashboard metadata."
+        }
+      },
+      "description": "The shared dashboard properties."
+    },
+    "..\\common\\definitions.json_definitions_expression": {
+      "type": "string",
+      "pattern": "^\\[([^\\[].*)?\\]$",
+      "description": "Deployment template expression. See https://aka.ms/arm-template-expressions for more details on the ARM expression syntax."
+    }
+  }
+}

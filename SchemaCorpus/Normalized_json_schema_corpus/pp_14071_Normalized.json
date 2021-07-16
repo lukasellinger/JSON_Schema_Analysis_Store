@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "subProp": {
+      "$ref": "#/definitions/sub1\\example-sub.json"
+    }
+  },
+  "definitions": {
+    "sub1\\example-sub.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "prop": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

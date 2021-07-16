@@ -1,0 +1,35 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/LinkView/AutoView.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Автоматически генерируемое представление",
+  "type": "object",
+  "properties": {
+    "OpenMode": {
+      "description": "Способ открытия представления",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/LinkView/OpenMode.json",
+      "default": "Default"
+    },
+    "Container": {
+      "description": "Имя контейнера для открытия представления",
+      "type": "string"
+    },
+    "Parameters": {
+      "description": "Правила передачи параметров в открываемое представение",
+      "type": "array",
+      "items": {
+        "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/View/Parameter.json"
+      }
+    },
+    "DialogWidth": {
+      "description": "Ширина диалогового окна",
+      "type": "string"
+    },
+    "Path": {
+      "description": "Путь до метаданных",
+      "type": "string"
+    }
+  },
+  "required": [
+    "Path"
+  ]
+}

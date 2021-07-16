@@ -1,0 +1,529 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "Results": {
+    "$ref": "#/definitions/results.json"
+  },
+  "Context": {
+    "$ref": "#/definitions/context.json"
+  },
+  "Analysis": {
+    "$ref": "#/definitions/analysis.json"
+  },
+  "Entry": {
+    "$ref": "#/definitions/entry.json"
+  },
+  "Sentiment": {
+    "$ref": "#/definitions/sentiment.json"
+  },
+  "EmotionSet": {
+    "$ref": "#/definitions/emotionSet.json"
+  },
+  "Emotion": {
+    "$ref": "#/definitions/emotion.json"
+  },
+  "EmotionModel": {
+    "$ref": "#/definitions/emotionModel.json"
+  },
+  "Entity": {
+    "$ref": "#/definitions/entity.json"
+  },
+  "Topic": {
+    "$ref": "#/definitions/topic.json"
+  },
+  "Suggestion": {
+    "$ref": "#/definitions/suggestion.json"
+  },
+  "Plugins": {
+    "$ref": "#/definitions/plugin.json"
+  },
+  "Plugin": {
+    "$ref": "#/definitions/plugin.json"
+  },
+  "Response": {
+    "$ref": "#/definitions/response.json"
+  },
+  "AggregatedEvaluation": {
+    "$ref": "#/definitions/aggregatedEvaluation.json"
+  },
+  "Evaluation": {
+    "$ref": "#/definitions/evaluation.json"
+  },
+  "Metric": {
+    "$ref": "#/definitions/metric.json"
+  },
+  "Dataset": {
+    "$ref": "#/definitions/dataset.json"
+  },
+  "Datasets": {
+    "$ref": "#/definitions/datasets.json"
+  },
+  "definitions": {
+    "results.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "name": "Entry",
+      "allOf": [
+        {
+          "$ref": "#/definitions/response.json"
+        },
+        {
+          "title": "Results",
+          "description": "The results of an analysis",
+          "type": "object",
+          "properties": {
+            "@context": {
+              "$ref": "#/definitions/context.json"
+            },
+            "@id": {
+              "description": "ID of the analysis",
+              "type": "string"
+            },
+            "activities": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/analysis.json"
+              }
+            },
+            "entries": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/entry.json"
+              }
+            }
+          },
+          "required": [
+            "@id",
+            "activities",
+            "entries"
+          ]
+        }
+      ]
+    },
+    "response.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "object",
+          "default": {}
+        }
+      },
+      "required": [
+        "@type"
+      ]
+    },
+    "context.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "JSON-LD Context",
+      "type": [
+        "array",
+        "string",
+        "object"
+      ]
+    },
+    "analysis.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Senpy analysis",
+      "type": "object",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "string",
+          "description": "Type of the analysis. e.g. marl:SentimentAnalysis"
+        },
+        "prov:wasAssociatedWith": {
+          "@type": "string",
+          "description": "Algorithm/plugin that was used"
+        },
+        "prov:used": {
+          "description": "Parameters of the algorithm",
+          "@type": "array",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/parameter.json"
+          }
+        }
+      },
+      "required": [
+        "@type",
+        "prov:wasAssociatedWith"
+      ]
+    },
+    "parameter.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Parameters for a senpy analysis",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the parameter"
+        },
+        "prov:value": {
+          "@type": "any",
+          "description": "Value of the parameter"
+        }
+      },
+      "required": [
+        "name",
+        "prov:value"
+      ]
+    },
+    "entry.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "name": "Entry",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "nif:isString": {
+          "description": "String contained in this Context. Alternative: nif:isString",
+          "type": "string"
+        },
+        "marl:hasOpinion": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sentiment.json"
+          }
+        },
+        "onyx:hasEmotionSet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/emotionSet.json"
+          }
+        }
+      },
+      "required": [
+        "nif:isString"
+      ]
+    },
+    "sentiment.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "nif:beginIndex": {
+          "type": "integer"
+        },
+        "nif:endIndex": {
+          "type": "integer"
+        },
+        "nif:anchorOf": {
+          "description": "Piece of context that contains the Sentiment",
+          "type": "string"
+        },
+        "marl:hasPolarity": {
+          "enum": [
+            "marl:Positive",
+            "marl:Negative",
+            "marl:Neutral"
+          ]
+        },
+        "marl:polarityValue": {
+          "type": "number"
+        },
+        "prov:wasGeneratedBy": {
+          "type": "string",
+          "description": "The ID of the analysis that generated this Sentiment. The full object should be included in the \"analysis\" property of the root object"
+        }
+      },
+      "required": [
+        "prov:wasGeneratedBy"
+      ]
+    },
+    "emotionSet.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "nif:beginIndex": {
+          "type": "integer"
+        },
+        "nif:endIndex": {
+          "type": "integer"
+        },
+        "nif:anchorOf": {
+          "description": "Piece of context that contains the Sentiment",
+          "type": "string"
+        },
+        "onyx:hasEmotion": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/emotion.json"
+          }
+        },
+        "prov:wasGeneratedBy": {
+          "type": "string",
+          "description": "The ID of the analysis that generated this Emotion. The full object should be included in the \"analysis\" property of the root object"
+        }
+      },
+      "required": [
+        "prov:wasGeneratedBy",
+        "onyx:hasEmotion"
+      ]
+    },
+    "emotion.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object"
+    },
+    "emotionModel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "nif:beginIndex": {
+          "type": "integer"
+        },
+        "nif:endIndex": {
+          "type": "integer"
+        },
+        "nif:anchorOf": {
+          "description": "Piece of context that contains the Emotion",
+          "type": "string"
+        },
+        "onyx:hasDimension": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dimensions.json"
+          },
+          "uniqueItems": true
+        },
+        "onyx:hasEmotionCategory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/emotion.json"
+          }
+        }
+      },
+      "required": [
+        "@id",
+        "onyx:hasEmotion"
+      ]
+    },
+    "dimensions.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "minValue": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "maxValue",
+        "minValue"
+      ]
+    },
+    "entity.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object"
+    },
+    "topic.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object"
+    },
+    "suggestion.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "required": [
+        "@id",
+        "prov:wasGeneratedBy"
+      ]
+    },
+    "plugin.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "required": [
+        "@id",
+        "name",
+        "description",
+        "version",
+        "plugin_type"
+      ],
+      "properties": {
+        "@id": {
+          "type": "string",
+          "description": "Unique identifier for the plugin, usually comprised of the name of the plugin and the version."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the plugin, which will be used in the algorithm detection phase."
+        },
+        "description": {
+          "type": "string",
+          "description": "A summary of what the plugin does, and pointers to further information."
+        },
+        "version": {
+          "type": "string",
+          "description": "The version of the plugin."
+        },
+        "plugin_type": {
+          "type": "string",
+          "description": "Sub-type of plugin. e.g. sentimentPlugin"
+        },
+        "extra_params": {
+          "type": "object"
+        }
+      }
+    },
+    "aggregatedEvaluation.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "allOf": [
+        {
+          "$ref": "#/definitions/response.json"
+        },
+        {
+          "title": "AggregatedEvaluation",
+          "description": "The results of the evaluation",
+          "type": "object",
+          "properties": {
+            "@context": {
+              "$ref": "#/definitions/context.json"
+            },
+            "@type": {},
+            "@id": {
+              "description": "ID of the aggregated evaluation",
+              "type": "string"
+            },
+            "evaluations": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/evaluation.json"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "@id",
+            "evaluations"
+          ]
+        }
+      ]
+    },
+    "evaluation.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "name": "Evaluation",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "array"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metric.json"
+          },
+          "default": []
+        },
+        "evaluatesOn": {
+          "description": "Name of the dataset evaluated ",
+          "type": "string"
+        },
+        "evaluates": {
+          "description": "Classifier or plugin evaluated",
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "metrics"
+      ]
+    },
+    "metric.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "minValue": {
+          "type": "number"
+        },
+        "value": {
+          "type": "number"
+        },
+        "deviation": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "@id"
+      ]
+    },
+    "dataset.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "name": "Dataset",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "compression": {
+          "type": "string"
+        },
+        "expected_bytes": {
+          "type": "int"
+        },
+        "filename": {
+          "description": "Name of the dataset",
+          "type": "string"
+        },
+        "url": {
+          "description": "Classifier or plugin evaluated",
+          "type": "string"
+        },
+        "stats": {}
+      },
+      "required": [
+        "@id"
+      ]
+    },
+    "datasets.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "allOf": [
+        {
+          "$ref": "#/definitions/response.json"
+        },
+        {
+          "required": [
+            "datasets"
+          ],
+          "properties": {
+            "datasets": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/dataset.json"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

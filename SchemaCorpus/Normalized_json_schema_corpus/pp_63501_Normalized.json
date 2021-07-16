@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Image",
+  "type": "object",
+  "description": "Image data used to create a texture. Image can be referenced by URI or `bufferView` index. `mimeType` is required in the latter case.",
+  "allOf": [
+    {
+      "$ref": "#/definitions/glTFChildOfRootProperty.schema.json"
+    }
+  ],
+  "properties": {
+    "uri": {
+      "type": "string",
+      "description": "The uri of the image.",
+      "format": "uriref",
+      "gltf_detailedDescription": "The uri of the image.  Relative paths are relative to the .gltf file.  Instead of referencing an external file, the uri can also be a data-uri.  The image format must be jpg or png.",
+      "gltf_uriType": "image"
+    },
+    "mimeType": {
+      "anyOf": [
+        {
+          "enum": [
+            "image/jpeg"
+          ]
+        },
+        {
+          "enum": [
+            "image/png"
+          ]
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "The image\u0027s MIME type."
+    },
+    "bufferView": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFid.schema.json"
+        }
+      ],
+      "description": "The index of the bufferView that contains the image. Use this instead of the image\u0027s uri property."
+    },
+    "name": {},
+    "extensions": {},
+    "extras": {}
+  },
+  "dependencies": {
+    "bufferView": [
+      "mimeType"
+    ]
+  },
+  "oneOf": [
+    {
+      "required": [
+        "uri"
+      ]
+    },
+    {
+      "required": [
+        "bufferView"
+      ]
+    }
+  ],
+  "definitions": {
+    "glTFChildOfRootProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Child of Root Property",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The user-defined name of this object.",
+          "gltf_detailedDescription": "The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name."
+        }
+      }
+    },
+    "glTFProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Property",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extension.schema.json"
+        },
+        "extras": {
+          "$ref": "#/definitions/extras.schema.json"
+        }
+      }
+    },
+    "extension.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extension",
+      "type": "object",
+      "description": "Dictionary object with extension-specific objects.",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "extras.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extras",
+      "description": "Application-specific data."
+    },
+    "glTFid.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Id",
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

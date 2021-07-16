@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/info",
+  "type": "object",
+  "properties": {
+    "Containers": {
+      "type": "integer"
+    },
+    "Images": {
+      "type": "integer"
+    },
+    "Driver": {
+      "type": "string"
+    },
+    "DriverStatus": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "ExecutionDriver": {
+      "type": "string"
+    },
+    "KernelVersion": {
+      "type": "string"
+    },
+    "NCPU": {
+      "type": "integer"
+    },
+    "MemTotal": {
+      "type": "integer"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "ID": {
+      "type": "string"
+    },
+    "Debug": {
+      "type": "boolean"
+    },
+    "NFd": {
+      "type": "integer"
+    },
+    "NGoroutines": {
+      "type": "integer"
+    },
+    "NEventsListener": {
+      "type": "integer"
+    },
+    "InitPath": {
+      "type": "string"
+    },
+    "InitSha1": {
+      "type": "string"
+    },
+    "IndexServerAddress": {
+      "type": "string"
+    },
+    "MemoryLimit": {
+      "type": "boolean"
+    },
+    "SwapLimit": {
+      "type": "boolean"
+    },
+    "IPv4Forwarding": {
+      "type": "boolean"
+    },
+    "Labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "DockerRootDir": {
+      "type": "string"
+    },
+    "OperatingSystem": {
+      "type": "string"
+    }
+  }
+}

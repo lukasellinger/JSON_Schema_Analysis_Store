@@ -1,0 +1,388 @@
+{
+  "title": "applicationProperties",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Configuration of application and UI elements.",
+  "properties": {
+    "viewing": {
+      "type": "object",
+      "$ref": "#/definitions/viewing_schema.json"
+    }
+  },
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "applicationProperties",
+        "code": {
+          "applicationProperties": {
+            "viewing": {
+              "search": {
+                "enabled": true,
+                "hintText": "Search by Address or State name",
+                "layers": [
+                  {
+                    "field": {
+                      "name": "STATE_NAME",
+                      "exactMatch": false,
+                      "type": "esriFieldTypeString"
+                    },
+                    "subLayer": 3
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "viewing_schema.json": {
+      "title": "viewing",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "View-specific properties of application and UI elements.",
+      "properties": {
+        "search": {
+          "type": "object",
+          "$ref": "#/definitions/search_schema.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "search_schema.json": {
+      "title": "search",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "An object specifying the search parameters set within the web scene.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "A boolean value indicating whether search functionality is enabled in the web scene.",
+          "default": true
+        },
+        "hintText": {
+          "type": "string",
+          "description": "A string value used to indicate the hint provided with the search dialog."
+        },
+        "layers": {
+          "type": "array",
+          "description": "An array of layers to be included in search.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/search_layer_schema.json"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "layers"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "search",
+            "code": {
+              "search": {
+                "enabled": true,
+                "hintText": "Search by Address or State name",
+                "layers": [
+                  {
+                    "field": {
+                      "name": "STATE_NAME",
+                      "exactMatch": false,
+                      "type": "esriFieldTypeString"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "search_layer_schema.json": {
+      "title": "search layer",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Layer configuration for search.",
+      "properties": {
+        "field": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/field_schema.json"
+            },
+            {
+              "properties": {
+                "name": {},
+                "exactMatch": {},
+                "type": {}
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "id": {
+          "type": "string",
+          "description": "A string identifying the layer."
+        },
+        "subLayer": {
+          "type": "integer",
+          "description": "Optional index for a sublayer."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "id"
+      ]
+    },
+    "field_schema.json": {
+      "title": "field",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Contains information about an attribute field.",
+      "properties": {
+        "alias": {
+          "type": "string",
+          "description": "A string defining the field alias."
+        },
+        "domain": {
+          "type": "object",
+          "description": "The domain objects if applicable.",
+          "$ref": "#/definitions/domain_schema.json"
+        },
+        "editable": {
+          "type": "boolean",
+          "description": "A Boolean defining whether this field is editable."
+        },
+        "exactMatch": {
+          "type": "boolean",
+          "description": "A Boolean defining whether or not the field is an exact match."
+        },
+        "length": {
+          "type": "integer",
+          "description": "A number defining how many characters are allowed in a string field."
+        },
+        "name": {
+          "type": "string",
+          "description": "A string defining the field name."
+        },
+        "nullable": {
+          "type": "boolean",
+          "description": "A Boolean defining whether this field can have a null value."
+        },
+        "type": {
+          "type": "string",
+          "description": "A string defining the field type.",
+          "enum": [
+            "esriFieldTypeBlob",
+            "esriFieldTypeDate",
+            "esriFieldTypeDouble",
+            "esriFieldTypeGeometry",
+            "esriFieldTypeGlobalID",
+            "esriFieldTypeGUID",
+            "esriFieldTypeInteger",
+            "esriFieldTypeOID",
+            "esriFieldTypeRaster",
+            "esriFieldTypeSingle",
+            "esriFieldTypeSmallInteger",
+            "esriFieldTypeString",
+            "esriFieldTypeXML"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "field",
+            "code": {
+              "field": {
+                "alias": "Postcode",
+                "name": "relationships/2/Postcode",
+                "editable": false,
+                "type": "esriFieldTypeString"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "domain_schema.json": {
+      "title": "domain",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Domains specify the set of valid values for a field. The links below are the available domains.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/codedValue_domain_schema.json"
+        },
+        {
+          "$ref": "#/definitions/inherited_domain_schema.json"
+        },
+        {
+          "$ref": "#/definitions/range_domain_schema.json"
+        }
+      ]
+    },
+    "codedValue_domain_schema.json": {
+      "title": "codedValue",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The coded value domain includes both the actual value that is stored in a database and a description of what the code value means.",
+      "properties": {
+        "codedValues": {
+          "type": "array",
+          "description": "A set of valid values with unique names.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/codedValue_schema.json"
+          },
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string",
+          "description": "The domain name."
+        },
+        "type": {
+          "type": "string",
+          "description": "String value representing the domain type.",
+          "enum": [
+            "codedValue"
+          ]
+        }
+      },
+      "required": [
+        "codedValues",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "codedValue",
+            "code": {
+              "codedValue": {
+                "type": "codedValue",
+                "name": "Material",
+                "codedValues": [
+                  {
+                    "name": "Aluminum",
+                    "code": "AL"
+                  },
+                  {
+                    "name": "Copper",
+                    "code": "CU"
+                  },
+                  {
+                    "name": "Steel",
+                    "code": "STEL"
+                  },
+                  {
+                    "name": "Not Applicable",
+                    "code": "NA"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "codedValue_schema.json": {
+      "title": "codedValue",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "A set of valid coded values with unique names.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "String value indicating which unqiue code is used to identify the feature attribute."
+        },
+        "name": {
+          "type": "string",
+          "description": "A string value given for the coded domain."
+        }
+      },
+      "required": [
+        "code",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "inherited_domain_schema.json": {
+      "title": "inheritedDomain",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "This domain applies to domains on subtypes. It implies that the domain for a field at the subtype level is the same as the domain for the field at the layer level.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "String value representing the domain type.",
+          "enum": [
+            "inherited"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "range_domain_schema.json": {
+      "title": "rangeDomain",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Range domain specifies a range of valid values for a field",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The domain name."
+        },
+        "range": {
+          "type": "array",
+          "description": "The first element is the minValue and the second element is the maxValue.",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true
+        },
+        "type": {
+          "type": "string",
+          "description": "String value representing the domain type.",
+          "enum": [
+            "range"
+          ]
+        }
+      },
+      "required": [
+        "range",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "rangeDomain",
+            "code": {
+              "domain": {
+                "type": "range",
+                "name": "Measured Length",
+                "range": [
+                  1,
+                  10000
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

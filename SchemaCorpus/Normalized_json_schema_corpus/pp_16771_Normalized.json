@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "$ref": "#/definitions/schema-the-dependency.json_properties_name"
+    },
+    "field": {
+      "$ref": "#/definitions/schema-the-dependency.json"
+    }
+  },
+  "definitions": {
+    "schema-the-dependency.json_properties_name": {
+      "type": "string"
+    },
+    "schema-the-dependency.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

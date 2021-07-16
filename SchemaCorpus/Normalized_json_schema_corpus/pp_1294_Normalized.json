@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "infrastructure": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "keystone_url": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "tenant_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "keystone_url",
+        "username",
+        "password",
+        "tenant"
+      ]
+    }
+  },
+  "required": [
+    "infrastructure"
+  ]
+}

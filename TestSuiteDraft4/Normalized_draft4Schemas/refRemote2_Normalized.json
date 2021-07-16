@@ -1,0 +1,11 @@
+{
+  "$ref": "#/definitions/http:__localhost:1234_subSchemas.json_refToInteger",
+  "definitions": {
+    "http:__localhost:1234_subSchemas.json_refToInteger": {
+      "$ref": "#/definitions/http:__localhost:1234_subSchemas.json_integer"
+    },
+    "http:__localhost:1234_subSchemas.json_integer": {
+      "type": "integer"
+    }
+  }
+}

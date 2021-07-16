@@ -1,0 +1,516 @@
+{
+  "title": "popupElement",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Popup elements allow users to author popups, using multiple elements such as tabular views, string description, media (charts and images), and attachments of the attributes and control the order in which they appear. Specifically, popupElements do the following: 1) provide the ability to explicitly add a field/ value table in addition to a description, 2) allow adding multiple description elements, and 3) allow a user to author and consume elements of a popup in the order of their choosing.",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/popupElement_attachments_schema.json"
+    },
+    {
+      "$ref": "#/definitions/popupElement_fields_schema.json"
+    },
+    {
+      "$ref": "#/definitions/popupElement_media_schema.json"
+    },
+    {
+      "$ref": "#/definitions/popupElement_text_schema.json"
+    }
+  ],
+  "definitions": {
+    "popupElement_attachments_schema.json": {
+      "title": "popupElement attachments",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Configures attachments in popup elements.",
+      "properties": {
+        "displayType": {
+          "type": "string",
+          "description": "A string value indicating how to display the attachment. If `list` is specified, attachments show as links.",
+          "enum": [
+            "list",
+            "preview"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "attachments"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "popupElement attachments",
+            "code": {
+              "popupElements": [
+                {
+                  "type": "attachments",
+                  "displayType": "list"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "popupElement_fields_schema.json": {
+      "title": "popupElement fields",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Configures fields in popup elements.",
+      "properties": {
+        "fieldInfos": {
+          "type": "array",
+          "description": "It is an array of `fieldInfo` objects representing a field/value pair displayed as a table within the popupElement. If the `fieldInfos` property is not provided, the popupElement will display whatever is specified directly in the `popupInfo.fieldInfos` property.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/fieldInfo_schema.json"
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "fields"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "popupElement fields",
+            "code": {
+              "popupElements": [
+                {
+                  "fieldInfos": [
+                    {
+                      "fieldName": "rotation",
+                      "visible": true,
+                      "isEditable": true,
+                      "label": "rotation"
+                    }
+                  ],
+                  "type": "fields"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "fieldInfo_schema.json": {
+      "title": "fieldInfo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Defines how a field in the dataset participates (or does not participate) in a popup window.",
+      "properties": {
+        "fieldName": {
+          "type": "string",
+          "description": "A string containing the field name as defined by the service. Anywhere that a fieldname is referenced as `{field-name} in popupInfo, an Arcade expression can also be referenced as `{expression/\u003cexpression-name\u003e}`."
+        },
+        "format": {
+          "type": "object",
+          "description": "A format object used with numerical or date fields to provide more detail about how the value should be displayed in a popup window.",
+          "$ref": "#/definitions/format_schema.json"
+        },
+        "isEditable": {
+          "type": "boolean",
+          "description": "A Boolean determining whether users can edit this field. Not applicable to Arcade expressions.",
+          "default": false
+        },
+        "label": {
+          "type": "string",
+          "description": "A string containing the field alias. This can be overridden by the web map author. Not applicable to Arcade expressions as `title` is used instead."
+        },
+        "statisticType": {
+          "type": "string",
+          "description": "Used in a 1:many or many:many relationship to compute the statistics on the field to show in the popup.",
+          "enum": [
+            "avg",
+            "count",
+            "max",
+            "min",
+            "stddev",
+            "sum",
+            "var"
+          ]
+        },
+        "stringFieldOption": {
+          "type": "string",
+          "description": "A string determining what type of input box editors see when editing the field. Applies only to string fields. Not applicable to Arcade expressions.",
+          "enum": [
+            "richtext",
+            "textarea",
+            "textbox"
+          ],
+          "default": "textbox"
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "A string providing an editing hint for editors of the field. Not applicable to Arcade expressions."
+        },
+        "visible": {
+          "type": "boolean",
+          "description": "A Boolean determining whether the field is visible in the popup window."
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "fieldInfo",
+            "code": {
+              "fieldInfo": {
+                "fieldName": "relationships/2/Postcode",
+                "label": "Postcode",
+                "isEditable": false,
+                "visible": false,
+                "statisticType": "count",
+                "stringFieldOption": "textbox"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "format_schema.json": {
+      "title": "format",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The format object can be used with numerical or date fields to provide more detail about how values should be displayed in popup windows.",
+      "properties": {
+        "dateFormat": {
+          "type": "string",
+          "description": "A string used with date fields to specify how the date should appear in popup windows.",
+          "enum": [
+            "dayShortMonthYear",
+            "dayShortMonthYearLongTime",
+            "dayShortMonthYearLongTime24",
+            "dayShortMonthYearShortTime",
+            "dayShortMonthYearShortTime24",
+            "longDate",
+            "longDateLongTime",
+            "longDateLongTime24",
+            "longDateShortTime",
+            "longDateShortTime24",
+            "longMonthDayYear",
+            "longMonthDayYearLongTime",
+            "longMonthDayYearLongTime24",
+            "longMonthDayYearShortTime",
+            "longMonthDayYearShortTime24",
+            "longMonthYear",
+            "shortDate",
+            "shortDateLE",
+            "shortDateLELongTime",
+            "shortDateLELongTime24",
+            "shortDateLEShortTime",
+            "shortDateLEShortTime24",
+            "shortDateLongTime",
+            "shortDateLongTime24",
+            "shortDateShortTime",
+            "shortDateShortTime24",
+            "shortMonthYear",
+            "year"
+          ]
+        },
+        "digitSeparator": {
+          "type": "boolean",
+          "description": "A Boolean used with numerical fields. A value of true allows the number to have a digit (or thousands) separator when the value appears in popup windows. Depending on the locale, this separator is a decimal point or a comma. A value of false means that no separator will be used."
+        },
+        "places": {
+          "type": "integer",
+          "description": "An integer used with numerical fields to specify the number of supported decimal places that should appear in popup windows. Any places beyond this value are rounded."
+        }
+      },
+      "additionalProperties": false
+    },
+    "popupElement_media_schema.json": {
+      "title": "popupElement media",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Configures media in popup elements.",
+      "properties": {
+        "mediaInfos": {
+          "type": "array",
+          "description": "An array of `mediaInfo` objects representing an image or chart for display. If no `mediaInfos` property is provided, the popupElement will display whatever is specified in the `popupInfo.mediaInfos` property.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/mediaInfo_schema.json"
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "media"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "additionalInformation": "Each popupElement has a `type` property. This string value indicates the type of popupElement used.",
+        "examples": [
+          {
+            "title": "popupElement media imag",
+            "code": {
+              "popupElements": [
+                {
+                  "mediaInfos": [
+                    {
+                      "type": "image",
+                      "title": "\u003cdiv\u003e\u003cp style\u003d\u0027font-weight:bold;\u0027\u003e\u003cspan\u003eImage\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                      "caption": "\u003cdiv\u003e\u003cp\u003e\u003cspan\u003ecaliforniaa flag\u003c/span\u003e\u003c/p\u003e\u003cp\u003e\u003cspan /\u003e\u003c/p\u003e\u003c/div\u003e",
+                      "value": {
+                        "sourceURL": "http://www.50states.com/flag/image/nunst0006.gif"
+                      }
+                    }
+                  ],
+                  "type": "media"
+                }
+              ]
+            }
+          },
+          {
+            "title": "popupElement media chart",
+            "code": {
+              "popupElements": [
+                {
+                  "mediaInfos": [
+                    {
+                      "type": "columnchart",
+                      "title": "\u003cdiv\u003e\u003cp style\u003d\u0027font-weight:bold;\u0027\u003e\u003cspan\u003eChart\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                      "caption": "\u003cdiv\u003e\u003cp\u003e\u003cspan style\u003d\"color:#DF73FF;\"\u003eThis shows Rotation and size.\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                      "value": {
+                        "fields": [
+                          "rotation",
+                          "size"
+                        ]
+                      }
+                    }
+                  ],
+                  "type": "media"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "mediaInfo_schema.json": {
+      "title": "mediaInfo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Defines an image or a chart to be displayed in a popup window.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/mediaInfo_chart_schema.json"
+        },
+        {
+          "$ref": "#/definitions/mediaInfo_image_schema.json"
+        }
+      ]
+    },
+    "mediaInfo_chart_schema.json": {
+      "title": "mediaInfo chart",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Defines a chart to be displayed in a popup window.",
+      "properties": {
+        "caption": {
+          "type": "string",
+          "description": "A string caption describing the media."
+        },
+        "title": {
+          "type": "string",
+          "description": "A string title for the media."
+        },
+        "type": {
+          "type": "string",
+          "description": "A string defining the type of media.",
+          "enum": [
+            "barchart",
+            "columnchart",
+            "linechart",
+            "piechart"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/mediaInfo_chart_value_schema.json"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "mediaInfo",
+            "code": {
+              "mediaInfo": {
+                "title": "Chart stats",
+                "type": "barchart",
+                "caption": "For a better idea...",
+                "value": {
+                  "fields": [
+                    "relationships/0/Pledge"
+                  ],
+                  "tooltipField": "relationships/2/Official"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "mediaInfo_chart_value_schema.json": {
+      "title": "mediaInfo chart value",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The value object contains information for popup windows about how charts should be constructed.",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "description": "An array of strings, with each string containing the name of a field to display in the chart.",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "normalizeField": {
+          "type": "string",
+          "description": "An optional string containing the name of a field. The values of all fields in the chart will be normalized (divided) by the value of this field."
+        },
+        "tooltipField": {
+          "type": "string",
+          "description": "String value indicating the tooltip for a chart specified from another field. This field is needed when related records are not used. It is used for showing tooltips from another field in the same layer or related layer/table."
+        }
+      },
+      "required": [
+        "fields"
+      ],
+      "additionalProperties": false
+    },
+    "mediaInfo_image_schema.json": {
+      "title": "mediaInfo image",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Defines an image to be displayed in a popup window.",
+      "properties": {
+        "caption": {
+          "type": "string",
+          "description": "A string caption describing the media."
+        },
+        "refreshInterval": {
+          "type": "number",
+          "description": "Refresh interval of the layer in minutes. Non-zero value indicates automatic layer refresh at the specified interval. Value of 0 indicates auto refresh is not enabled. If the property does not exist, it\u0027s equivalent to having a value of 0."
+        },
+        "title": {
+          "type": "string",
+          "description": "A string title for the media."
+        },
+        "type": {
+          "type": "string",
+          "description": "A string defining the type of media.",
+          "enum": [
+            "image"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/mediaInfo_image_value_schema.json"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "mediaInfo",
+            "code": {
+              "mediaInfo": {
+                "type": "image",
+                "title": "\u003cdiv\u003e\u003cp style\u003d\u0027font-weight:bold;\u0027\u003e\u003cspan\u003eImage\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                "caption": "\u003cdiv\u003e\u003cp\u003e\u003cspan\u003ecaliforniaa flag\u003c/span\u003e\u003c/p\u003e\u003cp\u003e\u003cspan /\u003e\u003c/p\u003e\u003c/div\u003e",
+                "value": {
+                  "sourceURL": "http://www.50states.com/flag/image/nunst0006.gif"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "mediaInfo_image_value_schema.json": {
+      "title": "mediaInfo image value",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The value object contains information for popup windows about how images should be retrieved.",
+      "properties": {
+        "linkURL": {
+          "type": "string",
+          "description": "A string containing a URL to be launched in a browser when a user clicks the image."
+        },
+        "sourceURL": {
+          "type": "string",
+          "description": "A string containing the URL to the image."
+        }
+      },
+      "required": [
+        "sourceURL"
+      ],
+      "additionalProperties": false
+    },
+    "popupElement_text_schema.json": {
+      "title": "popupElement text",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Configures text in popup elements.",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "This property applies to elements of type `text`. This is string value indicating the text to be displayed within the popupElement. If no `text` property is provided, the popupElement will display whatever is specified in the [popupInfo.description](popupInfo.md) property."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "text"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "popupElement",
+            "code": {
+              "popupElements": [
+                {
+                  "type": "text",
+                  "text": "Some descriptive text describing the popup."
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://sonata-nfv.eu",
+  "type": "object",
+  "properties": {
+    "descriptor_version": {
+      "type": "string"
+    },
+    "$schema": {
+      "type": "string"
+    },
+    "group": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "package_maintainer": {
+      "type": "string"
+    },
+    "package_description": {
+      "type": "string"
+    },
+    "package_md5": {
+      "type": "string"
+    },
+    "ackage_signature": {
+      "type": "string"
+    },
+    "entry_service_template": {
+      "type": "string"
+    },
+    "sealed": {
+      "type": "boolean"
+    },
+    "package_content": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "content-type": {
+            "type": "string"
+          },
+          "md5": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "content-type"
+      ]
+    },
+    "artifact_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "md5": {
+            "type": "string"
+          },
+          "credentials": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "descriptor_version",
+    "group",
+    "name",
+    "version"
+  ]
+}

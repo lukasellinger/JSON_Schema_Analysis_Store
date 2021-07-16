@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "difficulty": {
+      "type": "string",
+      "default": "medium",
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ]
+    },
+    "show_hint": {
+      "type": "boolean",
+      "default": false
+    },
+    "hint_duration": {
+      "type": "integer",
+      "default": 10
+    },
+    "player_name": {
+      "type": "string",
+      "default": "asd"
+    }
+  }
+}

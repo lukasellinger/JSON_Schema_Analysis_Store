@@ -1,0 +1,440 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "SiteService object",
+  "properties": {
+    "SiteService": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string"
+        },
+        "SiteID": {
+          "type": "string"
+        },
+        "ServiceID": {
+          "type": "string"
+        },
+        "ServiceGroupID": {
+          "type": "string"
+        },
+        "AgencyID": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Phone": {
+          "type": "object",
+          "properties": {
+            "Phone": {
+              "type": "string"
+            },
+            "Confidential": {
+              "type": "boolean"
+            },
+            "ReasonWithheld": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Type": {
+              "type": "string"
+            },
+            "Function": {
+              "type": "string"
+            },
+            "TollFree": {
+              "type": "boolean"
+            },
+            "Department": {
+              "type": "string"
+            },
+            "CountryPrefix": {
+              "type": "string"
+            }
+          }
+        },
+        "Contact": {
+          "type": "object",
+          "properties": {
+            "ID": {
+              "type": "integer"
+            },
+            "AgencyID": {
+              "type": "string"
+            },
+            "ServiceID": {
+              "type": "string"
+            },
+            "Department": {
+              "type": "string"
+            },
+            "Title": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Nickname": {
+              "type": "string"
+            },
+            "ContactEmail": {
+              "type": "string"
+            },
+            "ContactPhone": {
+              "type": "object",
+              "properties": {
+                "Phone": {
+                  "type": "string"
+                },
+                "Confidential": {
+                  "type": "boolean"
+                },
+                "ReasonWithheld": {
+                  "type": "string"
+                },
+                "Description": {
+                  "type": "string"
+                },
+                "Type": {
+                  "type": "string"
+                },
+                "Function": {
+                  "type": "string"
+                },
+                "TollFree": {
+                  "type": "boolean"
+                },
+                "Department": {
+                  "type": "string"
+                },
+                "CountryPrefix": {
+                  "type": "string"
+                }
+              }
+            },
+            "ContactType": {
+              "type": "string"
+            }
+          }
+        },
+        "URL": {
+          "type": "object",
+          "properties": {
+            "Address": {
+              "type": "string"
+            },
+            "Note": {
+              "type": "string"
+            }
+          }
+        },
+        "Email": {
+          "type": "string"
+        },
+        "OpenHours": {
+          "type": "object",
+          "properties": {
+            "dayOpen": {
+              "type": "string"
+            },
+            "TimeOpens": {
+              "type": "string"
+            },
+            "TimeCloses": {
+              "type": "string"
+            }
+          }
+        },
+        "SpecialHours": {
+          "type": "object",
+          "properties": {
+            "SpecialHoursStartDate": {
+              "type": "string"
+            },
+            "SpecialHoursEndDate": {
+              "type": "string"
+            },
+            "SpecialOpenTime": {
+              "type": "string"
+            },
+            "SpecialCloseTime": {
+              "type": "string"
+            }
+          }
+        },
+        "Seasonal": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "SpecialHoursStartDate": {
+              "type": "string"
+            },
+            "SpecialHoursEndDate": {
+              "type": "string"
+            },
+            "SpecialOpenTime": {
+              "type": "string"
+            },
+            "SpecialCloseTime": {
+              "type": "string"
+            }
+          }
+        },
+        "Taxonomy": {
+          "type": "object",
+          "properties": {
+            "TaxonomyCode": {
+              "type": "string"
+            },
+            "TaxonomyTerm": {
+              "type": "string"
+            }
+          }
+        },
+        "Languages": {
+          "type": "object",
+          "properties": {
+            "LanguageName": {
+              "type": "string"
+            },
+            "LanguageHours": {
+              "type": "object",
+              "properties": {
+                "dayOpen": {
+                  "type": "string"
+                },
+                "TimeOpens": {
+                  "type": "string"
+                },
+                "TimeCloses": {
+                  "type": "string"
+                }
+              }
+            },
+            "Notes": {
+              "type": "string"
+            }
+          }
+        },
+        "TranslationService": {
+          "type": "string"
+        },
+        "ServiceArea": {
+          "type": "object",
+          "properties": {
+            "Name": {
+              "type": "string"
+            },
+            "PostalCode": {
+              "type": "string"
+            },
+            "CensusTract": {
+              "type": "string"
+            },
+            "City": {
+              "type": "string"
+            },
+            "County": {
+              "type": "string"
+            },
+            "State": {
+              "type": "string"
+            },
+            "Country": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "CustomAreaLabel": {
+              "type": "string"
+            }
+          }
+        },
+        "InternetResource": {
+          "type": "object",
+          "properties": {
+            "Url": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            }
+          }
+        },
+        "DocumentsRequired": {
+          "type": "object",
+          "properties": {
+            "Title": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            }
+          }
+        },
+        "ApplicationProcess": {
+          "type": "object",
+          "properties": {
+            "Title": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            }
+          }
+        },
+        "FeeStructure": {
+          "type": "string"
+        },
+        "PaymentMethodAccepted": {
+          "type": "string"
+        },
+        "GeneralEligibility": {
+          "type": "string"
+        },
+        "AgeRequirement": {
+          "type": "object",
+          "properties": {
+            "MinimumAge": {
+              "type": "integer"
+            },
+            "MaximumAge": {
+              "type": "integer"
+            }
+          }
+        },
+        "GenderRequirement": {
+          "type": "object",
+          "properties": {
+            "Gender": {
+              "type": "string"
+            },
+            "MinimumAge": {
+              "type": "integer"
+            },
+            "MaximumAge": {
+              "type": "integer"
+            }
+          }
+        },
+        "FamilyRequirements": {
+          "type": "string"
+        },
+        "IncomeRequirements": {
+          "type": "string"
+        },
+        "ResidencyRequirements": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "ServiceNotAlwaysAvailable": {
+          "type": "boolean"
+        },
+        "ResourceInfo": {
+          "type": "object",
+          "properties": {
+            "Contact": {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "integer"
+                },
+                "AgencyID": {
+                  "type": "string"
+                },
+                "ServiceID": {
+                  "type": "string"
+                },
+                "Department": {
+                  "type": "string"
+                },
+                "Title": {
+                  "type": "string"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "Nickname": {
+                  "type": "string"
+                },
+                "ContactEmail": {
+                  "type": "string"
+                },
+                "ContactPhone": {
+                  "type": "object",
+                  "properties": {
+                    "Phone": {
+                      "type": "string"
+                    },
+                    "Confidential": {
+                      "type": "boolean"
+                    },
+                    "ReasonWithheld": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string"
+                    },
+                    "Type": {
+                      "type": "string"
+                    },
+                    "Function": {
+                      "type": "string"
+                    },
+                    "TollFree": {
+                      "type": "boolean"
+                    },
+                    "Department": {
+                      "type": "string"
+                    },
+                    "CountryPrefix": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "ContactType": {
+                  "type": "string"
+                }
+              }
+            },
+            "ResourceSpecialist": {
+              "type": "string"
+            },
+            "AvailableForDirectory": {
+              "type": "boolean"
+            },
+            "AvailableForReferral": {
+              "type": "boolean"
+            },
+            "AvailableForResearch": {
+              "type": "boolean"
+            },
+            "DateAdded": {
+              "type": "string"
+            },
+            "DateLastVerified": {
+              "type": "string"
+            },
+            "DateOfLastAction": {
+              "type": "string"
+            },
+            "LastActionType": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

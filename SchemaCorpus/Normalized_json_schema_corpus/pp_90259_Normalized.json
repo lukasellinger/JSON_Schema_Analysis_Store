@@ -1,0 +1,211 @@
+{
+  "title": "PointCloud Filter",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Filters applied to the pointCloud which will hide a point.",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/pointCloudBitfieldFilter_schema.json"
+    },
+    {
+      "$ref": "#/definitions/pointCloudReturnFilter_schema.json"
+    },
+    {
+      "$ref": "#/definitions/pointCloudValueFilter_schema.json"
+    }
+  ],
+  "definitions": {
+    "pointCloudBitfieldFilter_schema.json": {
+      "title": "PointCloud Bitfield Filter",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Filters points based on the value of the specified bitfield attribute.",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "The name of the field that is used for the filter."
+        },
+        "requiredClearBits": {
+          "type": "array",
+          "description": "List ALL bit numbers that must cleared (\u003d0) for the point to be kept. bit 0 is LSB.",
+          "items": {
+            "type": "number"
+          }
+        },
+        "requiredSetBits": {
+          "type": "array",
+          "description": " List ALL bit numbers that must set (\u003d1) for the point to be kept. bit 0 is LSB.",
+          "items": {
+            "type": "number"
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "pointCloudBitfieldFilter"
+          ]
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "requiredClearBits"
+          ]
+        },
+        {
+          "required": [
+            "requiredSetBits"
+          ]
+        }
+      ],
+      "required": [
+        "field",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "PointCloud Bitfield Filter",
+            "description": "",
+            "code": {
+              "filters": [
+                {
+                  "type": "pointCloudBitfieldFilter",
+                  "field": "USAGE",
+                  "requiredClearBits": [
+                    0
+                  ],
+                  "requiredSetBits": [
+                    2,
+                    3
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "pointCloudReturnFilter_schema.json": {
+      "title": "PointCloud Return Filter",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Filters points based on the value of the return number/return count.",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "The name of the field that is used for the filter."
+        },
+        "includedReturns": {
+          "type": "array",
+          "description": "All points with at least one specified return status will be kept. Status values: `last`, `firstOfMany`, `lastOfMany`, `single`",
+          "items": {
+            "type": "string",
+            "enum": [
+              "last",
+              "firstOfMany",
+              "lastOfMany",
+              "single"
+            ]
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "pointCloudReturnFilter"
+          ]
+        }
+      },
+      "required": [
+        "field",
+        "includedReturns",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "PointCloud Return Filter",
+            "description": "",
+            "code": {
+              "filters": [
+                {
+                  "type": "pointCloudReturnFilter",
+                  "field": "USAGE",
+                  "includedReturns": [
+                    "firstOfMany",
+                    "single"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "pointCloudValueFilter_schema.json": {
+      "title": "PointCloud Value Filter",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Filters points based on the value of an specified attribute.",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "The name of the field that is used for the filter."
+        },
+        "mode": {
+          "type": "string",
+          "description": "Defines if values should be included or excluded.",
+          "enum": [
+            "exclude",
+            "include"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "description": "Filters points based on the value of an specified attribute.",
+          "enum": [
+            "pointCloudValueFilter"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "description": "list of values",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "field",
+        "mode",
+        "type",
+        "values"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "PointCloud Value Filter",
+            "description": "",
+            "code": {
+              "filters": [
+                {
+                  "type": "pointCloudValueFilter",
+                  "field": "USAGE",
+                  "values": [
+                    1,
+                    3,
+                    7
+                  ],
+                  "mode": "include"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

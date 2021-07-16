@@ -1,0 +1,2197 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/beerjson/beerjson/master/json/beer.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "beerjson": {
+      "type": "object",
+      "description": "Root element of all beerjson documents.",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "description": "Explicitly encode beerjson version within list of records.",
+          "$ref": "#/definitions/measureable_units.json_definitions_VersionType"
+        },
+        "timing_object": {
+          "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+          "$ref": "#/definitions/timing.json_definitions_TimingType"
+        },
+        "fermentables": {
+          "type": "array",
+          "description": "Records for any ingredient that contributes to the gravity of the beer.",
+          "items": {
+            "$ref": "#/definitions/fermentable.json_definitions_FermentableType"
+          }
+        },
+        "miscellaneous_ingredients": {
+          "type": "array",
+          "description": "Records for adjuncts which do not contribute to the gravity of the beer.",
+          "items": {
+            "$ref": "#/definitions/misc.json_definitions_MiscellaneousType"
+          }
+        },
+        "hop_varieties": {
+          "type": "array",
+          "description": "Records detailing the many properties of unique hop varieties.",
+          "items": {
+            "$ref": "#/definitions/hop.json_definitions_VarietyInformation"
+          }
+        },
+        "cultures": {
+          "type": "array",
+          "description": "Records detailing the wide array of unique cultures.",
+          "items": {
+            "$ref": "#/definitions/culture.json_definitions_CultureInformation"
+          }
+        },
+        "profiles": {
+          "type": "array",
+          "description": "Records for water profiles used in brewing.",
+          "items": {
+            "$ref": "#/definitions/water.json_definitions_WaterBase"
+          }
+        },
+        "styles": {
+          "type": "array",
+          "description": "Records detailing the characteristics of the beer styles for which judging guidelines have been established.",
+          "items": {
+            "$ref": "#/definitions/style.json_definitions_StyleType"
+          }
+        },
+        "mashes": {
+          "type": "array",
+          "description": "A collection of steps providing process information for common mashing procedures.",
+          "items": {
+            "$ref": "#/definitions/mash.json_definitions_MashProcedureType"
+          }
+        },
+        "fermentations": {
+          "type": "array",
+          "description": "A collection of steps providing process information for common fermentation procedures.",
+          "items": {
+            "$ref": "#/definitions/fermentation.json_definitions_FermentationProcedureType"
+          }
+        },
+        "recipes": {
+          "type": "array",
+          "description": "Records containing a minimal collection of the description of ingredients, procedures and other required parameters necessary to recreate a batch of beer.",
+          "items": {
+            "$ref": "#/definitions/recipe.json_definitions_RecipeType"
+          }
+        },
+        "equipments": {
+          "type": "array",
+          "description": "Provides necessary information for brewing equipment.",
+          "items": {
+            "$ref": "#/definitions/equipment.json_definitions_EquipmentType"
+          }
+        },
+        "boil": {
+          "type": "array",
+          "description": "A collection of steps providing process information for common boil procedures.",
+          "items": {
+            "$ref": "#/definitions/boil.json_definitions_BoilProcedureType"
+          }
+        },
+        "packaging": {
+          "type": "array",
+          "description": "A collection of steps providing process information for common packaging procedures.",
+          "items": {
+            "$ref": "#/definitions/packaging.json_definitions_PackagingProcedureType"
+          }
+        }
+      },
+      "required": [
+        "version"
+      ]
+    }
+  },
+  "required": [
+    "beerjson"
+  ],
+  "definitions": {
+    "measureable_units.json_definitions_VersionType": {
+      "type": "number"
+    },
+    "timing.json_definitions_TimingType": {
+      "type": "object",
+      "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+      "additionalProperties": false,
+      "properties": {
+        "time": {
+          "description": "What time during a process step is added, eg a value of 2 days for a dry hop addition would be added 2 days into the fermentation step.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "duration": {
+          "description": "How long an ingredient addition remains, this was referred to as time in the BeerXML standard. E.G. A 40 minute hop boil additions means to boil for 40 minutes, and a 2 day duration for a dry hop means to remove it after 2 days.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "continuous": {
+          "description": "A continuous addition is spread out evenly and added during the entire process step, eg 60 minute IPA by dogfish head takes all ofthe hop additions and adds them throughout the entire boil.",
+          "type": "boolean"
+        },
+        "specific_gravity": {
+          "description": "Used to indicate when an addition is added based on a desired specific gravity. E.G. Add dry hop at when SG is 1.018.",
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "pH": {
+          "description": "Used to indicate when an addition is added based on a desired specific gravity. eg Add brett when pH is 3.4.",
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "step": {
+          "description": "Used to indicate what step this ingredient timing addition is referencing. EG A value of 2 for add_to_fermentation would mean to add during the second fermentation step.",
+          "type": "integer"
+        },
+        "use": {
+          "$ref": "#/definitions/timing.json_definitions_UseType"
+        }
+      }
+    },
+    "measureable_units.json_definitions_TimeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeUnitType"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TimeUnitType": {
+      "type": "string",
+      "enum": [
+        "sec",
+        "min",
+        "hr",
+        "day",
+        "week"
+      ]
+    },
+    "measureable_units.json_definitions_GravityType": {
+      "type": "object",
+      "description": "Gravity refers to the both the measurements of percent of sugar content, ie plato and brix, as well as relative density ie specific gravity.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_GravityUnitType": {
+      "type": "string",
+      "enum": [
+        "sg",
+        "plato",
+        "brix"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityUnitType": {
+      "type": "string",
+      "enum": [
+        "pH"
+      ]
+    },
+    "timing.json_definitions_UseType": {
+      "type": "string",
+      "description": "Differentiates the specific process type when this ingredient addition is used.",
+      "enum": [
+        "add_to_mash",
+        "add_to_boil",
+        "add_to_fermentation",
+        "add_to_package"
+      ]
+    },
+    "fermentable.json_definitions_FermentableType": {
+      "type": "object",
+      "description": "FermentableType collects the attributes of a fermentable ingredient to store as record information.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/fermentable.json_definitions_FermentableBase"
+        },
+        {
+          "properties": {
+            "notes": {
+              "type": "string"
+            },
+            "moisture": {
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "alpha_amylase": {
+              "description": "Where diastatic power gives the total amount of all enzymes, alpha amylase, also known as dextrinizing units, refers to only the total amount of alpa amylase in the malted grain. A value of 25-50 is desirable for base malt.",
+              "type": "number"
+            },
+            "diastatic_power": {
+              "description": "Diastatic power is a measurement of malted grains enzymatic content. A value of 35 Lintner is needed to self convert, while a value of 100 or more is desirable.",
+              "$ref": "#/definitions/measureable_units.json_definitions_DiastaticPowerType"
+            },
+            "protein": {
+              "description": "The percentage of protein. Higher values may indicate a possibility of haze, or lautering issues.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "kolbach_index": {
+              "description": "The Kolbach Index, also known as soluble to total ratio of nitrogen or protein, is used to indcate the degree of malt modification. A value above 35% is desired for simple single infusion mashing, undermodified malt may require multiple step mashes or decoction.",
+              "type": "number"
+            },
+            "max_in_batch": {
+              "description": "The recommended maximum percentage to use in a grain bill. ",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "recommend_mash": {
+              "description": "True if the fermentable must be mashed, false if it can be steeped. ",
+              "type": "boolean"
+            },
+            "inventory": {
+              "$ref": "#/definitions/fermentable.json_definitions_FermentableInventoryType"
+            },
+            "glassy": {
+              "description": "Used to indicate the \u0027crystallized\u0027 percentage of starches for crystal malts.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "plump": {
+              "description": "The percentage of grain that masses through sieves with gaps of 7/64 and 6/64, desired values of 80% or higher which indicate plump kernels.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "half": {
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "mealy": {
+              "description": "The opposite of glassy, a mealy kernel is one that is not glassy. Base malt should be at least 90%, single step mashes generally require 95% or higher.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "thru": {
+              "description": "The Percentage of grain that makes it through a thin mesh screen, typically 5/64 inch. Values less than 3% are desired.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "friability": {
+              "description": "Friability is the measure of a malts ability to crumble during the crush, and is used as an indicator for easy gelatinization of the grain and starches, as well as modification of the malt. Value of 85% of higher indicates a well modified malt and is suitable for single step mashes. Lower values may require a step mash.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "di_ph": {
+              "description": "The pH of the resultant wort for 1 lb of grain mashed in 1 gallon of distilled water. Used in many water chemistry / mash pH prediction software.",
+              "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+            },
+            "viscosity": {
+              "description": "The measure of wort viscosity, typically associated with the breakdown of beta-glucans. The higher the viscosity, the greater the need for a glucan rest and the less suitable for a fly sparge.",
+              "$ref": "#/definitions/measureable_units.json_definitions_ViscosityType"
+            },
+            "dms_p": {
+              "description": "The amount of DMS precursors, namely S-methyl methionine (SMM) and dimethyl sulfoxide (DMSO) in the malt which convert to dimethyl sulfide (DMS).",
+              "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+            },
+            "fan": {
+              "description": "Free Amino Nitrogen (FAN) is a critical yeast nutrient. Typical values for base malt is 170.",
+              "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+            },
+            "fermentability": {
+              "description": "Fermentability - Used in Extracts to indicate a baseline typical apparent attenuation for a typical medium attenuation yeast.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "beta_glucan": {
+              "description": "Values of 180 or more may suggest a glucan rest and avoiding fly sparging.",
+              "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+            }
+          }
+        }
+      ]
+    },
+    "fermentable.json_definitions_FermentableBase": {
+      "type": "object",
+      "description": "FermentableBase provides unique properties to identify individual records of fermentable ingredients.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "dry extract",
+            "extract",
+            "grain",
+            "sugar",
+            "fruit",
+            "juice",
+            "honey",
+            "other"
+          ]
+        },
+        "origin": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "grain_group": {
+          "type": "string",
+          "enum": [
+            "base",
+            "caramel",
+            "flaked",
+            "roasted",
+            "specialty",
+            "smoked",
+            "adjunct"
+          ]
+        },
+        "yield": {
+          "$ref": "#/definitions/fermentable.json_definitions_YieldType"
+        },
+        "color": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ColorType"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "yield",
+        "color"
+      ]
+    },
+    "fermentable.json_definitions_YieldType": {
+      "type": "object",
+      "description": "The potential yield of the fermentable ingredient, supporting SG, or percentage. eg 1.037 or 80% are valid yield types.",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "properties": {
+        "fine_grind": {
+          "description": "Percentage yield compared to succrose of a fine grind. eg 80%",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "coarse_grind": {
+          "description": "Percentage yield compared to succrose of a coarse grind. eg 78%",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "fine_coarse_difference": {
+          "description": "The difference between fine and coarse grind, a difference more than 2 percent can indicate a protein or step mash may be desirable. eg 2%.",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "potential": {
+          "description": "The potential yield of the fermentable ingredient for 1 lb of grain mashed in 1 gallon of water. eg 1.037",
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        }
+      }
+    },
+    "measureable_units.json_definitions_PercentType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_PercentUnitType": {
+      "type": "string",
+      "enum": [
+        "%"
+      ]
+    },
+    "measureable_units.json_definitions_ColorType": {
+      "type": "object",
+      "description": "ColorType supports both grain color properties, such as Lovibond, and wort color properties such as SRM and EBC.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ColorUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_ColorUnitType": {
+      "type": "string",
+      "enum": [
+        "EBC",
+        "Lovi",
+        "SRM"
+      ]
+    },
+    "measureable_units.json_definitions_DiastaticPowerType": {
+      "type": "object",
+      "description": "Diastatic power is a measurement of malted grains enzymatic content. A value of 35 Lintner is needed to self convert, while a value of 100 or more is desirable for base malts.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_DiastaticPowerUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_DiastaticPowerUnitType": {
+      "type": "string",
+      "enum": [
+        "Lintner",
+        "WK"
+      ]
+    },
+    "fermentable.json_definitions_FermentableInventoryType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+            },
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+            }
+          ]
+        }
+      }
+    },
+    "measureable_units.json_definitions_VolumeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeUnitType": {
+      "type": "string",
+      "enum": [
+        "ml",
+        "l",
+        "tsp",
+        "tbsp",
+        "floz",
+        "cup",
+        "pt",
+        "qt",
+        "gal",
+        "bbl",
+        "ifloz",
+        "ipt",
+        "iqt",
+        "igal",
+        "ibbl"
+      ]
+    },
+    "measureable_units.json_definitions_MassType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_MassUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_MassUnitType": {
+      "type": "string",
+      "enum": [
+        "mg",
+        "g",
+        "kg",
+        "lb",
+        "oz"
+      ]
+    },
+    "measureable_units.json_definitions_ViscosityType": {
+      "type": "object",
+      "description": "Viscosity of fluids",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ViscosityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_ViscosityUnitType": {
+      "type": "string",
+      "enum": [
+        "cP",
+        "mPa-s"
+      ]
+    },
+    "measureable_units.json_definitions_ConcentrationType": {
+      "type": "object",
+      "description": "Examples for concentration include ppm, ppb, and mg/l. ",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_ConcentrationUnitType": {
+      "type": "string",
+      "enum": [
+        "ppm",
+        "ppb",
+        "mg/l"
+      ]
+    },
+    "misc.json_definitions_MiscellaneousType": {
+      "type": "object",
+      "description": "MiscellaneousType collects the attributes of an ingredient to store as record information.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/misc.json_definitions_MiscellaneousBase"
+        },
+        {
+          "properties": {
+            "use_for": {
+              "description": "Used to describe the purpose of the miscellaneous ingredient, e.g. whirlfloc is used for clarity.",
+              "type": "string"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "inventory": {
+              "$ref": "#/definitions/misc.json_definitions_MiscellaneousInventoryType"
+            }
+          }
+        }
+      ]
+    },
+    "misc.json_definitions_MiscellaneousBase": {
+      "type": "object",
+      "description": "MiscellaneousBase provides unique properties to identify individual records of ingredients that are neither hops, nor provide a contribution to the gravity of wort.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "spice",
+            "fining",
+            "water agent",
+            "herb",
+            "flavor",
+            "wood",
+            "other"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    "misc.json_definitions_MiscellaneousInventoryType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+            },
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+            },
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_UnitType"
+            }
+          ]
+        }
+      },
+      "required": [
+        "amount"
+      ]
+    },
+    "measureable_units.json_definitions_UnitType": {
+      "type": "object",
+      "description": "UnitType is used where unitless amounts are required, such as 1 apple, or 1 yeast packet.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_UnitUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_UnitUnitType": {
+      "type": "string",
+      "enum": [
+        "1",
+        "unit",
+        "each",
+        "dimensionless",
+        "pkg"
+      ]
+    },
+    "hop.json_definitions_VarietyInformation": {
+      "type": "object",
+      "description": "VarietyInformation collects the attributes of a hop variety to store as record information.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/hop.json_definitions_HopVarietyBase"
+        },
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "aroma",
+                "bittering",
+                "flavor",
+                "aroma/bittering",
+                "bittering/flavor",
+                "aroma/flavor",
+                "aroma/bittering/flavor"
+              ]
+            },
+            "notes": {
+              "type": "string"
+            },
+            "percent_lost": {
+              "description": " Defined as the percentage of hop alpha lost in 6 months of storage.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "substitutes": {
+              "type": "string"
+            },
+            "oil_content": {
+              "description": "Oil Content information object.",
+              "$ref": "#/definitions/hop.json_definitions_OilContentType"
+            },
+            "inventory": {
+              "$ref": "#/definitions/hop.json_definitions_HopInventoryType"
+            }
+          }
+        }
+      ]
+    },
+    "hop.json_definitions_HopVarietyBase": {
+      "type": "object",
+      "description": "HopVarietyBase provides unique properties to identify individual records of a hop variety.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "form": {
+          "type": "string",
+          "enum": [
+            "extract",
+            "leaf",
+            "leaf (wet)",
+            "pellet",
+            "powder",
+            "plug"
+          ]
+        },
+        "alpha_acid": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "beta_acid": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        }
+      },
+      "required": [
+        "name",
+        "alpha_acid"
+      ]
+    },
+    "hop.json_definitions_OilContentType": {
+      "type": "object",
+      "description": "oil_content collects all information of a hop variety pertaining to oil content, polyphenols, and thiols. Each individual compound is expressed as a percent of the total oil measurement.",
+      "properties": {
+        "total_oil_ml_per_100g": {
+          "description": "The total amount of oil, including hydrocarbons, esters, and terpene alcohols in units of ml of oil per 100g of hop mass.",
+          "type": "number"
+        },
+        "humulene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "caryophyllene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "cohumulone": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "myrcene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "farnesene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "geraniol": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "b_pinene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "linalool": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "limonene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "nerol": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "pinene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "polyphenols": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "xanthohumol": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        }
+      }
+    },
+    "hop.json_definitions_HopInventoryType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+            },
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+            }
+          ]
+        }
+      }
+    },
+    "culture.json_definitions_CultureInformation": {
+      "type": "object",
+      "description": "CultureInformation collects the attributes of a microbial culture.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/culture.json_definitions_CultureBase"
+        },
+        {
+          "properties": {
+            "temperature_range": {
+              "description": "The recommended temperature range of fermentation by the culture producer.",
+              "$ref": "#/definitions/measureable_units.json_definitions_TemperatureRangeType"
+            },
+            "alcohol_tolerance": {
+              "description": "The recommended limit of abv by the culture producer before attenuation stops.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "flocculation": {
+              "description": "Floculation refers to the ability of yeast to aggregate to form large flocs which drop out of suspension.",
+              "$ref": "#/definitions/measureable_units.json_definitions_QualitativeRangeType"
+            },
+            "attenuation_range": {
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentRangeType"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "best_for": {
+              "description": "Recommended styles for a particular culture.",
+              "type": "string"
+            },
+            "max_reuse": {
+              "description": "Maximum number of times to reuse a culture before a new lab source is recommended.",
+              "type": "integer"
+            },
+            "pof": {
+              "description": "A POF+ culture is capable of producing phenols, which is a common distinctive property of saison, and brett yeasts.",
+              "type": "boolean"
+            },
+            "glucoamylase": {
+              "description": "A glucoamylase positive culture is capable of producing glucoamylase, the enzyme produced through expression of the diastatic gene, which allows yeast to attenuate dextrins and starches leading to a very low FG. This is positive in some saison/brett yeasts as well as the new gulo hybrid by Omega yeast labs.",
+              "type": "boolean"
+            },
+            "inventory": {
+              "$ref": "#/definitions/culture.json_definitions_CultureInventoryType"
+            },
+            "zymocide": {
+              "$ref": "#/definitions/culture.json_definitions_Zymocide"
+            }
+          }
+        }
+      ]
+    },
+    "culture.json_definitions_CultureBase": {
+      "type": "object",
+      "description": "Provides unique properties to identify individual records of a culture.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "ale",
+            "bacteria",
+            "brett",
+            "champagne",
+            "kveik",
+            "lacto",
+            "lager",
+            "malolactic",
+            "mixed-culture",
+            "other",
+            "pedio",
+            "spontaneous",
+            "wine"
+          ]
+        },
+        "form": {
+          "type": "string",
+          "enum": [
+            "liquid",
+            "dry",
+            "slant",
+            "culture",
+            "dregs"
+          ]
+        },
+        "producer": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "form"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureRangeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minimum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "maximum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        }
+      },
+      "required": [
+        "minimum",
+        "maximum"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureUnitType": {
+      "type": "string",
+      "enum": [
+        "C",
+        "F"
+      ]
+    },
+    "measureable_units.json_definitions_QualitativeRangeType": {
+      "type": "string",
+      "enum": [
+        "very low",
+        "low",
+        "medium low",
+        "medium",
+        "medium high",
+        "high",
+        "very high"
+      ]
+    },
+    "measureable_units.json_definitions_PercentRangeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minimum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "maximum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        }
+      },
+      "required": [
+        "minimum",
+        "maximum"
+      ]
+    },
+    "culture.json_definitions_CultureInventoryType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "liquid": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        },
+        "dry": {
+          "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+        },
+        "slant": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        },
+        "culture": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        }
+      }
+    },
+    "culture.json_definitions_Zymocide": {
+      "type": "object",
+      "description": "Zymocide, also known as killer yeast properties, is common among wine yeast. There are also some ale and brett yeasts that are immune to some zymocidic properties, these are known as killer neutral.",
+      "additionalProperties": false,
+      "properties": {
+        "no1": {
+          "type": "boolean"
+        },
+        "no2": {
+          "type": "boolean"
+        },
+        "no28": {
+          "type": "boolean"
+        },
+        "klus": {
+          "type": "boolean"
+        },
+        "neutral": {
+          "type": "boolean"
+        }
+      }
+    },
+    "water.json_definitions_WaterBase": {
+      "type": "object",
+      "description": "WaterBase provides unique properties to identify individual records of  brewing water.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "calcium": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "bicarbonate": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "carbonate": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "potassium": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "iron": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "nitrate": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "nitrite": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "flouride": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "sulfate": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "chloride": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "sodium": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        },
+        "magnesium": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ConcentrationType"
+        }
+      },
+      "required": [
+        "name",
+        "calcium",
+        "bicarbonate",
+        "sulfate",
+        "chloride",
+        "sodium",
+        "magnesium"
+      ]
+    },
+    "style.json_definitions_StyleType": {
+      "type": "object",
+      "description": "StyleType provide information for Style categorization",
+      "allOf": [
+        {
+          "$ref": "#/definitions/style.json_definitions_StyleBase"
+        },
+        {
+          "properties": {
+            "original_gravity": {
+              "$ref": "#/definitions/measureable_units.json_definitions_GravityRangeType"
+            },
+            "final_gravity": {
+              "$ref": "#/definitions/measureable_units.json_definitions_GravityRangeType"
+            },
+            "international_bitterness_units": {
+              "$ref": "#/definitions/measureable_units.json_definitions_BitternessRangeType"
+            },
+            "color": {
+              "$ref": "#/definitions/measureable_units.json_definitions_ColorRangeType"
+            },
+            "carbonation": {
+              "$ref": "#/definitions/measureable_units.json_definitions_CarbonationRangeType"
+            },
+            "alcohol_by_volume": {
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentRangeType"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "aroma": {
+              "type": "string"
+            },
+            "appearance": {
+              "type": "string"
+            },
+            "flavor": {
+              "type": "string"
+            },
+            "mouthfeel": {
+              "type": "string"
+            },
+            "overall_impression": {
+              "type": "string"
+            },
+            "ingredients": {
+              "type": "string"
+            },
+            "examples": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "style.json_definitions_StyleBase": {
+      "type": "object",
+      "description": "The descriptive base type for both style guideline records, and recipe style provisions. Provides unique properties to identify individual styles",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "category_number": {
+          "type": "integer"
+        },
+        "style_letter": {
+          "type": "string",
+          "maxLength": 1,
+          "minLength": 1,
+          "pattern": "[A-Z ]"
+        },
+        "style_guide": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/style.json_definitions_StyleCategories"
+        }
+      },
+      "required": [
+        "name",
+        "category",
+        "style_guide",
+        "type"
+      ]
+    },
+    "style.json_definitions_StyleCategories": {
+      "type": "string",
+      "enum": [
+        "beer",
+        "cider",
+        "kombucha",
+        "mead",
+        "other",
+        "soda",
+        "wine"
+      ]
+    },
+    "measureable_units.json_definitions_GravityRangeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minimum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "maximum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        }
+      },
+      "required": [
+        "minimum",
+        "maximum"
+      ]
+    },
+    "measureable_units.json_definitions_BitternessRangeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minimum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_BitternessType"
+        },
+        "maximum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_BitternessType"
+        }
+      },
+      "required": [
+        "minimum",
+        "maximum"
+      ]
+    },
+    "measureable_units.json_definitions_BitternessType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_BitternessUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_BitternessUnitType": {
+      "type": "string",
+      "enum": [
+        "IBUs"
+      ]
+    },
+    "measureable_units.json_definitions_ColorRangeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minimum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ColorType"
+        },
+        "maximum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ColorType"
+        }
+      },
+      "required": [
+        "minimum",
+        "maximum"
+      ]
+    },
+    "measureable_units.json_definitions_CarbonationRangeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minimum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_CarbonationType"
+        },
+        "maximum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_CarbonationType"
+        }
+      },
+      "required": [
+        "minimum",
+        "maximum"
+      ]
+    },
+    "measureable_units.json_definitions_CarbonationType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_CarbonationUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_CarbonationUnitType": {
+      "type": "string",
+      "enum": [
+        "vols",
+        "g/l"
+      ]
+    },
+    "mash.json_definitions_MashProcedureType": {
+      "type": "object",
+      "description": "This defines the procedure for performing unique mashing processes.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "grain_temperature": {
+          "description": "Initial grain temperature prior to the start of the mash.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "mash_steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/mash_step.json_definitions_MashStepType"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "grain_temperature",
+        "mash_steps"
+      ]
+    },
+    "mash_step.json_definitions_MashStepType": {
+      "type": "object",
+      "description": "MashStepType - a per step representation occurring during the mash.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "infusion",
+            "temperature",
+            "decoction",
+            "souring mash",
+            "souring wort",
+            "drain mash tun",
+            "sparge"
+          ]
+        },
+        "amount": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        },
+        "step_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "step_time": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "ramp_time": {
+          "description": "The amount of time  that passes before this step begins. eg moving from a mash step (step 1) of 148F, to a new temperature step of 156F (step 2) may take 8 minutes to heat the mash. Step 2 would have a ramp time of 8 minutes.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "end_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "description": {
+          "type": "string"
+        },
+        "water_grain_ratio": {
+          "description": "Also known as the mash thickness. eg 1.75 qt/lb or 3.65 L/kg.",
+          "$ref": "#/definitions/measureable_units.json_definitions_SpecificVolumeType"
+        },
+        "infuse_temperature": {
+          "description": "Temperature of the water for an infusion step.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "start_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "end_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "step_temperature",
+        "step_time"
+      ]
+    },
+    "measureable_units.json_definitions_SpecificVolumeType": {
+      "type": "object",
+      "description": "Specific volume is the inverse of density, with units of volume over mass, ie qt/lb or L/kg. Commonly used for mash thickness.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_SpecificVolumeUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_SpecificVolumeUnitType": {
+      "type": "string",
+      "enum": [
+        "qt/lb",
+        "gal/lb",
+        "gal/oz",
+        "l/g",
+        "l/kg",
+        "floz/oz",
+        "m^3/kg",
+        "ft^3/lb"
+      ]
+    },
+    "fermentation.json_definitions_FermentationProcedureType": {
+      "type": "object",
+      "description": "FermentationProcedureType defines the procedure for performing fermentation.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "fermentation_steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/fermentation_step.json_definitions_FermentationStepType"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "fermentation_steps"
+      ]
+    },
+    "fermentation_step.json_definitions_FermentationStepType": {
+      "type": "object",
+      "description": "FermentationStepType - a per step representation of a fermentation action.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "start_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "end_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "step_time": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "free_rise": {
+          "description": "Free rise is used to indicate a fermentation step where the exothermic fermentation is allowed to raise the temperature without restriction This is either True or false.",
+          "type": "boolean"
+        },
+        "start_gravity": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "end_gravity": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "start_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "end_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "vessel": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "recipe.json_definitions_RecipeType": {
+      "type": "object",
+      "description": "RecipeType composes the information stored in a beerjson recipe.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "cider",
+            "kombucha",
+            "soda",
+            "other",
+            "mead",
+            "wine",
+            "extract",
+            "partial mash",
+            "all grain"
+          ]
+        },
+        "author": {
+          "type": "string"
+        },
+        "coauthor": {
+          "type": "string"
+        },
+        "created": {
+          "$ref": "#/definitions/measureable_units.json_definitions_DateType"
+        },
+        "batch_size": {
+          "description": "The volume into the fermenter.",
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        },
+        "efficiency": {
+          "description": "Used to store each efficiency component, including conversion, and brewhouse.",
+          "$ref": "#/definitions/recipe.json_definitions_EfficiencyType"
+        },
+        "style": {
+          "$ref": "#/definitions/style.json_definitions_RecipeStyleType"
+        },
+        "ingredients": {
+          "description": "A collection of all ingredients used for the recipe.",
+          "$ref": "#/definitions/recipe.json_definitions_IngredientsType"
+        },
+        "mash": {
+          "description": "This defines the procedure for performing unique mashing processes.",
+          "$ref": "#/definitions/mash.json_definitions_MashProcedureType"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "original_gravity": {
+          "description": "The gravity of wort when transffered to the fermenter.",
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "final_gravity": {
+          "description": "The gravity of beer at the end of fermentation.",
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "alcohol_by_volume": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "ibu_estimate": {
+          "description": "Used to differentiate which IBU formula is being used in a recipe. If formula is modified in any way, eg to support whirlpool/flameout additions etc etc, please use `Other` for transparency.",
+          "$ref": "#/definitions/hop.json_definitions_IBUEstimateType"
+        },
+        "color_estimate": {
+          "description": "The color of the finished beer, using SRM or EBC.",
+          "$ref": "#/definitions/measureable_units.json_definitions_ColorType"
+        },
+        "beer_pH": {
+          "description": "The final beer pH at the end of fermentation.",
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "carbonation": {
+          "description": "The final carbonation of the beer when packaged or served.",
+          "type": "number"
+        },
+        "apparent_attenuation": {
+          "description": "The total apparent attenuation of the finished beer after fermentation.",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "fermentation": {
+          "description": "FermentationProcedureType defines the procedure for performing fermentation.",
+          "$ref": "#/definitions/fermentation.json_definitions_FermentationProcedureType"
+        },
+        "packaging": {
+          "description": "Describes the procedure for packaging your beverage.",
+          "$ref": "#/definitions/packaging.json_definitions_PackagingProcedureType"
+        },
+        "boil": {
+          "description": "Defines the procedure for performing a boil. A boil procedure with no steps is the same as a standard single step boil.",
+          "$ref": "#/definitions/boil.json_definitions_BoilProcedureType"
+        },
+        "taste": {
+          "description": "Used to store subjective tasting notes, and rating.",
+          "$ref": "#/definitions/recipe.json_definitions_TasteType"
+        },
+        "calories_per_pint": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "author",
+        "efficiency",
+        "batch_size",
+        "ingredients"
+      ]
+    },
+    "measureable_units.json_definitions_DateType": {
+      "type": "string",
+      "pattern": "\\d{4}-\\d{2}-\\d{2}|\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
+    },
+    "recipe.json_definitions_EfficiencyType": {
+      "type": "object",
+      "description": "The efficiencyType stores each efficiency component.",
+      "additionalProperties": false,
+      "properties": {
+        "conversion": {
+          "description": "The percentage of sugar from the grain yield that is extracted and converted during the mash.",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "lauter": {
+          "description": "The percentage of sugar that makes it from the mash tun to the kettle.",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "mash": {
+          "description": "The percentage of sugar that makes it from the grain to the kettle.",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "brewhouse": {
+          "description": "The percentage of sugar that makes it from the grain to the fermenter.",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        }
+      },
+      "required": [
+        "brewhouse"
+      ]
+    },
+    "style.json_definitions_RecipeStyleType": {
+      "type": "object",
+      "description": "RecipeStyleType defines style information stored in a recipe record",
+      "allOf": [
+        {
+          "$ref": "#/definitions/style.json_definitions_StyleBase"
+        }
+      ]
+    },
+    "recipe.json_definitions_IngredientsType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fermentable_additions": {
+          "type": "array",
+          "description": "fermentable_additions collects all the fermentable ingredients for use in a recipe",
+          "items": {
+            "$ref": "#/definitions/fermentable.json_definitions_FermentableAdditionType"
+          }
+        },
+        "hop_additions": {
+          "type": "array",
+          "description": "hop_additions collects all the hops for use in a recipe",
+          "items": {
+            "$ref": "#/definitions/hop.json_definitions_HopAdditionType"
+          }
+        },
+        "miscellaneous_additions": {
+          "type": "array",
+          "description": "miscellaneous_additions collects all the miscellaneous items for use in a recipe",
+          "items": {
+            "$ref": "#/definitions/misc.json_definitions_MiscellaneousAdditionType"
+          }
+        },
+        "culture_additions": {
+          "type": "array",
+          "description": "culture_additions collects all the culture items for use in a recipe",
+          "items": {
+            "$ref": "#/definitions/culture.json_definitions_CultureAdditionType"
+          }
+        },
+        "water_additions": {
+          "type": "array",
+          "description": "water_additions collects all the water items for use in a recipe",
+          "items": {
+            "$ref": "#/definitions/water.json_definitions_WaterAdditionType"
+          }
+        }
+      },
+      "required": [
+        "fermentable_additions"
+      ]
+    },
+    "fermentable.json_definitions_FermentableAdditionType": {
+      "type": "object",
+      "description": "FermentableAdditionType collects the attributes of each fermentable ingredient for use in a recipe fermentable bill.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/fermentable.json_definitions_FermentableBase"
+        },
+        {
+          "properties": {
+            "timing": {
+              "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+              "$ref": "#/definitions/timing.json_definitions_TimingType"
+            },
+            "amount": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+                },
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "required": [
+        "amount"
+      ]
+    },
+    "hop.json_definitions_HopAdditionType": {
+      "type": "object",
+      "description": "HopAdditionType collects the attributes of each hop ingredient for use in a recipe hop bil.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/hop.json_definitions_HopVarietyBase"
+        },
+        {
+          "properties": {
+            "timing": {
+              "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+              "$ref": "#/definitions/timing.json_definitions_TimingType"
+            },
+            "amount": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+                },
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "required": [
+        "amount",
+        "timing"
+      ]
+    },
+    "misc.json_definitions_MiscellaneousAdditionType": {
+      "type": "object",
+      "description": "MiscellaneousAdditionType collects the attributes of each miscellaneous ingredient for use in a recipe.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/misc.json_definitions_MiscellaneousBase"
+        },
+        {
+          "properties": {
+            "timing": {
+              "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+              "$ref": "#/definitions/timing.json_definitions_TimingType"
+            },
+            "amount": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+                },
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+                },
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_UnitType"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "required": [
+            "amount"
+          ]
+        }
+      ]
+    },
+    "culture.json_definitions_CultureAdditionType": {
+      "type": "object",
+      "description": "CultureAdditionType collects the attributes of each culture ingredient for use in a recipe.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/culture.json_definitions_CultureBase"
+        },
+        {
+          "properties": {
+            "attenuation": {
+              "description": "The expected, or measured apparent attenuation for a given culture in a given recipe. In comparison to attenuation range, this is a single value.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "times_cultured": {
+              "type": "integer"
+            },
+            "timing": {
+              "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+              "$ref": "#/definitions/timing.json_definitions_TimingType"
+            },
+            "cell_count_billions": {
+              "type": "integer"
+            },
+            "amount": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+                },
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+                },
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_UnitType"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "required": [
+            "amount"
+          ]
+        }
+      ]
+    },
+    "water.json_definitions_WaterAdditionType": {
+      "type": "object",
+      "description": "WaterAdditionType collects the attributes of each water addition for use in a recipe",
+      "allOf": [
+        {
+          "$ref": "#/definitions/water.json_definitions_WaterBase"
+        },
+        {
+          "properties": {
+            "amount": {
+              "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+            }
+          }
+        }
+      ]
+    },
+    "hop.json_definitions_IBUEstimateType": {
+      "description": "Used to differentiate which IBU formula is being used in a recipe. If formula is modified in any way, eg to support whirlpool/flameout additions etc etc, please use `Other` for transparency.",
+      "type": "object",
+      "properties": {
+        "method": {
+          "$ref": "#/definitions/hop.json_definitions_IBUMethodType"
+        }
+      }
+    },
+    "hop.json_definitions_IBUMethodType": {
+      "type": "string",
+      "enum": [
+        "Rager",
+        "Tinseth",
+        "Garetz",
+        "Other"
+      ]
+    },
+    "packaging.json_definitions_PackagingProcedureType": {
+      "type": "object",
+      "description": "Describes the procedure for packaging your beverage.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "packaged_volume": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        },
+        "description": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "packaging_vessels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/packaging_vessel.json_definitions_PackagingVesselType"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "packaging_vessel.json_definitions_PackagingVesselType": {
+      "type": "object",
+      "description": "PackagingVesselType - a per vessel representation of a packaging process.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "keg",
+            "bottle",
+            "cask",
+            "tank",
+            "firkin",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "package_date": {
+          "$ref": "#/definitions/measureable_units.json_definitions_DateType"
+        },
+        "start_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "end_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "step_time": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "start_gravity": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "end_gravity": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "start_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "end_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "carbonation": {
+          "type": "number"
+        },
+        "vessel_volume": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        },
+        "vessel_quantity": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "boil.json_definitions_BoilProcedureType": {
+      "type": "object",
+      "description": "BoilProcedureType defines the procedure for performing a boil. A boil procedure with no steps is the same as a standard single step boil.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "pre_boil_size": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        },
+        "boil_time": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "boil_steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/boil_step.json_definitions_BoilStepType"
+          }
+        }
+      },
+      "required": [
+        "boil_time"
+      ]
+    },
+    "boil_step.json_definitions_BoilStepType": {
+      "type": "object",
+      "description": "BoilStepType - a per step representation of a boil process, can be used to support preboil steps, non-boiling pasteurization steps, boiling, whirlpool steps, and chilling.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "start_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "end_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "ramp_time": {
+          "description": "The amount of time that passes before this step begins. eg moving from a boiling step (step 1) to a whirlpool step (step 2) may take 5 minutes. Step 2 would have a ramp time of 5 minutes, hop isomerization and bitterness calculations will need to account for this accordingly.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "step_time": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "start_gravity": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "end_gravity": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "start_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "end_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "chilling_type": {
+          "description": "Chilling type seperates batch chilling, eg immersion chillers, where the entire volume of wort is brought down in temperture as a whole, vs inline chilling where the wort is chilled while it is being drained, which can leave a significant amount of hop isomerization occuring in the boil kettle.",
+          "type": "string",
+          "enum": [
+            "batch",
+            "inline"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "recipe.json_definitions_TasteType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "notes": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "notes",
+        "rating"
+      ]
+    },
+    "equipment.json_definitions_EquipmentType": {
+      "type": "object",
+      "description": "Provides necessary information for brewing equipment set.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "equipment_items": {
+          "type": "array",
+          "description": "",
+          "items": {
+            "$ref": "#/definitions/equipment.json_definitions_EquipmentItemType"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "equipment_items"
+      ]
+    },
+    "equipment.json_definitions_EquipmentItemType": {
+      "type": "object",
+      "description": "EquipmentType provides necessary information for individual brewing equipment.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/equipment.json_definitions_EquipmentBase"
+        },
+        {
+          "properties": {
+            "loss": {
+              "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+            },
+            "grain_absorption_rate": {
+              "description": "The apparent volume absorbed by grain, typical values are 0.125 qt/lb (1.04 L/kg) for a mashtun, 0.08 gal/lb (0.66 L/kg) for BIAB.",
+              "$ref": "#/definitions/measureable_units.json_definitions_SpecificVolumeType"
+            },
+            "boil_rate_per_hour": {
+              "description": "The volume boiled off during 1 hour, measured before and after at room temperature.",
+              "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+            },
+            "drain_rate_per_minute": {
+              "description": "The volume that leaves the kettle, especially important for non-immersion chillers that cool the wort as it leaves the kettle.",
+              "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+            },
+            "weight": {
+              "description": "The weight of the piece of equipment, especially important for when the mashtun is not preheated.",
+              "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+            },
+            "specific_heat": {
+              "description": "The specific heat of the piece of equipment, expressed in Cal/(g*C), especially important for when the mashtun is not preheated.",
+              "$ref": "#/definitions/measureable_units.json_definitions_SpecificHeatType"
+            },
+            "notes": {
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "required": [
+        "loss"
+      ]
+    },
+    "equipment.json_definitions_EquipmentBase": {
+      "type": "object",
+      "description": "The descriptive base type for brew day equipment. Provides unique properties to fully describe the recipe.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "form": {
+          "type": "string",
+          "enum": [
+            "HLT",
+            "Mash Tun",
+            "Lauter Tun",
+            "Brew Kettle",
+            "Fermenter",
+            "Aging Vessel",
+            "Packaging Vessel"
+          ]
+        },
+        "maximum_volume": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        }
+      },
+      "required": [
+        "name",
+        "form",
+        "maximum_volume"
+      ]
+    },
+    "measureable_units.json_definitions_SpecificHeatType": {
+      "type": "object",
+      "description": "Specific heat is the measurement of the amount of heat required to raise a given mass one degree..",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_SpecificHeatUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_SpecificHeatUnitType": {
+      "type": "string",
+      "enum": [
+        "Cal/(g C)",
+        "J/(kg K)",
+        "BTU/(lb F)"
+      ]
+    }
+  }
+}

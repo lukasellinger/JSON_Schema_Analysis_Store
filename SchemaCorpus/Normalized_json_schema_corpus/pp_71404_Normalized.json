@@ -1,0 +1,978 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://github.com/route4me/json-schemas/blob/master/Address.dtd",
+  "title": "Address",
+  "description": "Json schema for an Address response class. See curl examples: get_route_directions, get_route_path_points",
+  "type": "object",
+  "properties": {
+    "route_destination_id": {
+      "type": "integer",
+      "title": "Route Destination ID",
+      "description": "Internal unique address identifier"
+    },
+    "alias": {
+      "type": "string",
+      "title": "Address Alias",
+      "description": "Address Alias"
+    },
+    "member_id": {
+      "type": "integer",
+      "title": "Member ID",
+      "description": "Member ID"
+    },
+    "address": {
+      "type": "string",
+      "title": "Address Name",
+      "description": "The route Address Line 1"
+    },
+    "is_depot": {
+      "type": "boolean",
+      "title": "Is Depot",
+      "description": "This address is a depot",
+      "default": "false"
+    },
+    "timeframe_violation_state": {
+      "type": "integer",
+      "title": "Timeframe violation state",
+      "description": "State of the timeframe violation. In a response only"
+    },
+    "timeframe_violation_time": {
+      "type": "integer",
+      "title": "Timeframe violation time",
+      "description": "Moment of the timeframe violation. In a response only"
+    },
+    "timeframe_violation_rate": {
+      "type": "number",
+      "title": "Timeframe violation rate",
+      "description": "Rate of the timeframe violation. In a response only"
+    },
+    "lat": {
+      "type": "number",
+      "title": "Latitude",
+      "description": "Latitude",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "lng": {
+      "type": "number",
+      "title": "Longitude",
+      "description": "Longitude",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "curbside_lat": {
+      "type": "number",
+      "title": "Curbside Latitude",
+      "description": "Curbside latitude",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "curbside_lng": {
+      "type": "number",
+      "title": "Curbside Longitude",
+      "description": "Curbside longitude",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "priority": {
+      "type": "integer",
+      "title": "Priority",
+      "description": "0 is the highest priority; n has higher priority than n + 1"
+    },
+    "route_id": {
+      "type": "string",
+      "title": "Route ID",
+      "description": "Parent route"
+    },
+    "original_route_id": {
+      "type": "string",
+      "title": "Original Route ID",
+      "description": "The original customer-specific route id assigned at route creation time."
+    },
+    "route_name": {
+      "type": "string",
+      "title": "Route Name",
+      "description": "Route Name"
+    },
+    "optimization_problem_id": {
+      "type": "string",
+      "title": "Optimization Problem ID",
+      "description": "Optimization Problem ID"
+    },
+    "sequence_no": {
+      "type": "integer",
+      "title": "Sequence No",
+      "description": "The sequence number for the address"
+    },
+    "geocoded": {
+      "type": "boolean",
+      "title": "Geocoded",
+      "description": "True means the \u0027address\u0027 field was successfully geocoded"
+    },
+    "preferred_geocoding": {
+      "type": "integer",
+      "title": "Preferred Geocoding",
+      "description": "Index of \u0027geocodings\u0027 array that the user has chosen"
+    },
+    "failed_geocoding": {
+      "type": "boolean",
+      "title": "Failed Geocoding",
+      "description": "True means there was a geocoding attempt which failed. False means success or no geocoding"
+    },
+    "geocodings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\..\\..\\route4me-json-schemas\\blob\\master\\geocoding.dtd"
+      },
+      "title": "Geocodings ID"
+    },
+    "contact_id": {
+      "type": "integer",
+      "minimum": 0,
+      "title": "Contact ID",
+      "description": "Address book contact id (0 means not connected to the address book)"
+    },
+    "order_id": {
+      "type": "integer",
+      "title": "Order ID",
+      "description": "Parent order ID"
+    },
+    "address_stop_type": {
+      "type": "string",
+      "enum": [
+        "PICKUP",
+        "DELIVERY",
+        "BREAK",
+        "MEETUP"
+      ],
+      "title": "Address stop type",
+      "description": "The type of stop that this is (PICKUP, DELIVERY, BREAK, MEETUP)"
+    },
+    "is_visited": {
+      "type": "boolean",
+      "title": "Is Visited",
+      "description": "The driver pressed the \u0027Visited\u0027 button",
+      "default": "false"
+    },
+    "timestamp_last_visited": {
+      "type": "integer",
+      "title": "Timestamp Last Vsited",
+      "description": "Timestamp when the driver presses \u0027Visited\u0027"
+    },
+    "visited_lat": {
+      "type": "number",
+      "title": "Visited Latitude",
+      "description": "Last known check in latitude",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "visited_lng": {
+      "type": "number",
+      "title": "Visited Longitude",
+      "description": "Last known check in longitude",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "is_departed": {
+      "type": "boolean",
+      "title": "Is Departed",
+      "description": "The driver marked the \u0027Departed\u0027 button"
+    },
+    "departed_lat": {
+      "type": "number",
+      "title": "Departed Latitude",
+      "description": "Last known departed latitude",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "departed_lng": {
+      "type": "number",
+      "description": "Last known departed longitude",
+      "title": "Departed Longitude",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "timestamp_last_departed": {
+      "type": "integer",
+      "title": "Timestamp Last Departed",
+      "description": "Timestamp when the driver marks the stop as \u0027Departed\u0027"
+    },
+    "group": {
+      "type": "string",
+      "title": "Group",
+      "description": "Address group"
+    },
+    "customer_po": {
+      "type": "string",
+      "title": "Customer PO",
+      "description": "The customer purchase order for the address"
+    },
+    "invoice_no": {
+      "type": "string",
+      "title": "Invoice No",
+      "description": "The invoice number for the address"
+    },
+    "reference_no": {
+      "type": "string",
+      "title": "Reference NO",
+      "description": "The reference number for the address"
+    },
+    "order_no": {
+      "type": "string",
+      "title": "Order NO",
+      "description": "The order number for the address"
+    },
+    "weight": {
+      "type": "number",
+      "title": "Weight",
+      "description": "Weight"
+    },
+    "cost": {
+      "type": "number",
+      "title": "Cost",
+      "description": "The cost of the order for the address"
+    },
+    "revenue": {
+      "type": "number",
+      "title": "Revenue",
+      "description": "The total revenue for the address"
+    },
+    "cube": {
+      "type": "number",
+      "title": "Cube",
+      "description": "The cubic volume of the cargo being delivered or picked up at the address"
+    },
+    "pieces": {
+      "type": "integer",
+      "title": "Pieces",
+      "description": "Pieces"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First name",
+      "description": "The first name of the receiving address"
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last name",
+      "description": "The last name of the receiving address"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Email",
+      "description": "A valid e-mail address assigned to this stop"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Phone",
+      "description": "Customer Phone"
+    },
+    "destination_note_count": {
+      "type": "integer",
+      "title": "Destination Note Count",
+      "description": "How many notes have been added to this destination"
+    },
+    "drive_time_to_next_destination": {
+      "type": "integer",
+      "title": "Drive Time to next Destination",
+      "description": "Time to next destination in seconds."
+    },
+    "abnormal_traffic_time_to_next_destination": {
+      "type": "integer",
+      "description": "Abnormal traffic time to next destination",
+      "title": "Abnormal traffic time to next destination"
+    },
+    "uncongested_time_to_next_destination": {
+      "type": "integer",
+      "title": "Uncongested Time To Next Destination",
+      "description": "Supposing that there was no traffic at all, this gives how many seconds it takes to get to the next stop."
+    },
+    "traffic_time_to_next_destination": {
+      "type": "integer",
+      "title": "Traffic Time To Next Destination",
+      "description": "Traffic time to a next destination."
+    },
+    "distance_to_next_destination": {
+      "type": "number",
+      "title": "Distance to next destination",
+      "description": "Distance to next destination in route unit (the default unit is in miles)"
+    },
+    "channel_name": {
+      "type": "string",
+      "title": "Channel name",
+      "description": "Channel name"
+    },
+    "generated_time_window_start": {
+      "type": "integer",
+      "title": "Generated Time Window Start",
+      "description": "Generated Time Window Start in seconds"
+    },
+    "generated_time_window_end": {
+      "type": "integer",
+      "title": "Generated Time Window End",
+      "description": "Generated Time Window End in seconds"
+    },
+    "time_window_start": {
+      "type": "integer",
+      "title": "Time Window Start",
+      "description": "Time Window Start in seconds, relative to the route start date (midnight), UTC time zone. It is relative to start datebecause start time changes would shift time windows"
+    },
+    "time_window_end": {
+      "type": "integer",
+      "title": "Time Window End",
+      "description": "Time Window End in seconds, relative to the route start date (midnight), UTC time zone. It is relative to start datebecause start time changes would shift time windows"
+    },
+    "time_window_start_2": {
+      "type": "integer",
+      "title": "Time Window Start 2",
+      "description": "See time_window_start"
+    },
+    "time_window_end_2": {
+      "type": "integer",
+      "title": "Time Window End 2",
+      "description": "See time_window_end"
+    },
+    "geofence_detected_visited_timestamp": {
+      "type": "integer",
+      "title": "Geofence detected visited timestamp",
+      "description": "Timestamp of a geofence detected visited"
+    },
+    "geofence_detected_departed_timestamp": {
+      "type": "integer",
+      "title": "Geofence detected departed timestamp",
+      "description": "Timestamp of a geofence detected departed"
+    },
+    "geofence_detected_service_time": {
+      "type": "integer",
+      "title": "Geofence detected service time",
+      "description": "The service time of a detected geofence"
+    },
+    "geofence_detected_visited_lat": {
+      "type": "number",
+      "title": "Geofence detected visited lat",
+      "description": "Latitude of a visited detected geofence",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "geofence_detected_visited_lng": {
+      "type": "number",
+      "title": "Geofence detected visited lng",
+      "description": "Longitude of a visited detected geofence",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "geofence_detected_departed_lat": {
+      "type": "number",
+      "title": "Geofence detected departed lat",
+      "description": "Latitude of a departed detected geofence",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "geofence_detected_departed_lng": {
+      "type": "number",
+      "title": "Geofence detected departed lng",
+      "description": "Longitude of a departed detected geofence",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "time": {
+      "type": "integer",
+      "title": "Time",
+      "description": "Service time (seconds)"
+    },
+    "tracking_number": {
+      "type": "string",
+      "title": "Tracking Number",
+      "description": "Systemwide unique code, which permits end-users (recipients) to track the status of their order"
+    },
+    "custom_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Any unrecognized fields from the original CSV upload will be found here",
+      "title": "Custom Fields"
+    },
+    "custom_fields_str_json": {
+      "type": "string",
+      "title": "Custom fields JSON string",
+      "description": "JSON string representation of the custom fields"
+    },
+    "custom_fields_config": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Custom fields configuration",
+      "description": "Configuration of the custom fields"
+    },
+    "custom_fields_config_str_json": {
+      "type": "string",
+      "title": "Custom fields config JSON string",
+      "description": "JSON string representation of the custom fields configuration"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\..\\..\\route4me-json-schemas\\blob\\master\\note.dtd"
+      },
+      "title": "Notes",
+      "description": "Notes"
+    },
+    "path_to_next": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "number",
+            "title": "Latitude",
+            "description": "Latitude",
+            "minimum": -90,
+            "maximum": 90
+          },
+          "lng": {
+            "type": "number",
+            "title": "Longitude",
+            "description": "Longitude",
+            "minimum": -180,
+            "maximum": 180
+          }
+        }
+      }
+    },
+    "account_no": {
+      "type": "string",
+      "title": "Account NO",
+      "description": "The account number for the address"
+    },
+    "wait_time_to_next_destination": {
+      "type": "integer",
+      "title": "Wait time to next destination",
+      "description": "Wait time to next destination"
+    },
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "running_service_time": {
+          "type": "integer",
+          "title": "Running Service Time",
+          "description": "How much time is to be spent on service from the start in seconds"
+        },
+        "running_travel_time": {
+          "type": "integer",
+          "title": "Running Travel Time",
+          "description": "How much time is spent driving from the start in seconds"
+        },
+        "running_wait_time": {
+          "type": "integer",
+          "title": "Running Wait Time",
+          "description": "Running Wait Time"
+        },
+        "running_distance": {
+          "type": "number",
+          "title": "Running Distance",
+          "description": "Distance traversed before reaching this address"
+        },
+        "fuel_from_start": {
+          "type": "number",
+          "title": "Fuel From Start",
+          "description": "Fuel From Start"
+        },
+        "fuel_cost_from_start": {
+          "type": "number",
+          "title": "Fuel Cost From Start",
+          "description": "Fuel Cost From Start"
+        },
+        "projected_arrival_time_ts": {
+          "type": "integer",
+          "title": "Projected Arrival Time ts",
+          "description": "Projected arrival time UTC unixtime"
+        },
+        "projected_departure_time_ts": {
+          "type": "integer",
+          "title": "Projected Departure Time ts",
+          "description": "Estimated departure time UTC unixtime"
+        },
+        "actual_arrival_time_ts": {
+          "type": "integer",
+          "title": "Actual Arrival Time ts",
+          "description": "Time when the address was marked as visited UTC unixtime. This is actually equal to timestamp_last_visited most of the time."
+        },
+        "actual_departure_time_ts": {
+          "type": "integer",
+          "title": "Actual Departure Time ts",
+          "description": "Time when the address was mared as departed UTC. This is actually equal to timestamp_last_departed most of the time."
+        },
+        "estimated_arrival_time_ts": {
+          "type": "integer",
+          "title": "Estimated Arrival Time ts",
+          "description": "Estimated arrival time based on the current route progress, i.e. based on the last known actual_arrival_time"
+        },
+        "estimated_departure_time_ts": {
+          "type": "integer",
+          "title": "Estimated Departure Time ts",
+          "description": "Estimated departure time based on the current route progress"
+        },
+        "time_impact": {
+          "type": "integer",
+          "title": "Time Impact",
+          "description": "This is the difference between the originally projected arrival time and Actual Arrival Time"
+        }
+      },
+      "description": "The manifest contains values derived from other values",
+      "title": "Manifest"
+    },
+    "directions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\..\\..\\route4me-json-schemas\\blob\\master\\Direction.dtd"
+      }
+    }
+  },
+  "definitions": {
+    "..\\..\\..\\route4me-json-schemas\\blob\\master\\geocoding.dtd": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "Geocoding",
+      "properties": {
+        "key": {
+          "type": "string",
+          "title": "Key",
+          "description": "A unique identifier for the geocoding"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Specific description of the geocoding result"
+        },
+        "bbox": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "lat": {
+                "type": "number",
+                "title": "Latitude",
+                "description": "Latitude"
+              },
+              "lng": {
+                "type": "number",
+                "title": "Longitude"
+              }
+            }
+          },
+          "title": "Bbox",
+          "description": "Boundary box"
+        },
+        "lat": {
+          "type": "number",
+          "title": "Latitude",
+          "description": "Latitude"
+        },
+        "lng": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "title": "Longitude",
+          "description": "Longitude"
+        },
+        "confidence": {
+          "type": "string",
+          "title": "Confidence",
+          "description": "Confidence (\"high\", \"medium\", \"low\")"
+        },
+        "type": {
+          "type": "string",
+          "title": "Type",
+          "description": "Non-standardized. Is used for tooltip (\"Street\", \"City\" etc)"
+        },
+        "postalCode": {
+          "type": "string",
+          "title": "Postal Code",
+          "description": "If the result has a postal code, it\u0027s returned here"
+        },
+        "countryRegion": {
+          "type": "string",
+          "title": "Country Region",
+          "description": "If the region is known, it\u0027s returned here"
+        },
+        "curbside_coordinates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "lat": {
+                "type": "number",
+                "title": "Latitude",
+                "description": "Latitude"
+              },
+              "lng": {
+                "type": "number",
+                "title": "Longitude",
+                "description": "Longitude"
+              }
+            }
+          },
+          "title": "Curbside Coordinates",
+          "description": "Curbside Coordinates"
+        },
+        "address_without_number": {
+          "type": "string",
+          "title": "Address Without Number",
+          "description": "Address without number"
+        },
+        "place_id": {
+          "type": "string",
+          "title": "Place ID",
+          "description": "Address place ID"
+        }
+      },
+      "required": [
+        "bbox",
+        "lat",
+        "lng"
+      ]
+    },
+    "..\\..\\..\\route4me-json-schemas\\blob\\master\\note.dtd": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "Note",
+      "properties": {
+        "note_id": {
+          "type": "integer",
+          "title": "Note ID",
+          "description": "the id of the note in the system"
+        },
+        "route_id": {
+          "type": "string",
+          "title": "Route ID",
+          "description": "Route ID"
+        },
+        "route_destination_id": {
+          "type": "integer",
+          "title": "Route Destination ID",
+          "description": "Route Destination ID"
+        },
+        "upload_id": {
+          "type": "string",
+          "title": "Upload ID",
+          "description": "The unique and randomly generated ID of the file attachment that is associated with this note"
+        },
+        "ts_added": {
+          "type": "integer",
+          "title": "TS Added",
+          "description": "The unix timestamp when the note was added"
+        },
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "title": "Latitude",
+          "description": "Latitude"
+        },
+        "lng": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "title": "Longitude",
+          "description": "Longitude"
+        },
+        "activity_type": {
+          "type": "string",
+          "enum": [
+            "pickup",
+            "dropoff",
+            "noanswer",
+            "notfound",
+            "notpaid",
+            "paid",
+            "wrongdelivery",
+            "wrongaddressrecipient",
+            "notpresent",
+            "service_rendered",
+            "parts_missing",
+            "follow_up",
+            "left_information",
+            "spoke_with_decision_maker",
+            "spoke_with_decision_influencer",
+            "competitive_account",
+            "scheduled_follow_up_meeting",
+            "scheduled_lunch",
+            "scheduled_product_demo",
+            "scheduled_clinical_demo",
+            "no_opportunity",
+            "other"
+          ],
+          "title": "Activity Type",
+          "description": "Activity Type"
+        },
+        "contents": {
+          "type": "string",
+          "title": "Contents",
+          "description": "Contents"
+        },
+        "upload_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "DRIVER_IMG",
+            "VEHICLE_IMG",
+            "ADDRESS_IMG",
+            "CSV_FILE",
+            "XLS_FILE",
+            "ANY_FILE"
+          ],
+          "title": "Upload Type",
+          "description": "Upload Type"
+        },
+        "upload_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Upload url",
+          "description": "The direct CDN URL of the attachment uploaded with a note"
+        },
+        "upload_extension": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "title": "Upload Extension",
+          "description": "The extension of the attachment (\u0027pdf\u0027, \u0027csv\u0027 etc)"
+        },
+        "device_type": {
+          "type": "string",
+          "title": "Device Type",
+          "description": "Device type (\u0027web\u0027, \u0027iphone\u0027, \u0027ipad\u0027, \u0027android phone\u0027, \u0027android tablet\u0027 etc)"
+        },
+        "custom_types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\..\\..\\route4me-json-schemas\\blob\\master\\note_custom_type.dtd"
+          }
+        }
+      },
+      "required": [
+        "route_destination_id"
+      ]
+    },
+    "..\\..\\..\\route4me-json-schemas\\blob\\master\\note_custom_type.dtd": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "Note Custom Type",
+      "description": "The included part of the property of the route destination response \u003cnotes\u003e",
+      "properties": {
+        "note_custom_entry_id": {
+          "type": "integer",
+          "title": "Note Custom Entry ID",
+          "description": "Note custom entry ID"
+        },
+        "note_id": {
+          "type": "string",
+          "title": "Note ID",
+          "description": "Note ID"
+        },
+        "note_custom_type_id": {
+          "type": "integer",
+          "title": "Note Custom Type ID",
+          "description": "Note custom type ID"
+        },
+        "note_custom_value": {
+          "type": "string",
+          "title": "Note Custom Value",
+          "description": "The value of a note custom type"
+        },
+        "note_custom_type": {
+          "type": "string",
+          "title": "Note Custom Type",
+          "description": "Note custom type"
+        }
+      }
+    },
+    "..\\..\\..\\route4me-json-schemas\\blob\\master\\Direction.dtd": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "the course or path on which something is moving or pointing",
+      "title": "Direction",
+      "type": "object",
+      "properties": {
+        "location": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "integer",
+              "title": "Time",
+              "description": ""
+            },
+            "segment_distance": {
+              "type": "number",
+              "title": "Segment distance",
+              "description": "Current segment length"
+            },
+            "name": {
+              "type": "string",
+              "title": "Name",
+              "description": "Direction name"
+            },
+            "start_location": {
+              "type": "string",
+              "title": "Start location",
+              "description": "Start location name"
+            },
+            "end_location": {
+              "type": "string",
+              "title": "End location",
+              "description": "End location name"
+            },
+            "directions_error": {
+              "type": "string",
+              "title": "Directions error",
+              "description": "Directions error message"
+            },
+            "error_code": {
+              "type": "integer",
+              "title": "Error code",
+              "description": "Error code"
+            }
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "directions": {
+                "type": "string",
+                "enum": [
+                  "Head",
+                  "Go Straight",
+                  "Turn Left",
+                  "Turn Right",
+                  "Turn Slight Left",
+                  "Turn Slight Right",
+                  "Turn Sharp Left",
+                  "Turn Sharp Right",
+                  "Roundabout Left",
+                  "Roundabout Right",
+                  "Uturn Left",
+                  "Uturn Right",
+                  "Ramp Left",
+                  "Ramp Right",
+                  "Fork Left",
+                  "Fork Right",
+                  "Keep Left",
+                  "Keep Right",
+                  "Ferry",
+                  "Ferry Train",
+                  "Merge",
+                  "Reached Your Destination"
+                ],
+                "title": "Directions",
+                "description": "Directions of movement"
+              },
+              "direction": {
+                "type": "string",
+                "title": "Direction",
+                "description": "Text for current direction"
+              },
+              "distance": {
+                "type": "number",
+                "title": "Distance",
+                "description": "Step distance"
+              },
+              "distance_unit": {
+                "type": "string",
+                "enum": [
+                  "mi",
+                  "km"
+                ],
+                "title": "Distance unit",
+                "description": "Distance unit - \u0027mi\u0027 or \u0027km\u0027"
+              },
+              "maneuverType": {
+                "type": "string",
+                "enum": [
+                  "HEAD",
+                  "GO_STRAIGHT",
+                  "TURN_LEFT",
+                  "TURN_RIGHT",
+                  "TURN_SLIGHT_LEFT",
+                  "TURN_SLIGHT_RIGHT",
+                  "TURN_SHARP_LEFT",
+                  "TURN_SHARP_RIGHT",
+                  "ROUNDABOUT_LEFT",
+                  "ROUNDABOUT_RIGHT",
+                  "UTURN_LEFT",
+                  "UTURN_RIGHT",
+                  "RAMP_LEFT",
+                  "RAMP_RIGHT",
+                  "FORK_LEFT",
+                  "FORK_RIGHT",
+                  "KEEP_LEFT",
+                  "KEEP_RIGHT",
+                  "FERRY",
+                  "FERRY_TRAIN",
+                  "MERGE",
+                  "REACHED_YOUR_DESTINATION"
+                ],
+                "title": "Maneuver type",
+                "description": "Maneuver type"
+              },
+              "compass_direction": {
+                "type": "string",
+                "enum": [
+                  "N",
+                  "S",
+                  "W",
+                  "E",
+                  "NW",
+                  "NE",
+                  "SW",
+                  "SE"
+                ],
+                "title": "Compass direction",
+                "description": "Compass direction"
+              },
+              "udu_distance": {
+                "type": "number",
+                "title": "UDU Distance",
+                "description": "UDU distance"
+              },
+              "maneuverPoint": {
+                "type": "object",
+                "title": "Maneuver point",
+                "items": {
+                  "properties": {
+                    "lat": {
+                      "type": "number",
+                      "minimum": -90,
+                      "maximum": 90,
+                      "title": "Latitude",
+                      "description": "Point latitude"
+                    },
+                    "lng": {
+                      "type": "number",
+                      "minimum": -180,
+                      "maximum": 180,
+                      "title": "Longitude",
+                      "description": "Point longitude"
+                    }
+                  }
+                }
+              },
+              "duration_sec": {
+                "type": "integer",
+                "title": "Duration (sec)",
+                "description": "Step duration (sec)"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

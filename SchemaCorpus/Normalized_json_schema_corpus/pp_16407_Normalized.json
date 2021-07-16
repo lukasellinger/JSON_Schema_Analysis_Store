@@ -1,0 +1,40 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "The Id Schema ",
+            "default": 0,
+            "examples": [
+              2943
+            ]
+          },
+          "indicator_id": {
+            "type": "integer",
+            "title": "The Indicator_id Schema ",
+            "default": 0,
+            "examples": [
+              6721
+            ]
+          },
+          "value": {
+            "type": "string",
+            "title": "The Value Schema ",
+            "default": "",
+            "examples": [
+              "Signed Agreement"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

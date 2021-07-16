@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-03/hyper-schema",
+  "description": "Foo Model",
+  "type": "object",
+  "title": "Foo",
+  "definitions": {
+    "id": {
+      "$ref": "#/definitions/common-definitions.json_definitions_id"
+    },
+    "title": {
+      "description": "Title",
+      "readOnly": false,
+      "type": "string",
+      "minLength": 1
+    },
+    "common-definitions.json_definitions_id": {
+      "description": "Unique identifier.",
+      "readOnly": true,
+      "format": "uuid",
+      "example": "01234567-89ab-cdef-0123-456789abcdef",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

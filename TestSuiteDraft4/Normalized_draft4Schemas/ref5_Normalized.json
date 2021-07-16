@@ -1,0 +1,13 @@
+{
+  "definitions": {
+    "reffed": {
+      "type": "array"
+    }
+  },
+  "properties": {
+    "foo": {
+      "maxItems": 2,
+      "$ref": "#/definitions/reffed"
+    }
+  }
+}

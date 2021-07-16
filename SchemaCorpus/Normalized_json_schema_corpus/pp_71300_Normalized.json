@@ -1,0 +1,83 @@
+{
+  "input_schema": {
+    "type": "object",
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "minProperties": 1,
+    "maxProperties": 1,
+    "additionalProperties": false,
+    "properties": {
+      "fabric_uuid": {
+        "format": "uuid",
+        "type": "string",
+        "title": "The Fabric_uuid Schema",
+        "description": "UUID of the fabric object created",
+        "default": "",
+        "examples": [
+          "123456789"
+        ]
+      },
+      "fabric_fq_name": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "title": "The Fabric_fq_name Schema",
+          "description": "FQNAME of the fabric object created",
+          "default": "",
+          "examples": [
+            "default-global-system-config",
+            "fabric01"
+          ]
+        }
+      }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "properties": {
+      "output": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "The Status Schema",
+            "description": "Status of the plabybook run",
+            "default": "",
+            "examples": [
+              "SUCCESS"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "title": "The Message Schema",
+            "description": "success/failure message about the playbook run",
+            "default": "",
+            "examples": [
+              "Successfully ran playbook"
+            ]
+          },
+          "results": {
+            "type": "object",
+            "properties": {
+              "device_uuid": {
+                "type": "array",
+                "items": {
+                  "format": "uuid",
+                  "type": "string",
+                  "title": "The Results Schema",
+                  "description": "objects returned from  the playbook to the job_manager",
+                  "default": "",
+                  "examples": [
+                    "1234"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

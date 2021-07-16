@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Schedule schema",
+  "description": "Description of the data for initialising a Schedule.",
+  "type": "object",
+  "properties": {
+    "sched_id": {
+      "$ref": "#/definitions/common.json_schedule_id"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/references.json_schedule_step"
+      }
+    }
+  },
+  "required": [
+    "sched_id",
+    "steps"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "common.json_schedule_id": {
+      "type": "string",
+      "title": "Schedule ID",
+      "description": "ID of a schedule",
+      "pattern": "^[a-zA-Z0-9_-]*$"
+    },
+    "references.json_schedule_step": {
+      "type": "object",
+      "title": "Schedule Step",
+      "description": "Description of a step reference for schedules",
+      "properties": {
+        "step_id": {
+          "$ref": "#/definitions/common.json_step_id"
+        },
+        "step_idx": {
+          "type": "integer",
+          "description": "Index of this step, starting from zero"
+        },
+        "start": {
+          "$ref": "#/definitions/common.json_timedelta",
+          "description": "Start time for this step"
+        },
+        "stop": {
+          "$ref": "#/definitions/common.json_timedelta",
+          "description": "Stop time for this step"
+        },
+        "waiting": {
+          "$ref": "#/definitions/common.json_timedelta",
+          "description": "Stop time of waiting for this step"
+        }
+      },
+      "required": [
+        "step_id",
+        "step_idx"
+      ],
+      "additionalProperties": false
+    },
+    "common.json_step_id": {
+      "type": "string",
+      "title": "Step ID",
+      "description": "ID of a step",
+      "pattern": "^[a-zA-Z0-9_-]*$"
+    },
+    "common.json_timedelta": {
+      "type": "object",
+      "title": "Timedelta",
+      "description": "Data representing a timespan.",
+      "properties": {
+        "seconds": {
+          "type": "integer"
+        },
+        "minutes": {
+          "type": "integer"
+        },
+        "hours": {
+          "type": "integer"
+        },
+        "days": {
+          "type": "integer"
+        }
+      },
+      "default": {},
+      "additionalProperties": false
+    }
+  }
+}

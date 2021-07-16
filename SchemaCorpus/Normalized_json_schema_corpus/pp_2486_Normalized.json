@@ -1,0 +1,1365 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://dtls.nl/schemas/dmp-knowledge-model/chapter/",
+  "description": "JSON file describing a single chapter in the knowledge model for DMP questionnaires. Schema is divided into common, core and local parts and tries to be as much restrictive as is possible and needed.",
+  "common": {
+    "formatversion": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 2
+    },
+    "namespace": {
+      "type": "string"
+    },
+    "uids": {
+      "uuid": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+      },
+      "shortuid": {
+        "type": "string",
+        "pattern": "^[a-z]{3,5}$"
+      }
+    },
+    "experts": {
+      "expert": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "class": {
+            "type": "string",
+            "enum": [
+              "individual",
+              "organisation"
+            ],
+            "default": "organisation"
+          }
+        },
+        "required": [
+          "uuid",
+          "name"
+        ]
+      },
+      "experts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common_experts_expert"
+        },
+        "default": []
+      }
+    },
+    "references": {
+      "dmpbookreference": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "dmpbook"
+            ]
+          },
+          "chapter": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "uuid",
+          "type",
+          "chapter"
+        ],
+        "additionalProperties": false
+      },
+      "urlreference": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "url"
+            ]
+          },
+          "weblink": {
+            "type": "string",
+            "format": "uri"
+          },
+          "anchor": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "uuid",
+          "type",
+          "weblink"
+        ],
+        "additionalProperties": false
+      },
+      "crossreference": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "target": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "xref"
+            ]
+          },
+          "namespace": {
+            "$ref": "#/definitions/common_namespace"
+          }
+        },
+        "required": [
+          "uuid",
+          "type",
+          "target",
+          "description"
+        ],
+        "additionalProperties": false
+      },
+      "resourcepagereference": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "resourcepage"
+            ]
+          },
+          "shortuid": {
+            "$ref": "#/definitions/common_uids_shortuid"
+          }
+        },
+        "required": [
+          "uuid",
+          "type",
+          "shortuid"
+        ],
+        "additionalProperties": false
+      },
+      "reference": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/common_references_dmpbookreference"
+          },
+          {
+            "$ref": "#/definitions/common_references_resourcepagereference"
+          },
+          {
+            "$ref": "#/definitions/common_references_urlreference"
+          },
+          {
+            "$ref": "#/definitions/common_references_crossreference"
+          }
+        ]
+      },
+      "references": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common_references_reference"
+        },
+        "default": []
+      }
+    },
+    "metrics": {
+      "metric_measure": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "measure": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "weight": {
+            "type": "number",
+            "minimum": 0,
+            "default": 1
+          }
+        },
+        "required": [
+          "uuid",
+          "measure"
+        ]
+      },
+      "metric_measures": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common_metrics_metric_measure"
+        },
+        "default": []
+      }
+    },
+    "integrations": {
+      "integration": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "type": {
+            "type": "string"
+          },
+          "params": {
+            "type": "object"
+          },
+          "credits": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "uuid",
+          "type",
+          "params",
+          "credits"
+        ]
+      },
+      "integrations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common_integrations_integration"
+        }
+      }
+    },
+    "project_phase": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4,
+      "default": 2
+    },
+    "answers": {
+      "optionanswer": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "label": {
+            "type": "string"
+          },
+          "advice": {
+            "type": "string"
+          },
+          "metrics": {
+            "$ref": "#/definitions/common_metrics_metric_measures"
+          }
+        },
+        "required": [
+          "uuid",
+          "label"
+        ]
+      },
+      "optionanswers": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common_answers_optionanswer"
+        },
+        "minItems": 1
+      }
+    },
+    "questions": {
+      "question": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "phase": {
+            "$ref": "#/definitions/common_project_phase"
+          },
+          "title": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "precondition": {
+            "$ref": "#/definitions/common_uids_uuid"
+          },
+          "references": {
+            "$ref": "#/definitions/common_references_references"
+          },
+          "experts": {
+            "$ref": "#/definitions/common_experts_experts"
+          },
+          "integrations": {
+            "$ref": "#/definitions/common_integrations_integrations"
+          }
+        },
+        "required": [
+          "uuid"
+        ]
+      },
+      "optionquestion": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "option"
+            ]
+          },
+          "answers": {
+            "$ref": "#/definitions/common_answers_optionanswers"
+          }
+        },
+        "required": [
+          "type",
+          "answers"
+        ]
+      },
+      "fieldquestion": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "list",
+              "number",
+              "string",
+              "text",
+              "date"
+            ]
+          }
+        },
+        "required": [
+          "type"
+        ]
+      }
+    },
+    "chapter": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "namespace": {
+          "$ref": "#/definitions/common_namespace"
+        },
+        "formatversion": {
+          "$ref": "#/definitions/common_formatversion"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "namespace",
+        "formatversion"
+      ]
+    }
+  },
+  "core": {
+    "namespace": {
+      "type": "string",
+      "enum": [
+        "core"
+      ]
+    },
+    "references": {
+      "crossreference": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/common_references_crossreference"
+          },
+          {
+            "properties": {
+              "namespace": {
+                "$ref": "#/definitions/core_namespace"
+              }
+            }
+          }
+        ]
+      },
+      "reference": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/common_references_dmpbookreference"
+          },
+          {
+            "$ref": "#/definitions/common_references_urlreference"
+          },
+          {
+            "$ref": "#/definitions/common_references_resourcepagereference"
+          },
+          {
+            "$ref": "#/definitions/core_references_crossreference"
+          }
+        ]
+      },
+      "references": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/core_references_reference"
+        },
+        "default": []
+      }
+    },
+    "questions": {
+      "abstract_question": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/common_questions_question"
+          },
+          {
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "references": {
+                "$ref": "#/definitions/core_references_references"
+              }
+            },
+            "required": [
+              "uuid",
+              "title"
+            ]
+          }
+        ]
+      },
+      "optionquestion": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/core_questions_abstract_question"
+          },
+          {
+            "$ref": "#/definitions/common_questions_optionquestion"
+          }
+        ]
+      },
+      "fieldquestion": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/core_questions_abstract_question"
+          },
+          {
+            "$ref": "#/definitions/common_questions_fieldquestion"
+          }
+        ]
+      },
+      "question": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/core_questions_optionquestion"
+          },
+          {
+            "$ref": "#/definitions/core_questions_fieldquestion"
+          }
+        ]
+      },
+      "questions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/core_questions_question"
+        },
+        "default": []
+      }
+    },
+    "chapter": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common_chapter"
+        },
+        {
+          "properties": {
+            "namespace": {
+              "$ref": "#/definitions/core_namespace"
+            },
+            "title": {
+              "type": "string"
+            },
+            "questions": {
+              "$ref": "#/definitions/core_questions_questions"
+            }
+          },
+          "required": [
+            "questions",
+            "title"
+          ]
+        }
+      ]
+    }
+  },
+  "local": {
+    "namespace": {
+      "allOf": [
+        {
+          "not": {
+            "$ref": "#/definitions/core_namespace"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "answers": {
+      "optionanswer": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/common_answers_optionanswer"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "addMetrics": {
+                "$ref": "#/definitions/common_metrics_metric_measures"
+              }
+            }
+          }
+        ]
+      },
+      "optionanswers": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/common_answers_optionanswer"
+            },
+            {
+              "$ref": "#/definitions/local_answers_optionanswer"
+            }
+          ]
+        },
+        "minItems": 2
+      }
+    },
+    "questions": {
+      "abstract_question": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/common_questions_question"
+          },
+          {
+            "properties": {
+              "namespace": {
+                "$ref": "#/definitions/common_namespace"
+              },
+              "insertBefore": {
+                "$ref": "#/definitions/common_uids_uuid"
+              },
+              "addReferences": {
+                "$ref": "#/definitions/common_references_references"
+              },
+              "addExperts": {
+                "$ref": "#/definitions/common_experts_experts"
+              },
+              "addIntegrations": {
+                "$ref": "#/definitions/common_integrations_integrations"
+              }
+            },
+            "required": [
+              "namespace"
+            ]
+          }
+        ]
+      },
+      "optionquestionL": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/local_questions_abstract_question"
+          },
+          {
+            "properties": {
+              "answers": {
+                "$ref": "#/definitions/local_answers_optionanswers"
+              },
+              "addAnswers": {
+                "$ref": "#/definitions/common_answers_optionanswers"
+              }
+            }
+          }
+        ]
+      },
+      "fieldquestionL": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/local_questions_abstract_question"
+          },
+          {
+            "$ref": "#/definitions/common_questions_fieldquestion"
+          }
+        ]
+      },
+      "optionquestionC": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/core_questions_abstract_question"
+          },
+          {
+            "properties": {
+              "insertBefore": {
+                "$ref": "#/definitions/common_uids_uuid"
+              }
+            }
+          },
+          {
+            "$ref": "#/definitions/common_questions_optionquestion"
+          }
+        ]
+      },
+      "fieldquestionC": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/core_questions_abstract_question"
+          },
+          {
+            "properties": {
+              "insertBefore": {
+                "$ref": "#/definitions/common_uids_uuid"
+              }
+            }
+          },
+          {
+            "$ref": "#/definitions/common_questions_fieldquestion"
+          }
+        ]
+      },
+      "question": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/local_questions_optionquestionL"
+          },
+          {
+            "$ref": "#/definitions/local_questions_fieldquestionL"
+          },
+          {
+            "$ref": "#/definitions/local_questions_optionquestionC"
+          },
+          {
+            "$ref": "#/definitions/local_questions_fieldquestionC"
+          }
+        ]
+      },
+      "questions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/local_questions_question"
+        },
+        "default": []
+      }
+    },
+    "chapter": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common_chapter"
+        },
+        {
+          "properties": {
+            "namespace": {
+              "$ref": "#/definitions/local_namespace"
+            },
+            "questions": {
+              "$ref": "#/definitions/local_questions_questions"
+            }
+          },
+          "required": [
+            "namespace",
+            "questions"
+          ]
+        }
+      ]
+    }
+  },
+  "anyOf": [
+    {
+      "$ref": "#/definitions/core_chapter"
+    },
+    {
+      "$ref": "#/definitions/local_chapter"
+    }
+  ],
+  "definitions": {
+    "common_uids_uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "common_experts_expert": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "class": {
+          "type": "string",
+          "enum": [
+            "individual",
+            "organisation"
+          ],
+          "default": "organisation"
+        }
+      },
+      "required": [
+        "uuid",
+        "name"
+      ]
+    },
+    "common_namespace": {
+      "type": "string"
+    },
+    "common_uids_shortuid": {
+      "type": "string",
+      "pattern": "^[a-z]{3,5}$"
+    },
+    "common_references_dmpbookreference": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "dmpbook"
+          ]
+        },
+        "chapter": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "type",
+        "chapter"
+      ],
+      "additionalProperties": false
+    },
+    "common_references_resourcepagereference": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "resourcepage"
+          ]
+        },
+        "shortuid": {
+          "$ref": "#/definitions/common_uids_shortuid"
+        }
+      },
+      "required": [
+        "uuid",
+        "type",
+        "shortuid"
+      ],
+      "additionalProperties": false
+    },
+    "common_references_urlreference": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "url"
+          ]
+        },
+        "weblink": {
+          "type": "string",
+          "format": "uri"
+        },
+        "anchor": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "type",
+        "weblink"
+      ],
+      "additionalProperties": false
+    },
+    "common_references_crossreference": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "target": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "xref"
+          ]
+        },
+        "namespace": {
+          "$ref": "#/definitions/common_namespace"
+        }
+      },
+      "required": [
+        "uuid",
+        "type",
+        "target",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "common_references_reference": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/common_references_dmpbookreference"
+        },
+        {
+          "$ref": "#/definitions/common_references_resourcepagereference"
+        },
+        {
+          "$ref": "#/definitions/common_references_urlreference"
+        },
+        {
+          "$ref": "#/definitions/common_references_crossreference"
+        }
+      ]
+    },
+    "common_metrics_metric_measure": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "measure": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0,
+          "default": 1
+        }
+      },
+      "required": [
+        "uuid",
+        "measure"
+      ]
+    },
+    "common_integrations_integration": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "type": {
+          "type": "string"
+        },
+        "params": {
+          "type": "object"
+        },
+        "credits": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "type",
+        "params",
+        "credits"
+      ]
+    },
+    "common_metrics_metric_measures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/common_metrics_metric_measure"
+      },
+      "default": []
+    },
+    "common_answers_optionanswer": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "label": {
+          "type": "string"
+        },
+        "advice": {
+          "type": "string"
+        },
+        "metrics": {
+          "$ref": "#/definitions/common_metrics_metric_measures"
+        }
+      },
+      "required": [
+        "uuid",
+        "label"
+      ]
+    },
+    "common_project_phase": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4,
+      "default": 2
+    },
+    "common_references_references": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/common_references_reference"
+      },
+      "default": []
+    },
+    "common_experts_experts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/common_experts_expert"
+      },
+      "default": []
+    },
+    "common_integrations_integrations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/common_integrations_integration"
+      }
+    },
+    "common_answers_optionanswers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/common_answers_optionanswer"
+      },
+      "minItems": 1
+    },
+    "common_formatversion": {
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 2
+    },
+    "core_namespace": {
+      "type": "string",
+      "enum": [
+        "core"
+      ]
+    },
+    "core_references_crossreference": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common_references_crossreference"
+        },
+        {
+          "properties": {
+            "namespace": {
+              "$ref": "#/definitions/core_namespace"
+            }
+          }
+        }
+      ]
+    },
+    "core_references_reference": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/common_references_dmpbookreference"
+        },
+        {
+          "$ref": "#/definitions/common_references_urlreference"
+        },
+        {
+          "$ref": "#/definitions/common_references_resourcepagereference"
+        },
+        {
+          "$ref": "#/definitions/core_references_crossreference"
+        }
+      ]
+    },
+    "common_questions_question": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "phase": {
+          "$ref": "#/definitions/common_project_phase"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "precondition": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "references": {
+          "$ref": "#/definitions/common_references_references"
+        },
+        "experts": {
+          "$ref": "#/definitions/common_experts_experts"
+        },
+        "integrations": {
+          "$ref": "#/definitions/common_integrations_integrations"
+        }
+      },
+      "required": [
+        "uuid"
+      ]
+    },
+    "core_references_references": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/core_references_reference"
+      },
+      "default": []
+    },
+    "core_questions_abstract_question": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common_questions_question"
+        },
+        {
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "references": {
+              "$ref": "#/definitions/core_references_references"
+            }
+          },
+          "required": [
+            "uuid",
+            "title"
+          ]
+        }
+      ]
+    },
+    "common_questions_optionquestion": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "option"
+          ]
+        },
+        "answers": {
+          "$ref": "#/definitions/common_answers_optionanswers"
+        }
+      },
+      "required": [
+        "type",
+        "answers"
+      ]
+    },
+    "common_questions_fieldquestion": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "list",
+            "number",
+            "string",
+            "text",
+            "date"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "core_questions_optionquestion": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/core_questions_abstract_question"
+        },
+        {
+          "$ref": "#/definitions/common_questions_optionquestion"
+        }
+      ]
+    },
+    "core_questions_fieldquestion": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/core_questions_abstract_question"
+        },
+        {
+          "$ref": "#/definitions/common_questions_fieldquestion"
+        }
+      ]
+    },
+    "core_questions_question": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/core_questions_optionquestion"
+        },
+        {
+          "$ref": "#/definitions/core_questions_fieldquestion"
+        }
+      ]
+    },
+    "common_chapter": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "$ref": "#/definitions/common_uids_uuid"
+        },
+        "namespace": {
+          "$ref": "#/definitions/common_namespace"
+        },
+        "formatversion": {
+          "$ref": "#/definitions/common_formatversion"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uuid",
+        "namespace",
+        "formatversion"
+      ]
+    },
+    "core_questions_questions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/core_questions_question"
+      },
+      "default": []
+    },
+    "local_answers_optionanswer": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common_answers_optionanswer"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "addMetrics": {
+              "$ref": "#/definitions/common_metrics_metric_measures"
+            }
+          }
+        }
+      ]
+    },
+    "local_questions_abstract_question": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common_questions_question"
+        },
+        {
+          "properties": {
+            "namespace": {
+              "$ref": "#/definitions/common_namespace"
+            },
+            "insertBefore": {
+              "$ref": "#/definitions/common_uids_uuid"
+            },
+            "addReferences": {
+              "$ref": "#/definitions/common_references_references"
+            },
+            "addExperts": {
+              "$ref": "#/definitions/common_experts_experts"
+            },
+            "addIntegrations": {
+              "$ref": "#/definitions/common_integrations_integrations"
+            }
+          },
+          "required": [
+            "namespace"
+          ]
+        }
+      ]
+    },
+    "local_answers_optionanswers": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/common_answers_optionanswer"
+          },
+          {
+            "$ref": "#/definitions/local_answers_optionanswer"
+          }
+        ]
+      },
+      "minItems": 2
+    },
+    "local_questions_optionquestionL": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/local_questions_abstract_question"
+        },
+        {
+          "properties": {
+            "answers": {
+              "$ref": "#/definitions/local_answers_optionanswers"
+            },
+            "addAnswers": {
+              "$ref": "#/definitions/common_answers_optionanswers"
+            }
+          }
+        }
+      ]
+    },
+    "local_questions_fieldquestionL": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/local_questions_abstract_question"
+        },
+        {
+          "$ref": "#/definitions/common_questions_fieldquestion"
+        }
+      ]
+    },
+    "local_questions_optionquestionC": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/core_questions_abstract_question"
+        },
+        {
+          "properties": {
+            "insertBefore": {
+              "$ref": "#/definitions/common_uids_uuid"
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/common_questions_optionquestion"
+        }
+      ]
+    },
+    "local_questions_fieldquestionC": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/core_questions_abstract_question"
+        },
+        {
+          "properties": {
+            "insertBefore": {
+              "$ref": "#/definitions/common_uids_uuid"
+            }
+          }
+        },
+        {
+          "$ref": "#/definitions/common_questions_fieldquestion"
+        }
+      ]
+    },
+    "local_questions_question": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/local_questions_optionquestionL"
+        },
+        {
+          "$ref": "#/definitions/local_questions_fieldquestionL"
+        },
+        {
+          "$ref": "#/definitions/local_questions_optionquestionC"
+        },
+        {
+          "$ref": "#/definitions/local_questions_fieldquestionC"
+        }
+      ]
+    },
+    "local_namespace": {
+      "allOf": [
+        {
+          "not": {
+            "$ref": "#/definitions/core_namespace"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "local_questions_questions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/local_questions_question"
+      },
+      "default": []
+    },
+    "core_chapter": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common_chapter"
+        },
+        {
+          "properties": {
+            "namespace": {
+              "$ref": "#/definitions/core_namespace"
+            },
+            "title": {
+              "type": "string"
+            },
+            "questions": {
+              "$ref": "#/definitions/core_questions_questions"
+            }
+          },
+          "required": [
+            "questions",
+            "title"
+          ]
+        }
+      ]
+    },
+    "local_chapter": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common_chapter"
+        },
+        {
+          "properties": {
+            "namespace": {
+              "$ref": "#/definitions/local_namespace"
+            },
+            "questions": {
+              "$ref": "#/definitions/local_questions_questions"
+            }
+          },
+          "required": [
+            "namespace",
+            "questions"
+          ]
+        }
+      ]
+    }
+  }
+}

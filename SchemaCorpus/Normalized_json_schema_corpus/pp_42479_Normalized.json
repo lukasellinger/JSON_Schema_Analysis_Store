@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "root",
+  "type": "object",
+  "title": "Application Policy Definition",
+  "name": "Application Policy",
+  "options": {
+    "disable_properties": true,
+    "disable_collapse": true
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "title": "Application Policy Id ",
+      "name": "Application Policy Id"
+    },
+    "algorithm": {
+      "type": "string",
+      "title": "Application Policy Algorithm ",
+      "name": "Application Policy Algorithm",
+      "enum": [
+        "one-after-another",
+        "all-at-once"
+      ]
+    },
+    "networkPartitions": {
+      "type": "array",
+      "title": "Network Partitions ",
+      "name": "Network Partitions",
+      "format": "tabs",
+      "items": {
+        "type": "string",
+        "title": "Network Partitions ",
+        "name": "Network Partitions"
+      }
+    },
+    "properties": {
+      "type": "array",
+      "title": "Properties",
+      "format": "tabs",
+      "items": {
+        "type": "object",
+        "title": "Property",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "value": {
+            "title": "Value",
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "algorithm",
+    "networkPartitions",
+    "properties"
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "id": "dataDictionary.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "A catalogue containing definitions and descriptions of the resource types, resource attributes, and resource associations.",
+  "example": "../examples/dictionary.json",
+  "required": [
+    "subject",
+    "citation",
+    "responsibleParty"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "citation": {
+      "description": "Citation for the dictionary.",
+      "$ref": "./citation.json#"
+    },
+    "description": {
+      "type": "string",
+      "description": "A free text description of the contents of the data dictionary.",
+      "translation": {}
+    },
+    "subject": {
+      "type": "array",
+      "description": "Identifies the scope of the data dictionary. E.g. \u0027database\u0027, \u0027dataset\u0027, \u0027table\u0027.",
+      "translation": {
+        "ISO 19115-2": [
+          "FC_FeatureCatalogue \u003e scope"
+        ]
+      },
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "recommendedUse": {
+      "type": "array",
+      "description": "Description of kind(s) of use to which this dictionary may be put.",
+      "translation": {
+        "ISO 19115-2": [
+          "FC_FeatureCatalogue \u003e fieldOfApplication \u003e CharacterString"
+        ]
+      },
+      "items": {
+        "type": "string"
+      }
+    },
+    "locale": {
+      "type": "array",
+      "description": "Defines the language and country of origin in which the data dictionary is written.  E.g. \u0027eng; USA\u0027, \u0027eng; UK\u0027, \u0027esp; MEX\u0027.",
+      "translation": {
+        "ISO 19115-2": [
+          "FC_FeatureCatalogue \u003e language"
+        ]
+      },
+      "items": {
+        "$ref": "./locale.json"
+      }
+    },
+    "responsibleParty": {
+      "$ref": "./responsibility.json#",
+      "description": "Name, address, country, and telecommunications address of person or organization having primary responsibility for the intellectual content of this dictionary."
+    },
+    "dictionaryFormat": {
+      "type": "string",
+      "description": "DEPRECATED in favor of dictionaryFunctionalLanguage.",
+      "deprecated": true
+    },
+    "dictionaryFunctionalLanguage": {
+      "type": "string",
+      "description": "Formal functional language used in the dictionary.",
+      "translation": {}
+    },
+    "dictionaryIncludedWithResource": {
+      "type": "boolean",
+      "description": "Indication of whether or not the data dictionary is included with the resource.",
+      "translation": {
+        "ISO 19115-3": [
+          "MD_FeatureCatalogueDescription \u003e includedWithDataset"
+        ]
+      },
+      "default": false
+    },
+    "domain": {
+      "type": "array",
+      "description": "A list of permissable values used to constrain an attribute\u0027s value.  A single domain may be assigned to multiple attributes in a table or database.",
+      "items": {
+        "$ref": "./domain.json#"
+      }
+    },
+    "entity": {
+      "type": "array",
+      "description": "Defines the structure of a discrete data object within the data resource.  The data object may be a table, dataset, or single sheet of a spreadsheet.",
+      "translation": {
+        "ISO 19115-2": [
+          "FC_FeatureCatalogue \u003e featureType \u003e FC_FeatureType"
+        ]
+      },
+      "items": {
+        "$ref": "./entity.json#"
+      }
+    }
+  }
+}

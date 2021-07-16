@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://berniemetrics.org/crowds",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "_id": {
+        "type": "string"
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          }
+        }
+      },
+      "zip": {
+        "type": "integer"
+      },
+      "city": {
+        "type": "string"
+      },
+      "state": {
+        "type": "string"
+      },
+      "crowd_size": {
+        "type": "integer"
+      },
+      "event_date": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string"
+      },
+      "__v": {
+        "type": "integer"
+      },
+      "created": {
+        "type": "string"
+      },
+      "link3": {
+        "type": "string"
+      },
+      "link2": {
+        "type": "string"
+      },
+      "link1": {
+        "type": "string"
+      },
+      "image": {
+        "type": "string"
+      },
+      "youtube": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "_id",
+      "user",
+      "zip",
+      "city",
+      "state",
+      "crowd_size",
+      "event_date",
+      "source",
+      "__v",
+      "created",
+      "link3",
+      "link2",
+      "link1",
+      "image",
+      "youtube"
+    ]
+  },
+  "required": [
+    "0"
+  ]
+}

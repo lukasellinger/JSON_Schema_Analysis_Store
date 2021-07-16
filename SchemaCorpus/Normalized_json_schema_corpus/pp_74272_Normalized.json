@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\device.json_definitions_device-output"
+    }
+  ],
+  "definitions": {
+    "..\\definitions\\device.json_definitions_device-output": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\definitions\\device.json_definitions_device"
+        }
+      ],
+      "required": [
+        "_id",
+        "name",
+        "method",
+        "last_seen"
+      ],
+      "x-sdk-model": "device"
+    },
+    "..\\definitions\\device.json_definitions_device": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "errors": {
+          "$ref": "#/definitions/..\\definitions\\device.json_definitions_errors"
+        },
+        "info": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_info"
+        },
+        "interval": {
+          "$ref": "#/definitions/..\\definitions\\device.json_definitions_interval"
+        },
+        "last_seen": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_timestamp"
+        }
+      },
+      "x-sdk-model": "device",
+      "additionalProperties": false
+    },
+    "..\\definitions\\device.json_definitions_errors": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "..\\definitions\\common.json_definitions_info": {
+      "type": "object"
+    },
+    "..\\definitions\\device.json_definitions_interval": {
+      "type": "integer"
+    },
+    "..\\definitions\\common.json_definitions_timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

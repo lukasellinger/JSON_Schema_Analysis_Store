@@ -1,0 +1,1669 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://schemas.digitallinguistics.io/Lexeme-9.0.0.json",
+  "title": "Lexeme",
+  "type": "object",
+  "description": "A *lexeme* is an abstract entity that represents all the various forms of a word. In DLx, a lexeme refers broadly to any bundle of related senses and forms, whether the item is an individual word, morpheme, idiom, etc. — anything that constitues a semantic unit. Examples of lexemes in English might include *be*, *run up* (a phrasal verb), and *‑ing*. A lexeme will typically have multiple *senses* or meanings, and those are listed in the `senses` property. It is up to the linguist to decide when two meanings are related, and therefore belong to the same lexeme, or when they belong to different lexemes. A lexeme often also has multiple base forms, such as suppletive forms, irregular forms, or morphologically-conditioned forms. For example, the lexeme *be* has the base forms *be*, *am*, *is*, etc. These are listed in the `forms` field. The `forms` field should **not** be used to list all the regularly-inflected forms of a word. In addition, individual base forms may have phonologically-conditioned allomorphs, and these are listed in the `allomorphs` field of the form. The lexeme and its forms and senses may also have variations, such as dialectal and idiolectal variants, rapid speech variants, register-based variants, variations in meaning, or even spelling variants. These are listed in the `variants` fields. By convention, one of the forms of a lexeme is typically chosen as a representative headword or *lemma*, and this is indicated by the `lemma` field. For example, the form *man* in English is typically used as the lemma/headword for the lexeme that includes the forms *man* and *men*. Note that the DLx Lexeme does **not** represent a lexical entry in a dictionary. Dictionaries typically list each base form of a lexeme as a separate lexical entry. The DLx Lexeme lists puts each of these lexical entries together in the `forms` field instead.",
+  "$comment": "This is a top-level database object.",
+  "required": [
+    "forms",
+    "lemma",
+    "senses"
+  ],
+  "additionalProperties": true,
+  "dependencies": {
+    "variantType": [
+      "variantOf"
+    ]
+  },
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "const": "Lexeme",
+      "readOnly": true,
+      "description": "The type of object. Must be set to `Lexeme`."
+    },
+    "id": {
+      "title": "ID",
+      "description": "A unique database identifier for this Lexeme"
+    },
+    "key": {
+      "title": "Lexeme Key",
+      "type": "string",
+      "pattern": "^[^\\s]+$",
+      "description": "A human-readable key that uniquely identifies this lexeme or variant within the language. Best practice is for the key to consist of a representation of the lemma form of the word without diacritics, and, if the word is a homonym, the homonym number. However, any value is acceptable as long as it is unique for the language. (Keys do not need to be unique across languages.)"
+    },
+    "alternativeAnalyses": {
+      "title": "Alternative Analyses",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "An array of alternative Lexeme objects for this lexeme. This can be useful when working with historical sources or research from other linguists. It allows users to decide on their own analysis, while still maintaining a faithful record of the analyses of the original documentation.",
+      "items": {
+        "title": "Alternative Analysis",
+        "type": "object",
+        "$ref": "#",
+        "description": "A lexeme object representing an alternative analysis of this lexeme."
+      }
+    },
+    "bibliography": {
+      "title": "Bibliography",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A list of citations to attested bibliographic sources where this lexeme appears or is discussed. For precision\u0027s sake, it is recommended that sources be listed for specific senses or forms of a lexeme whenever possible.",
+      "items": {
+        "title": "Citation",
+        "type": "object",
+        "$ref": "#/definitions/Citation-1.0.0.json",
+        "referenceType": "Citation",
+        "description": "A citation to an attested source for this lexeme."
+      }
+    },
+    "citationForm": {
+      "title": "Citation Form",
+      "type": "object",
+      "$ref": "#/definitions/Transcription-2.1.0.json",
+      "description": "The citation form of a lexeme is the form given when spoken in isolation, which may be different from its lemma form. For example, in Swahili the citation form of a verb is typically the infinitive, e.g. *kuandika* `to write`, even though *‑andika* is typically used as its lemma form. It may be represented in multiple orthographies. Do not include leading or trailing tokens (e.g. hyphens, equal signs) in this field."
+    },
+    "dateCreated": {
+      "title": "Date Created",
+      "type": "string",
+      "description": "The date and optionally time that this lexeme was created",
+      "oneOf": [
+        {
+          "format": "date"
+        },
+        {
+          "format": "date-time"
+        }
+      ]
+    },
+    "dateModified": {
+      "title": "Date Modified",
+      "type": "string",
+      "description": "The date and optionally time that this lexeme was last modified",
+      "oneOf": [
+        {
+          "format": "date"
+        },
+        {
+          "format": "date-time"
+        }
+      ]
+    },
+    "examples": {
+      "title": "Examples",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A collection of examples illustrating this lexeme in use. Each example is an Utterance from a Text. The Utterance number should be indicated in the `index` field of the Database Reference object. If using a full Utterance object rather than a Database Reference object, the `key` field should be included. For precision\u0027s sake, it is recommended that examples be given for individual senses and forms rather than the entire lexeme when possible.",
+      "items": {
+        "title": "Example Utterance (Database Reference)",
+        "type": "object",
+        "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+        "description": "A database reference to an Utterance object"
+      }
+    },
+    "features": {
+      "title": "Features",
+      "type": "object",
+      "description": "A set of inflectional features for this lexeme (used primarily with grammatical morphemes). Each property should be the name of a feature type (e.g. `case`, `person`, `number`, `gender`, `nounClass`, etc.), and its value should be the value for that feature, as a string (e.g. `nominative`, `1`, `singular`, `masculine`, etc.). Features may be written more than once, in different languages. For example, a morpheme may have the feature `case: accusative` (English) as well as `caso: acusativo` (Spanish).",
+      "allOf": [
+        {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "The Features object must be a Tags object"
+        },
+        {
+          "additionalProperties": {
+            "title": "Feature",
+            "type": "string",
+            "minLength": 1,
+            "description": "Individual features must be represented as Strings"
+          }
+        }
+      ]
+    },
+    "forms": {
+      "title": "Lexeme Base Forms",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A collection of base forms for this lexeme, i.e. the different forms that this lexeme or morpheme may take, exclusive of its regular inflectional variants. Each base form typically corresponds to a lexical entry in a dictionary. For example: the lexeme *man* would include the forms *man* and *men*; the lexeme *run* would include the forms *run* and *ran*, but not *runs* or *running*, because these are regularly-inflected and therefore predictable; the lexeme *be* would include *am*, *are*, *is*, etc., because these are irregular / suppletive forms, but would not include *being*.",
+      "items": {
+        "title": "Lexeme Base Form",
+        "type": "object",
+        "$ref": "#/definitions/LexemeForm-2.0.0.json",
+        "description": "One of the base forms of this lexeme"
+      }
+    },
+    "language": {
+      "title": "Language (DatabaseReference)",
+      "type": "object",
+      "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+      "description": "The language of this Lexeme. This property is most useful when working with lexical data from multiple languages."
+    },
+    "lemma": {
+      "title": "Lemma",
+      "type": "object",
+      "$ref": "#/definitions/Transcription-2.1.0.json",
+      "description": "A *lemma* is the form of a lexeme conventionally used to represent that lexeme. It is typically used as the headword in dictionary entries. It may differ drastically from the citation form. For example, the form *be* is typically used as the lemma form of the English verb forms *am*, *are*, *is*, etc. Lemmas may be represented in multiple orthographies. Do not include any leading or trailing tokens (e.g. hyphens, equal signs)."
+    },
+    "lexicalRelations": {
+      "title": "Lexical Relations",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A list of the lexical relations that this lexeme has to other lexemes. Each item is a Database Reference, and must also have a property called `relation`, indicating the type of lexical relation. For precision\u0027s sake, lexical relations should be specified for individual senses rather than the entire lexeme whenever possible.",
+      "items": {
+        "allOf": [
+          {
+            "title": "Lexeme (Database Reference)",
+            "type": "object",
+            "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+            "description": "A database reference representing a lexical relation between two lexemes or senses. **Note:** The database reference must also have a `relation` property specified, indicating the type of lexical relation."
+          },
+          {
+            "required": [
+              "relation"
+            ],
+            "properties": {
+              "relation": {
+                "title": "Relation Type",
+                "type": "string",
+                "$ref": "#/definitions/Abbreviation-2.1.0.json",
+                "description": "The type of lexical relation that holds between the current item and the referenced Lexeme. Can also be used for general cross-references (a `compare` relation) or historical relationships (a `derivedFrom` or `originOf` relation). Examples: `antonym`, `synonym`, `cognate`, `derivedFrom`, `originOf`, `compare`, `partOf`, `hypernymOf`, `hyponymOf`."
+              }
+            }
+          }
+        ]
+      }
+    },
+    "lexemeType": {
+      "title": "Lexeme Type",
+      "type": "string",
+      "description": "The type of lexeme this is (either lexical or grammatical). The primary purpose of this field is to make it easy to style interlinear glosses in small caps.",
+      "enum": [
+        "lexical",
+        "grammatical"
+      ]
+    },
+    "link": {
+      "title": "Link",
+      "type": "string",
+      "format": "uri",
+      "description": "A URL where a presentational format for this resource may be viewed"
+    },
+    "literalMeaning": {
+      "title": "Literal Meaning",
+      "$ref": "#/definitions/MultiLangString-5.0.0.json",
+      "description": "The literal meaning of the lexeme, optionally in multiple languages"
+    },
+    "media": {
+      "title": "Media",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Media items associated with this lexeme, such as recordings of the citation form of the word, pictures of the item this word refers to, or videos of the action being performed. If a media item pertains a specific sense or form, it should be placed in that sense or form\u0027s `media` field instead.",
+      "items": {
+        "title": "Media Item (Database Reference)",
+        "type": "object",
+        "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+        "description": "A database reference to a media item associated with this lexeme"
+      }
+    },
+    "morphemeType": {
+      "title": "Morpheme Type",
+      "$ref": "#/definitions/MultiLangString-5.0.0.json",
+      "description": "The morphological type for this lexeme. Example values might include `\"root\"`, `\"stem\"`, `\"prefix\"`, `\"suffix\"`, `\"compound\"`, `\"phrasal verb\"`, etc."
+    },
+    "notes": {
+      "title": "Notes",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A collection of notes about this lexeme. Each Note object must have its `noteType` property specified. Notes with a note type of `private` are not intended for publication in dictionaries, while other types of notes are. For precision\u0027s sake, it is recommended that notes be attached to specific forms or senses whenever possible.",
+      "items": {
+        "allOf": [
+          {
+            "title": "Note",
+            "type": "object",
+            "$ref": "#/definitions/Note-5.0.0.json",
+            "description": "A note about this lexeme"
+          },
+          {
+            "required": [
+              "noteType"
+            ],
+            "properties": {
+              "noteType": {
+                "title": "Note Type",
+                "type": "string",
+                "description": "The type of note about this lexeme",
+                "enum": [
+                  "private",
+                  "general",
+                  "anthropology",
+                  "discourse",
+                  "encyclopedic",
+                  "grammar",
+                  "phonology",
+                  "semantics",
+                  "sociocultural",
+                  "pragmatic"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "senses": {
+      "title": "Senses",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "A collection of meanings or *senses* for this lexeme. It is up to the linguist to decide whether two uses of a lexeme are distinct enough to be considered separate senses.",
+      "items": {
+        "title": "Sense",
+        "type": "object",
+        "$ref": "#/definitions/Sense-2.0.0.json",
+        "description": "A sense or meaning for this lexeme."
+      }
+    },
+    "sources": {
+      "title": "Sources",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A list of the initials of the speaker or speakers who are the attested sources for this lexeme. For precision\u0027s sake, sources should be listed for specific senses or forms of a lexeme whenever possible. These sources should be DatabaseReferences to a Person object.",
+      "items": {
+        "title": "Source",
+        "type": "object",
+        "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+        "referenceType": "Person",
+        "description": "An attested source for this lexeme. This will often be the initials of a speaker."
+      }
+    },
+    "tags": {
+      "title": "Tags",
+      "type": "object",
+      "$ref": "#/definitions/Tags-2.1.0.json",
+      "description": "A set of tags for this lexeme"
+    },
+    "url": {
+      "title": "URL",
+      "type": "string",
+      "format": "uri",
+      "description": "A URL where a JSON representation of this lexeme may be retrieved"
+    },
+    "variantOf": {
+      "title": "Variant Of",
+      "type": "object",
+      "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+      "description": "If this lexeme is a variant of another lexeme, this field should contain a reference to the other Lexeme. Lexemes may only be variants of one other Lexeme."
+    },
+    "variants": {
+      "title": "Variants",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A list of variants of this this lexeme. This field should be used for dialectal and idiolectal variants, rapid and careful speech variants, register-based variants, variations in meaning, spelling variants, etc. It should not be used for phonologically-conditioned variants (use the `allomorphs` field of a specific form instead) or morphologically-conditioned variants (use the `forms` field instead). Each variant should have its `variantType` property specified.",
+      "items": {
+        "allOf": [
+          {
+            "title": "Variant (Database Reference)",
+            "type": "object",
+            "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+            "description": "A database reference to a variant of this lexeme. **Note:** The Database Reference object must have a `variantType` property, indicating the type of variant."
+          },
+          {
+            "required": [
+              "variantType"
+            ],
+            "properties": {
+              "variantType": {
+                "title": "Variant Type",
+                "$ref": "#/definitions/MultiLangString-5.0.0.json",
+                "description": "This field is be used to specify the type of variant. Possible values might be a person’s name (representing an idiolectal variant), or simply `idiolectal`, or `dialectal` (or the name of the dialect), or `rapid speech`, etc. May be in multiple languages."
+              }
+            }
+          }
+        ]
+      }
+    },
+    "variantType": {
+      "title": "Variant Type",
+      "$ref": "#/definitions/MultiLangString-5.0.0.json",
+      "description": "If this lexeme is a variant of another lexeme or sense, this field can be used to specify the type of variant. Possible values might be a person’s name (representing an idiolectal variant), or simply `idiolectal`, or `dialectal` (or the name of the dialect), or `rapid speech`, etc. Optionally in multiple languages."
+    }
+  },
+  "examples": [
+    {
+      "alternativeAnalyses": [
+        {
+          "forms": [
+            {
+              "transcription": {
+                "APA": "kʼuš"
+              }
+            }
+          ],
+          "lemma": {
+            "APA": "kʼuš",
+            "IPA": "kˀuš"
+          },
+          "senses": [
+            {
+              "argumentStructure": "eat(agent, patient)",
+              "gloss": "eat"
+            }
+          ]
+        }
+      ],
+      "bibliography": [
+        {
+          "citationKey": "Duralde1802"
+        }
+      ],
+      "citationForm": {
+        "APA": "kʼušti",
+        "IPA": "kˀušti",
+        "Mod": "guxti",
+        "Swad": "gušti"
+      },
+      "dateCreated": "2018-11-03T00:23:55.842Z",
+      "dateModified": "2018-11-03T00:24:04.730Z",
+      "key": "guxt-(1)",
+      "language": {
+        "abbreviation": "chiti"
+      },
+      "lemma": {
+        "APA": "kʼušt",
+        "IPA": "kˀušt",
+        "Mod": "guxt",
+        "Swad": "gušt"
+      },
+      "link": "https://explorer.digitallinguistics.io/languages/Chitimacha/lexemes/guxt",
+      "type": "Lexeme",
+      "url": "https://data.digitallinguistics.io/languages/Chitimacha/lexemes/guxt",
+      "forms": [
+        {
+          "allomorphs": [
+            {
+              "environments": [
+                "_m"
+              ],
+              "syllableStructure": "CVC",
+              "transcription": {
+                "APA": "kʼuš",
+                "IPA": "kˀuš",
+                "Mod": "gux",
+                "Swad": "guš"
+              }
+            }
+          ],
+          "components": [
+            {
+              "key": "gux"
+            },
+            {
+              "key": "t1"
+            }
+          ],
+          "inflectionClass": "main verb",
+          "link": "https://data.digitallinguistics.io/languages/Chitimacha/lexemes/guxt/forms/guxt",
+          "media": [
+            {
+              "filename": "guxt.wav"
+            }
+          ],
+          "morphemeType": "stem",
+          "sources": [
+            {
+              "source": {
+                "abbreviation": "DWH"
+              }
+            }
+          ],
+          "syllableStructure": "CVCC",
+          "transcription": {
+            "APA": "kʼušt",
+            "IPA": "kˀušt",
+            "Mod": "guxt",
+            "Swad": "gušt"
+          },
+          "variants": [
+            {
+              "key": "guxma",
+              "variantType": "pluractional"
+            }
+          ]
+        }
+      ],
+      "senses": [
+        {
+          "argumentStructure": "eat(agent, patient)",
+          "category": "transitive verb",
+          "definition": "to eat",
+          "gloss": "eat",
+          "link": "https://data.digitallinguistics.io/languages/Chitimacha/lexemes/guxt/senses/2"
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "Citation-1.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Citation",
+      "type": "object",
+      "description": "A citation to a bibliographic source. Citation objects consist of an optional `pages` property which indicates the relevant page numbers within the cited publication, and either a `citationKey` field or a `bibliographicSource` field. If the `citationKey` field is used, it contains a reference to the citation key of a bibliographic source stored elsewhere. If the `bibliographicSource` field is used, it contains an entire bibliographicSource. This allows developers to dereference their bibliographies, if they choose to.",
+      "allOf": [
+        {
+          "properties": {
+            "pages": {
+              "title": "Pages",
+              "type": "string",
+              "description": "The relevant page numbers within the cited publication"
+            }
+          }
+        },
+        {
+          "oneOf": [
+            {
+              "required": [
+                "citationKey"
+              ],
+              "properties": {
+                "citationKey": {
+                  "title": "Citation Key",
+                  "$ref": "#/definitions/Abbreviation-2.1.0.json",
+                  "description": "The citation key for the bibliographic source being reference. Must be a valid Abbreviation."
+                }
+              }
+            },
+            {
+              "required": [
+                "bibliographicSource"
+              ],
+              "properties": {
+                "bibliographicSource": {
+                  "title": "Bibliographic Source",
+                  "$ref": "#/definitions/BibliographicSource-1.0.0.json",
+                  "description": "The bibliographic source being referenced."
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "citationKey": "Hieber2018",
+          "pages": "1-15"
+        }
+      ]
+    },
+    "Abbreviation-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Abbreviation",
+      "type": "string",
+      "pattern": "^[(a-z)|(A-Z)|(0-9)]+$",
+      "description": "A human-readable abbreviation, containing on letters `a-z`, `A-Z`, and numbers `0-9` (no spaces allowed).",
+      "examples": [
+        "chiti",
+        "ctm"
+      ]
+    },
+    "BibliographicSource-1.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Bibliographic Source",
+      "type": "object",
+      "description": "A bibliographic source, such as a book or journal article",
+      "$comment": "This is a top-level database object",
+      "required": [
+        "title"
+      ],
+      "additionalProperties": true,
+      "definitions": {
+        "person": {
+          "title": "Person",
+          "type": "object",
+          "description": "An object representing a Person",
+          "additionalProperties": false,
+          "properties": {
+            "firstName": {
+              "title": "First Name",
+              "type": "string",
+              "description": "The first name(s) of this author"
+            },
+            "lastName": {
+              "title": "Last Name",
+              "type": "string",
+              "description": "The last name(s) of this author"
+            }
+          }
+        }
+      },
+      "properties": {
+        "id": {
+          "title": "ID",
+          "description": "A unique database identifier for this bibliographic source"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "BibliographicSource",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `BibliographicSource`."
+        },
+        "authors": {
+          "title": "Authors",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "An array of authors for this bibliographic source",
+          "items": {
+            "title": "Author",
+            "type": "object",
+            "$ref": "#/definitions/BibliographicSource-1.0.0.json_definitions_person",
+            "description": "A Person object representing an author"
+          }
+        },
+        "citationKey": {
+          "title": "Citation Key",
+          "$ref": "#/definitions/Abbreviation-2.1.0.json",
+          "description": "A citation key which must be a valid Abbreviation. This field can be used by bibliographic reference management software like Mendeley or Zotero to store the citation key for a source."
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "description": "The city in which this bibliographic source was published"
+        },
+        "doi": {
+          "title": "Digital Object Identifier (DOI)",
+          "type": "string",
+          "pattern": "^10.\\d{4,9}/[-._;()/:A-Za-z0-9]+$",
+          "description": "The Digtial Object Identifier (DOI) for this publication. This should be just the DOI itself, not a URL, and should not include the `doi:` prefix (e.g. `10.1075/cal.20.02hie` not `https://doi.org/10.1075/cal.20.02hie` or `doi:10.1075/cal.20.02hie`)."
+        },
+        "edition": {
+          "title": "Edition",
+          "type": "integer",
+          "minimum": 1,
+          "description": "The edition of this publication, formatted as an integer"
+        },
+        "editors": {
+          "title": "Editors",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "An array of editors for this bibliographic source",
+          "items": {
+            "title": "Editor",
+            "type": "object",
+            "$ref": "#/definitions/BibliographicSource-1.0.0.json_definitions_person",
+            "description": "A Person object representing an editor"
+          }
+        },
+        "issue": {
+          "title": "Issue",
+          "type": "string",
+          "description": "The publication issue"
+        },
+        "link": {
+          "title": "Link",
+          "type": "string",
+          "format": "uri",
+          "description": "A link to a web page where this publication may be viewed or downloaded"
+        },
+        "pages": {
+          "title": "Pages",
+          "type": "string",
+          "description": "The page numbers of this publication"
+        },
+        "publication": {
+          "title": "Publication",
+          "type": "string",
+          "description": "The publication that this bibliographic source is published in"
+        },
+        "publicationType": {
+          "title": "Publication Type",
+          "type": "string",
+          "description": "The type of publication",
+          "enum": [
+            "journal article",
+            "book",
+            "generic",
+            "book section",
+            "conference proceedings",
+            "working paper",
+            "report",
+            "web page",
+            "thesis",
+            "magazine article",
+            "newspaper article",
+            "television broadcast",
+            "encyclopedia article",
+            "film"
+          ]
+        },
+        "publisher": {
+          "title": "Publisher (or Institution)",
+          "type": "string",
+          "description": "The name of the publisher of this soruce, or the institution where it was published"
+        },
+        "series": {
+          "title": "Series",
+          "type": "string",
+          "description": "The series in which this publication was published"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "minLength": 1,
+          "description": "The title of this publication"
+        },
+        "translators": {
+          "title": "Translators",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "An array of translators for this bibliographic source",
+          "items": {
+            "title": "Translator (Person)",
+            "type": "object",
+            "$ref": "#/definitions/BibliographicSource-1.0.0.json_definitions_person",
+            "description": "A Person object representing a translator"
+          }
+        },
+        "url": {
+          "title": "JSON URL",
+          "type": "string",
+          "format": "uri",
+          "description": "A URL for the JSON data for this bibliographic source"
+        },
+        "volume": {
+          "title": "Volume",
+          "type": "integer",
+          "minimum": 1,
+          "description": "The volume number for this publication"
+        },
+        "year": {
+          "title": "Year",
+          "type": "integer",
+          "description": "The year this item was published. Use a positive integer for AD / ACE, and a negative integer for BC / BCE."
+        }
+      },
+      "examples": [
+        {
+          "authors": [
+            {
+              "firstName": "Daniel W.",
+              "lastName": "Hieber"
+            }
+          ],
+          "citationKey": "Hieber2018",
+          "city": "Amsterdam",
+          "doi": "10.1075/cal.20.02hie",
+          "editors": [
+            {
+              "firstName": "Kristel",
+              "lastName": "Van Goethem"
+            },
+            {
+              "firstName": "Muriel",
+              "lastName": "Norde"
+            },
+            {
+              "firstName": "Evie",
+              "lastName": "Coussé"
+            },
+            {
+              "firstName": "Gudrun",
+              "lastName": "Vanderbauwhede"
+            }
+          ],
+          "publication": "Category change from a constructional perspective",
+          "publicationType": "book section",
+          "publisher": "John Benjamins",
+          "series": "Constructional approaches to language",
+          "title": "Category genesis in Chitimacha",
+          "type": "BibliographicSource",
+          "url": "https://api.digitallinguistics.io/references/Hieber2018.json",
+          "volume": 20,
+          "year": 2018
+        },
+        {
+          "authors": [
+            {
+              "firstName": "Daniel W.",
+              "lastName": "Hieber"
+            }
+          ],
+          "doi": "10.1515/lingty-2013-0013",
+          "issue": "2",
+          "link": "https://benjamins.com/catalog/cal.20.02hie",
+          "pages": "15–46",
+          "publication": "Linguistic Typology",
+          "publicationType": "journal article",
+          "title": "On linguistics, linguists, and our times: A linguist’s personal narrative reviewed",
+          "type": "BibliographicSource",
+          "url": "https://api.digitallinguistics.io/references/Hieber2013.json",
+          "year": 2013
+        }
+      ]
+    },
+    "BibliographicSource-1.0.0.json_definitions_person": {
+      "title": "Person",
+      "type": "object",
+      "description": "An object representing a Person",
+      "additionalProperties": false,
+      "properties": {
+        "firstName": {
+          "title": "First Name",
+          "type": "string",
+          "description": "The first name(s) of this author"
+        },
+        "lastName": {
+          "title": "Last Name",
+          "type": "string",
+          "description": "The last name(s) of this author"
+        }
+      }
+    },
+    "Transcription-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Transcription",
+      "type": "object",
+      "description": "A transcription of a piece of data in a language, optionally in multiple orthographies. For example, a transcription might be written in both a practical orthography and IPA. Each key must be the abbreviation for an orthography (see the [Abbreviation](https://spec.digitallinguistics.github.io/schemas/Abbreviation.html) schema), and the value for that key is the transcription of the data in that particular orthography. **Note:** The Transcription does not have a `type` property.",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[(a-z)|(A-Z)|(0-9)]+$": {
+          "title": "Text",
+          "type": "string",
+          "description": "The transcription for the specified orthography"
+        }
+      },
+      "examples": [
+        {
+          "APA": "wetkš",
+          "IPA": "wetkʃ",
+          "Mod": "wetkx",
+          "Swad": "wetkš"
+        }
+      ]
+    },
+    "DatabaseReference-4.3.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Database Reference",
+      "type": "object",
+      "description": "A reference to an item in a database, used when you wish to store an item separately in the database (following a relational database model), rather than inline. A disadvantage of this approach is that it often requires making multiple database calls. To avoid this, in most cases the actual object can be used instead of a database reference. For example, instead of making a reference to a separate Person file, you can simply include the Person object directly in place of the database reference. This is useful when you don\u0027t want to deal with cross references and multiple database calls. In this case, it is often a good idea to include just a minimal set of data. For a person, for example, you might include just the ID, abbreviation, family name, and given name. This prevents you from having to replicate all of the data about that Person each time it is used.",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "DatabaseReference",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `DatabaseReference`."
+        },
+        "abbreviation": {
+          "title": "Referenced Abbreviation",
+          "type": "string",
+          "$ref": "#/definitions/Abbreviation-2.1.0.json",
+          "description": "The abbreviation of the referenced database item."
+        },
+        "id": {
+          "title": "Referenced ID",
+          "description": "The ID of the referenced database item"
+        },
+        "filename": {
+          "title": "Filename",
+          "type": "string",
+          "description": "If the reference database item is a media item, use this field for the name of the referenced file."
+        },
+        "index": {
+          "title": "Referenced Index",
+          "type": "integer",
+          "minimum": 1,
+          "description": "The index of the referenced database item. Indexes should start at 1 rather than 0 to increase human readability."
+        },
+        "key": {
+          "title": "Referenced Key",
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "description": "The key of the referenced database item"
+        },
+        "name": {
+          "title": "Name",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "The name of the referenced database item, optionally in multiple languages."
+        },
+        "referenceType": {
+          "title": "Referenced Item Type",
+          "type": "string",
+          "description": "The type of database item being referenced",
+          "enum": [
+            "BibliographicReference",
+            "Bundle",
+            "Language",
+            "Lexeme",
+            "Location",
+            "Media",
+            "Morpheme",
+            "Orthography",
+            "Person",
+            "Sense",
+            "Text",
+            "Utterance",
+            "Word"
+          ]
+        },
+        "url": {
+          "title": "Referenced URL",
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the referenced database item"
+        }
+      },
+      "examples": [
+        {
+          "index": 2,
+          "referenceType": "Utterance",
+          "type": "DatabaseReference",
+          "url": "https://api.digitallinguistics.io/languages/Chitimacha/texts/A1/utterances/2"
+        },
+        {
+          "key": "Omoiseke",
+          "name": "Ómoíséké ósokérété chíséese",
+          "referenceType": "Text",
+          "type": "DatabaseReference",
+          "url": "https://api.digitallinguistics.io/languages/Gusii/texts/Omoiseke"
+        }
+      ]
+    },
+    "MultiLangString-5.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Multi-Language Text / String",
+      "description": "A piece of text in multiple languages. This is typically used for analyses, database properties, and information in metalanguages rather than transcriptions or translations of data (for those, see the [Transcription](https://spec.digitallinguistics.github.io/schemas/Transcription.html) and [Translation](https://spec.digitallinguistics.github.io/schemas/Translation.html) schemas). For example, the part of speech for a lexeme might be given as both English *noun* and Spanish *nombre*. Each key must be a valid IETF language tag for a language (see the [IETF](https://www.w3.org/International/articles/language-tags/) reference page), and the value for that key must be the string of text in that language. **Note:** MultiLangStrings do not have a `type` property.\n\nIf the text is in only one language and that language is English, it may be represented as a simple string instead of an object. Thus instead of `gloss: { en: \"M.SG\" }` you can simply write `gloss: \"M.SG\"`.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))|((([A-Za-z]{2,3}(-([A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-([A-Za-z]{4}))?(-([A-Za-z]{2}|[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-([0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(x(-[A-Za-z0-9]{1,8})+))?)|(x(-[A-Za-z0-9]{1,8})+))$": {
+              "title": "Text",
+              "type": "string",
+              "description": "The string of text in the specified language"
+            }
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "examples": [
+        "man",
+        {
+          "en": "man",
+          "fr": "homme"
+        }
+      ]
+    },
+    "Tags-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Tags",
+      "type": "object",
+      "description": "A tag is a piece of metadata that can be applied to almost any DLx object. The tags object contains a set of tags for this resource as pairs of attributes and values. For example, a researcher might tag a suffix with the attribute `person`, and a value of `3`, to indicate that the particular suffix is 3rd Person. If no value is needed, the value may also be set to `true` or `false` (but not `null`), however users are encouraged to use both attribute and value for every tag, since this helps identify the larger category that the tag value belongs to. Note: The Tags object does not have a `type` property.",
+      "additionalProperties": {
+        "title": "Tag",
+        "description": "A single tag, as an attribute-value pair.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "role": "subject",
+          "activated": true
+        },
+        {
+          "VOT": 0.012
+        }
+      ]
+    },
+    "LexemeForm-2.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Lexeme Form",
+      "type": "object",
+      "description": "The *base forms* of a lexeme are the minimal set of forms needed to determine the full set of inflectional possibilities of a lexeme. These include suppletive forms, irregular forms, or morphologically-conditioned forms. For example, the lexeme *be* has the base forms *be*, *am*, *is*, etc., while the lexeme *man* has the base forms *man* and *men*. A base form does **not** refer to a regularly-inflected, predictable form like *being* or *cats*. Principal parts of verbs in Latin are another example of base forms, since they are the minimal set of forms that someone must know to determine all the inflectional possibilities of a verb.",
+      "required": [
+        "transcription"
+      ],
+      "additionalProperties": true,
+      "dependencies": {
+        "variantType": [
+          "variantOf"
+        ]
+      },
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "LexemeForm",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `LexemeForm`."
+        },
+        "allomorphs": {
+          "title": "Allomorphs",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of allomorphs (that is, phonologically-conditioned alternants) of this lexeme",
+          "items": {
+            "title": "Allomorph",
+            "type": "object",
+            "description": "An allomorph of this lexeme",
+            "required": [
+              "environments",
+              "transcription"
+            ],
+            "additionalProperties": true,
+            "properties": {
+              "environments": {
+                "title": "Environments",
+                "type": "array",
+                "uniqueItems": true,
+                "description": "A list of phonological environments in which this allomorph occurs. May be an empty array.",
+                "items": {
+                  "title": "Environment",
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "A formalization of a (morpho)phonologial environemnt, e.g. `_k`"
+                }
+              },
+              "syllableStructure": {
+                "title": "Syllable Structure",
+                "type": "string",
+                "description": "An abstract representation of the syllable structure of this allomorph, e.g. `CVC`"
+              },
+              "tone": {
+                "title": "Tone",
+                "type": "string",
+                "description": "An abstract representation of the tonal pattern of this allomorph. Examples: `HLH`, `313`, `˦˨˦` etc."
+              },
+              "transcription": {
+                "title": "Transcription",
+                "type": "object",
+                "$ref": "#/definitions/Transcription-2.1.0.json",
+                "description": "A transcription of this allomorph, optionally in multiple orthographies. Do not include any leading or trailing tokens (e.g. hyphens, equal signs)."
+              }
+            }
+          }
+        },
+        "bibliography": {
+          "title": "Bibliography",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of citations to attested sources where this lexeme form appears or is discussed. For precision\u0027s sake, citations should be listed for specific forms of a lexeme rather than the lexeme whenever possible.",
+          "items": {
+            "title": "Citation",
+            "$ref": "#/definitions/Citation-1.0.0.json",
+            "description": "An attested source for this lexeme form. This will be a citation to a published text in which the lexeme form appears."
+          }
+        },
+        "components": {
+          "title": "Components",
+          "type": "array",
+          "uniqueItems": false,
+          "description": "A list of the morphemes or other lexemes contained within the current form. For example, the form *gentlemen* in an English lexicon might have references to the lexeme *gentle*, and the form *men* within the lexeme for *man*. Components may reference either an entire lexeme or a specific form. Components do not have to be unique (useful when the same morpheme appears twice in a word).",
+          "items": {
+            "title": "Lexeme / Lexeme Form (Database Reference)",
+            "type": "object",
+            "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+            "description": "A database reference to a lexeme or lexeme form"
+          }
+        },
+        "examples": {
+          "title": "Examples",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A collection of examples illustrating this lexeme form in use. Each example is an Utterance from a Text. The Utterance number should be indicated in the `index` field of the Database Reference object. If using a full Utterance object rather than a Database Reference object, the `key` field should be included. For precision\u0027s sake, it is recommended that examples be given for individual forms rather than the entire lexeme when possible.",
+          "items": {
+            "title": "Example Utterance (Database Reference)",
+            "type": "object",
+            "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+            "description": "A database reference to an Utterance object"
+          }
+        },
+        "features": {
+          "title": "Features",
+          "type": "object",
+          "description": "A set of inflectional features for this lexeme form (used primarily with grammatical morphemes). Each property should be the name of a feature type (e.g. `case`, `person`, `number`, `gender`, `nounClass`, etc.), and its value should be the value for that feature, as a string (e.g. `nominative`, `1`, `singular`, `masculine`, etc.). Features may be written more than once, in different languages. For example, a morpheme may have the feature `case: accusative` (English) as well as `caso: acusativo` (Spanish).",
+          "allOf": [
+            {
+              "title": "Tags",
+              "type": "object",
+              "$ref": "#/definitions/Tags-2.1.0.json",
+              "description": "The Features object must be a Tags object"
+            },
+            {
+              "additionalProperties": {
+                "title": "Feature",
+                "type": "string",
+                "minLength": 1,
+                "description": "Individual features must be represented as Strings"
+              }
+            }
+          ]
+        },
+        "inflectionClass": {
+          "title": "Inflectional Class",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "If this lexeme is a root or stem, this field indicates the inflectional class that the sense takes. If this lexeme is an inflectional morpheme, this field indicates the inflectional class that the morpheme belongs to. If this lexeme is a derivational morpheme, this field indicates the inflectional class of the derived form. May be written in multiple languages."
+        },
+        "link": {
+          "title": "Link",
+          "type": "string",
+          "format": "uri",
+          "description": "A URL where a presentational format for this lexeme form may be viewed"
+        },
+        "media": {
+          "title": "Media",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "Media items associated with this lexeme form, such as recordings of this form being pronounced. When a media item pertains to a specific lexeme form, it should be placed in that form\u0027s `media` field rather than the lexeme\u0027s.",
+          "items": {
+            "title": "Media Item (Database Reference)",
+            "type": "object",
+            "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+            "description": "A database reference to a media item associated with this lexeme form"
+          }
+        },
+        "morphemeType": {
+          "title": "Morpheme Type",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "The type of morpheme or complex construction that this lexeme is, optionally in multiple languages. Examples: `root`, `stem`, `bipartite stem`, `enclitic`, `prefix`, `inflected word`, `phrase`, `circumfix`, `compound`, `complex`, `ideophonic`. Typically, all the forms of a lexeme will have the same morpheme type, but occasionally they differ (e.g. independent vs. cliticized forms of a word, such as *are* vs. *\u003d\u0027re* in English)."
+        },
+        "notes": {
+          "title": "Notes",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A collection of notes about this lexeme form. Each Note object must have its `noteType` property specified. Notes with a note type of `private` are not intended for publication in dictionaries, while other types of notes are. For precision\u0027s sake, it is recommended that notes be attached to specific forms rather than the lexeme whenever possible.",
+          "items": {
+            "allOf": [
+              {
+                "title": "Note",
+                "type": "object",
+                "$ref": "#/definitions/Note-5.0.0.json",
+                "description": "A note about this lexeme form"
+              },
+              {
+                "required": [
+                  "noteType"
+                ],
+                "properties": {
+                  "noteType": {
+                    "title": "Note Type",
+                    "type": "string",
+                    "description": "The type of note about this lexeme form",
+                    "enum": [
+                      "private",
+                      "general",
+                      "anthropology",
+                      "discourse",
+                      "encyclopedic",
+                      "grammar",
+                      "phonology",
+                      "semantics",
+                      "sociocultural"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "sources": {
+          "title": "Sources",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of the initials of the speaker or speakers who are the attested sources for this lexeme form. For precision\u0027s sake, sources should be listed for specific forms of a lexeme rather than the lexeme whenever possible. These sources should be DatabaseReferences to a Person object.",
+          "items": {
+            "title": "Source",
+            "type": "object",
+            "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+            "referenceType": "Person",
+            "description": "An attested source for this lexeme form. This will often be the initials of a speaker."
+          }
+        },
+        "syllableStructure": {
+          "title": "Syllable Structure",
+          "type": "string",
+          "description": "An abstract representation of the syllable structure of this form, e.g. `CVC`"
+        },
+        "tags": {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "A set of tags for this lexeme form"
+        },
+        "tone": {
+          "title": "Tone",
+          "type": "string",
+          "description": "An abstract representation of the tonal pattern of this lexeme form. Examples: `HLH`, `313`, `˦˨˦` etc."
+        },
+        "transcription": {
+          "title": "Transcription",
+          "type": "object",
+          "$ref": "#/definitions/Transcription-2.1.0.json",
+          "description": "A transcription of this lexeme form, optionally in multiple orthographies"
+        },
+        "usages": {
+          "title": "Usages",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of MultiLangStrings giving information about this form\u0027s social usage, regional information, register, dialect, and/or connotations. Common values might be \"archaic\", \"colloquial\", \"formal\", \"positive\", \"negative\", etc.",
+          "items": {
+            "title": "Usage",
+            "$ref": "#/definitions/MultiLangString-5.0.0.json",
+            "description": "A MultiLangString giving information about this form\u0027s usage"
+          }
+        },
+        "variantOf": {
+          "title": "Variant Of",
+          "type": "object",
+          "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+          "description": "If this lexeme form is a variant of another form, a reference to the other form should go here. For example, some speakers of English have *hanged* as the past tense of *hang*, while others have *hung*."
+        },
+        "variants": {
+          "title": "Variants",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of variants of this this form. This field should be used for dialectal and idiolectal variants, rapid and careful speech variants, register-based variants, spelling variants, etc. It should not be used for phonologically-conditioned variants (use the `allomorphs` field of a specific form instead). Each variant should have its `variantType` property specified.",
+          "items": {
+            "allOf": [
+              {
+                "title": "Variant (Database Reference)",
+                "type": "object",
+                "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+                "description": "A database reference to a variant of this form. **Note:** The Database Reference object must have a `variantType` property, indicating the type of variant."
+              },
+              {
+                "required": [
+                  "variantType"
+                ],
+                "properties": {
+                  "variantType": {
+                    "title": "Variant Type",
+                    "$ref": "#/definitions/MultiLangString-5.0.0.json",
+                    "description": "This field is be used to specify the type of variant. Possible values might be a person’s name (representing an idiolectal variant), or simply `idiolectal`, or `dialectal` (or the name of the dialect), or `rapid speech`, etc. May be in multiple languages."
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "variantType": {
+          "title": "Variant Type",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "If this form is a variant of another lexeme form, this field can be used to specify the type of variant. Possible values might be a person’s name (representing an idiolectal variant), or simply `idiolectal`, or `dialectal` (or the name of the dialect), or `rapid speech`, etc. Optionally in multiple languages."
+        }
+      },
+      "examples": [
+        {
+          "allomorphs": [
+            {
+              "environments": [
+                "_m"
+              ],
+              "syllableStructure": "CVC",
+              "transcription": {
+                "APA": "kʼuš",
+                "IPA": "kˀuš",
+                "Mod": "gux",
+                "Swad": "guš"
+              }
+            }
+          ],
+          "bibliography": [
+            {
+              "citationKey": "Duralde1802"
+            }
+          ],
+          "components": [
+            {
+              "key": "gux"
+            },
+            {
+              "key": "t1"
+            }
+          ],
+          "inflectionClass": "main verb",
+          "link": "https://data.digitallinguistics.io/languages/Chitimacha/lexemes/guxt/forms/guxt",
+          "media": [
+            {
+              "filename": "guxt.wav"
+            }
+          ],
+          "morphemeType": "stem",
+          "sources": [
+            {
+              "source": {
+                "abbreviation": "BP"
+              }
+            }
+          ],
+          "syllableStructure": "CVCC",
+          "transcription": {
+            "APA": "kʼušt",
+            "IPA": "kˀušt",
+            "Mod": "guxt",
+            "Swad": "gušt"
+          },
+          "usages": [
+            "colloquial"
+          ],
+          "variants": [
+            {
+              "key": "guxma",
+              "variantType": "pluractional"
+            }
+          ]
+        }
+      ]
+    },
+    "Note-5.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Note",
+      "type": "object",
+      "description": "A note about this resource. Notes may also include `type` and `language` attributes.",
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "Note",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `Note`."
+        },
+        "dateCreated": {
+          "title": "Date Created",
+          "type": "string",
+          "description": "The date and optionally time that this note was created",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "dateModified": {
+          "title": "Date Modified",
+          "type": "string",
+          "description": "The date and optionally time that this note was last modified",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "language": {
+          "title": "Note Language",
+          "type": "string",
+          "description": "A language code or language name of the language that this note is written in. Assumed to be English if not otherwise specified."
+        },
+        "noteType": {
+          "title": "Note Type",
+          "type": "string",
+          "description": "The type of Note. Required for notes on Lexemes."
+        },
+        "source": {
+          "title": "Source (Person - Database Reference)",
+          "type": "object",
+          "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+          "referenceType": "Person",
+          "description": "A database reference to a Person object describing the person who is the source of the information in this Note. This is not necessarily the person who wrote it. For example, a linguist could make a note based on something that a speaker reports, in which case the speaker should be listed as the source."
+        },
+        "tags": {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "A set of tags that apply to this Note. Useful for tagging notes that need review or responses, or marking a note as resolved."
+        },
+        "text": {
+          "title": "Note Text",
+          "type": "string",
+          "minLength": 1,
+          "description": "The text of the note itself"
+        }
+      },
+      "examples": [
+        {
+          "dateCreated": "2018-10-31T18:00:09.433Z",
+          "dateModified": "2018-10-31T18:00:23.691Z",
+          "language": "swa",
+          "source": {
+            "abbreviation": "DWH"
+          },
+          "text": "Msemaji huyu ni Janet Kerubo Momanyi.",
+          "type": "Note"
+        },
+        {
+          "dateCreated": "2018-10-31T18:00:09.433Z",
+          "dateModified": "2018-10-31T18:00:23.691Z",
+          "language": "eng",
+          "noteType": "encyclopedic",
+          "source": {
+            "name": "Morris Swadesh"
+          },
+          "text": "Box turtles are known for eating strawberries.",
+          "type": "Note"
+        }
+      ]
+    },
+    "Sense-2.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Sense",
+      "type": "object",
+      "description": "A *sense* is one of the possible meanings of a lexeme. For example, the lexeme *run* has many different senses, such as as \"run in a race\" and \"run water in a sink\". It is up to the linguist to decide whether two particular uses of a lexeme count as the same sense or different senses.",
+      "required": [
+        "gloss"
+      ],
+      "additionalProperties": true,
+      "dependencies": {
+        "variantType": [
+          "variantOf"
+        ]
+      },
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "Sense",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `Sense`."
+        },
+        "argumentStructure": {
+          "title": "Argument Structure",
+          "type": "string",
+          "description": "An abstract representation of the argument structure for this sense"
+        },
+        "bibliography": {
+          "title": "Bibliography",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of citations to attested sources where this sense appears or is discussed. For precision\u0027s sake, sources should be listed for specific senses of a lexeme rather than the lexeme whenever possible.",
+          "items": {
+            "title": "Citation",
+            "type": "object",
+            "$ref": "#/definitions/Citation-1.0.0.json",
+            "referenceType": "Citation",
+            "description": "An attested source for this sense. This will be a citation to a published text in which the sense appears."
+          }
+        },
+        "category": {
+          "title": "Lexical Category (Part of Speech, Morphosyntactic Class, etc.)",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "The lexical category, part of speech, or morphosyntactic class for this Lexeme, optionally in multiple languages. If the current lexeme is an affix or other grammatical morpheme morpheme, this field should be used to describe the category that the morpheme attaches to. For example, the English verb suffix *‑s* would have this this property set to `verb`, and the English derivational suffix *‑ize* would have this property set to `noun`."
+        },
+        "definition": {
+          "title": "Definition",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "The definition for this particular sense, optionally in multiple languages"
+        },
+        "derives": {
+          "title": "Derived Category",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "If this lexeme is a derivational morpheme, this field indicates the type of lexical category, part of speech, or morphosyntactic class that is derived when this morpheme is applied. For example, the English derivational suffix *‑er* would have this property set to `noun`, since this suffix derives nouns from verbs. May be in multiple languages."
+        },
+        "examples": {
+          "title": "Examples",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A collection of examples illustrating this sense in use. Each example is an Utterance from a Text. The Utterance number should be indicated in the `index` field of the Database Reference object. If using a full Utterance object rather than a Database Reference object, the `key` field should be included. For precision\u0027s sake, it is recommended that examples be given for individual senses rather than the entire lexeme when possible.",
+          "items": {
+            "title": "Example Utterance (Database Reference)",
+            "type": "object",
+            "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+            "description": "A database reference to an Utterance object"
+          }
+        },
+        "gloss": {
+          "title": "Gloss",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "A Leipzig-style gloss for this sense. A gloss must be provided in at least one language.",
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "minProperties": 1
+            }
+          ]
+        },
+        "lexicalRelations": {
+          "title": "Lexical Relations",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of the lexical relations that this sense has to other senses of different lexemes. Each item is a Database Reference, and must also have a property called `relation`, indicating the type of lexical relation. For precision\u0027s sake, lexical relations should be specified for individual senses rather than the entire lexeme whenever possible.",
+          "items": {
+            "allOf": [
+              {
+                "title": "Lexeme (Database Reference)",
+                "type": "object",
+                "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+                "description": "A database reference representing a lexical relation between two senses. **Note:** The database reference must also have a `relation` property specified, indicating the type of lexical relation."
+              },
+              {
+                "required": [
+                  "relation"
+                ],
+                "properties": {
+                  "relation": {
+                    "title": "Relation Type",
+                    "type": "string",
+                    "$ref": "#/definitions/Abbreviation-2.1.0.json",
+                    "description": "The type of lexical relation that holds between the current sense and the referenced sense. Can also be used for general cross-references (a `compare` relation) or historical relationships (a `derivedFrom` or `originOf` relation). Examples: `antonym`, `synonym`, `cognate`, `derivedFrom`, `originOf`, `compare`, `partOf`, `hypernymOf`, `hyponymOf`."
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "link": {
+          "title": "Link",
+          "type": "string",
+          "format": "uri",
+          "description": "A URL where a presentational format for this sense may be viewed"
+        },
+        "media": {
+          "title": "Media",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "Media items associated with this sense, such as pictures of the item this word refers to, or videos of the action being performed. When a media item pertains to a specific sense, it should be placed in that sense\u0027s `media` field rather than the lexeme\u0027s.",
+          "items": {
+            "title": "Media Item (Database Reference)",
+            "type": "object",
+            "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+            "description": "A database reference to a media item associated with this sense"
+          }
+        },
+        "notes": {
+          "title": "Notes",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A collection of notes about this sense. Each Note object must have its `noteType` property specified. Notes with a note type of `private` are not intended for publication in dictionaries, while other types of notes are. For precision\u0027s sake, it is recommended that notes be attached to specific senses instead of the lexeme whenever possible.",
+          "items": {
+            "allOf": [
+              {
+                "title": "Note",
+                "type": "object",
+                "$ref": "#/definitions/Note-5.0.0.json",
+                "description": "A note about this sense"
+              },
+              {
+                "required": [
+                  "noteType"
+                ],
+                "properties": {
+                  "noteType": {
+                    "title": "Note Type",
+                    "type": "string",
+                    "description": "The type of note about this sense",
+                    "enum": [
+                      "private",
+                      "general",
+                      "anthropology",
+                      "discourse",
+                      "encyclopedic",
+                      "grammar",
+                      "phonology",
+                      "semantics",
+                      "sociocultural"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "scientificName": {
+          "title": "Scientific Name",
+          "type": "string",
+          "description": "The scientific name for this item"
+        },
+        "semanticDomains": {
+          "title": "Semantic Domains",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of the semantic domains this sense belongs to. Examples include color, body part, clothing, etc. The colon character can be used to represent subdomains e.g. quality:color:primary, color:red, etc.",
+          "items": {
+            "title": "Semantic Domain",
+            "$ref": "#/definitions/MultiLangString-5.0.0.json",
+            "description": "A domain that this sense belongs to, as a MultiLangString"
+          }
+        },
+        "sources": {
+          "title": "Sources",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of the initials of the speaker or speakers who are the attested sources for this sense. For precision\u0027s sake, sources should be listed for specific senses of a lexeme rather than the lexeme whenever possible. These sources should be DatabaseReferences to a Person object.",
+          "items": {
+            "title": "Source",
+            "type": "object",
+            "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+            "referenceType": "Person",
+            "description": "An attested source for this sense. This will often be the initials of a speaker."
+          }
+        },
+        "tags": {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "A set of tags for this sense"
+        },
+        "usages": {
+          "title": "Usages",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of MultiLangStrings giving information about this sense\u0027s social usage, regional information, register, dialect, and/or connotations. Common values might be \"archaic\", \"colloquial\", \"formal\", \"positive\", \"negative\", etc.",
+          "items": {
+            "title": "Usage",
+            "$ref": "#/definitions/MultiLangString-5.0.0.json",
+            "description": "A MultiLangString giving information about this sense\u0027s usage"
+          }
+        },
+        "variantOf": {
+          "title": "Variant Of",
+          "type": "object",
+          "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+          "description": "If this sense is a variant of another sense, a reference to the other sense should go here. For example, sometimes two speakers may use the same word with a slightly different set of senses. In American English, for instance, *Coke* is a specific brand of soda for most speakers, but a generic term for soda for other speakers. The generic sense would therefore be listed as a dialectal variant of the specific sense."
+        },
+        "variants": {
+          "title": "Variants",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A list of variations of this this sense. This field should be used for dialectal and idiolectal variants, register-based variants, variations in meaning, spelling variants, etc. Each variant should have its `variantType` property specified.",
+          "items": {
+            "allOf": [
+              {
+                "title": "Variant (Database Reference)",
+                "type": "object",
+                "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+                "description": "A database reference to a variant of this sense. **Note:** The Database Reference object must have a `variantType` property, indicating the type of variant."
+              },
+              {
+                "required": [
+                  "variantType"
+                ],
+                "properties": {
+                  "variantType": {
+                    "title": "Variant Type",
+                    "$ref": "#/definitions/MultiLangString-5.0.0.json",
+                    "description": "This field is be used to specify the type of variant. Possible values might be a person’s name (representing an idiolectal variant), or simply `idiolectal`, or `dialectal` (or the name of the dialect), etc. May be in multiple languages."
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "variantType": {
+          "title": "Variant Type",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "If this sense is a variant of another sense, this field can be used to specify the type of variant. Possible values might be a person’s name (representing an idiolectal variant), or simply `idiolectal`, or `dialectal` (or the name of the dialect), etc. May be in multiple languages."
+        }
+      },
+      "examples": [
+        {
+          "argumentStructure": "eat(agent, patient)",
+          "category": "transitive verb",
+          "definition": "to eat",
+          "gloss": "eat",
+          "link": "https://data.digitallinguistics.io/languages/Chitimacha/lexemes/guxt/senses/2"
+        },
+        {
+          "bibliography": [
+            {
+              "citationKey": "Duralde1802"
+            }
+          ],
+          "category": "verb",
+          "definition": "A suffix that derives transitive verbs from intransitive verbs",
+          "derives": "verb",
+          "gloss": "TR",
+          "link": "https://data.digitallinguistics.io/languages/Chitimacha/lexemes/t1/senses/1",
+          "sources": [
+            {
+              "abbreviation": "DP"
+            }
+          ]
+        },
+        {
+          "category": "noun",
+          "definition": "a male",
+          "gloss": "male",
+          "semanticDomains": [
+            "human"
+          ],
+          "usages": [
+            "formal"
+          ],
+          "media": [
+            {
+              "filename": "qasi-2.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "InterfaceList",
+  "description": "Interface List",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/InterfaceDescriptor.json"
+  },
+  "definitions": {
+    "InterfaceDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "InterfaceDescriptor",
+      "description": "An interface that a module can provide",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Interface ID",
+          "type": "string"
+        },
+        "version": {
+          "description": "Interface version in major.minor format",
+          "type": "string"
+        },
+        "interfaceType": {
+          "description": "Type: proxy (default), system, internal, multiple",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "handlers": {
+          "description": "Handler entries for this interface",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/RoutingEntry.json"
+          }
+        },
+        "permissionSets": {
+          "description": "Permissions for this interface",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/Permission.json"
+          }
+        },
+        "scope": {
+          "description": "Interface scope",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ]
+    },
+    "RoutingEntry.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "RoutingEntry",
+      "description": "Okapi proxy routing entry",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "methods": {
+          "description": "List of methods GET, POST,.. * (for all)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pathPattern": {
+          "description": "Path pattern match. * matches any path. {x} matches one or more characters but not slash",
+          "type": "string"
+        },
+        "path": {
+          "description": "Path prefix match",
+          "type": "string"
+        },
+        "rewritePath": {
+          "description": "Rewrite path. e.g. have filter rewrite \u0027/*\u0027 to \u0027/events/*\u0027",
+          "type": "string"
+        },
+        "phase": {
+          "description": "If given, may be auth, pre or post",
+          "type": "string"
+        },
+        "level": {
+          "description": "Processing level. Default is 50 (handlers)",
+          "type": "string"
+        },
+        "type": {
+          "description": "Proxy handling. One of: request-response, request-only, headers, redirect, system, internal, request-response-1.0. The default is request-response",
+          "type": "string"
+        },
+        "redirectPath": {
+          "description": "If given, path that we internally redirect to",
+          "type": "string"
+        },
+        "unit": {
+          "description": "Delay unit",
+          "type": "string"
+        },
+        "delay": {
+          "description": "Delay between calls; a value of zero disables timer",
+          "type": "string"
+        },
+        "schedule": {
+          "description": "Timer schedule using cron-utils",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cron": {
+              "description": "crontab specification",
+              "type": "string"
+            },
+            "zone": {
+              "description": "time zone (UTC is the default); See https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html",
+              "type": "string"
+            }
+          }
+        },
+        "permissionsRequired": {
+          "description": "Required permissions for this entry",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "permissionsDesired": {
+          "description": "Desired permissions for this entry",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "modulePermissions": {
+          "description": "Module permissions for this entry",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "permissionsRequiredTenant": {
+          "description": "Required permissions that replace permissionsRequired when the user is authenticated and either the tenant matches each {tenantId} in pathPattern or pathPattern doesn\u0027t contain {tenantId}",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "delegateCORS": {
+          "description": "Okapi handles CORS by default. Set to true to delegate CORS handling to the module. This only applies to calls made via /_/invoke/tenant/\u003ctid\u003e/\u003cpath\u003e",
+          "type": "boolean"
+        }
+      }
+    },
+    "Permission.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Permissions Definition Schema",
+      "description": "Permission entity",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "permissionName": {
+          "description": "Permission ID (usually module.service.method or similar)",
+          "type": "string"
+        },
+        "replaces": {
+          "description": "previously used names for this permission",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "displayName": {
+          "description": "Human readable name for permission",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description for permission",
+          "type": "string"
+        },
+        "subPermissions": {
+          "description": "Sub permissions",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "visible": {
+          "description": "Whether to show the permission in UI",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "permissionName"
+      ]
+    }
+  }
+}

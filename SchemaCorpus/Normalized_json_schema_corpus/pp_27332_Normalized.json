@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "type": "string",
+    "maxLength": 128,
+    "pattern": "^[a-z0-9_\\-]+(\\.[\\w\\-]+)*$"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "cells": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_cell"
+        }
+      },
+      "pattern": {
+        "type": "string"
+      },
+      "endpoint": {
+        "$ref": "#/definitions/common.json_endpoint"
+      }
+    }
+  },
+  "definitions": {
+    "common.json_cell": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[a-zA-Z0-9-]+$"
+    },
+    "common.json_endpoint": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[\\w\\-]+$"
+    }
+  }
+}

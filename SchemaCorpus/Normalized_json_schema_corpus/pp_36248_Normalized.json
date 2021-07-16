@@ -1,0 +1,598 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://schemas.digitallinguistics.io/Word-4.3.0.json",
+  "title": "Word",
+  "type": "object",
+  "description": "A Word object represents a specific token in a text, rather than an abstract lexeme (see the Lexeme object for that).",
+  "additionalProperties": true,
+  "required": [
+    "transcription"
+  ],
+  "properties": {
+    "analysis": {
+      "title": "Analysis",
+      "$ref": "#/definitions/Transcription-2.1.0.json",
+      "description": "The morpheme breakdown for the word"
+    },
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "const": "Word",
+      "readOnly": true,
+      "description": "The type of object. Must be set to `Word`."
+    },
+    "endTime": {
+      "title": "End Time",
+      "type": "number",
+      "minimum": 0.001,
+      "description": "The point in time in the text at which the word token stop being spoken, formatted as seconds and milliseconds (SS.MMM). This property is useful for phonetic data analysis."
+    },
+    "gloss": {
+      "title": "Gloss",
+      "$ref": "#/definitions/MultiLangString-5.0.0.json",
+      "description": "A Leipzig-style gloss for this Word. This does not need to be supplied if it can be generated automatically from the glosses at the morpheme level. May be in multiple languages."
+    },
+    "key": {
+      "title": "Key",
+      "type": "string",
+      "pattern": "^[(a-z)|(A-Z)|(0-9)]+[-_\\.][0-9]{1,3}[-_\\.][0-9]{1,2}$",
+      "description": "A key that uniquely identifies this word token within the Text. The key for a Word consists of the abbreviation of the text, a period, dash, or underscore, the number of Utterance within the text, another period, dash, or underscore, and then the number of this word within the Utterance (indexing starts at 1). For example, for the fourth word of the third Utterance of a text with the abbreviation `A`, the key would be `A.3.4`. Keys should be unique within a corpus."
+    },
+    "literal": {
+      "title": "Literal Translation",
+      "$ref": "#/definitions/Translation-3.0.0.json",
+      "description": "A literal translation of the word at the level of the morpheme token"
+    },
+    "morphemes": {
+      "title": "Morphemes / Components",
+      "type": "array",
+      "uniqueItems": false,
+      "description": "A collection of the components (morphemes, lexemes) in this Word. Components may be repeated if the same morpheme appears twice in the Word.",
+      "items": {
+        "title": "Morpheme",
+        "type": "object",
+        "$ref": "#/definitions/Morpheme-4.0.0.json",
+        "description": "An object representing this morpheme. This is *not* an object representing a lexeme (the abstract type). It represents the specific morpheme token (the particular instance in speech) instead."
+      }
+    },
+    "notes": {
+      "title": "Notes",
+      "type": "array",
+      "uniqueItems": true,
+      "description": "A collection of notes about this token",
+      "items": {
+        "title": "Note",
+        "type": "object",
+        "$ref": "#/definitions/Note-5.0.0.json",
+        "description": "A Note about this token"
+      }
+    },
+    "phonemes": {
+      "title": "Phonemes",
+      "type": "array",
+      "uniqueItems": false,
+      "description": "An array of the phones (phoneme tokens) in this word, in IPA. Each phone should appear in order, and does not have to be unique.",
+      "items": {
+        "title": "Phone (Phoneme Token)",
+        "type": "object",
+        "description": "An IPA representation of this phoneme. The `phoneme` field is required, but the `allophone` field is optional, for use only when you need to specify that this phoneme is being realized as a particular phoneme. Both `phoneme` and `allophone` must be in IPA rather than a practical orthography.",
+        "required": [
+          "phoneme"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "allophone": {
+            "title": "Allophone",
+            "type": "string",
+            "description": "This property may be used to specify which allophone this particular phoneme token is. Must be written in IPA."
+          },
+          "endTime": {
+            "title": "End Time",
+            "type": "number",
+            "minimum": 0.001,
+            "description": "The point in time in the text at which this phone stops being pronounced. This property is primarily useful for phonetic data analysis."
+          },
+          "notes": {
+            "title": "Notes",
+            "type": "array",
+            "uniqueItems": true,
+            "description": "A collection of notes about this phone",
+            "items": {
+              "title": "Note",
+              "type": "object",
+              "$ref": "#/definitions/Note-5.0.0.json",
+              "description": "A note about this phone. Useful for one-time observations of interesting allophonic variation in the data."
+            }
+          },
+          "phoneme": {
+            "title": "Phoneme",
+            "type": "string",
+            "description": "An IPA representation of this phoneme token. Must be a representation of the abstract phoneme rather than the particular allophone (use the `allophone` property for that insetad)."
+          },
+          "startTime": {
+            "title": "Start Time",
+            "type": "number",
+            "minimum": 0,
+            "description": "The point in time in the text at which this phone starts being pronounced. This property is primarily useful for phonetic data analysis. The `endTime` property is not necessarily required if the `startTime` property is present (this is useful when the endTime of one phone is the same as the startTime of the next)."
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "object",
+            "$ref": "#/definitions/Tags-2.1.0.json",
+            "description": "A set of tags for this phone"
+          }
+        }
+      }
+    },
+    "startTime": {
+      "title": "Start Time",
+      "type": "number",
+      "minimum": 0,
+      "description": "The point in time in the text at which this word token starts being uttered, formatted as seconds and milliseconds (SS.MMM). This property is primarily useful for phonetic data analysis. The `endTime` property is not necessarily required if the `startTime` property is present (this is useful when the endTime of one word token is the same as the startTime of the next)."
+    },
+    "tags": {
+      "title": "Tags",
+      "type": "object",
+      "$ref": "#/definitions/Tags-2.1.0.json",
+      "description": "A set of tags for this word token"
+    },
+    "transcription": {
+      "title": "Transcription",
+      "type": "object",
+      "minProperties": 1,
+      "$ref": "#/definitions/Transcription-2.1.0.json",
+      "description": "A transcription of this word token, optionally in multiple orthographies. A transcription must be provided in at least one orthography."
+    },
+    "translation": {
+      "title": "Translation",
+      "type": "object",
+      "$ref": "#/definitions/Translation-3.0.0.json",
+      "description": "A translation of this word, optionally in multiple languages. Note that the translation is not the same as a gloss. Use the translation field for free, natural language translations of a word. There is a separate field for literal translations.; use the gloss field for Leipzig-style glosses only."
+    }
+  },
+  "examples": [
+    {
+      "type": "Word",
+      "endtime": 1.01,
+      "gloss": "man",
+      "key": "A1_1_2",
+      "analysis": {
+        "transcription": "man"
+      },
+      "literal": {
+        "eng": "man"
+      },
+      "morphemes": [
+        {
+          "gloss": "man",
+          "lexeme": {
+            "key": "qasi"
+          },
+          "transcription": {
+            "APA": "ʔasi",
+            "IPA": "ʔasi",
+            "Mod": "qasi"
+          }
+        }
+      ],
+      "phonemes": [
+        {
+          "phoneme": "ʔ"
+        },
+        {
+          "phoneme": "a"
+        },
+        {
+          "phoneme": "s"
+        },
+        {
+          "phoneme": "i"
+        }
+      ],
+      "startTime": 1,
+      "tags": {
+        "role": "subject"
+      },
+      "transcription": {
+        "APA": "ʔasi",
+        "IPA": "ʔasi",
+        "Mod": "qasi"
+      },
+      "translation": {
+        "eng": "a man"
+      }
+    }
+  ],
+  "definitions": {
+    "Transcription-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Transcription",
+      "type": "object",
+      "description": "A transcription of a piece of data in a language, optionally in multiple orthographies. For example, a transcription might be written in both a practical orthography and IPA. Each key must be the abbreviation for an orthography (see the [Abbreviation](https://spec.digitallinguistics.github.io/schemas/Abbreviation.html) schema), and the value for that key is the transcription of the data in that particular orthography. **Note:** The Transcription does not have a `type` property.",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[(a-z)|(A-Z)|(0-9)]+$": {
+          "title": "Text",
+          "type": "string",
+          "description": "The transcription for the specified orthography"
+        }
+      },
+      "examples": [
+        {
+          "APA": "wetkš",
+          "IPA": "wetkʃ",
+          "Mod": "wetkx",
+          "Swad": "wetkš"
+        }
+      ]
+    },
+    "MultiLangString-5.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Multi-Language Text / String",
+      "description": "A piece of text in multiple languages. This is typically used for analyses, database properties, and information in metalanguages rather than transcriptions or translations of data (for those, see the [Transcription](https://spec.digitallinguistics.github.io/schemas/Transcription.html) and [Translation](https://spec.digitallinguistics.github.io/schemas/Translation.html) schemas). For example, the part of speech for a lexeme might be given as both English *noun* and Spanish *nombre*. Each key must be a valid IETF language tag for a language (see the [IETF](https://www.w3.org/International/articles/language-tags/) reference page), and the value for that key must be the string of text in that language. **Note:** MultiLangStrings do not have a `type` property.\n\nIf the text is in only one language and that language is English, it may be represented as a simple string instead of an object. Thus instead of `gloss: { en: \"M.SG\" }` you can simply write `gloss: \"M.SG\"`.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))|((([A-Za-z]{2,3}(-([A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-([A-Za-z]{4}))?(-([A-Za-z]{2}|[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-([0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(x(-[A-Za-z0-9]{1,8})+))?)|(x(-[A-Za-z0-9]{1,8})+))$": {
+              "title": "Text",
+              "type": "string",
+              "description": "The string of text in the specified language"
+            }
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "examples": [
+        "man",
+        {
+          "en": "man",
+          "fr": "homme"
+        }
+      ]
+    },
+    "Translation-3.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Translation",
+      "description": "A translation of a piece of data in a language, optionally in multiple languages. For example, a translation might be written in both Spanish and English. Each key must be a valid IETF language tag for a language (see the [IETF](https://www.w3.org/International/articles/language-tags/) reference page), and the value for that key must be the translation of the data in that particular language. **Note:** The Translation does not have a `type` property.\n\nIf the translation is in only one language and that language is English, it may be represented as a simple string instead of an object. Thus instead of `gloss: { en \"M.SG\" }` you can simply write `gloss: \"M.SG\"`.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(((en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))|((([A-Za-z]{2,3}(-([A-Za-z]{3}(-[A-Za-z]{3}){0,2}))?)|[A-Za-z]{4}|[A-Za-z]{5,8})(-([A-Za-z]{4}))?(-([A-Za-z]{2}|[0-9]{3}))?(-([A-Za-z0-9]{5,8}|[0-9][A-Za-z0-9]{3}))*(-([0-9A-WY-Za-wy-z](-[A-Za-z0-9]{2,8})+))*(-(x(-[A-Za-z0-9]{1,8})+))?)|(x(-[A-Za-z0-9]{1,8})+))$": {
+              "title": "Text",
+              "type": "string",
+              "description": "The translation in the specified language"
+            }
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "examples": [
+        "man",
+        {
+          "en": "man",
+          "fr": "homme"
+        }
+      ]
+    },
+    "Morpheme-4.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Morpheme Token",
+      "type": "object",
+      "description": "A *morpheme token* is a particular instance of a morpheme in a text. In DLx, the primary function of the Morpheme object is to provide a concise, short description of each token of a morpheme in a corpus - its form, its gloss, and a reference to a lexeme where more information can be found.",
+      "required": [
+        "transcription",
+        "gloss"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "Morpheme",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `Morpheme`."
+        },
+        "gloss": {
+          "title": "Gloss",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "A gloss for this morpheme, optionally in multiple languages. The gloss must be provided in at least one language. The gloss of a grammatical morpheme must be written in CAPS, for human readability."
+        },
+        "lexeme": {
+          "title": "Lexeme (Database Reference)",
+          "type": "object",
+          "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+          "description": "A database reference to a lexeme where more information about this morpheme may be found"
+        },
+        "notes": {
+          "title": "Notes",
+          "type": "array",
+          "uniqueItems": true,
+          "description": "A collection of notes about this morpheme token",
+          "items": {
+            "title": "Note",
+            "type": "object",
+            "$ref": "#/definitions/Note-5.0.0.json",
+            "description": "A note about this morpheme token"
+          }
+        },
+        "tags": {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "A set of tags for this morpheme token"
+        },
+        "transcription": {
+          "title": "Transcription",
+          "type": "object",
+          "minProperties": 1,
+          "$ref": "#/definitions/Transcription-2.1.0.json",
+          "description": "A transcription of this morpheme token. Should be a phonemic transcription of this particular token/allomorph, rather than an abstract representation of the morpheme. Do not include any leading or trailing tokens such as hyphens or equal signs."
+        }
+      },
+      "examples": [
+        {
+          "gloss": "man",
+          "lexeme": {
+            "key": "qasi"
+          },
+          "tags": {
+            "role": "subject"
+          },
+          "transcription": {
+            "APA": "ʔasi",
+            "IPA": "ʔasi",
+            "Mod": "qasi"
+          },
+          "type": "Morpheme"
+        },
+        {
+          "gloss": "dog",
+          "lexeme": {
+            "key": "chisese"
+          },
+          "transcription": {
+            "IPA": "sɛ́ɛsɛ",
+            "Swa": "sese",
+            "Eke": "séese"
+          },
+          "type": "Morpheme"
+        }
+      ]
+    },
+    "DatabaseReference-4.3.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Database Reference",
+      "type": "object",
+      "description": "A reference to an item in a database, used when you wish to store an item separately in the database (following a relational database model), rather than inline. A disadvantage of this approach is that it often requires making multiple database calls. To avoid this, in most cases the actual object can be used instead of a database reference. For example, instead of making a reference to a separate Person file, you can simply include the Person object directly in place of the database reference. This is useful when you don\u0027t want to deal with cross references and multiple database calls. In this case, it is often a good idea to include just a minimal set of data. For a person, for example, you might include just the ID, abbreviation, family name, and given name. This prevents you from having to replicate all of the data about that Person each time it is used.",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "DatabaseReference",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `DatabaseReference`."
+        },
+        "abbreviation": {
+          "title": "Referenced Abbreviation",
+          "type": "string",
+          "$ref": "#/definitions/Abbreviation-2.1.0.json",
+          "description": "The abbreviation of the referenced database item."
+        },
+        "id": {
+          "title": "Referenced ID",
+          "description": "The ID of the referenced database item"
+        },
+        "filename": {
+          "title": "Filename",
+          "type": "string",
+          "description": "If the reference database item is a media item, use this field for the name of the referenced file."
+        },
+        "index": {
+          "title": "Referenced Index",
+          "type": "integer",
+          "minimum": 1,
+          "description": "The index of the referenced database item. Indexes should start at 1 rather than 0 to increase human readability."
+        },
+        "key": {
+          "title": "Referenced Key",
+          "type": "string",
+          "pattern": "^[^\\s]+$",
+          "description": "The key of the referenced database item"
+        },
+        "name": {
+          "title": "Name",
+          "$ref": "#/definitions/MultiLangString-5.0.0.json",
+          "description": "The name of the referenced database item, optionally in multiple languages."
+        },
+        "referenceType": {
+          "title": "Referenced Item Type",
+          "type": "string",
+          "description": "The type of database item being referenced",
+          "enum": [
+            "BibliographicReference",
+            "Bundle",
+            "Language",
+            "Lexeme",
+            "Location",
+            "Media",
+            "Morpheme",
+            "Orthography",
+            "Person",
+            "Sense",
+            "Text",
+            "Utterance",
+            "Word"
+          ]
+        },
+        "url": {
+          "title": "Referenced URL",
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the referenced database item"
+        }
+      },
+      "examples": [
+        {
+          "index": 2,
+          "referenceType": "Utterance",
+          "type": "DatabaseReference",
+          "url": "https://api.digitallinguistics.io/languages/Chitimacha/texts/A1/utterances/2"
+        },
+        {
+          "key": "Omoiseke",
+          "name": "Ómoíséké ósokérété chíséese",
+          "referenceType": "Text",
+          "type": "DatabaseReference",
+          "url": "https://api.digitallinguistics.io/languages/Gusii/texts/Omoiseke"
+        }
+      ]
+    },
+    "Abbreviation-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Abbreviation",
+      "type": "string",
+      "pattern": "^[(a-z)|(A-Z)|(0-9)]+$",
+      "description": "A human-readable abbreviation, containing on letters `a-z`, `A-Z`, and numbers `0-9` (no spaces allowed).",
+      "examples": [
+        "chiti",
+        "ctm"
+      ]
+    },
+    "Note-5.0.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Note",
+      "type": "object",
+      "description": "A note about this resource. Notes may also include `type` and `language` attributes.",
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "const": "Note",
+          "readOnly": true,
+          "description": "The type of object. Must be set to `Note`."
+        },
+        "dateCreated": {
+          "title": "Date Created",
+          "type": "string",
+          "description": "The date and optionally time that this note was created",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "dateModified": {
+          "title": "Date Modified",
+          "type": "string",
+          "description": "The date and optionally time that this note was last modified",
+          "oneOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            }
+          ]
+        },
+        "language": {
+          "title": "Note Language",
+          "type": "string",
+          "description": "A language code or language name of the language that this note is written in. Assumed to be English if not otherwise specified."
+        },
+        "noteType": {
+          "title": "Note Type",
+          "type": "string",
+          "description": "The type of Note. Required for notes on Lexemes."
+        },
+        "source": {
+          "title": "Source (Person - Database Reference)",
+          "type": "object",
+          "$ref": "#/definitions/DatabaseReference-4.3.0.json",
+          "referenceType": "Person",
+          "description": "A database reference to a Person object describing the person who is the source of the information in this Note. This is not necessarily the person who wrote it. For example, a linguist could make a note based on something that a speaker reports, in which case the speaker should be listed as the source."
+        },
+        "tags": {
+          "title": "Tags",
+          "type": "object",
+          "$ref": "#/definitions/Tags-2.1.0.json",
+          "description": "A set of tags that apply to this Note. Useful for tagging notes that need review or responses, or marking a note as resolved."
+        },
+        "text": {
+          "title": "Note Text",
+          "type": "string",
+          "minLength": 1,
+          "description": "The text of the note itself"
+        }
+      },
+      "examples": [
+        {
+          "dateCreated": "2018-10-31T18:00:09.433Z",
+          "dateModified": "2018-10-31T18:00:23.691Z",
+          "language": "swa",
+          "source": {
+            "abbreviation": "DWH"
+          },
+          "text": "Msemaji huyu ni Janet Kerubo Momanyi.",
+          "type": "Note"
+        },
+        {
+          "dateCreated": "2018-10-31T18:00:09.433Z",
+          "dateModified": "2018-10-31T18:00:23.691Z",
+          "language": "eng",
+          "noteType": "encyclopedic",
+          "source": {
+            "name": "Morris Swadesh"
+          },
+          "text": "Box turtles are known for eating strawberries.",
+          "type": "Note"
+        }
+      ]
+    },
+    "Tags-2.1.0.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Tags",
+      "type": "object",
+      "description": "A tag is a piece of metadata that can be applied to almost any DLx object. The tags object contains a set of tags for this resource as pairs of attributes and values. For example, a researcher might tag a suffix with the attribute `person`, and a value of `3`, to indicate that the particular suffix is 3rd Person. If no value is needed, the value may also be set to `true` or `false` (but not `null`), however users are encouraged to use both attribute and value for every tag, since this helps identify the larger category that the tag value belongs to. Note: The Tags object does not have a `type` property.",
+      "additionalProperties": {
+        "title": "Tag",
+        "description": "A single tag, as an attribute-value pair.",
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "role": "subject",
+          "activated": true
+        },
+        {
+          "VOT": 0.012
+        }
+      ]
+    }
+  }
+}

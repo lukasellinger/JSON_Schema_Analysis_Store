@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.10.5/traits/trait_gallery_properties.json",
+  "title": "Has gallery properties",
+  "description": "An object for overrides for images when images are used in a gallery. Example usage: Each image in a gallery may have the images own focal point overridden by the gallery.",
+  "type": "object",
+  "gallery_properties": {
+    "focal_point": {
+      "$ref": "#/definitions/trait_focal_point.json"
+    }
+  },
+  "definitions": {
+    "trait_focal_point.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Focal Point",
+      "description": "Coordinates representing the \u0027visual center\u0027 of an image. The X axis is horizontal line and the Y axis the vertical line, with 0,0 being the LEFT, TOP of the image.",
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "description": "The coordinate point on the horizontal axis"
+        },
+        "y": {
+          "type": "number",
+          "description": "The coordinate point on the vertical axis"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    }
+  }
+}

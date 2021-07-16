@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "properties": {
+      "firstname": {
+        "$ref": "#/definitions/..\\definitions\\user.json_definitions_firstname"
+      },
+      "lastname": {
+        "$ref": "#/definitions/..\\definitions\\user.json_definitions_lastname"
+      },
+      "_id": {
+        "$ref": "#/definitions/..\\definitions\\common.json_definitions_user-id"
+      }
+    }
+  },
+  "definitions": {
+    "..\\definitions\\user.json_definitions_firstname": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "First Name",
+      "type": "string"
+    },
+    "..\\definitions\\user.json_definitions_lastname": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Last Name",
+      "type": "string"
+    },
+    "..\\definitions\\common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    }
+  }
+}

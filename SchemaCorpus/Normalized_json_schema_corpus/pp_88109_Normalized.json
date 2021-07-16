@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Environment Classes",
+  "description": "Information about the classes in a Puppet code environment",
+  "type": "object",
+  "properties": {
+    "files": {
+      "description": "The array of manifest files which exist in an environment.  Even files that do not contain any classes will appear in the array.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "description": "Fully-qualified path on the server to the manifest",
+            "type": "string"
+          },
+          "classes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "Name of the class.  For example, if the class were defined as \u0027class myclass\u0027, the name would be \u0027myclass\u0027.",
+                  "type": "string"
+                },
+                "params": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "description": "Name of the class parameter.  For example, if a class parameter were defined as \u0027String $my_param\u0027, the name would be \u0027my_param\u0027.",
+                        "type": "string"
+                      },
+                      "type": {
+                        "description": "Data type, if defined, for the class parameter.  For example, if a class parameter were defined as \u0027String $my_param\u0027, the data type would be \u0027String\u0027.  See https://docs.puppetlabs.com/puppet/latest/reference/lang_data.html for information on the available data types.",
+                        "type": "string"
+                      },
+                      "default_source": {
+                        "description": "Source text for the default value, if defined, for the class parameter.  For example, if a class parameter were defined in the manifest as \u0027String $my_param \u003d \"my value\"\u0027, the default_source would be \u0027\"my value\"\u0027 where \" would appear literally in the text.  Note that no expressions in the default value - for example, references to other variables - are expanded.  The text for default_source matches the exact content in the parsed manifest.",
+                        "type": "string"
+                      },
+                      "default_literal": {
+                        "description": "Literal representation of the default value, if defined, for the class parameter.  This member is only present if the value can be expressed using primitive JSON data types.  For example, if a class parameter were defined in the manifest as \u0027Integer $my_integer \u003d 3\u0027, the default_literal would be a JSON number whereas the corresponding default_source would be a JSON string containing \u00273\u0027.  The default_literal would be omitted for the following cases: 1) The primitive Puppet value has no direct translation into a JSON primitive type (for example, a regular expression, default, or undef).  2) The value contains a Puppet hash - either top-level or nested under another array or hash - with at least one key that is not a string.  3) The value contains one or more expressions that would have to be evaluated at catalog compilation time in order for the actual default value to be determined.  See https://docs.puppetlabs.com/puppet/latest/reference/lang_data.html for information on the available data types and values."
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "params"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "error": {
+            "description": "If an error was encountered during manifest parsing, this member will be present instead of \u0027classes\u0027.  The error string provides details about the specific error.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "oneOf": [
+          {
+            "required": [
+              "classes"
+            ]
+          },
+          {
+            "required": [
+              "error"
+            ]
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "name": {
+      "description": "Name of the environment",
+      "type": "string"
+    }
+  },
+  "required": [
+    "files",
+    "name"
+  ],
+  "additionalProperties": false
+}

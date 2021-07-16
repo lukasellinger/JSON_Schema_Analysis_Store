@@ -1,0 +1,18 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/LayoutPanel/TablePanel/Cell.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Ячейка панели GridPanel",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Container/Container.json"
+    }
+  ],
+  "properties": {
+    "ColumnSpan": {
+      "description": "Размер ячейки в колонках",
+      "type": "integer",
+      "default": 1
+    }
+  }
+}

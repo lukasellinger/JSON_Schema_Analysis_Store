@@ -1,0 +1,29 @@
+{
+  "allow_all": true,
+  "fullname": "String Interpolated Command",
+  "is_deposit": false,
+  "jsonschema": {
+    "title": "String Interpolated Command",
+    "required": [
+      "process_type",
+      "cmd"
+    ],
+    "additionalProperties": false,
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "cmd": {
+        "type": "string",
+        "title": "Command"
+      },
+      "process_type": {
+        "default": "string-interpolated-cmd",
+        "enum": [
+          "string-interpolated-cmd"
+        ],
+        "type": "string",
+        "title": "Process Type"
+      }
+    }
+  }
+}

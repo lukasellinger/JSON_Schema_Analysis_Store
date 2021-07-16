@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sensors"
+  ],
+  "properties": {
+    "sensors": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/definitions/sensor.json"
+      }
+    }
+  },
+  "definitions": {
+    "sensor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "allOf": [
+        {
+          "$ref": "#/definitions/sensor.json_definitions_base"
+        },
+        {
+          "$ref": "#/definitions/sensor.json_definitions_with-id"
+        },
+        {
+          "oneOf": [
+            {
+              "not": {
+                "$ref": "#/definitions/sensor.json_definitions_car-type"
+              }
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/sensor.json_definitions_car-type"
+                },
+                {
+                  "$ref": "#/definitions/sensor.json_definitions_car-properties"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "definitions": {
+        "base": {
+          "type": "object",
+          "required": [
+            "type",
+            "properties"
+          ],
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "properties": {
+              "type": "object"
+            }
+          }
+        },
+        "with-id": {
+          "properties": {
+            "properties": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "car-type": {
+          "properties": {
+            "type": {
+              "enum": [
+                "car"
+              ]
+            }
+          }
+        },
+        "car-properties": {
+          "properties": {
+            "properties": {
+              "properties": {
+                "manufacturer": {
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "fuelType": {
+                  "type": "string",
+                  "enum": [
+                    "diesel",
+                    "gasoline",
+                    "biodiesel",
+                    "kerosene",
+                    "electric",
+                    "hybrid"
+                  ]
+                },
+                "constructionYear": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "VIN": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "sensor.json_definitions_base": {
+      "type": "object",
+      "required": [
+        "type",
+        "properties"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object"
+        }
+      }
+    },
+    "sensor.json_definitions_with-id": {
+      "properties": {
+        "properties": {
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "sensor.json_definitions_car-type": {
+      "properties": {
+        "type": {
+          "enum": [
+            "car"
+          ]
+        }
+      }
+    },
+    "sensor.json_definitions_car-properties": {
+      "properties": {
+        "properties": {
+          "properties": {
+            "manufacturer": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "fuelType": {
+              "type": "string",
+              "enum": [
+                "diesel",
+                "gasoline",
+                "biodiesel",
+                "kerosene",
+                "electric",
+                "hybrid"
+              ]
+            },
+            "constructionYear": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "VIN": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

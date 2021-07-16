@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "id": "http://schemas.opengis.net/gsr/1.0/color.json",
+  "title": "domain",
+  "type": [
+    "null",
+    "array"
+  ],
+  "minItems": 4,
+  "maxItems": 4,
+  "description": "[ \u003cred\u003e, \u003cgreen\u003e, \u003cblue\u003e, \u003calpha\u003e ]",
+  "items": {
+    "type": "integer",
+    "minimum": 0,
+    "maximum": 255
+  }
+}

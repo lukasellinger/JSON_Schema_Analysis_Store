@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Collection of record DTO",
+  "type": "object",
+  "properties": {
+    "records": {
+      "description": "List of records",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/record.json"
+      }
+    },
+    "totalRecords": {
+      "description": "Total number of records",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "records",
+    "totalRecords"
+  ],
+  "definitions": {
+    "record.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Record DTO Schema",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "UUID",
+          "type": "string"
+        },
+        "snapshotId": {
+          "description": "Corresponding snapshot id, which is the same as jobExecutionId",
+          "type": "string"
+        },
+        "matchedProfileId": {
+          "description": "Id of the matcher profile which is applied for the record",
+          "type": "string"
+        },
+        "matchedId": {
+          "description": "Represents relations with another matched records, necessary for saving the history of applying changes for inventory/holding/etc records",
+          "type": "string"
+        },
+        "generation": {
+          "description": "Generation from the last record with the same matchedId incremented by 1",
+          "type": "string"
+        },
+        "recordType": {
+          "description": "Type of record, e.g. MARC",
+          "type": "string",
+          "$ref": "#/definitions/..\\mod-source-record-storage\\recordType.json"
+        },
+        "sourceRecord": {
+          "description": "Source record",
+          "type": "object",
+          "$ref": "#/definitions/..\\mod-source-record-storage\\sourceRecord.json"
+        },
+        "parsedRecord": {
+          "description": "Parsed record",
+          "type": "object",
+          "$ref": "#/definitions/..\\mod-source-record-storage\\parsedRecord.json"
+        },
+        "errorRecord": {
+          "description": "Error record",
+          "type": "object",
+          "$ref": "#/definitions/..\\mod-source-record-storage\\errorRecord.json"
+        },
+        "metadata": {
+          "description": "Metadata provided by the server",
+          "type": "object",
+          "$ref": "#/definitions/..\\..\\raml-util\\schemas\\metadata.schema",
+          "readonly": true
+        }
+      },
+      "required": [
+        "snapshotId",
+        "recordType",
+        "sourceRecord"
+      ]
+    },
+    "..\\mod-source-record-storage\\recordType.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Record Type Enum",
+      "type": "string",
+      "enum": [
+        "MARC"
+      ]
+    },
+    "..\\mod-source-record-storage\\sourceRecord.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Source Record data model",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "UUID",
+          "type": "string"
+        },
+        "source": {
+          "description": "Raw data",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source"
+      ]
+    },
+    "..\\mod-source-record-storage\\parsedRecord.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Parsed Record Schema",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "UUID",
+          "type": "string"
+        },
+        "content": {
+          "description": "Parsed record content, e.g. MARC record",
+          "type": "string"
+        }
+      },
+      "required": [
+        "content"
+      ]
+    },
+    "..\\mod-source-record-storage\\errorRecord.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Error Record data model",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "UUID",
+          "type": "string"
+        },
+        "description": {
+          "description": "Error description",
+          "type": "string"
+        },
+        "content": {
+          "description": "Record content",
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "content"
+      ]
+    },
+    "..\\..\\raml-util\\schemas\\metadata.schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Metadata Schema",
+      "description": "Metadata about creation and changes to records, provided by the server (client should not provide)",
+      "type": "object",
+      "properties": {
+        "createdDate": {
+          "description": "Date and time when the record was created",
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdByUserId": {
+          "description": "ID of the user who created the record",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        },
+        "createdByUsername": {
+          "description": "Username of the user who created the record (when available)",
+          "type": "string"
+        },
+        "updatedDate": {
+          "description": "Date and time when the record was last updated",
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedByUserId": {
+          "description": "ID of the user who last updated the record",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        },
+        "updatedByUsername": {
+          "description": "Username of the user who last updated the record (when available)",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "createdDate",
+        "createdByUserId"
+      ]
+    }
+  }
+}

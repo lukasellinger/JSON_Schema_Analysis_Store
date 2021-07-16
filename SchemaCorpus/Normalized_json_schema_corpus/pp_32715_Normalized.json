@@ -1,0 +1,221 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "Service Broker Catalog Schema",
+  "required": [
+    "services"
+  ],
+  "properties": {
+    "services": {
+      "type": "array",
+      "title": "The Service Offerings Schema",
+      "items": {
+        "type": "object",
+        "title": "Services Schema",
+        "required": [
+          "name",
+          "id",
+          "description",
+          "bindable",
+          "plans"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "The name of the Service Offering",
+            "default": "",
+            "examples": [
+              "fake-service"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "id": {
+            "type": "string",
+            "title": "An identifier used to correlate this Service Offering in future requests to the Service Broker",
+            "default": "",
+            "examples": [
+              "acb56d7c-XXXX-XXXX-XXXX-feb140a59a66"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "description": {
+            "type": "string",
+            "title": "A short description of the service",
+            "default": "",
+            "examples": [
+              "A fake service."
+            ],
+            "pattern": "^(.*)$"
+          },
+          "tags": {
+            "type": "array",
+            "title": "The Tags Schema",
+            "items": {
+              "type": "string",
+              "title": "Tags provide a flexible mechanism to expose a classification, attribute, or base technology of a service, enabling equivalent services to be swapped out without changes to dependent logic in applications, buildpacks, or other services",
+              "default": "",
+              "examples": [
+                "no-sql",
+                "relational"
+              ],
+              "pattern": "^(.*)$"
+            }
+          },
+          "requires": {
+            "type": "array",
+            "title": "A list of permissions that the user would have to give the service, if they provision it",
+            "items": {
+              "type": "string",
+              "title": "The Items Schema",
+              "default": "",
+              "examples": [
+                "route_forwarding"
+              ],
+              "pattern": "^(.*)$"
+            }
+          },
+          "bindable": {
+            "type": "boolean",
+            "title": "Specifies whether Service Instances of the service can be bound to applications",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "instances_retrievable": {
+            "type": "boolean",
+            "title": "Specifies whether the Fetching a Service Instance endpoint is supported for all Service Plans",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "bindings_retrievable": {
+            "type": "boolean",
+            "title": "Specifies whether the Fetching a Service Binding endpoint is supported for all Service Plans",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "title": "An opaque object of metadata for a Service Offering"
+          },
+          "plan_updateable": {
+            "type": "boolean",
+            "title": "Whether the Service Offering supports upgrade/downgrade for Service Plans by default. Service Plans can override this field",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "plans": {
+            "type": "array",
+            "title": "A list of Service Plans for this Service Offering",
+            "items": {
+              "type": "object",
+              "title": "The name of the Service Plan",
+              "required": [
+                "name",
+                "id",
+                "description"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "title": "The Name Schema",
+                  "default": "",
+                  "examples": [
+                    "fake-plan-1"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "id": {
+                  "type": "string",
+                  "title": "An identifier used to correlate this Service Plan in future requests to the Service Broker",
+                  "default": "",
+                  "examples": [
+                    "d3031751-XXXX-XXXX-XXXX-a42377d3320e"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "description": {
+                  "type": "string",
+                  "title": "A short description of the Service Plan",
+                  "default": "",
+                  "examples": [
+                    "Shared fake Server, 5tb persistent disk, 40 max concurrent connections."
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "free": {
+                  "type": "boolean",
+                  "title": "When false, Service Instances of this Service Plan have a cost. The default is true.",
+                  "default": false,
+                  "examples": [
+                    false
+                  ]
+                },
+                "metadata": {
+                  "type": "object",
+                  "title": "An opaque object of metadata for a Service Plan"
+                },
+                "schemas": {
+                  "type": "object",
+                  "title": "Schema definitions for Service Instances and Service Bindings for the Service Plan",
+                  "properties": {
+                    "service_instance": {
+                      "type": "object",
+                      "title": "The schema definitions for creating and updating a Service Instance.",
+                      "properties": {
+                        "create": {
+                          "type": "object",
+                          "title": "The schema definition for creating a Service Instance.",
+                          "properties": {
+                            "parameters": {
+                              "type": "object",
+                              "title": "he schema definition for the input parameters"
+                            }
+                          }
+                        },
+                        "update": {
+                          "type": "object",
+                          "title": "The schema definition for updating a Service Instance",
+                          "properties": {
+                            "parameters": {
+                              "type": "object",
+                              "title": "he schema definition for the input parameters"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "service_binding": {
+                      "type": "object",
+                      "title": "The schema definition for creating a Service Binding",
+                      "properties": {
+                        "create": {
+                          "type": "object",
+                          "title": "The schema definition for creating a Service Binding",
+                          "properties": {
+                            "parameters": {
+                              "type": "object",
+                              "title": "he schema definition for the input parameters"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

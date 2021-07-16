@@ -1,0 +1,818 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ignition",
+  "type": "object",
+  "properties": {
+    "ignition": {
+      "$ref": "#/definitions/ignition"
+    },
+    "storage": {
+      "$ref": "#/definitions/storage"
+    },
+    "systemd": {
+      "$ref": "#/definitions/systemd"
+    },
+    "networkd": {
+      "$ref": "#/definitions/networkd"
+    },
+    "passwd": {
+      "$ref": "#/definitions/passwd"
+    }
+  },
+  "required": [
+    "ignition"
+  ],
+  "definitions": {
+    "verification": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ignition": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/definitions/definitions_ignition_definitions_ignition-config"
+        },
+        "timeouts": {
+          "$ref": "#/definitions/definitions_ignition_definitions_timeouts"
+        }
+      },
+      "definitions": {
+        "ignition-config": {
+          "type": "object",
+          "properties": {
+            "append": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/definitions_ignition_definitions_config-reference"
+              }
+            },
+            "replace": {
+              "$ref": "#/definitions/definitions_ignition_definitions_config-reference"
+            }
+          }
+        },
+        "config-reference": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "source": {
+              "type": "string"
+            },
+            "verification": {
+              "$ref": "#/definitions/verification"
+            }
+          }
+        },
+        "timeouts": {
+          "type": "object",
+          "properties": {
+            "httpResponseHeaders": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "httpTotal": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "properties": {
+        "disks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_storage_definitions_disk"
+          }
+        },
+        "raid": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_storage_definitions_raid"
+          }
+        },
+        "filesystems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_storage_definitions_filesystem"
+          }
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_storage_definitions_file"
+          }
+        },
+        "directories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_storage_definitions_directory"
+          }
+        }
+      },
+      "definitions": {
+        "disk": {
+          "type": "object",
+          "properties": {
+            "device": {
+              "type": "string"
+            },
+            "wipeTable": {
+              "type": "boolean"
+            },
+            "partitions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/definitions_storage_definitions_partition"
+              }
+            }
+          }
+        },
+        "raid": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "level": {
+              "type": "string"
+            },
+            "spares": {
+              "type": "integer"
+            },
+            "devices": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "filesystem": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "mount": {
+              "$ref": "#/definitions/definitions_storage_definitions_mount"
+            },
+            "path": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "file": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/definitions_storage_definitions_node"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "contents": {
+                  "$ref": "#/definitions/definitions_storage_definitions_file-contents"
+                }
+              }
+            }
+          ]
+        },
+        "directory": {
+          "$ref": "#/definitions/definitions_storage_definitions_node"
+        },
+        "partition": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "number": {
+              "type": "integer"
+            },
+            "size": {
+              "type": "integer"
+            },
+            "start": {
+              "type": "integer"
+            },
+            "typeGuid": {
+              "type": "string"
+            }
+          }
+        },
+        "mount": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "device": {
+              "type": "string"
+            },
+            "format": {
+              "type": "string"
+            },
+            "create": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "force": {
+                  "type": "boolean"
+                },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "file-contents": {
+          "type": "object",
+          "properties": {
+            "compression": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "verification": {
+              "$ref": "#/definitions/verification"
+            }
+          }
+        },
+        "node": {
+          "type": "object",
+          "properties": {
+            "filesystem": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            },
+            "mode": {
+              "type": "integer"
+            },
+            "user": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                }
+              }
+            },
+            "group": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "systemd": {
+      "type": "object",
+      "properties": {
+        "units": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_systemd_definitions_unit"
+          }
+        }
+      },
+      "definitions": {
+        "unit": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "enable": {
+              "type": "boolean"
+            },
+            "mask": {
+              "type": "boolean"
+            },
+            "contents": {
+              "type": "string"
+            },
+            "dropins": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/definitions_systemd_definitions_dropin"
+              }
+            }
+          }
+        },
+        "dropin": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "contents": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "networkd": {
+      "type": "object",
+      "properties": {
+        "units": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_networkd_definitions_networkdunit"
+          }
+        }
+      },
+      "definitions": {
+        "networkdunit": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "contents": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "passwd": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_passwd_definitions_user"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_passwd_definitions_group"
+          }
+        }
+      },
+      "definitions": {
+        "user": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "passwordHash": {
+              "type": "string"
+            },
+            "sshAuthorizedKeys": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "create": {
+              "$ref": "#/definitions/definitions_passwd_definitions_usercreate"
+            }
+          }
+        },
+        "group": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "gid": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "passwordHash": {
+              "type": "string"
+            },
+            "system": {
+              "type": "boolean"
+            }
+          }
+        },
+        "usercreate": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "uid": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "gecos": {
+              "type": "string"
+            },
+            "homeDir": {
+              "type": "string"
+            },
+            "noCreateHome": {
+              "type": "boolean"
+            },
+            "primaryGroup": {
+              "type": "string"
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "noUserGroup": {
+              "type": "boolean"
+            },
+            "system": {
+              "type": "boolean"
+            },
+            "noLogInit": {
+              "type": "boolean"
+            },
+            "shell": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "definitions_ignition_definitions_ignition-config": {
+      "type": "object",
+      "properties": {
+        "append": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_ignition_definitions_config-reference"
+          }
+        },
+        "replace": {
+          "$ref": "#/definitions/definitions_ignition_definitions_config-reference"
+        }
+      }
+    },
+    "definitions_ignition_definitions_config-reference": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "verification": {
+          "$ref": "#/definitions/verification"
+        }
+      }
+    },
+    "definitions_ignition_definitions_timeouts": {
+      "type": "object",
+      "properties": {
+        "httpResponseHeaders": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "httpTotal": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    },
+    "definitions_storage_definitions_disk": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "string"
+        },
+        "wipeTable": {
+          "type": "boolean"
+        },
+        "partitions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_storage_definitions_partition"
+          }
+        }
+      }
+    },
+    "definitions_storage_definitions_partition": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "number": {
+          "type": "integer"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "start": {
+          "type": "integer"
+        },
+        "typeGuid": {
+          "type": "string"
+        }
+      }
+    },
+    "definitions_storage_definitions_raid": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "spares": {
+          "type": "integer"
+        },
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "definitions_storage_definitions_filesystem": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "mount": {
+          "$ref": "#/definitions/definitions_storage_definitions_mount"
+        },
+        "path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "definitions_storage_definitions_mount": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "device": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "create": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "force": {
+              "type": "boolean"
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions_storage_definitions_file": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_storage_definitions_node"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "contents": {
+              "$ref": "#/definitions/definitions_storage_definitions_file-contents"
+            }
+          }
+        }
+      ]
+    },
+    "definitions_storage_definitions_node": {
+      "type": "object",
+      "properties": {
+        "filesystem": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "integer"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          }
+        },
+        "group": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "definitions_storage_definitions_file-contents": {
+      "type": "object",
+      "properties": {
+        "compression": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "verification": {
+          "$ref": "#/definitions/verification"
+        }
+      }
+    },
+    "definitions_storage_definitions_directory": {
+      "$ref": "#/definitions/definitions_storage_definitions_node"
+    },
+    "definitions_systemd_definitions_unit": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "mask": {
+          "type": "boolean"
+        },
+        "contents": {
+          "type": "string"
+        },
+        "dropins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_systemd_definitions_dropin"
+          }
+        }
+      }
+    },
+    "definitions_systemd_definitions_dropin": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "contents": {
+          "type": "string"
+        }
+      }
+    },
+    "definitions_networkd_definitions_networkdunit": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "contents": {
+          "type": "string"
+        }
+      }
+    },
+    "definitions_passwd_definitions_user": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "passwordHash": {
+          "type": "string"
+        },
+        "sshAuthorizedKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "create": {
+          "$ref": "#/definitions/definitions_passwd_definitions_usercreate"
+        }
+      }
+    },
+    "definitions_passwd_definitions_usercreate": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "uid": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "gecos": {
+          "type": "string"
+        },
+        "homeDir": {
+          "type": "string"
+        },
+        "noCreateHome": {
+          "type": "boolean"
+        },
+        "primaryGroup": {
+          "type": "string"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "noUserGroup": {
+          "type": "boolean"
+        },
+        "system": {
+          "type": "boolean"
+        },
+        "noLogInit": {
+          "type": "boolean"
+        },
+        "shell": {
+          "type": "string"
+        }
+      }
+    },
+    "definitions_passwd_definitions_group": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "gid": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "passwordHash": {
+          "type": "string"
+        },
+        "system": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

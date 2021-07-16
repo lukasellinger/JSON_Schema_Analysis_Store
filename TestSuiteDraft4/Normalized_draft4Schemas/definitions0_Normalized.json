@@ -1,0 +1,266 @@
+{
+  "$ref": "#/definitions/http:__json-schema.org_draft-04_schema",
+  "definitions": {
+    "http:__json-schema.org_draft-04_schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Core schema meta-schema",
+      "definitions": {
+        "schemaArray": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/http:__json-schema.org_draft-04_schema"
+          }
+        },
+        "positiveInteger": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "positiveIntegerDefault0": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_positiveInteger"
+            },
+            {
+              "default": 0
+            }
+          ]
+        },
+        "simpleTypes": {
+          "enum": [
+            "array",
+            "boolean",
+            "integer",
+            "null",
+            "number",
+            "object",
+            "string"
+          ]
+        },
+        "stringArray": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "default": {},
+        "multipleOf": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": true
+        },
+        "maximum": {
+          "type": "number"
+        },
+        "exclusiveMaximum": {
+          "type": "boolean",
+          "default": false
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "exclusiveMinimum": {
+          "type": "boolean",
+          "default": false
+        },
+        "maxLength": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_positiveInteger"
+        },
+        "minLength": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_positiveIntegerDefault0"
+        },
+        "pattern": {
+          "type": "string",
+          "format": "regex"
+        },
+        "additionalItems": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/http:__json-schema.org_draft-04_schema"
+            }
+          ],
+          "default": {}
+        },
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/http:__json-schema.org_draft-04_schema"
+            },
+            {
+              "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_schemaArray"
+            }
+          ],
+          "default": {}
+        },
+        "maxItems": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_positiveInteger"
+        },
+        "minItems": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_positiveIntegerDefault0"
+        },
+        "uniqueItems": {
+          "type": "boolean",
+          "default": false
+        },
+        "maxProperties": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_positiveInteger"
+        },
+        "minProperties": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_positiveIntegerDefault0"
+        },
+        "required": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_stringArray"
+        },
+        "additionalProperties": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/http:__json-schema.org_draft-04_schema"
+            }
+          ],
+          "default": {}
+        },
+        "definitions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/http:__json-schema.org_draft-04_schema"
+          },
+          "default": {}
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/http:__json-schema.org_draft-04_schema"
+          },
+          "default": {}
+        },
+        "patternProperties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/http:__json-schema.org_draft-04_schema"
+          },
+          "default": {}
+        },
+        "dependencies": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/http:__json-schema.org_draft-04_schema"
+              },
+              {
+                "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_stringArray"
+              }
+            ]
+          }
+        },
+        "enum": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_simpleTypes"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_simpleTypes"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          ]
+        },
+        "format": {
+          "type": "string"
+        },
+        "allOf": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_schemaArray"
+        },
+        "anyOf": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_schemaArray"
+        },
+        "oneOf": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_schemaArray"
+        },
+        "not": {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema"
+        }
+      },
+      "dependencies": {
+        "exclusiveMaximum": [
+          "maximum"
+        ],
+        "exclusiveMinimum": [
+          "minimum"
+        ]
+      },
+      "default": {}
+    },
+    "http:__json-schema.org_draft-04_schema_definitions_positiveInteger": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "http:__json-schema.org_draft-04_schema_definitions_positiveIntegerDefault0": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/http:__json-schema.org_draft-04_schema_definitions_positiveInteger"
+        },
+        {
+          "default": 0
+        }
+      ]
+    },
+    "http:__json-schema.org_draft-04_schema_definitions_schemaArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/http:__json-schema.org_draft-04_schema"
+      }
+    },
+    "http:__json-schema.org_draft-04_schema_definitions_stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "http:__json-schema.org_draft-04_schema_definitions_simpleTypes": {
+      "enum": [
+        "array",
+        "boolean",
+        "integer",
+        "null",
+        "number",
+        "object",
+        "string"
+      ]
+    }
+  }
+}

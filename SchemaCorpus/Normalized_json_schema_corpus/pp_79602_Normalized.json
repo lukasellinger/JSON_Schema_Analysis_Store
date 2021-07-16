@@ -1,0 +1,222 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/tracker.json"
+  },
+  "definitions": {
+    "tracker.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "definitions": {
+        "sessionCreation": {
+          "type": "object",
+          "description": "sourcing event for a user creating a new session at a web app such as a careers site",
+          "properties": {
+            "landingURI": {
+              "type": "string"
+            },
+            "referer": {
+              "type": "string"
+            },
+            "userAgent": {
+              "type": "string"
+            },
+            "ipAddress": {
+              "type": "string"
+            },
+            "acceptLanguage": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "landingURI",
+            "userAgent",
+            "ipAddress",
+            "acceptLanguage"
+          ],
+          "additionalProperties": false
+        },
+        "campaign": {
+          "type": "object",
+          "properties": {
+            "campaignKind": {
+              "enum": [
+                "Employee referral",
+                "Email alert",
+                "Link out",
+                "User defined"
+              ],
+              "description": "Link out is used for job board postings"
+            },
+            "objectType": {
+              "enum": [
+                "Job"
+              ]
+            },
+            "objectID": {
+              "type": "integer"
+            },
+            "referrer": {
+              "type": "string",
+              "format": "uri",
+              "description": "the url (minus protocol) of some third party web site where the campaign is running, e.g. www.seek.co.nz, typically used with campaignKind \u003d\u003d link out"
+            },
+            "accessCode": {
+              "$ref": "#/definitions/jobRead.json_definitions_accessCode"
+            }
+          },
+          "required": [
+            "campaignKind",
+            "objectType",
+            "objectID"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/meta.json"
+        },
+        "sessionCreation": {
+          "$ref": "#/definitions/tracker.json_definitions_sessionCreation"
+        },
+        "campaign": {
+          "$ref": "#/definitions/tracker.json_definitions_campaign"
+        },
+        "userArea": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "jobRead.json_definitions_accessCode": {
+      "type": "string",
+      "description": "a code that, if held on an incoming tracker, allows the holder to view and apply for the job even if it would otherwise be not visible to them"
+    },
+    "meta.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "definitions": {
+        "id": {
+          "type": "integer"
+        },
+        "ct": {
+          "type": "string",
+          "description": "The consuming tenant"
+        },
+        "ca": {
+          "type": "string",
+          "description": "The consuming app"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "when the object was created"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/meta.json_definitions_id"
+        },
+        "ct": {
+          "$ref": "#/definitions/meta.json_definitions_ct"
+        },
+        "ca": {
+          "$ref": "#/definitions/meta.json_definitions_ca"
+        },
+        "created": {
+          "$ref": "#/definitions/meta.json_definitions_created"
+        }
+      },
+      "required": [
+        "id",
+        "ct",
+        "ca",
+        "created"
+      ],
+      "additionalProperties": false
+    },
+    "meta.json_definitions_id": {
+      "type": "integer"
+    },
+    "meta.json_definitions_ct": {
+      "type": "string",
+      "description": "The consuming tenant"
+    },
+    "meta.json_definitions_ca": {
+      "type": "string",
+      "description": "The consuming app"
+    },
+    "meta.json_definitions_created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "when the object was created"
+    },
+    "tracker.json_definitions_sessionCreation": {
+      "type": "object",
+      "description": "sourcing event for a user creating a new session at a web app such as a careers site",
+      "properties": {
+        "landingURI": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": "string"
+        },
+        "acceptLanguage": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "landingURI",
+        "userAgent",
+        "ipAddress",
+        "acceptLanguage"
+      ],
+      "additionalProperties": false
+    },
+    "tracker.json_definitions_campaign": {
+      "type": "object",
+      "properties": {
+        "campaignKind": {
+          "enum": [
+            "Employee referral",
+            "Email alert",
+            "Link out",
+            "User defined"
+          ],
+          "description": "Link out is used for job board postings"
+        },
+        "objectType": {
+          "enum": [
+            "Job"
+          ]
+        },
+        "objectID": {
+          "type": "integer"
+        },
+        "referrer": {
+          "type": "string",
+          "format": "uri",
+          "description": "the url (minus protocol) of some third party web site where the campaign is running, e.g. www.seek.co.nz, typically used with campaignKind \u003d\u003d link out"
+        },
+        "accessCode": {
+          "$ref": "#/definitions/jobRead.json_definitions_accessCode"
+        }
+      },
+      "required": [
+        "campaignKind",
+        "objectType",
+        "objectID"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

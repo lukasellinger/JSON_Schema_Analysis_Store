@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Period",
+  "properties": {
+    "incomes": {
+      "$ref": "#/definitions/uk-properties\\fhl\\Incomes.json"
+    },
+    "expenses": {
+      "$ref": "#/definitions/uk-properties\\fhl\\FHLExpenses.json"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "uk-properties\\fhl\\Incomes.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "Incomes",
+      "description": "Do not include furnished holiday lettings, Real Estate Investment Trust or Property Authorised Investment Funds dividends/distributions here",
+      "properties": {
+        "rentIncome": {
+          "title": "rentIncome",
+          "description": "Total rents and other income from property",
+          "$ref": "#/definitions/Income.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Income.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "Income",
+      "description": "Income",
+      "properties": {
+        "amount": {
+          "title": "Amount",
+          "description": "Amount",
+          "type": "number",
+          "multipleOf": 0.01,
+          "minimum": 0
+        },
+        "taxDeducted": {
+          "title": "Tax deducted",
+          "description": "Tax taken of any income",
+          "type": "number",
+          "multipleOf": 0.01,
+          "minimum": 0
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "additionalProperties": false
+    },
+    "uk-properties\\fhl\\FHLExpenses.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "Expenses",
+      "description": "Furnished Holiday Lettings Expenses",
+      "properties": {
+        "premisesRunningCosts": {
+          "title": "Premises running costs",
+          "description": "Rent, rates, insurance, ground rents etc",
+          "$ref": "#/definitions/SimpleExpense.json"
+        },
+        "repairsAndMaintenance": {
+          "title": "Repairs and maintenance",
+          "description": "Property repairs and maintenance",
+          "$ref": "#/definitions/SimpleExpense.json"
+        },
+        "financialCosts": {
+          "title": "Financial costs",
+          "description": "Loan interest and other financial costs",
+          "$ref": "#/definitions/SimpleExpense.json"
+        },
+        "professionalFees": {
+          "title": "Professional fees",
+          "description": "Legal, management and other professional fees",
+          "$ref": "#/definitions/SimpleExpense.json"
+        },
+        "other": {
+          "title": "Other",
+          "description": "Other allowable property expenses",
+          "$ref": "#/definitions/SimpleExpense.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimpleExpense.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Expense",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "title": "Amount",
+          "description": "Expenses associated with the running of the business",
+          "type": "number",
+          "multipleOf": 0.01,
+          "minimum": 0
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

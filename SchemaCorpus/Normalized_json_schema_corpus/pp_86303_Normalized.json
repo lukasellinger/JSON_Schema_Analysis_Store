@@ -1,0 +1,213 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.5.4/traits/trait_taxonomy.json",
+  "title": "Taxonomy",
+  "description": "Holds the collection of tags, categories, keywords, etc that describe content.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "keywords": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\utils\\keyword.json"
+      },
+      "description": "A list of keywords."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\utils\\tag.json"
+      }
+    },
+    "sites": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/..\\utils\\site.json"
+          },
+          {
+            "allOf": [
+              {
+                "$ref": "#/definitions/..\\utils\\reference.json"
+              },
+              {
+                "properties": {
+                  "referent": {
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "site"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "seo_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "definitions": {
+    "..\\utils\\keyword.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Keyword",
+      "description": "Models a keyword used in describing a piece of content.",
+      "type": "object",
+      "required": [
+        "keyword"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "keyword": {
+          "type": "string",
+          "description": "The keyword used to describe/categorize a piece of content"
+        },
+        "score": {
+          "type": "number",
+          "description": "An arbitrary weighting to give the keyword"
+        },
+        "frequency": {
+          "type": "integer",
+          "description": "An optional count of the frequency of the keyword as it appears in the content it describes"
+        }
+      }
+    },
+    "..\\utils\\tag.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Tag",
+      "description": "Models a keyword used in describing a piece of content.",
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/trait_id.json"
+        },
+        "text": {
+          "type": "string",
+          "description": "The text of the tag"
+        }
+      }
+    },
+    "trait_id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "A globally unique identifier of the content in the ANS repository.",
+      "type": "string"
+    },
+    "..\\utils\\site.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Site",
+      "description": "A hierarchical section or \u0027site\u0027 in a taxonomy.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "site"
+          ]
+        },
+        "_id": {
+          "$ref": "#/definitions/trait_id.json"
+        },
+        "version": {
+          "$ref": "#/definitions/trait_version.json"
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/trait_additional_properties.json"
+        },
+        "name": {
+          "description": "The name of this site",
+          "type": "string"
+        },
+        "description": {
+          "description": "A short description or tagline about this site",
+          "type": "string"
+        },
+        "path": {
+          "description": "The url path to this site",
+          "type": "string"
+        },
+        "parent_id": {
+          "description": "The id of this section\u0027s parent site, if any",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "version",
+        "name"
+      ]
+    },
+    "trait_version.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Describes the ANS version of this object",
+      "description": "The version of ANS that this object was serialized as, in major.minor.patch format.",
+      "type": "string",
+      "enum": [
+        "0.5.4"
+      ]
+    },
+    "trait_additional_properties.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Has additional properties",
+      "description": "A grab-bag object for non-validatable data.",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "..\\utils\\reference.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Representation of a normalized element",
+      "description": "This represents a reference to external content that should be denormalized",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "reference"
+          ]
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/trait_additional_properties.json"
+        },
+        "referent": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "description": "The ANS type that the provider should return.",
+              "type": "string"
+            },
+            "service": {
+              "description": "The type of interaction the provider expects. E.g., \u0027oembed\u0027",
+              "type": "string"
+            },
+            "id": {
+              "description": "The id passed to the provider to retrieve an ANS document",
+              "type": "string"
+            },
+            "provider": {
+              "description": "A URL that can resolve the id into an ANS element",
+              "type": "string"
+            }
+          },
+          "required": [
+            "provider",
+            "id"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "referent"
+      ]
+    }
+  }
+}

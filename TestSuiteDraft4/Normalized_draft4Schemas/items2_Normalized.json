@@ -1,0 +1,35 @@
+{
+  "additionalItems": false,
+  "type": "array",
+  "definitions": {
+    "item": {
+      "additionalItems": false,
+      "type": "array",
+      "items": [
+        {
+          "$ref": "#/definitions/sub-item"
+        },
+        {
+          "$ref": "#/definitions/sub-item"
+        }
+      ]
+    },
+    "sub-item": {
+      "type": "object",
+      "required": [
+        "foo"
+      ]
+    }
+  },
+  "items": [
+    {
+      "$ref": "#/definitions/item"
+    },
+    {
+      "$ref": "#/definitions/item"
+    },
+    {
+      "$ref": "#/definitions/item"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "array",
+  "title": "The Root Schema",
+  "items": {
+    "type": "object",
+    "title": "The Items Schema",
+    "required": [
+      "Name",
+      "Category",
+      "Country",
+      "CountryCode",
+      "Pattern",
+      "Description"
+    ],
+    "properties": {
+      "Name": {
+        "type": "string",
+        "title": "The Name Schema",
+        "default": "",
+        "examples": [
+          "Bitcoin Address"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "Category": {
+        "type": "string",
+        "title": "The Category Schema",
+        "default": "",
+        "examples": [
+          "Financial"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "Country": {
+        "type": "string",
+        "title": "The Country Schema",
+        "default": "",
+        "examples": [
+          "All"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "CountryCode": {
+        "type": "string",
+        "title": "The Countrycode Schema",
+        "default": "",
+        "examples": [
+          "All"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "Pattern": {
+        "type": "string",
+        "title": "The Pattern Schema",
+        "default": "",
+        "examples": [
+          "(?\u003c![a-km-zA-HJ-NP-Z0-9])[13][a-km-zA-HJ-NP-Z0-9]{26,33}(?![a-km-zA-HJ-NP-Z0-9])"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "Description": {
+        "type": "string",
+        "title": "The Description Schema",
+        "default": "",
+        "examples": [
+          "Bitcoin address regex"
+        ],
+        "pattern": "^(.*)$"
+      }
+    }
+  }
+}

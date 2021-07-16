@@ -1,0 +1,756 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/example.json",
+  "additionalProperties": false,
+  "definitions": {},
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "default": "behavior-schema.json",
+      "description": "Path of behavior-schema.json.",
+      "title": "The $schema Schema",
+      "type": "string"
+    },
+    "ИмяСборки": {
+      "type": "string",
+      "title": "The Имясборки Schema ",
+      "default": "",
+      "examples": [
+        "8310UF"
+      ]
+    },
+    "ВерсияПлатформы": {
+      "type": "string",
+      "title": "The Версияплатформы Schema ",
+      "default": "",
+      "examples": [
+        "8.3.10"
+      ]
+    },
+    "ВыводитьСообщенияВФайл": {
+      "type": "string",
+      "title": "The Выводитьсообщениявфайл Schema ",
+      "default": "",
+      "examples": [
+        "./ServiceBases/Messages 8.3.10 UF no sync.txt"
+      ]
+    },
+    "КаталогПоискаВерсииПлатформы": {
+      "type": "string",
+      "title": "The Каталогпоискаверсииплатформы Schema ",
+      "default": "",
+      "examples": [
+        "C:\\Program Files (x86)\\1cv8"
+      ]
+    },
+    "СтрокаПодключенияКБазе": {
+      "type": "string",
+      "title": "The Строкаподключениякбазе Schema ",
+      "default": "",
+      "examples": [
+        "/F./ServiceBases/v83ServiceBase8310"
+      ]
+    },
+    "EpfДляИнициализацияБазы": {
+      "type": "string",
+      "title": "The Epfдляинициализациябазы Schema ",
+      "default": "",
+      "examples": [
+        "./tools/epf/init.epf"
+      ]
+    },
+    "ПараметрыДляИнициализацияБазы": {
+      "type": "string",
+      "title": "The Параметрыдляинициализациябазы Schema ",
+      "default": "",
+      "examples": [
+        "./tools/epf/init.json"
+      ]
+    },
+    "ПутьКVanessaBehavior": {
+      "type": "string",
+      "title": "The Путькvanessabehavior Schema ",
+      "default": "",
+      "examples": [
+        "./bddRunner.epf"
+      ]
+    },
+    "КаталогФич": {
+      "type": "string",
+      "title": "The Каталогфич Schema ",
+      "default": "",
+      "examples": [
+        "$workspaceRoot/./features"
+      ]
+    },
+    "КаталогиБиблиотек": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "title": "The 0th Schema ",
+        "default": "",
+        "examples": [
+          "$instrumentsRoot/./features/libraries"
+        ]
+      }
+    },
+    "КлиентыТестирования": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Имя": {
+            "type": "string",
+            "title": "The Имя Schema ",
+            "default": "",
+            "examples": [
+              "ПроверкаОбновления"
+            ]
+          },
+          "ПутьКИнфобазе": {
+            "type": "string",
+            "title": "The Путькинфобазе Schema ",
+            "default": "",
+            "examples": [
+              "File\u003d\"C:/Bases/MyBase\""
+            ]
+          },
+          "ДопПараметры": {
+            "type": "string",
+            "title": "The Доппараметры Schema ",
+            "default": "",
+            "examples": [
+              "/NАдмин"
+            ]
+          },
+          "ТипКлиента": {
+            "type": "string",
+            "title": "The Типклиента Schema ",
+            "default": "",
+            "examples": [
+              "Тонкий"
+            ]
+          },
+          "ИмяКомпьютера": {
+            "type": "string",
+            "title": "The Имякомпьютера Schema ",
+            "default": "",
+            "examples": [
+              "localhost"
+            ]
+          },
+          "ПортЗапускаТестКлиента": {
+            "type": "string",
+            "title": "The Портзапускатестклиента Schema ",
+            "default": "",
+            "examples": [
+              "48000"
+            ]
+          },
+          "АктивизироватьСтроку": {
+            "type": "string",
+            "title": "The Активизироватьстроку Schema ",
+            "default": "",
+            "examples": [
+              "Ложь"
+            ]
+          }
+        }
+      }
+    },
+    "ВыполнитьСценарии": {
+      "type": "string",
+      "title": "The Выполнитьсценарии Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ЗавершитьРаботуСистемы": {
+      "type": "string",
+      "title": "The Завершитьработусистемы Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ЗакрытьTestClientПослеЗапускаСценариев": {
+      "type": "string",
+      "title": "The Закрытьtestclientпослезапускасценариев Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ДелатьЛогВыполненияСценариевВЖР": {
+      "type": "string",
+      "title": "The Делатьлогвыполнениясценариеввжр Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ДелатьОтчетВФорматеАллюр": {
+      "type": "string",
+      "title": "The Делатьотчетвформатеаллюр Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ДелатьОтчетВФорматеjUnit": {
+      "type": "string",
+      "title": "The Делатьотчетвформатеjunit Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ДелатьОтчетВФорматеCucumberJson": {
+      "type": "string",
+      "title": "The Делатьотчетвформатеcucumberjson Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ДелатьЛогВыполненияСценариевВТекстовыйФайл": {
+      "type": "string",
+      "title": "The Делатьлогвыполнениясценариеввтекстовыйфайл Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "КаталогOutputAllureБазовый": {
+      "type": "string",
+      "title": "The Каталогoutputallureбазовый Schema ",
+      "default": "",
+      "examples": [
+        "$workspaceRoot/./ServiceBases/allurereport"
+      ]
+    },
+    "КаталогOutputjUnit": {
+      "type": "string",
+      "title": "The Каталогoutputjunit Schema ",
+      "default": "",
+      "examples": [
+        "$workspaceRoot/./ServiceBases/junitreport"
+      ]
+    },
+    "КаталогOutputCucumberJson": {
+      "type": "string",
+      "title": "The Каталогoutputcucumberjson Schema ",
+      "default": "",
+      "examples": [
+        "$workspaceRoot/./ServiceBases/cucumber"
+      ]
+    },
+    "СоздаватьПодкаталогВКаталогеAllureДляЭтойСборки": {
+      "type": "string",
+      "title": "The Создаватьподкаталогвкаталогеallureдляэтойсборки Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ДелатьСкриншотПриВозникновенииОшибки": {
+      "type": "string",
+      "title": "The Делатьскриншотпривозникновенииошибки Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "КаталогOutputСкриншоты": {
+      "type": "string",
+      "title": "The Каталогoutputскриншоты Schema ",
+      "default": "",
+      "examples": [
+        "$workspaceRoot/./ServiceBases/ScreenShots"
+      ]
+    },
+    "ИмяФайлаЛогВыполненияСценариев": {
+      "type": "string",
+      "title": "The Имяфайлалогвыполнениясценариев Schema ",
+      "default": "",
+      "examples": [
+        "$workspaceRoot/./ServiceBases/log.txt"
+      ]
+    },
+    "КомандаСделатьСкриншот": {
+      "type": "string",
+      "title": "The Командасделатьскриншот Schema ",
+      "default": "",
+      "examples": [
+        "\"C:\\Program Files (x86)\\IrfanView\\i_view32.exe\" /capture\u003d1 /convert\u003d"
+      ]
+    },
+    "ВыгружатьСтатусВыполненияСценариевВФайл": {
+      "type": "string",
+      "title": "The Выгружатьстатусвыполнениясценариеввфайл Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ПутьКФайлуДляВыгрузкиСтатусаВыполненияСценариев": {
+      "type": "string",
+      "title": "The Путькфайлудлявыгрузкистатусавыполнениясценариев Schema ",
+      "default": "",
+      "examples": [
+        "$workspaceRoot/./ServiceBases/BuildStatus.log"
+      ]
+    },
+    "ДобавлятьКИмениСценарияУсловияВыгрузки": {
+      "type": "string",
+      "title": "The Добавлятькименисценарияусловиявыгрузки Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "СписокТеговИсключение": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "title": "The 0th Schema ",
+        "default": "",
+        "examples": [
+          "IgnoreOnCIMainBuild",
+          "IgnoreOn8310",
+          "IgnoreOnUFBuilds",
+          "Ignore",
+          "Video"
+        ]
+      }
+    },
+    "ДополнительныеПараметры": {
+      "type": "object",
+      "properties": {
+        "КаталогФичДляVBManager": {
+          "type": "string",
+          "title": "The Каталогфичдляvbmanager Schema ",
+          "default": "",
+          "examples": [
+            "$workspaceRoot/./features"
+          ]
+        }
+      }
+    },
+    "ЗаписьВидеоКомандаНачатьЗаписьВидео": {
+      "type": "string",
+      "title": "The Записьвидеокоманданачатьзаписьвидео Schema ",
+      "default": "",
+      "examples": [
+        "\"C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe\" screen: //  -I rc --rc-quiet --rc-host\u003d127.0.0.1:8082 --nommx :screen-mouse-image\u003d\"\u003cscreenmouseimage\u003e\" :screen-fps\u003d\u003cfps\u003e :screen-width\u003d\u003cscreenwidth\u003e :screen-height\u003d\u003cscreenheight\u003e :screen-top\u003d0 :screen-left\u003d0 :screen-caching\u003d100 :sout\u003d#transcode{vcodec\u003dmp4v,vb\u003d400,fps\u003d\u003cfps\u003e,scale\u003d1,width\u003d\u003cscreenwidth\u003e,height\u003d\u003cscreenheight\u003e,acodec\u003dnone}:duplicate{dst\u003dstd{access\u003dfile,mux\u003dmp4,dst\u003d\u003cdst\u003e}}"
+      ]
+    },
+    "ЗаписьВидеоФайлКурсораМышки": {
+      "type": "string",
+      "title": "The Записьвидеофайлкурсорамышки Schema ",
+      "default": "",
+      "examples": [
+        "./tools/VideoTools/mouse.png"
+      ]
+    },
+    "ЗаписьВидеоКаталогДляВременныхФайлов": {
+      "type": "string",
+      "title": "The Записьвидеокаталогдлявременныхфайлов Schema ",
+      "default": "",
+      "examples": [
+        "./tools/VideoTemp"
+      ]
+    },
+    "ЗаписьВидеоФайлВодянойЗнак": {
+      "type": "string",
+      "title": "The Записьвидеофайлводянойзнак Schema ",
+      "default": "",
+      "examples": [
+        "./tools/VideoTools/logoSB.png"
+      ]
+    },
+    "ЗаписьВидеоКомандаFfmpeg": {
+      "type": "string",
+      "title": "The Записьвидеокомандаffmpeg Schema ",
+      "default": "",
+      "examples": [
+        "ffmpeg"
+      ]
+    },
+    "ЗаписьВидеоКомандаConvert": {
+      "type": "string",
+      "title": "The Записьвидеокомандаconvert Schema ",
+      "default": "",
+      "examples": [
+        "c:/ProgramData/chocolatey/bin/convert.exe"
+      ]
+    },
+    "ЗаписьВидеоКаталогМузыки": {
+      "type": "string",
+      "title": "The Записьвидеокаталогмузыки Schema ",
+      "default": "",
+      "examples": [
+        "./tools/../../vanessa-ci/MakeVideoInstr/music"
+      ]
+    },
+    "ЗаписьВидеоДелатьНаложениеTTS": {
+      "type": "string",
+      "title": "The Записьвидеоделатьналожениеtts Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ЗаписьВидеоПутьКДвижкуTTS": {
+      "type": "string",
+      "title": "The Записьвидеопутькдвижкуtts Schema ",
+      "default": "",
+      "examples": [
+        "balcon"
+      ]
+    },
+    "ЗаписьВидеоИмяTTS": {
+      "type": "string",
+      "title": "The Записьвидеоимяtts Schema ",
+      "default": "",
+      "examples": [
+        "Elena"
+      ]
+    },
+    "ЗаписьВидеоСловарьЗамен": {
+      "type": "string",
+      "title": "The Записьвидеословарьзамен Schema ",
+      "default": "",
+      "examples": [
+        "./tools/VideoTools/libtts.txt"
+      ]
+    },
+    "ЗаписьВидеоЭкранШирина": {
+      "type": "string",
+      "title": "The Записьвидеоэкранширина Schema ",
+      "default": "",
+      "examples": [
+        "1920"
+      ]
+    },
+    "ЗаписьВидеоЭкранВысота": {
+      "type": "string",
+      "title": "The Записьвидеоэкранвысота Schema ",
+      "default": "",
+      "examples": [
+        "1080"
+      ]
+    },
+    "ЗаписьВидеоКоличествоКадров": {
+      "type": "string",
+      "title": "The Записьвидеоколичествокадров Schema ",
+      "default": "",
+      "examples": [
+        "5"
+      ]
+    },
+    "ЗаписьВидеоПодсвечиватьАктивныеЭлементыФорм": {
+      "type": "string",
+      "title": "The Записьвидеоподсвечиватьактивныеэлементыформ Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "ЗаписьВидеоПеремещатьКурсорМышкиКАктивномуЭлементуФормы": {
+      "type": "string",
+      "title": "The Записьвидеоперемещатькурсормышкикактивномуэлементуформы Schema ",
+      "default": "",
+      "examples": [
+        "Истина"
+      ]
+    },
+    "StartFeaturePlayer": {
+      "type": "boolean",
+      "title": "The Startfeatureplayer Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "СписокТеговОтбор": {
+      "type": "array"
+    },
+    "ВыгрузитьPIDTestManager": {
+      "type": "boolean",
+      "title": "The Выгрузитьpidtestmanager Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "КаталогИсполняемогоФайла": {
+      "type": "string",
+      "title": "The Каталогисполняемогофайла Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "ИмяФайлаPIDTestManager": {
+      "type": "string",
+      "title": "The Имяфайлаpidtestmanager Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "ИмяФайлаВнешнихКомандФреймворка": {
+      "type": "string",
+      "title": "The Имяфайлавнешнихкомандфреймворка Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "ПриравниватьPendingКFailed": {
+      "type": "boolean",
+      "title": "The Приравниватьpendingкfailed Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "КоличествоСекундПоискаОкна": {
+      "type": "string",
+      "title": "The Количествосекундпоискаокна Schema ",
+      "default": "",
+      "examples": [
+        "10"
+      ]
+    },
+    "ОстановкаПриВозникновенииОшибки": {
+      "type": "boolean",
+      "title": "The Остановкапривозникновенииошибки Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "ПоказыватьНомерСтрокиДереваПриВозникновенииОшибки": {
+      "type": "boolean",
+      "title": "The Показыватьномерстрокидеревапривозникновенииошибки Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "ДелатьСообщенияТранслитом": {
+      "type": "boolean",
+      "title": "The Делатьсообщениятранслитом Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "СоздаватьИнструкциюHTML": {
+      "type": "boolean",
+      "title": "The Создаватьинструкциюhtml Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "СоздаватьИнструкциюMarkdown": {
+      "type": "boolean",
+      "title": "The Создаватьинструкциюmarkdown Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "СоздаватьИнструкциюВидео": {
+      "type": "boolean",
+      "title": "The Создаватьинструкциювидео Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "ВыводитьВЛогВыполнениеШагов": {
+      "type": "boolean",
+      "title": "The Выводитьвлогвыполнениешагов Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "ДелатьЛогОшибокВТекстовыйФайл": {
+      "type": "boolean",
+      "title": "The Делатьлогошибоквтекстовыйфайл Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "ИмяКаталогаЛогОшибок": {
+      "type": "string",
+      "title": "The Имякаталогалогошибок Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "КаталогOutputИнструкцияHTML": {
+      "type": "string",
+      "title": "The Каталогoutputинструкцияhtml Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "КаталогOutputИнструкцияMarkdown": {
+      "type": "string",
+      "title": "The Каталогoutputинструкцияmarkdown Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "КаталогOutputИнструкцияВидео": {
+      "type": "string",
+      "title": "The Каталогoutputинструкциявидео Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "ДелатьОтчетВоВнутреннемФормате": {
+      "type": "boolean",
+      "title": "The Делатьотчетвовнутреннемформате Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "КаталогИнструментов": {
+      "type": "string",
+      "title": "The Каталогинструментов Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "КаталогПроекта": {
+      "type": "string",
+      "title": "The Каталогпроекта Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "КаталогOutputAllure": {
+      "type": "string",
+      "title": "The Каталогoutputallure Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "ВыполнитьСценарииСТекущегоШага": {
+      "type": "boolean",
+      "title": "The Выполнитьсценариистекущегошага Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "НомерСтрокиДляЗапускаСТекущегоШагаСценария": {
+      "type": "string",
+      "title": "The Номерстрокидлязапускастекущегошагасценария Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "ЗагрузитьСценарии": {
+      "type": "boolean",
+      "title": "The Загрузитьсценарии Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "СниматьСкриншотКаждогоОкна1С": {
+      "type": "boolean",
+      "title": "The Сниматьскриншоткаждогоокна1с Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "ЗапускатьТестКлиентВРежимеОтладки": {
+      "type": "boolean",
+      "title": "The Запускатьтестклиентврежимеотладки Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "КлючиОтладки": {
+      "type": "string",
+      "title": "The Ключиотладки Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "АдресОтладчика": {
+      "type": "string",
+      "title": "The Адресотладчика Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "ВыполнятьШагиАссинхронно": {
+      "type": "boolean",
+      "title": "The Выполнятьшагиассинхронно Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "ПриоритетНастроекПользователя": {
+      "type": "boolean",
+      "title": "The Приоритетнастроекпользователя Schema ",
+      "default": false,
+      "examples": [
+        false
+      ]
+    },
+    "ЗаписьВидеоСловарьЗаменСписок": {
+      "type": "array"
+    },
+    "ВерсияПлатформыДляГенерацииEPF": {
+      "type": "string",
+      "title": "The Версияплатформыдлягенерацииepf Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    },
+    "ТаймаутЗапуска1С": {
+      "type": "string",
+      "title": "The Таймаутзапуска1с Schema ",
+      "default": "",
+      "examples": [
+        "25"
+      ]
+    },
+    "ДиапазонПортовTestclient": {
+      "type": "string",
+      "title": "The Диапазонпортовtestclient Schema ",
+      "default": "",
+      "examples": [
+        ""
+      ]
+    }
+  }
+}

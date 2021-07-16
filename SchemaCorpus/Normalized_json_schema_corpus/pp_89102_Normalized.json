@@ -1,0 +1,71 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "WeekA": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "startTime": {
+              "type": "string",
+              "title": "The Starttime Schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "09:30"
+              ]
+            },
+            "endTime": {
+              "type": "string",
+              "title": "The Endtime Schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "12:30"
+              ]
+            },
+            "name": {
+              "type": "string",
+              "title": "The Name Schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "IDT"
+              ]
+            },
+            "room": {
+              "type": "string",
+              "title": "The Room Schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "G128"
+              ]
+            },
+            "day": {
+              "type": "integer",
+              "title": "The Day Schema",
+              "description": "Day of week (0-6).",
+              "default": "",
+              "examples": [
+                0
+              ]
+            }
+          },
+          "required": [
+            "startTime",
+            "endTime",
+            "name",
+            "room",
+            "day"
+          ]
+        }
+      }
+    }
+  }
+}

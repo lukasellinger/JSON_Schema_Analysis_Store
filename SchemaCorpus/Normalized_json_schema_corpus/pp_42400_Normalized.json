@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "title": "exception",
+  "type": "object",
+  "properties": {
+    "error": {
+      "$ref": "#/definitions/http:__schemas.opengis.net_gsr_1.0_error.json"
+    }
+  },
+  "definitions": {
+    "http:__schemas.opengis.net_gsr_1.0_error.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "error description",
+      "type": "object",
+      "properties": {
+        "code": {
+          "title": "error code according to HTTP",
+          "type": "integer",
+          "required": true
+        },
+        "message": {
+          "title": "error message",
+          "type": "string"
+        },
+        "description": {
+          "title": "alias of \u0027meassage\u0027",
+          "type": "string"
+        },
+        "details": {
+          "title": "error details",
+          "type": "array",
+          "items": {
+            "title": "error detail",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

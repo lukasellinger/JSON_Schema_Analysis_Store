@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Texture Info",
+  "type": "object",
+  "description": "Reference to a texture.",
+  "allOf": [
+    {
+      "$ref": "#/definitions/glTFProperty.schema.json"
+    }
+  ],
+  "properties": {
+    "index": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFid.schema.json"
+        }
+      ],
+      "description": "The index of the texture."
+    },
+    "texCoord": {
+      "type": "integer",
+      "description": "The set index of texture\u0027s TEXCOORD attribute used for texture coordinate mapping.",
+      "default": 0,
+      "minimum": 0,
+      "gltf_detailedDescription": "This integer value is used to construct a string in the format `TEXCOORD_\u003cset index\u003e` which is a reference to a key in mesh.primitives.attributes (e.g. A value of `0` corresponds to `TEXCOORD_0`). Mesh must have corresponding texture coordinate attributes for the material to be applicable to it."
+    },
+    "extensions": {},
+    "extras": {}
+  },
+  "required": [
+    "index"
+  ],
+  "definitions": {
+    "glTFProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Property",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extension.schema.json"
+        },
+        "extras": {
+          "$ref": "#/definitions/extras.schema.json"
+        }
+      }
+    },
+    "extension.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extension",
+      "type": "object",
+      "description": "Dictionary object with extension-specific objects.",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "extras.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extras",
+      "description": "Application-specific data."
+    },
+    "glTFid.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Id",
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

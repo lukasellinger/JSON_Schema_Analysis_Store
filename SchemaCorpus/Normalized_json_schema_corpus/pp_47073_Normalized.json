@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://dcc.icgc.org/donor-text",
+  "type": "object",
+  "properties": {
+    "_summary": {
+      "type": "object",
+      "properties": {
+        "_state": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "id": {
+      "type": "string"
+    },
+    "projectId": {
+      "type": "string"
+    },
+    "sampleIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "additionalItems": false
+    },
+    "specimenIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "additionalItems": false
+    },
+    "submittedId": {
+      "type": "string"
+    },
+    "submittedSampleIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "additionalItems": false
+    },
+    "submittedSpecimenIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "additionalItems": false
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

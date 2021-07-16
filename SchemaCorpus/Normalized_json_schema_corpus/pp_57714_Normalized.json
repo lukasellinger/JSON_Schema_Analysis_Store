@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "Buckets": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "CreationDate": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "Name",
+          "CreationDate"
+        ]
+      }
+    },
+    "Owner": {
+      "type": "object",
+      "properties": {
+        "DisplayName": {
+          "type": "string"
+        },
+        "ID": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "Buckets",
+    "Owner"
+  ]
+}

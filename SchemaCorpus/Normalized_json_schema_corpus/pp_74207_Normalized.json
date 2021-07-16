@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Collection",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\collection.json_definitions_collection-input-with-contents"
+    }
+  ],
+  "example": {
+    "contents": {
+      "operation": "add",
+      "nodes": [
+        {
+          "level": "session",
+          "_id": "57dc50b0931cefd8ac2a371e"
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "..\\definitions\\collection.json_definitions_collection-input-with-contents": {
+      "type": "object",
+      "properties": {
+        "public": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_public"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        },
+        "info": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_info"
+        },
+        "description": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_description"
+        },
+        "contents": {
+          "$ref": "#/definitions/..\\definitions\\collection.json_definitions_collection-operation"
+        }
+      },
+      "x-sdk-model": "collection",
+      "additionalProperties": false
+    },
+    "..\\definitions\\container.json_definitions_public": {
+      "type": "boolean"
+    },
+    "..\\definitions\\common.json_definitions_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "..\\definitions\\container.json_definitions_info": {
+      "$ref": "#/definitions/..\\definitions\\common.json_definitions_info"
+    },
+    "..\\definitions\\common.json_definitions_info": {
+      "type": "object"
+    },
+    "..\\definitions\\common.json_definitions_description": {
+      "type": "string"
+    },
+    "..\\definitions\\collection.json_definitions_collection-operation": {
+      "type": "object",
+      "properties": {
+        "operation": {
+          "type": "string",
+          "enum": [
+            "add",
+            "remove"
+          ]
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\definitions\\collection.json_definitions_collection-node"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\definitions\\collection.json_definitions_collection-node": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": [
+            "project",
+            "session",
+            "acquisition"
+          ]
+        },
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_objectid"
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\definitions\\common.json_definitions_objectid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{24}$"
+    }
+  }
+}

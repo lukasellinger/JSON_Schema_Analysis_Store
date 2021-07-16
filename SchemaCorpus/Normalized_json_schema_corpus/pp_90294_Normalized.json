@@ -1,0 +1,809 @@
+{
+  "title": "Raster UniqueValue Renderer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Defines the color of each raster cell based on an attribute. This is done by using unique colors to represent cells with equal attribute values.",
+  "properties": {
+    "authoringInfo": {
+      "type": "object",
+      "description": "An object containing metadata about the authoring process for creating a renderer object. This allows the authoring clients to save specific overridable settings so that next time it is accessed via the UI, their selections are remembered. Non-authoring clients can ignore it.",
+      "$ref": "#/definitions/authoringInfo_schema.json"
+    },
+    "colorUniqueValueInfos": {
+      "type": "array",
+      "description": "Unique value infos.",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/colorUniqueValueInfo_schema.json"
+      }
+    },
+    "defaultColor": {
+      "description": "The defaultColor on the renderer that get assigned to features with no value or features that do not fall within the configured data.",
+      "$ref": "#/definitions/color_schema.json"
+    },
+    "defaultLabel": {
+      "type": "string",
+      "description": "Default label for the default symbol used to draw unspecified values."
+    },
+    "field": {
+      "type": "string",
+      "description": "The name of the field that is used for the renderer."
+    },
+    "legendOptions": {
+      "type": "object",
+      "description": "A legend containing one title, which is a string describing the renderer in the legend.",
+      "$ref": "#/definitions/rendererLegendOptions_schema.json"
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of renderer used.",
+      "enum": [
+        "rasterUniqueValueRenderer"
+      ]
+    }
+  },
+  "required": [
+    "colorUniqueValueInfos",
+    "field",
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "rasterUniqueValueRenderer",
+        "code": {
+          "renderer": {
+            "type": "rasterUniqueValueRenderer",
+            "field": "ClassName",
+            "colorUniqueValueInfos": [
+              {
+                "values": [
+                  "Open Water"
+                ],
+                "label": "Open Water",
+                "description": "Open Water",
+                "color": [
+                  71,
+                  107,
+                  161,
+                  255
+                ]
+              },
+              {
+                "values": [
+                  "Perennial Snow/Ice"
+                ],
+                "label": "Perennial Snow/Ice",
+                "description": "Perennial Snow/Ice",
+                "color": [
+                  209,
+                  222,
+                  250,
+                  255
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "authoringInfo_schema.json": {
+      "title": "authoringInfo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The authoringInfo is an object containing metadata about the authoring process for creating a renderer object. This allows the authoring clients to save specific overridable settings so that next time it is accessed via an authoring client, their selections are remembered. Non-authoring clients can ignore it. Properties for color/size/transparency sliders, theme selection, classification information, and additional properties are saved within this object.",
+      "properties": {
+        "classificationMethod": {
+          "type": "string",
+          "description": "Used for classed color or size. The default value is `esriClassifyManual`.",
+          "enum": [
+            "esriClassifyDefinedInterval",
+            "esriClassifyEqualInterval",
+            "esriClassifyManual",
+            "esriClassifyNaturalBreaks",
+            "esriClassifyQuantile",
+            "esriClassifyStandardDeviation"
+          ],
+          "default": "esriClassifyManual"
+        },
+        "colorRamp": {
+          "type": "object",
+          "$ref": "#/definitions/colorRamp_schema.json"
+        },
+        "field1": {
+          "$ref": "#/definitions/field_authoringInfo_schema.json"
+        },
+        "field2": {
+          "$ref": "#/definitions/field_authoringInfo_schema.json"
+        },
+        "fields": {
+          "type": "array",
+          "description": "An array of string values representing field names used for creating predominance renderers.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "focus": {
+          "type": "string",
+          "description": "Optional. Used for Relationship renderer. If not set, the legend will default to being square.",
+          "enum": [
+            "HH",
+            "HL",
+            "LH",
+            "LL"
+          ]
+        },
+        "lengthUnit": {
+          "type": "string",
+          "description": "Unit used in user interfaces to display world/map sizes and distances",
+          "enum": [
+            "centimeters",
+            "decimal-degrees",
+            "decimeters",
+            "feet",
+            "inches",
+            "kilometers",
+            "meters",
+            "miles",
+            "millimeters",
+            "nautical-miles",
+            "yards"
+          ]
+        },
+        "numClasses": {
+          "type": "integer",
+          "description": "Number of classes to be associated with the relationship. Used for Relationship renderer.",
+          "minimum": 2,
+          "maximum": 4
+        },
+        "standardDeviationInterval": {
+          "type": "number",
+          "description": "Use this property if the classificationMethod is `esriClassifyStandardDeviation`.",
+          "enum": [
+            0.25,
+            0.33,
+            0.5,
+            1
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "classedColor",
+            "classedSize",
+            "predominance",
+            "relationship",
+            "univariateColorSize"
+          ]
+        },
+        "visualVariables": {
+          "type": "array",
+          "description": "An array of visualVariable objects containing additional information needed when authoring the renderer.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/authoringInfo_visualVariable_schema.json"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "additionalInformation": "The authoringInfo object is not required with a renderer. It is only used if rendering was generated using the Scene Viewer rendering tools. All snippets provided below show a portion of what is contained within `authoringInfo`. Please refer to the sample snippets in the [authoringInfo visual variable](authoringInfo_visualVariable.md) object for additional help.",
+        "examples": [
+          {
+            "title": "Classed Size Renderer (Option 1)",
+            "code": {
+              "authoringInfo": {
+                "type": "classedSize",
+                "classificationMethod": "esriClassifyNaturalBreaks"
+              }
+            }
+          },
+          {
+            "title": "Classed Size Renderer (Option 2)",
+            "code": {
+              "authoringInfo": {
+                "type": "classedSize",
+                "classificationMethod": "esriClassifyStandardDeviation",
+                "standardDeviationInterval": 0.5
+              }
+            }
+          },
+          {
+            "title": "Classed Color Renderer (Option 1)",
+            "code": {
+              "authoringInfo": {
+                "type": "classedColor",
+                "classificationMethod": "esriClassifyNaturalBreaks"
+              }
+            }
+          },
+          {
+            "title": "Classed Color Renderer (Option 2)",
+            "code": {
+              "authoringInfo": {
+                "type": "classedColor",
+                "classificationMethod": "esriClassifyStandardDeviation",
+                "standardDeviationInterval": 0.5
+              }
+            }
+          },
+          {
+            "title": "Predominance Renderer",
+            "code": {
+              "authoringInfo": {
+                "type": "predominance",
+                "fields": [
+                  "COST",
+                  "DOLLARS",
+                  "PRICE"
+                ]
+              }
+            }
+          },
+          {
+            "title": "Univariate Color Size Renderer",
+            "code": {
+              "authoringInfo": {
+                "type": "univariateColorSize",
+                "visualVariables": [
+                  {
+                    "type": "sizeInfo",
+                    "minSliderValue": 1,
+                    "maxSliderValue": 1000
+                  },
+                  {
+                    "type": "colorInfo",
+                    "minSliderValue": 1,
+                    "maxSliderValue": 1000,
+                    "theme": "high-to-low"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "title": "Relationship Renderer",
+            "code": {
+              "authoringInfo": {
+                "classificationMethod": "esriClassifyQuantile",
+                "field1": {
+                  "field": "VOTE_TURNOUT",
+                  "classBreakInfos": [
+                    {
+                      "minValue": 1.0844,
+                      "maxValue": 54.0946
+                    },
+                    {
+                      "minValue": 54.0946,
+                      "maxValue": 4083.8235
+                    }
+                  ]
+                },
+                "field2": {
+                  "field": "MP06026a_B",
+                  "normalizationField": "TOTPOP_CY",
+                  "classBreakInfos": [
+                    {
+                      "minValue": 0.101322,
+                      "maxValue": 0.197619
+                    },
+                    {
+                      "minValue": 0.197619,
+                      "maxValue": 0.266094
+                    }
+                  ]
+                },
+                "focus": "HH",
+                "numClasses": 2,
+                "type": "relationship"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "colorRamp_schema.json": {
+      "title": "Color Ramp",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "A colorRamp object is used to specify a range of colors that are applied to a group of symbols.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/colorRamp_algorithmic_schema.json"
+        },
+        {
+          "$ref": "#/definitions/colorRamp_multipart_schema.json"
+        }
+      ]
+    },
+    "colorRamp_algorithmic_schema.json": {
+      "title": "Color Ramp Algorithmic",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "A colorRamp object is used to specify a range of colors that are applied to a group of symbols.",
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "description": "Algorithm used for calculating the ramp.",
+          "enum": [
+            "esriCIELabAlgorithm",
+            "esriHSVAlgorithm",
+            "esriLabLChAlgorithm"
+          ]
+        },
+        "fromColor": {
+          "description": "Array representing the initial color to start the ramp from.",
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "toColor": {
+          "description": "Array representing the final color to end the ramp with.",
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "type": {
+          "type": "string",
+          "description": "Value indicating the type of colorRamp.",
+          "enum": [
+            "algorithmic"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Algorithmic",
+            "code": {
+              "colorRamp": {
+                "type": "algorithmic",
+                "fromColor": [
+                  115,
+                  76,
+                  0,
+                  255
+                ],
+                "toColor": [
+                  255,
+                  25,
+                  86,
+                  255
+                ],
+                "algorithm": "esriHSVAlgorithm"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "colorRamp_multipart_schema.json": {
+      "title": "Color Ramp Multipart",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "A colorRamp object is used to specify a range of colors that are applied to a group of symbols.",
+      "properties": {
+        "colorRamps": {
+          "type": "array",
+          "description": "A multipart color ramp is defined by a list of constituent color ramps.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/colorRamp_algorithmic_schema.json"
+          }
+        },
+        "type": {
+          "type": "string",
+          "description": "Value indicating the type of colorRamp.",
+          "enum": [
+            "multipart"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Multipart",
+            "code": {
+              "colorRamp": {
+                "type": "multipart",
+                "colorRamps": [
+                  {
+                    "type": "algorithmic",
+                    "fromColor": [
+                      255,
+                      0,
+                      0,
+                      255
+                    ],
+                    "toColor": [
+                      255,
+                      255,
+                      0,
+                      255
+                    ],
+                    "algorithm": "esriHSVAlgorithm"
+                  },
+                  {
+                    "type": "algorithmic",
+                    "fromColor": [
+                      0,
+                      255,
+                      255,
+                      255
+                    ],
+                    "toColor": [
+                      0,
+                      0,
+                      255,
+                      255
+                    ],
+                    "algorithm": "esriHSVAlgorithm"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "field_authoringInfo_schema.json": {
+      "title": "AuthoringInfo Field",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Contains information about an attribute field relating to Relationship renderers.",
+      "properties": {
+        "classBreakInfos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/classBreakInfo_authoringInfo_schema.json"
+          }
+        },
+        "field": {
+          "type": "string",
+          "description": "Attribute field used for renderer."
+        },
+        "normalizationField": {
+          "type": "string",
+          "description": "Attribute field used to normalize the data."
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "code": {
+              "field1": {
+                "field": "VOTE_TURNOUT",
+                "classBreakInfos": [
+                  {
+                    "minValue": 1.0844,
+                    "maxValue": 54.0946
+                  },
+                  {
+                    "minValue": 54.0946,
+                    "maxValue": 4083.8235
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "classBreakInfo_authoringInfo_schema.json": {
+      "title": "AuthoringInfo classBreakInfo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The classBreaksInfo object provides information about the class breaks associated with the Relationship renderer.",
+      "properties": {
+        "maxValue": {
+          "type": "number",
+          "description": "A numeric value used to specify the maximum value for a break."
+        },
+        "minValue": {
+          "type": "number",
+          "description": "A numeric value used to specify the minimum value for a break."
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "classBreak Info",
+            "code": {
+              "classBreakInfo": {
+                "minValue": 3,
+                "maxValue": 18
+              }
+            }
+          }
+        ]
+      }
+    },
+    "authoringInfo_visualVariable_schema.json": {
+      "title": "AuthoringInfo Visual Variable",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "This visual variable pertains specifically to [authoringInfo](authoringInfo.md) and is different from visual variables directly on the [renderer](renderer.md).",
+      "properties": {
+        "endTime": {
+          "type": [
+            "number",
+            "string"
+          ],
+          "description": "A Unix stamp. Both `startTime` or `endTime` can be fields. If this is the case, their names must be different."
+        },
+        "field": {
+          "type": "string",
+          "description": "The attribute field the user chose in the Smart Mapping gallery. Must be the same as in either `startTime` or `endTime`."
+        },
+        "maxSliderValue": {
+          "type": "number",
+          "description": "A numeric value indicating the maximum value displayed."
+        },
+        "minSliderValue": {
+          "type": "number",
+          "description": "A numeric value indicating the minimum value displayed."
+        },
+        "startTime": {
+          "type": [
+            "number",
+            "string"
+          ],
+          "description": "A Unix time stamp. Both `startTime` or `endTime` can be fields. If this is the case, their names must be different."
+        },
+        "style": {
+          "type": "string",
+          "description": "(This property is used for comparison rendering). It is used to map the ratio between two numbers. It is possible to express that relationship as percentages, simple ratios, or an overall percentage.",
+          "enum": [
+            "percent",
+            "percentTotal",
+            "ratio"
+          ]
+        },
+        "theme": {
+          "type": "string",
+          "description": "Theme to be used only when working with visual variables of type `colorInfo`. Default is `high-to-low`.",
+          "enum": [
+            "above-and-below",
+            "centered-on",
+            "extremes",
+            "high-to-low"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "description": "A string value specifying the type of renderer\u0027s visual variable.",
+          "enum": [
+            "colorInfo",
+            "rotationInfo",
+            "sizeInfo",
+            "transparencyInfo"
+          ]
+        },
+        "units": {
+          "type": "string",
+          "description": "(This property is used only with age renderers.) Units for startTime and endTime.",
+          "enum": [
+            "days",
+            "hours",
+            "minutes",
+            "months",
+            "seconds",
+            "years"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Attribute Transparency",
+            "description": "Allows displaying features with different levels of opacity.",
+            "schema": "authoringInfo_schema.json",
+            "code": {
+              "authoringInfo": {
+                "visualVariables": [
+                  {
+                    "type": "transparencyInfo",
+                    "minSliderValue": 0.0003,
+                    "maxSliderValue": 23.8951
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "title": "Continuous Size Renderer",
+            "description": "If a layer contains date values, it is possible to use a sequence of proportional symbols to view dates sequentially on a scene.",
+            "schema": "authoringInfo_schema.json",
+            "code": {
+              "authoringInfo": {
+                "visualVariables": [
+                  {
+                    "type": "sizeInfo",
+                    "minSliderValue": 1,
+                    "maxSliderValue": 14928.5396
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "title": "Continuous Color Renderer",
+            "description": "If a layer contains date values, it is possible to use color to view data sequentially from new to old or before and after a key date.",
+            "schema": "authoringInfo_schema.json",
+            "code": {
+              "authoringInfo": {
+                "visualVariables": [
+                  {
+                    "type": "colorInfo",
+                    "minSliderValue": 1,
+                    "maxSliderValue": 14928.5396,
+                    "theme": "high-to-low"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "title": "Age-Size Renderer",
+            "description": "If a layer contains date or time values, it is possible to use a sequence of proportional symbols to view the age of features. Age reflects the length of time (in seconds, minutes, hours, days, months, or years) from a start date or time to an end date or time.",
+            "schema": "authoringInfo_schema.json",
+            "code": {
+              "authoringInfo": {
+                "visualVariables": [
+                  {
+                    "type": "sizeInfo",
+                    "minSliderValue": -129.2625,
+                    "maxSliderValue": 234.7374,
+                    "units": "days",
+                    "startTime": "DATE",
+                    "endTime": 1471970511924,
+                    "field": "DATE"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "title": "Age-Color Renderer",
+            "description": "If a layer contains date or time values, it is possible to use color to represent the age of features. Age reflects the length of time (in seconds, minutes, hours, days, months, or years) from a start date or time to an end date or time.",
+            "schema": "authoringInfo_schema.json",
+            "code": {
+              "authoringInfo": {
+                "visualVariables": [
+                  {
+                    "type": "colorInfo",
+                    "minSliderValue": -129.2625,
+                    "maxSliderValue": 234.7374,
+                    "units": "days",
+                    "startTime": "DATE",
+                    "endTime": 1471970511924,
+                    "field": "DATE",
+                    "theme": "high-to-low"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "title": "Compare Renderer (special color renderer)",
+            "description": "This style allows mapping the ratio between two numbers and expresses that relationship as percentages, simple ratios, or overall percentage.",
+            "schema": "authoringInfo_schema.json",
+            "code": {
+              "authoringInfo": {
+                "visualVariables": [
+                  {
+                    "type": "colorInfo",
+                    "minSliderValue": 0.0003858501658018686,
+                    "maxSliderValue": 23.89513157894737,
+                    "theme": "above-and-below",
+                    "style": "ratio"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "title": "Predominance Renderer",
+            "description": "This style uses transparency to show the relative strength of the predominant attribute for each feature in the layer. The strength, or degree, of predominance is calculated as a percentage of the total value of all the attributes for a given feature.",
+            "schema": "authoringInfo_schema.json",
+            "code": {
+              "authoringInfo": {
+                "type": "predominance",
+                "fields": [
+                  "COST",
+                  "DOLLARS",
+                  "PRICE"
+                ],
+                "visualVariables": [
+                  {
+                    "type": "transparencyInfo",
+                    "minSliderValue": 0,
+                    "maxSliderValue": 100
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "colorUniqueValueInfo_schema.json": {
+      "title": "colorUniqueValueInfo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The colorUniqueValueInfo object matches a unique value with a specific color.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "description": {
+          "type": "string",
+          "description": "String value used to describe the class."
+        },
+        "label": {
+          "type": "string",
+          "description": "String value used to label the class."
+        },
+        "values": {
+          "type": "array",
+          "description": "List of string values used to classify points.",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "color",
+        "values"
+      ],
+      "additionalProperties": false
+    },
+    "rendererLegendOptions_schema.json": {
+      "title": "Renderer Legend Options",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Options available for the renderer legend.",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the legend."
+        }
+      }
+    }
+  }
+}

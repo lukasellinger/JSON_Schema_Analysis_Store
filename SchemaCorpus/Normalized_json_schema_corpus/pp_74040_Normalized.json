@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "label": {
+      "maxLength": 64,
+      "minLength": 1,
+      "pattern": "^[0-9A-Za-z][0-9A-Za-z .@_-]{0,30}[0-9A-Za-z]$",
+      "title": "label",
+      "type": "string"
+    },
+    "group": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/common.json_definitions_string-id"
+        },
+        "label": {
+          "$ref": "#/definitions/label"
+        },
+        "permissions": {
+          "$ref": "#/definitions/permission.json_definitions_permission-output-list"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/created-modified.json_definitions_modified"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "group"
+    },
+    "group-input": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/common.json_definitions_string-id"
+        },
+        "label": {
+          "$ref": "#/definitions/label"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "group"
+    },
+    "group-metadata-input": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "group-output": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/group"
+        }
+      ],
+      "required": [
+        "permissions",
+        "created",
+        "modified",
+        "_id"
+      ],
+      "x-sdk-model": "group"
+    },
+    "group-new-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/common.json_definitions_string-id"
+        }
+      },
+      "required": [
+        "_id"
+      ],
+      "x-sdk-return": "_id"
+    },
+    "group-output-list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/group-output"
+      }
+    },
+    "project-group-output": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/group"
+        }
+      ],
+      "required": [
+        "_id"
+      ],
+      "x-sdk-model": "group"
+    },
+    "project-group-output-list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/project-group-output"
+      }
+    },
+    "common.json_definitions_string-id": {
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 2,
+      "pattern": "^[0-9a-z][0-9a-z.@_-]{0,30}[0-9a-z]$"
+    },
+    "permission.json_definitions_permission-output-list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/permission.json_definitions_permission-output-default-required"
+      },
+      "uniqueItems": true
+    },
+    "permission.json_definitions_permission-output-default-required": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/permission.json_definitions_permission"
+        }
+      ],
+      "required": [
+        "_id",
+        "access"
+      ],
+      "x-sdk-model": "permission"
+    },
+    "permission.json_definitions_permission": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/common.json_definitions_user-id"
+        },
+        "access": {
+          "$ref": "#/definitions/permission.json_definitions_access"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "permission"
+    },
+    "common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    },
+    "permission.json_definitions_access": {
+      "type": "string",
+      "enum": [
+        "ro",
+        "rw",
+        "admin"
+      ]
+    },
+    "created-modified.json_definitions_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created-modified.json_definitions_modified": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

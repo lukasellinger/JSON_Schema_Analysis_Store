@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "vera__events__c": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "vera__event_name__c": {
+          "type": "string"
+        },
+        "vera__boats__c": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "vera__event_name__c"
+      ]
+    }
+  },
+  "required": [
+    "vera__events__c"
+  ]
+}

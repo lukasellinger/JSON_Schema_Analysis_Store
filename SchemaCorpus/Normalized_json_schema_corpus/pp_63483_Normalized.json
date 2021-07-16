@@ -1,0 +1,170 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Accessor Sparse",
+  "type": "object",
+  "description": "Sparse storage of attributes that deviate from their initialization value.",
+  "allOf": [
+    {
+      "$ref": "#/definitions/glTFProperty.schema.json"
+    }
+  ],
+  "properties": {
+    "count": {
+      "type": "integer",
+      "description": "Number of entries stored in the sparse array.",
+      "minimum": 1,
+      "gltf_detailedDescription": "The number of attributes encoded in this sparse accessor."
+    },
+    "indices": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/accessor.sparse.indices.schema.json"
+        }
+      ],
+      "description": "Index array of size `count` that points to those accessor attributes that deviate from their initialization value. Indices must strictly increase."
+    },
+    "values": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/accessor.sparse.values.schema.json"
+        }
+      ],
+      "description": "Array of size `count` times number of components, storing the displaced accessor attributes pointed by `indices`. Substituted values must have the same `componentType` and number of components as the base accessor."
+    },
+    "extensions": {},
+    "extras": {}
+  },
+  "required": [
+    "count",
+    "indices",
+    "values"
+  ],
+  "definitions": {
+    "glTFProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Property",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extension.schema.json"
+        },
+        "extras": {
+          "$ref": "#/definitions/extras.schema.json"
+        }
+      }
+    },
+    "extension.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extension",
+      "type": "object",
+      "description": "Dictionary object with extension-specific objects.",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "extras.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extras",
+      "description": "Application-specific data."
+    },
+    "accessor.sparse.indices.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Accessor Sparse Indices",
+      "type": "object",
+      "description": "Indices of those attributes that deviate from their initialization value.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "bufferView": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/glTFid.schema.json"
+            }
+          ],
+          "description": "The index of the bufferView with sparse indices. Referenced bufferView can\u0027t have ARRAY_BUFFER or ELEMENT_ARRAY_BUFFER target."
+        },
+        "byteOffset": {
+          "type": "integer",
+          "description": "The offset relative to the start of the bufferView in bytes. Must be aligned.",
+          "minimum": 0,
+          "default": 0
+        },
+        "componentType": {
+          "description": "The indices data type.",
+          "gltf_detailedDescription": "The indices data type.  Valid values correspond to WebGL enums: `5121` (UNSIGNED_BYTE), `5123` (UNSIGNED_SHORT), `5125` (UNSIGNED_INT).",
+          "anyOf": [
+            {
+              "enum": [
+                5121
+              ],
+              "description": "UNSIGNED_BYTE"
+            },
+            {
+              "enum": [
+                5123
+              ],
+              "description": "UNSIGNED_SHORT"
+            },
+            {
+              "enum": [
+                5125
+              ],
+              "description": "UNSIGNED_INT"
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "extensions": {},
+        "extras": {}
+      },
+      "required": [
+        "bufferView",
+        "componentType"
+      ]
+    },
+    "glTFid.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Id",
+      "type": "integer",
+      "minimum": 0
+    },
+    "accessor.sparse.values.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Accessor Sparse Values",
+      "type": "object",
+      "description": "Array of size `accessor.sparse.count` times number of components storing the displaced accessor attributes pointed by `accessor.sparse.indices`.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "bufferView": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/glTFid.schema.json"
+            }
+          ],
+          "description": "The index of the bufferView with sparse values. Referenced bufferView can\u0027t have ARRAY_BUFFER or ELEMENT_ARRAY_BUFFER target."
+        },
+        "byteOffset": {
+          "type": "integer",
+          "description": "The offset relative to the start of the bufferView in bytes. Must be aligned.",
+          "minimum": 0,
+          "default": 0
+        },
+        "extensions": {},
+        "extras": {}
+      },
+      "required": [
+        "bufferView"
+      ]
+    }
+  }
+}

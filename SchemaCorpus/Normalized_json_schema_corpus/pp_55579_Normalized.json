@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/kloiasoft/eventapis/blob/master/spec/schema/operation.json",
+  "title": "EventApis Event Wrapper",
+  "description": "EventApis Event Wrapper Schema",
+  "type": "object",
+  "properties": {
+    "event": {
+      "transactionState": "string",
+      "description": "Published state of Operation",
+      "enum": [
+        "RUNNING",
+        "TXN_FAILED",
+        "TXN_SUCCEEDED"
+      ]
+    },
+    "aggregateId": {
+      "type": "string",
+      "description": "Aggregate Id of Operation"
+    },
+    "parentId": {
+      "type": "string",
+      "description": "Sender of Event - Service Name"
+    },
+    "sender": {
+      "type": "string",
+      "description": "Sender of Event - Service Name"
+    },
+    "opDate": {
+      "type": "integer",
+      "description": "Event Send Epoch"
+    },
+    "context": {
+      "$ref": "#/definitions/context.json"
+    },
+    "userContext": {
+      "type": "object",
+      "description": "User Context extension to carry with events",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "event",
+    "sender",
+    "aggregateId",
+    "context",
+    "opDate",
+    "userContext"
+  ],
+  "definitions": {
+    "context.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "EventApis Event Context",
+      "description": "EventApis Event Context Schema",
+      "type": "object",
+      "properties": {
+        "opId": {
+          "type": "string",
+          "description": "Operation Id initially given while invoking command"
+        },
+        "parentOpId": {
+          "type": "string",
+          "description": "Parent Operation Id for nested invocations"
+        },
+        "commandContext": {
+          "type": "string",
+          "description": "Name of Initial Command"
+        },
+        "commandTimeout": {
+          "type": "integer",
+          "description": "Timeout in Milliseconds, After this timeout Operation will be assumed as finalized"
+        },
+        "startTime": {
+          "type": "integer",
+          "description": "Reference starting time of Operation"
+        }
+      },
+      "required": [
+        "opId",
+        "commandContext",
+        "commandTimeout",
+        "startTime"
+      ]
+    }
+  }
+}

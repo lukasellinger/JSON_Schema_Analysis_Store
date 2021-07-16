@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "type": "object",
+  "javaType": "org.apache.streams.hdfs.HdfsWriterConfiguration",
+  "extends": {
+    "$ref": "#/definitions/HdfsConfiguration.json"
+  },
+  "javaInterfaces": [
+    "java.io.Serializable"
+  ],
+  "properties": {
+    "writerPath": {
+      "type": "string",
+      "description": "Path "
+    },
+    "writerFilePrefix": {
+      "type": "string",
+      "description": "File Prefix"
+    },
+    "linesPerFile": {
+      "type": "integer",
+      "description": "Lines Per File",
+      "default": 1000
+    },
+    "compression": {
+      "type": "string",
+      "description": "compression",
+      "enum": [
+        "none",
+        "gzip"
+      ],
+      "default": "none"
+    }
+  },
+  "definitions": {
+    "HdfsConfiguration.json": {
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "type": "object",
+      "javaType": "org.apache.streams.hdfs.HdfsConfiguration",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "extends": {
+        "$ref": "#/definitions/..\\..\\..\\..\\..\\..\\..\\..\\..\\streams-components\\streams-converters\\src\\main\\jsonschema\\org\\apache\\streams\\converter\\LineReadWriteConfiguration.json"
+      },
+      "properties": {
+        "scheme": {
+          "type": "string",
+          "description": "scheme",
+          "enum": [
+            "file",
+            "hdfs",
+            "webhdfs",
+            "s3",
+            "s3n",
+            "s3a",
+            "emrfs"
+          ],
+          "default": "webhdfs"
+        },
+        "host": {
+          "type": "string",
+          "description": "WebHdfs host"
+        },
+        "port": {
+          "type": "integer",
+          "description": "WebHdfs port"
+        },
+        "path": {
+          "type": "string",
+          "description": "Base path"
+        },
+        "user": {
+          "type": "string",
+          "description": "User"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password"
+        }
+      }
+    },
+    "..\\..\\..\\..\\..\\..\\..\\..\\..\\streams-components\\streams-converters\\src\\main\\jsonschema\\org\\apache\\streams\\converter\\LineReadWriteConfiguration.json": {
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "type": "object",
+      "javaType": "org.apache.streams.converter.LineReadWriteConfiguration",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "ID",
+            "TS",
+            "META",
+            "DOC"
+          ]
+        },
+        "field_delimiter": {
+          "type": "string",
+          "default": "\t"
+        },
+        "line_delimiter": {
+          "type": "string",
+          "default": "\n"
+        },
+        "encoding": {
+          "type": "string",
+          "default": "UTF-8"
+        }
+      }
+    }
+  }
+}

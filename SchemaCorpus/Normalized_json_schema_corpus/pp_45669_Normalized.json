@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "related_artifacts": {
+      "type": "array",
+      "items": {}
+    },
+    "discussion_thread": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "posts": {
+          "type": "array",
+          "items": {}
+        },
+        "discussion_id": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        }
+      }
+    },
+    "author": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state": {
+      "type": "string"
+    },
+    "mod_date": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "_id": {
+      "type": "string"
+    },
+    "discussion_thread_url": {
+      "type": "string"
+    }
+  }
+}

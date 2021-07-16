@@ -1,0 +1,2687 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/LinkView/InlineView.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Встроенное представление",
+  "type": "object",
+  "properties": {
+    "OpenMode": {
+      "description": "Способ открытия представления",
+      "$ref": "#/definitions/OpenMode.json",
+      "default": "Default"
+    },
+    "Container": {
+      "description": "Имя контейнера для открытия представления",
+      "type": "string"
+    },
+    "DialogWidth": {
+      "description": "Ширина диалогового окна",
+      "type": "string"
+    },
+    "View": {
+      "description": "Встроенное описание представления",
+      "$ref": "#/definitions/..\\View\\View.json"
+    }
+  },
+  "required": [
+    "View"
+  ],
+  "definitions": {
+    "OpenMode.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Способ открытия представления",
+      "enum": [
+        "Default",
+        "Container",
+        "Dialog"
+      ]
+    },
+    "..\\View\\View.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Визуальное представление",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {
+        "Scripts": {
+          "description": "Список скриптов представления",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\Script\\Script.json"
+          }
+        },
+        "Parameters": {
+          "description": "Список параметров представления",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\View\\Parameter.json"
+          }
+        },
+        "DataSources": {
+          "description": "Список источников данных представления",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\DataSource\\DataSource.json"
+          }
+        },
+        "HeaderTemplate": {
+          "description": "Шаблон заголовка представления",
+          "$ref": "#/definitions/..\\VisualElement\\VisualElement.json"
+        },
+        "CloseButtonVisibility": {
+          "description": "Флаг видимости кнопки закрытия",
+          "type": "boolean",
+          "default": true
+        },
+        "OnOpening": {
+          "description": "Обработчик события о том, что представление открывается",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnOpened": {
+          "description": "Обработчик события о том, что представление было открыто",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnClosing": {
+          "description": "Обработчик события о том, что представление закрывается",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnClosed": {
+          "description": "Обработчик события о том, что представление было закрыто",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\Container\\Container.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер визуальных элементов представления",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        }
+      ],
+      "properties": {
+        "Items": {
+          "description": "Список дочерних элементов контейнера",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/..\\VisualElement\\VisualElement.json"
+              }
+            }
+          ]
+        },
+        "ItemTemplate": {
+          "description": "Шаблон отображения дочерних элементов контейнера",
+          "$ref": "#/definitions/..\\VisualElement\\VisualElement.json"
+        },
+        "ItemFormat": {
+          "description": "Формат отображения дочерних элементов контейнера",
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\DisplayFormat\\DisplayFormat.json"
+        },
+        "ItemSelector": {
+          "description": "Функция, конструирующая отображаемое значение",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "ItemProperty": {
+          "description": "Свойство дочерних элементов контейнера для отображения в контейнере",
+          "type": "string"
+        },
+        "GroupValueSelector": {
+          "description": "Функция выборки из элемента коллекции значения для группировки",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "GroupValueProperty": {
+          "description": "Свойство элемента коллекции со значением для группировки",
+          "type": "string"
+        },
+        "GroupItemTemplate": {
+          "description": "Шаблон отображения элемента коллекции для заголовка группы",
+          "$ref": "#/definitions/..\\VisualElement\\VisualElement.json"
+        },
+        "GroupItemFormat": {
+          "description": "Правила форматирования элемента коллекции для заголовка группы",
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\DisplayFormat\\DisplayFormat.json"
+        },
+        "GroupItemSelector": {
+          "description": "Функция выборки из элемента коллеции значения для заголовка группы",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "GroupItemProperty": {
+          "description": "Свойство элемента коллекции со значением для заголовка группы",
+          "type": "string"
+        }
+      }
+    },
+    "..\\Element\\Element.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Базовый тип для визуальных элементов представления",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Наименование элемента",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Пояснение к элементу",
+          "type": "string"
+        },
+        "Text": {
+          "description": "Текст заголовка элемента",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ]
+        },
+        "Focusable": {
+          "description": "Возможен ли установить фокус ввода на элемент",
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ],
+          "default": true
+        },
+        "Enabled": {
+          "description": "Возможен ли доступ к элементу",
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ],
+          "default": true
+        },
+        "Visible": {
+          "description": "Отображается ли элемент в интерфейсе",
+          "default": true,
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ]
+        },
+        "VerticalAlignment": {
+          "description": "Вертикальное выравнивание в родительском элементе",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\Element\\ElementVerticalAlignment.json"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ]
+        },
+        "HorizontalAlignment": {
+          "description": "Горизонтальное выравнивание в родительском элементе",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\Element\\ElementHorizontalAlignment.json"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ],
+          "default": "Stretch"
+        },
+        "TextHorizontalAlignment": {
+          "description": "Горизонтальное выравнивание текста внутри элемента",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\Element\\TextHorizontalAlignment.json"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ],
+          "default": "Left"
+        },
+        "TextVerticalAlignment": {
+          "description": "Вертикальное выравнивание текста внутри элемента",
+          "$ref": "#/definitions/..\\Element\\TextVerticalAlignment.json"
+        },
+        "TextStyle": {
+          "description": "Стиль текста элемента",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\Style\\TextStyle.json"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ]
+        },
+        "Style": {
+          "description": "Имя кастомного стиля",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ]
+        },
+        "Foreground": {
+          "description": "Цвет текста элемента",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\Style\\ColorStyle.json"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ]
+        },
+        "Background": {
+          "description": "Цвет фона элемента",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\Style\\ColorStyle.json"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ]
+        },
+        "ToolTip": {
+          "description": "Подсказка элемента",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/..\\VisualElement\\VisualElement.json"
+            }
+          ]
+        },
+        "Tag": {
+          "description": "Произвольное значение, которое можно привязать к элементу"
+        },
+        "OnLoaded": {
+          "description": "Обработчик события о том, что элемент был загружен",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnGotFocus": {
+          "description": "Обработчик события о том, что элемент получил фокус ввода",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnLostFocus": {
+          "description": "Обработчик события о том, что элемент потерял фокус ввода",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnClick": {
+          "description": "Обработчик события о том, что по элементу сделали клик мыши",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnDoubleClick": {
+          "description": "Обработчик события о том, что по элементу сделали двойной клик мыши",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnMouseDown": {
+          "description": "Обработчик события о том, что на элементе нажали кнопку мыши",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnMouseUp": {
+          "description": "Обработчик события о том, что на элементе отпустили кнопку мыши",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnMouseWheel": {
+          "description": "Обработчик события о том, что на элементе прокрутили колесо мыши",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnMouseEnter": {
+          "description": "Обработчик события о том, что указатель мыши вошел в границы элемента",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnMouseLeave": {
+          "description": "Обработчик события о том, что указатель мыши покинул границы элемента",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnMouseMove": {
+          "description": "Обработчик события о том, что указатель мыши двигался внутри элемента",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnKeyDown": {
+          "description": "Обработчик события о том, что на элементе нажали клавишу клавиатуры",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnKeyUp": {
+          "description": "Обработчик события о том, что на элементе отпустили клавишу клавиатуры",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnPropertyChanged": {
+          "description": "Обработчик события о том, что одно из свойств изменилось",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\DataBinding\\DataBinding.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Привязка данных между элементом и источником",
+      "type": "object",
+      "properties": {
+        "Mode": {
+          "description": "Направление потока данных в привязке",
+          "$ref": "#/definitions/..\\DataBinding\\BindingMode.json",
+          "default": "TwoWay"
+        },
+        "Source": {
+          "description": "Наименование источника данных привязки",
+          "type": "string"
+        },
+        "Property": {
+          "description": "Путь к свойству источника данных привязки",
+          "type": "string"
+        },
+        "Converter": {
+          "description": "Преобразователь данных между элементом и источником",
+          "$ref": "#/definitions/..\\DataBinding\\BindingConverter.json"
+        },
+        "DefaultValue": {
+          "description": "Значение по умолчанию"
+        }
+      },
+      "required": [
+        "Source"
+      ]
+    },
+    "..\\DataBinding\\BindingMode.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Направление потока данных в привязке",
+      "enum": [
+        "TwoWay",
+        "ToSource",
+        "ToElement"
+      ]
+    },
+    "..\\DataBinding\\BindingConverter.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Преобразователь данных между элементом и источником",
+      "type": "object",
+      "properties": {
+        "ToSource": {
+          "description": "Функция конвертации данных элемента в формат данных источника",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "ToElement": {
+          "description": "Функция конвертации данных источника в формат данных элемента",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\Script\\LinkScript.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Ссылка на прикладной скрипт, выполняемый на стороне клиента",
+      "type": "string"
+    },
+    "..\\Element\\ElementVerticalAlignment.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Вертикальное выравнивание в родительском элементе",
+      "enum": [
+        "Top",
+        "Center",
+        "Bottom",
+        "Stretch"
+      ]
+    },
+    "..\\Element\\ElementHorizontalAlignment.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Горизонтальное выравнивание в родительском элементе",
+      "enum": [
+        "Left",
+        "Center",
+        "Right",
+        "Stretch"
+      ]
+    },
+    "..\\Element\\TextHorizontalAlignment.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Горизонтальное выравнивание текста в элементе",
+      "enum": [
+        "Left",
+        "Right",
+        "Center",
+        "Justify"
+      ]
+    },
+    "..\\Element\\TextVerticalAlignment.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Вертикальное выравнивание текста в элементе",
+      "enum": [
+        "Top",
+        "Center",
+        "Bottom"
+      ]
+    },
+    "..\\Style\\TextStyle.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Стиль текста",
+      "enum": [
+        "Display4",
+        "Display3",
+        "Display2",
+        "Display1",
+        "Headline",
+        "Title",
+        "Subhead",
+        "Body2",
+        "Body1",
+        "Caption",
+        "Menu",
+        "Button"
+      ]
+    },
+    "..\\Style\\ColorStyle.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Стиль цвета",
+      "enum": [
+        "Transparent",
+        "Primary1",
+        "Primary2",
+        "Primary3",
+        "Accent1",
+        "Accent2",
+        "Accent3",
+        "Background1",
+        "Background2",
+        "Background3",
+        "Background4",
+        "White",
+        "Black"
+      ]
+    },
+    "..\\VisualElement\\VisualElement.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Визуальный элемент представления",
+      "type": "object",
+      "properties": {
+        "View": {
+          "$ref": "#/definitions/..\\View\\View.json"
+        },
+        "Button": {
+          "$ref": "#/definitions/..\\Components\\Button\\Button.json"
+        },
+        "PopupButton": {
+          "$ref": "#/definitions/..\\Components\\PopupButton\\PopupButton.json"
+        },
+        "ButtonEdit": {
+          "$ref": "#/definitions/..\\Components\\ButtonEdit\\ButtonEdit.json"
+        },
+        "ToolBar": {
+          "$ref": "#/definitions/..\\Components\\ToolBar\\ToolBar.json"
+        },
+        "MenuBar": {
+          "$ref": "#/definitions/..\\Components\\MenuBar\\MenuBar.json"
+        },
+        "Label": {
+          "$ref": "#/definitions/..\\Components\\Label\\Label.json"
+        },
+        "CheckBox": {
+          "$ref": "#/definitions/..\\Components\\CheckBox\\CheckBox.json"
+        },
+        "IndeterminateCheckBox": {
+          "$ref": "#/definitions/..\\Components\\IndeterminateCheckBox\\IndeterminateCheckBox.json"
+        },
+        "ToggleButton": {
+          "$ref": "#/definitions/..\\Components\\ToggleButton\\ToggleButton.json"
+        },
+        "TextBox": {
+          "$ref": "#/definitions/..\\Components\\TextBox\\TextBox.json"
+        },
+        "NumericBox": {
+          "$ref": "#/definitions/..\\Components\\NumericBox\\NumericBox.json"
+        },
+        "DatePicker": {
+          "$ref": "#/definitions/..\\Components\\DatePicker\\DatePicker.json"
+        },
+        "DateTimePicker": {
+          "$ref": "#/definitions/..\\Components\\DateTimePicker\\DateTimePicker.json"
+        },
+        "TimePicker": {
+          "$ref": "#/definitions/..\\Components\\TimePicker\\TimePicker.json"
+        },
+        "PasswordBox": {
+          "$ref": "#/definitions/..\\Components\\PasswordBox\\PasswordBox.json"
+        },
+        "Icon": {
+          "$ref": "#/definitions/..\\Components\\Icon\\Icon.json"
+        },
+        "ImageBox": {
+          "$ref": "#/definitions/..\\Components\\ImageBox\\ImageBox.json"
+        },
+        "FileBox": {
+          "$ref": "#/definitions/..\\Components\\FileBox\\FileBox.json"
+        },
+        "ComboBox": {
+          "$ref": "#/definitions/..\\Components\\ComboBox\\ComboBox.json"
+        },
+        "ListBox": {
+          "$ref": "#/definitions/..\\Components\\ListBox\\ListBox.json"
+        },
+        "RadioGroup": {
+          "$ref": "#/definitions/..\\Components\\RadioGroup\\RadioGroup.json"
+        },
+        "DataGrid": {
+          "$ref": "#/definitions/..\\Components\\DataGrid\\DataGrid.json"
+        },
+        "TreeView": {
+          "$ref": "#/definitions/..\\Components\\TreeView\\TreeView.json"
+        },
+        "DataNavigation": {
+          "$ref": "#/definitions/..\\Components\\DataNavigation\\DataNavigation.json"
+        },
+        "Panel": {
+          "$ref": "#/definitions/..\\LayoutPanel\\Panel\\Panel.json"
+        },
+        "TabPanel": {
+          "$ref": "#/definitions/..\\LayoutPanel\\TabPanel\\TabPanel.json"
+        },
+        "TabPage": {
+          "$ref": "#/definitions/..\\LayoutPanel\\TabPanel\\TabPage.json"
+        },
+        "TablePanel": {
+          "$ref": "#/definitions/..\\LayoutPanel\\TablePanel\\TablePanel.json"
+        },
+        "Row": {
+          "$ref": "#/definitions/..\\LayoutPanel\\TablePanel\\Row.json"
+        },
+        "Cell": {
+          "$ref": "#/definitions/..\\LayoutPanel\\TablePanel\\Cell.json"
+        },
+        "GridPanel": {
+          "$ref": "#/definitions/..\\LayoutPanel\\GridPanel\\GridPanel.json"
+        },
+        "StackPanel": {
+          "$ref": "#/definitions/..\\LayoutPanel\\StackPanel\\StackPanel.json"
+        },
+        "ScrollPanel": {
+          "$ref": "#/definitions/..\\LayoutPanel\\ScrollPanel\\ScrollPanel.json"
+        },
+        "ViewPanel": {
+          "$ref": "#/definitions/..\\LayoutPanel\\ViewPanel\\ViewPanel.json"
+        },
+        "ExtensionPanel": {
+          "$ref": "#/definitions/..\\LayoutPanel\\ExtensionPanel\\ExtensionPanel.json"
+        },
+        "Frame": {
+          "$ref": "#/definitions/..\\Components\\Frame\\Frame.json"
+        }
+      }
+    },
+    "..\\Components\\Button\\Button.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Кнопка",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        }
+      ],
+      "properties": {
+        "ContentTemplate": {
+          "description": "Шаблон отображения содержимого кнопки",
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        },
+        "Content": {
+          "description": "Содержимое кнопки",
+          "type": "string"
+        },
+        "Action": {
+          "description": "Действие при нажатии на кнопку",
+          "$ref": "#/definitions/..\\Action\\Action.json"
+        },
+        "ViewMode": {
+          "description": "Режим отображения",
+          "type": "string",
+          "default": "common"
+        }
+      }
+    },
+    "..\\Action\\Action.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие, которое может быть вызвано из визуального представления",
+      "type": "object",
+      "properties": {
+        "AcceptAction": {
+          "$ref": "#/definitions/..\\Action\\AcceptAction.json"
+        },
+        "CancelAction": {
+          "$ref": "#/definitions/..\\Action\\CancelAction.json"
+        },
+        "AddAction": {
+          "$ref": "#/definitions/..\\Action\\AddAction.json"
+        },
+        "CreateItemAction": {
+          "$ref": "#/definitions/..\\Action\\CreateItemAction.json"
+        },
+        "EditAction": {
+          "$ref": "#/definitions/..\\Action\\EditAction.json"
+        },
+        "DeleteAction": {
+          "$ref": "#/definitions/..\\Action\\DeleteAction.json"
+        },
+        "SaveAction": {
+          "$ref": "#/definitions/..\\Action\\SaveAction.json"
+        },
+        "UpdateAction": {
+          "$ref": "#/definitions/..\\Action\\UpdateAction.json"
+        },
+        "OpenAction": {
+          "$ref": "#/definitions/..\\Action\\OpenAction.json"
+        },
+        "SelectAction": {
+          "$ref": "#/definitions/..\\Action\\SelectAction.json"
+        },
+        "ServerAction": {
+          "$ref": "#/definitions/..\\Action\\ServerAction.json"
+        },
+        "RouteToAction": {
+          "$ref": "#/definitions/..\\Action\\RouteToAction.json"
+        }
+      }
+    },
+    "..\\Action\\AcceptAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие закрытия представления со статусом подтверждения",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Action\\BaseAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Базовый тип для предопределенных действий",
+      "type": "object",
+      "properties": {
+        "OnExecuted": {
+          "description": "Обработчик события о том, что действие было выполнено",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "CanExecute": {
+          "description": "Проверка условия для выполнения экшена",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\Action\\CancelAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие закрытия представления со статусом отмены",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Action\\AddAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие добавления элемента в источник данных",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        }
+      ],
+      "properties": {
+        "LinkView": {
+          "description": "Ссылка на представление редактирования",
+          "$ref": "#/definitions/LinkView.json"
+        },
+        "DestinationValue": {
+          "description": "Источник данных на представлении, откуда редактирование было вызвано",
+          "type": "object",
+          "properties": {
+            "Source": {
+              "description": "Название источника данных",
+              "type": "string"
+            },
+            "Property": {
+              "description": "Путь до поля в источнике данных, которое будет редактироваться. Данное поле должно быть представлено массивом",
+              "type": "string"
+            }
+          },
+          "required": [
+            "Source"
+          ]
+        },
+        "SourceValue": {
+          "description": "Источник данных на представлении редактирования",
+          "type": "object",
+          "properties": {
+            "Source": {
+              "description": "Название источника данных",
+              "type": "string"
+            }
+          },
+          "required": [
+            "Source"
+          ]
+        }
+      },
+      "required": [
+        "LinkView",
+        "SourceValue"
+      ]
+    },
+    "LinkView.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер для описания ссылки на представление",
+      "type": "object",
+      "properties": {
+        "AutoView": {
+          "$ref": "#/definitions/AutoView.json"
+        },
+        "InlineView": {
+          "$ref": "#"
+        }
+      }
+    },
+    "AutoView.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Автоматически генерируемое представление",
+      "type": "object",
+      "properties": {
+        "OpenMode": {
+          "description": "Способ открытия представления",
+          "$ref": "#/definitions/OpenMode.json",
+          "default": "Default"
+        },
+        "Container": {
+          "description": "Имя контейнера для открытия представления",
+          "type": "string"
+        },
+        "Parameters": {
+          "description": "Правила передачи параметров в открываемое представение",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\View\\Parameter.json"
+          }
+        },
+        "DialogWidth": {
+          "description": "Ширина диалогового окна",
+          "type": "string"
+        },
+        "Path": {
+          "description": "Путь до метаданных",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Path"
+      ]
+    },
+    "..\\View\\Parameter.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Параметр представления",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Наименование параметра",
+          "type": "string"
+        },
+        "Value": {
+          "description": "Значение параметра"
+        },
+        "DefaultValue": {
+          "description": "Значение по умолчанию"
+        },
+        "OnPropertyChanged": {
+          "description": "Обработчик события о том, что одно из свойств изменилось",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      },
+      "required": [
+        "Name"
+      ]
+    },
+    "..\\Action\\CreateItemAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие создания элемента в источнике данных из метаданных",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        }
+      ],
+      "properties": {
+        "DestinationValue": {
+          "description": "Источник данных на представлении, где необходимо создать элемент",
+          "type": "object",
+          "properties": {
+            "Source": {
+              "description": "Название источника данных",
+              "type": "string"
+            },
+            "Property": {
+              "description": "Путь до поля в источнике данных, где необходимо создать элемент. Данное поле должно быть представлено массивом",
+              "type": "string"
+            }
+          },
+          "required": [
+            "Source"
+          ]
+        }
+      },
+      "required": [
+        "DestinationValue"
+      ]
+    },
+    "..\\Action\\EditAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие редактирования текущего элемента источника данных",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        }
+      ],
+      "properties": {
+        "LinkView": {
+          "description": "Ссылка на представление редактирования",
+          "$ref": "#/definitions/LinkView.json"
+        },
+        "DestinationValue": {
+          "description": "Источник данных на представлении, откуда редактирование было вызвано",
+          "type": "object",
+          "properties": {
+            "Source": {
+              "description": "Название источника данных",
+              "type": "string"
+            },
+            "Property": {
+              "description": "Путь до поля в источнике данных, которое будет редактироваться",
+              "type": "string"
+            }
+          },
+          "required": [
+            "Source",
+            "Property"
+          ]
+        },
+        "SourceValue": {
+          "description": "Источник данных на представлении редактирования",
+          "type": "object",
+          "properties": {
+            "Source": {
+              "description": "Название источника данных",
+              "type": "string"
+            }
+          },
+          "required": [
+            "Source"
+          ]
+        }
+      },
+      "required": [
+        "LinkView",
+        "DestinationValue",
+        "SourceValue"
+      ]
+    },
+    "..\\Action\\DeleteAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие удаления текущего элемента из источника данных",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Action\\BaseFallibleAction.json"
+        }
+      ],
+      "properties": {
+        "DestinationValue": {
+          "description": "Источник данных",
+          "type": "object",
+          "properties": {
+            "Source": {
+              "description": "Название источника данных",
+              "type": "string"
+            },
+            "Property": {
+              "description": "Путь до документа в источнике данных, который будет удалятся",
+              "type": "string"
+            }
+          },
+          "required": [
+            "Source",
+            "Property"
+          ]
+        },
+        "Accept": {
+          "description": "Нужно ли подтверждение удаления",
+          "type": "boolean",
+          "default": true
+        },
+        "AcceptMessage": {
+          "description": "Текст для сообщения во всплывающем окне",
+          "type": "string"
+        },
+        "AcceptMessageType": {
+          "description": "Тип всплывающего окна",
+          "enum": [
+            "default",
+            "warning",
+            "error"
+          ],
+          "default": "default"
+        }
+      },
+      "required": [
+        "DestinationValue"
+      ]
+    },
+    "..\\Action\\BaseFallibleAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действия, которые могут завершиться ошибкой",
+      "type": "object",
+      "properties": {
+        "OnSuccess": {
+          "description": "Обработчик события о том, что действие было выполнено успешно",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnError": {
+          "description": "Обработчик события о том, что действие было выполнено с ошибкой",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\Action\\SaveAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие сохранения текущего элемента источника данных",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Action\\BaseFallibleAction.json"
+        }
+      ],
+      "properties": {
+        "DestinationValue": {
+          "description": "Источник данных",
+          "type": "object",
+          "properties": {
+            "Source": {
+              "description": "Название источника данных",
+              "type": "string"
+            }
+          },
+          "required": [
+            "Source"
+          ]
+        },
+        "CanClose": {
+          "description": "Разрешено ли закрытие представления",
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "required": [
+        "DestinationValue"
+      ]
+    },
+    "..\\Action\\UpdateAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие обновления источника данных",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Action\\BaseFallibleAction.json"
+        }
+      ],
+      "properties": {
+        "DestinationValue": {
+          "description": "Источник данных",
+          "type": "object",
+          "properties": {
+            "Source": {
+              "description": "Название источника данных",
+              "type": "string"
+            }
+          },
+          "required": [
+            "Source"
+          ]
+        }
+      },
+      "required": [
+        "DestinationValue"
+      ]
+    },
+    "..\\Action\\OpenAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие открытия представления",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        }
+      ],
+      "properties": {
+        "LinkView": {
+          "description": "Ссылка на представление",
+          "$ref": "#/definitions/LinkView.json"
+        }
+      },
+      "required": [
+        "LinkView"
+      ]
+    },
+    "..\\Action\\SelectAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие открытия представления для выбора данных",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        }
+      ],
+      "properties": {
+        "LinkView": {
+          "description": "Ссылка на представление",
+          "$ref": "#/definitions/LinkView.json"
+        },
+        "SourceValue": {
+          "description": "Источник выбранного значения",
+          "type": "object",
+          "properties": {
+            "Source": {
+              "description": "Название источника данных",
+              "type": "string"
+            },
+            "Property": {
+              "description": "Путь до поля в источнике данных, которое будет копироваться",
+              "type": "string"
+            }
+          },
+          "required": [
+            "Source",
+            "Property"
+          ]
+        },
+        "DestinationValue": {
+          "description": "Приемник выбранного значения",
+          "type": "object",
+          "properties": {
+            "Source": {
+              "description": "Название источника данных",
+              "type": "string"
+            },
+            "Property": {
+              "description": "Путь до поля в источнике данных, куда будет копировано значение",
+              "type": "string"
+            }
+          },
+          "required": [
+            "Source",
+            "Property"
+          ]
+        }
+      },
+      "required": [
+        "LinkView",
+        "DestinationValue",
+        "SourceValue"
+      ]
+    },
+    "..\\Action\\ServerAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие вызова операции на сервере",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Action\\BaseFallibleAction.json"
+        }
+      ],
+      "properties": {
+        "Origin": {
+          "description": "Базовая часть url запроса",
+          "type": "string"
+        },
+        "Path": {
+          "description": "Уточняющая часть url запроса",
+          "type": "string"
+        },
+        "Method": {
+          "description": "Метод запроса",
+          "type": "string",
+          "default": "get"
+        },
+        "ContentType": {
+          "description": "Тип данных",
+          "type": "string",
+          "default": "application/x-www-form-urlencoded; charset\u003dutf-8"
+        },
+        "Data": {
+          "description": "Данные запроса",
+          "type": "object"
+        },
+        "Params": {
+          "description": "Параметры запроса",
+          "type": "object"
+        }
+      },
+      "required": [
+        "Path"
+      ]
+    },
+    "..\\Action\\RouteToAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действие перехода по указанному имени маршрута",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Action\\BaseAction.json"
+        }
+      ],
+      "properties": {
+        "Name": {
+          "description": "Название маршрута из InfinniUI.config.Routes",
+          "type": "string"
+        },
+        "Replace": {
+          "description": "Возможность обновить URL без создания записи в истории браузера",
+          "type": "boolean",
+          "default": false
+        },
+        "Params": {
+          "description": "Параметры",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\Components\\Link\\HrefParam.json"
+          }
+        },
+        "Query": {
+          "description": "Параметры поиска",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\Components\\Link\\HrefParam.json"
+          }
+        }
+      },
+      "required": [
+        "Name"
+      ]
+    },
+    "..\\Components\\Link\\HrefParam.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Параметер ссылки",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Название",
+          "type": "string"
+        },
+        "Value": {
+          "description": "Значение",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ]
+        }
+      },
+      "required": [
+        "Name",
+        "Value"
+      ]
+    },
+    "..\\Components\\PopupButton\\PopupButton.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Кнопка со всплывающим контейнером",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\Button\\Button.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Components\\ButtonEdit\\ButtonEdit.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Текстовое поле с кнопкой",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\TextBox\\TextBox.json"
+        }
+      ],
+      "properties": {
+        "Icon": {
+          "description": "Иконка, отображаемая на кнопке",
+          "type": "string"
+        },
+        "ReadOnly": {
+          "description": "Возможно ли редактирование текстового поля",
+          "type": "boolean",
+          "default": true
+        },
+        "ShowClear": {
+          "description": "Наличие кнопки, очищающей указанное значение",
+          "type": "boolean",
+          "default": true
+        },
+        "OnButtonClick": {
+          "description": "Обработчик события нажатия на кнопку",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "Action": {
+          "description": "Действие при нажатии на кнопку",
+          "$ref": "#/definitions/..\\Action\\Action.json"
+        }
+      }
+    },
+    "..\\Components\\TextBox\\TextBox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Редактор неформатированного текста",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\TextEditorBase.json"
+        }
+      ],
+      "properties": {
+        "Multiline": {
+          "description": "Разрешен ли многострочный текст",
+          "type": "boolean",
+          "default": false
+        },
+        "LineCount": {
+          "description": "Максимально видимое количество строк",
+          "type": "integer"
+        }
+      }
+    },
+    "..\\Components\\TextEditorBase\\TextEditorBase.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Базовый тип редакторов текстовых значений",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Components\\EditorBase\\EditorBase.json"
+        }
+      ],
+      "properties": {
+        "LabelText": {
+          "description": "Текст метки",
+          "type": "string"
+        },
+        "LabelTextTitle": {
+          "description": "Копировать текст метки в атрибут title или нет",
+          "type": "boolean"
+        },
+        "LabelFloating": {
+          "description": "Является ли метка плавающей",
+          "type": "boolean",
+          "default": false
+        },
+        "DisplayFormat": {
+          "description": "Формат отображения значения",
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\DisplayFormat\\DisplayFormat.json"
+        },
+        "EditMask": {
+          "description": "Маска ввода значения",
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\EditMask\\EditMask.json"
+        }
+      }
+    },
+    "..\\Components\\EditorBase\\EditorBase.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Интерфейс редакторов значений",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        }
+      ],
+      "properties": {
+        "Value": {
+          "description": "Значение"
+        },
+        "HintText": {
+          "description": "Текст с подсказкой для ввода",
+          "type": "string"
+        },
+        "ErrorText": {
+          "description": "Текст с информацией об ошибке",
+          "type": "string"
+        },
+        "WarningText": {
+          "description": "Текст с информацией о предупреждении",
+          "type": "string"
+        },
+        "OnValueChanging": {
+          "description": "Обработчик события о том, что значение изменяется",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnValueChanged": {
+          "description": "Обработчик события о том, что значение было изменено",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\Components\\TextEditorBase\\DisplayFormat\\DisplayFormat.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Формат отображения",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "BooleanFormat": {
+              "$ref": "#/definitions/..\\Components\\TextEditorBase\\DisplayFormat\\BooleanFormat.json"
+            },
+            "DateTimeFormat": {
+              "$ref": "#/definitions/..\\Components\\TextEditorBase\\DisplayFormat\\DateTimeFormat.json"
+            },
+            "NumberFormat": {
+              "$ref": "#/definitions/..\\Components\\TextEditorBase\\DisplayFormat\\NumberFormat.json"
+            },
+            "ObjectFormat": {
+              "$ref": "#/definitions/..\\Components\\TextEditorBase\\DisplayFormat\\ObjectFormat.json"
+            }
+          }
+        }
+      ]
+    },
+    "..\\Components\\TextEditorBase\\DisplayFormat\\BooleanFormat.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Формат отображения логического значения",
+      "type": "object",
+      "properties": {
+        "TrueText": {
+          "type": "string",
+          "description": "Текст для отображения истинного значения",
+          "default": "True"
+        },
+        "FalseText": {
+          "type": "string",
+          "description": "Текст для отображения ложного значения",
+          "default": "False"
+        }
+      }
+    },
+    "..\\Components\\TextEditorBase\\DisplayFormat\\DateTimeFormat.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Формат отображения даты/времени",
+      "type": "object",
+      "properties": {
+        "Format": {
+          "description": "Формат отображения",
+          "type": "string",
+          "default": "G"
+        }
+      }
+    },
+    "..\\Components\\TextEditorBase\\DisplayFormat\\NumberFormat.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Формат отображения числового значения",
+      "type": "object",
+      "properties": {
+        "Format": {
+          "description": "Формат отображения",
+          "type": "string",
+          "default": "n"
+        }
+      }
+    },
+    "..\\Components\\TextEditorBase\\DisplayFormat\\ObjectFormat.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Формат отображения объекта",
+      "type": "object",
+      "properties": {
+        "Format": {
+          "description": "Формат отображения",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Format"
+      ]
+    },
+    "..\\Components\\TextEditorBase\\EditMask\\EditMask.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Маска ввода данных",
+      "type": "object",
+      "properties": {
+        "NumberEditMask": {
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\EditMask\\NumberEditMask.json"
+        },
+        "DateTimeEditMask": {
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\EditMask\\DateTimeEditMask.json"
+        },
+        "TemplateEditMask": {
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\EditMask\\TemplateEditMask.json"
+        }
+      }
+    },
+    "..\\Components\\TextEditorBase\\EditMask\\NumberEditMask.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Маска ввода числового значения",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\EditMask\\EditMaskBase.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Components\\TextEditorBase\\EditMask\\EditMaskBase.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Базовый тип маски ввода данных",
+      "type": "object",
+      "properties": {
+        "Mask": {
+          "description": "Маска ввода данных",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Mask"
+      ]
+    },
+    "..\\Components\\TextEditorBase\\EditMask\\DateTimeEditMask.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Маска ввода даты и времени",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\EditMask\\EditMaskBase.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Components\\TextEditorBase\\EditMask\\TemplateEditMask.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Маска ввода строки по шаблону",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\EditMask\\EditMaskBase.json"
+        }
+      ],
+      "properties": {
+        "MaskSaveLiteral": {
+          "description": "Сохранять литералы в редактируемом значении",
+          "type": "boolean",
+          "default": true
+        },
+        "MaskPlaceHolder": {
+          "description": "Символ заполнителя для метасимволов",
+          "type": "string",
+          "default": "_"
+        }
+      }
+    },
+    "..\\Components\\ToolBar\\ToolBar.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Панель инструментов",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Components\\MenuBar\\MenuBar.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Меню",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Components\\Label\\Label.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Текстовая метка",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Components\\EditorBase\\EditorBase.json"
+        }
+      ],
+      "properties": {
+        "DisplayFormat": {
+          "description": "Формат отображения значения",
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\DisplayFormat\\DisplayFormat.json"
+        },
+        "TextTrimming": {
+          "description": "Усекается ли текст при переполнении",
+          "type": "boolean",
+          "default": true
+        },
+        "TextWrapping": {
+          "description": "Переносится ли текст при переполнении",
+          "type": "boolean",
+          "default": true
+        },
+        "EscapeHtml": {
+          "description": "Экранируется ли HTML-разметка",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "..\\Components\\CheckBox\\CheckBox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Переключатель в виде флажка",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Components\\EditorBase\\EditorBase.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Components\\IndeterminateCheckBox\\IndeterminateCheckBox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Переключатель в виде флажка с возможностью неопределенного состояния",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\CheckBox\\CheckBox.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Components\\ToggleButton\\ToggleButton.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Переключатель в виде кнопки",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Components\\EditorBase\\EditorBase.json"
+        }
+      ],
+      "properties": {
+        "TextOn": {
+          "description": "Текст на включенное состояние",
+          "type": "string",
+          "default": "ON"
+        },
+        "TextOff": {
+          "description": "Текст на выключенное состояние",
+          "type": "string",
+          "default": "OFF"
+        }
+      }
+    },
+    "..\\Components\\NumericBox\\NumericBox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Редактор чисел",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\TextEditorBase.json"
+        }
+      ],
+      "properties": {
+        "MinValue": {
+          "description": "Минимальное значение",
+          "type": "number"
+        },
+        "MaxValue": {
+          "description": "Максимальное значение",
+          "type": "number"
+        },
+        "Increment": {
+          "description": "Приращение значения",
+          "type": "number",
+          "default": 1
+        },
+        "StartValue": {
+          "description": "Начальное значение по умолчанию",
+          "type": "number"
+        }
+      }
+    },
+    "..\\Components\\DatePicker\\DatePicker.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Редактор даты (значением данного элемента всегдя является UNIX time)",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\DateTimePicker\\DateTimePicker.json"
+        }
+      ]
+    },
+    "..\\Components\\DateTimePicker\\DateTimePicker.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Редактор даты и времени",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\TextEditorBase\\TextEditorBase.json"
+        }
+      ],
+      "properties": {
+        "MinValue": {
+          "description": "Минимальное значение",
+          "type": "string",
+          "format": "date-time"
+        },
+        "MaxValue": {
+          "description": "Максимальное значение",
+          "type": "string",
+          "format": "date-time"
+        },
+        "Mode": {
+          "description": "Режим работы элемента",
+          "$ref": "#/definitions/..\\Components\\DateTimePicker\\DatePickerMode.json",
+          "default": "Date"
+        },
+        "TimeZone": {
+          "description": "Смещение часового пояса, являющееся разностью в минутах между временем UTC и местным временем",
+          "type": "integer"
+        },
+        "ExpandOnEnter": {
+          "description": "Открытие выпадающего меню по нажатию на клавишу Enter",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "..\\Components\\DateTimePicker\\DatePickerMode.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Режим работы DatePicker",
+      "enum": [
+        "Date",
+        "Time",
+        "DateTime"
+      ]
+    },
+    "..\\Components\\TimePicker\\TimePicker.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Редактор времени (значением данного элемента всегдя является UNIX time)",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\DateTimePicker\\DateTimePicker.json"
+        }
+      ]
+    },
+    "..\\Components\\PasswordBox\\PasswordBox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Редактор пароля",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Components\\EditorBase\\EditorBase.json"
+        }
+      ],
+      "properties": {
+        "LabelText": {
+          "description": "Текст метки",
+          "type": "string"
+        },
+        "LabelFloating": {
+          "description": "Является ли метка плавающей",
+          "type": "boolean",
+          "default": false
+        },
+        "Autocomplete": {
+          "description": "Автоподстановка сохраненных в браузере паролей",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "..\\Components\\Icon\\Icon.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Элемент для отображения изображения",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Components\\EditorBase\\EditorBase.json"
+        }
+      ],
+      "properties": {
+        "Size": {
+          "description": "Размер иконки",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\Style\\TextStyle.json"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ]
+        }
+      }
+    },
+    "..\\Components\\ImageBox\\ImageBox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Редактор изображений",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Components\\EditorBase\\EditorBase.json"
+        }
+      ],
+      "properties": {
+        "AcceptTypes": {
+          "description": "Список допустимых форматов данных",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "MaxSize": {
+          "description": "Максимальный размер данных в байтах",
+          "type": "integer"
+        },
+        "ReadOnly": {
+          "description": "Возможено ли изменение изображения",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "..\\Components\\FileBox\\FileBox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Редактор файлов",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Components\\EditorBase\\EditorBase.json"
+        }
+      ],
+      "properties": {
+        "AcceptTypes": {
+          "description": "Список допустимых форматов данных",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "MaxSize": {
+          "description": "Максимальный размер данных в байтах",
+          "type": "integer"
+        }
+      }
+    },
+    "..\\Components\\ComboBox\\ComboBox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Выпадающий список",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\ListEditorBase\\ListEditorBase.json"
+        }
+      ],
+      "properties": {
+        "LabelText": {
+          "description": "Текст метки",
+          "type": "string"
+        },
+        "LabelFloating": {
+          "description": "Является ли метка плавающей",
+          "type": "boolean",
+          "default": false
+        },
+        "Autocomplete": {
+          "description": "Разрешено ли автозавершение ввода",
+          "type": "boolean",
+          "default": false
+        },
+        "AutocompleteProperty": {
+          "description": "Свойство, по которому будет выполняться автозавершение ввода",
+          "type": "string"
+        },
+        "ShowClear": {
+          "description": "Наличие кнопки, очищающей выбранное значение",
+          "type": "boolean",
+          "default": true
+        },
+        "ValueTemplate": {
+          "description": "Функция шаблонизации выбранного элемента",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "ValueFormat": {
+          "description": "Формат отображения выбранного элемента",
+          "type": "string"
+        },
+        "NoItemsMessage": {
+          "description": "Текст сообщения о неудачном результате поиска",
+          "type": "string"
+        },
+        "ExpandOnEnter": {
+          "description": "Открытие выпадающего списка по нажатию на клавишу Enter",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "..\\Components\\ListEditorBase\\ListEditorBase.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Базовый тип редакторов коллекций данных",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Components\\EditorBase\\EditorBase.json"
+        }
+      ],
+      "properties": {
+        "MultiSelect": {
+          "description": "Разрешен ли выбор нескольких элементов коллекции",
+          "type": "boolean",
+          "default": false
+        },
+        "ValueSelector": {
+          "description": "Функция выборки из элемента коллекции значения для выбора",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "ValueProperty": {
+          "description": "Свойство элемента коллекции со значением для выбора",
+          "type": "string"
+        },
+        "DisabledItemCondition": {
+          "description": "Функция, определяющая запрет на выбор элемента",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnSelectedItemChanged": {
+          "description": "Обработчик события о том, что элемент был выделен",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\Components\\ListBox\\ListBox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Список",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\ListEditorBase\\ListEditorBase.json"
+        }
+      ],
+      "properties": {
+        "ViewMode": {
+          "description": "Режим отображения списка",
+          "$ref": "#/definitions/..\\Components\\ListBox\\ListBoxMode.json",
+          "default": "common"
+        }
+      }
+    },
+    "..\\Components\\ListBox\\ListBoxMode.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Режим отображения списка",
+      "enum": [
+        "common",
+        "base",
+        "checking"
+      ]
+    },
+    "..\\Components\\RadioGroup\\RadioGroup.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Список радиокнопок",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\ListBox\\ListBox.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Components\\DataGrid\\DataGrid.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Таблица",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\ListEditorBase\\ListEditorBase.json"
+        }
+      ],
+      "properties": {
+        "Columns": {
+          "description": "Список колонок таблицы",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\Components\\DataGrid\\DataGridColumn.json"
+          }
+        },
+        "ShowSelectors": {
+          "description": "Наличие колонки с CheckBox/Radio для выбора элементов",
+          "type": "boolean",
+          "default": true
+        },
+        "Scroll": {
+          "description": "Растягивает DataGrid на все свободное пространство по вертикали",
+          "type": "boolean",
+          "default": true
+        },
+        "CheckAllVisible": {
+          "description": "Наличие элемента \"Выбрать все\" в шапке таблицы",
+          "type": "boolean",
+          "default": false
+        },
+        "OnCheckAllChanged": {
+          "description": "Обработчик изменения состоняие элемента \"Выбрать все\" в шапке таблицы",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnRowClick": {
+          "description": "Обработчик клика по элементу",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnRowDoubleClick": {
+          "description": "Обработчик двойного клика по элементу",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      },
+      "required": [
+        "Columns"
+      ]
+    },
+    "..\\Components\\DataGrid\\DataGridColumn.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Колонка DataGrid",
+      "type": "object",
+      "properties": {
+        "HeaderTemplate": {
+          "description": "Шаблон отображения заголовка колонки",
+          "$ref": "#/definitions/..\\VisualElement\\VisualElement.json"
+        },
+        "Header": {
+          "description": "Заголовок колонки",
+          "type": "string"
+        },
+        "CellSelector": {
+          "description": "Функция выборки из элемента коллеции значения для ячейки",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "CellProperty": {
+          "description": "Свойство элемента коллекции со значением для ячейки",
+          "type": "string"
+        },
+        "CellFormat": {
+          "description": "Правила форматирования элемента коллекции для ячейки",
+          "type": "string"
+        },
+        "CellTemplate": {
+          "description": "Шаблон отображения элемента коллекции для ячейки",
+          "$ref": "#/definitions/..\\VisualElement\\VisualElement.json"
+        },
+        "Width": {
+          "description": "Ширина колонки",
+          "type": "string"
+        },
+        "Sortable": {
+          "description": "Флаг указывающий, что данную колонку можно сортировать",
+          "type": "boolean"
+        },
+        "SortedDefault": {
+          "description": "Флаг указывающий, что элементы отсортированы по данной колонке в одном из направлений",
+          "type": "string"
+        },
+        "SortFunction": {
+          "description": "Функция сортировки при клике на колонке, принимает в аргументах направление сортировки",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\Components\\TreeView\\TreeView.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Иерархический список",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Components\\ListEditorBase\\ListEditorBase.json"
+        }
+      ],
+      "properties": {
+        "KeySelector": {
+          "description": "Функция выборки из элемента коллекции идентификатора",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "KeyProperty": {
+          "description": "Свойство элемента коллекции с идентификатором",
+          "type": "string"
+        },
+        "ParentSelector": {
+          "description": "Функция выборки из элемента коллекции идентификатора родителя",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "ParentProperty": {
+          "description": "Свойство элемента коллекции с идентификатором родителя",
+          "type": "string"
+        },
+        "OnExpand": {
+          "description": "Обработчик события при раскрытии какого-либо элемента",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnCollapse": {
+          "description": "Обработчик события при закрытии какого-либо элемента",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\Components\\DataNavigation\\DataNavigation.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Панель навигации по данным",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        }
+      ],
+      "properties": {
+        "AvailablePageSizes": {
+          "description": "Список доступных размеров страниц",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "DataSource": {
+          "description": "Наименование источника данных",
+          "type": "string"
+        }
+      },
+      "required": [
+        "DataSource"
+      ]
+    },
+    "..\\LayoutPanel\\Panel\\Panel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер в виде прямоугольной области",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {
+        "Collapsible": {
+          "description": "Разрешено ли сворачивание панели",
+          "type": "boolean",
+          "default": false
+        },
+        "Collapsed": {
+          "description": "Свернута ли панель",
+          "type": "boolean",
+          "default": false
+        },
+        "HeaderTemplate": {
+          "description": "Шаблон отображения заголовка панели",
+          "$ref": "#/definitions/..\\VisualElement\\VisualElement.json"
+        },
+        "Header": {
+          "description": "Заголовок панели",
+          "$ref": "#/definitions/..\\VisualElement\\VisualElement.json"
+        },
+        "CollapseChanger": {
+          "description": "Имя элемента, при нажатии на который панель будет сворачиваться/разворачиваться",
+          "type": "string",
+          "default": ""
+        },
+        "OnExpanding": {
+          "description": "Обработчик события о том, что панель разворачивается",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnExpanded": {
+          "description": "Обработчик события о том, что панель была развернута",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnCollapsing": {
+          "description": "Обработчик события о том, что панель сворачивается",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnCollapsed": {
+          "description": "Обработчик события о том, что панель была свернута",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\LayoutPanel\\TabPanel\\TabPanel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер в виде набора закладок",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {
+        "HeaderLocation": {
+          "description": "Расположение закладок",
+          "$ref": "#/definitions/..\\LayoutPanel\\TabPanel\\TabHeaderLocation.json",
+          "default": "Top"
+        },
+        "HeaderOrientation": {
+          "description": "Ориентация закладок",
+          "$ref": "#/definitions/..\\LayoutPanel\\TabPanel\\TabHeaderOrientation.json",
+          "default": "Horizontal"
+        },
+        "OnSelectedItemChanged": {
+          "description": "Обработчик события о том, что элемент был выделен",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\LayoutPanel\\TabPanel\\TabHeaderLocation.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Расположение закладок в TabPanel",
+      "enum": [
+        "None",
+        "Left",
+        "Top",
+        "Right",
+        "Bottom"
+      ]
+    },
+    "..\\LayoutPanel\\TabPanel\\TabHeaderOrientation.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Ориентация закладок в TabPanel",
+      "enum": [
+        "Horizontal",
+        "Vertical"
+      ]
+    },
+    "..\\LayoutPanel\\TabPanel\\TabPage.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Страница панели закладок TabPanel",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {
+        "Icon": {
+          "description": "Изображение заголовка страницы",
+          "type": "string"
+        },
+        "CanClose": {
+          "description": "Разрешено ли закрытие страницы",
+          "type": "boolean",
+          "default": false
+        },
+        "OnClosing": {
+          "description": "Обработчик события о том, что страница закрывается",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnClosed": {
+          "description": "Обработчик события о том, что страница была закрыта",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\LayoutPanel\\TablePanel\\TablePanel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер в виде набора закладок",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\LayoutPanel\\TablePanel\\Row.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Ячейка панели GridPanel",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\LayoutPanel\\TablePanel\\Cell.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Ячейка панели GridPanel",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {
+        "ColumnSpan": {
+          "description": "Размер ячейки в колонках",
+          "type": "integer",
+          "default": 1
+        }
+      }
+    },
+    "..\\LayoutPanel\\GridPanel\\GridPanel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер в виде сетки из столбцов и строк",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\LayoutPanel\\StackPanel\\StackPanel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер в виде стека элементов",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {
+        "Orientation": {
+          "description": "Ориентация стека",
+          "$ref": "#/definitions/..\\LayoutPanel\\StackPanel\\StackPanelOrientation.json",
+          "default": "Vertical"
+        },
+        "ViewMode": {
+          "description": "Режим отображения",
+          "$ref": "#/definitions/..\\LayoutPanel\\StackPanel\\StackPanelMode.json"
+        }
+      }
+    },
+    "..\\LayoutPanel\\StackPanel\\StackPanelOrientation.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Ориентация StackPanel",
+      "enum": [
+        "Horizontal",
+        "Vertical"
+      ]
+    },
+    "..\\LayoutPanel\\StackPanel\\StackPanelMode.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Режим отображения",
+      "enum": [
+        "Base",
+        "FormGroup"
+      ]
+    },
+    "..\\LayoutPanel\\ScrollPanel\\ScrollPanel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер в виде прокручиваемой области",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {
+        "HorizontalScroll": {
+          "description": "Видимость полосы прокрутки по горизонтали",
+          "$ref": "#/definitions/..\\LayoutPanel\\ScrollPanel\\ScrollVisibility.json",
+          "default": "Auto"
+        },
+        "VerticalScroll": {
+          "description": "Видимость полосы прокрутки по вертикали",
+          "$ref": "#/definitions/..\\LayoutPanel\\ScrollPanel\\ScrollVisibility.json",
+          "default": "Auto"
+        }
+      }
+    },
+    "..\\LayoutPanel\\ScrollPanel\\ScrollVisibility.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Видимость полосы прокрутки в ScrollPanel",
+      "enum": [
+        "Auto",
+        "Visible",
+        "Hidden"
+      ]
+    },
+    "..\\LayoutPanel\\ViewPanel\\ViewPanel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер для встраивания представления",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {
+        "LinkView": {
+          "description": "Ссылка на представление",
+          "$ref": "#/definitions/LinkView.json"
+        }
+      }
+    },
+    "..\\LayoutPanel\\ExtensionPanel\\ExtensionPanel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер для встраивания внешнего компонента",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Container\\Container.json"
+        }
+      ],
+      "properties": {
+        "ExtensionName": {
+          "description": "Наименование внешнего компонента",
+          "type": "string"
+        },
+        "Parameters": {
+          "description": "Правила передачи параметров во внешний компонент",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\View\\Parameter.json"
+          }
+        }
+      },
+      "required": [
+        "ExtensionName"
+      ]
+    },
+    "..\\Components\\Frame\\Frame.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Элемент для отображения Web-страницы",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\Element\\Element.json"
+        },
+        {
+          "$ref": "#/definitions/..\\Components\\EditorBase\\EditorBase.json"
+        }
+      ],
+      "properties": {}
+    },
+    "..\\Script\\Script.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Прикладной скрипт, выполняемый на стороне клиента",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Наименование функции",
+          "type": "string"
+        },
+        "Body": {
+          "description": "Тело функции",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Name",
+        "Body"
+      ]
+    },
+    "..\\DataSource\\DataSource.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Контейнер для описания источника данных представления",
+      "type": "object",
+      "properties": {
+        "ObjectDataSource": {
+          "$ref": "#/definitions/..\\DataSource\\ObjectDataSource\\ObjectDataSource.json"
+        },
+        "DocumentDataSource": {
+          "$ref": "#/definitions/..\\DataSource\\DocumentDataSource\\DocumentDataSource.json"
+        },
+        "RestDataSource": {
+          "$ref": "#/definitions/..\\DataSource\\RestDataSource\\RestDataSource.json"
+        }
+      }
+    },
+    "..\\DataSource\\ObjectDataSource\\ObjectDataSource.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Источник данных представления для произвольного массива",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\DataSource\\BaseDataSource.json"
+        }
+      ],
+      "properties": {
+        "Items": {
+          "description": "Список элементов источника данных",
+          "oneOf": [
+            {
+              "type": "array"
+            },
+            {
+              "$ref": "#/definitions/..\\DataBinding\\DataBinding.json"
+            }
+          ]
+        }
+      }
+    },
+    "..\\DataSource\\BaseDataSource.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Базовый тип источников данных представления",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Наименование источника данных",
+          "type": "string"
+        },
+        "SuspendUpdate": {
+          "description": "Причина запрета на обновление списка элементов",
+          "type": "string"
+        },
+        "IdProperty": {
+          "description": "Наименование свойства с идентификатором элемента",
+          "type": "string",
+          "default": "_id"
+        },
+        "FillCreatedItem": {
+          "description": "Предзаполнение новых элементов на сервере",
+          "type": "boolean",
+          "default": true
+        },
+        "Filter": {
+          "description": "Правило фильтрации документов",
+          "type": "string"
+        },
+        "FilterParams": {
+          "description": "Параметры фильтра",
+          "type": "object"
+        },
+        "IsLazy": {
+          "description": "Ленивая прогрузка данных",
+          "type": "boolean",
+          "default": true
+        },
+        "ResolvePriority": {
+          "description": "Приоритет прогрузки источника данных",
+          "type": "integer",
+          "default": 0
+        },
+        "Search": {
+          "description": "Строка полнотекстового поиска",
+          "type": "string"
+        },
+        "ValidationErrors": {
+          "description": "Функция проверки элемента на ошибки",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnSelectedItemChanged": {
+          "description": "Обработчик события о том, что выделенный элемент изменился",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnPropertyChanged": {
+          "description": "Обработчик события о том, что одно из свойств изменилось",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnItemDeleted": {
+          "description": "Обработчик события о том, что элемент удален",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnItemsUpdated": {
+          "description": "Обработчик события о том, что список элементов обновлен",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnErrorValidator": {
+          "description": "Обработчик события о том, что проверка на ошибки завершена",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnProviderError": {
+          "description": "Обработчик события о том, что поставщик данных вернул ошибку",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      },
+      "required": [
+        "Name"
+      ]
+    },
+    "..\\DataSource\\DocumentDataSource\\DocumentDataSource.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Источник данных представления для документов InfinniPlatform",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\DataSource\\BaseDataSource.json"
+        }
+      ],
+      "properties": {
+        "DocumentId": {
+          "description": "Идентификатор документа",
+          "type": "string"
+        },
+        "PageNumber": {
+          "description": "Номер страницы",
+          "type": "integer",
+          "default": 0
+        },
+        "PageSize": {
+          "description": "Размер страницы",
+          "type": "integer",
+          "default": 15
+        },
+        "Select": {
+          "description": "Правило отображения документов",
+          "type": "string"
+        },
+        "Order": {
+          "description": "Правило сортировки документов",
+          "type": "string"
+        },
+        "NeedTotalCount": {
+          "description": "Необходимость подсчета количества",
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "DocumentId"
+      ]
+    },
+    "..\\DataSource\\RestDataSource\\RestDataSource.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Источник данных представления для документов InfinniPlatform",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\DataSource\\BaseDataSource.json"
+        }
+      ],
+      "properties": {
+        "GettingParams": {
+          "description": "Параметры запроса на получение данных",
+          "$ref": "#/definitions/..\\DataSource\\RestDataSource\\UrlParams.json"
+        },
+        "SettingParams": {
+          "description": "Параметры запроса на сохранение данных",
+          "$ref": "#/definitions/..\\DataSource\\RestDataSource\\UrlParams.json"
+        },
+        "DeletingParams": {
+          "description": "Параметры запроса на удаление",
+          "$ref": "#/definitions/..\\DataSource\\RestDataSource\\UrlParams.json"
+        }
+      }
+    },
+    "..\\DataSource\\RestDataSource\\UrlParams.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Параметры запроса",
+      "type": "object",
+      "properties": {
+        "Origin": {
+          "description": "Хост и порт",
+          "type": "string"
+        },
+        "Path": {
+          "description": "Строка пути (относительно хоста)",
+          "type": "string"
+        },
+        "Method": {
+          "description": "Метод запроса",
+          "type": "string"
+        },
+        "Data": {
+          "description": "Данные запроса",
+          "type": "object"
+        },
+        "Params": {
+          "description": "Параметры запроса",
+          "type": "object"
+        }
+      },
+      "required": [
+        "Path"
+      ]
+    }
+  }
+}

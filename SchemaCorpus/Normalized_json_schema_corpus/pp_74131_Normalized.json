@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "allOf": [
+      {
+        "$ref": "#/definitions/..\\definitions\\file.json_definitions_file-output"
+      }
+    ]
+  },
+  "definitions": {
+    "..\\definitions\\file.json_definitions_file-output": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_file-entry"
+        }
+      ],
+      "required": [
+        "modified",
+        "size"
+      ],
+      "x-sdk-model": "file-entry"
+    },
+    "..\\definitions\\file.json_definitions_file-entry": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_name"
+        },
+        "type": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_file-type"
+        },
+        "mimetype": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_mimetype"
+        },
+        "modality": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\file.json_definitions_modality"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "measurements": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_measurements"
+        },
+        "tags": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_tags"
+        },
+        "info": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_info"
+        },
+        "origin": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_file-origin"
+        },
+        "hash": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_hash"
+        },
+        "created": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_modified"
+        },
+        "size": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_size"
+        },
+        "info_exists": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "file-entry"
+    },
+    "..\\definitions\\file.json_definitions_name": {
+      "type": "string"
+    },
+    "..\\definitions\\file.json_definitions_file-type": {
+      "type": "string"
+    },
+    "..\\definitions\\file.json_definitions_mimetype": {
+      "type": "string"
+    },
+    "..\\definitions\\file.json_definitions_modality": {
+      "type": "string"
+    },
+    "..\\definitions\\file.json_definitions_measurements": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "..\\definitions\\file.json_definitions_tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "..\\definitions\\common.json_definitions_info": {
+      "type": "object"
+    },
+    "..\\definitions\\file.json_definitions_file-origin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "via": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_via"
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\definitions\\file.json_definitions_via": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "..\\definitions\\file.json_definitions_hash": {
+      "type": "string",
+      "minLength": 106,
+      "maxLength": 106
+    },
+    "..\\definitions\\created-modified.json_definitions_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "..\\definitions\\created-modified.json_definitions_modified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "..\\definitions\\file.json_definitions_size": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,704 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "hevc_nvenc",
+  "name": "HEVC (NVIDIA NVENC)",
+  "defaults": {},
+  "presets": [
+    {
+      "name": "Good quality (Recommended)",
+      "description": "",
+      "options": {
+        "_pixelFormat": "yuv420p",
+        "rc": "constq",
+        "qp": "15",
+        "preset": "medium",
+        "profile": "high"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "class": "basic",
+      "properties": [
+        {
+          "parameter": "_pixelFormat",
+          "forced": true,
+          "control": {
+            "selectedIndex": 0,
+            "type": "combobox",
+            "items": [
+              {
+                "value": "yuv420p",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": false
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "p010le",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "preset",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 1,
+            "items": [
+              {
+                "value": "slow",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "medium",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "fast",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "hq",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "bd",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "lossless",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": false
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "profile",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "main"
+              },
+              {
+                "value": "rext"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "profile",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "main10"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "tier",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "main"
+              },
+              {
+                "value": "high"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "rc",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "constqp",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": false
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "cbr",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": false
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "vbr",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "cbr_hq",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": false
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "vbr_hq",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "qp",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 51,
+            "singleStep": 1,
+            "value": 23
+          }
+        },
+        {
+          "parameter": "b",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 288000,
+            "singleStep": 100,
+            "value": 15000,
+            "visible": false
+          },
+          "multiplicationFactor": 1000,
+          "filters": [
+            {
+              "filter": "OnChangeValue",
+              "params": {
+                "LimitMaxValue": [
+                  {}
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "parameter": "maxrate",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 288000,
+            "singleStep": 100,
+            "value": 15000,
+            "visible": false
+          },
+          "multiplicationFactor": 1000,
+          "filters": [
+            {
+              "filter": "OnChangeValue",
+              "params": {
+                "LimitMinValue": [
+                  {}
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "parameter": "bufsize",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 288000,
+            "singleStep": 100,
+            "value": 15000,
+            "visible": false
+          },
+          "multiplicationFactor": 1000
+        },
+        {
+          "parameter": "cq",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 51,
+            "singleStep": 1,
+            "value": 0,
+            "visible": false
+          }
+        },
+        {
+          "parameter": "2pass",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "rc-lookahead",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1024,
+            "singleStep": 1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "g",
+          "control": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1200,
+            "singleStep": 1,
+            "value": 300
+          }
+        },
+        {
+          "parameter": "strict-gop",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "parameter": "bf",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4,
+            "singleStep": 1,
+            "value": 2
+          }
+        },
+        {
+          "parameter": "refs",
+          "control": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16,
+            "singleStep": 1,
+            "value": 3
+          }
+        },
+        {
+          "parameter": "no-scenecut",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "parameter": "forced-idr",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "parameter": "nonref_p",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "qmin",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 51,
+            "singleStep": 1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "qmax",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 51,
+            "singleStep": 1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "init_qpI",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 51,
+            "singleStep": 1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "init_qpP",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 51,
+            "singleStep": 1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "init_qpB",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 51,
+            "singleStep": 1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "spatial-aq",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "parameter": "aq-strength",
+          "control": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 15,
+            "singleStep": 1,
+            "value": 8
+          }
+        },
+        {
+          "parameter": "temporal-aq",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "level",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "1"
+              },
+              {
+                "value": "2"
+              },
+              {
+                "value": "2.1"
+              },
+              {
+                "value": "3"
+              },
+              {
+                "value": "3.1"
+              },
+              {
+                "value": "4"
+              },
+              {
+                "value": "4.1"
+              },
+              {
+                "value": "5"
+              },
+              {
+                "value": "5.1"
+              },
+              {
+                "value": "5.2"
+              },
+              {
+                "value": "6"
+              },
+              {
+                "value": "6.1"
+              },
+              {
+                "value": "6.2"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "surfaces",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 64,
+            "singleStep": 1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "zerolatency",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "parameter": "weighted_pred",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "parameter": "bluray-compat",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "parameter": "aud",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        }
+      ]
+    }
+  ]
+}

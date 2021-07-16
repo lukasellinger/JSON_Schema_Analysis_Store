@@ -1,0 +1,88 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/Link/HrefParam.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Параметер ссылки",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "description": "Название",
+      "type": "string"
+    },
+    "Value": {
+      "description": "Значение",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/definitions/..\\..\\DataBinding\\DataBinding.json"
+        }
+      ]
+    }
+  },
+  "required": [
+    "Name",
+    "Value"
+  ],
+  "definitions": {
+    "..\\..\\DataBinding\\DataBinding.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Привязка данных между элементом и источником",
+      "type": "object",
+      "properties": {
+        "Mode": {
+          "description": "Направление потока данных в привязке",
+          "$ref": "#/definitions/..\\..\\DataBinding\\BindingMode.json",
+          "default": "TwoWay"
+        },
+        "Source": {
+          "description": "Наименование источника данных привязки",
+          "type": "string"
+        },
+        "Property": {
+          "description": "Путь к свойству источника данных привязки",
+          "type": "string"
+        },
+        "Converter": {
+          "description": "Преобразователь данных между элементом и источником",
+          "$ref": "#/definitions/..\\..\\DataBinding\\BindingConverter.json"
+        },
+        "DefaultValue": {
+          "description": "Значение по умолчанию"
+        }
+      },
+      "required": [
+        "Source"
+      ]
+    },
+    "..\\..\\DataBinding\\BindingMode.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Направление потока данных в привязке",
+      "enum": [
+        "TwoWay",
+        "ToSource",
+        "ToElement"
+      ]
+    },
+    "..\\..\\DataBinding\\BindingConverter.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Преобразователь данных между элементом и источником",
+      "type": "object",
+      "properties": {
+        "ToSource": {
+          "description": "Функция конвертации данных элемента в формат данных источника",
+          "$ref": "#/definitions/..\\..\\Script\\LinkScript.json"
+        },
+        "ToElement": {
+          "description": "Функция конвертации данных источника в формат данных элемента",
+          "$ref": "#/definitions/..\\..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\..\\Script\\LinkScript.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Ссылка на прикладной скрипт, выполняемый на стороне клиента",
+      "type": "string"
+    }
+  }
+}

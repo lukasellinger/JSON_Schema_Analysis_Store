@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\auth.json_definitions_logout-output"
+    }
+  ],
+  "example": {
+    "tokens_removed": 1
+  },
+  "definitions": {
+    "..\\definitions\\auth.json_definitions_logout-output": {
+      "type": "object",
+      "properties": {
+        "tokens_removed": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "tokens_removed"
+      ]
+    }
+  }
+}

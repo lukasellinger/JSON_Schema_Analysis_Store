@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\download.json_definitions_download-ticket",
+  "definitions": {
+    "..\\definitions\\download.json_definitions_download-ticket": {
+      "type": "object",
+      "properties": {
+        "ticket": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ticket"
+      ]
+    }
+  }
+}

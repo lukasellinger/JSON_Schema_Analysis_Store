@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "array",
+  "description": "A parent item",
+  "items": {
+    "$ref": "#/definitions/child.json"
+  },
+  "definitions": {
+    "child.json": {
+      "$schema": "http://json-schema.org/schema",
+      "type": "object",
+      "description": "A child",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "artist": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "artist"
+      ]
+    }
+  }
+}

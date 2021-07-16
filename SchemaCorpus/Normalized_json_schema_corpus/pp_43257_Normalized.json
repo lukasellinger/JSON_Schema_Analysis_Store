@@ -1,0 +1,429 @@
+{
+  "definitions": {
+    "HW2PackContentItemTypeA": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "View": {
+          "$ref": "#/definitions/HW2PackView"
+        },
+        "Links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/link.schema.json"
+          }
+        },
+        "ChildrenCount": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "Id",
+        "Type",
+        "View",
+        "Links",
+        "ChildrenCount"
+      ]
+    },
+    "HW2PackContentItemTypeB": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "View": {
+          "$ref": "#/definitions/HW2PackView"
+        }
+      },
+      "required": [
+        "Id",
+        "Type",
+        "View"
+      ]
+    },
+    "HW2PackView": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Status": {
+          "type": "string"
+        },
+        "Common": {
+          "$ref": "#/definitions/common.schema.json"
+        },
+        "Identity": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "HW2Pack": {
+          "$ref": "#/definitions/HW2Pack"
+        }
+      },
+      "required": [
+        "Status",
+        "Common",
+        "Identity",
+        "Title",
+        "HW2Pack"
+      ]
+    },
+    "HW2Pack": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "HW2PackRules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/content-item-type-c.schema.json_definitions_ContentItemTypeC"
+          }
+        },
+        "FrontImageHD": {
+          "$ref": "#/definitions/image.schema.json_definitions_ImageContentItemTypeB"
+        },
+        "BackImageHD": {
+          "$ref": "#/definitions/image.schema.json_definitions_ImageContentItemTypeB"
+        },
+        "BackImage4K": {
+          "$ref": "#/definitions/image.schema.json_definitions_ImageContentItemTypeB"
+        },
+        "HighlightImageHD": {
+          "$ref": "#/definitions/image.schema.json_definitions_ImageContentItemTypeB"
+        },
+        "HighlightImage4K": {
+          "$ref": "#/definitions/image.schema.json_definitions_ImageContentItemTypeB"
+        },
+        "FrontImage4K": {
+          "$ref": "#/definitions/image.schema.json_definitions_ImageContentItemTypeB"
+        },
+        "StackGroup": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "InventorySortPriority": {
+          "type": "integer"
+        },
+        "DisplayInfo": {
+          "$ref": "#/definitions/HW2PackDisplayInfoContentItemTypeB"
+        },
+        "MarketplaceProductId": {
+          "type": "string"
+        },
+        "UWPProductId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "HW2PackRules",
+        "FrontImageHD",
+        "BackImageHD",
+        "BackImage4K",
+        "HighlightImageHD",
+        "HighlightImage4K",
+        "FrontImage4K",
+        "StackGroup",
+        "InventorySortPriority",
+        "DisplayInfo",
+        "MarketplaceProductId",
+        "UWPProductId"
+      ]
+    },
+    "HW2PackDisplayInfoContentItemTypeB": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "View": {
+          "$ref": "#/definitions/HW2PackDisplayInfoView"
+        }
+      },
+      "required": [
+        "Id",
+        "Type",
+        "View"
+      ]
+    },
+    "HW2PackDisplayInfoView": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Status": {
+          "type": "string"
+        },
+        "Common": {
+          "$ref": "#/definitions/common.schema.json"
+        },
+        "Identity": {
+          "type": "string"
+        },
+        "BatchLocalization": {
+          "$ref": "#/definitions/batch-localization.schema.json"
+        },
+        "Localization": {
+          "$ref": "#/definitions/localization.schema.json"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "HW2PackDisplayInfo": {
+          "$ref": "#/definitions/HW2PackDisplayInfo"
+        }
+      },
+      "required": [
+        "Status",
+        "HW2PackDisplayInfo",
+        "BatchLocalization",
+        "Localization",
+        "Title",
+        "Common",
+        "Identity"
+      ]
+    },
+    "HW2PackDisplayInfo": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Name",
+        "Description"
+      ]
+    },
+    "link.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Absolute": {
+          "type": "boolean"
+        },
+        "Relation": {
+          "type": "string"
+        },
+        "URI": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Absolute",
+        "Relation",
+        "URI"
+      ]
+    },
+    "common.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Owner": {
+          "type": "string"
+        },
+        "CreatedUtc": {
+          "type": "string"
+        },
+        "ModifiedUtc": {
+          "type": "string"
+        },
+        "PublishedUtc": {
+          "type": "string"
+        },
+        "Container": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "Owner",
+        "CreatedUtc",
+        "ModifiedUtc",
+        "PublishedUtc",
+        "Container"
+      ]
+    },
+    "content-item-type-c.schema.json_definitions_ContentItemTypeC": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "Identity": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Id",
+        "Type",
+        "Identity"
+      ]
+    },
+    "image.schema.json_definitions_ImageContentItemTypeB": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "View": {
+          "$ref": "#/definitions/image.schema.json_definitions_ImageView"
+        }
+      },
+      "required": [
+        "Id",
+        "Type",
+        "View"
+      ]
+    },
+    "image.schema.json_definitions_ImageView": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Status": {
+          "type": "string"
+        },
+        "Common": {
+          "$ref": "#/definitions/common.schema.json"
+        },
+        "Identity": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "Media": {
+          "$ref": "#/definitions/image.schema.json_definitions_Media"
+        },
+        "Image": {
+          "$ref": "#/definitions/image.schema.json_definitions_Image"
+        }
+      },
+      "required": [
+        "Status",
+        "Common",
+        "Media",
+        "Image",
+        "Title",
+        "Identity"
+      ]
+    },
+    "image.schema.json_definitions_Media": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "MediaUrl": {
+          "type": "string"
+        },
+        "MimeType": {
+          "type": "string"
+        },
+        "Caption": {
+          "type": "string"
+        },
+        "AlternateText": {
+          "type": "string"
+        },
+        "FolderPath": {
+          "type": "string"
+        },
+        "FileName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "MediaUrl",
+        "MimeType",
+        "Caption",
+        "AlternateText",
+        "FolderPath",
+        "FileName"
+      ]
+    },
+    "image.schema.json_definitions_Image": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Width": {
+          "type": "integer"
+        },
+        "Height": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "Width",
+        "Height"
+      ]
+    },
+    "batch-localization.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "IsLocked": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "IsLocked"
+      ]
+    },
+    "localization.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Culture": {
+          "type": "string"
+        },
+        "MasterContentItemId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Culture",
+        "MasterContentItemId"
+      ]
+    }
+  }
+}

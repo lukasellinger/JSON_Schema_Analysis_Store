@@ -1,0 +1,489 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/beerjson/beerjson/master/json/culture.json",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "CultureBase": {
+      "type": "object",
+      "description": "Provides unique properties to identify individual records of a culture.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "ale",
+            "bacteria",
+            "brett",
+            "champagne",
+            "kveik",
+            "lacto",
+            "lager",
+            "malolactic",
+            "mixed-culture",
+            "other",
+            "pedio",
+            "spontaneous",
+            "wine"
+          ]
+        },
+        "form": {
+          "type": "string",
+          "enum": [
+            "liquid",
+            "dry",
+            "slant",
+            "culture",
+            "dregs"
+          ]
+        },
+        "producer": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "form"
+      ]
+    },
+    "CultureInformation": {
+      "type": "object",
+      "description": "CultureInformation collects the attributes of a microbial culture.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/CultureBase"
+        },
+        {
+          "properties": {
+            "temperature_range": {
+              "description": "The recommended temperature range of fermentation by the culture producer.",
+              "$ref": "#/definitions/measureable_units.json_definitions_TemperatureRangeType"
+            },
+            "alcohol_tolerance": {
+              "description": "The recommended limit of abv by the culture producer before attenuation stops.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "flocculation": {
+              "description": "Floculation refers to the ability of yeast to aggregate to form large flocs which drop out of suspension.",
+              "$ref": "#/definitions/measureable_units.json_definitions_QualitativeRangeType"
+            },
+            "attenuation_range": {
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentRangeType"
+            },
+            "notes": {
+              "type": "string"
+            },
+            "best_for": {
+              "description": "Recommended styles for a particular culture.",
+              "type": "string"
+            },
+            "max_reuse": {
+              "description": "Maximum number of times to reuse a culture before a new lab source is recommended.",
+              "type": "integer"
+            },
+            "pof": {
+              "description": "A POF+ culture is capable of producing phenols, which is a common distinctive property of saison, and brett yeasts.",
+              "type": "boolean"
+            },
+            "glucoamylase": {
+              "description": "A glucoamylase positive culture is capable of producing glucoamylase, the enzyme produced through expression of the diastatic gene, which allows yeast to attenuate dextrins and starches leading to a very low FG. This is positive in some saison/brett yeasts as well as the new gulo hybrid by Omega yeast labs.",
+              "type": "boolean"
+            },
+            "inventory": {
+              "$ref": "#/definitions/CultureInventoryType"
+            },
+            "zymocide": {
+              "$ref": "#/definitions/Zymocide"
+            }
+          }
+        }
+      ]
+    },
+    "CultureAdditionType": {
+      "type": "object",
+      "description": "CultureAdditionType collects the attributes of each culture ingredient for use in a recipe.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/CultureBase"
+        },
+        {
+          "properties": {
+            "attenuation": {
+              "description": "The expected, or measured apparent attenuation for a given culture in a given recipe. In comparison to attenuation range, this is a single value.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "times_cultured": {
+              "type": "integer"
+            },
+            "timing": {
+              "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+              "$ref": "#/definitions/timing.json_definitions_TimingType"
+            },
+            "cell_count_billions": {
+              "type": "integer"
+            },
+            "amount": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+                },
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+                },
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_UnitType"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "required": [
+            "amount"
+          ]
+        }
+      ]
+    },
+    "CultureInventoryType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "liquid": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        },
+        "dry": {
+          "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+        },
+        "slant": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        },
+        "culture": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        }
+      }
+    },
+    "Zymocide": {
+      "type": "object",
+      "description": "Zymocide, also known as killer yeast properties, is common among wine yeast. There are also some ale and brett yeasts that are immune to some zymocidic properties, these are known as killer neutral.",
+      "additionalProperties": false,
+      "properties": {
+        "1": {
+          "type": "boolean"
+        },
+        "2": {
+          "type": "boolean"
+        },
+        "28": {
+          "type": "boolean"
+        },
+        "klus": {
+          "type": "boolean"
+        },
+        "neutral": {
+          "type": "boolean"
+        }
+      }
+    },
+    "measureable_units.json_definitions_TemperatureRangeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minimum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "maximum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        }
+      },
+      "required": [
+        "minimum",
+        "maximum"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureUnitType": {
+      "type": "string",
+      "enum": [
+        "C",
+        "F"
+      ]
+    },
+    "measureable_units.json_definitions_PercentType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_PercentUnitType": {
+      "type": "string",
+      "enum": [
+        "%"
+      ]
+    },
+    "measureable_units.json_definitions_QualitativeRangeType": {
+      "type": "string",
+      "enum": [
+        "very low",
+        "low",
+        "medium low",
+        "medium",
+        "medium high",
+        "high",
+        "very high"
+      ]
+    },
+    "measureable_units.json_definitions_PercentRangeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "minimum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "maximum": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        }
+      },
+      "required": [
+        "minimum",
+        "maximum"
+      ]
+    },
+    "timing.json_definitions_TimingType": {
+      "type": "object",
+      "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+      "additionalProperties": false,
+      "properties": {
+        "time": {
+          "description": "What time during a process step is added, eg a value of 2 days for a dry hop addition would be added 2 days into the fermentation step.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "duration": {
+          "description": "How long an ingredient addition remains, this was referred to as time in the BeerXML standard. E.G. A 40 minute hop boil additions means to boil for 40 minutes, and a 2 day duration for a dry hop means to remove it after 2 days.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "continuous": {
+          "description": "A continuous addition is spread out evenly and added during the entire process step, eg 60 minute IPA by dogfish head takes all ofthe hop additions and adds them throughout the entire boil.",
+          "type": "boolean"
+        },
+        "specific_gravity": {
+          "description": "Used to indicate when an addition is added based on a desired specific gravity. E.G. Add dry hop at when SG is 1.018.",
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "pH": {
+          "description": "Used to indicate when an addition is added based on a desired specific gravity. eg Add brett when pH is 3.4.",
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "step": {
+          "description": "Used to indicate what step this ingredient timing addition is referencing. EG A value of 2 for add_to_fermentation would mean to add during the second fermentation step.",
+          "type": "integer"
+        },
+        "use": {
+          "$ref": "#/definitions/timing.json_definitions_UseType"
+        }
+      }
+    },
+    "measureable_units.json_definitions_TimeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeUnitType"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TimeUnitType": {
+      "type": "string",
+      "enum": [
+        "sec",
+        "min",
+        "hr",
+        "day",
+        "week"
+      ]
+    },
+    "measureable_units.json_definitions_GravityType": {
+      "type": "object",
+      "description": "Gravity refers to the both the measurements of percent of sugar content, ie plato and brix, as well as relative density ie specific gravity.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_GravityUnitType": {
+      "type": "string",
+      "enum": [
+        "sg",
+        "plato",
+        "brix"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityUnitType": {
+      "type": "string",
+      "enum": [
+        "pH"
+      ]
+    },
+    "timing.json_definitions_UseType": {
+      "type": "string",
+      "description": "Differentiates the specific process type when this ingredient addition is used.",
+      "enum": [
+        "add_to_mash",
+        "add_to_boil",
+        "add_to_fermentation",
+        "add_to_package"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeUnitType": {
+      "type": "string",
+      "enum": [
+        "ml",
+        "l",
+        "tsp",
+        "tbsp",
+        "floz",
+        "cup",
+        "pt",
+        "qt",
+        "gal",
+        "bbl",
+        "ifloz",
+        "ipt",
+        "iqt",
+        "igal",
+        "ibbl"
+      ]
+    },
+    "measureable_units.json_definitions_MassType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_MassUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_MassUnitType": {
+      "type": "string",
+      "enum": [
+        "mg",
+        "g",
+        "kg",
+        "lb",
+        "oz"
+      ]
+    },
+    "measureable_units.json_definitions_UnitType": {
+      "type": "object",
+      "description": "UnitType is used where unitless amounts are required, such as 1 apple, or 1 yeast packet.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_UnitUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_UnitUnitType": {
+      "type": "string",
+      "enum": [
+        "1",
+        "unit",
+        "each",
+        "dimensionless",
+        "pkg"
+      ]
+    }
+  }
+}

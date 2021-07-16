@@ -1,0 +1,846 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "SE meta specification",
+  "type": "object",
+  "properties": {
+    "name": {
+      "title": "The official name of the SE",
+      "type": "string"
+    },
+    "owners": {
+      "title": "The list of owners of the SE.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "platforms": {
+      "title": "The list of relevant platforms to this SE.",
+      "type": "array",
+      "items": {
+        "enum": [
+          "socialtv",
+          "smartcity",
+          "gaming"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "additional-tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "contacts": {
+      "title": "The support contacts for this SE",
+      "type": "object",
+      "anyOf": [
+        {
+          "properties": {
+            "primary": {
+              "type": "string",
+              "format": "^[A-Z]{3-5}\\-[A-Za-z]+$"
+            }
+          },
+          "required": [
+            "primary"
+          ]
+        },
+        {
+          "patternProperties": {
+            "^[A-Z]{3-5}\\-[A-Za-z]+$": {
+              "enum": [
+                "legal",
+                "technical"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "support": {
+      "type": "object",
+      "properties": {
+        "bugtracker": {
+          "$ref": "#/definitions/defs_uri"
+        },
+        "faq": {
+          "$ref": "#/definitions/defs_uri"
+        }
+      },
+      "additionalProperties": false
+    },
+    "documentation": {
+      "type": "object",
+      "properties": {
+        "tag-line": {
+          "type": "string"
+        },
+        "what-it-does": {
+          "type": "string"
+        },
+        "how-it-works": {
+          "type": "string"
+        },
+        "why-you-need-it": {
+          "type": "string"
+        },
+        "devguide": {
+          "$ref": "#/definitions/defs_uri"
+        },
+        "installguide": {
+          "$ref": "#/definitions/defs_uri"
+        },
+        "api": {
+          "type": "object",
+          "properties": {
+            "swagger": {
+              "$ref": "#/definitions/defs_uri"
+            },
+            "jsdoc": {
+              "$ref": "#/definitions/defs_uri"
+            },
+            "doxygen": {
+              "$ref": "#/definitions/defs_uri"
+            }
+          },
+          "additionalProperties": false
+        },
+        "additional": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/defs_uri"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "what-it-does",
+        "how-it-works",
+        "why-you-need-it"
+      ]
+    },
+    "media": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "object",
+          "properties": {
+            "pitch": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/defs_uri"
+                }
+              ]
+            },
+            "tutorial": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/defs_uri"
+                }
+              ]
+            }
+          },
+          "patternProperties": {
+            "^(?!pitch).+$": {
+              "$ref": "#/definitions/defs_uri"
+            }
+          }
+        },
+        "images": {
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/defs_wikimedia"
+              },
+              {
+                "$ref": "#/definitions/defs_uri"
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "examples": {
+      "type": "object",
+      "properties": {
+        "live-demo": {
+          "$ref": "#/definitions/defs_UriReference"
+        },
+        "playground": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/defs_UriReference"
+          },
+          "minItems": 0,
+          "maxItems": 1
+        },
+        "tutorials": {
+          "$ref": "#/definitions/defs_UriReference"
+        },
+        "additional": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/defs_LinkedReference"
+          }
+        }
+      },
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "license": {
+      "$ref": "#/definitions/defs_License"
+    },
+    "delivery": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "languages": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "repository": {
+          "type": "object",
+          "properties": {
+            "github": {
+              "$ref": "#/definitions/defs_uri"
+            },
+            "git": {
+              "$ref": "#/definitions/defs_uri"
+            },
+            "svn": {
+              "$ref": "#/definitions/defs_uri"
+            },
+            "hg": {
+              "$ref": "#/definitions/defs_uri"
+            }
+          },
+          "additionalProperties": false,
+          "oneOf": [
+            {
+              "required": [
+                "github"
+              ]
+            },
+            {
+              "required": [
+                "git"
+              ]
+            },
+            {
+              "required": [
+                "svn"
+              ]
+            },
+            {
+              "required": [
+                "hg"
+              ]
+            }
+          ]
+        },
+        "sources": {
+          "$ref": "#/definitions/defs_uri"
+        },
+        "binary": {
+          "type": "object",
+          "properties": {
+            "win": {
+              "$ref": "#/definitions/defs_uri"
+            },
+            "unix": {
+              "$ref": "#/definitions/defs_uri"
+            },
+            "osx": {
+              "$ref": "#/definitions/defs_uri"
+            }
+          },
+          "additionalProperties": {
+            "$ref": "#/definitions/defs_uri"
+          }
+        },
+        "instances": {
+          "type": "object",
+          "properties": {
+            "public": {
+              "$ref": "#/definitions/defs_instance"
+            },
+            "fi-ppp": {
+              "$ref": "#/definitions/defs_instance"
+            }
+          },
+          "additionalProperties": false,
+          "anyOf": [
+            {
+              "required": [
+                "public"
+              ]
+            },
+            {
+              "required": [
+                "fi-ppp"
+              ]
+            }
+          ]
+        },
+        "docker": {
+          "type": "string",
+          "pattern": "^(.+)/(.+)$"
+        },
+        "manually": {
+          "type": "string",
+          "minLength": 10
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "description",
+            "repository"
+          ]
+        },
+        {
+          "required": [
+            "description",
+            "sources"
+          ]
+        },
+        {
+          "required": [
+            "description",
+            "binary"
+          ]
+        },
+        {
+          "required": [
+            "description",
+            "instances"
+          ]
+        },
+        {
+          "required": [
+            "description",
+            "manually"
+          ]
+        }
+      ]
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "link": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/defs_wikimedia"
+              },
+              {
+                "$ref": "#/definitions/defs_uri"
+              },
+              {
+                "$ref": "#/definitions/defs_null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "title",
+          "description"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "owners",
+    "platforms",
+    "contacts",
+    "license",
+    "delivery"
+  ],
+  "defs": {
+    "YesNo": {
+      "enum": [
+        "Yes",
+        "No"
+      ]
+    },
+    "Required": {
+      "enum": [
+        "Required",
+        "Not required",
+        "Not applicable"
+      ]
+    },
+    "uri": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https?://(.+)$"
+    },
+    "wikipage": {
+      "type": "string",
+      "pattern": "^(:[a-zA-Z0-9_\\-\\.]+)+$"
+    },
+    "wikimedia": {
+      "type": "string",
+      "pattern": "^(:[a-zA-Z0-9_\\-\\.]+)+\\.(png|jpg|gif)$"
+    },
+    "null": {
+      "type": "null"
+    },
+    "exampleTitle": {
+      "type": "string",
+      "maxLength": 45
+    },
+    "exampleDescription": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 250
+    },
+    "LinkedReference": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/defs_exampleTitle"
+        },
+        "description": {
+          "$ref": "#/definitions/defs_exampleDescription"
+        },
+        "link": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/defs_wikimedia"
+            },
+            {
+              "$ref": "#/definitions/defs_uri"
+            }
+          ]
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "link"
+      ],
+      "additionalProperties": false
+    },
+    "UriReference": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/defs_exampleTitle"
+        },
+        "description": {
+          "$ref": "#/definitions/defs_exampleDescription"
+        },
+        "link": {
+          "$ref": "#/definitions/defs_uri"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "link"
+      ],
+      "additionalProperties": false
+    },
+    "instance": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "$ref": "#/definitions/defs_uri"
+        },
+        "access": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/defs_credentials"
+            },
+            {
+              "$ref": "#/definitions/defs_instructions"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "credentials": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "maxLength": 30
+        },
+        "password": {
+          "type": "string",
+          "maxLength": 30
+        }
+      },
+      "required": [
+        "user",
+        "password"
+      ],
+      "additionalProperties": false
+    },
+    "instructions": {
+      "type": "object",
+      "properties": {
+        "manually": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "manually"
+      ],
+      "additionalProperties": false
+    },
+    "License": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "type": "string",
+          "enum": [
+            "MIT",
+            "Apache2.0",
+            "LGPL"
+          ]
+        },
+        "type": {
+          "enum": [
+            "open",
+            "prop",
+            "eval"
+          ]
+        },
+        "features": {
+          "type": "object",
+          "properties": {
+            "commercial-use": {
+              "$ref": "#/definitions/defs_YesNo"
+            },
+            "modifications-allowed": {
+              "$ref": "#/definitions/defs_YesNo"
+            },
+            "distribution-allowed": {
+              "$ref": "#/definitions/defs_YesNo"
+            },
+            "include-copyright": {
+              "$ref": "#/definitions/defs_Required"
+            },
+            "include-original": {
+              "$ref": "#/definitions/defs_Required"
+            },
+            "state-changes": {
+              "$ref": "#/definitions/defs_Required"
+            },
+            "disclose": {
+              "$ref": "#/definitions/defs_Required"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "commercial-use",
+            "modifications-allowed",
+            "distribution-allowed",
+            "include-copyright",
+            "include-original",
+            "state-changes",
+            "disclose"
+          ]
+        },
+        "fee": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "copyright": {
+          "type": "string"
+        },
+        "full": {
+          "type": "string"
+        },
+        "beyond": {
+          "$ref": "#/definitions/defs_License"
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "template"
+          ]
+        },
+        {
+          "required": [
+            "type",
+            "features",
+            "fee",
+            "summary",
+            "copyright",
+            "full"
+          ]
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "defs_uri": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https?://(.+)$"
+    },
+    "defs_wikimedia": {
+      "type": "string",
+      "pattern": "^(:[a-zA-Z0-9_\\-\\.]+)+\\.(png|jpg|gif)$"
+    },
+    "defs_UriReference": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/defs_exampleTitle"
+        },
+        "description": {
+          "$ref": "#/definitions/defs_exampleDescription"
+        },
+        "link": {
+          "$ref": "#/definitions/defs_uri"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "link"
+      ],
+      "additionalProperties": false
+    },
+    "defs_exampleTitle": {
+      "type": "string",
+      "maxLength": 45
+    },
+    "defs_exampleDescription": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 250
+    },
+    "defs_LinkedReference": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/defs_exampleTitle"
+        },
+        "description": {
+          "$ref": "#/definitions/defs_exampleDescription"
+        },
+        "link": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/defs_wikimedia"
+            },
+            {
+              "$ref": "#/definitions/defs_uri"
+            }
+          ]
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "link"
+      ],
+      "additionalProperties": false
+    },
+    "defs_License": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "type": "string",
+          "enum": [
+            "MIT",
+            "Apache2.0",
+            "LGPL"
+          ]
+        },
+        "type": {
+          "enum": [
+            "open",
+            "prop",
+            "eval"
+          ]
+        },
+        "features": {
+          "type": "object",
+          "properties": {
+            "commercial-use": {
+              "$ref": "#/definitions/defs_YesNo"
+            },
+            "modifications-allowed": {
+              "$ref": "#/definitions/defs_YesNo"
+            },
+            "distribution-allowed": {
+              "$ref": "#/definitions/defs_YesNo"
+            },
+            "include-copyright": {
+              "$ref": "#/definitions/defs_Required"
+            },
+            "include-original": {
+              "$ref": "#/definitions/defs_Required"
+            },
+            "state-changes": {
+              "$ref": "#/definitions/defs_Required"
+            },
+            "disclose": {
+              "$ref": "#/definitions/defs_Required"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "commercial-use",
+            "modifications-allowed",
+            "distribution-allowed",
+            "include-copyright",
+            "include-original",
+            "state-changes",
+            "disclose"
+          ]
+        },
+        "fee": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "copyright": {
+          "type": "string"
+        },
+        "full": {
+          "type": "string"
+        },
+        "beyond": {
+          "$ref": "#/definitions/defs_License"
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "template"
+          ]
+        },
+        {
+          "required": [
+            "type",
+            "features",
+            "fee",
+            "summary",
+            "copyright",
+            "full"
+          ]
+        }
+      ]
+    },
+    "defs_YesNo": {
+      "enum": [
+        "Yes",
+        "No"
+      ]
+    },
+    "defs_Required": {
+      "enum": [
+        "Required",
+        "Not required",
+        "Not applicable"
+      ]
+    },
+    "defs_instance": {
+      "type": "object",
+      "properties": {
+        "endpoint": {
+          "$ref": "#/definitions/defs_uri"
+        },
+        "access": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/defs_credentials"
+            },
+            {
+              "$ref": "#/definitions/defs_instructions"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "defs_credentials": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "maxLength": 30
+        },
+        "password": {
+          "type": "string",
+          "maxLength": 30
+        }
+      },
+      "required": [
+        "user",
+        "password"
+      ],
+      "additionalProperties": false
+    },
+    "defs_instructions": {
+      "type": "object",
+      "properties": {
+        "manually": {
+          "type": "string",
+          "maxLength": 300
+        }
+      },
+      "required": [
+        "manually"
+      ],
+      "additionalProperties": false
+    },
+    "defs_null": {
+      "type": "null"
+    }
+  }
+}

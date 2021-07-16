@@ -1,0 +1,216 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://dcc.icgc.org/gene",
+  "type": "object",
+  "properties": {
+    "_gene_id": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "biotype": {
+      "type": "string"
+    },
+    "synonyms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "chromosome": {
+      "type": "string"
+    },
+    "strand": {
+      "type": "integer"
+    },
+    "start": {
+      "type": "integer"
+    },
+    "end": {
+      "type": "integer"
+    },
+    "canonical_transcript_id": {
+      "type": "string"
+    },
+    "external_db_ids": {
+      "type": "object",
+      "properties": {
+        "entrez_gene": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "uniprotkb_swissprot": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "omim_gene": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hgnc": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "transcripts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "biotype": {
+            "type": "string"
+          },
+          "is_canonical": {
+            "type": "boolean"
+          },
+          "length": {
+            "type": "integer"
+          },
+          "length_amino_acid": {
+            "type": "integer"
+          },
+          "length_cds": {
+            "type": "integer"
+          },
+          "number_of_exons": {
+            "type": "integer"
+          },
+          "start_exon": {
+            "type": "integer"
+          },
+          "seq_exon_start": {
+            "type": "integer"
+          },
+          "seq_exon_end": {
+            "type": "integer"
+          },
+          "end_exon": {
+            "type": "integer"
+          },
+          "translation_id": {
+            "type": "string"
+          },
+          "start": {
+            "type": "integer"
+          },
+          "end": {
+            "type": "integer"
+          },
+          "coding_region_start": {
+            "type": "integer"
+          },
+          "coding_region_end": {
+            "type": "integer"
+          },
+          "cdna_coding_start": {
+            "type": "integer"
+          },
+          "cdna_coding_end": {
+            "type": "integer"
+          },
+          "exons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "integer"
+                },
+                "start_phase": {
+                  "type": "integer"
+                },
+                "end": {
+                  "type": "integer"
+                },
+                "end_phase": {
+                  "type": "integer"
+                },
+                "cdna_start": {
+                  "type": "integer"
+                },
+                "cdna_end": {
+                  "type": "integer"
+                },
+                "genomic_coding_start": {
+                  "type": "integer"
+                },
+                "genomic_coding_end": {
+                  "type": "integer"
+                },
+                "cdna_coding_start": {
+                  "type": "integer"
+                },
+                "cdna_coding_end": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "domains": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "interpro_id": {
+                  "type": "string"
+                },
+                "hit_name": {
+                  "type": "string"
+                },
+                "gff_source": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "start": {
+                  "type": "integer"
+                },
+                "end": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "_gene_id",
+    "symbol",
+    "name",
+    "biotype",
+    "synonyms",
+    "description",
+    "chromosome",
+    "strand",
+    "start",
+    "end",
+    "canonical_transcript_id",
+    "external_db_ids",
+    "transcripts"
+  ]
+}

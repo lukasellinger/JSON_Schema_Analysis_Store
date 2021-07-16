@@ -1,0 +1,188 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "libfdk_aac",
+  "name": "AAC (Fraunhofer)",
+  "defaults": {
+    "_sampleFormat": "s16"
+  },
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "_strategy",
+          "forced": true,
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "cbr",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": false
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "vbr",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "b",
+          "forced": true,
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 1,
+            "items": [
+              {
+                "value": "64000"
+              },
+              {
+                "value": "96000"
+              },
+              {
+                "value": "128000"
+              },
+              {
+                "value": "192000"
+              },
+              {
+                "value": "256000"
+              },
+              {
+                "value": "320000"
+              },
+              {
+                "value": "384000"
+              },
+              {
+                "value": "448000"
+              },
+              {
+                "value": "512000"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "vbr",
+          "forced": true,
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "1"
+              },
+              {
+                "value": "2"
+              },
+              {
+                "value": "3"
+              },
+              {
+                "value": "4"
+              },
+              {
+                "value": "5"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "profile",
+          "forced": true,
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "aac_low"
+              },
+              {
+                "value": "aac_he"
+              },
+              {
+                "value": "aac_he_v2"
+              },
+              {
+                "value": "aac_ld"
+              },
+              {
+                "value": "aac_eld"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "latm",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "parameter": "signaling",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "implicit"
+              },
+              {
+                "value": "explicit_sbr"
+              },
+              {
+                "value": "explicit_hierarchical"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "header_period",
+          "control": {
+            "type": "integer",
+            "maximum": 65535,
+            "minimum": 0,
+            "singleStep": 1,
+            "value": 0
+          }
+        }
+      ]
+    }
+  ]
+}

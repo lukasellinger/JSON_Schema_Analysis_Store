@@ -1,0 +1,412 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "$ref": "#/definitions/common.json_instance_id"
+  },
+  "resource_ids": {
+    "type": "array",
+    "items": {
+      "$ref": "#/definitions/common.json_instance_id"
+    },
+    "minItems": 1
+  },
+  "resource": {
+    "$ref": "#/definitions/app.json_resource"
+  },
+  "verbs": {
+    "create": {
+      "required": []
+    },
+    "update": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/common.json_instance_id"
+        },
+        "priority": {
+          "$ref": "#/definitions/common.json_priority"
+        }
+      },
+      "required": [
+        "priority"
+      ],
+      "additionalProperties": false
+    },
+    "schedule": {
+      "type": "object",
+      "allOf": [
+        {
+          "required": [
+            "memory",
+            "cpu",
+            "disk"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "required": [
+                "services"
+              ]
+            },
+            {
+              "required": [
+                "image"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "common.json_instance_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[\\w\\-]+(\\.[\\w\\-]+)+(#\\d+)$"
+        },
+        {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^([\\w\\-]+)@([\\w\\-]+)(\\.[\\w\\-]+)+(#\\d+)$"
+        }
+      ]
+    },
+    "app.json_resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "memory": {
+          "$ref": "#/definitions/common.json_memory"
+        },
+        "cpu": {
+          "$ref": "#/definitions/common.json_cpu"
+        },
+        "disk": {
+          "$ref": "#/definitions/common.json_disk"
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/app.json_service"
+          },
+          "minItems": 1
+        },
+        "image": {
+          "type": "string",
+          "pattern": "^native:|docker://.+|http://.+|file://.+$"
+        },
+        "command": {
+          "type": "string"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "endpoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/app.json_endpoint"
+          }
+        },
+        "environ": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/app.json_environ"
+          }
+        },
+        "ephemeral_ports": {
+          "$ref": "#/definitions/app.json_ephemeral_ports"
+        },
+        "tickets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common.json_ticket"
+          }
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[\\w\\-]+$"
+          }
+        },
+        "shared_ip": {
+          "type": "boolean"
+        },
+        "shared_network": {
+          "type": "boolean"
+        },
+        "passthrough": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "hostname"
+              },
+              {
+                "type": "string",
+                "format": "ipv4"
+              }
+            ]
+          }
+        },
+        "archive": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vring": {
+          "type": "object",
+          "properties": {
+            "cells": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/common.json_cell"
+              }
+            },
+            "rules": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/app.json_vring_rule"
+              },
+              "minItems": 1
+            },
+            "required": [
+              "cells",
+              "rules"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "identity_group": {
+          "$ref": "#/definitions/common.json_identity_group_id"
+        },
+        "schedule_once": {
+          "type": "boolean"
+        },
+        "affinity": {
+          "$ref": "#/definitions/common.json_app_id"
+        },
+        "affinity_limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pod": {
+              "$ref": "#/definitions/app.json_limit"
+            },
+            "rack": {
+              "$ref": "#/definitions/app.json_limit"
+            },
+            "server": {
+              "$ref": "#/definitions/app.json_limit"
+            },
+            "required": []
+          }
+        },
+        "data_retention_timeout": {
+          "$ref": "#/definitions/common.json_time_interval"
+        },
+        "lease": {
+          "$ref": "#/definitions/common.json_time_interval"
+        }
+      }
+    },
+    "common.json_memory": {
+      "$ref": "#/definitions/common.json__priv_bytes"
+    },
+    "common.json__priv_bytes": {
+      "type": "string",
+      "pattern": "^\\d+[KkMmGg]$"
+    },
+    "common.json_cpu": {
+      "type": "string",
+      "pattern": "^\\d+%$"
+    },
+    "common.json_disk": {
+      "$ref": "#/definitions/common.json__priv_bytes"
+    },
+    "app.json_service": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 60,
+          "pattern": "^[\\w\\-\\.]+$"
+        },
+        "command": {
+          "type": "string"
+        },
+        "restart": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10
+            },
+            "interval": {
+              "type": "integer",
+              "minimum": 30,
+              "maximum": 600
+            }
+          },
+          "required": [
+            "limit"
+          ],
+          "additionalProperties": false
+        },
+        "root": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "command"
+      ],
+      "additionalProperties": false
+    },
+    "app.json_endpoint": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/common.json_endpoint"
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "type": {
+          "type": "string",
+          "pattern": "^infra$"
+        },
+        "proto": {
+          "type": "string",
+          "pattern": "^tcp$|^udp$"
+        }
+      },
+      "required": [
+        "name",
+        "port"
+      ],
+      "additionalProperties": false
+    },
+    "common.json_endpoint": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[\\w\\-]+$"
+    },
+    "app.json_environ": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "app.json_ephemeral_ports": {
+      "type": "object",
+      "properties": {
+        "tcp": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1024
+        },
+        "udp": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1024
+        }
+      },
+      "additionalProperties": false
+    },
+    "common.json_ticket": {
+      "type": "string",
+      "maxLength": 32,
+      "pattern": "^[a-zA-Z0-9_-]+@[\\.a-zA-Z0-9_]+$"
+    },
+    "common.json_cell": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[a-zA-Z0-9-]+$"
+    },
+    "app.json_vring_rule": {
+      "type": "object",
+      "properties": {
+        "endpoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/app.json_endpoint_properties_name"
+          },
+          "minItems": 1
+        },
+        "pattern": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "endpoints",
+        "pattern"
+      ]
+    },
+    "app.json_endpoint_properties_name": {
+      "$ref": "#/definitions/common.json_endpoint"
+    },
+    "common.json_identity_group_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[\\w\\-]+(\\.[\\w\\-]+)+$"
+        },
+        {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^([\\w\\-]+)@([\\w\\-]+)(\\.[\\w\\-]+)+$"
+        }
+      ]
+    },
+    "common.json_app_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 117,
+          "pattern": "^[\\w\\-]+(\\.[\\w\\-]+)+$"
+        },
+        {
+          "type": "string",
+          "maxLength": 117,
+          "pattern": "^([\\w\\-]+)@([\\w\\-]+)(\\.[\\w\\-]+)+$"
+        }
+      ]
+    },
+    "app.json_limit": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "common.json_time_interval": {
+      "type": "string",
+      "pattern": "^\\d+[SsMmHhDdMmYy]$"
+    },
+    "common.json_priority": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    }
+  }
+}

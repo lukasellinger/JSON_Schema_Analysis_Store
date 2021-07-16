@@ -1,0 +1,21 @@
+{
+  "allOf": [
+    {
+      "properties": {
+        "foo": {
+          "$ref": "#/definitions/int"
+        }
+      }
+    },
+    {
+      "additionalProperties": {
+        "$ref": "#/definitions/int"
+      }
+    }
+  ],
+  "definitions": {
+    "int": {
+      "type": "integer"
+    }
+  }
+}

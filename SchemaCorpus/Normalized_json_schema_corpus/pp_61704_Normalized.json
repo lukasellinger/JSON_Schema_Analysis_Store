@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Context",
+  "type": "object",
+  "properties": {
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/instance.json"
+      }
+    },
+    "data": {
+      "type": "object"
+    }
+  },
+  "definitions": {
+    "instance.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "title": "Instance",
+      "type": "object",
+      "required": [
+        "name",
+        "data"
+      ],
+      "properties": {
+        "name": {
+          "description": "Name of instance",
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "family": {
+              "description": "Family of instance",
+              "type": "string"
+            },
+            "compatibleInstances": {
+              "description": "Array of compatible plug-ins",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

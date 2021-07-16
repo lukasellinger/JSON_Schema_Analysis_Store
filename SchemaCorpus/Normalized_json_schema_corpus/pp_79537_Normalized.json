@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "package of data for the tenant (e.g. via some trusted app like an ats) to update an assessment",
+  "properties": {
+    "status": {
+      "$ref": "#/definitions/assessmentRead.json_definitions_status"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "assessmentRead.json_definitions_status": {
+      "description": "The current disposition of an assessment",
+      "enum": [
+        "Started",
+        "In progress",
+        "Complete",
+        "Cancelled",
+        "Opted out",
+        "Error"
+      ]
+    }
+  }
+}

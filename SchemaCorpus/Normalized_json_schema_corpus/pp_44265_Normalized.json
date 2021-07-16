@@ -1,0 +1,23 @@
+{
+  "id": "hotspot-dom-offset",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "HotspotDomOffsetConfig",
+  "description": "An instance of \u003ca href\u003d\u0027#hotspot-dom-offset\u0027\u003ea hotspot DOM offset.\u003c/a\u003e",
+  "type": "object",
+  "properties": {
+    "x": {
+      "type": "number",
+      "title": "X",
+      "description": "Offset on x in pixels.",
+      "default": 0,
+      "example": 10
+    },
+    "y": {
+      "type": "number",
+      "title": "Y",
+      "description": "Offset on y in pixels.",
+      "default": 0,
+      "example": -5
+    }
+  }
+}

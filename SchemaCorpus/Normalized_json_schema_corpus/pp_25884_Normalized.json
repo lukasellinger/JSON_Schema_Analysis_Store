@@ -1,0 +1,235 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/beerjson/beerjson/master/json/mash.json",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "MashProcedureType": {
+      "type": "object",
+      "description": "This defines the procedure for performing unique mashing processes.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "grain_temperature": {
+          "description": "Initial grain temperature prior to the start of the mash.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "mash_steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/mash_step.json_definitions_MashStepType"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "grain_temperature",
+        "mash_steps"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TemperatureUnitType": {
+      "type": "string",
+      "enum": [
+        "C",
+        "F"
+      ]
+    },
+    "mash_step.json_definitions_MashStepType": {
+      "type": "object",
+      "description": "MashStepType - a per step representation occurring during the mash.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "infusion",
+            "temperature",
+            "decoction",
+            "souring mash",
+            "souring wort",
+            "drain mash tun",
+            "sparge"
+          ]
+        },
+        "amount": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+        },
+        "step_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "step_time": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "ramp_time": {
+          "description": "The amount of time  that passes before this step begins. eg moving from a mash step (step 1) of 148F, to a new temperature step of 156F (step 2) may take 8 minutes to heat the mash. Step 2 would have a ramp time of 8 minutes.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "end_temperature": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "description": {
+          "type": "string"
+        },
+        "water_grain_ratio": {
+          "description": "Also known as the mash thickness. eg 1.75 qt/lb or 3.65 L/kg.",
+          "$ref": "#/definitions/measureable_units.json_definitions_SpecificVolumeType"
+        },
+        "infuse_temperature": {
+          "description": "Temperature of the water for an infusion step.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TemperatureType"
+        },
+        "start_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "end_ph": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "step_temperature",
+        "step_time"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeUnitType": {
+      "type": "string",
+      "enum": [
+        "ml",
+        "l",
+        "tsp",
+        "tbsp",
+        "floz",
+        "cup",
+        "pt",
+        "qt",
+        "gal",
+        "bbl",
+        "ifloz",
+        "ipt",
+        "iqt",
+        "igal",
+        "ibbl"
+      ]
+    },
+    "measureable_units.json_definitions_TimeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeUnitType"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TimeUnitType": {
+      "type": "string",
+      "enum": [
+        "sec",
+        "min",
+        "hr",
+        "day",
+        "week"
+      ]
+    },
+    "measureable_units.json_definitions_SpecificVolumeType": {
+      "type": "object",
+      "description": "Specific volume is the inverse of density, with units of volume over mass, ie qt/lb or L/kg. Commonly used for mash thickness.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_SpecificVolumeUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_SpecificVolumeUnitType": {
+      "type": "string",
+      "enum": [
+        "qt/lb",
+        "gal/lb",
+        "gal/oz",
+        "l/g",
+        "l/kg",
+        "floz/oz",
+        "m^3/kg",
+        "ft^3/lb"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityUnitType": {
+      "type": "string",
+      "enum": [
+        "pH"
+      ]
+    }
+  }
+}

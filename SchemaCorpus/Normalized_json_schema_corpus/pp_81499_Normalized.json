@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://integracja.firefighters.ki.agh.edu.pl",
+  "description": "RS from notification center",
+  "type": "object",
+  "properties": {
+    "reportHeaders": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reportId": {
+            "type": "string"
+          },
+          "notificationDate": {
+            "type": "string"
+          },
+          "actionName": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "additionalItems": false
+    }
+  },
+  "additionalProperties": false
+}

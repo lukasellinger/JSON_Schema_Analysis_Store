@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "ticket": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "reported_by_id": {
+          "type": "string"
+        },
+        "related_artifacts": {
+          "type": "array",
+          "items": {},
+          "additionalItems": false
+        },
+        "attachments": {
+          "type": "array",
+          "items": {},
+          "additionalItems": false
+        },
+        "reported_by": {
+          "type": "string"
+        },
+        "assigned_to": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "additionalItems": false
+        },
+        "discussion_disabled": {
+          "type": "boolean"
+        },
+        "assigned_to_id": {
+          "type": "string"
+        },
+        "private": {
+          "type": "boolean"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "discussion_thread": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string"
+            },
+            "posts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items": {},
+                    "additionalItems": false
+                  },
+                  "author": {
+                    "type": "string"
+                  },
+                  "timestamp": {
+                    "type": "string"
+                  },
+                  "last_edited": {
+                    "type": "null"
+                  },
+                  "slug": {
+                    "type": "string"
+                  },
+                  "subject": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "additionalItems": false
+            },
+            "discussion_id": {
+              "type": "string"
+            },
+            "subject": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "mod_date": {
+          "type": "string"
+        },
+        "votes_down": {
+          "type": "integer"
+        },
+        "votes_up": {
+          "type": "integer"
+        },
+        "_id": {
+          "type": "string"
+        },
+        "discussion_thread_url": {
+          "type": "string"
+        },
+        "ticket_num": {
+          "type": "integer"
+        },
+        "custom_fields": {
+          "type": "object",
+          "properties": {
+            "_component": {
+              "type": "string"
+            },
+            "_milestone": {
+              "type": "string"
+            },
+            "_reviewer": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "created_date": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

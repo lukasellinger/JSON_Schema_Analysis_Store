@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "package of data for an assessment app to update an assessment",
+  "properties": {
+    "status": {
+      "$ref": "#/definitions/assessmentRead.json_definitions_status"
+    },
+    "passedFlag": {
+      "$ref": "#/definitions/assessmentRead.json_definitions_passedFlag"
+    },
+    "interactionUris": {
+      "$ref": "#/definitions/assessmentRead.json_definitions_interactionUris"
+    },
+    "image": {
+      "$ref": "#/definitions/assessmentRead.json_definitions_imageUrl"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "assessmentRead.json_definitions_status": {
+      "description": "The current disposition of an assessment",
+      "enum": [
+        "Started",
+        "In progress",
+        "Complete",
+        "Cancelled",
+        "Opted out",
+        "Error"
+      ]
+    },
+    "assessmentRead.json_definitions_passedFlag": {
+      "title": "Pass?",
+      "type": "boolean"
+    },
+    "assessmentRead.json_definitions_interactionUris": {
+      "type": "object",
+      "properties": {
+        "candidateInteractionUri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "description": "when present, a uri, with all query parameters urlencoded, that the candidate must follow to complete some part of the assessment"
+        },
+        "userInteractionUri": {
+          "$ref": "#/definitions/assessmentRead.json_definitions_userInteractionUri"
+        },
+        "userInteractionMessage": {
+          "$ref": "#/definitions/assessmentRead.json_definitions_userInteractionMessage"
+        },
+        "userAttentionRequired": {
+          "type": "boolean",
+          "description": "Signals that the assessment cannot proceed until the user provides some input. Can only be true when either userInteractionUri or userInteractionUri are non-null."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "candidateInteractionUri",
+        "userInteractionUri",
+        "userAttentionRequired"
+      ]
+    },
+    "assessmentRead.json_definitions_userInteractionUri": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri",
+      "description": "when present, a uri, with all query parameters urlencoded, of a small, iframe-able web page that the user (e.g. the recruiter) uses to interact with/view the assessment"
+    },
+    "assessmentRead.json_definitions_userInteractionMessage": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "when present, a markdown formatted string that will be displayed to the user in the assessent popup. Any links open inside a new tab/window."
+    },
+    "assessmentRead.json_definitions_imageUrl": {
+      "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment\u0027s status or an unstarted assessment type",
+      "type": "string",
+      "format": "url"
+    }
+  }
+}

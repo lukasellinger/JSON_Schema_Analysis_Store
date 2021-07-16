@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "previewLink": {
+      "$ref": "#/definitions/postingRead.json_definitions_previewLink"
+    }
+  },
+  "definitions": {
+    "postingRead.json_definitions_previewLink": {
+      "type": "string",
+      "format": "uri",
+      "description": "link to the posting on the job board"
+    }
+  }
+}

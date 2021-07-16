@@ -1,0 +1,13 @@
+{
+  "name": "\u003c%\u003d name %\u003e",
+  "description": "\u003c%\u003d description %\u003e",
+  "integration": {
+    "technology": "\u003c%\u003d integrationTechnology %\u003e",
+    "type": "\u003c%\u003d integrationType %\u003e"
+  },
+  "features": {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {}
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "title": "AuthoringInfo Field",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Contains information about an attribute field relating to Relationship renderers.",
+  "properties": {
+    "classBreakInfos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/classBreakInfo_authoringInfo_schema.json"
+      }
+    },
+    "field": {
+      "type": "string",
+      "description": "Attribute field used for renderer."
+    },
+    "normalizationField": {
+      "type": "string",
+      "description": "Attribute field used to normalize the data."
+    }
+  },
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "code": {
+          "field1": {
+            "field": "VOTE_TURNOUT",
+            "classBreakInfos": [
+              {
+                "minValue": 1.0844,
+                "maxValue": 54.0946
+              },
+              {
+                "minValue": 54.0946,
+                "maxValue": 4083.8235
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "classBreakInfo_authoringInfo_schema.json": {
+      "title": "AuthoringInfo classBreakInfo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The classBreaksInfo object provides information about the class breaks associated with the Relationship renderer.",
+      "properties": {
+        "maxValue": {
+          "type": "number",
+          "description": "A numeric value used to specify the maximum value for a break."
+        },
+        "minValue": {
+          "type": "number",
+          "description": "A numeric value used to specify the minimum value for a break."
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "classBreak Info",
+            "code": {
+              "classBreakInfo": {
+                "minValue": 3,
+                "maxValue": 18
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

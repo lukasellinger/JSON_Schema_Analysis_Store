@@ -1,0 +1,23 @@
+{
+  "allow_all": true,
+  "fullname": "Local Process Environment for Testing",
+  "is_deposit": false,
+  "jsonschema": {
+    "title": "Local Process Environment for Testing",
+    "required": [
+      "environment_type"
+    ],
+    "additionalProperties": false,
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "environment_type": {
+        "default": "localproc-env",
+        "enum": [
+          "localproc-env"
+        ],
+        "type": "string"
+      }
+    }
+  }
+}

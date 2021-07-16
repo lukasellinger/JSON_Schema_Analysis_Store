@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "imxkobs object",
+  "description": "Object specifications for imxkobs mode",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "$ref": "#/definitions/definitions.json_mode"
+    },
+    "filename": {
+      "$ref": "#/definitions/definitions.json_filename"
+    },
+    "size": {
+      "$ref": "#/definitions/definitions.json_size"
+    },
+    "sha256sum": {
+      "$ref": "#/definitions/definitions.json_sha256sum"
+    },
+    "1k_padding": {
+      "$ref": "#/definitions/definitions.json_1k_padding"
+    },
+    "search_exponent": {
+      "$ref": "#/definitions/definitions.json_search_exponent"
+    },
+    "chip_0_device_path": {
+      "$ref": "#/definitions/definitions.json_chip_0_device_path"
+    },
+    "chip_1_device_path": {
+      "$ref": "#/definitions/definitions.json_chip_1_device_path"
+    },
+    "install-if-different": {
+      "$ref": "#/definitions/install-if-different.json"
+    }
+  },
+  "required": [
+    "filename",
+    "mode",
+    "size",
+    "sha256sum"
+  ],
+  "additionalProperties": false,
+  "dependencies": {
+    "mode": {
+      "properties": {
+        "mode": {
+          "enum": [
+            "imxkobs"
+          ]
+        }
+      }
+    }
+  },
+  "definitions": {
+    "definitions.json_mode": {
+      "description": "Represents the install mode for the object data",
+      "type": "string",
+      "enum": [
+        "copy",
+        "flash",
+        "imxkobs",
+        "raw",
+        "tarball",
+        "ubifs"
+      ]
+    },
+    "definitions.json_filename": {
+      "description": "file name used by client to rebuild the commit",
+      "type": "string",
+      "minLength": 1
+    },
+    "definitions.json_size": {
+      "description": "Total size of the object in bytes",
+      "type": "integer",
+      "minimum": 0
+    },
+    "definitions.json_sha256sum": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "definitions.json_1k_padding": {
+      "description": "If 1k-padding should be added in the head",
+      "type": "boolean"
+    },
+    "definitions.json_search_exponent": {
+      "description": "The search exponent",
+      "type": "integer"
+    },
+    "definitions.json_chip_0_device_path": {
+      "description": "The device path of Chip 0",
+      "type": "string"
+    },
+    "definitions.json_chip_1_device_path": {
+      "type": "string"
+    },
+    "install-if-different.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Object install-if-different property",
+      "description": "This property handles when an object should be installed on target",
+      "oneOf": [
+        {
+          "title": "sha256sum verification type",
+          "description": "Installs if sha256sum doesn\u0027t match",
+          "type": "string",
+          "enum": [
+            "sha256sum"
+          ]
+        },
+        {
+          "title": "Known patterns verification type",
+          "description": "Installs if version of know object type is different",
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string"
+            },
+            "pattern": {
+              "type": "string",
+              "enum": [
+                "linux-kernel",
+                "u-boot"
+              ]
+            }
+          },
+          "required": [
+            "version",
+            "pattern"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "title": "Custom pattern verification type",
+          "description": "Installs if version of unknow object type is different",
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string"
+            },
+            "pattern": {
+              "type": "object",
+              "properties": {
+                "regexp": {
+                  "description": "the pattern to match",
+                  "type": "string"
+                },
+                "seek": {
+                  "description": "Where to start reading file.",
+                  "type": "integer",
+                  "default": 0
+                },
+                "buffer-size": {
+                  "description": "How much bytes must be read. If -1, until the end.",
+                  "type": "integer",
+                  "default": -1
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "regexp"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "version",
+            "pattern"
+          ]
+        }
+      ]
+    }
+  }
+}

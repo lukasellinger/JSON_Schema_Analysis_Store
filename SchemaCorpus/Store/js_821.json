@@ -1,0 +1,216 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/Element.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Базовый тип для визуальных элементов представления",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "description": "Наименование элемента",
+      "type": "string"
+    },
+    "Description": {
+      "description": "Пояснение к элементу",
+      "type": "string"
+    },
+    "Text": {
+      "description": "Текст заголовка элемента",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ]
+    },
+    "Focusable": {
+      "description": "Возможен ли установить фокус ввода на элемент",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ],
+      "default": true
+    },
+    "Enabled": {
+      "description": "Возможен ли доступ к элементу",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ],
+      "default": true
+    },
+    "Visible": {
+      "description": "Отображается ли элемент в интерфейсе",
+      "default": true,
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ]
+    },
+    "VerticalAlignment": {
+      "description": "Вертикальное выравнивание в родительском элементе",
+      "oneOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/ElementVerticalAlignment.json"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ]
+    },
+    "HorizontalAlignment": {
+      "description": "Горизонтальное выравнивание в родительском элементе",
+      "oneOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/ElementHorizontalAlignment.json"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ],
+      "default": "Stretch"
+    },
+    "TextHorizontalAlignment": {
+      "description": "Горизонтальное выравнивание текста внутри элемента",
+      "oneOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/TextHorizontalAlignment.json"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ],
+      "default": "Left"
+    },
+    "TextVerticalAlignment": {
+      "description": "Вертикальное выравнивание текста внутри элемента",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/TextVerticalAlignment.json"
+    },
+    "TextStyle": {
+      "description": "Стиль текста элемента",
+      "oneOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Style/TextStyle.json"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ]
+    },
+    "Style": {
+      "description": "Имя кастомного стиля",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ]
+    },
+    "Foreground": {
+      "description": "Цвет текста элемента",
+      "oneOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Style/ColorStyle.json"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ]
+    },
+    "Background": {
+      "description": "Цвет фона элемента",
+      "oneOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Style/ColorStyle.json"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        }
+      ]
+    },
+    "ToolTip": {
+      "description": "Подсказка элемента",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/VisualElement/VisualElement.json"
+        }
+      ]
+    },
+    "Tag": {
+      "description": "Произвольное значение, которое можно привязать к элементу"
+    },
+    "OnLoaded": {
+      "description": "Обработчик события о том, что элемент был загружен",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnGotFocus": {
+      "description": "Обработчик события о том, что элемент получил фокус ввода",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnLostFocus": {
+      "description": "Обработчик события о том, что элемент потерял фокус ввода",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnClick": {
+      "description": "Обработчик события о том, что по элементу сделали клик мыши",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnDoubleClick": {
+      "description": "Обработчик события о том, что по элементу сделали двойной клик мыши",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnMouseDown": {
+      "description": "Обработчик события о том, что на элементе нажали кнопку мыши",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnMouseUp": {
+      "description": "Обработчик события о том, что на элементе отпустили кнопку мыши",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnMouseWheel": {
+      "description": "Обработчик события о том, что на элементе прокрутили колесо мыши",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnMouseEnter": {
+      "description": "Обработчик события о том, что указатель мыши вошел в границы элемента",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnMouseLeave": {
+      "description": "Обработчик события о том, что указатель мыши покинул границы элемента",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnMouseMove": {
+      "description": "Обработчик события о том, что указатель мыши двигался внутри элемента",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnKeyDown": {
+      "description": "Обработчик события о том, что на элементе нажали клавишу клавиатуры",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnKeyUp": {
+      "description": "Обработчик события о том, что на элементе отпустили клавишу клавиатуры",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnPropertyChanged": {
+      "description": "Обработчик события о том, что одно из свойств изменилось",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    }
+  }
+}

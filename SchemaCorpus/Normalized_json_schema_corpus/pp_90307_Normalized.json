@@ -1,0 +1,89 @@
+{
+  "title": "Sketch Edges",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "The sketch edge rendering configuration of a symbol layer. Edges of type `sketch` are rendered with a hand-drawn look in mind.",
+  "properties": {
+    "color": {
+      "$ref": "#/definitions/color_schema.json"
+    },
+    "extensionLength": {
+      "type": "number",
+      "description": "A size in points by which to extend edges beyond their original end points."
+    },
+    "size": {
+      "type": "number",
+      "description": "Edge size in points, positive only",
+      "minimum": 0
+    },
+    "transparency": {
+      "type": "integer",
+      "description": "The value has to lie between `100` (full transparency) and `0` (full opacity).",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of edge visualization.",
+      "enum": [
+        "sketch"
+      ]
+    }
+  },
+  "required": [
+    "color",
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "edges",
+        "code": {
+          "edges": {
+            "type": "sketch",
+            "color": [
+              255,
+              0,
+              0
+            ],
+            "size": 0.75,
+            "transparency": 10,
+            "extensionLength": 5
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

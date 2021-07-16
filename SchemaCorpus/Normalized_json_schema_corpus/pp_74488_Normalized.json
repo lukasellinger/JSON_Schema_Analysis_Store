@@ -1,0 +1,285 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "filter_group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "all",
+            "count",
+            "none"
+          ]
+        },
+        "match_min": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "match_max": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "mfs": {
+          "items": {
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "pseudo",
+                  "total",
+                  "explicit",
+                  "implicit",
+                  "crafted",
+                  "enchant",
+                  "prophecy",
+                  "leaguestone"
+                ]
+              },
+              "expr": {
+                "type": "string"
+              },
+              "min": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "max": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "type",
+              "expr"
+            ],
+            "type": "object",
+            "additionalProperties": false
+          },
+          "type": "array",
+          "minItems": 1
+        }
+      }
+    }
+  },
+  "properties": {
+    "criteria": {
+      "properties": {
+        "buyout": {
+          "type": "boolean"
+        },
+        "corrupted": {
+          "type": "boolean"
+        },
+        "modifiable": {
+          "type": "boolean"
+        },
+        "identified": {
+          "type": "boolean"
+        },
+        "crafted": {
+          "type": "boolean"
+        },
+        "enchanted": {
+          "type": "boolean"
+        },
+        "ilvl_min": {
+          "type": "number"
+        },
+        "ilvl_max": {
+          "type": "number"
+        },
+        "links_min": {
+          "type": "number"
+        },
+        "links_max": {
+          "type": "number"
+        },
+        "modcount_min": {
+          "type": "number"
+        },
+        "modcount_max": {
+          "type": "number"
+        },
+        "base": {
+          "type": "string"
+        },
+        "name": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "minItems": 1
+        },
+        "price_min": {
+          "type": "string"
+        },
+        "price_max": {
+          "type": "string"
+        },
+        "sockets_min": {
+          "type": "number"
+        },
+        "sockets_max": {
+          "type": "number"
+        },
+        "stacksize_min": {
+          "type": "number"
+        },
+        "stacksize_max": {
+          "type": "number"
+        },
+        "type": {
+          "items": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "magic",
+              "rare",
+              "unique",
+              "gem",
+              "currency",
+              "divination card",
+              "quest item",
+              "prophecy",
+              "relic"
+            ]
+          },
+          "type": "array",
+          "minItems": 1
+        },
+        "rarity": {
+          "items": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "magic",
+              "rare",
+              "unique",
+              "relic"
+            ]
+          },
+          "type": "array",
+          "minItems": 1
+        },
+        "iclass": {
+          "type": "string"
+        },
+        "fgs": {
+          "items": {
+            "$ref": "#/definitions/filter_group"
+          },
+          "type": "array",
+          "minItems": 1
+        },
+        "level_min": {
+          "type": "number"
+        },
+        "level_max": {
+          "type": "number"
+        },
+        "exp": {
+          "minimum": 0,
+          "maximum": 100,
+          "type": "number"
+        },
+        "quality_min": {
+          "type": "number"
+        },
+        "quality_max": {
+          "type": "number"
+        },
+        "es_min": {
+          "type": "number"
+        },
+        "es_max": {
+          "type": "number"
+        },
+        "armour_min": {
+          "type": "number"
+        },
+        "armour_max": {
+          "type": "number"
+        },
+        "evasion_min": {
+          "type": "number"
+        },
+        "evasion_max": {
+          "type": "number"
+        },
+        "aps_min": {
+          "type": "number"
+        },
+        "aps_max": {
+          "type": "number"
+        },
+        "crit_min": {
+          "type": "number"
+        },
+        "crit_max": {
+          "type": "number"
+        },
+        "block_min": {
+          "type": "number"
+        },
+        "block_max": {
+          "type": "number"
+        },
+        "edps_min": {
+          "type": "number"
+        },
+        "edps_max": {
+          "type": "number"
+        },
+        "pdps_min": {
+          "type": "number"
+        },
+        "pdps_max": {
+          "type": "number"
+        },
+        "dps_min": {
+          "type": "number"
+        },
+        "dps_max": {
+          "type": "number"
+        }
+      },
+      "type": "object",
+      "additionalProperties": false
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "title": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "baseid": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "criteria",
+    "title"
+  ],
+  "type": "object"
+}

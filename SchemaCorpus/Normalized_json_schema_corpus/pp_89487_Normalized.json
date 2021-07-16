@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "king-phisher.client.plugin.request_redirect.data",
+  "properties": {
+    "created": {
+      "type": "string"
+    },
+    "entries": {
+      "items": {
+        "properties": {
+          "permanent": {
+            "type": "boolean"
+          },
+          "rule": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "permanent",
+          "target"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "created",
+    "entries"
+  ],
+  "type": "object"
+}

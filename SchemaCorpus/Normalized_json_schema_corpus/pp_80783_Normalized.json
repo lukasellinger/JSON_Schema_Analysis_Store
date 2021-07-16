@@ -1,0 +1,23 @@
+{
+  "allow_all": true,
+  "fullname": "Noop Environment for Testing",
+  "is_deposit": false,
+  "jsonschema": {
+    "title": "Noop Environment for Testing",
+    "required": [
+      "environment_type"
+    ],
+    "additionalProperties": false,
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "environment_type": {
+        "default": "noop-env",
+        "enum": [
+          "noop-env"
+        ],
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,765 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "https://fiware.github.io/data-models/specs/Parking/OffStreetParking/schema.json",
+  "title": "FIWARE - Parking / Off Street Parking",
+  "description": "Off street parking",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_GSMA-Commons"
+    },
+    {
+      "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_Location-Commons"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "OffStreetParking"
+          ],
+          "description": "NGSI Entity type"
+        },
+        "category": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "public",
+              "private",
+              "publicPrivate",
+              "urbanDeterrentParking",
+              "parkingGarage",
+              "parkingLot",
+              "shortTerm",
+              "mediumTerm",
+              "longTerm",
+              "free",
+              "feeCharged",
+              "staffed",
+              "guarded",
+              "barrierAccess",
+              "gateAccess",
+              "freeAccess",
+              "onlyResidents",
+              "onlyWithPermit",
+              "forEmployees",
+              "forVisitors",
+              "forCustomers",
+              "forStudents",
+              "forMembers",
+              "forDisabled",
+              "forResidents",
+              "forElectricalCharging",
+              "underground",
+              "ground",
+              "other"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "extCategory": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "allowedVehicleType": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "agriculturalVehicle",
+              "bicycle",
+              "bus",
+              "car",
+              "caravan",
+              "carWithCaravan",
+              "carWithTrailer",
+              "constructionOrMaintenanceVehicle",
+              "lorry",
+              "moped",
+              "motorcycle",
+              "motorcycleWithSideCar",
+              "motorscooter",
+              "tanker",
+              "trailer",
+              "van",
+              "anyVehicle"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "chargeType": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "flat",
+              "minimum",
+              "maximum",
+              "additionalIntervalPrice",
+              "seasonTicket",
+              "temporaryPrice",
+              "firstIntervalPrice",
+              "annualPayment",
+              "monthlyPayment",
+              "free",
+              "other"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "requiredPermit": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "employeePermit",
+              "studentPermit",
+              "fairPermit",
+              "governmentPermit",
+              "residentPermit",
+              "specificIdentifiedVehiclePermit",
+              "visitorPermit",
+              "noPermitNeeded"
+            ]
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "occupancyDetectionType": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "none",
+              "balancing",
+              "singleSpaceDetection",
+              "modelBased",
+              "manual"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "acceptedPaymentMethod": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ByBankTransferInAdvance",
+              "ByInvoice",
+              "Cash",
+              "CheckInAdvance",
+              "COD",
+              "DirectDebit",
+              "GoogleCheckout",
+              "PayPal",
+              "PaySwarm"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "priceRatePerMinute": {
+          "type": "number"
+        },
+        "priceCurrency": {
+          "type": "string"
+        },
+        "layout": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "automatedParkingGarage",
+              "surface",
+              "multiStorey",
+              "singleLevel",
+              "multiLevel",
+              "openSpace",
+              "covered",
+              "nested",
+              "field",
+              "rooftop",
+              "sheds",
+              "carports",
+              "garageBoxes",
+              "other"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "usageScenario": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "truckParking",
+              "parkAndRide",
+              "parkAndCycle",
+              "parkAndWalk",
+              "kissAndRide",
+              "liftshare",
+              "carSharing",
+              "restArea",
+              "serviceArea",
+              "dropOffWithValet",
+              "dropOffMechanical",
+              "eventParking",
+              "automaticParkingGuidance",
+              "staffGuidesToSpace",
+              "vehicleLift",
+              "loadingBay",
+              "dropOff",
+              "overnightParking",
+              "other"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "parkingMode": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "perpendicularParking",
+              "parallelParking",
+              "echelonParking"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "facilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "toilet",
+              "shower",
+              "informationPoint",
+              "internetWireless",
+              "payDesk",
+              "paymentMachine",
+              "cashMachine",
+              "vendingMachine",
+              "faxMachineOrService",
+              "copyMachineOrService",
+              "safeDeposit",
+              "luggageLocker",
+              "publicPhone",
+              "elevator",
+              "dumpingStation",
+              "freshWater",
+              "wasteDisposal",
+              "refuseBin",
+              "iceFreeScaffold",
+              "playground",
+              "electricChargingStation",
+              "bikeParking",
+              "tollTerminal",
+              "defibrillator",
+              "firstAidEquipment",
+              "fireHose",
+              "fireExtinguisher",
+              "fireHydrant"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "security": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "patrolled",
+              "securityStaff",
+              "externalSecurity",
+              "cctv",
+              "dog",
+              "guard24hours",
+              "lighting",
+              "floodLight",
+              "fences",
+              "areaSeperatedFromSurroundings"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "highestFloor": {
+          "type": "integer"
+        },
+        "lowestFloor": {
+          "type": "integer"
+        },
+        "maximumAllowedDuration": {
+          "type": "string"
+        },
+        "totalSpotNumber": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "availableSpotNumber": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "extraSpotNumber": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "openingHours": {
+          "type": "string"
+        },
+        "firstAvailableFloor": {
+          "type": "integer"
+        },
+        "specialLocation": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "airportTerminal",
+              "exhibitonCentre",
+              "shoppingCentre",
+              "specificFacility",
+              "trainStation",
+              "campground",
+              "themePark",
+              "ferryTerminal",
+              "vehicleOnRailTerminal",
+              "coachStation",
+              "cableCarStation",
+              "publicTransportStation",
+              "market",
+              "religiousCentre",
+              "conventionCentre",
+              "cinema",
+              "skilift",
+              "hotel",
+              "other"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "status": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "open",
+              "closed",
+              "closedAbnormal",
+              "openingTimesInForce",
+              "full",
+              "fullAtEntrance",
+              "spacesAvailable",
+              "almostFull"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "reservationType": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "optional",
+              "mandatory",
+              "notAvailable",
+              "partly"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "provider": {
+          "type": "object"
+        },
+        "measuresPeriod": {
+          "type": "number"
+        },
+        "measuresPeriodUnit": {
+          "type": "string"
+        },
+        "contactPoint": {
+          "type": "object"
+        },
+        "averageSpotWidth": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": 0
+        },
+        "averageSpotLength": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": 0
+        },
+        "maximumAllowedHeight": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": 0
+        },
+        "maximumAllowedWidth": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": 0
+        },
+        "refParkingAccess": {
+          "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+        },
+        "refParkingGroup": {
+          "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+        },
+        "refParkingSpot": {
+          "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+        },
+        "aggregateRating": {
+          "type": "object"
+        }
+      }
+    }
+  ],
+  "required": [
+    "id",
+    "type",
+    "location"
+  ],
+  "definitions": {
+    "..\\..\\..\\common-schema.json_definitions_GSMA-Commons": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "alternateName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "dataProvider": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+          }
+        },
+        "seeAlso": {
+          "oneOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": [
+                {
+                  "type": "string",
+                  "format": "uri"
+                }
+              ]
+            },
+            {
+              "type": "string",
+              "format": "uri"
+            }
+          ]
+        }
+      }
+    },
+    "..\\..\\..\\common-schema.json_definitions_EntityIdentifierType": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[\\w\\-\\.\\{\\}\\$\\+\\*\\[\\]`|~^@!,:\\\\]+$"
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    },
+    "..\\..\\..\\common-schema.json_definitions_Location-Commons": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/definitions/https:__geojson.org_schema_Geometry.json"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "streetAddress": {
+              "type": "string"
+            },
+            "addressLocality": {
+              "type": "string"
+            },
+            "addressRegion": {
+              "type": "string"
+            },
+            "addressCountry": {
+              "type": "string"
+            },
+            "postalCode": {
+              "type": "string"
+            },
+            "postOfficeBoxNumber": {
+              "type": "string"
+            },
+            "areaServed": {
+              "type": "string"
+            }
+          }
+        },
+        "areaServed": {
+          "type": "string"
+        }
+      }
+    },
+    "https:__geojson.org_schema_Geometry.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GeoJSON Geometry",
+      "oneOf": [
+        {
+          "title": "GeoJSON Point",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "number"
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON LineString",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "LineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON Polygon",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 4,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiPoint",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiLineString",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiPolygon",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "minItems": 4,
+                  "items": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

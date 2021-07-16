@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://amwa.tv/as-02api",
+  "description": "Summary information about the current state of an essence component file as accessible through the API.",
+  "type": "object",
+  "properties": {
+    "LastPartition": {
+      "type": "integer",
+      "description": "Inclusive index of the last partition in the essence component file.",
+      "minimum": 0,
+      "exclusiveMinimum": false
+    },
+    "FileClosed": {
+      "type": "string",
+      "description": "Status of the essence component file, as to whether it is: \u0027open\u0027 - accepting new access units; \u0027closing\u0027 - not accepting new access units but file may not yet be closed and complete; \u0027closed\u0027 - not accepting access units and file is closed and complete on the store.",
+      "enum": [
+        "open",
+        "closing",
+        "closed"
+      ]
+    },
+    "EditRate": {
+      "type": "string",
+      "description": "Edit rate for the essence as a rational value in format \u003cnumerator\u003e/\u003cdenominator\u003e, e.g. 60000/1001.",
+      "default": "25/1",
+      "pattern": "\\d+/\\d+"
+    },
+    "Duration": {
+      "type": "integer",
+      "description": "Count of the total number of edit units accessible from the essence component file.",
+      "minimum": 0,
+      "exclusiveMinimum": false
+    },
+    "AccessUnitType": {
+      "type": "string",
+      "description": "Indication of the type of essence contained in the file. Full information should be retrieved from the MXF file descriptor available through the \u0027/descriptor\u0027, \u0027/stream\u0027 and \u0027/aaf-xml\u0027 sub-resources.",
+      "minLength": 1,
+      "default": "Frame",
+      "enum": [
+        "unknown",
+        "aac",
+        "iframeonly",
+        "longgop",
+        "sample",
+        "smpte302m",
+        "ancdata"
+      ]
+    }
+  },
+  "required": [
+    "LastPartition",
+    "FileClosed",
+    "EditRate",
+    "Duration",
+    "AccessUnitType"
+  ]
+}

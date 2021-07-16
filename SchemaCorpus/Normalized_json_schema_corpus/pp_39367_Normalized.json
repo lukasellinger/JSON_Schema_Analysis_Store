@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "esperecyan/dictionary-api エラー",
+  "description": "「主に単語で答えるゲームにおける汎用的な辞書形式に関するAPI」において、エラーが発生した際の返却値です。",
+  "type": "array",
+  "items": {
+    "title": "エラーオブジェクト",
+    "description": "個々のエラーを表します。",
+    "type": "object",
+    "properties": {
+      "type": {
+        "title": "エラーコード",
+        "description": "エラーコードの詳細は次のURLを参照: \u003chttps://github.com/esperecyan/dictionary-api/blob/master/README.md#エラー\u003e",
+        "type": "string"
+      },
+      "messages": {
+        "title": "エラーメッセージ",
+        "description": "エラーメッセージのリストです。",
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1
+      }
+    },
+    "required": [
+      "type",
+      "messages"
+    ]
+  },
+  "minItems": 1
+}

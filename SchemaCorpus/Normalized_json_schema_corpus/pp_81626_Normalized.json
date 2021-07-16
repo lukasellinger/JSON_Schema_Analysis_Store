@@ -1,0 +1,2711 @@
+{
+  "schemas": {
+    "memberships": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "description": "A relationship between a member and an organization",
+      "properties": {
+        "area": {
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_area.json",
+          "description": "The geographic area to which this membership is related"
+        },
+        "area_id": {
+          "description": "The ID of the geographic area to which this membership is related",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contact_details": {
+          "description": "Means of contacting the member of the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_contact_detail.json"
+          },
+          "type": "array"
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "end_date": {
+          "description": "The date on which the relationship ended",
+          "pattern": "^[0-9]{4}((-[0-9]{2}){0,2}|(-[0-9]{2}){2}(T[0-9]{2}(:[0-9]{2}(:[0-9]{2})?)?Z)?)$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "description": "The membership\u0027s unique identifier",
+          "rdfType": "id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "description": "A label describing the membership",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "links": {
+          "description": "URLs to documents about the membership",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "member": {
+          "description": "The person or organization that is a member of the organization",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "on_behalf_of": {
+          "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_organization.json",
+          "description": "The organization on whose behalf the person is a member of the organization"
+        },
+        "on_behalf_of_id": {
+          "description": "The ID of the organization on whose behalf the person is a member of the organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization": {
+          "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_organization.json",
+          "description": "The organization in which the person or organization is a member",
+          "rdfReverse": "memberships"
+        },
+        "organization_id": {
+          "description": "The ID of the organization in which the person or organization is a member",
+          "rdfName": "organization",
+          "rdfReverse": "memberships",
+          "rdfType": "id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "person": {
+          "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_person.json",
+          "description": "The person who is a member of the organization",
+          "rdfReverse": "memberships"
+        },
+        "person_id": {
+          "description": "The ID of the person who is a member of the organization",
+          "rdfName": "person",
+          "rdfReverse": "memberships",
+          "rdfType": "id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "post": {
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_post.json",
+          "description": "The post held by the member in the organization through this membership"
+        },
+        "post_id": {
+          "description": "The ID of the post held by the member in the organization through this membership",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "role": {
+          "description": "The role that the member fulfills in the organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "start_date": {
+          "description": "The date on which the relationship began",
+          "pattern": "^[0-9]{4}((-[0-9]{2}){0,2}|(-[0-9]{2}){2}(T[0-9]{2}(:[0-9]{2}(:[0-9]{2})?)?Z)?)$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "title": "Membership",
+      "type": "object"
+    },
+    "organizations": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "description": "A group with a common purpose or reason for existence that goes beyond the set of people belonging to it",
+      "properties": {
+        "abstract": {
+          "description": "A one-line description of an organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "area": {
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_area.json",
+          "description": "The geographic area to which this organization is related"
+        },
+        "area_id": {
+          "description": "The ID of the geographic area to which this organization is related",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "children": {
+          "description": "The sub-organizations of the organization",
+          "items": {
+            "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_organization.json"
+          },
+          "type": "array"
+        },
+        "classification": {
+          "description": "An organization category, e.g. committee",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contact_details": {
+          "description": "Means of contacting the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_contact_detail.json"
+          },
+          "type": "array"
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "description": "An extended description of an organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dissolution_date": {
+          "description": "A date of dissolution",
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "founding_date": {
+          "description": "A date of founding",
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "description": "The organization\u0027s unique identifier",
+          "rdfType": "id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifiers": {
+          "description": "Issued identifiers",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_identifier.json"
+          },
+          "type": "array"
+        },
+        "image": {
+          "description": "A URL of an image",
+          "format": "uri",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "links": {
+          "description": "URLs to documents about the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "memberships": {
+          "description": "The memberships of the members of the organization and of the organization itself",
+          "items": {
+            "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_membership.json"
+          },
+          "type": "array"
+        },
+        "motions": {
+          "description": "Motions within the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_motion.json"
+          },
+          "type": "array"
+        },
+        "name": {
+          "description": "A primary name, e.g. a legally recognized name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other_names": {
+          "description": "Alternate or former names",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_other_name.json"
+          },
+          "type": "array"
+        },
+        "parent": {
+          "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_organization.json",
+          "description": "The organization that contains this organization"
+        },
+        "parent_id": {
+          "description": "The ID of the organization that contains this organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "posts": {
+          "description": "Posts within the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_post.json"
+          },
+          "type": "array"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vote_events": {
+          "description": "Vote events in which members of the organization are voting",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote_event.json"
+          },
+          "type": "array"
+        },
+        "votes": {
+          "description": "Votes cast by the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote.json"
+          },
+          "type": "array"
+        }
+      },
+      "title": "Organization",
+      "type": "object"
+    },
+    "persons": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "description": "A real person, alive or dead",
+      "properties": {
+        "additional_name": {
+          "description": "One or more secondary given names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "biography": {
+          "description": "An extended account of a person\u0027s life",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "birth_date": {
+          "description": "A date of birth",
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contact_details": {
+          "description": "Means of contacting the person",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_contact_detail.json"
+          },
+          "type": "array"
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "death_date": {
+          "description": "A date of death",
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "email": {
+          "description": "A preferred email address",
+          "format": "email",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "family_name": {
+          "description": "One or more family names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gender": {
+          "description": "A gender",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "given_name": {
+          "description": "One or more primary given names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "honorific_prefix": {
+          "description": "One or more honorifics preceding a person\u0027s name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "honorific_suffix": {
+          "description": "One or more honorifics following a person\u0027s name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "description": "The person\u0027s unique identifier",
+          "rdfType": "id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifiers": {
+          "description": "Issued identifiers",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_identifier.json"
+          },
+          "type": "array"
+        },
+        "image": {
+          "description": "A URL of a head shot",
+          "format": "uri",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "links": {
+          "description": "URLs to documents about the person",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "memberships": {
+          "description": "The person\u0027s memberships",
+          "items": {
+            "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_membership.json"
+          },
+          "type": "array"
+        },
+        "motions": {
+          "description": "The person\u0027s motions",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_motion.json"
+          },
+          "type": "array"
+        },
+        "name": {
+          "description": "A person\u0027s preferred full name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "national_identity": {
+          "description": "A national identity",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other_names": {
+          "description": "Alternate or former names",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_other_name.json"
+          },
+          "type": "array"
+        },
+        "patronymic_name": {
+          "description": "One or more patronymic names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sort_name": {
+          "description": "A name to use in a lexicographically ordered list",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "speeches": {
+          "description": "The person\u0027s speeches",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_speech.json"
+          },
+          "type": "array"
+        },
+        "summary": {
+          "description": "A one-line account of a person\u0027s life",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "votes": {
+          "description": "Votes cast by the person",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote.json"
+          },
+          "type": "array"
+        }
+      },
+      "rdfSubject": "id",
+      "title": "Person",
+      "type": "object"
+    }
+  },
+  "definitions": {
+    "http:__www.popoloproject.com_schemas_area.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Area",
+      "description": "A geographic area whose geometry may change over time",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The area\u0027s unique identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "description": "A primary name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifier": {
+          "description": "An issued identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "classification": {
+          "description": "An area category, e.g. city",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parent_id": {
+          "description": "The ID of the area that contains this area",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parent": {
+          "description": "The area that contains this area",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_area.json"
+        },
+        "geometry": {
+          "description": "A geometry",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "memberships": {
+          "description": "The memberships to which this area is related",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_membership.json"
+          }
+        },
+        "organizations": {
+          "description": "The organizations to which this area is related",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_organization.json"
+          }
+        },
+        "posts": {
+          "description": "The posts to which this area is related",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_post.json"
+          }
+        },
+        "children": {
+          "description": "The sub-areas of the area",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_area.json"
+          }
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_membership.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Membership",
+      "description": "A relationship between a member and an organization",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The membership\u0027s unique identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "description": "A label describing the membership",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "role": {
+          "description": "The role that the member fulfills in the organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "member": {
+          "description": "The person or organization that is a member of the organization",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "person_id": {
+          "description": "The ID of the person who is a member of the organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "person": {
+          "description": "The person who is a member of the organization",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_person.json"
+        },
+        "organization_id": {
+          "description": "The ID of the organization in which the person or organization is a member",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization": {
+          "description": "The organization in which the person or organization is a member",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_organization.json"
+        },
+        "post_id": {
+          "description": "The ID of the post held by the member in the organization through this membership",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "post": {
+          "description": "The post held by the member in the organization through this membership",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_post.json"
+        },
+        "on_behalf_of_id": {
+          "description": "The ID of the organization on whose behalf the person is a member of the organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "on_behalf_of": {
+          "description": "The organization on whose behalf the person is a member of the organization",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_organization.json"
+        },
+        "area_id": {
+          "description": "The ID of the geographic area to which this membership is related",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "area": {
+          "description": "The geographic area to which this membership is related",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_area.json"
+        },
+        "start_date": {
+          "description": "The date on which the relationship began",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}((-[0-9]{2}){0,2}|(-[0-9]{2}){2}T[0-9]{2}(:[0-9]{2}){0,2}(Z|[+-][0-9]{2}(:[0-9]{2})?))$"
+        },
+        "end_date": {
+          "description": "The date on which the relationship ended",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}((-[0-9]{2}){0,2}|(-[0-9]{2}){2}T[0-9]{2}(:[0-9]{2}){0,2}(Z|[+-][0-9]{2}(:[0-9]{2})?))$"
+        },
+        "contact_details": {
+          "description": "Means of contacting the member of the organization",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_contact_detail.json"
+          }
+        },
+        "links": {
+          "description": "URLs to documents about the membership",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_person.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Person",
+      "description": "A real person, alive or dead",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The person\u0027s unique identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "description": "A person\u0027s preferred full name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other_names": {
+          "description": "Alternate or former names",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_other_name.json"
+          }
+        },
+        "identifiers": {
+          "description": "Issued identifiers",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_identifier.json"
+          }
+        },
+        "family_name": {
+          "description": "One or more family names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "given_name": {
+          "description": "One or more primary given names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "additional_name": {
+          "description": "One or more secondary given names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "honorific_prefix": {
+          "description": "One or more honorifics preceding a person\u0027s name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "honorific_suffix": {
+          "description": "One or more honorifics following a person\u0027s name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "patronymic_name": {
+          "description": "One or more patronymic names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sort_name": {
+          "description": "A name to use in a lexicographically ordered list",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "email": {
+          "description": "A preferred email address",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "email"
+        },
+        "gender": {
+          "description": "A gender",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "birth_date": {
+          "description": "A date of birth",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$"
+        },
+        "death_date": {
+          "description": "A date of death",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$"
+        },
+        "image": {
+          "description": "A URL of a head shot",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "summary": {
+          "description": "A one-line account of a person\u0027s life",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "biography": {
+          "description": "An extended account of a person\u0027s life",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "national_identity": {
+          "description": "A national identity",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contact_details": {
+          "description": "Means of contacting the person",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_contact_detail.json"
+          }
+        },
+        "links": {
+          "description": "URLs to documents about the person",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        },
+        "memberships": {
+          "description": "The person\u0027s memberships",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_membership.json"
+          }
+        },
+        "motions": {
+          "description": "The person\u0027s motions",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_motion.json"
+          }
+        },
+        "speeches": {
+          "description": "The person\u0027s speeches",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_speech.json"
+          }
+        },
+        "votes": {
+          "description": "Votes cast by the person",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote.json"
+          }
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_other_name.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Other name",
+      "description": "An alternate or former name",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "An alternate or former name",
+          "type": "string"
+        },
+        "family_name": {
+          "description": "One or more family names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "given_name": {
+          "description": "One or more primary given names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "additional_name": {
+          "description": "One or more secondary given names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "honorific_prefix": {
+          "description": "One or more honorifics preceding a person\u0027s name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "honorific_suffix": {
+          "description": "One or more honorifics following a person\u0027s name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "patronymic_name": {
+          "description": "One or more patronymic names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "start_date": {
+          "description": "The date on which the name was adopted",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$"
+        },
+        "end_date": {
+          "description": "The date on which the name was abandoned",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$"
+        },
+        "note": {
+          "description": "A note, e.g. \u0027Birth name\u0027",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_identifier.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Identifier",
+      "description": "An issued identifier",
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "description": "An issued identifier, e.g. a DUNS number",
+          "type": "string",
+          "required": true
+        },
+        "scheme": {
+          "description": "An identifier scheme, e.g. DUNS",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_contact_detail.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Contact detail",
+      "description": "A means of contacting an entity",
+      "type": "object",
+      "properties": {
+        "label": {
+          "description": "A human-readable label for the contact detail",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "type": {
+          "description": "A type of medium, e.g. \u0027fax\u0027 or \u0027email\u0027",
+          "type": "string",
+          "required": true
+        },
+        "value": {
+          "description": "A value, e.g. a phone number or email address",
+          "type": "string",
+          "required": true
+        },
+        "note": {
+          "description": "A note, e.g. for grouping contact details by physical location",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "valid_from": {
+          "description": "The date from which the contact detail is valid",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$"
+        },
+        "valid_until": {
+          "description": "The date from which the contact detail is no longer valid",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$"
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_link.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Link",
+      "description": "A URL",
+      "type": "object",
+      "properties": {
+        "url": {
+          "description": "A URL",
+          "type": "string",
+          "format": "uri",
+          "required": true
+        },
+        "note": {
+          "description": "A note, e.g. \u0027Wikipedia page\u0027",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_motion.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Motion",
+      "description": "A formal step to introduce a matter for consideration by an organization",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The motion\u0027s unique identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization_id": {
+          "description": "The ID of the organization in which the motion is proposed",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization": {
+          "description": "The organization in which the motion is proposed",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_organization.json"
+        },
+        "legislative_session_id": {
+          "description": "The ID of the legislative session in which the motion is proposed",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "legislative_session": {
+          "description": "The legislative session in which the motion is proposed",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_event.json"
+        },
+        "creator_id": {
+          "description": "The ID of the person who proposed the motion",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "creator": {
+          "description": "The person who proposed the motion",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_person.json"
+        },
+        "text": {
+          "description": "The transcript or text of the motion",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifier": {
+          "description": "An issued identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "classification": {
+          "description": "A motion category, e.g. adjournment",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "date": {
+          "description": "The date on which the motion was proposed",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "requirement": {
+          "description": "The requirement for the motion to be adopted",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "result": {
+          "description": "The result of the motion",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vote_events": {
+          "description": "Events at which people vote on the motion",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote_event.json"
+          }
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_organization.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Organization",
+      "description": "A group with a common purpose or reason for existence that goes beyond the set of people belonging to it",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The organization\u0027s unique identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "description": "A primary name, e.g. a legally recognized name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other_names": {
+          "description": "Alternate or former names",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_other_name.json"
+          }
+        },
+        "identifiers": {
+          "description": "Issued identifiers",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_identifier.json"
+          }
+        },
+        "classification": {
+          "description": "An organization category, e.g. committee",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parent_id": {
+          "description": "The ID of the organization that contains this organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parent": {
+          "description": "The organization that contains this organization",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_organization.json"
+        },
+        "area_id": {
+          "description": "The ID of the geographic area to which this organization is related",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "area": {
+          "description": "The geographic area to which this organization is related",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_area.json"
+        },
+        "abstract": {
+          "description": "A one-line description of an organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "description": "An extended description of an organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "founding_date": {
+          "description": "A date of founding",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$"
+        },
+        "dissolution_date": {
+          "description": "A date of dissolution",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$"
+        },
+        "image": {
+          "description": "A URL of an image",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "contact_details": {
+          "description": "Means of contacting the organization",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_contact_detail.json"
+          }
+        },
+        "links": {
+          "description": "URLs to documents about the organization",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        },
+        "memberships": {
+          "description": "The memberships of the members of the organization and of the organization itself",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_membership.json"
+          }
+        },
+        "posts": {
+          "description": "Posts within the organization",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_post.json"
+          }
+        },
+        "motions": {
+          "description": "Motions within the organization",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_motion.json"
+          }
+        },
+        "vote_events": {
+          "description": "Vote events in which members of the organization are voting",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote_event.json"
+          }
+        },
+        "votes": {
+          "description": "Votes cast by the organization",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote.json"
+          }
+        },
+        "children": {
+          "description": "The sub-organizations of the organization",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_organization.json"
+          }
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_post.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Post",
+      "description": "A position that exists independent of the person holding it",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The post\u0027s unique identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "description": "A label describing the post",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other_label": {
+          "description": "An alternate label",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "role": {
+          "description": "The function that the holder of the post fulfills",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization_id": {
+          "description": "The ID of the organization in which the post is held",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization": {
+          "description": "The organization in which the post is held",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_organization.json"
+        },
+        "area_id": {
+          "description": "The ID of the geographic area to which this post is related",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "area": {
+          "description": "The geographic area to which this post is related",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_area.json"
+        },
+        "start_date": {
+          "description": "The date on which the post was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$"
+        },
+        "end_date": {
+          "description": "The date on which the post was eliminated",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$"
+        },
+        "contact_details": {
+          "description": "Means of contacting the holder of the post",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_contact_detail.json"
+          }
+        },
+        "links": {
+          "description": "URLs to documents about the post",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        },
+        "memberships": {
+          "description": "The memberships through which people hold the post in the organization",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_membership.json"
+          }
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_vote_event.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Vote event",
+      "description": "An event at which people\u0027s votes are recorded",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The vote event\u0027s unique identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization_id": {
+          "description": "The ID of the organization whose members are voting",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization": {
+          "description": "The organization whose members are voting",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_organization.json"
+        },
+        "legislative_session_id": {
+          "description": "The ID of the legislative session in which the vote occurs",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "legislative_session": {
+          "description": "The legislative session in which the vote occurs",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_event.json"
+        },
+        "identifier": {
+          "description": "An issued identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "motion_id": {
+          "description": "The ID of the motion being decided",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "motion": {
+          "description": "The motion being decided",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_motion.json"
+        },
+        "classification": {
+          "description": "The vote event\u0027s category",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "start_date": {
+          "description": "The time at which the event begins",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "end_date": {
+          "description": "The time at which the event ends",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "result": {
+          "description": "The result of the vote event",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group_results": {
+          "description": "The result of the vote event within groups of voters",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_group_result.json"
+          }
+        },
+        "counts": {
+          "description": "The number of votes for options",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_count.json"
+          }
+        },
+        "votes": {
+          "description": "Voters\u0027 votes",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote.json"
+          }
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_event.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Event",
+      "description": "An occurrence that people may attend",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The event\u0027s unique identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "description": "The event\u0027s name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "description": "The event\u0027s description",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "start_date": {
+          "description": "The time at which the event starts",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}((-[0-9]{2}){0,2}|(-[0-9]{2}){2}T[0-9]{2}(:[0-9]{2}){0,2}(Z|[+-][0-9]{2}(:[0-9]{2})?))$"
+        },
+        "end_date": {
+          "description": "The time at which the event ends",
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}((-[0-9]{2}){0,2}|(-[0-9]{2}){2}T[0-9]{2}(:[0-9]{2}){0,2}(Z|[+-][0-9]{2}(:[0-9]{2})?))$"
+        },
+        "location": {
+          "description": "The event\u0027s location",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "description": "The event\u0027s status",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifiers": {
+          "description": "Issued identifiers",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_identifier.json"
+          }
+        },
+        "classification": {
+          "description": "The event\u0027s category",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization_id": {
+          "description": "The ID of the organization organizing the event",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization": {
+          "description": "The organization organizing the event",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_organization.json"
+        },
+        "attendees": {
+          "description": "People attending the event",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_person.json"
+          }
+        },
+        "parent_id": {
+          "description": "The ID of an event that this event is a part of",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parent": {
+          "description": "An event that this event is a part of",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_event.json"
+        },
+        "children": {
+          "description": "The sub-events of the event",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_event.json"
+          }
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_group_result.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Group result",
+      "description": "A result of a vote event within a group of voters",
+      "type": "object",
+      "properties": {
+        "group_id": {
+          "description": "The ID of a group of voters",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group": {
+          "description": "A group of voters",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "result": {
+          "description": "The result of the vote event within a group of voters",
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_count.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Count",
+      "description": "The number of votes for an option in a vote event",
+      "type": "object",
+      "properties": {
+        "option": {
+          "description": "An option in a vote event",
+          "type": "string",
+          "required": true
+        },
+        "value": {
+          "description": "The number of votes for an option",
+          "type": "integer",
+          "required": true
+        },
+        "group_id": {
+          "description": "The ID of a group of voters",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group": {
+          "description": "A group of voters",
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_vote.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Vote",
+      "description": "A voter\u0027s vote in a vote event",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The vote\u0027s unique identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vote_event_id": {
+          "description": "The ID of a vote event",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vote_event": {
+          "description": "A vote event",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote_event.json"
+        },
+        "voter_id": {
+          "description": "The ID of the person or organization that is voting",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "voter": {
+          "description": "The person or organization that is voting",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "option": {
+          "description": "The option chosen by the voter, whether actively or passively",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group_id": {
+          "description": "The ID of the voter\u0027s primary political group",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "group": {
+          "description": "The voter\u0027s primary political group",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_organization.json"
+        },
+        "role": {
+          "description": "The voter\u0027s role in the event",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "weight": {
+          "description": "The weight of the voter\u0027s vote",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "pair_id": {
+          "description": "The ID of the person with whom the voter is paired",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pair": {
+          "description": "The person with whom the voter is paired",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_person.json"
+        }
+      }
+    },
+    "http:__www.popoloproject.com_schemas_speech.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "Speech",
+      "description": "A speech, a scene, a narrative, or another part of a transcript",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The speech\u0027s unique identifier",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "creator_id": {
+          "description": "The ID of the person who is speaking",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "creator": {
+          "description": "The person who is speaking",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_person.json"
+        },
+        "role": {
+          "description": "The speaker\u0027s role while speaking",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "attribution_text": {
+          "description": "The text identifying the speaker",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "audience_id": {
+          "description": "The ID of the person to whom the speaker is speaking",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "audience": {
+          "description": "The person to whom the speaker is speaking",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_person.json"
+        },
+        "text": {
+          "description": "The transcript or text of the speech",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "audio": {
+          "description": "The audio recording of the speech",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "video": {
+          "description": "The video recording of the speech",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "date": {
+          "description": "The time at which the speech is spoken",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "title": {
+          "description": "A name given to the speech",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "type": {
+          "description": "The type of the part of the transcript",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "position": {
+          "description": "The position of the speech within a transcript",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "event_id": {
+          "description": "The ID of the event at which the speech is spoken",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "event": {
+          "description": "The event at which the speech is spoken",
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_event.json"
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          }
+        }
+      }
+    },
+    "id_http:__www.popoloproject.com_schemas_organization.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "description": "A group with a common purpose or reason for existence that goes beyond the set of people belonging to it",
+      "properties": {
+        "abstract": {
+          "description": "A one-line description of an organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "area": {
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_area.json",
+          "description": "The geographic area to which this organization is related"
+        },
+        "area_id": {
+          "description": "The ID of the geographic area to which this organization is related",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "children": {
+          "description": "The sub-organizations of the organization",
+          "items": {
+            "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_organization.json"
+          },
+          "type": "array"
+        },
+        "classification": {
+          "description": "An organization category, e.g. committee",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contact_details": {
+          "description": "Means of contacting the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_contact_detail.json"
+          },
+          "type": "array"
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "description": "An extended description of an organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dissolution_date": {
+          "description": "A date of dissolution",
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "founding_date": {
+          "description": "A date of founding",
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "description": "The organization\u0027s unique identifier",
+          "rdfType": "id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifiers": {
+          "description": "Issued identifiers",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_identifier.json"
+          },
+          "type": "array"
+        },
+        "image": {
+          "description": "A URL of an image",
+          "format": "uri",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "links": {
+          "description": "URLs to documents about the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "memberships": {
+          "description": "The memberships of the members of the organization and of the organization itself",
+          "items": {
+            "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_membership.json"
+          },
+          "type": "array"
+        },
+        "motions": {
+          "description": "Motions within the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_motion.json"
+          },
+          "type": "array"
+        },
+        "name": {
+          "description": "A primary name, e.g. a legally recognized name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other_names": {
+          "description": "Alternate or former names",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_other_name.json"
+          },
+          "type": "array"
+        },
+        "parent": {
+          "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_organization.json",
+          "description": "The organization that contains this organization"
+        },
+        "parent_id": {
+          "description": "The ID of the organization that contains this organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "posts": {
+          "description": "Posts within the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_post.json"
+          },
+          "type": "array"
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vote_events": {
+          "description": "Vote events in which members of the organization are voting",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote_event.json"
+          },
+          "type": "array"
+        },
+        "votes": {
+          "description": "Votes cast by the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote.json"
+          },
+          "type": "array"
+        }
+      },
+      "title": "Organization",
+      "type": "object"
+    },
+    "id_http:__www.popoloproject.com_schemas_membership.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "description": "A relationship between a member and an organization",
+      "properties": {
+        "area": {
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_area.json",
+          "description": "The geographic area to which this membership is related"
+        },
+        "area_id": {
+          "description": "The ID of the geographic area to which this membership is related",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contact_details": {
+          "description": "Means of contacting the member of the organization",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_contact_detail.json"
+          },
+          "type": "array"
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "end_date": {
+          "description": "The date on which the relationship ended",
+          "pattern": "^[0-9]{4}((-[0-9]{2}){0,2}|(-[0-9]{2}){2}(T[0-9]{2}(:[0-9]{2}(:[0-9]{2})?)?Z)?)$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "description": "The membership\u0027s unique identifier",
+          "rdfType": "id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "label": {
+          "description": "A label describing the membership",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "links": {
+          "description": "URLs to documents about the membership",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "member": {
+          "description": "The person or organization that is a member of the organization",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "on_behalf_of": {
+          "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_organization.json",
+          "description": "The organization on whose behalf the person is a member of the organization"
+        },
+        "on_behalf_of_id": {
+          "description": "The ID of the organization on whose behalf the person is a member of the organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organization": {
+          "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_organization.json",
+          "description": "The organization in which the person or organization is a member",
+          "rdfReverse": "memberships"
+        },
+        "organization_id": {
+          "description": "The ID of the organization in which the person or organization is a member",
+          "rdfName": "organization",
+          "rdfReverse": "memberships",
+          "rdfType": "id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "person": {
+          "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_person.json",
+          "description": "The person who is a member of the organization",
+          "rdfReverse": "memberships"
+        },
+        "person_id": {
+          "description": "The ID of the person who is a member of the organization",
+          "rdfName": "person",
+          "rdfReverse": "memberships",
+          "rdfType": "id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "post": {
+          "$ref": "#/definitions/http:__www.popoloproject.com_schemas_post.json",
+          "description": "The post held by the member in the organization through this membership"
+        },
+        "post_id": {
+          "description": "The ID of the post held by the member in the organization through this membership",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "role": {
+          "description": "The role that the member fulfills in the organization",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "start_date": {
+          "description": "The date on which the relationship began",
+          "pattern": "^[0-9]{4}((-[0-9]{2}){0,2}|(-[0-9]{2}){2}(T[0-9]{2}(:[0-9]{2}(:[0-9]{2})?)?Z)?)$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "title": "Membership",
+      "type": "object"
+    },
+    "id_http:__www.popoloproject.com_schemas_person.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "description": "A real person, alive or dead",
+      "properties": {
+        "additional_name": {
+          "description": "One or more secondary given names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "biography": {
+          "description": "An extended account of a person\u0027s life",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "birth_date": {
+          "description": "A date of birth",
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contact_details": {
+          "description": "Means of contacting the person",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_contact_detail.json"
+          },
+          "type": "array"
+        },
+        "created_at": {
+          "description": "The time at which the resource was created",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "death_date": {
+          "description": "A date of death",
+          "pattern": "^[0-9]{4}(-[0-9]{2}){0,2}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "email": {
+          "description": "A preferred email address",
+          "format": "email",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "family_name": {
+          "description": "One or more family names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gender": {
+          "description": "A gender",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "given_name": {
+          "description": "One or more primary given names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "honorific_prefix": {
+          "description": "One or more honorifics preceding a person\u0027s name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "honorific_suffix": {
+          "description": "One or more honorifics following a person\u0027s name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "description": "The person\u0027s unique identifier",
+          "rdfType": "id",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identifiers": {
+          "description": "Issued identifiers",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_identifier.json"
+          },
+          "type": "array"
+        },
+        "image": {
+          "description": "A URL of a head shot",
+          "format": "uri",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "links": {
+          "description": "URLs to documents about the person",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "memberships": {
+          "description": "The person\u0027s memberships",
+          "items": {
+            "$ref": "#/definitions/id_http:__www.popoloproject.com_schemas_membership.json"
+          },
+          "type": "array"
+        },
+        "motions": {
+          "description": "The person\u0027s motions",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_motion.json"
+          },
+          "type": "array"
+        },
+        "name": {
+          "description": "A person\u0027s preferred full name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "national_identity": {
+          "description": "A national identity",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "other_names": {
+          "description": "Alternate or former names",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_other_name.json"
+          },
+          "type": "array"
+        },
+        "patronymic_name": {
+          "description": "One or more patronymic names",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sort_name": {
+          "description": "A name to use in a lexicographically ordered list",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sources": {
+          "description": "URLs to documents from which the resource is derived",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_link.json"
+          },
+          "type": "array"
+        },
+        "speeches": {
+          "description": "The person\u0027s speeches",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_speech.json"
+          },
+          "type": "array"
+        },
+        "summary": {
+          "description": "A one-line account of a person\u0027s life",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updated_at": {
+          "description": "The time at which the resource was last modified",
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "votes": {
+          "description": "Votes cast by the person",
+          "items": {
+            "$ref": "#/definitions/http:__www.popoloproject.com_schemas_vote.json"
+          },
+          "type": "array"
+        }
+      },
+      "rdfSubject": "id",
+      "title": "Person",
+      "type": "object"
+    }
+  }
+}

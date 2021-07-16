@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "algorithmParams": {
+      "type": "object",
+      "properties": {
+        "inflation": {
+          "type": "integer"
+        },
+        "power": {
+          "type": "integer"
+        },
+        "prune": {
+          "type": "integer"
+        },
+        "extraClusters": {
+          "type": "integer"
+        },
+        "numberOfClusters": {
+          "type": "integer"
+        },
+        "leungM": {
+          "type": "number"
+        },
+        "leungDelta": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "priorities": {
+      "type": "object"
+    },
+    "algorithm": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "algorithmParams",
+    "priorities",
+    "algorithm"
+  ]
+}

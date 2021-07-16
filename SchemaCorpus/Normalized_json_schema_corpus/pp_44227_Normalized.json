@@ -1,0 +1,28 @@
+{
+  "id": "action-method",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ActionMethodConfig",
+  "description": "An instance of \u003ca href\u003d\"#action-method\"\u003ean action method.\u003c/a\u003e",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The name of the method.",
+      "example": "lookAt"
+    },
+    "args": {
+      "type": "array",
+      "title": "Arguments",
+      "description": "The arguments array you want to pass to this method.",
+      "items": {},
+      "example": [
+        0,
+        2,
+        0,
+        90,
+        500
+      ]
+    }
+  }
+}

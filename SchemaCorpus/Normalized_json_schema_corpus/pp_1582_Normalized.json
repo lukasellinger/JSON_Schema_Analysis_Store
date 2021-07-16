@@ -1,0 +1,107 @@
+{
+  "id": "https://schema.management.azure.com/schemas/2016-01-29/Microsoft.PowerBI.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Microsoft.PowerBI",
+  "description": "Microsoft PowerBI Resource Types",
+  "resourceDefinitions": {
+    "workspaceCollections": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2016-01-29"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Azure location"
+        },
+        "name": {
+          "type": "string",
+          "description": "Power BI Embedded Workspace Collection name"
+        },
+        "sku": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/AzureSku"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "properties": {}
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.PowerBI/workspaceCollections"
+          ]
+        }
+      },
+      "required": [
+        "apiVersion",
+        "name",
+        "type"
+      ],
+      "description": "Microsoft.PowerBI/workspaceCollections"
+    }
+  },
+  "definitions": {
+    "AzureSku": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "S1"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "SKU name"
+        },
+        "tier": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Standard"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "SKU tier"
+        }
+      },
+      "required": [
+        "name",
+        "tier"
+      ]
+    },
+    "..\\common\\definitions.json_definitions_expression": {
+      "type": "string",
+      "pattern": "^\\[([^\\[].*)?\\]$",
+      "description": "Deployment template expression. See https://aka.ms/arm-template-expressions for more details on the ARM expression syntax."
+    }
+  }
+}

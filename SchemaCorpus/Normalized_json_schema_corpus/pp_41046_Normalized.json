@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "title": "Root schema.",
+  "description": "An explanation about the purpose of this instance described by this schema.",
+  "name": "/",
+  "properties": {
+    "categories": {
+      "type": "array",
+      "title": "Categories schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "name": "categories",
+      "items": {
+        "type": "object",
+        "title": "12 schema.",
+        "description": "An explanation about the purpose of this instance described by this schema.",
+        "name": "12",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name schema.",
+            "description": "An explanation about the purpose of this instance described by this schema.",
+            "name": "name"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title schema.",
+            "description": "An explanation about the purpose of this instance described by this schema.",
+            "name": "title"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category schema.",
+            "description": "An explanation about the purpose of this instance described by this schema.",
+            "name": "category"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "title",
+          "category"
+        ]
+      },
+      "required": [
+        "12"
+      ]
+    },
+    "rules": {
+      "type": "array",
+      "title": "Rules schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "name": "rules",
+      "items": {
+        "type": "object",
+        "title": "11 schema.",
+        "description": "An explanation about the purpose of this instance described by this schema.",
+        "name": "11",
+        "properties": {
+          "ifContains": {
+            "type": "string",
+            "title": "IfContains schema.",
+            "description": "An explanation about the purpose of this instance described by this schema.",
+            "name": "ifContains"
+          },
+          "about": {
+            "type": "string",
+            "title": "About schema.",
+            "description": "An explanation about the purpose of this instance described by this schema.",
+            "name": "about"
+          },
+          "category": {
+            "type": "object",
+            "title": "Category schema.",
+            "description": "An explanation about the purpose of this instance described by this schema.",
+            "name": "category",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "Name schema.",
+                "description": "An explanation about the purpose of this instance described by this schema.",
+                "name": "name"
+              },
+              "title": {
+                "type": "string",
+                "title": "Title schema.",
+                "description": "An explanation about the purpose of this instance described by this schema.",
+                "name": "title"
+              },
+              "category": {
+                "type": "string",
+                "title": "Category schema.",
+                "description": "An explanation about the purpose of this instance described by this schema.",
+                "name": "category"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "categories",
+    "rules"
+  ]
+}

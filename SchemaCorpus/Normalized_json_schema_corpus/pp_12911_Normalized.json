@@ -1,0 +1,381 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "nmap",
+  "type": "object",
+  "properties": {
+    "item": {
+      "type": "object",
+      "properties": {
+        "scanner": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "start": {
+          "type": "string"
+        },
+        "startstr": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "xmloutputversion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "scanner",
+        "args",
+        "start",
+        "startstr",
+        "version",
+        "xmloutputversion"
+      ]
+    },
+    "scaninfo": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "protocol": {
+                "type": "string"
+              },
+              "numservices": {
+                "type": "string"
+              },
+              "services": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "verbose": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "debugging": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "host": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": {
+            "type": "object",
+            "properties": {
+              "starttime": {
+                "type": "string"
+              },
+              "endtime": {
+                "type": "string"
+              }
+            }
+          },
+          "status": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "state": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    },
+                    "reason_ttl": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "address": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "addr": {
+                      "type": "string"
+                    },
+                    "addrtype": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "hostnames": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "hostname": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "item": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "ports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "port": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "item": {
+                          "type": "object",
+                          "properties": {
+                            "protocol": {
+                              "type": "string"
+                            },
+                            "portid": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "state": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "item": {
+                                "type": "object",
+                                "properties": {
+                                  "state": {
+                                    "type": "string"
+                                  },
+                                  "reason": {
+                                    "type": "string"
+                                  },
+                                  "reason_ttl": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "service": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "item": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "method": {
+                                    "type": "string"
+                                  },
+                                  "conf": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "item": {
+                          "type": "object",
+                          "properties": {
+                            "protocol": {
+                              "type": "string"
+                            },
+                            "portid": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "state": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "item": {
+                                "type": "object",
+                                "properties": {
+                                  "state": {
+                                    "type": "string"
+                                  },
+                                  "reason": {
+                                    "type": "string"
+                                  },
+                                  "reason_ttl": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "service": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "item": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "method": {
+                                    "type": "string"
+                                  },
+                                  "conf": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "runstats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "finished": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "time": {
+                      "type": "string"
+                    },
+                    "timestr": {
+                      "type": "string"
+                    },
+                    "elapsed": {
+                      "type": "string"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "exit": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "hosts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "up": {
+                      "type": "string"
+                    },
+                    "down": {
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "item",
+    "scaninfo",
+    "verbose",
+    "debugging",
+    "host",
+    "runstats"
+  ]
+}

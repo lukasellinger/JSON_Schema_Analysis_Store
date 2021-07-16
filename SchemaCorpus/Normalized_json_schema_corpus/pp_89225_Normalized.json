@@ -1,0 +1,56 @@
+{
+  "description": "Open Container Runtime State Schema",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "ociVersion": {
+      "$ref": "#/definitions/defs.json_definitions_ociVersion"
+    },
+    "id": {
+      "description": "the container\u0027s ID",
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "creating",
+        "created",
+        "running",
+        "stopped"
+      ]
+    },
+    "pid": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "bundle": {
+      "type": "string"
+    },
+    "annotations": {
+      "$ref": "#/definitions/defs.json_definitions_annotations"
+    }
+  },
+  "required": [
+    "ociVersion",
+    "id",
+    "status",
+    "bundle"
+  ],
+  "definitions": {
+    "defs.json_definitions_ociVersion": {
+      "description": "The version of Open Container Initiative Runtime Specification that the document complies with",
+      "type": "string"
+    },
+    "defs.json_definitions_annotations": {
+      "$ref": "#/definitions/defs.json_definitions_mapStringString"
+    },
+    "defs.json_definitions_mapStringString": {
+      "type": "object",
+      "patternProperties": {
+        ".{1,}": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

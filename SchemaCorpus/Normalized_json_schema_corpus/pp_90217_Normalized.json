@@ -1,0 +1,266 @@
+{
+  "title": "IconSymbol3DLayer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "IconSymbol3DLayer is used to render Point geometries using a flat 2D icon (e.g. a circle) with a PointSymbol3D in a SceneView.",
+  "properties": {
+    "anchor": {
+      "type": "string",
+      "enum": [
+        "bottom",
+        "bottomLeft",
+        "bottomRight",
+        "center",
+        "left",
+        "relative",
+        "right",
+        "top",
+        "topLeft",
+        "topRight"
+      ],
+      "default": "center"
+    },
+    "anchorPosition": {
+      "type": "array",
+      "description": "When `anchor` equals `relative`, this property specifies the position within the icon that should coincide with the feature geometry. Otherwise it is ignored. The position is defined as a factor of the icon dimensions that is added to the icon center: `positionInIcon \u003d (0.5 + anchorPosition) * size`, where `size` is the original size of the icon resource.",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "enable": {
+      "type": "boolean"
+    },
+    "material": {
+      "$ref": "#/definitions/material_schema.json"
+    },
+    "outline": {
+      "$ref": "#/definitions/outline_schema.json"
+    },
+    "resource": {
+      "$ref": "#/definitions/iconSymbol3DLayer_resource_schema.json"
+    },
+    "size": {
+      "type": "number",
+      "description": "Icon size in points, positive only",
+      "minimum": 0
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of symbol used.",
+      "enum": [
+        "Icon"
+      ]
+    }
+  },
+  "required": [
+    "size",
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "Icon symbol layer",
+        "code": {
+          "symbolLayers": [
+            {
+              "type": "Icon",
+              "resource": {
+                "primitive": "kite"
+              },
+              "material": {
+                "color": [
+                  255,
+                  255,
+                  255
+                ]
+              },
+              "size": 12,
+              "anchor": "bottom",
+              "outline": {
+                "size": 1,
+                "color": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "title": "Icon symbol layer with custom anchor in the bottom right region of the icon",
+        "code": {
+          "symbolLayers": [
+            {
+              "type": "Icon",
+              "resource": {
+                "href": "http://hostname/icon.png"
+              },
+              "size": 12,
+              "anchor": "relative",
+              "anchorPosition": [
+                0.25,
+                0.4
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "material_schema.json": {
+      "title": "Material",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The material used to shade the geometry.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "A value between `100` (full transparency) and `0` (full opacity). Ignored if no color is specified.",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "material",
+            "code": {
+              "material": {
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "transparency": 20
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "outline_schema.json": {
+      "title": "Outline",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The outline of the symbol layer.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "size": {
+          "type": "number",
+          "description": "Outline size in points, positive only",
+          "minimum": 0
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "The value has to lie between `100` (full transparency) and `0` (full opacity).",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "color",
+        "size"
+      ],
+      "additionalProperties": false
+    },
+    "iconSymbol3DLayer_resource_schema.json": {
+      "title": "IconSymbol3DLayer Resource",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The shape (primitive) or image URL (href) used to visualize the features.",
+      "properties": {
+        "dataURI": {
+          "type": "string",
+          "description": "an image encoded as base64 string, starting with `data:image/`",
+          "pattern": "^data:image/(.|\\n|\\r)+$"
+        },
+        "href": {
+          "description": "URL to the returned image.",
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "An absolute URL",
+              "pattern": "^https?://.+$"
+            },
+            {
+              "type": "string",
+              "description": "A relative path starting with ./",
+              "pattern": "^\\./.+$"
+            }
+          ]
+        },
+        "primitive": {
+          "type": "string",
+          "description": "Specifies the type of symbol used.",
+          "enum": [
+            "circle",
+            "cross",
+            "kite",
+            "square",
+            "triangle",
+            "x"
+          ]
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "primitive"
+          ]
+        },
+        {
+          "required": [
+            "href"
+          ]
+        },
+        {
+          "required": [
+            "dataURI"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

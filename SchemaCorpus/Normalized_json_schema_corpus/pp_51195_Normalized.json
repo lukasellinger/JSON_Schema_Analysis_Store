@@ -1,0 +1,474 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "network-traffic",
+  "description": "The Network Traffic Object represents arbitrary network traffic that originates from a source and is addressed to a destination.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\common\\cyber-observable-core.json"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The value of this property MUST be `network-traffic`.",
+          "enum": [
+            "network-traffic"
+          ]
+        },
+        "extensions": {
+          "$ref": "#/definitions/network-traffic-extensions-dictionary",
+          "description": "The Network Traffic Object defines the following extensions. In addition to these, producers MAY create their own. Extensions: http-ext, tcp-ext, icmp-ext, socket-ext"
+        },
+        "start": {
+          "$ref": "#/definitions/..\\common\\timestamp.json",
+          "description": "Specifies the date/time the network traffic was initiated, if known."
+        },
+        "end": {
+          "$ref": "#/definitions/..\\common\\timestamp.json",
+          "description": "Specifies the date/time the network traffic ended, if known."
+        },
+        "src_ref": {
+          "type": "string",
+          "description": "Specifies the source of the network traffic, as a reference to one or more Observable Objects."
+        },
+        "dst_ref": {
+          "type": "string",
+          "description": "Specifies the destination of the network traffic, as a reference to one or more Observable Objects."
+        },
+        "src_port": {
+          "type": "integer",
+          "description": "Specifies the source port used in the network traffic, as an integer. The port value MUST be in the range of 0 - 65535.",
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "dst_port": {
+          "type": "integer",
+          "description": "Specifies the destination port used in the network traffic, as an integer. The port value MUST be in the range of 0 - 65535.",
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "protocols": {
+          "type": "array",
+          "description": "Specifies the protocols observed in the network traffic, along with their corresponding state.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "src_byte_count": {
+          "type": "integer",
+          "description": "Specifies the number of bytes sent from the source to the destination."
+        },
+        "dst_byte_count": {
+          "type": "integer",
+          "description": "Specifies the number of bytes sent from the destination to the source."
+        },
+        "src_packets": {
+          "type": "integer",
+          "description": "Specifies the number of packets sent from the source to the destination."
+        },
+        "dst_packets": {
+          "type": "integer",
+          "description": "Specifies the number of packets sent destination to the source."
+        },
+        "ipfix": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9_-]{3,256}$": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          }
+        },
+        "src_payload_ref": {
+          "type": "string",
+          "description": "Specifies the bytes sent from the source to the destination."
+        },
+        "dst_payload_ref": {
+          "type": "string",
+          "description": "Specifies the bytes sent from the source to the destination."
+        },
+        "encapsulates_refs": {
+          "type": "array",
+          "description": "Links to other network-traffic objects encapsulated by a network-traffic.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "encapsulated_by_ref": {
+          "type": "string",
+          "description": "Links to another network-traffic object which encapsulates this object."
+        }
+      }
+    }
+  ],
+  "required": [
+    "protocols"
+  ],
+  "anyOf": [
+    {
+      "required": [
+        "src_ref"
+      ]
+    },
+    {
+      "required": [
+        "dst_ref"
+      ]
+    }
+  ],
+  "oneOf": [
+    {
+      "properties": {
+        "is_active": {
+          "type": "boolean",
+          "enum": [
+            false
+          ],
+          "description": "Indicates whether the network traffic is still ongoing."
+        }
+      },
+      "required": [
+        "is_active"
+      ]
+    },
+    {
+      "properties": {
+        "is_active": {
+          "type": "boolean",
+          "enum": [
+            true
+          ],
+          "description": "Indicates whether the network traffic is still ongoing."
+        }
+      },
+      "required": [
+        "is_active"
+      ],
+      "not": {
+        "required": [
+          "end"
+        ]
+      }
+    },
+    {
+      "not": {
+        "required": [
+          "is_active"
+        ]
+      }
+    }
+  ],
+  "definitions": {
+    "network-traffic-extensions-dictionary": {
+      "type": "object",
+      "anyOf": [
+        {
+          "patternProperties": {
+            "^http-request-ext$": {
+              "type": "object",
+              "description": "The HTTP request extension specifies a default extension for capturing network traffic properties specific to HTTP requests.",
+              "properties": {
+                "request_method": {
+                  "type": "string",
+                  "description": "Specifies the HTTP method portion of the HTTP request line, as a lowercase string."
+                },
+                "request_value": {
+                  "type": "string",
+                  "description": "Specifies the value (typically a resource path) portion of the HTTP request line."
+                },
+                "request_version": {
+                  "type": "string",
+                  "description": "Specifies the HTTP version portion of the HTTP request line, as a lowercase string."
+                },
+                "request_header": {
+                  "type": "object",
+                  "description": "Specifies all of the HTTP header fields that may be found in the HTTP client request, as a dictionary.",
+                  "patternProperties": {
+                    "^Accept|Accept-Charset|Accept-Encoding|Accept-Language|Accept-Datetime|Authorization|Cache-Control|Connection|Cookie|Content-Length|Content-MD5|Content-Type|Date|Expect|Forwarded|From|Host|If-Match|If-Modified-Since|If-None-Match|If-Range|If-Unmodified-Since|Max-Forwards|Origin|Pragma|Proxy-Authorization|Range|Referer|TE|User-Agent|Upgrade|Via|Warning$": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "message_body_length": {
+                  "type": "integer",
+                  "description": "Specifies the length of the HTTP message body, if included, in bytes."
+                },
+                "message_body_data_ref": {
+                  "type": "string",
+                  "description": "Specifies the data contained in the HTTP message body, if included."
+                }
+              },
+              "required": [
+                "request_method",
+                "request_value"
+              ]
+            }
+          }
+        },
+        {
+          "patternProperties": {
+            "^icmp-ext$": {
+              "type": "object",
+              "description": "The ICMP extension specifies a default extension for capturing network traffic properties specific to ICMP.",
+              "properties": {
+                "icmp_type_hex": {
+                  "$ref": "#/definitions/..\\common\\hex.json",
+                  "description": "Specifies the ICMP type byte."
+                },
+                "icmp_code_hex": {
+                  "$ref": "#/definitions/..\\common\\hex.json",
+                  "description": "Specifies the ICMP code byte."
+                }
+              },
+              "required": [
+                "icmp_type_hex",
+                "icmp_code_hex"
+              ]
+            }
+          }
+        },
+        {
+          "patternProperties": {
+            "^socket-ext$": {
+              "type": "object",
+              "description": "The Network Socket extension specifies a default extension for capturing network traffic properties associated with network sockets.",
+              "properties": {
+                "address_family": {
+                  "type": "string",
+                  "description": "Specifies the address family (AF_*) that the socket is configured for.",
+                  "enum": [
+                    "AF_UNSPEC",
+                    "AF_INET",
+                    "AF_IPX",
+                    "AF_APPLETALK",
+                    "AF_NETBIOS",
+                    "AF_INET6",
+                    "AF_IRDA",
+                    "AF_BTH"
+                  ]
+                },
+                "is_blocking": {
+                  "type": "boolean",
+                  "description": "Specifies whether the socket is in blocking mode."
+                },
+                "is_listening": {
+                  "type": "boolean",
+                  "description": "Specifies whether the socket is in listening mode."
+                },
+                "protocol_family": {
+                  "type": "string",
+                  "description": "Specifies the protocol family (PF_*) that the socket is configured for.",
+                  "enum": [
+                    "PF_INET",
+                    "PF_AX25",
+                    "PF_IPX",
+                    "PF_INET6",
+                    "PF_APPLETALK",
+                    "PF_NETROM",
+                    "PF_BRIDGE",
+                    "PF_ATMPVC",
+                    "PF_X25",
+                    "PF_ROSE",
+                    "PF_DECNET",
+                    "PF_NETBEUI",
+                    "PF_SECURITY",
+                    "PF_KEY",
+                    "PF_NETLINK",
+                    "PF_ROUTE",
+                    "PF_PACKET",
+                    "PF_ASH",
+                    "PF_ECONET",
+                    "PF_ATMSVC",
+                    "PF_SNA",
+                    "PF_IRDA",
+                    "PF_PPPOX",
+                    "PF_WANPIPE",
+                    "PF_BLUETOOTH"
+                  ]
+                },
+                "options": {
+                  "$ref": "#/definitions/..\\common\\dictionary.json",
+                  "description": "Specifies any options (SO_*) that may be used by the socket, as a dictionary."
+                },
+                "socket_type": {
+                  "type": "string",
+                  "description": "Specifies the type of the socket.",
+                  "enum": [
+                    "SOCK_STREAM",
+                    "SOCK_DGRAM",
+                    "SOCK_RAW",
+                    "SOCK_RDM",
+                    "SOCK_SEQPACKET"
+                  ]
+                },
+                "socket_descriptor": {
+                  "type": "integer",
+                  "description": "Specifies the socket file descriptor value associated with the socket, as a non-negative integer."
+                },
+                "socket_handle": {
+                  "type": "integer",
+                  "description": "Specifies the handle or inode value associated with the socket."
+                }
+              },
+              "required": [
+                "address_family"
+              ]
+            }
+          }
+        },
+        {
+          "patternProperties": {
+            "^tcp-ext$": {
+              "type": "object",
+              "description": "The TCP extension specifies a default extension for capturing network traffic properties specific to TCP.",
+              "properties": {
+                "src_flags_hex": {
+                  "$ref": "#/definitions/..\\common\\hex.json",
+                  "description": "Specifies the source TCP flags, as the union of all TCP flags observed between the start of the traffic (as defined by the start property) and the end of the traffic (as defined by the end property). "
+                },
+                "dst_flags_hex": {
+                  "$ref": "#/definitions/..\\common\\hex.json",
+                  "description": "Specifies the destination TCP flags, as the union of all TCP flags observed between the start of the traffic (as defined by the start property) and the end of the traffic (as defined by the end property)."
+                }
+              }
+            }
+          }
+        },
+        {
+          "not": {
+            "patternProperties": {
+              "^http-ext|icmp-ext|tcp-ext|socket-ext$": {
+                "description": "Invalid custom file extension"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": {
+        "$ref": "#/definitions/..\\common\\dictionary.json",
+        "description": "Custom file extension"
+      }
+    },
+    "..\\common\\cyber-observable-core.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "core",
+      "description": "Common properties and behavior across all Cyber Observable Objects.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "pattern": "^\\-?[a-z0-9]+(-[a-z0-9]+)*\\-?$",
+          "minLength": 3,
+          "maxLength": 250,
+          "description": "Indicates that this object is an Observable Object. The value of this property MUST be a valid Observable Object type name, but to allow for custom objects this has been removed from the schema.",
+          "not": {
+            "enum": [
+              "action"
+            ]
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Specifies a textual description of the Object."
+        },
+        "extensions": {
+          "$ref": "#/definitions/..\\common\\dictionary.json",
+          "description": "Specifies any extensions of the object, as a dictionary."
+        }
+      },
+      "patternProperties": {
+        "^[a-z0-9_]{3,250}$": {
+          "anyOf": [
+            {
+              "type": "array",
+              "minItems": 1
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "action"
+            ]
+          }
+        ]
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "..\\common\\dictionary.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "dictionary",
+      "description": "A dictionary captures a set of key/value pairs",
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]{3,256}$": {
+          "anyOf": [
+            {
+              "type": "array",
+              "minItems": 1
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\common\\timestamp.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "timestamp",
+      "description": "Represents timestamps across the CTI specifications. The format is an RFC3339 timestamp, with a required timezone specification of \u0027Z\u0027.",
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    },
+    "..\\common\\hex.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "hex",
+      "description": "The hex data type encodes an array of octets (8-bit bytes) as hexadecimal. The string MUST consist of an even number of hexadecimal characters, which are the digits \u00270\u0027 through \u00279\u0027 and the letters \u0027a\u0027 through \u0027f\u0027.  In order to allow pattern matching on custom objects, all properties that use the hex type, the property name MUST end with \u0027_hex\u0027.",
+      "type": "string",
+      "pattern": "^([a-fA-F0-9]{2})+$"
+    }
+  }
+}

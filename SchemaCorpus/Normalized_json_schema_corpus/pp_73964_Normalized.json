@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "User model",
+  "description": "Test user model",
+  "definitions": {
+    "role": {
+      "type": "object",
+      "properties": {
+        "domain_id": {
+          "description": "what is the related domain",
+          "type": "string",
+          "format": "uuid",
+          "__ref": "./shared/domain.json"
+        },
+        "name": {
+          "description": "Name of the role",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        },
+        "comment": {
+          "description": "the common field contain all unmodeled stuff",
+          "type": "string"
+        },
+        "module_grants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "what is granted to do with specific modules",
+            "properties": {
+              "module": {
+                "$ref": "#/definitions/http:__schlothauer.de_schemas_shared_app_module.json"
+              },
+              "grant": {
+                "type": "string",
+                "enum": [
+                  "read",
+                  "write",
+                  "commit"
+                ]
+              }
+            },
+            "__tags": [
+              "five",
+              "six",
+              "seven"
+            ]
+          },
+          "__tags": [
+            "one",
+            "two"
+          ]
+        },
+        "data_grants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "what is granted to do with specific modules",
+            "properties": {
+              "data_path": {
+                "description": "dummy string to define some data",
+                "type": "string"
+              },
+              "grant": {
+                "type": "string",
+                "enum": [
+                  "read",
+                  "write",
+                  "commit"
+                ]
+              }
+            }
+          }
+        },
+        "innerArray": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "description": "what is granted to do with specific modules",
+              "properties": {
+                "data_path": {
+                  "description": "dummy string to define some data",
+                  "type": "string"
+                },
+                "grant": {
+                  "type": "string",
+                  "enum": [
+                    "read",
+                    "write",
+                    "commit"
+                  ],
+                  "__tags": [
+                    "one",
+                    "two"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "active": {
+          "description": "is this entry still active",
+          "type": "boolean"
+        }
+      }
+    },
+    "http:__schlothauer.de_schemas_shared_app_module.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "application specific module",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the module",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+          "__unique": true,
+          "__visKey": true
+        },
+        "description": {
+          "description": "some more words to explain",
+          "type": "string"
+        },
+        "guid": {
+          "description": "global identifier",
+          "type": "string",
+          "format": "uuid"
+        },
+        "app_id": {
+          "description": "Which application owns that module",
+          "type": "string",
+          "format": "uuid",
+          "__ref": "./application.json"
+        },
+        "active": {
+          "description": "is this entry still active",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "gid"
+      ],
+      "version": 1
+    }
+  },
+  "type": "object",
+  "version": 1
+}

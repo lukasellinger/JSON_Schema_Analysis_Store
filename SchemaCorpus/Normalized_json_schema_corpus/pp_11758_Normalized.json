@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "items": {
+    "properties": {
+      "created_by": {
+        "type": "string"
+      },
+      "created_ts": {
+        "type": "string"
+      },
+      "display_name": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "last_updated_by": {
+        "type": "string"
+      },
+      "last_updated_ts": {
+        "type": "string"
+      },
+      "path": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "created_ts",
+      "display_name",
+      "created_by",
+      "last_updated_by",
+      "path",
+      "id",
+      "last_updated_ts"
+    ],
+    "type": "object"
+  },
+  "type": "array"
+}

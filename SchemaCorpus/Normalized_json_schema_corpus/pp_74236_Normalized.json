@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\tag.json_definitions_tag"
+    }
+  ],
+  "example": {
+    "value": "example-tag"
+  },
+  "definitions": {
+    "..\\definitions\\tag.json_definitions_tag": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/definitions/..\\definitions\\tag.json_definitions_value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "value"
+      ]
+    },
+    "..\\definitions\\tag.json_definitions_value": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32,
+      "x-sdk-positional": true
+    }
+  }
+}

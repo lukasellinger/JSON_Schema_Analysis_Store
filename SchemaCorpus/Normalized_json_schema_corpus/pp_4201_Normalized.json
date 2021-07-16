@@ -1,0 +1,435 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "common": {
+    "experts": {
+      "expert": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "class": {
+            "type": "string",
+            "enum": [
+              "individual",
+              "organisation"
+            ],
+            "default": "organisation"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "experts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common_experts_expert"
+        },
+        "default": []
+      }
+    },
+    "references": {
+      "dmpbookreference": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "dmpbook"
+            ]
+          },
+          "chapter": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "chapter"
+        ],
+        "additionalProperties": false
+      },
+      "urlreference": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "url"
+            ]
+          },
+          "weblink": {
+            "type": "string",
+            "format": "uri"
+          },
+          "anchor": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "weblink"
+        ],
+        "additionalProperties": false
+      },
+      "crossreference": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "xref"
+            ]
+          },
+          "chapterid": {
+            "type": "integer"
+          },
+          "questionid": {
+            "type": "integer"
+          },
+          "namespace": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "chapterid",
+          "questionid"
+        ],
+        "additionalProperties": false
+      },
+      "reference": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/common_references_dmpbookreference"
+          },
+          {
+            "$ref": "#/definitions/common_references_urlreference"
+          },
+          {
+            "$ref": "#/definitions/common_references_crossreference"
+          }
+        ]
+      },
+      "references": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common_references_reference"
+        },
+        "default": []
+      }
+    },
+    "answers": {
+      "optionanswer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "label": {
+            "type": "string"
+          },
+          "advice": {
+            "type": "string"
+          },
+          "followups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/common_question"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "label"
+        ]
+      },
+      "optionanswers": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common_answers_optionanswer"
+        },
+        "minItems": 2
+      }
+    },
+    "question": {
+      "type": "object",
+      "properties": {
+        "questionid": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "references": {
+          "$ref": "#/definitions/common_references_references"
+        },
+        "experts": {
+          "$ref": "#/definitions/common_experts_experts"
+        },
+        "answers": {
+          "$ref": "#/definitions/common_answers_optionanswers"
+        },
+        "followups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common_question"
+          }
+        }
+      },
+      "required": [
+        "questionid",
+        "title",
+        "type"
+      ]
+    },
+    "chapter": {
+      "type": "object",
+      "properties": {
+        "chapterid": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common_question"
+          }
+        }
+      },
+      "required": [
+        "chapterid",
+        "title"
+      ]
+    }
+  },
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/common_chapter"
+  },
+  "definitions": {
+    "common_experts_expert": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "class": {
+          "type": "string",
+          "enum": [
+            "individual",
+            "organisation"
+          ],
+          "default": "organisation"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "common_references_dmpbookreference": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "dmpbook"
+          ]
+        },
+        "chapter": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "chapter"
+      ],
+      "additionalProperties": false
+    },
+    "common_references_urlreference": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "url"
+          ]
+        },
+        "weblink": {
+          "type": "string",
+          "format": "uri"
+        },
+        "anchor": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "weblink"
+      ],
+      "additionalProperties": false
+    },
+    "common_references_crossreference": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "xref"
+          ]
+        },
+        "chapterid": {
+          "type": "integer"
+        },
+        "questionid": {
+          "type": "integer"
+        },
+        "namespace": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "chapterid",
+        "questionid"
+      ],
+      "additionalProperties": false
+    },
+    "common_references_reference": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/common_references_dmpbookreference"
+        },
+        {
+          "$ref": "#/definitions/common_references_urlreference"
+        },
+        {
+          "$ref": "#/definitions/common_references_crossreference"
+        }
+      ]
+    },
+    "common_question": {
+      "type": "object",
+      "properties": {
+        "questionid": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "references": {
+          "$ref": "#/definitions/common_references_references"
+        },
+        "experts": {
+          "$ref": "#/definitions/common_experts_experts"
+        },
+        "answers": {
+          "$ref": "#/definitions/common_answers_optionanswers"
+        },
+        "followups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common_question"
+          }
+        }
+      },
+      "required": [
+        "questionid",
+        "title",
+        "type"
+      ]
+    },
+    "common_references_references": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/common_references_reference"
+      },
+      "default": []
+    },
+    "common_experts_experts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/common_experts_expert"
+      },
+      "default": []
+    },
+    "common_answers_optionanswers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/common_answers_optionanswer"
+      },
+      "minItems": 2
+    },
+    "common_answers_optionanswer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "advice": {
+          "type": "string"
+        },
+        "followups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common_question"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "label"
+      ]
+    },
+    "common_chapter": {
+      "type": "object",
+      "properties": {
+        "chapterid": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/common_question"
+          }
+        }
+      },
+      "required": [
+        "chapterid",
+        "title"
+      ]
+    }
+  }
+}

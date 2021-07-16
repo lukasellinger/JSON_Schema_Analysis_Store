@@ -1,0 +1,402 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Messages",
+  "description": "Databook messages",
+  "type": "object",
+  "javaType": "databook.persistence.rule.rdf.ruleset.Messages",
+  "extends": {
+    "$ref": "#/definitions/DataEntity.json"
+  },
+  "properties": {
+    "messages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Message.json"
+      }
+    }
+  },
+  "definitions": {
+    "DataEntity.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "DataEntity",
+      "description": "Root class for all Databook entities",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.DataEntity",
+      "extends": {
+        "$ref": "#/definitions/RDFEntity.json"
+      },
+      "properties": {
+        "id": {
+          "description": "The identifier for the Databook entity",
+          "$ref": "#/definitions/Identifier.json"
+        },
+        "type": {
+          "description": "The type of the Databook entity",
+          "type": "string"
+        },
+        "description": {
+          "description": "A description of the Databook entity",
+          "type": "string"
+        },
+        "title": {
+          "description": "A title of the Databook entity. This is the canonical name of the entity. For example, for a collection/data object, this is the path, and for a user this is the user name",
+          "type": "string"
+        },
+        "created": {
+          "description": "Create time of the Databook entity",
+          "type": "string",
+          "format": "date-time"
+        },
+        "submitted": {
+          "description": "Submission time of the Databook entity",
+          "type": "string",
+          "format": "date-time"
+        },
+        "related": {
+          "description": "A related Databook entity to the Databook entity",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataEntity.json"
+          }
+        },
+        "hasPart": {
+          "description": "A part of the Databook entity",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataEntity.json"
+          }
+        },
+        "partOf": {
+          "description": "A part of which the Databook entity is",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataEntity.json"
+          }
+        },
+        "accessHistory": {
+          "description": "A history of accesses to the Databook entitiy",
+          "$ref": "#/definitions/Access.json"
+        },
+        "accessPermission": {
+          "description": "The access permission of the Databook entity",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AccessPermission.json"
+          }
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AVU.json"
+          }
+        },
+        "discussion": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Post.json"
+          }
+        },
+        "owner": {
+          "description": "The owner of the Databook entity",
+          "$ref": "#/definitions/User.json"
+        },
+        "contributor": {
+          "description": "The contributors of the Databook entity",
+          "type": "array",
+          "itmes": {
+            "$ref": "#/definitions/User.json"
+          }
+        },
+        "likedBy": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User.json"
+          }
+        },
+        "dislikedBy": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User.json"
+          }
+        },
+        "tempInputStream": {
+          "description": "Temporary input stream",
+          "type": "object",
+          "javaType": "java.io.InputStream"
+        },
+        "storageLocationRequest": {
+          "description": "Request for where this entity is stored",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "irods",
+              "tripleStore"
+            ]
+          }
+        },
+        "storageLocation": {
+          "description": "Where this entity is stored",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "irods",
+              "tripleStore"
+            ]
+          }
+        }
+      }
+    },
+    "RDFEntity.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "RDFEntity",
+      "description": "Root class for all RDF entities",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.RDFEntity",
+      "properties": {
+        "uri": {
+          "description": "The uri of the RDF entity",
+          "type": "string",
+          "format": "uri"
+        },
+        "typeUri": {
+          "description": "The type uri of the RDF entity",
+          "type": "string",
+          "format": "uri"
+        },
+        "label": {
+          "description": "A label of the RDF entity",
+          "type": "string"
+        }
+      }
+    },
+    "Identifier.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Identifier",
+      "description": "Databook identifier",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.Identifier",
+      "extends": {
+        "$ref": "#/definitions/IndividualObject.json"
+      },
+      "properties": {
+        "identifierType": {
+          "type": "string"
+        },
+        "identifierValue": {
+          "type": "string"
+        }
+      }
+    },
+    "IndividualObject.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "IndividualObject",
+      "description": "Databook individual object",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.IndividualObject",
+      "extends": {
+        "$ref": "#/definitions/DataEntity.json"
+      },
+      "properties": {
+        "replaces": {
+          "$ref": "#/definitions/IndividualObject.json"
+        },
+        "replacedBy": {
+          "$ref": "#/definitions/IndividualObject.json"
+        },
+        "hasVersion": {
+          "type": "string"
+        },
+        "dataSize": {
+          "type": "number"
+        }
+      }
+    },
+    "Access.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Access",
+      "description": "Databook event -- PREMIS event",
+      "extends": {
+        "$ref": "#/definitions/IndividualObject.json"
+      },
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.Access",
+      "properties": {
+        "session": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Session.json"
+          }
+        },
+        "finished": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "linkingDataEntity": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataEntityLink.json"
+          }
+        },
+        "linkingUser": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserLink.json"
+          }
+        }
+      }
+    },
+    "Session.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Session",
+      "description": "Databook session",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.Session",
+      "extends": {
+        "$ref": "#/definitions/DataEntity.json"
+      },
+      "properties": {
+        "sessionPart": {
+          "$ref": "#/definitions/Access.json"
+        }
+      }
+    },
+    "DataEntityLink.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "DataEntityLink",
+      "description": "Databook data entity link",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.DataEntityLink",
+      "extends": {
+        "$ref": "#/definitions/DataEntity.json"
+      },
+      "properties": {
+        "dataEntity": {
+          "$ref": "#/definitions/DataEntity.json"
+        },
+        "dataEntityRole": {
+          "type": "string"
+        }
+      }
+    },
+    "UserLink.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "UserLink",
+      "description": "Databook user link",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.UserLink",
+      "extends": {
+        "$ref": "#/definitions/DataEntity.json"
+      },
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/User.json"
+        },
+        "userRole": {
+          "type": "string"
+        }
+      }
+    },
+    "User.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "User",
+      "description": "Databook user -- PREMIS agent",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.User",
+      "extends": {
+        "$ref": "#/definitions/IndividualObject.json"
+      },
+      "properties": {
+        "like": {
+          "$ref": "#/definitions/DataEntity.json"
+        },
+        "dislike": {
+          "$ref": "#/definitions/DataEntity.json"
+        },
+        "own": {
+          "$ref": "#/definitions/DataEntity.json"
+        },
+        "contributeTo": {
+          "$ref": "#/definitions/DataEntity.json"
+        }
+      }
+    },
+    "AccessPermission.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "AccessPermission",
+      "description": "Databook access permission -- PREMIS right",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.AccessPermission",
+      "extends": {
+        "$ref": "#/definitions/DataEntity.json"
+      },
+      "properties": {
+        "permission": {
+          "type": "string"
+        },
+        "linkingDataEntity": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataEntityLink.json"
+          }
+        },
+        "linkingUser": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserLink.json"
+          }
+        }
+      }
+    },
+    "AVU.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "AVU",
+      "description": "Databook metadata",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.AVU",
+      "extends": {
+        "$ref": "#/definitions/DataEntity.json"
+      },
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        }
+      }
+    },
+    "Post.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Post",
+      "description": "Databook post",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.Post",
+      "extends": {
+        "$ref": "#/definitions/IndividualObject.json"
+      }
+    },
+    "Message.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Message",
+      "description": "Databook protocol message payload",
+      "type": "object",
+      "javaType": "databook.persistence.rule.rdf.ruleset.Message",
+      "properties": {
+        "operation": {
+          "type": "string"
+        },
+        "hasPart": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataEntity.json"
+          }
+        }
+      }
+    }
+  }
+}

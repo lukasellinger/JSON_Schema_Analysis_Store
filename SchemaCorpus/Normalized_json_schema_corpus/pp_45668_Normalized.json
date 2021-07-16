@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "id": "#",
+  "properties": {
+    "count": {
+      "type": "number"
+    },
+    "posts": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "limit": {
+      "type": "number"
+    },
+    "page": {
+      "type": "number"
+    }
+  }
+}

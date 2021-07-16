@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/containers/create",
+  "type": "object",
+  "properties": {
+    "Hostname": {
+      "type": "string"
+    },
+    "Domainname": {
+      "type": "string"
+    },
+    "User": {
+      "type": "string"
+    },
+    "Memory": {
+      "type": "integer"
+    },
+    "MemorySwap": {
+      "type": "integer"
+    },
+    "CpuShares": {
+      "type": "integer"
+    },
+    "Cpuset": {
+      "type": "string"
+    },
+    "AttachStdin": {
+      "type": "boolean"
+    },
+    "AttachStdout": {
+      "type": "boolean"
+    },
+    "AttachStderr": {
+      "type": "boolean"
+    },
+    "Tty": {
+      "type": "boolean"
+    },
+    "OpenStdin": {
+      "type": "boolean"
+    },
+    "StdinOnce": {
+      "type": "boolean"
+    },
+    "Env": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Cmd": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Entrypoint": {
+      "type": "string"
+    },
+    "Image": {
+      "type": "string"
+    },
+    "Volumes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "WorkingDir": {
+      "type": "string"
+    },
+    "NetworkDisabled": {
+      "type": "boolean"
+    },
+    "MacAddress": {
+      "type": "string"
+    },
+    "ExposedPorts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "SecurityOpts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "HostConfig": {
+      "type": "object",
+      "properties": {
+        "Binds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Links": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "LxcConf": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "PortBindings": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "HostPort": {
+                  "type": "string"
+                },
+                "HostIp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "PublishAllPorts": {
+          "type": "boolean"
+        },
+        "Privileged": {
+          "type": "boolean"
+        },
+        "ReadonlyRootfs": {
+          "type": "boolean"
+        },
+        "Dns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "DnsSearch": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ExtraHosts": {
+          "type": "null"
+        },
+        "VolumesFrom": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CapAdd": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CapDrop": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "RestartPolicy": {
+          "type": "object",
+          "properties": {
+            "Name": {
+              "type": "string"
+            },
+            "MaximumRetryCount": {
+              "type": "integer"
+            }
+          }
+        },
+        "NetworkMode": {
+          "type": "string"
+        },
+        "Devices": {
+          "type": "array",
+          "items": {}
+        }
+      }
+    }
+  },
+  "required": [
+    "Hostname",
+    "Domainname",
+    "User",
+    "Memory",
+    "MemorySwap",
+    "CpuShares",
+    "Cpuset",
+    "AttachStdin",
+    "AttachStdout",
+    "AttachStderr",
+    "Tty",
+    "OpenStdin",
+    "StdinOnce",
+    "Env",
+    "Cmd",
+    "Entrypoint",
+    "Image",
+    "Volumes",
+    "WorkingDir",
+    "NetworkDisabled",
+    "MacAddress",
+    "ExposedPorts",
+    "SecurityOpts",
+    "HostConfig"
+  ]
+}

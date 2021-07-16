@@ -1,0 +1,147 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "order_request": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "usage": {
+              "type": "string"
+            },
+            "deadline": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/records.json_definitions_record"
+              }
+            }
+          },
+          "required": [
+            "usage",
+            "records"
+          ]
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "owner_id": {
+          "type": "integer"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "usage": {
+          "type": "string"
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/records.json_definitions_record"
+          }
+        },
+        "basket_id": {
+          "$ref": "#/definitions/records.json_definitions_record"
+        }
+      },
+      "required": [
+        "id",
+        "owner_id",
+        "created",
+        "usage",
+        "elements"
+      ]
+    },
+    "order_element": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "record_id": {
+          "$ref": "#/definitions/records.json_definitions_record"
+        },
+        "order_master_id": {
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "accepted",
+            "rejected"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "record_id"
+      ]
+    },
+    "order_element_id": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "order_element_collection": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/order_element_id"
+      }
+    },
+    "records.json_definitions_record": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The unique identifier for a record",
+          "type": "string"
+        },
+        "record_id": {
+          "description": "The databox id of the record",
+          "type": "integer"
+        },
+        "databox_id": {
+          "description": "The databox identifier where record is localized",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "databox_id",
+        "record_id"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/order"
+      }
+    }
+  },
+  "required": [
+    "data"
+  ]
+}

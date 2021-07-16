@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": [
+                "string",
+                "number"
+              ]
+            }
+          }
+        },
+        "required": [
+          "name",
+          "values"
+        ]
+      }
+    },
+    "data_file": {
+      "type": "string"
+    },
+    "group": {
+      "description": "It is possible to group data records together using a string or number. This can be used to conceptually linked data tables together (e.g. multiple records can correspond to the same overall plot)",
+      "type": [
+        "string",
+        "number"
+      ]
+    },
+    "license": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "url"
+      ]
+    },
+    "additional_resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "license": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "url"
+            ]
+          }
+        },
+        "required": [
+          "location"
+        ]
+      }
+    },
+    "associated_records": {
+      "type": "array",
+      "description": "Links to other HEPData Submissions or INSPIRE Records that relate to this submission.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": [
+              "string",
+              "number"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "type"
+        ]
+      }
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "keywords",
+    "data_file"
+  ]
+}

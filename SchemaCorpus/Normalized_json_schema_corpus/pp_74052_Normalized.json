@@ -1,0 +1,1011 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "operator": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "project_has_template": {
+      "type": "boolean"
+    },
+    "satisfies_template": {
+      "type": "boolean"
+    },
+    "session-input": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "$ref": "#/definitions/operator"
+        },
+        "public": {
+          "$ref": "#/definitions/container.json_definitions_public"
+        },
+        "label": {
+          "$ref": "#/definitions/common.json_definitions_label"
+        },
+        "info": {
+          "$ref": "#/definitions/container.json_definitions_info"
+        },
+        "project": {
+          "$ref": "#/definitions/project"
+        },
+        "uid": {
+          "$ref": "#/definitions/container.json_definitions_uid"
+        },
+        "timestamp": {
+          "$ref": "#/definitions/container.json_definitions_timestamp"
+        },
+        "timezone": {
+          "$ref": "#/definitions/container.json_definitions_timezone"
+        },
+        "subject": {
+          "$ref": "#/definitions/subject.json_definitions_subject-input"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "session"
+    },
+    "session-metadata-input": {
+      "type": "object",
+      "properties": {
+        "public": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "info": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "operator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uid": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "timestamp": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "timezone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "subject": {
+          "$ref": "#/definitions/subject.json_definitions_subject-input"
+        },
+        "files": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-input"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "session-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/common.json_definitions_objectid"
+        },
+        "public": {
+          "$ref": "#/definitions/container.json_definitions_public"
+        },
+        "label": {
+          "$ref": "#/definitions/common.json_definitions_label"
+        },
+        "info": {
+          "$ref": "#/definitions/container.json_definitions_info"
+        },
+        "info_exists": {
+          "$ref": "#/definitions/container.json_definitions_info_exists"
+        },
+        "operator": {
+          "$ref": "#/definitions/operator"
+        },
+        "project": {
+          "$ref": "#/definitions/project"
+        },
+        "uid": {
+          "$ref": "#/definitions/container.json_definitions_uid"
+        },
+        "timestamp": {
+          "$ref": "#/definitions/container.json_definitions_timestamp"
+        },
+        "timezone": {
+          "$ref": "#/definitions/container.json_definitions_timezone"
+        },
+        "subject": {
+          "$ref": "#/definitions/subject.json_definitions_subject-output-default-required"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/created-modified.json_definitions_modified"
+        },
+        "permissions": {
+          "$ref": "#/definitions/permission.json_definitions_permission-output-list"
+        },
+        "group": {
+          "$ref": "#/definitions/common.json_definitions_string-id"
+        },
+        "project_has_template": {
+          "$ref": "#/definitions/project_has_template"
+        },
+        "satisfies_template": {
+          "$ref": "#/definitions/satisfies_template"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-output"
+          }
+        },
+        "notes": {
+          "$ref": "#/definitions/note.json_definitions_notes-list-output"
+        },
+        "tags": {
+          "$ref": "#/definitions/tag.json_definitions_tag-list"
+        },
+        "analyses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/analysis.json_definitions_analysis-output"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "session"
+    },
+    "session-jobs-output": {
+      "type": "object",
+      "properties": {
+        "jobs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/job.json_definitions_job-output"
+          }
+        },
+        "containers": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-fA-F0-9]{24}$": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "session-template-recalc-output": {
+      "type": "object",
+      "properties": {
+        "sessions_changed": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/definitions/common.json_definitions_objectid"
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "sessions_changed"
+      ]
+    },
+    "container.json_definitions_public": {
+      "type": "boolean"
+    },
+    "common.json_definitions_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "container.json_definitions_info": {
+      "$ref": "#/definitions/common.json_definitions_info"
+    },
+    "common.json_definitions_info": {
+      "type": "object"
+    },
+    "container.json_definitions_uid": {
+      "type": "string"
+    },
+    "container.json_definitions_timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "container.json_definitions_timezone": {
+      "type": "string"
+    },
+    "subject.json_definitions_subject-input": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/subject.json_definitions__id"
+        },
+        "firstname": {
+          "$ref": "#/definitions/subject.json_definitions_firstname"
+        },
+        "lastname": {
+          "$ref": "#/definitions/subject.json_definitions_lastname"
+        },
+        "age": {
+          "$ref": "#/definitions/subject.json_definitions_age"
+        },
+        "sex": {
+          "$ref": "#/definitions/subject.json_definitions_sex"
+        },
+        "race": {
+          "$ref": "#/definitions/subject.json_definitions_race"
+        },
+        "ethnicity": {
+          "$ref": "#/definitions/subject.json_definitions_ethnicity"
+        },
+        "code": {
+          "$ref": "#/definitions/subject.json_definitions_code"
+        },
+        "tags": {
+          "$ref": "#/definitions/subject.json_definitions_tags"
+        },
+        "info": {
+          "$ref": "#/definitions/common.json_definitions_info"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-input"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "subject"
+    },
+    "subject.json_definitions__id": {
+      "$ref": "#/definitions/common.json_definitions_objectid"
+    },
+    "common.json_definitions_objectid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{24}$"
+    },
+    "subject.json_definitions_firstname": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "subject.json_definitions_lastname": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "subject.json_definitions_age": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "subject.json_definitions_sex": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "male",
+            "female",
+            "other",
+            "unknown"
+          ]
+        }
+      ]
+    },
+    "subject.json_definitions_race": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "American Indian or Alaska Native",
+            "Asian",
+            "Native Hawaiian or Other Pacific Islander",
+            "Black or African American",
+            "White",
+            "More Than One Race",
+            "Unknown or Not Reported"
+          ]
+        }
+      ]
+    },
+    "subject.json_definitions_ethnicity": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "Not Hispanic or Latino",
+            "Hispanic or Latino",
+            "Unknown or Not Reported"
+          ]
+        }
+      ]
+    },
+    "subject.json_definitions_code": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "subject.json_definitions_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "file.json_definitions_file-input": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/file.json_definitions_name"
+        },
+        "type": {
+          "$ref": "#/definitions/file.json_definitions_file-type"
+        },
+        "mimetype": {
+          "$ref": "#/definitions/file.json_definitions_mimetype"
+        },
+        "modality": {
+          "$ref": "#/definitions/file.json_definitions_modality"
+        },
+        "measurements": {
+          "$ref": "#/definitions/file.json_definitions_measurements"
+        },
+        "tags": {
+          "$ref": "#/definitions/file.json_definitions_tags"
+        },
+        "info": {
+          "$ref": "#/definitions/common.json_definitions_info"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "file-entry"
+    },
+    "file.json_definitions_name": {
+      "type": "string"
+    },
+    "file.json_definitions_file-type": {
+      "type": "string"
+    },
+    "file.json_definitions_mimetype": {
+      "type": "string"
+    },
+    "file.json_definitions_modality": {
+      "type": "string"
+    },
+    "file.json_definitions_measurements": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "file.json_definitions_tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "container.json_definitions_info_exists": {
+      "type": "boolean"
+    },
+    "subject.json_definitions_subject-output-default-required": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/subject.json_definitions_subject-output"
+        }
+      ],
+      "required": [
+        "_id"
+      ],
+      "x-sdk-model": "subject"
+    },
+    "subject.json_definitions_subject-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/subject.json_definitions__id"
+        },
+        "firstname": {
+          "$ref": "#/definitions/subject.json_definitions_firstname"
+        },
+        "lastname": {
+          "$ref": "#/definitions/subject.json_definitions_lastname"
+        },
+        "age": {
+          "$ref": "#/definitions/subject.json_definitions_age"
+        },
+        "sex": {
+          "$ref": "#/definitions/subject.json_definitions_sex"
+        },
+        "race": {
+          "$ref": "#/definitions/subject.json_definitions_race"
+        },
+        "ethnicity": {
+          "$ref": "#/definitions/subject.json_definitions_ethnicity"
+        },
+        "code": {
+          "$ref": "#/definitions/subject.json_definitions_code"
+        },
+        "tags": {
+          "$ref": "#/definitions/subject.json_definitions_tags"
+        },
+        "info": {
+          "$ref": "#/definitions/common.json_definitions_info"
+        },
+        "info_exists": {
+          "$ref": "#/definitions/container.json_definitions_info_exists"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-output"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "subject"
+    },
+    "file.json_definitions_file-output": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/file.json_definitions_file-entry"
+        }
+      ],
+      "required": [
+        "modified",
+        "size"
+      ],
+      "x-sdk-model": "file-entry"
+    },
+    "file.json_definitions_file-entry": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/file.json_definitions_name"
+        },
+        "type": {
+          "$ref": "#/definitions/file.json_definitions_file-type"
+        },
+        "mimetype": {
+          "$ref": "#/definitions/file.json_definitions_mimetype"
+        },
+        "modality": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/file.json_definitions_modality"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "measurements": {
+          "$ref": "#/definitions/file.json_definitions_measurements"
+        },
+        "tags": {
+          "$ref": "#/definitions/file.json_definitions_tags"
+        },
+        "info": {
+          "$ref": "#/definitions/common.json_definitions_info"
+        },
+        "origin": {
+          "$ref": "#/definitions/file.json_definitions_file-origin"
+        },
+        "hash": {
+          "$ref": "#/definitions/file.json_definitions_hash"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/created-modified.json_definitions_modified"
+        },
+        "size": {
+          "$ref": "#/definitions/file.json_definitions_size"
+        },
+        "info_exists": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "file-entry"
+    },
+    "file.json_definitions_file-origin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "via": {
+          "$ref": "#/definitions/file.json_definitions_via"
+        }
+      },
+      "additionalProperties": false
+    },
+    "file.json_definitions_via": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "file.json_definitions_hash": {
+      "type": "string",
+      "minLength": 106,
+      "maxLength": 106
+    },
+    "created-modified.json_definitions_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created-modified.json_definitions_modified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "file.json_definitions_size": {
+      "type": "integer"
+    },
+    "permission.json_definitions_permission-output-list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/permission.json_definitions_permission-output-default-required"
+      },
+      "uniqueItems": true
+    },
+    "permission.json_definitions_permission-output-default-required": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/permission.json_definitions_permission"
+        }
+      ],
+      "required": [
+        "_id",
+        "access"
+      ],
+      "x-sdk-model": "permission"
+    },
+    "permission.json_definitions_permission": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/common.json_definitions_user-id"
+        },
+        "access": {
+          "$ref": "#/definitions/permission.json_definitions_access"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "permission"
+    },
+    "common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    },
+    "permission.json_definitions_access": {
+      "type": "string",
+      "enum": [
+        "ro",
+        "rw",
+        "admin"
+      ]
+    },
+    "common.json_definitions_string-id": {
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 2,
+      "pattern": "^[0-9a-z][0-9a-z.@_-]{0,30}[0-9a-z]$"
+    },
+    "note.json_definitions_notes-list-output": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/note.json_definitions_note-output"
+          }
+        ]
+      }
+    },
+    "note.json_definitions_note-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/common.json_definitions_objectid"
+        },
+        "text": {
+          "$ref": "#/definitions/note.json_definitions_text"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/created-modified.json_definitions_modified"
+        },
+        "user": {
+          "$ref": "#/definitions/common.json_definitions_user-id"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "_id",
+        "text",
+        "created",
+        "modified",
+        "user"
+      ],
+      "x-sdk-model": "note"
+    },
+    "note.json_definitions_text": {
+      "type": "string",
+      "x-sdk-positional": true
+    },
+    "tag.json_definitions_tag-list": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "analysis.json_definitions_analysis-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/common.json_definitions_objectid"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-entry"
+          }
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-entry"
+          }
+        },
+        "job": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/common.json_definitions_objectid"
+            },
+            {
+              "$ref": "#/definitions/job.json_definitions_job-output"
+            }
+          ],
+          "x-sdk-schema": {
+            "$ref": "#/definitions/job.json_definitions_job-output"
+          }
+        },
+        "notes": {
+          "$ref": "#/definitions/note.json_definitions_notes-list-output"
+        },
+        "description": {
+          "$ref": "#/definitions/common.json_definitions_description"
+        },
+        "label": {
+          "$ref": "#/definitions/common.json_definitions_label"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/created-modified.json_definitions_modified"
+        }
+      },
+      "required": [
+        "_id",
+        "label",
+        "created",
+        "modified"
+      ]
+    },
+    "job.json_definitions_job-output": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/job.json_definitions_job"
+        }
+      ],
+      "required": [
+        "id",
+        "gear_id",
+        "inputs",
+        "config",
+        "destination",
+        "tags",
+        "state",
+        "attempt"
+      ],
+      "x-sdk-model": "job"
+    },
+    "job.json_definitions_job": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/common.json_definitions_objectid"
+        },
+        "origin": {
+          "$ref": "#/definitions/job.json_definitions_job-origin"
+        },
+        "gear_id": {
+          "$ref": "#/definitions/job.json_definitions_gear_id"
+        },
+        "previous_job_id": {
+          "type": "string"
+        },
+        "inputs": {
+          "$ref": "#/definitions/job.json_definitions_inputs-object"
+        },
+        "destination": {
+          "$ref": "#/definitions/job.json_definitions_destination"
+        },
+        "tags": {
+          "$ref": "#/definitions/job.json_definitions_tags"
+        },
+        "state": {
+          "$ref": "#/definitions/job.json_definitions_state"
+        },
+        "attempt": {
+          "$ref": "#/definitions/job.json_definitions_attempt"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/created-modified.json_definitions_modified"
+        },
+        "config": {
+          "$ref": "#/definitions/job.json_definitions_config"
+        },
+        "request": {
+          "$ref": "#/definitions/job.json_definitions_request"
+        },
+        "saved_files": {
+          "$ref": "#/definitions/job.json_definitions_saved_files"
+        },
+        "produced_metadata": {
+          "$ref": "#/definitions/job.json_definitions_produced-metadata"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "job"
+    },
+    "job.json_definitions_job-origin": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "job.json_definitions_gear_id": {
+      "type": "string"
+    },
+    "job.json_definitions_inputs-object": {
+      "type": "object",
+      "patternProperties": {
+        "[-_ a-zA-Z0-9]+": {
+          "$ref": "#/definitions/file.json_definitions_file-reference"
+        }
+      }
+    },
+    "file.json_definitions_file-reference": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/container.json_definitions_container-type"
+        },
+        "id": {
+          "$ref": "#/definitions/container.json_definitions__id"
+        },
+        "name": {
+          "$ref": "#/definitions/file.json_definitions_name"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "name"
+      ],
+      "additionalProperties": false,
+      "description": "A reference to an individual file in a container, by type, id and name"
+    },
+    "container.json_definitions_container-type": {
+      "type": "string",
+      "enum": [
+        "group",
+        "project",
+        "session",
+        "acquisition",
+        "collection",
+        "analysis"
+      ],
+      "description": "The type of container (e.g. session)"
+    },
+    "container.json_definitions__id": {
+      "type": "string"
+    },
+    "job.json_definitions_destination": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "job.json_definitions_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "job.json_definitions_state": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "failed",
+        "complete",
+        "cancelled"
+      ]
+    },
+    "job.json_definitions_attempt": {
+      "type": "integer"
+    },
+    "job.json_definitions_config": {
+      "oneOf": [
+        {
+          "enum": [
+            null
+          ]
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "job.json_definitions_request": {
+      "type": "object",
+      "properties": {
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/job.json_definitions_inputs-item"
+          }
+        },
+        "target": {
+          "type": "object"
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "job.json_definitions_inputs-item": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "http",
+            "scitran"
+          ]
+        },
+        "uri": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "vu": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "uri",
+        "location"
+      ]
+    },
+    "job.json_definitions_saved_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/file.json_definitions_name"
+      }
+    },
+    "job.json_definitions_produced-metadata": {
+      "type": "object"
+    },
+    "common.json_definitions_description": {
+      "type": "string"
+    }
+  }
+}

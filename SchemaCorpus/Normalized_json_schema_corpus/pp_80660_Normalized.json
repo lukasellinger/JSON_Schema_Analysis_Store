@@ -1,0 +1,64 @@
+{
+  "name": "User",
+  "request": {
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "http_method": "post",
+    "path": "/api/users",
+    "schema": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "required": true
+        },
+        "lastName": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "schema": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "firstName": {
+          "type": "string",
+          "required": true
+        },
+        "lastName": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  "examples": {
+    "max": {
+      "request": {
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "firstName": "Max",
+          "lastName": "Lincoln"
+        }
+      },
+      "response": {
+        "body": {
+          "firstName": "Max",
+          "lastName": "Lincoln"
+        }
+      }
+    }
+  }
+}

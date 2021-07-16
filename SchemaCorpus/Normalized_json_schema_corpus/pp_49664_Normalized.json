@@ -1,0 +1,192 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseLifeStyles",
+  "properties": {
+    "book": {
+      "$ref": "#/definitions/DemographicsAppendResponseLifeStylesBook.json"
+    },
+    "apparel": {
+      "$ref": "#/definitions/DemographicsAppendResponseLifeStylesApparel.json"
+    },
+    "value_shopper": {
+      "type": "boolean"
+    },
+    "interests": {
+      "$ref": "#/definitions/DemographicsAppendResponseLifeStylesInterests.json"
+    },
+    "pet": {
+      "type": "string",
+      "values": [
+        "HAS_PETS",
+        "EQUESTRIAN",
+        "CAT",
+        "DOG"
+      ]
+    }
+  },
+  "definitions": {
+    "DemographicsAppendResponseLifeStylesBook.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseLifeStylesBook",
+      "properties": {
+        "reader": {
+          "type": "boolean"
+        },
+        "buyer": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DemographicsAppendResponseLifeStylesApparel.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseLifeStylesApparel",
+      "properties": {
+        "men": {
+          "type": "string",
+          "values": [
+            "PURCHASED",
+            "PURCHASED_BIG_AND_TALL"
+          ]
+        },
+        "women": {
+          "type": "string",
+          "values": [
+            "PURCHASED",
+            "PURCHASED_PLUS_SIZE"
+          ]
+        },
+        "child": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DemographicsAppendResponseLifeStylesInterests.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseLifeStylesInterests",
+      "properties": {
+        "home_and_garden": {
+          "type": "string",
+          "values": [
+            "SEWING_AND_KNITTING",
+            "WOODWORKING",
+            "PHOTOGRAPHY",
+            "HOME_AND_GARDEN"
+          ]
+        },
+        "motercycling": {
+          "type": "boolean"
+        },
+        "sports": {
+          "type": "string",
+          "values": [
+            "GENERAL_INTEREST",
+            "BASEBALL",
+            "FOOTBALL",
+            "GOLF",
+            "TENNIS",
+            "RACING"
+          ]
+        },
+        "self_improvement": {
+          "type": "string",
+          "values": [
+            "HEALTH_AND_MEDICAL",
+            "DIETING_WEIGHT_LOSS",
+            "SELF_IMPROVEMENT"
+          ]
+        },
+        "gambling": {
+          "type": "boolean"
+        },
+        "collectibles": {
+          "type": "string",
+          "values": [
+            "GENERAL_INTEREST",
+            "ANTIQUES_INTEREST",
+            "SPORTS_INTEREST"
+          ]
+        },
+        "technology": {
+          "type": "boolean"
+        },
+        "outdoors": {
+          "type": "string",
+          "values": [
+            "GENERAL_INTEREST",
+            "SNOW_SPORTS",
+            "WATER_SPORTS",
+            "HUNTING_AND_FISHING"
+          ]
+        },
+        "fitness": {
+          "type": "string",
+          "values": [
+            "HEALTH_EXERCISE",
+            "RUNNING",
+            "WALKING",
+            "AEROBICS"
+          ]
+        },
+        "home_improvement": {
+          "type": "string",
+          "values": [
+            "GENERAL_INTEREST",
+            "DIY_INTEREST"
+          ]
+        },
+        "cooking": {
+          "type": "string",
+          "values": [
+            "GOURMET_FOOD_AND_WINE",
+            "COOKING",
+            "NATURAL_FOODS"
+          ]
+        },
+        "auto_parts": {
+          "type": "boolean"
+        },
+        "investing": {
+          "type": "boolean"
+        },
+        "boating": {
+          "type": "boolean"
+        },
+        "travel": {
+          "type": "string",
+          "values": [
+            "TRAVEL",
+            "DOMESTIC",
+            "INTERNATIONAL",
+            "CRUISE"
+          ]
+        },
+        "arts": {
+          "type": "string",
+          "values": [
+            "ARTS_INTEREST",
+            "AVID_MUSIC_LISTENER",
+            "ANTIQUES_INTEREST",
+            "PERFORMING_ARTS_INTEREST"
+          ]
+        }
+      }
+    }
+  }
+}

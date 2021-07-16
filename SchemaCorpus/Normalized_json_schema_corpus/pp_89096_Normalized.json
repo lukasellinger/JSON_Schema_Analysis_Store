@@ -1,0 +1,271 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "array",
+  "title": "Root schema.",
+  "description": "An explanation about the puropose of this instance described by this schema.",
+  "name": "/",
+  "items": {
+    "type": "object",
+    "title": "0 schema.",
+    "description": "An explanation about the puropose of this instance described by this schema.",
+    "name": "0",
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Name schema.",
+        "description": "An explanation about the puropose of this instance described by this schema.",
+        "name": "name"
+      },
+      "description": {
+        "type": "string",
+        "title": "Description schema.",
+        "description": "An explanation about the puropose of this instance described by this schema.",
+        "name": "description"
+      },
+      "activities": {
+        "type": "array",
+        "title": "Activities schema.",
+        "description": "An explanation about the puropose of this instance described by this schema.",
+        "name": "activities",
+        "items": [
+          {
+            "type": "object",
+            "title": "0 schema.",
+            "description": "An explanation about the puropose of this instance described by this schema.",
+            "name": "0",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "Name schema.",
+                "description": "An explanation about the puropose of this instance described by this schema.",
+                "name": "name"
+              },
+              "description": {
+                "type": "string",
+                "title": "Description schema.",
+                "description": "An explanation about the puropose of this instance described by this schema.",
+                "name": "description"
+              },
+              "events": {
+                "type": "array",
+                "title": "Events schema.",
+                "description": "An explanation about the puropose of this instance described by this schema.",
+                "name": "events",
+                "items": [
+                  {
+                    "type": "object",
+                    "title": "0 schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "0",
+                    "properties": {
+                      "startTime": {
+                        "type": "string",
+                        "title": "StartTime schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "startTime"
+                      },
+                      "endTime": {
+                        "type": "null",
+                        "title": "EndTime schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "endTime"
+                      },
+                      "description": {
+                        "type": "string",
+                        "title": "Description schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "description"
+                      },
+                      "ticketNumber": {
+                        "type": "null",
+                        "title": "TicketNumber schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "ticketNumber"
+                      },
+                      "uuid": {
+                        "type": "string",
+                        "title": "Uuid schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "uuid"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "title": "1 schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "1",
+                    "properties": {
+                      "startTime": {
+                        "type": "string",
+                        "title": "StartTime schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "startTime"
+                      },
+                      "endTime": {
+                        "type": "string",
+                        "title": "EndTime schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "endTime"
+                      },
+                      "description": {
+                        "type": "string",
+                        "title": "Description schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "description"
+                      },
+                      "ticketNumber": {
+                        "type": "null",
+                        "title": "TicketNumber schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "ticketNumber"
+                      },
+                      "uuid": {
+                        "type": "string",
+                        "title": "Uuid schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "uuid"
+                      }
+                    }
+                  }
+                ]
+              },
+              "uuid": {
+                "type": "string",
+                "title": "Uuid schema.",
+                "description": "An explanation about the puropose of this instance described by this schema.",
+                "name": "uuid"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "title": "1 schema.",
+            "description": "An explanation about the puropose of this instance described by this schema.",
+            "name": "1",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "Name schema.",
+                "description": "An explanation about the puropose of this instance described by this schema.",
+                "name": "name"
+              },
+              "description": {
+                "type": "string",
+                "title": "Description schema.",
+                "description": "An explanation about the puropose of this instance described by this schema.",
+                "name": "description"
+              },
+              "events": {
+                "type": "array",
+                "title": "Events schema.",
+                "description": "An explanation about the puropose of this instance described by this schema.",
+                "name": "events",
+                "items": [
+                  {
+                    "type": "object",
+                    "title": "0 schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "0",
+                    "properties": {
+                      "startTime": {
+                        "type": "string",
+                        "title": "StartTime schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "startTime"
+                      },
+                      "endTime": {
+                        "type": "null",
+                        "title": "EndTime schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "endTime"
+                      },
+                      "description": {
+                        "type": "string",
+                        "title": "Description schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "description"
+                      },
+                      "ticketNumber": {
+                        "type": "null",
+                        "title": "TicketNumber schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "ticketNumber"
+                      },
+                      "uuid": {
+                        "type": "string",
+                        "title": "Uuid schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "uuid"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "title": "1 schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "1",
+                    "properties": {
+                      "startTime": {
+                        "type": "string",
+                        "title": "StartTime schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "startTime"
+                      },
+                      "endTime": {
+                        "type": "string",
+                        "title": "EndTime schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "endTime"
+                      },
+                      "description": {
+                        "type": "string",
+                        "title": "Description schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "description"
+                      },
+                      "ticketNumber": {
+                        "type": "null",
+                        "title": "TicketNumber schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "ticketNumber"
+                      },
+                      "uuid": {
+                        "type": "string",
+                        "title": "Uuid schema.",
+                        "description": "An explanation about the puropose of this instance described by this schema.",
+                        "name": "uuid"
+                      }
+                    }
+                  }
+                ]
+              },
+              "uuid": {
+                "type": "string",
+                "title": "Uuid schema.",
+                "description": "An explanation about the puropose of this instance described by this schema.",
+                "name": "uuid"
+              }
+            }
+          }
+        ]
+      },
+      "uuid": {
+        "type": "string",
+        "title": "Uuid schema.",
+        "description": "An explanation about the puropose of this instance described by this schema.",
+        "name": "uuid"
+      }
+    },
+    "required": [
+      "name",
+      "description",
+      "activities",
+      "uuid"
+    ]
+  },
+  "required": [
+    "0"
+  ]
+}

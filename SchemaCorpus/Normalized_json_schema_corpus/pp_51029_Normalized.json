@@ -1,0 +1,141 @@
+{
+  "$id": "response.json#",
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "required": [
+    "status",
+    "statusText",
+    "httpVersion",
+    "cookies",
+    "headers",
+    "content",
+    "redirectURL",
+    "headersSize",
+    "bodySize"
+  ],
+  "properties": {
+    "status": {
+      "type": "integer"
+    },
+    "statusText": {
+      "type": "string"
+    },
+    "httpVersion": {
+      "type": "string"
+    },
+    "cookies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/cookie.json"
+      }
+    },
+    "headers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/header.json"
+      }
+    },
+    "content": {
+      "$ref": "#/definitions/content.json"
+    },
+    "redirectURL": {
+      "type": "string"
+    },
+    "headersSize": {
+      "type": "integer"
+    },
+    "bodySize": {
+      "type": "integer"
+    },
+    "comment": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "cookie.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "expires": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "httpOnly": {
+          "type": "boolean"
+        },
+        "secure": {
+          "type": "boolean"
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "header.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "type": "object",
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    },
+    "content.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "type": "object",
+      "required": [
+        "size",
+        "mimeType"
+      ],
+      "properties": {
+        "size": {
+          "type": "integer"
+        },
+        "compression": {
+          "type": "integer"
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "encoding": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

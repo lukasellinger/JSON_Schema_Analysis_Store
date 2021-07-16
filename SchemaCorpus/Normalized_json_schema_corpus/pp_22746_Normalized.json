@@ -1,0 +1,181 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponsePhones",
+  "properties": {
+    "education": {
+      "$ref": "#/definitions/DemographicsAppendResponseDemographicsPersonEducation.json"
+    },
+    "gender": {
+      "type": "string",
+      "values": [
+        "M",
+        "F",
+        "U"
+      ]
+    },
+    "ethnicity": {
+      "type": "string",
+      "values": [
+        "ASIAN",
+        "AFRICAN_AMERICAN",
+        "HISPANIC"
+      ]
+    },
+    "race": {
+      "$ref": "#/definitions/DemographicsAppendResponseDemographicsPersonRace.json"
+    },
+    "date_of_birth": {
+      "type": "string"
+    },
+    "worker_type": {
+      "$ref": "#/definitions/DemographicsAppendResponseDemographicsPersonWorkerType.json"
+    },
+    "percent_mail_order_respondent": {
+      "type": "integer"
+    },
+    "language": {
+      "$ref": "#/definitions/DemographicsAppendResponseDemographicsPersonLanguage.json"
+    },
+    "finances": {
+      "$ref": "#/definitions/DemographicsAppendResponseDemographicsPersonFinances.json"
+    },
+    "is_senior": {
+      "type": "boolean"
+    },
+    "age": {
+      "type": "integer"
+    }
+  },
+  "definitions": {
+    "DemographicsAppendResponseDemographicsPersonEducation.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsPersonEducation",
+      "properties": {
+        "level": {
+          "type": "string",
+          "values": [
+            "HIGH_SCHOOL",
+            "COLLEGE",
+            "GRADUATE_SCHOOL",
+            "VOCATIONAL_OR_TECHNICAL"
+          ]
+        },
+        "median_years_schooling": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsPersonRace.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsPersonRace",
+      "properties": {
+        "percent_hispanic": {
+          "type": "integer"
+        },
+        "percent_black": {
+          "type": "integer"
+        },
+        "percent_white": {
+          "type": "integer"
+        },
+        "percent_asian": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsPersonWorkerType.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsPersonRace",
+      "properties": {
+        "percent_white_collar": {
+          "type": "integer"
+        },
+        "percent_blue_collar": {
+          "type": "integer"
+        },
+        "percent_other": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsPersonLanguage.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsPersonRace",
+      "properties": {
+        "percent_spanish_speaker": {
+          "type": "integer"
+        },
+        "percent_asian_speaker": {
+          "type": "integer"
+        },
+        "percent_english_speaker": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsPersonFinances.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsPersonFinances",
+      "properties": {
+        "estimated_income": {
+          "type": "string",
+          "values": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I"
+          ]
+        },
+        "estimated_net_worth": {
+          "type": "string",
+          "values": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H"
+          ]
+        },
+        "is_charity_donar": {
+          "type": "boolean"
+        },
+        "uses_credit_card": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

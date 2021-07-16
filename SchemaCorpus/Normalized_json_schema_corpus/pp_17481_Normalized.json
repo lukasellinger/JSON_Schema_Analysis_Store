@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Incomes",
+  "description": "Do not include furnished holiday lettings, Real Estate Investment Trust or Property Authorised Investment Funds dividends/distributions here",
+  "properties": {
+    "rentIncome": {
+      "title": "rentIncome",
+      "description": "Total rents and other income from property",
+      "$ref": "#/definitions/..\\..\\Income.json"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "..\\..\\Income.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "Income",
+      "description": "Income",
+      "properties": {
+        "amount": {
+          "title": "Amount",
+          "description": "Amount",
+          "type": "number",
+          "multipleOf": 0.01,
+          "minimum": 0
+        },
+        "taxDeducted": {
+          "title": "Tax deducted",
+          "description": "Tax taken of any income",
+          "type": "number",
+          "multipleOf": 0.01,
+          "minimum": 0
+        }
+      },
+      "required": [
+        "amount"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/View/Parameter.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Параметр представления",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "description": "Наименование параметра",
+      "type": "string"
+    },
+    "Value": {
+      "description": "Значение параметра"
+    },
+    "DefaultValue": {
+      "description": "Значение по умолчанию"
+    },
+    "OnPropertyChanged": {
+      "description": "Обработчик события о том, что одно из свойств изменилось",
+      "$ref": "#/definitions/..\\Script\\LinkScript.json"
+    }
+  },
+  "required": [
+    "Name"
+  ],
+  "definitions": {
+    "..\\Script\\LinkScript.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Ссылка на прикладной скрипт, выполняемый на стороне клиента",
+      "type": "string"
+    }
+  }
+}

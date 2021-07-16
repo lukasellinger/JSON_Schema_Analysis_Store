@@ -1,0 +1,309 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "search-type": {
+      "type": "string",
+      "enum": [
+        "file",
+        "acquisition",
+        "session",
+        "analysis",
+        "collection"
+      ],
+      "description": "Sets the type of search results to return"
+    },
+    "search-query": {
+      "type": "object",
+      "properties": {
+        "return_type": {
+          "$ref": "#/definitions/search-type"
+        },
+        "search_string": {
+          "type": "string",
+          "description": "Represents the plain text search query"
+        },
+        "all_data": {
+          "type": "boolean",
+          "description": "When set will include all data that the user does not have access to read",
+          "default": false
+        },
+        "filters": {
+          "type": "object",
+          "description": "See https://www.elastic.co/guide/en/elasticsearch/reference/current/term-level-queries.html"
+        }
+      },
+      "required": [
+        "return_type"
+      ]
+    },
+    "search-project-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/common.json_definitions_label"
+        }
+      },
+      "description": "Fields for project search response"
+    },
+    "search-group-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/common.json_definitions_label"
+        }
+      },
+      "description": "Fields for group search response"
+    },
+    "search-session-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/common.json_definitions_label"
+        },
+        "timestamp": {
+          "$ref": "#/definitions/common.json_definitions_timestamp"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        }
+      },
+      "description": "Fields for session search response"
+    },
+    "search-acquisition-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/common.json_definitions_label"
+        },
+        "timestamp": {
+          "$ref": "#/definitions/common.json_definitions_timestamp"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        }
+      },
+      "description": "Fields for acquisition search response"
+    },
+    "search-subject-response": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/subject.json_definitions_code"
+        }
+      },
+      "description": "Fields for subject search response"
+    },
+    "search-file-response": {
+      "type": "object",
+      "properties": {
+        "measurements": {
+          "$ref": "#/definitions/file.json_definitions_measurements"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        },
+        "type": {
+          "$ref": "#/definitions/file.json_definitions_file-type"
+        },
+        "name": {
+          "$ref": "#/definitions/file.json_definitions_name"
+        },
+        "size": {
+          "$ref": "#/definitions/file.json_definitions_size"
+        }
+      },
+      "description": "Fields for file search response"
+    },
+    "search-analysis-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/common.json_definitions_label"
+        },
+        "user": {
+          "$ref": "#/definitions/common.json_definitions_user-id"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        }
+      },
+      "description": "Fields for acquisition search response"
+    },
+    "search-parent-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/container.json_definitions__id"
+        },
+        "type": {
+          "$ref": "#/definitions/container.json_definitions_container-type"
+        }
+      },
+      "description": "Fields for parent search response"
+    },
+    "search-collection-response": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/container.json_definitions__id"
+        },
+        "label": {
+          "$ref": "#/definitions/common.json_definitions_label"
+        },
+        "curator": {
+          "$ref": "#/definitions/common.json_definitions_user-id"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        }
+      },
+      "description": "Fields for collection search response"
+    },
+    "search-response": {
+      "type": "object",
+      "properties": {
+        "project": {
+          "$ref": "#/definitions/search-project-response"
+        },
+        "group": {
+          "$ref": "#/definitions/search-group-response"
+        },
+        "session": {
+          "$ref": "#/definitions/search-session-response"
+        },
+        "acquisition": {
+          "$ref": "#/definitions/search-acquisition-response"
+        },
+        "subject": {
+          "$ref": "#/definitions/search-subject-response"
+        },
+        "file": {
+          "$ref": "#/definitions/search-file-response"
+        },
+        "collection": {
+          "$ref": "#/definitions/search-collection-response"
+        },
+        "analysis": {
+          "$ref": "#/definitions/search-analysis-response"
+        },
+        "parent": {
+          "$ref": "#/definitions/search-parent-response"
+        },
+        "permissions": {
+          "$ref": "#/definitions/permission.json_definitions_permission-output-list"
+        }
+      },
+      "description": "Single search response entry"
+    },
+    "container.json_definitions__id": {
+      "type": "string"
+    },
+    "common.json_definitions_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "common.json_definitions_timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "created-modified.json_definitions_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "subject.json_definitions_code": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "file.json_definitions_measurements": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "file.json_definitions_file-type": {
+      "type": "string"
+    },
+    "file.json_definitions_name": {
+      "type": "string"
+    },
+    "file.json_definitions_size": {
+      "type": "integer"
+    },
+    "common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    },
+    "container.json_definitions_container-type": {
+      "type": "string",
+      "enum": [
+        "group",
+        "project",
+        "session",
+        "acquisition",
+        "collection",
+        "analysis"
+      ],
+      "description": "The type of container (e.g. session)"
+    },
+    "permission.json_definitions_permission-output-list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/permission.json_definitions_permission-output-default-required"
+      },
+      "uniqueItems": true
+    },
+    "permission.json_definitions_permission-output-default-required": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/permission.json_definitions_permission"
+        }
+      ],
+      "required": [
+        "_id",
+        "access"
+      ],
+      "x-sdk-model": "permission"
+    },
+    "permission.json_definitions_permission": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/common.json_definitions_user-id"
+        },
+        "access": {
+          "$ref": "#/definitions/permission.json_definitions_access"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "permission"
+    },
+    "permission.json_definitions_access": {
+      "type": "string",
+      "enum": [
+        "ro",
+        "rw",
+        "admin"
+      ]
+    }
+  }
+}

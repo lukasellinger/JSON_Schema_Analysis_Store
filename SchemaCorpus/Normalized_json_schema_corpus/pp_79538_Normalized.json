@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "a sorted set of assessments",
+  "definitions": {
+    "assessmentSortItem": {
+      "type": "object",
+      "description": "a single application/assessment within a larger sorted set",
+      "properties": {
+        "application": {
+          "$ref": "#/definitions/applicationRead.json_definitions_id"
+        },
+        "assessment": {
+          "$ref": "#/definitions/assessmentMeta.json_definitions_id"
+        },
+        "assessmentStatus": {
+          "$ref": "#/definitions/assessmentRead.json_definitions_status"
+        }
+      }
+    },
+    "assessmentSortedSet": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/assessmentSortItem"
+      }
+    },
+    "applicationRead.json_definitions_id": {
+      "type": "integer"
+    },
+    "assessmentMeta.json_definitions_id": {
+      "type": "integer"
+    },
+    "assessmentRead.json_definitions_status": {
+      "description": "The current disposition of an assessment",
+      "enum": [
+        "Started",
+        "In progress",
+        "Complete",
+        "Cancelled",
+        "Opted out",
+        "Error"
+      ]
+    }
+  },
+  "properties": {
+    "unsortable": {
+      "$ref": "#/definitions/assessmentSortedSet"
+    },
+    "sorted": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/assessmentSortedSet"
+      }
+    }
+  }
+}

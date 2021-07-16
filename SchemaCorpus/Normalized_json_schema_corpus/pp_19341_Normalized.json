@@ -1,0 +1,526 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "Site": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string"
+        },
+        "AgencyID": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Directions": {
+          "type": "string"
+        },
+        "AlternateName": {
+          "type": "object",
+          "properties": {
+            "AlternateName": {
+              "type": "string"
+            },
+            "Confidential": {
+              "type": "boolean"
+            },
+            "Description": {
+              "type": "string"
+            }
+          }
+        },
+        "MailingAddress": {
+          "type": "object",
+          "properties": {
+            "AddressID": {
+              "type": "string"
+            },
+            "Line1": {
+              "type": "string"
+            },
+            "Line2": {
+              "type": "string"
+            },
+            "City": {
+              "type": "string"
+            },
+            "County": {
+              "type": "string"
+            },
+            "State": {
+              "type": "string"
+            },
+            "PostalCode": {
+              "type": "integer"
+            },
+            "Country": {
+              "type": "string"
+            },
+            "Confidential": {
+              "type": "boolean"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "ReasonWithheld": {
+              "type": "string"
+            },
+            "MainAgencyAddress": {
+              "type": "boolean"
+            },
+            "PhysicalAddress": {
+              "type": "boolean"
+            },
+            "MailingAddress": {
+              "type": "boolean"
+            }
+          }
+        },
+        "PhysicalAddress": {
+          "type": "object",
+          "properties": {
+            "AddressID": {
+              "type": "string"
+            },
+            "Line1": {
+              "type": "string"
+            },
+            "Line2": {
+              "type": "string"
+            },
+            "City": {
+              "type": "string"
+            },
+            "County": {
+              "type": "string"
+            },
+            "State": {
+              "type": "string"
+            },
+            "PostalCode": {
+              "type": "integer"
+            },
+            "Country": {
+              "type": "string"
+            },
+            "Confidential": {
+              "type": "boolean"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "ReasonWithheld": {
+              "type": "string"
+            },
+            "MainAgencyAddress": {
+              "type": "boolean"
+            },
+            "PhysicalAddress": {
+              "type": "boolean"
+            },
+            "MailingAddress": {
+              "type": "boolean"
+            }
+          }
+        },
+        "NoPhysicalAddress": {
+          "type": "object",
+          "properties": {
+            "NoPhysicalAddress": {
+              "type": "boolean"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Explanation": {
+              "type": "string"
+            }
+          }
+        },
+        "OtherAddress": {
+          "type": "object",
+          "properties": {
+            "AddressID": {
+              "type": "string"
+            },
+            "Line1": {
+              "type": "string"
+            },
+            "Line2": {
+              "type": "string"
+            },
+            "City": {
+              "type": "string"
+            },
+            "County": {
+              "type": "string"
+            },
+            "State": {
+              "type": "string"
+            },
+            "PostalCode": {
+              "type": "integer"
+            },
+            "Country": {
+              "type": "string"
+            },
+            "Confidential": {
+              "type": "boolean"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "ReasonWithheld": {
+              "type": "string"
+            },
+            "MainAgencyAddress": {
+              "type": "boolean"
+            },
+            "PhysicalAddress": {
+              "type": "boolean"
+            },
+            "MailingAddress": {
+              "type": "boolean"
+            }
+          }
+        },
+        "CrossStreet": {
+          "type": "string"
+        },
+        "Phone": {
+          "type": "object",
+          "properties": {
+            "Phone": {
+              "type": "string"
+            },
+            "Confidential": {
+              "type": "boolean"
+            },
+            "ReasonWithheld": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "Type": {
+              "type": "string"
+            },
+            "Function": {
+              "type": "string"
+            },
+            "TollFree": {
+              "type": "boolean"
+            },
+            "Department": {
+              "type": "string"
+            },
+            "CountryPrefix": {
+              "type": "string"
+            }
+          }
+        },
+        "URL": {
+          "type": "object",
+          "properties": {
+            "Address": {
+              "type": "string"
+            },
+            "Note": {
+              "type": "string"
+            }
+          }
+        },
+        "InternetResource": {
+          "type": "object",
+          "properties": {
+            "Url": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            }
+          }
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Contact": {
+          "type": "object",
+          "properties": {
+            "ID": {
+              "type": "string"
+            },
+            "AgencyID": {
+              "type": "string"
+            },
+            "ServiceID": {
+              "type": "string"
+            },
+            "Department": {
+              "type": "string"
+            },
+            "Title": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Nickname": {
+              "type": "string"
+            },
+            "ContactEmail": {
+              "type": "string"
+            },
+            "ContactPhone": {
+              "type": "object",
+              "properties": {
+                "Phone": {
+                  "type": "string"
+                },
+                "Confidential": {
+                  "type": "boolean"
+                },
+                "ReasonWithheld": {
+                  "type": "string"
+                },
+                "Description": {
+                  "type": "string"
+                },
+                "Type": {
+                  "type": "string"
+                },
+                "Function": {
+                  "type": "string"
+                },
+                "TollFree": {
+                  "type": "boolean"
+                },
+                "Department": {
+                  "type": "string"
+                },
+                "CountryPrefix": {
+                  "type": "string"
+                }
+              }
+            },
+            "ContactType": {
+              "type": "string"
+            }
+          }
+        },
+        "OpenHours": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "dayOpen": {
+                  "type": "string"
+                },
+                "TimeOpens": {
+                  "type": "string"
+                },
+                "TimeCloses": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "dayOpen": {
+                  "type": "string"
+                },
+                "TimeOpens": {
+                  "type": "string"
+                },
+                "TimeCloses": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "SpecialHours": {
+          "type": "object",
+          "properties": {
+            "SpecialHoursStartDate": {
+              "type": "string"
+            },
+            "SpecialHoursEndDate": {
+              "type": "string"
+            },
+            "SpecialOpenTime": {
+              "type": "string"
+            },
+            "SpecialCloseTime": {
+              "type": "string"
+            }
+          }
+        },
+        "Languages": {
+          "type": "object",
+          "properties": {
+            "LanguageName": {
+              "type": "string"
+            },
+            "LanguageHours": {
+              "type": "object",
+              "properties": {
+                "dayOpen": {
+                  "type": "string"
+                },
+                "TimeOpens": {
+                  "type": "string"
+                },
+                "TimeCloses": {
+                  "type": "string"
+                }
+              }
+            },
+            "Notes": {
+              "type": "string"
+            }
+          }
+        },
+        "DisabilitiesAccess": {
+          "type": "string"
+        },
+        "PhysicalLocationDescription": {
+          "type": "string"
+        },
+        "BusServiceAccess": {
+          "type": "string"
+        },
+        "SpatialLocation": {
+          "type": "object",
+          "properties": {
+            "Description": {
+              "type": "string"
+            },
+            "Datum": {
+              "type": "string"
+            },
+            "Latitude": {
+              "type": "string"
+            },
+            "Longitude": {
+              "type": "string"
+            }
+          }
+        },
+        "Status": {
+          "type": "string"
+        },
+        "PublicAccessToTransportation": {
+          "type": "boolean"
+        },
+        "ExcludeFromWebsite": {
+          "type": "boolean"
+        },
+        "ExcludeFromDirectory": {
+          "type": "boolean"
+        },
+        "ResourceInfo": {
+          "type": "object",
+          "properties": {
+            "Contact": {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "integer"
+                },
+                "AgencyID": {
+                  "type": "string"
+                },
+                "ServiceID": {
+                  "type": "string"
+                },
+                "Department": {
+                  "type": "string"
+                },
+                "Title": {
+                  "type": "string"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "Nickname": {
+                  "type": "string"
+                },
+                "ContactEmail": {
+                  "type": "string"
+                },
+                "ContactPhone": {
+                  "type": "object",
+                  "properties": {
+                    "Phone": {
+                      "type": "string"
+                    },
+                    "Confidential": {
+                      "type": "boolean"
+                    },
+                    "ReasonWithheld": {
+                      "type": "string"
+                    },
+                    "Description": {
+                      "type": "string"
+                    },
+                    "Type": {
+                      "type": "string"
+                    },
+                    "Function": {
+                      "type": "string"
+                    },
+                    "TollFree": {
+                      "type": "boolean"
+                    },
+                    "Department": {
+                      "type": "string"
+                    },
+                    "CountryPrefix": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "ContactType": {
+                  "type": "string"
+                }
+              }
+            },
+            "ResourceSpecialist": {
+              "type": "string"
+            },
+            "AvailableForDirectory": {
+              "type": "boolean"
+            },
+            "AvailableForReferral": {
+              "type": "boolean"
+            },
+            "AvailableForResearch": {
+              "type": "boolean"
+            },
+            "DateAdded": {
+              "type": "string"
+            },
+            "DateLastVerified": {
+              "type": "string"
+            },
+            "DateOfLastAction": {
+              "type": "string"
+            },
+            "LastActionType": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

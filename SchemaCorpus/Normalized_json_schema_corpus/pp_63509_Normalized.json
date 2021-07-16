@@ -1,0 +1,190 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Sampler",
+  "type": "object",
+  "description": "Texture sampler properties for filtering and wrapping modes.",
+  "allOf": [
+    {
+      "$ref": "#/definitions/glTFChildOfRootProperty.schema.json"
+    }
+  ],
+  "properties": {
+    "magFilter": {
+      "description": "Magnification filter.",
+      "gltf_detailedDescription": "Magnification filter.  Valid values correspond to WebGL enums: `9728` (NEAREST) and `9729` (LINEAR).",
+      "gltf_webgl": "`texParameterf()` with pname equal to TEXTURE_MAG_FILTER",
+      "anyOf": [
+        {
+          "enum": [
+            9728
+          ],
+          "description": "NEAREST"
+        },
+        {
+          "enum": [
+            9729
+          ],
+          "description": "LINEAR"
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "minFilter": {
+      "description": "Minification filter.",
+      "gltf_detailedDescription": "Minification filter.  All valid values correspond to WebGL enums.",
+      "gltf_webgl": "`texParameterf()` with pname equal to TEXTURE_MIN_FILTER",
+      "anyOf": [
+        {
+          "enum": [
+            9728
+          ],
+          "description": "NEAREST"
+        },
+        {
+          "enum": [
+            9729
+          ],
+          "description": "LINEAR"
+        },
+        {
+          "enum": [
+            9984
+          ],
+          "description": "NEAREST_MIPMAP_NEAREST"
+        },
+        {
+          "enum": [
+            9985
+          ],
+          "description": "LINEAR_MIPMAP_NEAREST"
+        },
+        {
+          "enum": [
+            9986
+          ],
+          "description": "NEAREST_MIPMAP_LINEAR"
+        },
+        {
+          "enum": [
+            9987
+          ],
+          "description": "LINEAR_MIPMAP_LINEAR"
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "wrapS": {
+      "description": "s wrapping mode.",
+      "default": 10497,
+      "gltf_detailedDescription": "S (U) wrapping mode.  All valid values correspond to WebGL enums.",
+      "gltf_webgl": "`texParameterf()` with pname equal to TEXTURE_WRAP_S",
+      "anyOf": [
+        {
+          "enum": [
+            33071
+          ],
+          "description": "CLAMP_TO_EDGE"
+        },
+        {
+          "enum": [
+            33648
+          ],
+          "description": "MIRRORED_REPEAT"
+        },
+        {
+          "enum": [
+            10497
+          ],
+          "description": "REPEAT"
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "wrapT": {
+      "description": "t wrapping mode.",
+      "default": 10497,
+      "gltf_detailedDescription": "T (V) wrapping mode.  All valid values correspond to WebGL enums.",
+      "gltf_webgl": "`texParameterf()` with pname equal to TEXTURE_WRAP_T",
+      "anyOf": [
+        {
+          "enum": [
+            33071
+          ],
+          "description": "CLAMP_TO_EDGE"
+        },
+        {
+          "enum": [
+            33648
+          ],
+          "description": "MIRRORED_REPEAT"
+        },
+        {
+          "enum": [
+            10497
+          ],
+          "description": "REPEAT"
+        },
+        {
+          "type": "integer"
+        }
+      ]
+    },
+    "name": {},
+    "extensions": {},
+    "extras": {}
+  },
+  "gltf_webgl": "`texParameterf()`",
+  "definitions": {
+    "glTFChildOfRootProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Child of Root Property",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The user-defined name of this object.",
+          "gltf_detailedDescription": "The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name."
+        }
+      }
+    },
+    "glTFProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Property",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extension.schema.json"
+        },
+        "extras": {
+          "$ref": "#/definitions/extras.schema.json"
+        }
+      }
+    },
+    "extension.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extension",
+      "type": "object",
+      "description": "Dictionary object with extension-specific objects.",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "extras.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extras",
+      "description": "Application-specific data."
+    }
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/v0_3/story-summary.json",
+  "description": "A summary of a story",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/trait_credited.json",
+      "properties": {
+        "last_updated_date": {
+          "description": "When the story was last updated (RFC3339-formatted).",
+          "type": "string",
+          "format": "date-time"
+        },
+        "headlines": {
+          "type": "object",
+          "description": "The headline(s) for the story."
+        },
+        "canonical_url": {
+          "type": "string",
+          "description": "The fully qualified URL to the story."
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "trait_credited.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Credit trait",
+      "description": "Trait that captures the need to attribute ownership or authorship to content.",
+      "type": "object",
+      "required": [
+        "credits"
+      ],
+      "properties": {
+        "credits": {
+          "description": "An array of people/groups attributed to this content.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/credit.json"
+          }
+        }
+      }
+    },
+    "credit.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Credit for a piece of content.",
+      "description": "Models attribution to an individual or group for contribution towards some content item.",
+      "type": "object",
+      "required": [
+        "name",
+        "role"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "The name of contributor.",
+          "type": "string"
+        },
+        "org": {
+          "description": "The (optional) organization the contributor belongs to.",
+          "type": "string"
+        },
+        "role": {
+          "description": "The role the contributor played in the content.",
+          "type": "string"
+        },
+        "image": {
+          "description": "An image of the contributor.",
+          "$ref": "#/definitions/image.json"
+        },
+        "description": {
+          "description": "A description/short bio of the contributor.",
+          "type": "string"
+        },
+        "url": {
+          "description": "A url to some deeper set of information about the contributor.",
+          "type": "string"
+        },
+        "social_links": {
+          "description": "A list of social links (twitter, facebook, etc) for this contributor.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/social.json"
+          }
+        }
+      }
+    },
+    "image.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "An image.",
+      "description": "Holds attributes of an ANS image component.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/media.json",
+          "properties": {
+            "subtitle": {
+              "description": "Subtitle for the image.",
+              "type": "string"
+            },
+            "caption": {
+              "description": "Caption for the image.",
+              "type": "string"
+            },
+            "url": {
+              "description": "URL for the image.",
+              "type": "string"
+            },
+            "width": {
+              "description": "Width for the image.",
+              "type": "integer"
+            },
+            "height": {
+              "description": "Height for the image.",
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    },
+    "media.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A media object.",
+      "description": "Holds common attributes of ANS Media objects.",
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/content.json",
+          "properties": {
+            "title": {
+              "description": "The title of the media object.",
+              "type": "string"
+            },
+            "taxonomy": {
+              "$ref": "#/definitions/taxonomy.json",
+              "description": "A collection of metadata, keywords, etc. describing this media."
+            }
+          }
+        }
+      ]
+    },
+    "content.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A content object.",
+      "description": "Holds common attributes of ANS Content objects.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/trait_copyrighted.json"
+        }
+      ]
+    },
+    "trait_copyrighted.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Copyright information",
+      "description": "Defines the structure of copyright information, as applied to content.",
+      "type": "object",
+      "properties": {
+        "copyright": {
+          "description": "The copyright notice, e.g. \u0027(c) 2015 The Washington Post, Inc.\u0027",
+          "type": "string"
+        }
+      }
+    },
+    "taxonomy.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Taxonomy",
+      "description": "Holds the collection of metadata, keywords, etc that describe content.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/keyword.json"
+          },
+          "description": "A list of keywords."
+        }
+      }
+    },
+    "keyword.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Keyword",
+      "description": "Models a keyword used in describing a piece of content.",
+      "type": "object",
+      "required": [
+        "keyword"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "keyword": {
+          "type": "string",
+          "description": "The keyword used to describe/categorize a piece of content"
+        },
+        "score": {
+          "type": "number",
+          "description": "An arbitrary weighting to give the keyword"
+        },
+        "frequency": {
+          "type": "integer",
+          "description": "An optional count of the frequency of the keyword as it appears in the content it describes"
+        }
+      }
+    },
+    "social.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "A tuple of social media information (e.g. Facebook url, Twitter handle, etc)",
+      "type": "object",
+      "properties": {
+        "site": {
+          "description": "The name of the social media site (e.g. twitter, facebook, etc)",
+          "type": "string"
+        },
+        "url": {
+          "description": "The profile/account page to link to on the site",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/ServerAction.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Действие вызова операции на сервере",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/BaseAction.json"
+    },
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/BaseFallibleAction.json"
+    }
+  ],
+  "properties": {
+    "Origin": {
+      "description": "Базовая часть url запроса",
+      "type": "string"
+    },
+    "Path": {
+      "description": "Уточняющая часть url запроса",
+      "type": "string"
+    },
+    "Method": {
+      "description": "Метод запроса",
+      "type": "string",
+      "default": "get"
+    },
+    "ContentType": {
+      "description": "Тип данных",
+      "type": "string",
+      "default": "application/x-www-form-urlencoded; charset\u003dutf-8"
+    },
+    "Data": {
+      "description": "Данные запроса",
+      "type": "object"
+    },
+    "Params": {
+      "description": "Параметры запроса",
+      "type": "object"
+    }
+  },
+  "required": [
+    "Path"
+  ]
+}

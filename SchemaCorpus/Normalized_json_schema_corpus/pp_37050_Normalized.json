@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/definitions.json",
+  "title": "Definitions",
+  "description": "Schema for common types",
+  "definitions": {
+    "color": {
+      "type": "string",
+      "enum": [
+        "red",
+        "yellow",
+        "green",
+        "blue"
+      ]
+    },
+    "point": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    }
+  }
+}

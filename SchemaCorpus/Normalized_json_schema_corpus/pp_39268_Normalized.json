@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "errorHeight": {
+      "type": "integer"
+    },
+    "scripts": {
+      "properties": {
+        "dev": {
+          "items": {
+            "properties": {
+              "command": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "screenConfig": {
+                "properties": {},
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

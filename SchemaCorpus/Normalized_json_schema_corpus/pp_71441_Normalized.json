@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://schemas.massisframework.com/jme3/BoundingBox.json",
+  "javaType": "com.jme3.bounding.BoundingBox",
+  "title": "BoundingBox",
+  "description": "Describes a bounding volume as an axis-aligned box.",
+  "type": "object",
+  "properties": {
+    "center": {
+      "$ref": "#/definitions/Vector3f.json"
+    },
+    "xExtent": {
+      "type": "number"
+    },
+    "yExtent": {
+      "type": "number"
+    },
+    "zExtent": {
+      "type": "number"
+    }
+  },
+  "definitions": {
+    "Vector3f.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "javaType": "com.jme3.math.Vector3f",
+      "title": "Vector3f",
+      "description": "Defines a Vector for a three float value tuple",
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

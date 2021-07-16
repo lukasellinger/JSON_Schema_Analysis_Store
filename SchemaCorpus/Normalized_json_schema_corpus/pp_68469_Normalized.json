@@ -1,0 +1,1754 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "title": "Record schema.",
+  "description": "An explanation about the purpose of this instance described by this schema.",
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "title": "title schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    "first": {
+      "type": "string",
+      "minLength": 1,
+      "title": "First schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    "last": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Last schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    "gender": {
+      "$ref": "#/definitions/common.json_definitions_Gender"
+    },
+    "birthdate": {
+      "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch",
+      "title": "Birthdate schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    "deathdate": {
+      "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch",
+      "title": "date of death schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    "religious_affiliation": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Religious Affiliation schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {}
+    },
+    "race": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Race schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {}
+    },
+    "ethnicity": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Ethnicity schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {}
+    },
+    "languages": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "title": "Languages schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "items": {}
+    },
+    "marital_status": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Marital Status schema.",
+      "properties": {}
+    },
+    "medical_record_number": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Medical_record_number schema."
+    },
+    "medical_record_assigner": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Medical_record_assigner schema."
+    },
+    "expired": {
+      "type": "boolean",
+      "title": "Expired schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    "created_at": {
+      "$ref": "#/definitions/common.json_definitions_ISO8601DateTime",
+      "title": "Created_at schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    "updated_at": {
+      "$ref": "#/definitions/common.json_definitions_ISO8601DateTime",
+      "title": "Updated_at schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    "allergies": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/allergy.json_definitions_Allergy"
+      }
+    },
+    "care_goals": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/entry.json_definitions_Entry"
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "title": "Conditions schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "items": {
+        "$ref": "#/definitions/condition.json_definitions_Condition"
+      }
+    },
+    "encounters": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "title": "Encounters schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "items": {
+        "$ref": "#/definitions/encounter.json_definitions_Encounter"
+      }
+    },
+    "communications": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "title": "Communications schema.",
+      "items": {
+        "$ref": "#/definitions/communication.json_definitions_Communication"
+      }
+    },
+    "family_history": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/familyHistory.json_definitions_FamilyHistory"
+      }
+    },
+    "immunizations": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/immunization.json_definitions_Immunization"
+      }
+    },
+    "medical_equipment": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/medicalEquipment.json_definitions_MedicalEquipment"
+      }
+    },
+    "medications": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "title": "Medications schema.",
+      "items": {
+        "$ref": "#/definitions/medication.json_definitions_Medication"
+      }
+    },
+    "procedures": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/procedure.json_definitions_Procedure"
+      }
+    },
+    "results": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/labResult.json_definitions_LabResult"
+      }
+    },
+    "socialhistories": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/entry.json_definitions_Entry"
+      }
+    },
+    "vital_signs": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/vitalSign.json_definitions_VitalSign"
+      }
+    },
+    "support": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/support.json_definitions_Support"
+      }
+    },
+    "advance_directives": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/entry.json_definitions_Entry"
+      }
+    },
+    "insurance_providers": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "title": "Insurance_providers schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "items": {
+        "$ref": "#/definitions/insuranceProvider.json_definitions_InsuranceProvider"
+      }
+    },
+    "functional_statuses": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/functionalStatus.json_definitions_FunctionalStatus"
+      }
+    },
+    "provider_performances": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/providerPerformance.json_definitions_ProviderPerformance"
+      }
+    },
+    "addresses": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/address.json_definitions_Locatable"
+      }
+    },
+    "telecoms": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "$ref": "#/definitions/telecom.json_definitions_Contactable"
+      }
+    }
+  },
+  "required": [
+    "birthdate",
+    "created_at",
+    "description",
+    "encounters",
+    "ethnicity",
+    "expired",
+    "first",
+    "gender",
+    "insurance_providers",
+    "languages",
+    "last",
+    "medical_record_assigner",
+    "medical_record_number",
+    "race",
+    "type",
+    "updated_at"
+  ],
+  "definitions": {
+    "common.json_definitions_Gender": {
+      "type": "string",
+      "maxLength": 1,
+      "minLength": 1,
+      "title": "Gender definition.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "enum": [
+        null,
+        "M",
+        "F",
+        "U"
+      ]
+    },
+    "common.json_definitions_SecondsSinceEpoch": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "multipleOf": 1,
+      "title": "Milliseconds since Epoch",
+      "description": "Number of milliseconds since Jan 1, 1970"
+    },
+    "common.json_definitions_ISO8601DateTime": {
+      "type": "string",
+      "maxLength": 24,
+      "minLength": 4,
+      "pattern": "^((([0-9]{4})-([0-9][0-9])-([0-9][0-9]))T([0-9][0-9]:[0-9][0-9]:[0-9][0-9](.[0-9][0-9][0-9]?)?)Z)$",
+      "title": "Timestamp String",
+      "description": "Date-Time as String (optional fractioanl seconds) ex: 2014-07-18T13:08:53.307Z"
+    },
+    "allergy.json_definitions_Allergy": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Allergy schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "type": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "reaction": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "severity": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {}
+            }
+          }
+        }
+      ]
+    },
+    "entry.json_definitions_Entry": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Entry schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/thingWithCodes.json_definitions_ThingWithCodes"
+        },
+        {
+          "properties": {
+            "_id": {
+              "type": "string",
+              "minLength": 1,
+              "title": "_id schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "cda_identifier": {
+              "$ref": "#/definitions/cdaIdentifier.json_definitions_CDAIdentifier",
+              "title": "cda identifier schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "created_at": {
+              "$ref": "#/definitions/common.json_definitions_ISO8601DateTime",
+              "title": "Created_at schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "description": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 0,
+              "title": "Description schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "end_time": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+            },
+            "mood_code": {
+              "$ref": "#/definitions/common.json_definitions_MoodCode"
+            },
+            "negationInd": {
+              "type": [
+                "boolean",
+                "null"
+              ],
+              "title": "NegationInd schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "negationReason": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "title": "NegationReason schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "oid": {
+              "$ref": "#/definitions/common.json_definitions_Oid"
+            },
+            "patient_preference": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": true,
+              "additionalItems": true,
+              "title": "Patient Preference schema.",
+              "description": "An explanation about the purpose of this instance described by this schema.",
+              "items": {
+                "$ref": "#/definitions/entry.json_definitions_Entry"
+              }
+            },
+            "provider_preference": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": true,
+              "additionalItems": true,
+              "title": "Provider Preference schema.",
+              "description": "An explanation about the purpose of this instance described by this schema.",
+              "items": {
+                "$ref": "#/definitions/entry.json_definitions_Entry"
+              }
+            },
+            "reason": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "title": "Reason schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "references": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": true,
+              "additionalItems": true,
+              "title": "References schema.",
+              "description": "An explanation about the purpose of this instance described by this schema.",
+              "items": {}
+            },
+            "specifics": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "title": "Specifics schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "start_time": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+            },
+            "status_code": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true,
+              "title": "Status_code schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "time": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch",
+              "title": "Time schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "updated_at": {
+              "$ref": "#/definitions/common.json_definitions_ISO8601DateTime",
+              "title": "Updated_at schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            },
+            "values": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": true,
+              "additionalItems": true,
+              "title": "Values schema.",
+              "description": "An explanation about the purpose of this instance described by this schema.",
+              "items": {
+                "$ref": "#/definitions/common.json_definitions_ResultValue"
+              }
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1,
+              "title": "Version schema.",
+              "description": "An explanation about the purpose of this instance described by this schema."
+            }
+          }
+        }
+      ],
+      "required": [
+        "description",
+        "end_time",
+        "mood_code",
+        "negationInd",
+        "negationReason",
+        "oid",
+        "reason",
+        "specifics",
+        "start_time",
+        "status_code",
+        "time"
+      ]
+    },
+    "thingWithCodes.json_definitions_ThingWithCodes": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Thing with Codes schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {
+        "codes": {
+          "type": "object",
+          "minItems": 0,
+          "additionalProperties": true,
+          "title": "codes schema.",
+          "description": "An explanation about the purpose of this instance described by this schema.",
+          "items": {}
+        }
+      }
+    },
+    "cdaIdentifier.json_definitions_CDAIdentifier": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "root": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 0,
+          "title": "root schema."
+        },
+        "extension": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 0,
+          "title": "extension schema."
+        }
+      }
+    },
+    "common.json_definitions_MoodCode": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Mood_code schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "enum": [
+        null,
+        "EVN"
+      ]
+    },
+    "common.json_definitions_Oid": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "title": "Oid schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    "common.json_definitions_ResultValue": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Result Value schema.",
+      "description": "An explanation about the purpose of this instance described by this schema."
+    },
+    "condition.json_definitions_Condition": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Condition schema",
+      "description": "An explanation about the puropose of this instance described by this schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "causeOfDeath": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "ordinality": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "laterality": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "priority": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "severity": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "time_of_death": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+            },
+            "type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "anatomical_target": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "anatomical_location": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "treating_provider": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": false,
+              "additionalItems": true,
+              "items": {
+                "$ref": "#/definitions/provider.json_definitions_Provider"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "provider.json_definitions_Provider": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Immunization schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/personable.json_definitions_Personable"
+        },
+        {
+          "properties": {
+            "specialty": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "phone": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "organization": {
+              "$ref": "#/definitions/organization.json_definitions_Organization"
+            },
+            "cda_identifiers": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": true,
+              "additionalItems": true,
+              "items": {
+                "$ref": "#/definitions/cdaIdentifier.json_definitions_CDAIdentifier"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "personable.json_definitions_Personable": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Personable schema.",
+      "properties": {
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "given_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "family_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "addresses": {
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "additionalItems": true,
+          "items": {
+            "$ref": "#/definitions/address.json_definitions_Locatable"
+          }
+        },
+        "telecoms": {
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "additionalItems": true,
+          "items": {
+            "$ref": "#/definitions/telecom.json_definitions_Contactable"
+          }
+        }
+      }
+    },
+    "address.json_definitions_Locatable": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Locatable schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/address.json_definitions_Address"
+        }
+      ]
+    },
+    "address.json_definitions_Address": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Address schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {
+        "street": {
+          "type": "array",
+          "minItems": 0,
+          "additionalItems": true,
+          "title": "street schema.",
+          "description": "An explanation about the purpose of this instance described by this schema.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "city": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "zip": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "use": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      }
+    },
+    "telecom.json_definitions_Contactable": {
+      "type": "object",
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "$ref": "#/definitions/telecom.json_definitions_Telecom"
+        }
+      ]
+    },
+    "telecom.json_definitions_Telecom": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Telecom schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "preferred": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "use": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      }
+    },
+    "organization.json_definitions_Organization": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Organization schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "addresses": {
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "additionalItems": true,
+          "items": {
+            "$ref": "#/definitions/address.json_definitions_Locatable"
+          }
+        },
+        "telecoms": {
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "additionalItems": true,
+          "items": {
+            "$ref": "#/definitions/telecom.json_definitions_Contactable"
+          }
+        }
+      }
+    },
+    "encounter.json_definitions_Encounter": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Encounter schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "admitType": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "dischargeDisposition": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "admitTime": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+            },
+            "principalDiagnosis": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "diagnosis": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "dischargeTime": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+            },
+            "transferTo": {
+              "$ref": "#/definitions/transfer.json_definitions_Transfer"
+            },
+            "transferFrom": {
+              "$ref": "#/definitions/transfer.json_definitions_Transfer"
+            },
+            "facility": {
+              "$ref": "#/definitions/facility.json_definitions_Facility"
+            },
+            "performer_id": {
+              "$ref": "#/definitions/common.json_definitions_BsonObjectId"
+            }
+          }
+        }
+      ]
+    },
+    "transfer.json_definitions_Transfer": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Transfer schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "time": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+            }
+          }
+        }
+      ]
+    },
+    "facility.json_definitions_Facility": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Facility schema.",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "code": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": true,
+          "properties": {}
+        },
+        "start_Time": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "end_Time": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "addresses": {
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "additionalItems": true,
+          "items": {
+            "$ref": "#/definitions/address.json_definitions_Locatable"
+          }
+        },
+        "telecoms": {
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "additionalItems": true,
+          "items": {
+            "$ref": "#/definitions/telecom.json_definitions_Contactable"
+          }
+        }
+      }
+    },
+    "common.json_definitions_BsonObjectId": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "maxLength": 12,
+      "minLength": 12
+    },
+    "communication.json_definitions_Communication": {
+      "type": "object",
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "direction": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 0
+            }
+          }
+        }
+      ]
+    },
+    "familyHistory.json_definitions_FamilyHistory": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Family History schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "relationshipToPatient": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "onsetAge": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            }
+          }
+        }
+      ]
+    },
+    "immunization.json_definitions_Immunization": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Immunization schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "seriesNumber": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "multipleOf": 1
+            },
+            "medicationProduct": {
+              "$ref": "#/definitions/common.json_definitions_MedicationProduct"
+            },
+            "reaction": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "performer_id": {
+              "$ref": "#/definitions/common.json_definitions_BsonObjectId"
+            }
+          }
+        }
+      ]
+    },
+    "common.json_definitions_MedicationProduct": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "medicalEquipment.json_definitions_MedicalEquipment": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Medical Equipment schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "manufacturer": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "anatomicalStructure": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "removalTime": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+            },
+            "anatomicalApproach": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "reaction": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      ]
+    },
+    "medication.json_definitions_Medication": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Medication schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "administrationTiming": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "freeTextSig": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "dose": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "typeOfMedication": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "statusOfMedication": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "fulfillmentHistory": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": false,
+              "additionalItems": true,
+              "items": {
+                "$ref": "#/definitions/fulfillmentHistory.json_definitions_FulfillmentHistory"
+              }
+            },
+            "orderInformation": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": false,
+              "additionalItems": true,
+              "items": {
+                "$ref": "#/definitions/orderInformation.json_definitions_OrderInformation"
+              }
+            },
+            "route": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "anatomicalApproach": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "doseRestriction": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "fulfillmentInstructions": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "indication": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "productForm": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "vehicle": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "reaction": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "deliveryMethod": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "patientInstructions": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "doseIndicator": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "method": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "active_datetime": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+            },
+            "signed_datetime": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+            },
+            "cumulativeMedicationDuration": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            }
+          }
+        }
+      ]
+    },
+    "fulfillmentHistory.json_definitions_FulfillmentHistory": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Fulfillment History schema.",
+      "properties": {
+        "prescriptionNumber": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "dispenseDate": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "quantityDispensed": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "fillNumber": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "fillStatus": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "provider_id": {
+          "$ref": "#/definitions/common.json_definitions_BsonObjectId"
+        }
+      }
+    },
+    "orderInformation.json_definitions_OrderInformation": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Order Information schema.",
+      "properties": {
+        "orderNumber": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "fills": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "quantityOrdered": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "orderExpirationDateTime": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "orderDateTime": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "provider_id": {
+          "$ref": "#/definitions/common.json_definitions_BsonObjectId"
+        }
+      }
+    },
+    "procedure.json_definitions_Procedure": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Procedure schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "incisionTime": {
+              "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+            },
+            "ordinality": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "source": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "anatomicalApproach": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "anatomicalTarget": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "reaction": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "method": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "radiation_dose": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "radiation_duration": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "facility": {
+              "$ref": "#/definitions/facility.json_definitions_Facility"
+            },
+            "performer_id": {
+              "$ref": "#/definitions/common.json_definitions_BsonObjectId"
+            }
+          }
+        }
+      ]
+    },
+    "labResult.json_definitions_LabResult": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Lab Result schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "referenceRange": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "referenceRangeHigh": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "referenceRangeLow": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "interpretation": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true
+            },
+            "reaction": {
+              "type": "object",
+              "additionalProperties": true
+            },
+            "method": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      ]
+    },
+    "vitalSign.json_definitions_VitalSign": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Vital Sign schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/labResult.json_definitions_LabResult"
+        },
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "support.json_definitions_Support": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Support schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "title": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "given_name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "family_name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "mothers_maiden_name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "type": {
+              "$ref": "#/definitions/support.json_definitions_SupportType"
+            },
+            "relationship": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "address": {
+              "$ref": "#/definitions/address.json_definitions_Address"
+            },
+            "telecom": {
+              "$ref": "#/definitions/telecom.json_definitions_Telecom"
+            }
+          }
+        }
+      ]
+    },
+    "support.json_definitions_SupportType": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        null,
+        "Guardian",
+        "Next of Kin",
+        "Caregiver",
+        "Emergency Contact"
+      ]
+    },
+    "insuranceProvider.json_definitions_InsuranceProvider": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Insurance Provider",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "member_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "relationship": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "financial_responsibility_type": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {}
+            },
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "payer": {
+              "$ref": "#/definitions/organization.json_definitions_Organization"
+            },
+            "guarantors": {
+              "type": "array",
+              "minItems": 0,
+              "uniqueItems": false,
+              "additionalItems": true,
+              "items": {
+                "$ref": "#/definitions/guarantor.json_definitions_Guarantor"
+              }
+            },
+            "subscriber": {
+              "$ref": "#/definitions/person.json_definitions_Person"
+            }
+          }
+        }
+      ]
+    },
+    "guarantor.json_definitions_Guarantor": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "time": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "start_time": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "end_time": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "person": {
+          "$ref": "#/definitions/person.json_definitions_Person"
+        },
+        "organization": {
+          "$ref": "#/definitions/organization.json_definitions_Organization"
+        }
+      }
+    },
+    "person.json_definitions_Person": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Person schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/personable.json_definitions_Personable"
+        },
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "functionalStatus.json_definitions_FunctionalStatus": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Functional Status schema.",
+      "description": "An explanation about the purpose of this instance described by this schema.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/entry.json_definitions_Entry"
+        },
+        {
+          "properties": {
+            "type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {}
+            }
+          }
+        }
+      ]
+    },
+    "providerPerformance.json_definitions_ProviderPerformance": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Provider Performance schema.",
+      "properties": {
+        "start_date": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "end_date": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "provider_id": {
+          "$ref": "#/definitions/common.json_definitions_BsonObjectId"
+        }
+      }
+    }
+  }
+}

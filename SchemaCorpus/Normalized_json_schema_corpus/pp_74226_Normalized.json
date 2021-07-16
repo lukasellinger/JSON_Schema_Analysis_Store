@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Project",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\project.json_definitions_project-input"
+    }
+  ],
+  "definitions": {
+    "..\\definitions\\project.json_definitions_project-input": {
+      "type": "object",
+      "properties": {
+        "public": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_public"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        },
+        "info": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_info"
+        },
+        "description": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_description"
+        },
+        "group": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_string-id"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "project"
+    },
+    "..\\definitions\\container.json_definitions_public": {
+      "type": "boolean"
+    },
+    "..\\definitions\\common.json_definitions_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "..\\definitions\\container.json_definitions_info": {
+      "$ref": "#/definitions/..\\definitions\\common.json_definitions_info"
+    },
+    "..\\definitions\\common.json_definitions_info": {
+      "type": "object"
+    },
+    "..\\definitions\\common.json_definitions_description": {
+      "type": "string"
+    },
+    "..\\definitions\\common.json_definitions_string-id": {
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 2,
+      "pattern": "^[0-9a-z][0-9a-z.@_-]{0,30}[0-9a-z]$"
+    }
+  }
+}

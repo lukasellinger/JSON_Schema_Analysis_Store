@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/AlekseyBuzmakov/FCAPS/master/FCAPS/schemas/PatternManagerModules/BinarySetJoinPatternManagerModule.json",
+  "title": "Pattern Manager for Binary Set with Join operation",
+  "description": "A params of module Binary Set Join Pattern Manager. The file is a request for creation of a PM working with sets given as list of attribute numbers with join as a semilattice opperation",
+  "allOf": [
+    {
+      "description": "It is a module and is a Binary Set Pattern Manager",
+      "$ref": "#/definitions/BinarySetPatternManagerCommon.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "enum": [
+            "BinarySetJoinPatternManager"
+          ]
+        }
+      },
+      "required": [
+        "Name"
+      ]
+    }
+  ],
+  "definitions": {
+    "BinarySetPatternManagerCommon.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Common params for Binary Set Pattern Managers",
+      "description": "A params shared by all Binary Set Pattern Managers. The file is a request for creation of a PM working with sets",
+      "allOf": [
+        {
+          "description": "It is a pattern manager",
+          "$ref": "#/definitions/..\\PatternManagersModules\\PatternManagerModule.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Params": {
+              "type": "object",
+              "properties": {
+                "AttrNames": {
+                  "type": "array",
+                  "title": "Names of attributes",
+                  "description": "The mapping between 0-based indices of attributes and their string names",
+                  "items": {
+                    "type": "string"
+                  },
+                  "uniqueItems": true
+                },
+                "UseInds": {
+                  "type": "boolean",
+                  "title": "Attribute indices writing",
+                  "description": "In pattern saving, the PM write attribute indices as they were used/given"
+                },
+                "UseNames": {
+                  "type": "boolean",
+                  "title": "Attribute names writing",
+                  "description": "In pattern saving, the PM write attribute names"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "..\\PatternManagersModules\\PatternManagerModule.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Schema for all Pattern Manager Modules",
+      "description": "A schema, all pattern managers modules should sattisfy to",
+      "allOf": [
+        {
+          "description": "It is a module",
+          "$ref": "#/definitions/..\\module.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Type": {
+              "type": "string",
+              "description": "It is a pattern manager module",
+              "enum": [
+                "PatternManagerModules"
+              ]
+            },
+            "Name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Type",
+            "Name"
+          ]
+        }
+      ]
+    },
+    "..\\module.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Module Params",
+      "description": "Json file give the type, name, and params of a module that should be created by a program",
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "title": "Module Type",
+          "descripton": "A name of module type"
+        },
+        "Name": {
+          "type": "string",
+          "title": "Module Name",
+          "descripton": "A name of module, given by the creator of the module"
+        },
+        "Params": {
+          "type": "object",
+          "description": "Params of the created module"
+        }
+      },
+      "required": [
+        "Type",
+        "Name"
+      ]
+    }
+  }
+}

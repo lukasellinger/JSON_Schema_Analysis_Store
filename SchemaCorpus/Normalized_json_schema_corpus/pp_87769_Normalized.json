@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/v0_2/trait_credited.json",
+  "title": "Credit trait",
+  "description": "Trait that captures the need to attribute ownership or authorship to content.",
+  "type": "object",
+  "required": [
+    "credits"
+  ],
+  "properties": {
+    "credits": {
+      "description": "An array of people/groups attributed to this content.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/credit.json"
+      }
+    }
+  },
+  "definitions": {
+    "credit.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Credit for a piece of content.",
+      "description": "Models attribution to an individual or group for contribution towards some content item.",
+      "type": "object",
+      "required": [
+        "name",
+        "role"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "The name of contributor.",
+          "type": "string"
+        },
+        "org": {
+          "description": "The (optional) organization the contributor belongs to.",
+          "type": "string"
+        },
+        "role": {
+          "description": "The role the contributor played in the content.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

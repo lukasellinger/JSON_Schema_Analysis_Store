@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.6.0/utils/site.json",
+  "title": "Site",
+  "description": "A hierarchical section or \u0027site\u0027 in a taxonomy. In the Arc ecosystem, these are stored in the arc-site-service.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "enum": [
+        "site"
+      ]
+    },
+    "_id": {
+      "$ref": "#/definitions/..\\traits\\trait_id.json"
+    },
+    "version": {
+      "$ref": "#/definitions/..\\traits\\trait_version.json"
+    },
+    "additional_properties": {
+      "$ref": "#/definitions/..\\traits\\trait_additional_properties.json"
+    },
+    "name": {
+      "description": "The name of this site",
+      "type": "string"
+    },
+    "description": {
+      "description": "A short description or tagline about this site",
+      "type": "string"
+    },
+    "path": {
+      "description": "The url path to this site",
+      "type": "string"
+    },
+    "parent_id": {
+      "description": "The id of this section\u0027s parent site, if any",
+      "type": "string"
+    },
+    "primary": {
+      "description": "Is this the primary site?",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "type",
+    "version",
+    "name"
+  ],
+  "definitions": {
+    "..\\traits\\trait_id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "A globally unique identifier of the content in the ANS repository.",
+      "type": "string"
+    },
+    "..\\traits\\trait_version.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Describes the ANS version of this object",
+      "description": "The version of ANS that this object was serialized as, in major.minor.patch format.  For top-level content objects, this is a required trait.",
+      "type": "string",
+      "enum": [
+        "0.6.0"
+      ]
+    },
+    "..\\traits\\trait_additional_properties.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Has additional properties",
+      "description": "A grab-bag object for non-validatable data.",
+      "type": "object",
+      "additionalProperties": {}
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/login.json"
+  },
+  "definitions": {
+    "login.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "definitions": {
+        "entityID": {
+          "type": "string",
+          "description": "entity ID for the principal"
+        },
+        "nameID": {
+          "type": "string",
+          "description": "name ID for the principal"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "entityID": {
+          "$ref": "#/definitions/login.json_definitions_entityID"
+        },
+        "nameID": {
+          "$ref": "#/definitions/login.json_definitions_nameID"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "entityID",
+        "nameID"
+      ]
+    },
+    "login.json_definitions_entityID": {
+      "type": "string",
+      "description": "entity ID for the principal"
+    },
+    "login.json_definitions_nameID": {
+      "type": "string",
+      "description": "name ID for the principal"
+    }
+  }
+}

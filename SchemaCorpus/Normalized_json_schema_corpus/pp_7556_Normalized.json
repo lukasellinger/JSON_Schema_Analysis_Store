@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "section": {
+      "type": "string",
+      "enum": [
+        "terms"
+      ]
+    },
+    "lang": {
+      "type": "string",
+      "description": "English (en) or Spanish (es)",
+      "enum": [
+        "en",
+        "es"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "description": "Title for the Glossary Term"
+    }
+  },
+  "required": [
+    "section",
+    "lang",
+    "title"
+  ]
+}

@@ -1,0 +1,283 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "marking-definition",
+  "description": "The marking-definition object represents a specific marking.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of this object, which MUST be the literal `marking-definition`.",
+      "enum": [
+        "marking-definition"
+      ]
+    },
+    "id": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/identifier.json",
+          "description": "An identifier for this bundle."
+        },
+        {
+          "title": "id",
+          "pattern": "^marking-definition--"
+        }
+      ]
+    },
+    "created_by_ref": {
+      "$ref": "#/definitions/identifier.json",
+      "description": "The created_by_ref property specifies the ID of the identity object that describes the entity that created this Marking Definition."
+    },
+    "created": {
+      "$ref": "#/definitions/timestamp.json",
+      "description": "The created property represents the time at which the first version of this Marking Definition object was created."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "A list of external references which refers to non-STIX information.",
+      "items": {
+        "$ref": "#/definitions/external-reference.json"
+      },
+      "minItems": 1
+    },
+    "object_marking_refs": {
+      "type": "array",
+      "description": "The object_marking_refs property specifies a list of IDs of marking-definition objects that apply to this Marking Definition.",
+      "items": {
+        "$ref": "#/definitions/identifier.json",
+        "pattern": "^marking-definition--"
+      },
+      "minItems": 1
+    },
+    "granular_markings": {
+      "type": "array",
+      "description": "The granular_markings property specifies a list of granular markings applied to this object.",
+      "items": {
+        "$ref": "#/definitions/granular-marking.json"
+      },
+      "minItems": 1
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "definition_type": {
+          "type": "string",
+          "description": "The definition_type property identifies the type of Marking Definition.",
+          "pattern": "^statement$"
+        },
+        "definition": {
+          "$ref": "#/definitions/statement",
+          "description": "The definition property contains the marking object itself."
+        }
+      }
+    },
+    {
+      "properties": {
+        "definition_type": {
+          "type": "string",
+          "description": "The definition_type property identifies the type of Marking Definition.",
+          "pattern": "^tlp$"
+        },
+        "definition": {
+          "$ref": "#/definitions/tlp",
+          "description": "The definition property contains the marking object itself."
+        }
+      }
+    },
+    {
+      "properties": {
+        "definition_type": {
+          "type": "string",
+          "description": "The definition_type property identifies the type of Marking Definition.",
+          "not": {
+            "pattern": "^(statement)|(tlp)$"
+          }
+        },
+        "definition": {
+          "type": "object",
+          "description": "The definition property contains the marking object itself."
+        }
+      }
+    }
+  ],
+  "required": [
+    "id",
+    "type",
+    "definition",
+    "definition_type",
+    "created"
+  ],
+  "definitions": {
+    "statement": {
+      "type": "object",
+      "description": "The Statement marking type defines the representation of a textual marking statement (e.g., copyright, terms of use, etc.) in a definition",
+      "properties": {
+        "statement": {
+          "type": "string",
+          "description": "A statement (e.g., copyright, terms of use) applied to the content marked by this marking definition."
+        }
+      },
+      "required": [
+        "statement"
+      ]
+    },
+    "tlp": {
+      "type": "object",
+      "description": "The TLP marking type defines how you would represent a Traffic Light Protocol (TLP) marking in a definition field.",
+      "properties": {
+        "tlp": {
+          "type": "string",
+          "description": "The TLP level of the content marked by this marking definition, as defined in this section.",
+          "enum": [
+            "white",
+            "green",
+            "amber",
+            "red"
+          ]
+        }
+      },
+      "required": [
+        "tlp"
+      ]
+    },
+    "identifier.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "identifier",
+      "description": "Represents identifiers across the CTI specifications. The format consists of the name of the top-level object being identified, followed by two dashes (--), followed by a UUIDv4.",
+      "type": "string",
+      "pattern": "^[a-z][a-z-]+[a-z]--[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "timestamp.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "timestamp",
+      "description": "Represents timestamps across the CTI specifications. The format is an RFC3339 timestamp, with a required timezone specification of \u0027Z\u0027.",
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$"
+    },
+    "external-reference.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "external-reference",
+      "description": "External references are used to describe pointers to information represented outside of STIX.",
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "A human readable description"
+        },
+        "url": {
+          "$ref": "#/definitions/url-regex.json",
+          "description": "A URL reference to an external resource."
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "source_name": {
+              "type": "string",
+              "description": "The source within which the external-reference is defined (system, registry, organization, etc.)",
+              "pattern": "^cve$"
+            },
+            "external_id": {
+              "type": "string",
+              "description": "An identifier for the external reference content.",
+              "pattern": "^CVE-\\d{4}-(0\\d{3}|[1-9]\\d{3,})$"
+            }
+          },
+          "required": [
+            "source_name",
+            "external_id"
+          ]
+        },
+        {
+          "properties": {
+            "source_name": {
+              "type": "string",
+              "description": "The source within which the external-reference is defined (system, registry, organization, etc.)",
+              "pattern": "^capec$"
+            },
+            "external_id": {
+              "type": "string",
+              "description": "An identifier for the external reference content.",
+              "pattern": "^CAPEC-\\d+$"
+            }
+          },
+          "required": [
+            "source_name",
+            "external_id"
+          ]
+        },
+        {
+          "properties": {
+            "source_name": {
+              "type": "string",
+              "description": "The source within which the external-reference is defined (system, registry, organization, etc.)",
+              "not": {
+                "pattern": "^(cve)|(capec)$"
+              }
+            },
+            "external_id": {
+              "type": "string",
+              "description": "An identifier for the external reference content.",
+              "not": {
+                "pattern": "^(CVE-\\d{4}-(0\\d{3}|[1-9]\\d{3,}))|(CAPEC-\\d+)$"
+              }
+            }
+          },
+          "required": [
+            "source_name"
+          ],
+          "anyOf": [
+            {
+              "required": [
+                "external_id"
+              ]
+            },
+            {
+              "required": [
+                "description"
+              ]
+            },
+            {
+              "required": [
+                "url"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "url-regex.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "url",
+      "description": "Matches the elements of a URL using a regular expression. Uses Diego Perini\u0027s regex from https://gist.github.com/dperini/729294.",
+      "type": "string",
+      "pattern": "^(?:(?:https?|ftp)://)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z¡-￿0-9]-*)*[a-z¡-￿0-9]+)(?:\\.(?:[a-z¡-￿0-9]-*)*[a-z¡-￿0-9]+)*(?:\\.(?:[a-z¡-￿]{2,}))\\.?)(?::\\d{2,5})?(?:[/?#]\\S*)?$"
+    },
+    "granular-marking.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "granular-marking",
+      "description": "The granular-marking type defines how the list of marking-definition objects referenced by the marking_refs property to apply to a set of content identified by the list of selectors in the selectors property.",
+      "type": "object",
+      "properties": {
+        "selectors": {
+          "type": "array",
+          "description": "A list of selectors for content contained within the STIX object in which this property appears.",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_-]{3,250}(\\.(\\[\\d+\\]|[a-z0-9_-]{1,250}))*$"
+          },
+          "minItems": 1
+        },
+        "marking_ref": {
+          "$ref": "#/definitions/identifier.json",
+          "pattern": "^marking-definition--",
+          "description": "The marking_ref property specifies the ID of the marking-definition object that describes the marking."
+        }
+      },
+      "required": [
+        "selectors",
+        "marking_ref"
+      ]
+    }
+  }
+}

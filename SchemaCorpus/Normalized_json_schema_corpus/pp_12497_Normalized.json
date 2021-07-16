@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "required": [
+        "2"
+      ]
+    },
+    "extent": {
+      "type": "string"
+    },
+    "datasize": {
+      "type": "string"
+    },
+    "spacial": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "temporal": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "preview": {
+      "type": "string"
+    },
+    "conditionsOfUse": {
+      "type": "string"
+    },
+    "statusOfUse": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "licenseWebsite": {
+      "type": "string"
+    },
+    "producer": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "researcher": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "manager": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "developer": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "language": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "primaryLanguage": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "discourseType": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linguisticSubject": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linguisticDataType": {
+      "type": "string"
+    },
+    "opearatingSystem": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "programmingLanguage": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "navigationLanguage": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "toolLanguage": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "toolSupport": {
+      "type": "string"
+    },
+    "toolHelp": {
+      "type": "string"
+    },
+    "toolId": {
+      "type": "string"
+    },
+    "toolUrl": {
+      "type": "string"
+    },
+    "applicationUrl": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "producer",
+    "type",
+    "title",
+    "description",
+    "statusOfUse"
+  ]
+}

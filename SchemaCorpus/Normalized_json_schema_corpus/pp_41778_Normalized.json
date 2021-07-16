@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "A Transport",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/definitions-schema.json_definitions_id"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "definitions-schema.json_definitions_id": {
+      "type": "integer",
+      "multipleOf": 1.0,
+      "minimum": 0
+    }
+  }
+}

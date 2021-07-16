@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Snapshot Schema",
+  "type": "object",
+  "properties": {
+    "jobExecutionId": {
+      "description": "Corresponding jobExecution id",
+      "type": "string"
+    },
+    "status": {
+      "description": "Current status",
+      "type": "string",
+      "$ref": "#/definitions/..\\mod-source-record-manager\\status.json"
+    },
+    "metadata": {
+      "description": "Metadata provided by the server",
+      "type": "object",
+      "$ref": "#/definitions/..\\..\\raml-util\\schemas\\metadata.schema",
+      "readonly": true
+    }
+  },
+  "required": [
+    "jobExecutionId",
+    "status"
+  ],
+  "definitions": {
+    "..\\mod-source-record-manager\\status.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "JobExecution status Enum",
+      "type": "string",
+      "enum": [
+        "PARENT",
+        "NEW",
+        "FILE_UPLOADED",
+        "IMPORT_IN_PROGRESS",
+        "IMPORT_FINISHED",
+        "PARSING_IN_PROGRESS",
+        "PARSING_FINISHED",
+        "PROCESSING_IN_PROGRESS",
+        "PROCESSING_FINISHED",
+        "COMMIT_IN_PROGRESS",
+        "COMMITTED",
+        "ERROR",
+        "DISCARDED"
+      ]
+    },
+    "..\\..\\raml-util\\schemas\\metadata.schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Metadata Schema",
+      "description": "Metadata about creation and changes to records, provided by the server (client should not provide)",
+      "type": "object",
+      "properties": {
+        "createdDate": {
+          "description": "Date and time when the record was created",
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdByUserId": {
+          "description": "ID of the user who created the record",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        },
+        "createdByUsername": {
+          "description": "Username of the user who created the record (when available)",
+          "type": "string"
+        },
+        "updatedDate": {
+          "description": "Date and time when the record was last updated",
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedByUserId": {
+          "description": "ID of the user who last updated the record",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        },
+        "updatedByUsername": {
+          "description": "Username of the user who last updated the record (when available)",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "createdDate",
+        "createdByUserId"
+      ]
+    }
+  }
+}

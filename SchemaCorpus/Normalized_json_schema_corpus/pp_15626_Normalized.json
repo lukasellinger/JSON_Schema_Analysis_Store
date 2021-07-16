@@ -1,0 +1,391 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "languages": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 10000,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "default": 8
+          },
+          "lang": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Slovak"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Slovak"
+          }
+        }
+      }
+    },
+    "helpMsgs": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 10000,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "default": 7
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Help \u0026 Settings"
+          },
+          "msg": {
+            "type": "string",
+            "minLength": 1,
+            "default": "\u003ch2\u003eHelp:\u003c/h2\u003e \r\n\u003cdiv class\u003d\u0027w3-display-topright w3-margin-top\u0027\u003e\u003ca href\u003d\u0027\u0027 id\u003d\u0027aio-settings-btn\u0027 class\u003d\u0027w3-btn\u0027 onclick\u003d\u0027$(\u0027#helpMenuTop\u0027).toggleClass(\u0027w3-hide\u0027)\u0027 data-toggle\u003d\u0027tooltip\u0027 data-placement\u003d\u0027auto\u0027 title\u003d\u0027MZD-AIO-TI Settings\u0027\u003e\u003cspan class\u003d\u0027icon-tools2\u0027\u003e\u003c/span\u003e\u003c/a\u003e\u003c/div\u003e\u003c/div\u003e\u003cdiv class\u003d\u0027w3-panel\u0027\u003e\u003cdiv class\u003d\u0027w3-twothird\u0027\u003e  For instructions on how to generate tweak files:\u003c/div\u003e\u003cdiv class\u003d\u0027w3-third w3-medium\u0027\u003e\u003ca class\u003d\u0027w3-btn\u0027 ng-click\u003d\u0027startTour()\u0027\u003e\u003cspan class\u003d\u0027icon-car2\u0027\u003e\u003c/span\u003e Take The Tour\u003c/a\u003e\u003c/div\u003e\u003c/div\u003e\u003cdiv class\u003d\u0027w3-panel\u0027\u003e\u003cdiv class\u003d\u0027w3-twothird\u0027\u003e\u003cp\u003eIf you you hit an error \u003cbr\u003eor a hang up you can:\u003c/p\u003e\u003cp\u003eOr you can:\u003c/p\u003e\u003c/div\u003e\u003cdiv class\u003d\u0027w3-third w3-medium\u0027\u003e\u003ca class\u003d\u0027w3-btn\u0027 onclick\u003d\u0027location.reload()\u0027\u003e\u003cspan class\u003d\u0027icon-refresh\u0027\u003e\u003c/span\u003e Reload App\u003c/a\u003e\u003ca class\u003d\u0027w3-btn\u0027 onclick\u003d\u0027app.relaunch();app.exit()\u0027\u003e\u003cspan class\u003d\u0027icon-rocket3\u0027\u003e\u003c/span\u003e Relaunch App\u003c/a\u003e\u003c/div\u003e\u003c/div\u003e\u003cdiv class\u003d\u0027w3-panel\u0027\u003e\u003cdiv class\u003d\u0027w3-twothird\u0027\u003e\u003cp\u003eLove this app? Donating is a great way to show some love!:\u003c/p\u003e\u003c/div\u003e\u003cdiv class\u003d\u0027w3-third w3-medium\u0027\u003e\u003ca class\u003d\u0027w3-btn\u0027 onclick\u003d\u0027donate()\u0027\u003e\u003cspan class\u003d\u0027icon-money\u0027\u003e\u003c/span\u003e Donate\u003c/a\u003e\u003c/div\u003e"
+          }
+        }
+      }
+    },
+    "tourMsgs": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 10000,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "default": 8
+          },
+          "msg": {
+            "type": "string",
+            "minLength": 1,
+            "default": "For more information visit \u003ca href\u003d\u0027\u0027 onclick\u003d\u0027externalLink(\u0027mazdatweakswin\u0027)\u0027 title\u003d\u0027Mazda Tweaks\u0027\u003eMazdaTweaks.win!\u003c/a\u003e"
+          }
+        }
+      }
+    },
+    "mainOps": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 10000,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "default": 9
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Shorter Delay Mod"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Shorter Delay Mod"
+          },
+          "toolTip": {
+            "type": "string",
+            "minLength": 1,
+            "default": "\u003ch4\u003eShorter Delay Mod\u003c/h4\u003eReduces the waiting time switching between pages with the multi commander from 1.5 to 0.3 seconds."
+          },
+          "safetylvl": {
+            "type": "string",
+            "enum": [
+              "safe",
+              "warning",
+              "development"
+            ],
+            "default": "safe"
+          }
+        }
+      }
+    },
+    "menu": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "menuId": {
+            "type": "string",
+            "minLength": 1,
+            "default": "17"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Reload App"
+          },
+          "toolTip": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Reload the app."
+          }
+        }
+      }
+    },
+    "imgOps": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "imgId": {
+            "type": "string",
+            "minLength": 1,
+            "default": "4"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Open Backgrounds Folder."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Open Backgrounds Folder."
+          },
+          "toolTip": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Open The Included Folder Containing Backgrounds"
+          }
+        }
+      }
+    },
+    "colors": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 10000,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "default": 8
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "default": "CarOS"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "default": "CarOS"
+          }
+        }
+      }
+    },
+    "speedcamOps": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 10000,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "default": 5
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Use Your Own speedcam.txt file"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Use Your Own speedcam.txt file"
+          }
+        }
+      }
+    },
+    "disclaimOps": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 10000,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "default": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Reduce Time To 0.5 seconds"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Reduce Time To 0.5 seconds"
+          }
+        }
+      }
+    },
+    "d2sbOps": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 10000,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "default": 3
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "default": "V2.3"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "default": "V2.3"
+          }
+        }
+      }
+    },
+    "speedoOps": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 10000,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "default": 40
+          },
+          "spOp": {
+            "type": "string",
+            "minLength": 1,
+            "default": "opac"
+          },
+          "val": {
+            "type": "string",
+            "minLength": 1,
+            "default": "0"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Black Background Opacity? (To Reduce Visibility of Custom MZD Background Image) 0.0 (Fully Transparent) - 1.0 (Completely Black)"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Black Background Opacity? (To Reduce Visibility of Custom MZD Background Image) 0.0 (Fully Transparent) - 1.0 (Completely Black)"
+          }
+        }
+      }
+    },
+    "tweakOps": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "properties": {
+          "OpName": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Android Auto Headunit App"
+          },
+          "safetylvl": {
+            "type": "string",
+            "enum": [
+              "safe",
+              "warning",
+              "development"
+            ],
+            "default": "development"
+          },
+          "id": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 10000,
+            "minimum": 1,
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "default": 25
+          },
+          "INST": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Install Android Auto Headunit App"
+          },
+          "DEINST": {
+            "type": "string",
+            "minLength": 1,
+            "default": "Remove Android Auto Headunit App"
+          },
+          "toolTip": {
+            "type": "string",
+            "minLength": 1,
+            "default": "\u003cimg src\u003d\u0027./files/screenshots/AndroidAuto.jpg\u0027 /\u003e\u003ch5\u003eAndroid Car Headunit app.  Android car for the infotainment system. \u003c/h5\u003e  \u003cbr\u003e1. Install the Android app from google play store:\u003ca href\u003d\u0027https://play.google.com/store/apps/details?id\u003dcom.google.android.projection.gearhead\u0027\u003eHERE.\u003c/a\u003e\u003cbr\u003e2. Connect the phone to USB and pair the phone bluetooth with the CMU \u003cbr\u003e3. Manually switch to Bluetooth Audio Input. \u003cbr\u003e4. Click on the AA icon under Applications Menu on the CMU \u003cbr\u003e5. A black screen with credits should open up first and input \u003cbr\u003e6. Android Auto will then start. If it does not, pull out the USB and start over again (or check the installation.) \u003cbr\u003e7. 2 ways to stop AA - Disconnect the USB cable or use the onscreen menu \u0027Return to Mazda Connect\u0027 on last screen with speedo icon..  \u003cbr\u003e8. Once disconnected, the back screen will remain. Press Home Button on the Mazda\u0027s Commander to close it. I had to do this because js double click wasn\u0027t working..  \u003cbr\u003e**What does not work:** \u003cbr\u003e1. Reverse camera gets blacked out. \u003cbr\u003e2. Voice Control \u003cbr\u003e3. Touch drag / multi touch \u003cbr\u003e4. Google Maps night mode always on."
+          },
+          "extraOps": {
+            "type": "boolean",
+            "default": true
+          },
+          "warningMsg": {
+            "type": "string",
+            "minLength": 1,
+            "default": "\u003cspan style\u003d\u0027color:#ff0000\u0027\u003e\u003cb\u003eA T T E N T I O N - Important information:\u003cbr\u003e\u003cbr\u003eDOING A FACTORY RESET AFTER INSTALLING ANDROID AUTO WILL BRICK YOUR SYSTEM!!!! (CAUSES AN UNRECOVERABLE SYSTEM BOOTLOOP AT MAZDA BOOT LOGO!!!)\u003cbr\u003e\u003cbr\u003eSO AVOID A FACTORY RESET OR UNINSTALL AA BEFORE THAT! \u003cbr\u003e\u003cbr\u003eThere is unfortunately no chance to get access again on the CMU after doing a factory reset, the wireless settings will also be deleted after a factory reset.\u003c/b\u003e\u003c/span\u003e"
+          },
+          "advancedOp": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      }
+    }
+  },
+  "id": "/"
+}

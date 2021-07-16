@@ -1,0 +1,36 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/EditorBase/EditorBase.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Интерфейс редакторов значений",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/Element.json"
+    }
+  ],
+  "properties": {
+    "Value": {
+      "description": "Значение"
+    },
+    "HintText": {
+      "description": "Текст с подсказкой для ввода",
+      "type": "string"
+    },
+    "ErrorText": {
+      "description": "Текст с информацией об ошибке",
+      "type": "string"
+    },
+    "WarningText": {
+      "description": "Текст с информацией о предупреждении",
+      "type": "string"
+    },
+    "OnValueChanging": {
+      "description": "Обработчик события о том, что значение изменяется",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnValueChanged": {
+      "description": "Обработчик события о том, что значение было изменено",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    }
+  }
+}

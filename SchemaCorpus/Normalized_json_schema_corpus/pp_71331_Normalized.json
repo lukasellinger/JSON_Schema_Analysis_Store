@@ -1,0 +1,196 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "docs/spec/transactions/trace.json",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "The locally unique ID of the trace."
+    },
+    "context": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Any other arbitrary data captured by the agent, optionally provided by the user",
+      "properties": {
+        "db": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "An object containing contextual data for database traces",
+          "properties": {
+            "instance": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Database instance name"
+            },
+            "statement": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "A database statement (e.g. query) for the given database type"
+            },
+            "type": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Database type. For any SQL database, \"sql\". For others, the lower-case database category, e.g. \"cassandra\", \"hbase\", or \"redis\""
+            },
+            "user": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Username for accessing database"
+            }
+          }
+        }
+      }
+    },
+    "duration": {
+      "type": "number",
+      "description": "Duration of the trace in milliseconds"
+    },
+    "name": {
+      "type": "string",
+      "description": "Generic designation of a trace in the scope of a transaction",
+      "maxLength": 1024
+    },
+    "parent": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "The locally unique ID of the parent of the trace."
+    },
+    "stacktrace": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "description": "List of stack frames with variable attributes (eg: lineno, filename, etc)",
+      "items": {
+        "$ref": "#/definitions/..\\stacktrace_frame.json"
+      },
+      "minItems": 0
+    },
+    "start": {
+      "type": "number",
+      "description": "Offset relative to the transaction\u0027s timestamp identifying the start of the trace, in milliseconds"
+    },
+    "type": {
+      "type": "string",
+      "description": "Keyword of specific relevance in the app\u0027s domain (eg: \u0027db.postgresql.query\u0027, \u0027template.erb\u0027, etc)",
+      "maxLength": 1024
+    }
+  },
+  "dependencies": {
+    "parent": {
+      "required": [
+        "id"
+      ]
+    }
+  },
+  "required": [
+    "duration",
+    "name",
+    "start",
+    "type"
+  ],
+  "definitions": {
+    "..\\stacktrace_frame.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Stacktrace",
+      "type": "object",
+      "description": "A stacktrace frame, contains various bits (most optional) describing the context of the frame",
+      "properties": {
+        "abs_path": {
+          "description": "The absolute path of the file involved in the stack frame",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "colno": {
+          "description": "Column number",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "context_line": {
+          "description": "The line of code part of the stack frame",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "filename": {
+          "description": "The relative filename of the code involved in the stack frame, used e.g. to do error checksumming",
+          "type": "string"
+        },
+        "function": {
+          "description": "The function involved in the stack frame",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "in_app": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "lineno": {
+          "description": "The line number of code part of the stack frame, used e.g. to do error checksumming",
+          "type": "number"
+        },
+        "module": {
+          "description": "The module to which frame belongs to",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "post_context": {
+          "description": "The lines of code after the stack frame",
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 0
+        },
+        "pre_context": {
+          "description": "The lines of code before the stack frame",
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 0
+        },
+        "vars": {
+          "description": "Local variables for this stack frame",
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {}
+        }
+      },
+      "required": [
+        "filename",
+        "lineno"
+      ]
+    }
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "JSON schema for the Grunt cssmin task",
+  "definitions": {
+    "options": {
+      "description": "Set the options for cssmin",
+      "type": "object",
+      "properties": {
+        "banner": {
+          "description": "Prefix the compressed source with the given banner, with a linebreak inbetween.",
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "keepSpecialComments": {
+          "description": "To keep or remove special comments, exposing the underlying option from \u0027clean-css\u0027.",
+          "type": [
+            "number",
+            "string"
+          ],
+          "enum": [
+            "*",
+            1,
+            2
+          ],
+          "default": "*"
+        },
+        "report": {
+          "description": "Either report only minification result or report minification and gzip results. This is useful to see exactly how well clean-css is performing but using  \u0027gzip\u0027  will make the task take 5-10x longer to complete.",
+          "type": "string",
+          "enum": [
+            "min",
+            "gzip"
+          ],
+          "default": "min"
+        }
+      }
+    },
+    "https:__json.schemastore.org_grunt-task_additionalProperties": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/https:__json.schemastore.org_grunt-task_definitions_fileFormat"
+        },
+        {
+          "$ref": "#/definitions/https:__json.schemastore.org_grunt-task_definitions_dynamic"
+        }
+      ]
+    },
+    "https:__json.schemastore.org_grunt-task_definitions_fileFormat": {
+      "properties": {
+        "files": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": [
+                  "array",
+                  "string"
+                ],
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/https:__json.schemastore.org_grunt-task_definitions_dynamic"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "https:__json.schemastore.org_grunt-task_definitions_dynamic": {
+      "type": "object",
+      "required": [
+        "src"
+      ],
+      "properties": {
+        "expand": {
+          "description": "Must be set to true to use properties other than \u0027src\u0027 and \u0027dest\u0027",
+          "type": "boolean",
+          "default": false
+        },
+        "cwd": {
+          "description": "All \u0027src\u0027 matches are relative to (but don\u0027t include) this path",
+          "type": "string"
+        },
+        "dest": {
+          "description": "Destination path prefix.",
+          "type": "string"
+        },
+        "ext": {
+          "description": "Replace any existing extension with this value in generated \u0027dest\u0027 paths.",
+          "type": "string"
+        },
+        "extDot": {
+          "description": "Used to indicate where the period indicating the extension is located.",
+          "enum": [
+            "first",
+            "last"
+          ],
+          "default": "first"
+        },
+        "filter": {
+          "description": "The \u0027filter\u0027 property can help you target files with a greater level of detail",
+          "enum": [
+            "isFile",
+            "isDirectory",
+            "isBlockDevice",
+            "isCharacterDevice",
+            "isSymbolicLink",
+            "isFIFO",
+            "isSocket"
+          ]
+        },
+        "flatten": {
+          "description": "Remove all path parts from generated \u0027dest\u0027 paths",
+          "type": "boolean",
+          "default": false
+        },
+        "matchBase": {
+          "description": "If set, patterns without slashes will be matched against the basename of the path if it contains slashes. For example, \u0027a?b\u0027 would match the path \u0027/xyz/123/acb\u0027, but not \u0027/xyz/acb/123\u0027.",
+          "type": "boolean",
+          "default": false
+        },
+        "nonull": {
+          "description": "If set to \u0027true\u0027 then the operation will include non-matching patterns. Combined with grunt\u0027s \u0027--verbose\u0027 flag, this option can help debug file path issues.",
+          "type": "boolean",
+          "default": false
+        },
+        "rename": {
+          "description": "This function is called for each matched \u0027src\u0027 file, (after extension renaming and flattening). ",
+          "type": "string"
+        },
+        "src": {
+          "description": "Pattern(s) to match, relative to the \u0027cwd\u0027.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "options": {
+      "$ref": "#/definitions/options"
+    }
+  },
+  "additionalProperties": {
+    "allOf": [
+      {
+        "$ref": "#/definitions/https:__json.schemastore.org_grunt-task_additionalProperties"
+      },
+      {
+        "type": "object",
+        "properties": {
+          "options": {
+            "$ref": "#/definitions/options"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "anyOf": [
+    {
+      "$ref": "#/definitions/id_in_enum"
+    },
+    {
+      "$ref": "#/definitions/id_https:__localhost:1234_my_identifier.json"
+    }
+  ],
+  "definitions": {
+    "real_id_in_schema": {
+      "type": "string"
+    },
+    "zzz_id_in_const": {
+      "const": {
+        "type": "null"
+      }
+    },
+    "id_in_enum": {
+      "enum": [
+        {
+          "id": "https://localhost:1234/my_identifier.json",
+          "type": "null"
+        }
+      ]
+    },
+    "id_https:__localhost:1234_my_identifier.json": {
+      "type": "string"
+    }
+  }
+}

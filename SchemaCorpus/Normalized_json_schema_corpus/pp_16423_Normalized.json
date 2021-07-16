@@ -1,0 +1,389 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "ac3",
+  "name": "AC-3",
+  "defaults": {
+    "_sampleFormat": "fltp"
+  },
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "b",
+          "forced": true,
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 2,
+            "items": [
+              {
+                "value": "96000"
+              },
+              {
+                "value": "128000"
+              },
+              {
+                "value": "192000"
+              },
+              {
+                "value": "256000"
+              },
+              {
+                "value": "320000"
+              },
+              {
+                "value": "384000"
+              },
+              {
+                "value": "448000"
+              },
+              {
+                "value": "512000"
+              },
+              {
+                "value": "576000"
+              },
+              {
+                "value": "640000"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "copyright",
+          "control": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "parameter": "dsur_mode",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "notindicated"
+              },
+              {
+                "value": "off"
+              },
+              {
+                "value": "on"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "original",
+          "control": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "parameter": "dialnorm",
+          "control": {
+            "maximum": -1,
+            "minimum": -31,
+            "singleStep": 1,
+            "type": "integer",
+            "value": -31
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "dmix_mode",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "notindicated"
+              },
+              {
+                "value": "ltrt"
+              },
+              {
+                "value": "loro"
+              },
+              {
+                "value": "dplii"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "ltrt_cmixlev",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 5,
+            "items": [
+              {
+                "value": "1.414"
+              },
+              {
+                "value": "1.189"
+              },
+              {
+                "value": "1.000"
+              },
+              {
+                "value": "0.841"
+              },
+              {
+                "value": "0.707"
+              },
+              {
+                "value": "0.595"
+              },
+              {
+                "value": "0.500"
+              },
+              {
+                "value": "0.000"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "ltrt_surmixlev",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 3,
+            "items": [
+              {
+                "value": "0.841"
+              },
+              {
+                "value": "0.707"
+              },
+              {
+                "value": "0.595"
+              },
+              {
+                "value": "0.500"
+              },
+              {
+                "value": "0.000"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "loro_cmixlev",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 5,
+            "items": [
+              {
+                "value": "1.414"
+              },
+              {
+                "value": "1.189"
+              },
+              {
+                "value": "1.000"
+              },
+              {
+                "value": "0.841"
+              },
+              {
+                "value": "0.707"
+              },
+              {
+                "value": "0.595"
+              },
+              {
+                "value": "0.500"
+              },
+              {
+                "value": "0.000"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "loro_surmixlev",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 3,
+            "items": [
+              {
+                "value": "0.841"
+              },
+              {
+                "value": "0.707"
+              },
+              {
+                "value": "0.595"
+              },
+              {
+                "value": "0.500"
+              },
+              {
+                "value": "0.000"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "dsurex_mode",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "notindicated"
+              },
+              {
+                "value": "on"
+              },
+              {
+                "value": "off"
+              },
+              {
+                "value": "dpliiz"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "dheadphone_mode",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "notindicated"
+              },
+              {
+                "value": "on"
+              },
+              {
+                "value": "off"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "ad_conv_type",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "standard"
+              },
+              {
+                "value": "hdcd"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "center_mixlev",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 1,
+            "items": [
+              {
+                "value": "0.707"
+              },
+              {
+                "value": "0.595"
+              },
+              {
+                "value": "0.500"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "surround_mixlev",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 1,
+            "items": [
+              {
+                "value": "0.707"
+              },
+              {
+                "value": "0.500"
+              },
+              {
+                "value": "0.000"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "room_type",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "notindicated"
+              },
+              {
+                "value": "large"
+              },
+              {
+                "value": "small"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "stereo_rematrixing",
+          "control": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "parameter": "channel_coupling",
+          "control": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "parameter": "mixing_level",
+          "control": {
+            "maximum": 111,
+            "minimum": 80,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 80
+          }
+        },
+        {
+          "parameter": "cpl_start_band",
+          "control": {
+            "maximum": 15,
+            "minimum": 1,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 1
+          }
+        }
+      ]
+    }
+  ]
+}

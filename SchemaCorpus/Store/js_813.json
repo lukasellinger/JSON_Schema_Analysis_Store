@@ -1,0 +1,51 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/AddAction.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Действие добавления элемента в источник данных",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/BaseAction.json"
+    }
+  ],
+  "properties": {
+    "LinkView": {
+      "description": "Ссылка на представление редактирования",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/LinkView/LinkView.json"
+    },
+    "DestinationValue": {
+      "description": "Источник данных на представлении, откуда редактирование было вызвано",
+      "type": "object",
+      "properties": {
+        "Source": {
+          "description": "Название источника данных",
+          "type": "string"
+        },
+        "Property": {
+          "description": "Путь до поля в источнике данных, которое будет редактироваться. Данное поле должно быть представлено массивом",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Source"
+      ]
+    },
+    "SourceValue": {
+      "description": "Источник данных на представлении редактирования",
+      "type": "object",
+      "properties": {
+        "Source": {
+          "description": "Название источника данных",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Source"
+      ]
+    }
+  },
+  "required": [
+    "LinkView",
+    "SourceValue"
+  ]
+}

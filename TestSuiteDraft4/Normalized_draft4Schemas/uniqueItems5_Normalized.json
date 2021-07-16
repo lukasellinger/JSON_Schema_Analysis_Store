@@ -1,0 +1,12 @@
+{
+  "uniqueItems": false,
+  "additionalItems": false,
+  "items": [
+    {
+      "type": "boolean"
+    },
+    {
+      "type": "boolean"
+    }
+  ]
+}

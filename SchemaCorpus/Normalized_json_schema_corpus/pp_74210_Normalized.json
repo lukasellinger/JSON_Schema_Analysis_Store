@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\download.json_definitions_download-input",
+  "example": {
+    "optional": true,
+    "nodes": [
+      {
+        "level": "project",
+        "_id": "57abe1589e512c513d42cb83"
+      }
+    ],
+    "filters": [
+      {
+        "tags": {
+          "+": [
+            "incomplete"
+          ]
+        },
+        "types": {
+          "+": [
+            "dicom"
+          ]
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "..\\definitions\\download.json_definitions_download-input": {
+      "title": "Download",
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "boolean"
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/..\\definitions\\download.json_definitions_download-node"
+          }
+        },
+        "filters": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/..\\definitions\\download.json_definitions_download-filter"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "nodes"
+      ],
+      "additionalProperties": false
+    },
+    "..\\definitions\\download.json_definitions_download-node": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": [
+            "project",
+            "session",
+            "acquisition",
+            "analysis"
+          ]
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{24}$"
+        }
+      },
+      "required": [
+        "level",
+        "_id"
+      ],
+      "additionalProperties": false
+    },
+    "..\\definitions\\download.json_definitions_download-filter": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "$ref": "#/definitions/..\\definitions\\download.json_definitions_filter-definition"
+        },
+        "types": {
+          "$ref": "#/definitions/..\\definitions\\download.json_definitions_filter-definition"
+        }
+      }
+    },
+    "..\\definitions\\download.json_definitions_filter-definition": {
+      "type": "object",
+      "properties": {
+        "+": {
+          "$ref": "#/definitions/..\\definitions\\download.json_definitions_filter-items"
+        },
+        "plus": {
+          "$ref": "#/definitions/..\\definitions\\download.json_definitions_filter-items"
+        },
+        "-": {
+          "$ref": "#/definitions/..\\definitions\\download.json_definitions_filter-items"
+        },
+        "minus": {
+          "$ref": "#/definitions/..\\definitions\\download.json_definitions_filter-items"
+        }
+      },
+      "x-sdk-ignore-properties": [
+        "+",
+        "-"
+      ],
+      "additionalProperties": false
+    },
+    "..\\definitions\\download.json_definitions_filter-items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

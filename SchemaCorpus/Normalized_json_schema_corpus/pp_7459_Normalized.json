@@ -1,0 +1,128 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataSource/DocumentDataSource/DocumentDataSource.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Источник данных представления для документов InfinniPlatform",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\BaseDataSource.json"
+    }
+  ],
+  "properties": {
+    "DocumentId": {
+      "description": "Идентификатор документа",
+      "type": "string"
+    },
+    "PageNumber": {
+      "description": "Номер страницы",
+      "type": "integer",
+      "default": 0
+    },
+    "PageSize": {
+      "description": "Размер страницы",
+      "type": "integer",
+      "default": 15
+    },
+    "Select": {
+      "description": "Правило отображения документов",
+      "type": "string"
+    },
+    "Order": {
+      "description": "Правило сортировки документов",
+      "type": "string"
+    },
+    "NeedTotalCount": {
+      "description": "Необходимость подсчета количества",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "DocumentId"
+  ],
+  "definitions": {
+    "..\\BaseDataSource.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Базовый тип источников данных представления",
+      "type": "object",
+      "properties": {
+        "Name": {
+          "description": "Наименование источника данных",
+          "type": "string"
+        },
+        "SuspendUpdate": {
+          "description": "Причина запрета на обновление списка элементов",
+          "type": "string"
+        },
+        "IdProperty": {
+          "description": "Наименование свойства с идентификатором элемента",
+          "type": "string",
+          "default": "_id"
+        },
+        "FillCreatedItem": {
+          "description": "Предзаполнение новых элементов на сервере",
+          "type": "boolean",
+          "default": true
+        },
+        "Filter": {
+          "description": "Правило фильтрации документов",
+          "type": "string"
+        },
+        "FilterParams": {
+          "description": "Параметры фильтра",
+          "type": "object"
+        },
+        "IsLazy": {
+          "description": "Ленивая прогрузка данных",
+          "type": "boolean",
+          "default": true
+        },
+        "ResolvePriority": {
+          "description": "Приоритет прогрузки источника данных",
+          "type": "integer",
+          "default": 0
+        },
+        "Search": {
+          "description": "Строка полнотекстового поиска",
+          "type": "string"
+        },
+        "ValidationErrors": {
+          "description": "Функция проверки элемента на ошибки",
+          "$ref": "#/definitions/..\\..\\Script\\LinkScript.json"
+        },
+        "OnSelectedItemChanged": {
+          "description": "Обработчик события о том, что выделенный элемент изменился",
+          "$ref": "#/definitions/..\\..\\Script\\LinkScript.json"
+        },
+        "OnPropertyChanged": {
+          "description": "Обработчик события о том, что одно из свойств изменилось",
+          "$ref": "#/definitions/..\\..\\Script\\LinkScript.json"
+        },
+        "OnItemDeleted": {
+          "description": "Обработчик события о том, что элемент удален",
+          "$ref": "#/definitions/..\\..\\Script\\LinkScript.json"
+        },
+        "OnItemsUpdated": {
+          "description": "Обработчик события о том, что список элементов обновлен",
+          "$ref": "#/definitions/..\\..\\Script\\LinkScript.json"
+        },
+        "OnErrorValidator": {
+          "description": "Обработчик события о том, что проверка на ошибки завершена",
+          "$ref": "#/definitions/..\\..\\Script\\LinkScript.json"
+        },
+        "OnProviderError": {
+          "description": "Обработчик события о том, что поставщик данных вернул ошибку",
+          "$ref": "#/definitions/..\\..\\Script\\LinkScript.json"
+        }
+      },
+      "required": [
+        "Name"
+      ]
+    },
+    "..\\..\\Script\\LinkScript.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Ссылка на прикладной скрипт, выполняемый на стороне клиента",
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\device.json_definitions_device-input"
+    }
+  ],
+  "example": {
+    "info": {
+      "basic": "info"
+    },
+    "errors": [
+      "An Error"
+    ],
+    "interval": 400
+  },
+  "definitions": {
+    "..\\definitions\\device.json_definitions_device-input": {
+      "type": "object",
+      "properties": {
+        "interval": {
+          "$ref": "#/definitions/..\\definitions\\device.json_definitions_interval"
+        },
+        "errors": {
+          "$ref": "#/definitions/..\\definitions\\device.json_definitions_errors"
+        },
+        "info": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_info"
+        }
+      },
+      "x-sdk-model": "device",
+      "additionalProperties": false
+    },
+    "..\\definitions\\device.json_definitions_interval": {
+      "type": "integer"
+    },
+    "..\\definitions\\device.json_definitions_errors": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "..\\definitions\\common.json_definitions_info": {
+      "type": "object"
+    }
+  }
+}

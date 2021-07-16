@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "message.json",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string"
+    },
+    "_links": {
+      "$ref": "#/definitions/link-collection.json"
+    }
+  },
+  "required": [
+    "message"
+  ],
+  "definitions": {
+    "link-collection.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "readOnly": true,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "href": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": {
+            "type": "string"
+          },
+          "rel": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "href",
+          "rel"
+        ]
+      }
+    }
+  }
+}

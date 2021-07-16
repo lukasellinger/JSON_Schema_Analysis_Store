@@ -1,0 +1,48 @@
+{
+  "id": "https://cdn.brytecore.com/packages/schemas/userAccount.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "An authenticated user account of the website or application",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/person.json"
+    },
+    {
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "emailAddress": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "person.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "A human being",
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lastName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

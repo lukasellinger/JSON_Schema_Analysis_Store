@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.5.8/redirect.json",
+  "title": "A redirect object.",
+  "description": "A redirect to another story.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "redirect"
+      ]
+    },
+    "_id": {
+      "$ref": "#/definitions/traits\\trait_id.json"
+    },
+    "version": {
+      "$ref": "#/definitions/traits\\trait_version.json"
+    },
+    "owner": {
+      "$ref": "#/definitions/traits\\trait_owner.json"
+    },
+    "revision": {
+      "$ref": "#/definitions/traits\\trait_revision.json"
+    },
+    "canonical_url": {
+      "$ref": "#/definitions/traits\\trait_canonical_url.json"
+    },
+    "redirect_url": {
+      "$ref": "#/definitions/traits\\trait_canonical_url.json"
+    }
+  },
+  "required": [
+    "type",
+    "version",
+    "canonical_url",
+    "redirect_url"
+  ],
+  "definitions": {
+    "traits\\trait_id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "A globally unique identifier of the content in the ANS repository.",
+      "type": "string"
+    },
+    "traits\\trait_version.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Describes the ANS version of this object",
+      "description": "The version of ANS that this object was serialized as, in major.minor.patch format.  For top-level content objects, this is a required trait.",
+      "type": "string",
+      "enum": [
+        "0.5.8"
+      ]
+    },
+    "traits\\trait_owner.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Owner information ",
+      "description": "Trait that applies information about the owner (typically a news organization) to a document.  ",
+      "type": "object",
+      "properties": {
+        "owner": {
+          "description": "Information about the owner of this content.",
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "The unique identifier for this owner. In the Arc ecosystem, this is often used to store the organization id.",
+              "type": "string"
+            },
+            "name": {
+              "description": "The name of this owner. ",
+              "type": "string"
+            },
+            "sponsored": {
+              "description": "Necessary for including/excluding advertorial and native content in search results, story card features.",
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "traits\\trait_revision.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Revision",
+      "description": "Trait that applies revision information to a document. In the Arc ecosystem, many of these fields are populated in stories by the Story API.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "revision_id": {
+          "description": "The unique id of this revision.",
+          "type": "string"
+        },
+        "parent_id": {
+          "description": "The unique id of the revision that this revisions was branched from, or preceded it on the current branch.",
+          "type": "string"
+        },
+        "branch": {
+          "description": "The name of the branch this revision was created on.",
+          "type": "string"
+        },
+        "editions": {
+          "description": "A list of identifiers of editions that point to this revision.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "user_id": {
+          "type": "string",
+          "description": "The unique user id of the person who created this revision."
+        },
+        "published": {
+          "type": "boolean",
+          "description": "Whether or not this revision\u0027s parent story is published, in any form or place"
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/traits\\trait_additional_properties.json"
+        }
+      }
+    },
+    "traits\\trait_additional_properties.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Has additional properties",
+      "description": "A grab-bag object for non-validatable data.",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "traits\\trait_canonical_url.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Canonical URL",
+      "description": "The fully qualified URL to the story. In the Arc ecosystem, this will be populated by the content api from the arc-canonical-url service if present.",
+      "type": "string"
+    }
+  }
+}

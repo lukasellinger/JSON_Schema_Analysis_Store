@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://iot.ee.surrey.ac.uk/fiware/schemas/ngsi9",
+  "type": "object",
+  "properties": {
+    "contextRegistrations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "entities": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "isPattern": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "isPattern",
+                  "id"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "isPattern": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  }
+                }
+              }
+            ],
+            "required": [
+              "0",
+              "1"
+            ]
+          },
+          "attributes": {
+            "type": "array",
+            "items": [
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "isDomain": {
+                    "type": "string"
+                  },
+                  "metadatas": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "isDomain": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          },
+          "metadatas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "object",
+                  "properties": {
+                    "source": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "isPattern": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "target": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "isPattern": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "associations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "source": {
+                            "type": "string"
+                          },
+                          "target": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "providingApplication": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "entities",
+          "attributes",
+          "metadatas",
+          "providingApplication"
+        ]
+      },
+      "required": [
+        "0"
+      ]
+    },
+    "duration": {
+      "type": "string"
+    },
+    "registrationId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "contextRegistrations",
+    "duration",
+    "registrationId"
+  ]
+}

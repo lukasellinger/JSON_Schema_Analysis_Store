@@ -1,0 +1,829 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/v0_4/summaries/video-summary.json",
+  "description": "A summary of a video (TODO)",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\video.json"
+    }
+  ],
+  "definitions": {
+    "..\\video.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A video.",
+      "description": "Holds attributes of an ANS video component.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\content.json",
+          "properties": {
+            "duration": {
+              "description": "Runtime of the video in milliseconds.",
+              "type": "number"
+            },
+            "transcript": {
+              "description": "A transcript of the contents of the video.",
+              "type": "string"
+            },
+            "rating": {
+              "description": "A rating of the video, to be used for appropriate age/content warnings.",
+              "type": "string"
+            },
+            "video_type": {
+              "description": "The type of video (e.g. clip, livestream, etc)",
+              "type": "string"
+            },
+            "youtubeContentId": {
+              "description": "The YouTube ID of the content, if (re)hosted on youtube.com",
+              "type": "string"
+            },
+            "streams": {
+              "description": "The different streams this video can play in.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/..\\video-stream.json"
+              }
+            },
+            "promo_image": {
+              "$ref": "#/definitions/..\\image.json",
+              "description": "A promo/leader image to the video."
+            }
+          }
+        }
+      ]
+    },
+    "..\\content.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A content object.",
+      "description": "Holds common attributes of ANS Content objects.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\trait-id.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-version.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-type.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-subtype.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-date.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-credits.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-locale.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-location.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-copyright.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-taxonomy.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-owner.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-planning.json"
+        },
+        {
+          "properties": {
+            "canonical_url": {
+              "type": "string",
+              "description": "The fully qualified URL to the story."
+            },
+            "short_url": {
+              "type": "string",
+              "description": "A url-shorterned version of the canonical_url."
+            },
+            "headlines": {
+              "description": "The headline(s) for the story.",
+              "$ref": "#/definitions/..\\headlines.json"
+            },
+            "subheadlines": {
+              "description": "The subheadline(s) (or deks) for the story.",
+              "$ref": "#/definitions/..\\headlines.json"
+            },
+            "description": {
+              "description": "Description(s) of the story, keyed by context.",
+              "$ref": "#/definitions/..\\headlines.json"
+            },
+            "status": {
+              "type": "string",
+              "description": "Optional field to store story workflow related status (e.g. published/embargoed/etc)"
+            },
+            "related_content": {
+              "type": "object",
+              "description": "A set of lists of IDs referencing other content items this story is related to.",
+              "patternProperties": {
+                ".*": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/..\\content.json"
+                  }
+                }
+              }
+            },
+            "promo_images": {
+              "type": "object",
+              "description": "List of promotional images to use when highlighting the story.",
+              "properties": {
+                "default": {
+                  "$ref": "#/definitions/..\\image.json"
+                }
+              },
+              "patternProperties": {
+                ".*": {
+                  "$ref": "#/definitions/..\\image.json"
+                }
+              }
+            },
+            "publish_date": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When the story was first published."
+            },
+            "display_date": {
+              "type": "string",
+              "format": "date-time",
+              "description": "The RFC3339-formatted dated time of the most recent date the story was (re)displayed on a public site."
+            },
+            "editor_note": {
+              "type": "string",
+              "description": "Additional information to be displayed in/near the story html content from the editor."
+            },
+            "revision": {
+              "description": "In systems with versioning / history, the id of the revision should be saved here"
+            },
+            "syndication": {
+              "type": "object",
+              "description": "Key-boolean pair of syndication services where this article may go",
+              "patternProperties": {
+                ".*": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "source": {
+              "description": "Information about the original source and/or owner of this content"
+            },
+            "tracking": {
+              "description": "Tracking information, probably implementation-dependent"
+            },
+            "comments": {
+              "description": "Comment configuration data"
+            },
+            "label": {
+              "description": "What the Washington Post calls a Kicker",
+              "type": "object",
+              "patternProperties": {
+                ".*": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "..\\trait-id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "Trait that applies a globally unique id.",
+      "type": "object",
+      "properties": {
+        "_id": {
+          "description": "A globally unique identifier of the content in the ANS repository.",
+          "type": "string"
+        }
+      }
+    },
+    "..\\trait-version.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Describes the ANS version of this object",
+      "description": "The version of ANS that this object was serialized as.",
+      "type": "object",
+      "properties": {
+        "version": {
+          "description": "The version string, with in major.minor.patch format",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version"
+      ]
+    },
+    "..\\trait-type.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Type trait",
+      "description": "Trait that helps support strongly-typed implementations of this schema.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "The concrete type of element the implementing element is.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "..\\trait-subtype.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Subtype trait",
+      "description": "Trait that helps support strongly-typed implementations of this schema.",
+      "properties": {
+        "subtype": {
+          "type": "string",
+          "description": "A more granular type than story, gallery, etc. (E.g., column, blog-post)"
+        }
+      }
+    },
+    "..\\trait-date.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Dated trait",
+      "description": "Trait that applies common publishing-related dates to a schema.",
+      "type": "object",
+      "properties": {
+        "created_date": {
+          "description": "When the content was originally created (RFC3339-formatted).",
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_updated_date": {
+          "description": "When the content was last updated (RFC3339-formatted).",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "..\\trait-credits.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Credit trait",
+      "description": "Trait that captures the need to attribute ownership or authorship to content.",
+      "type": "object",
+      "properties": {
+        "credits": {
+          "description": "People and groups attributed to this content, keyed by type of contribution.",
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/..\\author.json"
+                  },
+                  {
+                    "$ref": "#/definitions/..\\story-elements\\reference.json"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "..\\author.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "An author of a piece of content.",
+      "description": "Models attribution to an individual or group for contribution towards some content item.",
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\trait-id.json"
+        },
+        {
+          "properties": {
+            "type": {
+              "description": "Indicates that this is an author",
+              "enum": [
+                "author"
+              ]
+            },
+            "name": {
+              "description": "The name of contributor.",
+              "type": "string"
+            },
+            "org": {
+              "description": "The (optional) organization the contributor belongs to.",
+              "type": "string"
+            },
+            "image": {
+              "description": "An image of the contributor.",
+              "$ref": "#/definitions/..\\image.json"
+            },
+            "description": {
+              "description": "A description/short bio of the contributor.",
+              "type": "string"
+            },
+            "url": {
+              "description": "A url to some deeper set of information about the contributor.",
+              "type": "string"
+            },
+            "social_links": {
+              "description": "A list of social links (twitter, facebook, etc) for this contributor.",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/..\\social.json"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "..\\image.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "An image.",
+      "description": "Holds attributes of an ANS image component.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\content.json",
+          "properties": {
+            "subtitle": {
+              "description": "Subtitle for the image.",
+              "type": "string"
+            },
+            "caption": {
+              "description": "Caption for the image.",
+              "type": "string"
+            },
+            "url": {
+              "description": "URL for the image.",
+              "type": "string"
+            },
+            "width": {
+              "description": "Width for the image.",
+              "type": "integer"
+            },
+            "height": {
+              "description": "Height for the image.",
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    },
+    "..\\social.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "A tuple of social media information (e.g. Facebook url, Twitter handle, etc)",
+      "type": "object",
+      "properties": {
+        "site": {
+          "description": "The name of the social media site (e.g. twitter, facebook, etc)",
+          "type": "string"
+        },
+        "url": {
+          "description": "The profile/account page to link to on the site",
+          "type": "string"
+        }
+      }
+    },
+    "..\\story-elements\\reference.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Representation of a normalized element",
+      "description": "This represents a reference to external content that should be denormalized",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\story-elements\\story-element.json"
+        },
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "reference"
+              ]
+            },
+            "referent": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "description": "The ANS type that the provider should return.",
+                  "type": "string"
+                },
+                "service": {
+                  "description": "The type of interaction the provider expects. E.g., \u0027oembed\u0027",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "The id passed to the provider to retrieve an ANS document",
+                  "type": "string"
+                },
+                "provider": {
+                  "description": "A URL that can resolve the id into an ANS element",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "provider",
+                "id"
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "referent"
+          ]
+        }
+      ]
+    },
+    "..\\story-elements\\story-element.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "An element that can be saved to a Story",
+      "description": "An item that conforms to this schema can be saved in a Story",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\content-element.json",
+          "properties": {
+            "editable": {
+              "description": "Flag to indicate this content may edited in a story",
+              "type": "boolean",
+              "enum": [
+                true
+              ]
+            }
+          },
+          "required": [
+            "editable"
+          ]
+        }
+      ]
+    },
+    "..\\content-element.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A valid content element.",
+      "description": "Lists the schemas we allow as \u0027content elements\u0027 in our collection schema.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\trait-id.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-type.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-subtype.json"
+        },
+        {
+          "$ref": "#/definitions/..\\trait-channel.json"
+        }
+      ]
+    },
+    "..\\trait-channel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Channel trait",
+      "description": "Trait that captures an optional list of output types for which this element should be visible",
+      "type": "object",
+      "properties": {
+        "channels": {
+          "description": "List of channels in which this content may appear",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "..\\trait-locale.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Describes language for an element",
+      "description": "Encapsulates characteristics defining language, locale, etc.",
+      "type": "object",
+      "properties": {
+        "language": {
+          "description": "The primary language of the content. The value should follow IETF BCP47. (e.g. \u0027en\u0027, \u0027es-419\u0027, etc.) ",
+          "type": "string"
+        }
+      }
+    },
+    "..\\trait-location.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Location related trait",
+      "description": "Captures information related to the location of the content.",
+      "type": "object",
+      "properties": {
+        "location": {
+          "description": "A description of the location, useful if a full address or lat/long specification is overkill.",
+          "type": "string"
+        },
+        "geo": {
+          "$ref": "#/definitions/..\\geo.json",
+          "description": "Latitidue and Longitude of the content"
+        },
+        "address": {
+          "$ref": "#/definitions/..\\address.json",
+          "description": "Address of the content"
+        }
+      }
+    },
+    "..\\geo.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "A geographical coordinate",
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        }
+      }
+    },
+    "..\\address.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "An Address following the convention of http://microformats.org/wiki/hcard",
+      "type": "object",
+      "properties": {
+        "post-office-box": {
+          "type": "string"
+        },
+        "extended-address": {
+          "type": "string"
+        },
+        "street-address": {
+          "type": "string"
+        },
+        "locality": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "postal-code": {
+          "type": "string"
+        },
+        "country-name": {
+          "type": "string"
+        }
+      },
+      "dependencies": {
+        "post-office-box": [
+          "street-address"
+        ],
+        "extended-address": [
+          "street-address"
+        ]
+      }
+    },
+    "..\\trait-copyright.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Copyright information",
+      "description": "Defines the structure of copyright information, as applied to content.",
+      "type": "object",
+      "properties": {
+        "copyright": {
+          "description": "The copyright notice, e.g. \u0027(c) 2015 The Washington Post, Inc.\u0027",
+          "type": "string"
+        }
+      }
+    },
+    "..\\trait-taxonomy.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Taxonomy",
+      "description": "Holds the collection of tags, categories, keywords, etc that describe content.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "taxonomy": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/..\\keyword.json"
+              },
+              "description": "A list of keywords."
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/..\\tag.json"
+              }
+            },
+            "sections": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/..\\section.json"
+              }
+            }
+          }
+        }
+      }
+    },
+    "..\\keyword.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Keyword",
+      "description": "Models a keyword used in describing a piece of content.",
+      "type": "object",
+      "required": [
+        "keyword"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "keyword": {
+          "type": "string",
+          "description": "The keyword used to describe/categorize a piece of content"
+        },
+        "score": {
+          "type": "number",
+          "description": "An arbitrary weighting to give the keyword"
+        },
+        "frequency": {
+          "type": "integer",
+          "description": "An optional count of the frequency of the keyword as it appears in the content it describes"
+        }
+      }
+    },
+    "..\\tag.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Tag",
+      "description": "Models a keyword used in describing a piece of content.",
+      "type": "object",
+      "$ref": "#/definitions/..\\trait-id.json",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The text of the tag"
+        }
+      }
+    },
+    "..\\section.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Section",
+      "description": "A hierarchical taxonomy section.",
+      "type": "object",
+      "$ref": "#/definitions/..\\content.json",
+      "properties": {
+        "parent": {
+          "description": "The parent section, if any",
+          "$ref": "#/definitions/..\\section.json"
+        }
+      }
+    },
+    "..\\trait-owner.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Owner information ",
+      "description": "Trait that applies a owner information to a document or resource.",
+      "type": "object",
+      "properties": {
+        "owner": {
+          "description": "Information about the owner of this content.",
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "The unique identifier for this owner.",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "..\\trait-planning.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Scheduling information",
+      "description": "Trait that applies planning information to a document or resource.",
+      "type": "object",
+      "properties": {
+        "planning": {
+          "description": "Planning information.",
+          "type": "object",
+          "properties": {
+            "scheduling": {
+              "description": "Scheduling information.",
+              "type": "object",
+              "properties": {
+                "planned_publish_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "When the content is planned to be published."
+                },
+                "scheduled_publish_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "When the content was first published."
+                },
+                "will_have_gallery": {
+                  "description": "Will this content have galleries?",
+                  "type": "boolean"
+                },
+                "will_have_graphic": {
+                  "description": "Will this content have graphics?",
+                  "type": "boolean"
+                },
+                "will_have_image": {
+                  "description": "Will this content have images?",
+                  "type": "boolean"
+                },
+                "will_have_video": {
+                  "description": "Will this content have videos?",
+                  "type": "boolean"
+                }
+              }
+            },
+            "story_length": {
+              "description": "Story length information.",
+              "type": "object",
+              "properties": {
+                "word_count_planned": {
+                  "description": "The anticipated number of words in the story.",
+                  "type": "integer"
+                },
+                "word_count_actual": {
+                  "description": "Current number of words.",
+                  "type": "integer"
+                },
+                "inch_count_planned": {
+                  "description": "The anticipated length of the story in inches.",
+                  "type": "integer"
+                },
+                "inch_count_actual": {
+                  "description": "The current length of the story in inches.",
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "..\\headlines.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A headlines key-value set.",
+      "description": "A key-value group of headlines. Key is used to describe context in which a certain value should be used as the headline.",
+      "type": "object",
+      "properties": {
+        "default": {
+          "type": "string"
+        }
+      },
+      "patternProperties": {
+        ".*": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "default"
+      ]
+    },
+    "..\\video-stream.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A stream of video.",
+      "description": "Configuration for a piece of video content, over a stream.",
+      "type": "object",
+      "properties": {
+        "height": {
+          "description": "The height of the video.",
+          "type": "number"
+        },
+        "width": {
+          "description": "The width of the video.",
+          "type": "number"
+        },
+        "filesize": {
+          "description": "The size of the video, in bytes.",
+          "type": "number"
+        },
+        "audioCodec": {
+          "description": "The audio codec.",
+          "type": "string"
+        },
+        "videoCodec": {
+          "description": "The video codec.",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of video (e.g. mp4).",
+          "type": "string"
+        },
+        "url": {
+          "description": "Where to get the stream from.",
+          "type": "string"
+        },
+        "bitrate": {
+          "description": "The bitrate of the video",
+          "type": "number"
+        },
+        "provider": {
+          "description": "The provider of the video.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

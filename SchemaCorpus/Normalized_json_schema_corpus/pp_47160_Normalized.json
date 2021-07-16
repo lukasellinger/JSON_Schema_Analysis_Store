@@ -1,0 +1,251 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://www.github.com/MISP/MISP/format/2.4/schema.json",
+  "type": "object",
+  "properties": {
+    "Event": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "orgc_id": {
+          "type": "string"
+        },
+        "org_id": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "threat_level_id": {
+          "type": "string"
+        },
+        "info": {
+          "type": "string"
+        },
+        "published": {
+          "type": "boolean"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "attribute_count": {
+          "type": "string"
+        },
+        "analysis": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "distribution": {
+          "type": "string"
+        },
+        "proposal_email_lock": {
+          "type": "boolean"
+        },
+        "locked": {
+          "type": "boolean"
+        },
+        "publish_timestamp": {
+          "type": "string"
+        },
+        "sharing_group_id": {
+          "type": "string"
+        },
+        "Org": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            }
+          }
+        },
+        "Orgc": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "uuid": {
+              "type": "string"
+            }
+          }
+        },
+        "Attribute": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "to_ids": {
+                "type": "boolean"
+              },
+              "uuid": {
+                "type": "string"
+              },
+              "event_id": {
+                "type": "string"
+              },
+              "distribution": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "sharing_group_id": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "SharingGroup": {
+                "type": "array",
+                "items": {},
+                "additionalItems": false
+              },
+              "ShadowAttribute": {
+                "type": "array",
+                "items": {},
+                "additionalItems": false
+              }
+            }
+          },
+          "additionalItems": false
+        },
+        "ShadowAttribute": {
+          "type": "array",
+          "items": {},
+          "additionalItems": false
+        },
+        "RelatedEvent": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Org": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "uuid": {
+                    "type": "string"
+                  }
+                }
+              },
+              "Orgc": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "uuid": {
+                    "type": "string"
+                  }
+                }
+              },
+              "Event": {
+                "type": "object",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string"
+                    },
+                    "threat_level_id": {
+                      "type": "string"
+                    },
+                    "info": {
+                      "type": "string"
+                    },
+                    "published": {
+                      "type": "boolean"
+                    },
+                    "uuid": {
+                      "type": "string"
+                    },
+                    "analysis": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "distribution": {
+                      "type": "string"
+                    },
+                    "org_id": {
+                      "type": "string"
+                    },
+                    "orgc_id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalItems": false
+              }
+            }
+          },
+          "additionalItems": false
+        },
+        "Tag": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "colour": {
+                "type": "string"
+              },
+              "exportable": {
+                "type": "boolean"
+              }
+            }
+          },
+          "additionalItems": false
+        }
+      },
+      "required": [
+        "info"
+      ]
+    }
+  },
+  "required": [
+    "Event"
+  ]
+}

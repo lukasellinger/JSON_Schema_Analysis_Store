@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "Collection of packages",
+  "properties": {
+    "packages": {
+      "type": "array",
+      "packages": {
+        "type": "object",
+        "$ref": "#/definitions/package.json"
+      }
+    },
+    "resultInfo": {
+      "$ref": "#/definitions/..\\resultInfo.schema"
+    }
+  },
+  "required": [
+    "packages",
+    "resultInfo"
+  ],
+  "definitions": {
+    "package.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Codex Package Schema",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "vendorId": {
+          "type": "string"
+        },
+        "vendor": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array"
+        },
+        "itemCount": {
+          "type": "integer"
+        },
+        "selectedCount": {
+          "type": "integer"
+        },
+        "coverage": {
+          "type": "object"
+        },
+        "isSelected": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "items"
+      ]
+    },
+    "..\\resultInfo.schema": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Faceting of result sets",
+      "type": "object",
+      "properties": {
+        "totalRecords": {
+          "type": "integer"
+        },
+        "responseTime": {
+          "type": "number"
+        },
+        "facets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "facetValues": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "value": {}
+                  }
+                },
+                "additionalProperties": false
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "module": {
+                "type": "string"
+              },
+              "recordCount": {
+                "type": "integer"
+              },
+              "query": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

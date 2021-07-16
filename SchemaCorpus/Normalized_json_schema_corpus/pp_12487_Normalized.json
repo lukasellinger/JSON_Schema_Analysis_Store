@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://www.ortolang.fr/schema/rating/01#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "grade": {
+      "type": "string"
+    },
+    "score": {
+      "type": "number"
+    },
+    "esrAccessibility": {
+      "type": "boolean"
+    },
+    "normalized": {
+      "type": "boolean"
+    },
+    "preview": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "boolean"
+    },
+    "content": {
+      "type": "string"
+    },
+    "recommendations": {
+      "type": "string"
+    },
+    "comments": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "grade",
+    "score"
+  ]
+}

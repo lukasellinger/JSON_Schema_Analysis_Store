@@ -1,0 +1,285 @@
+{
+  "id": "https://schema.management.azure.com/schemas/2014-02-26/microsoft.visualstudio.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "microsoft.visualstudio",
+  "description": "Visual Studio Online Account and Project Resource",
+  "resourceDefinitions": {
+    "account": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "microsoft.visualstudio/account"
+          ]
+        },
+        "apiVersion": {
+          "enum": [
+            "2014-02-26"
+          ]
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "OperationType": {
+              "type": "string",
+              "minLength": 1,
+              "description": "microsoft.visualstudio/account: Type of operation being performed on the account, which can be either Create or Link."
+            },
+            "AccountName": {
+              "type": "string",
+              "minLength": 1,
+              "description": "microsoft.visualstudio/account: Name of the Visual Studio Online account"
+            }
+          }
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/definitions/..\\2015-01-01\\deploymentTemplate.json_definitions_resourceBase"
+              },
+              {
+                "$ref": "#/definitions/resourceDefinitions_project"
+              }
+            ]
+          },
+          "description": "microsoft.visualstudio/account: Visual Studio Online Account."
+        }
+      },
+      "required": [
+        "type",
+        "apiVersion",
+        "properties",
+        "location"
+      ],
+      "description": "microsoft.visualstudio account"
+    },
+    "project": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "microsoft.visualstudio/account/project",
+            "project"
+          ]
+        },
+        "apiVersion": {
+          "enum": [
+            "2014-02-26"
+          ]
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "ProcessTemplateId": {
+              "type": "string",
+              "minLength": 1,
+              "description": "microsoft.visualstudio/account/project: Process template guid for the project"
+            },
+            "VersionControlOption": {
+              "type": "string",
+              "minLength": 1,
+              "description": "microsoft.visualstudio/account/project: Version control type for the project, currently TfsVc and Git"
+            }
+          }
+        }
+      },
+      "required": [
+        "type",
+        "apiVersion",
+        "properties"
+      ],
+      "description": "microsoft.visualstudio account/project: Visual Studio Online TFS Project"
+    }
+  },
+  "definitions": {
+    "..\\2015-01-01\\deploymentTemplate.json_definitions_resourceBase": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/..\\2015-01-01\\deploymentTemplate.json_definitions_ARMResourceBase"
+        },
+        {
+          "properties": {
+            "location": {
+              "$ref": "#/definitions/..\\2015-01-01\\deploymentTemplate.json_definitions_resourceLocations",
+              "description": "Location to deploy resource to"
+            },
+            "tags": {
+              "type": "object",
+              "description": "Name-value pairs to add to the resource"
+            },
+            "copy": {
+              "$ref": "#/definitions/..\\2015-01-01\\deploymentTemplate.json_definitions_resourceCopy"
+            },
+            "scope": {
+              "type": "string",
+              "description": "Scope for the resource or deployment. Today, this works for two cases: 1) setting the scope for extension resources 2) deploying resources to the tenant scope in non-tenant scope deployments"
+            },
+            "comments": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "..\\2015-01-01\\deploymentTemplate.json_definitions_ARMResourceBase": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the resource"
+        },
+        "type": {
+          "type": "string",
+          "description": "Resource type"
+        },
+        "condition": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Condition of the resource"
+        },
+        "apiVersion": {
+          "type": "string",
+          "description": "API Version of the resource type, optional when apiProfile is used on the template"
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Collection of resources this resource depends on"
+        }
+      },
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    "..\\common\\definitions.json_definitions_expression": {
+      "type": "string",
+      "pattern": "^\\[([^\\[].*)?\\]$",
+      "description": "Deployment template expression. See https://aka.ms/arm-template-expressions for more details on the ARM expression syntax."
+    },
+    "..\\2015-01-01\\deploymentTemplate.json_definitions_resourceLocations": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "enum": [
+            "East Asia",
+            "Southeast Asia",
+            "Central US",
+            "East US",
+            "East US 2",
+            "West US",
+            "North Central US",
+            "South Central US",
+            "North Europe",
+            "West Europe",
+            "Japan West",
+            "Japan East",
+            "Brazil South",
+            "Australia East",
+            "Australia Southeast",
+            "Central India",
+            "West India",
+            "South India",
+            "Canada Central",
+            "Canada East",
+            "West Central US",
+            "West US 2",
+            "UK South",
+            "UK West",
+            "Korea Central",
+            "Korea South",
+            "global"
+          ]
+        }
+      ]
+    },
+    "..\\2015-01-01\\deploymentTemplate.json_definitions_resourceCopy": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the copy"
+        },
+        "count": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "description": "Count of the copy"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "Parallel",
+            "Serial"
+          ],
+          "description": "The copy mode"
+        },
+        "batchSize": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "description": "The serial copy batch size"
+        }
+      }
+    },
+    "resourceDefinitions_project": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "microsoft.visualstudio/account/project",
+            "project"
+          ]
+        },
+        "apiVersion": {
+          "enum": [
+            "2014-02-26"
+          ]
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "ProcessTemplateId": {
+              "type": "string",
+              "minLength": 1,
+              "description": "microsoft.visualstudio/account/project: Process template guid for the project"
+            },
+            "VersionControlOption": {
+              "type": "string",
+              "minLength": 1,
+              "description": "microsoft.visualstudio/account/project: Version control type for the project, currently TfsVc and Git"
+            }
+          }
+        }
+      },
+      "required": [
+        "type",
+        "apiVersion",
+        "properties"
+      ],
+      "description": "microsoft.visualstudio account/project: Visual Studio Online TFS Project"
+    }
+  }
+}

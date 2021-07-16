@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\user.json_definitions_user-output-api-key"
+    }
+  ],
+  "definitions": {
+    "..\\definitions\\user.json_definitions_user-output-api-key": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_user-id"
+        },
+        "api_key": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_api-key"
+        },
+        "firstname": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_firstname"
+        },
+        "lastname": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_lastname"
+        },
+        "email": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_email"
+        },
+        "avatar": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_avatar"
+        },
+        "avatars": {
+          "$ref": "#/definitions/..\\definitions\\avatars.json_definitions_avatars"
+        },
+        "root": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_root"
+        },
+        "disabled": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_disabled"
+        },
+        "preferences": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_preferences"
+        },
+        "wechat": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_wechat"
+        },
+        "firstlogin": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_firstlogin"
+        },
+        "lastlogin": {
+          "$ref": "#/definitions/..\\definitions\\user.json_definitions_lastlogin"
+        },
+        "created": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_modified"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "_id",
+        "firstname",
+        "lastname",
+        "root",
+        "email",
+        "created",
+        "modified"
+      ],
+      "x-sdk-model": "user"
+    },
+    "..\\definitions\\common.json_definitions_user-id": {
+      "type": "string",
+      "format": "email"
+    },
+    "..\\definitions\\user.json_definitions_api-key": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "created": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_created"
+        },
+        "last_used": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_timestamp"
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\definitions\\created-modified.json_definitions_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "..\\definitions\\common.json_definitions_timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "..\\definitions\\user.json_definitions_firstname": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "First Name",
+      "type": "string"
+    },
+    "..\\definitions\\user.json_definitions_lastname": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Last Name",
+      "type": "string"
+    },
+    "..\\definitions\\user.json_definitions_email": {
+      "format": "email",
+      "title": "Email",
+      "type": "string"
+    },
+    "..\\definitions\\user.json_definitions_avatar": {
+      "format": "uri",
+      "title": "Avatar",
+      "type": "string"
+    },
+    "..\\definitions\\avatars.json_definitions_avatars": {
+      "title": "Avatar",
+      "type": "object",
+      "properties": {
+        "gravatar": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "provider": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "custom": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^https:",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\definitions\\user.json_definitions_root": {
+      "type": "boolean"
+    },
+    "..\\definitions\\user.json_definitions_disabled": {
+      "type": "boolean"
+    },
+    "..\\definitions\\user.json_definitions_preferences": {
+      "title": "Preferences",
+      "type": "object"
+    },
+    "..\\definitions\\user.json_definitions_wechat": {},
+    "..\\definitions\\user.json_definitions_firstlogin": {
+      "type": "string"
+    },
+    "..\\definitions\\user.json_definitions_lastlogin": {
+      "type": "string"
+    },
+    "..\\definitions\\created-modified.json_definitions_modified": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

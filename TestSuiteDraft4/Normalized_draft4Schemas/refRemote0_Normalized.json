@@ -1,0 +1,8 @@
+{
+  "$ref": "#/definitions/http:__localhost:1234_integer.json",
+  "definitions": {
+    "http:__localhost:1234_integer.json": {
+      "type": "integer"
+    }
+  }
+}

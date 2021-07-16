@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/..\\definitions\\job.json_definitions_job-log-statement"
+  },
+  "example": [
+    {
+      "fd": 1,
+      "msg": "Hello World!"
+    }
+  ],
+  "definitions": {
+    "..\\definitions\\job.json_definitions_job-log-statement": {
+      "type": "object",
+      "properties": {
+        "fd": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "fd",
+        "msg"
+      ]
+    }
+  }
+}

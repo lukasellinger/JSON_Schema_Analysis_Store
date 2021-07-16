@@ -1,0 +1,591 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "indicator",
+  "description": "Technical information that indicates compromise",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\common\\core.json"
+    },
+    {
+      "$ref": "#/definitions/..\\common\\referenceable.json"
+    },
+    {
+      "properties": {
+        "pattern": {
+          "description": "The pattern used to identify the presence of this indicator",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/definitions_patterns_twigs"
+            },
+            {
+              "$ref": "#/definitions/definitions_patterns_snort"
+            },
+            {
+              "$ref": "#/definitions/definitions_patterns_snort_so"
+            },
+            {
+              "$ref": "#/definitions/definitions_patterns_yara"
+            }
+          ]
+        },
+        "start_time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time at which this indicator should be considered valid. If omitted, unknown."
+        },
+        "end_time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time at which this indicator should no longer be considered valid. If omitted, unknown or ongoing."
+        },
+        "impact": {
+          "$ref": "#/definitions/..\\common\\impact.json",
+          "description": "The impact to operations of the TTP(s) that this indicator detects were they to be realized (individually)"
+        }
+      }
+    }
+  ],
+  "required": [
+    "pattern"
+  ],
+  "definitions": {
+    "patterns": {
+      "twigs": {
+        "title": "twigs",
+        "description": "A pattern that leverages native CybOX objects to allow pattern matching",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of pattern",
+            "enum": [
+              "twigs"
+            ]
+          },
+          "properties": {
+            "type": "object",
+            "description": "A list of properties that are applied in the condition",
+            "additionalProperties": {
+              "$ref": "#/definitions/definitions_patterns_property"
+            }
+          },
+          "conditions": {
+            "type": "string",
+            "description": "The string conditions for when this indicator should match"
+          }
+        }
+      },
+      "property": {
+        "title": "twigs-prop",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The path to a CybOX object property"
+          },
+          "condition": {
+            "type": "string",
+            "description": "The condition by which the property should match the value"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the field to be matched against"
+          }
+        }
+      },
+      "snort": {
+        "title": "snort",
+        "description": "A pattern for snort rules",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of pattern",
+            "enum": [
+              "snort"
+            ]
+          },
+          "rules": {
+            "type": "array",
+            "description": "The set of snort rules to match this indicator",
+            "items": "string"
+          }
+        }
+      },
+      "snort_so": {
+        "title": "snort-so",
+        "description": "A pattern for snort rules",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of pattern",
+            "enum": [
+              "snort-so"
+            ]
+          },
+          "rule_stub": {
+            "type": "string",
+            "description": "The plain text rule stub"
+          },
+          "rule_binary": {
+            "$ref": "#/definitions/..\\common\\external.json"
+          }
+        }
+      },
+      "yara": {
+        "title": "yara",
+        "description": "A pattern for snort rules",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of pattern",
+            "enum": [
+              "yara"
+            ]
+          },
+          "rules": {
+            "type": "array",
+            "description": "The set of YARA rules to match this indicator",
+            "items": "string"
+          }
+        }
+      }
+    },
+    "object": {
+      "title": "object",
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": "string",
+          "enum": [
+            "equals",
+            "pattern_match"
+          ],
+          "description": "Describes the type of match. If \u0027equals\u0027, the object should be matched exactly. If \u0027pattern_match\u0027, each field in the object should have a pattern match applied"
+        },
+        "object_ref": {
+          "type": "string",
+          "description": "Reference to the object that this matches against."
+        }
+      },
+      "required": [
+        "condition",
+        "object_ref"
+      ]
+    },
+    "test_mechanism": {
+      "title": "test-mechanism",
+      "type": "object",
+      "properties": {
+        "_type": {
+          "type": "string",
+          "description": "The type of test mechanism."
+        }
+      }
+    },
+    "..\\common\\core.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "core",
+      "description": "The base properties used in all top-level types",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Hardcoded value to indicate what type of construct this is"
+        },
+        "id": {
+          "$ref": "#/definitions/..\\common\\id.json",
+          "description": "Globally unique identifier for this construct."
+        },
+        "revision": {
+          "type": "integer",
+          "description": "The revision number of this construct. MUST be omitted if this is the first version, otherwise required."
+        },
+        "created_at": {
+          "$ref": "#/definitions/..\\common\\timestamp.json",
+          "description": "Time at which this construct was created."
+        },
+        "external_ids": {
+          "type": "array",
+          "description": "A list of external identifiers by which this construct may be known.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "string",
+                "description": "The source of this ID, i.e. name of an external system."
+              },
+              "id": {
+                "type": "string",
+                "description": "ID itself"
+              },
+              "link": {
+                "type": "string",
+                "description": "A link to this construct in the external system"
+              }
+            },
+            "required": [
+              "source",
+              "id"
+            ]
+          }
+        },
+        "producer_ref": {
+          "$ref": "#/definitions/..\\common\\id.json",
+          "description": "ID to the information source that produced this content"
+        },
+        "marking_refs": {
+          "type": "array",
+          "description": "The set of markings to be applied to this construct",
+          "items": {
+            "$ref": "#/definitions/..\\common\\id.json"
+          }
+        },
+        "structured_markings": {
+          "type": "array",
+          "description": "The set of L2 markings to be applied to this construct",
+          "items": {
+            "$ref": "#/definitions/..\\common\\core.json_definitions_structured-marking"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "created_at",
+        "producer_ref"
+      ],
+      "definitions": {
+        "structured-marking": {
+          "title": "structured-marking",
+          "description": "A single definition of a structured marking",
+          "type": "object",
+          "properties": {
+            "controlled_structures": {
+              "type": "array",
+              "description": "A list of JSONPath statements, rooted at the top-level object that the structured_markings key is contained in, that the marking_refs apply to.",
+              "items": {
+                "type": "string"
+              }
+            },
+            "marking_refs": {
+              "type": "array",
+              "description": "The set of markings applied to the fields selected by the controlled_structures.",
+              "items": {
+                "$ref": "#/definitions/..\\common\\id.json"
+              }
+            }
+          },
+          "required": [
+            "controlled_structures",
+            "marking_refs"
+          ]
+        }
+      }
+    },
+    "..\\common\\id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "id",
+      "description": "The format used for all IDs in TWIGS",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9-]+--[A-Za-z0-9-]{36}$"
+    },
+    "..\\common\\timestamp.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "timestamp",
+      "description": "The formats used for all timestamps and timestamp precisions in TWIGS",
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}[\\+-][0-9]{2}:[0-9]{2}$",
+      "definitions": {
+        "precision": {
+          "type": "string",
+          "enum": [
+            "year",
+            "month",
+            "day",
+            "hour",
+            "minute",
+            "second"
+          ]
+        }
+      }
+    },
+    "..\\common\\core.json_definitions_structured-marking": {
+      "title": "structured-marking",
+      "description": "A single definition of a structured marking",
+      "type": "object",
+      "properties": {
+        "controlled_structures": {
+          "type": "array",
+          "description": "A list of JSONPath statements, rooted at the top-level object that the structured_markings key is contained in, that the marking_refs apply to.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "marking_refs": {
+          "type": "array",
+          "description": "The set of markings applied to the fields selected by the controlled_structures.",
+          "items": {
+            "$ref": "#/definitions/..\\common\\id.json"
+          }
+        }
+      },
+      "required": [
+        "controlled_structures",
+        "marking_refs"
+      ]
+    },
+    "..\\common\\referenceable.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "referenceable",
+      "type": "object",
+      "references": {
+        "type": "array",
+        "items": {
+          "AllOf": [
+            {
+              "properties": {
+                "reference_type ": {
+                  "type": "string",
+                  "enum": [
+                    "original-source",
+                    "analysis-of-original"
+                  ],
+                  "description": "An enum detailing what type of information is referenced"
+                },
+                "reference_title": {
+                  "type": "string",
+                  "description": "A human-readable title for this object"
+                },
+                "reference_url": {
+                  "type": "string",
+                  "description": "A URL pointing to a copy of the documentation that the reference refers to"
+                },
+                "analysis_by_ref": {
+                  "type": "string",
+                  "description": "A direct reference containing the Object ID of the Identity who produced or performed the analysis contained in the referenced document. This is not the Identity of who created the STIX Object, but is who performed the analaysis contained in the referenced document. This Object is not related using a Relationship Object as an intermediatary"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "definitions_patterns_twigs": {
+      "title": "twigs",
+      "description": "A pattern that leverages native CybOX objects to allow pattern matching",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of pattern",
+          "enum": [
+            "twigs"
+          ]
+        },
+        "properties": {
+          "type": "object",
+          "description": "A list of properties that are applied in the condition",
+          "additionalProperties": {
+            "$ref": "#/definitions/definitions_patterns_property"
+          }
+        },
+        "conditions": {
+          "type": "string",
+          "description": "The string conditions for when this indicator should match"
+        }
+      }
+    },
+    "definitions_patterns_property": {
+      "title": "twigs-prop",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The path to a CybOX object property"
+        },
+        "condition": {
+          "type": "string",
+          "description": "The condition by which the property should match the value"
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the field to be matched against"
+        }
+      }
+    },
+    "definitions_patterns_snort": {
+      "title": "snort",
+      "description": "A pattern for snort rules",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of pattern",
+          "enum": [
+            "snort"
+          ]
+        },
+        "rules": {
+          "type": "array",
+          "description": "The set of snort rules to match this indicator",
+          "items": "string"
+        }
+      }
+    },
+    "definitions_patterns_snort_so": {
+      "title": "snort-so",
+      "description": "A pattern for snort rules",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of pattern",
+          "enum": [
+            "snort-so"
+          ]
+        },
+        "rule_stub": {
+          "type": "string",
+          "description": "The plain text rule stub"
+        },
+        "rule_binary": {
+          "$ref": "#/definitions/..\\common\\external.json"
+        }
+      }
+    },
+    "..\\common\\external.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "external",
+      "description": "A structure to represent external data (e.g. binary, XML)",
+      "type": "object",
+      "properties": {
+        "content_type": {
+          "type": "string",
+          "description": "MIME type of the external data"
+        },
+        "charset": {
+          "type": "string",
+          "description": "For content that has an encoding, the charset of the encoded content"
+        },
+        "content": {
+          "type": "string",
+          "description": "The content itself. Content must either be base64 encoded and base64 must be set to true or it must be escaped per JSON string escape rules."
+        }
+      },
+      "required": [
+        "base64",
+        "content_type",
+        "content"
+      ]
+    },
+    "definitions_patterns_yara": {
+      "title": "yara",
+      "description": "A pattern for snort rules",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of pattern",
+          "enum": [
+            "yara"
+          ]
+        },
+        "rules": {
+          "type": "array",
+          "description": "The set of YARA rules to match this indicator",
+          "items": "string"
+        }
+      }
+    },
+    "..\\common\\impact.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "impact",
+      "type": "object",
+      "description": "The impact on operations if this construct were to be realized.",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "The estimated severity of the impact."
+        },
+        "intended_effects": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Military Advantage",
+              "Economic Advantage",
+              "Political Advantage",
+              "Intellectual Property Theft",
+              "Identify Theft",
+              "Brand Damage",
+              "Degredation of Service",
+              "Denial and Deception",
+              "Destruction",
+              "Disruption",
+              "Exposure",
+              "Extortion",
+              "Fraud",
+              "Harassment",
+              "Watch the World Burn"
+            ]
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "A prose description of the impact."
+        },
+        "credibility": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6,
+          "description": "The credibility of this statement, using the Admirality scale"
+        }
+      }
+    }
+  },
+  "relationships": {
+    "indicated": [
+      "malware",
+      "attack-pattern",
+      "exploit",
+      "victim-targeting",
+      "malicious-tool",
+      "malicious-infrastructure",
+      "persona",
+      "campaign",
+      "threat-actor"
+    ],
+    "suggested": [
+      "course-of-action"
+    ],
+    "kill-chain-phase": [
+      "kill-chain-phase"
+    ],
+    "related": [
+      "asset",
+      "attack-pattern",
+      "campaign",
+      "configuration",
+      "course-of-action",
+      "identity",
+      "incident",
+      "indicator",
+      "kill-chain",
+      "kill-chain-phase",
+      "malicious-infrastructure",
+      "malicious-tool",
+      "malware",
+      "observation",
+      "threat-actor",
+      "tool",
+      "victim-targeting",
+      "vulnerability",
+      "weakness"
+    ],
+    "duplicate-of": [
+      "indicator"
+    ],
+    "suggested-update": [
+      "indicator"
+    ],
+    "derived-from": [
+      "indicator"
+    ]
+  }
+}

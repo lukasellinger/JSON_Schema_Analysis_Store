@@ -1,0 +1,43 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataSource/DocumentDataSource/DocumentDataSource.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Источник данных представления для документов InfinniPlatform",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataSource/BaseDataSource.json"
+    }
+  ],
+  "properties": {
+    "DocumentId": {
+      "description": "Идентификатор документа",
+      "type": "string"
+    },
+    "PageNumber": {
+      "description": "Номер страницы",
+      "type": "integer",
+      "default": 0
+    },
+    "PageSize": {
+      "description": "Размер страницы",
+      "type": "integer",
+      "default": 15
+    },
+    "Select": {
+      "description": "Правило отображения документов",
+      "type": "string"
+    },
+    "Order": {
+      "description": "Правило сортировки документов",
+      "type": "string"
+    },
+    "NeedTotalCount": {
+      "description": "Необходимость подсчета количества",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "DocumentId"
+  ]
+}

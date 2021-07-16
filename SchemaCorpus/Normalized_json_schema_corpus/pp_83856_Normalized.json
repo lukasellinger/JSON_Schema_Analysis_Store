@@ -1,0 +1,942 @@
+{
+  "id": "https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/epijson.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "EpiJSON Schema V0.7",
+  "description": "Epidemiological data in JSON format",
+  "definitions": {
+    "stringAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "string"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "numberAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "number"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "number"
+              },
+              "uniqueItems": false
+            }
+          ]
+        },
+        "units": {
+          "description": "A string containing the units name, preferably compatible with UDUNITS2",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "integerAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "integer"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "integer"
+              },
+              "uniqueItems": false
+            }
+          ]
+        },
+        "units": {
+          "description": "A string containing the units name, preferably compatible with UDUNITS2",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "booleanAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "boolean"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "boolean"
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "dateAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "date"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "locationAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "location"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "object",
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/geojson\\geojson.json"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/geojson\\geojson.json"
+                  }
+                ]
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "base64Attribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "base64"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "attribute": {
+      "description": "Attribute of the parent",
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/stringAttribute"
+        },
+        {
+          "$ref": "#/definitions/numberAttribute"
+        },
+        {
+          "$ref": "#/definitions/integerAttribute"
+        },
+        {
+          "$ref": "#/definitions/booleanAttribute"
+        },
+        {
+          "$ref": "#/definitions/dateAttribute"
+        },
+        {
+          "$ref": "#/definitions/locationAttribute"
+        },
+        {
+          "$ref": "#/definitions/base64Attribute"
+        }
+      ]
+    },
+    "event": {
+      "description": "An incident that occurred to the parent record",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "An UUID event id (this must be a valid RFC4122 UUID)",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        },
+        "name": {
+          "description": "The event name",
+          "type": "string"
+        },
+        "date": {
+          "description": "The date and time on which the event occured (in ISO 8601 format)",
+          "type": "string",
+          "format": "date-time"
+        },
+        "location": {
+          "description": "The place where the event happened (MUST be valid GeoJSON object)",
+          "type": "object",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/geojson\\geojson.json"
+            }
+          ]
+        },
+        "attributes": {
+          "description": "Attributes of the events",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attribute"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "id",
+            "name",
+            "date",
+            "location"
+          ]
+        },
+        {
+          "required": [
+            "id",
+            "name",
+            "date"
+          ]
+        },
+        {
+          "required": [
+            "id",
+            "name",
+            "location"
+          ]
+        }
+      ]
+    },
+    "record": {
+      "description": "A record for an entity (e.g. a person, geographic locality, etc)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "A unique record identifier (this must be a valid RFC4122 UUID)",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        },
+        "attributes": {
+          "description": "Attributes for this record",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attribute"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/event"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "id",
+            "attributes"
+          ]
+        },
+        {
+          "required": [
+            "id",
+            "events"
+          ]
+        }
+      ]
+    },
+    "geojson\\geojson.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Geo JSON object",
+      "description": "Schema for a Geo JSON object",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "crs": {
+          "$ref": "#/definitions/geojson\\crs.json"
+        },
+        "bbox": {
+          "$ref": "#/definitions/geojson\\bbox.json"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/definitions/geojson\\geometry.json"
+        },
+        {
+          "$ref": "#/definitions/geojson\\geojson.json_definitions_geometryCollection"
+        },
+        {
+          "$ref": "#/definitions/geojson\\geojson.json_definitions_feature"
+        },
+        {
+          "$ref": "#/definitions/geojson\\geojson.json_definitions_featureCollection"
+        }
+      ],
+      "definitions": {
+        "geometryCollection": {
+          "title": "GeometryCollection",
+          "description": "A collection of geometry objects",
+          "required": [
+            "geometries"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "GeometryCollection"
+              ]
+            },
+            "geometries": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geojson\\geometry.json"
+              }
+            }
+          }
+        },
+        "feature": {
+          "title": "Feature",
+          "description": "A Geo JSON feature object",
+          "required": [
+            "geometry",
+            "properties"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "Feature"
+              ]
+            },
+            "geometry": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/definitions/geojson\\geometry.json"
+                }
+              ]
+            },
+            "properties": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "id": {
+              "FIXME": "may be there, type not known (string? number?)"
+            }
+          }
+        },
+        "featureCollection": {
+          "title": "FeatureCollection",
+          "description": "A Geo JSON feature collection",
+          "required": [
+            "features"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "FeatureCollection"
+              ]
+            },
+            "features": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geojson\\geojson.json_definitions_feature"
+              }
+            }
+          }
+        }
+      }
+    },
+    "geojson\\crs.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "crs",
+      "description": "a Coordinate Reference System object",
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "type",
+        "properties"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/definitions/geojson\\crs.json_definitions_namedCrs"
+        },
+        {
+          "$ref": "#/definitions/geojson\\crs.json_definitions_linkedCrs"
+        }
+      ],
+      "definitions": {
+        "namedCrs": {
+          "properties": {
+            "type": {
+              "enum": [
+                "name"
+              ]
+            },
+            "properties": {
+              "required": [
+                "name"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "FIXME": "semantic validation necessary"
+                }
+              }
+            }
+          }
+        },
+        "linkedObject": {
+          "type": "object",
+          "required": [
+            "href"
+          ],
+          "properties": {
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "FIXME": "spec says \"dereferenceable\", cannot enforce that"
+            },
+            "type": {
+              "type": "string",
+              "description": "Suggested values: proj4, ogjwkt, esriwkt"
+            }
+          }
+        },
+        "linkedCrs": {
+          "properties": {
+            "type": {
+              "enum": [
+                "link"
+              ]
+            },
+            "properties": {
+              "$ref": "#/definitions/geojson\\crs.json_definitions_linkedObject"
+            }
+          }
+        }
+      }
+    },
+    "geojson\\crs.json_definitions_namedCrs": {
+      "properties": {
+        "type": {
+          "enum": [
+            "name"
+          ]
+        },
+        "properties": {
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "FIXME": "semantic validation necessary"
+            }
+          }
+        }
+      }
+    },
+    "geojson\\crs.json_definitions_linkedCrs": {
+      "properties": {
+        "type": {
+          "enum": [
+            "link"
+          ]
+        },
+        "properties": {
+          "$ref": "#/definitions/geojson\\crs.json_definitions_linkedObject"
+        }
+      }
+    },
+    "geojson\\crs.json_definitions_linkedObject": {
+      "type": "object",
+      "required": [
+        "href"
+      ],
+      "properties": {
+        "href": {
+          "type": "string",
+          "format": "uri",
+          "FIXME": "spec says \"dereferenceable\", cannot enforce that"
+        },
+        "type": {
+          "type": "string",
+          "description": "Suggested values: proj4, ogjwkt, esriwkt"
+        }
+      }
+    },
+    "geojson\\bbox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "A bounding box as defined by GeoJSON",
+      "FIXME": "unenforceable constraint: even number of elements in array",
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "geojson\\geometry.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "geometry",
+      "description": "One geometry as defined by GeoJSON",
+      "type": "object",
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "oneOf": [
+        {
+          "title": "Point",
+          "properties": {
+            "type": {
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geojson\\geometry.json_definitions_position"
+            }
+          }
+        },
+        {
+          "title": "MultiPoint",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geojson\\geometry.json_definitions_positionArray"
+            }
+          }
+        },
+        {
+          "title": "LineString",
+          "properties": {
+            "type": {
+              "enum": [
+                "LineString"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geojson\\geometry.json_definitions_lineString"
+            }
+          }
+        },
+        {
+          "title": "MultiLineString",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geojson\\geometry.json_definitions_lineString"
+              }
+            }
+          }
+        },
+        {
+          "title": "Polygon",
+          "properties": {
+            "type": {
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geojson\\geometry.json_definitions_polygon"
+            }
+          }
+        },
+        {
+          "title": "MultiPolygon",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geojson\\geometry.json_definitions_polygon"
+              }
+            }
+          }
+        }
+      ],
+      "definitions": {
+        "position": {
+          "description": "A single position",
+          "type": "array",
+          "minItems": 2,
+          "items": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "additionalItems": false
+        },
+        "positionArray": {
+          "description": "An array of positions",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geojson\\geometry.json_definitions_position"
+          }
+        },
+        "lineString": {
+          "description": "An array of two or more positions",
+          "allOf": [
+            {
+              "$ref": "#/definitions/geojson\\geometry.json_definitions_positionArray"
+            },
+            {
+              "minItems": 2
+            }
+          ]
+        },
+        "linearRing": {
+          "description": "An array of four positions where the first equals the last",
+          "allOf": [
+            {
+              "$ref": "#/definitions/geojson\\geometry.json_definitions_positionArray"
+            },
+            {
+              "minItems": 4
+            }
+          ]
+        },
+        "polygon": {
+          "description": "An array of linear rings",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geojson\\geometry.json_definitions_linearRing"
+          }
+        }
+      }
+    },
+    "geojson\\geometry.json_definitions_position": {
+      "description": "A single position",
+      "type": "array",
+      "minItems": 2,
+      "items": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "additionalItems": false
+    },
+    "geojson\\geometry.json_definitions_positionArray": {
+      "description": "An array of positions",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/geojson\\geometry.json_definitions_position"
+      }
+    },
+    "geojson\\geometry.json_definitions_lineString": {
+      "description": "An array of two or more positions",
+      "allOf": [
+        {
+          "$ref": "#/definitions/geojson\\geometry.json_definitions_positionArray"
+        },
+        {
+          "minItems": 2
+        }
+      ]
+    },
+    "geojson\\geometry.json_definitions_polygon": {
+      "description": "An array of linear rings",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/geojson\\geometry.json_definitions_linearRing"
+      }
+    },
+    "geojson\\geometry.json_definitions_linearRing": {
+      "description": "An array of four positions where the first equals the last",
+      "allOf": [
+        {
+          "$ref": "#/definitions/geojson\\geometry.json_definitions_positionArray"
+        },
+        {
+          "minItems": 4
+        }
+      ]
+    },
+    "geojson\\geojson.json_definitions_geometryCollection": {
+      "title": "GeometryCollection",
+      "description": "A collection of geometry objects",
+      "required": [
+        "geometries"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "GeometryCollection"
+          ]
+        },
+        "geometries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geojson\\geometry.json"
+          }
+        }
+      }
+    },
+    "geojson\\geojson.json_definitions_feature": {
+      "title": "Feature",
+      "description": "A Geo JSON feature object",
+      "required": [
+        "geometry",
+        "properties"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "Feature"
+          ]
+        },
+        "geometry": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/geojson\\geometry.json"
+            }
+          ]
+        },
+        "properties": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "id": {
+          "FIXME": "may be there, type not known (string? number?)"
+        }
+      }
+    },
+    "geojson\\geojson.json_definitions_featureCollection": {
+      "title": "FeatureCollection",
+      "description": "A Geo JSON feature collection",
+      "required": [
+        "features"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "FeatureCollection"
+          ]
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geojson\\geojson.json_definitions_feature"
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "description": "Attributes for this dataset",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/attribute"
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/record"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "metadata",
+    "records"
+  ]
+}

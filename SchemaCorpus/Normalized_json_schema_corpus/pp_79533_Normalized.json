@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/assessmentTypeVisible.json"
+  },
+  "definitions": {
+    "assessmentTypeVisible.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "details of a single assessment type that can be used for sorting",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "the id of the assessment type"
+        },
+        "image": {
+          "$ref": "#/definitions/assessmentRead.json_definitions_imageUrl"
+        },
+        "userTitle": {
+          "$ref": "#/definitions/assessmentType.json_definitions_userTitle"
+        },
+        "sortable": {
+          "$ref": "#/definitions/assessmentType.json_definitions_sortable"
+        }
+      },
+      "required": [
+        "id",
+        "userTitle",
+        "image",
+        "sortable"
+      ]
+    },
+    "assessmentRead.json_definitions_imageUrl": {
+      "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment\u0027s status or an unstarted assessment type",
+      "type": "string",
+      "format": "url"
+    },
+    "assessmentType.json_definitions_userTitle": {
+      "type": "string",
+      "description": "A user-facing label/title for this assessment type"
+    },
+    "assessmentType.json_definitions_sortable": {
+      "type": "boolean",
+      "description": "whether assessment results can be sorted - if so, an API on the assessment app is called, passing an array of existing assessment IDs, so the app can return them in sorted order. Defaults to false if not present"
+    }
+  }
+}

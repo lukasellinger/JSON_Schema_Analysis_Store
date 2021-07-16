@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://schema.dcos/acl/users/user",
+  "title": "DCOS ACL: Single user endpoint response",
+  "type": "object",
+  "properties": {
+    "uid": {
+      "title": "User\u0027s ID",
+      "type": "string"
+    },
+    "url": {
+      "title": "User\u0027s URL",
+      "type": "string"
+    },
+    "description": {
+      "title": "User\u0027s description",
+      "type": "string"
+    }
+  },
+  "required": [
+    "uid",
+    "url",
+    "description"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "HealthDescriptorList",
+  "description": "List of health descriptors",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/HealthDescriptor.json"
+  },
+  "definitions": {
+    "HealthDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "HealthDescriptor",
+      "description": "Health for an instance",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "srvcId": {
+          "description": "Service ID, normally same as Module ID",
+          "type": "string"
+        },
+        "instId": {
+          "description": "Instance ID, unique on node",
+          "type": "string"
+        },
+        "healthMessage": {
+          "description": "Health message",
+          "type": "string"
+        },
+        "healthStatus": {
+          "description": "Whether healthy",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "srvcId",
+        "instId",
+        "healthMessage",
+        "healthStatus"
+      ]
+    }
+  }
+}

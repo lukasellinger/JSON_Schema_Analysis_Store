@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\report.json_definitions_report-project",
+  "definitions": {
+    "..\\definitions\\report.json_definitions_report-project": {
+      "type": "object",
+      "properties": {
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\definitions\\report.json_definitions_demographics-grid"
+          }
+        }
+      }
+    },
+    "..\\definitions\\report.json_definitions_demographics-grid": {
+      "type": "object",
+      "properties": {
+        "Black or African American": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_ethnicity-grid"
+            }
+          ]
+        },
+        "Unknown or Not Reported": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_ethnicity-grid"
+            }
+          ]
+        },
+        "American Indian or Alaska Native": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_ethnicity-grid"
+            }
+          ]
+        },
+        "Asian": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_ethnicity-grid"
+            }
+          ]
+        },
+        "White": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_ethnicity-grid"
+            }
+          ]
+        },
+        "Total": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_ethnicity-grid"
+            }
+          ]
+        },
+        "Native Hawaiian or Other Pacific Islander": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_ethnicity-grid"
+            }
+          ]
+        },
+        "More Than One Race": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_ethnicity-grid"
+            }
+          ]
+        },
+        "male_count": {
+          "type": "integer"
+        },
+        "group_label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        },
+        "over_18_count": {
+          "type": "integer"
+        },
+        "under_18_count": {
+          "type": "integer"
+        },
+        "female_count": {
+          "type": "integer"
+        },
+        "subjects_count": {
+          "type": "integer"
+        },
+        "other_count": {
+          "type": "integer"
+        },
+        "name": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        },
+        "session_count": {
+          "type": "integer"
+        },
+        "admins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "demographics_total": {
+          "type": "integer"
+        }
+      }
+    },
+    "..\\definitions\\report.json_definitions_ethnicity-grid": {
+      "type": "object",
+      "properties": {
+        "Not Hispanic or Latino": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_gender-count"
+            }
+          ]
+        },
+        "Hispanic or Latino": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_gender-count"
+            }
+          ]
+        },
+        "Unknown or Not Reported": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\report.json_definitions_gender-count"
+            }
+          ]
+        },
+        "Total": {
+          "type": "integer"
+        }
+      }
+    },
+    "..\\definitions\\report.json_definitions_gender-count": {
+      "type": "object",
+      "properties": {
+        "Male": {
+          "type": "integer"
+        },
+        "Unknown or Not Reported": {
+          "type": "integer"
+        },
+        "Female": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "Male",
+        "Female",
+        "Unknown or Not Reported"
+      ]
+    },
+    "..\\definitions\\common.json_definitions_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    }
+  }
+}

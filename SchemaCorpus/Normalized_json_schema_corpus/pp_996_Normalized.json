@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/AlekseyBuzmakov/FCAPS/master/FCAPS/schemas/ContextProcessorModules/ContextProcessorModule.json",
+  "title": "Schema for all Context Processor Modules",
+  "description": "A schema, all context processor modules should sattisfy to",
+  "allOf": [
+    {
+      "description": "It is a module",
+      "$ref": "#/definitions/..\\module.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "description": "It is a pattern manager module",
+          "enum": [
+            "ContextProcessorModules"
+          ]
+        },
+        "Name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Type",
+        "Name"
+      ]
+    }
+  ],
+  "definitions": {
+    "..\\module.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Module Params",
+      "description": "Json file give the type, name, and params of a module that should be created by a program",
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "title": "Module Type",
+          "descripton": "A name of module type"
+        },
+        "Name": {
+          "type": "string",
+          "title": "Module Name",
+          "descripton": "A name of module, given by the creator of the module"
+        },
+        "Params": {
+          "type": "object",
+          "description": "Params of the created module"
+        }
+      },
+      "required": [
+        "Type",
+        "Name"
+      ]
+    }
+  }
+}

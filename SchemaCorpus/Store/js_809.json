@@ -1,0 +1,16 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/BaseAction.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Базовый тип для предопределенных действий",
+  "type": "object",
+  "properties": {
+    "OnExecuted": {
+      "description": "Обработчик события о том, что действие было выполнено",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "CanExecute": {
+      "description": "Проверка условия для выполнения экшена",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    }
+  }
+}

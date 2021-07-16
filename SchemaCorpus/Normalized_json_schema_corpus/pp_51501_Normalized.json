@@ -1,0 +1,896 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.5.3/traits/trait_related_content.json",
+  "title": "Related_Content",
+  "description": "A set of lists of IDs referencing other content items this story is related to.",
+  "type": "object",
+  "patternProperties": {
+    ".*": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\content.json"
+      }
+    }
+  },
+  "definitions": {
+    "..\\content.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A content object.",
+      "description": "Holds common attributes of ANS Content objects.",
+      "type": "object",
+      "additionalProperties": {},
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "_id": {
+          "$ref": "#/definitions/trait_id.json"
+        },
+        "version": {
+          "$ref": "#/definitions/trait_version.json"
+        },
+        "subtype": {
+          "$ref": "#/definitions/trait_subtype.json"
+        },
+        "language": {
+          "$ref": "#/definitions/trait_locale.json"
+        },
+        "copyright": {
+          "$ref": "#/definitions/trait_copyright.json"
+        },
+        "canonical_url": {
+          "$ref": "#/definitions/trait_canonical_url.json"
+        },
+        "short_url": {
+          "$ref": "#/definitions/trait_short_url.json"
+        },
+        "created_date": {
+          "$ref": "#/definitions/trait_created_date.json"
+        },
+        "last_updated_date": {
+          "$ref": "#/definitions/trait_last_updated_date.json"
+        },
+        "publish_date": {
+          "$ref": "#/definitions/trait_publish_date.json"
+        },
+        "display_date": {
+          "$ref": "#/definitions/trait_display_date.json"
+        },
+        "location": {
+          "$ref": "#/definitions/trait_location.json"
+        },
+        "geo": {
+          "$ref": "#/definitions/trait_geo.json"
+        },
+        "address": {
+          "$ref": "#/definitions/trait_address.json"
+        },
+        "editor_note": {
+          "$ref": "#/definitions/trait_editor_note.json"
+        },
+        "status": {
+          "$ref": "#/definitions/trait_status.json"
+        },
+        "headlines": {
+          "$ref": "#/definitions/trait_headlines.json"
+        },
+        "subheadlines": {
+          "$ref": "#/definitions/trait_subheadlines.json"
+        },
+        "description": {
+          "$ref": "#/definitions/trait_description.json"
+        },
+        "credits": {
+          "$ref": "#/definitions/trait_credits.json"
+        },
+        "taxonomy": {
+          "$ref": "#/definitions/trait_taxonomy.json"
+        },
+        "promo_items": {
+          "$ref": "#/definitions/trait_promo_items.json"
+        },
+        "related_content": {
+          "$ref": "#"
+        },
+        "owner": {
+          "$ref": "#/definitions/trait_owner.json"
+        },
+        "planning": {
+          "$ref": "#/definitions/trait_planning.json"
+        },
+        "revision": {
+          "$ref": "#/definitions/trait_revision.json"
+        },
+        "syndication": {
+          "$ref": "#/definitions/trait_syndication.json"
+        },
+        "source": {
+          "$ref": "#/definitions/trait_source.json"
+        },
+        "tracking": {
+          "$ref": "#/definitions/trait_tracking.json"
+        },
+        "comments": {
+          "$ref": "#/definitions/trait_comments.json"
+        },
+        "label": {
+          "$ref": "#/definitions/trait_label.json"
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/trait_additional_properties.json"
+        }
+      },
+      "required": [
+        "type",
+        "version"
+      ]
+    },
+    "trait_id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "A globally unique identifier of the content in the ANS repository.",
+      "type": "string"
+    },
+    "trait_version.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Describes the ANS version of this object",
+      "description": "The version of ANS that this object was serialized as, in major.minor.patch format.",
+      "type": "string",
+      "enum": [
+        "0.5.3"
+      ]
+    },
+    "trait_subtype.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Subtype trait",
+      "type": "string",
+      "description": "A more granular type than story, gallery, etc. (E.g., column, blog_post)"
+    },
+    "trait_locale.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Describes language for an element",
+      "description": "The primary language of the content. The value should follow IETF BCP47. (e.g. \u0027en\u0027, \u0027es-419\u0027, etc.) ",
+      "type": "string"
+    },
+    "trait_copyright.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Copyright information",
+      "description": "A copyright notice.",
+      "type": "string"
+    },
+    "trait_canonical_url.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Canonical URL",
+      "description": "The fully qualified URL to the story.",
+      "type": "string"
+    },
+    "trait_short_url.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Short_Url",
+      "description": "A url-shortened version of the canonical url.",
+      "type": "string"
+    },
+    "trait_created_date.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Created Date",
+      "description": "When the content was originally created (RFC3339-formatted).",
+      "type": "string",
+      "format": "date-time"
+    },
+    "trait_last_updated_date.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Last Updated Date",
+      "description": "When the content was last updated (RFC3339-formatted).",
+      "type": "string",
+      "format": "date-time"
+    },
+    "trait_publish_date.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Publish_Date",
+      "description": "When the story was published.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "trait_display_date.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Display_Date",
+      "description": "The RFC3339-formatted dated time of the most recent date the story was (re)displayed on a public site.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "trait_location.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Location related trait",
+      "description": "A description of the location, useful if a full address or lat/long specification is overkill.",
+      "type": "string"
+    },
+    "trait_geo.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Geo",
+      "description": "Latitidue and Longitude of the content",
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        }
+      }
+    },
+    "trait_address.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Address",
+      "description": "An Address following the convention of http://microformats.org/wiki/hcard",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "post_office_box": {
+          "type": "string"
+        },
+        "extended_address": {
+          "type": "string"
+        },
+        "street_address": {
+          "type": "string"
+        },
+        "locality": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "postal_code": {
+          "type": "string"
+        },
+        "country_name": {
+          "type": "string"
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/trait_additional_properties.json"
+        }
+      },
+      "dependencies": {
+        "post_office_box": [
+          "street_address"
+        ],
+        "extended_address": [
+          "street_address"
+        ]
+      }
+    },
+    "trait_additional_properties.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Has additional properties",
+      "description": "A grab-bag object for non-validatable data.",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "trait_editor_note.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Editor_Note",
+      "description": "Additional information to be displayed near the content from the editor.",
+      "type": "string"
+    },
+    "trait_status.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Status",
+      "description": "Optional field to story story workflow related status (e.g. published/embargoed/etc)",
+      "type": "string"
+    },
+    "trait_headlines.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Headlines",
+      "description": "The headline(s) for the content.",
+      "type": "object",
+      "$ref": "#/definitions/..\\utils\\dictionary.json"
+    },
+    "..\\utils\\dictionary.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "basic": {
+          "type": "string"
+        }
+      },
+      "patternProperties": {
+        ".*": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "basic"
+      ]
+    },
+    "trait_subheadlines.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Sub-Headlines",
+      "description": "The sub-headline(s) for the content.",
+      "type": "object",
+      "$ref": "#/definitions/..\\utils\\dictionary.json"
+    },
+    "trait_description.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Description",
+      "description": "The descriptions, or blurbs, for the content.",
+      "type": "object",
+      "$ref": "#/definitions/..\\utils\\dictionary.json"
+    },
+    "trait_credits.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Credit trait",
+      "description": "People and groups attributed to this content, keyed by type of contribution.",
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "anyOf": [
+              {
+                "$ref": "#/definitions/..\\utils\\author.json"
+              },
+              {
+                "$ref": "#/definitions/..\\utils\\reference.json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "..\\utils\\author.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "An author of a piece of content.",
+      "description": "Models attribution to an individual or group for contribution towards some content item.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/trait_id.json"
+        },
+        "type": {
+          "description": "Indicates that this is an author",
+          "type": "string",
+          "enum": [
+            "author"
+          ]
+        },
+        "name": {
+          "description": "The name of contributor.",
+          "type": "string"
+        },
+        "org": {
+          "description": "The name of the organization the contributor belongs to.",
+          "type": "string"
+        },
+        "image": {
+          "$ref": "#/definitions/..\\image.json"
+        },
+        "bio": {
+          "description": "A description/short bio of the contributor.",
+          "type": "string"
+        },
+        "url": {
+          "description": "A url to some deeper set of information about the contributor.",
+          "type": "string"
+        },
+        "social_links": {
+          "$ref": "#/definitions/trait_social.json"
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/trait_additional_properties.json"
+        }
+      },
+      "required": [
+        "type",
+        "name"
+      ]
+    },
+    "..\\image.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "An image.",
+      "description": "Holds attributes of an ANS image component.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "image"
+          ]
+        },
+        "_id": {
+          "$ref": "#/definitions/trait_id.json"
+        },
+        "version": {
+          "$ref": "#/definitions/trait_version.json"
+        },
+        "subtype": {
+          "$ref": "#/definitions/trait_subtype.json"
+        },
+        "language": {
+          "$ref": "#/definitions/trait_locale.json"
+        },
+        "copyright": {
+          "$ref": "#/definitions/trait_copyright.json"
+        },
+        "canonical_url": {
+          "$ref": "#/definitions/trait_canonical_url.json"
+        },
+        "short_url": {
+          "$ref": "#/definitions/trait_short_url.json"
+        },
+        "created_date": {
+          "$ref": "#/definitions/trait_created_date.json"
+        },
+        "last_updated_date": {
+          "$ref": "#/definitions/trait_last_updated_date.json"
+        },
+        "publish_date": {
+          "$ref": "#/definitions/trait_publish_date.json"
+        },
+        "display_date": {
+          "$ref": "#/definitions/trait_display_date.json"
+        },
+        "location": {
+          "$ref": "#/definitions/trait_location.json"
+        },
+        "geo": {
+          "$ref": "#/definitions/trait_geo.json"
+        },
+        "address": {
+          "$ref": "#/definitions/trait_address.json"
+        },
+        "editor_note": {
+          "$ref": "#/definitions/trait_editor_note.json"
+        },
+        "status": {
+          "$ref": "#/definitions/trait_status.json"
+        },
+        "headlines": {
+          "$ref": "#/definitions/trait_headlines.json"
+        },
+        "subheadlines": {
+          "$ref": "#/definitions/trait_subheadlines.json"
+        },
+        "description": {
+          "$ref": "#/definitions/trait_description.json"
+        },
+        "credits": {
+          "$ref": "#/definitions/trait_credits.json"
+        },
+        "taxonomy": {
+          "$ref": "#/definitions/trait_taxonomy.json"
+        },
+        "promo_items": {
+          "$ref": "#/definitions/trait_promo_items.json"
+        },
+        "related_content": {
+          "$ref": "#"
+        },
+        "owner": {
+          "$ref": "#/definitions/trait_owner.json"
+        },
+        "planning": {
+          "$ref": "#/definitions/trait_planning.json"
+        },
+        "revision": {
+          "$ref": "#/definitions/trait_revision.json"
+        },
+        "syndication": {
+          "$ref": "#/definitions/trait_syndication.json"
+        },
+        "source": {
+          "$ref": "#/definitions/trait_source.json"
+        },
+        "tracking": {
+          "$ref": "#/definitions/trait_tracking.json"
+        },
+        "comments": {
+          "$ref": "#/definitions/trait_comments.json"
+        },
+        "label": {
+          "$ref": "#/definitions/trait_label.json"
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/trait_additional_properties.json"
+        },
+        "subtitle": {
+          "description": "Subtitle for the image.",
+          "type": "string"
+        },
+        "caption": {
+          "description": "Caption for the image.",
+          "type": "string"
+        },
+        "url": {
+          "description": "URL for the image.",
+          "type": "string"
+        },
+        "width": {
+          "description": "Width for the image.",
+          "type": "integer"
+        },
+        "height": {
+          "description": "Height for the image.",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "version"
+      ]
+    },
+    "trait_taxonomy.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Taxonomy",
+      "description": "Holds the collection of tags, categories, keywords, etc that describe content.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\utils\\keyword.json"
+          },
+          "description": "A list of keywords."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\utils\\tag.json"
+          }
+        },
+        "sites": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/..\\utils\\site.json"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/definitions/..\\utils\\reference.json"
+                  },
+                  {
+                    "properties": {
+                      "referent": {
+                        "properties": {
+                          "type": {
+                            "enum": [
+                              "site"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "seo_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "..\\utils\\keyword.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Keyword",
+      "description": "Models a keyword used in describing a piece of content.",
+      "type": "object",
+      "required": [
+        "keyword"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "keyword": {
+          "type": "string",
+          "description": "The keyword used to describe/categorize a piece of content"
+        },
+        "score": {
+          "type": "number",
+          "description": "An arbitrary weighting to give the keyword"
+        },
+        "frequency": {
+          "type": "integer",
+          "description": "An optional count of the frequency of the keyword as it appears in the content it describes"
+        }
+      }
+    },
+    "..\\utils\\tag.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Tag",
+      "description": "Models a keyword used in describing a piece of content.",
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/trait_id.json"
+        },
+        "text": {
+          "type": "string",
+          "description": "The text of the tag"
+        }
+      }
+    },
+    "..\\utils\\site.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Site",
+      "description": "A hierarchical section or \u0027site\u0027 in a taxonomy.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "site"
+          ]
+        },
+        "_id": {
+          "$ref": "#/definitions/trait_id.json"
+        },
+        "version": {
+          "$ref": "#/definitions/trait_version.json"
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/trait_additional_properties.json"
+        },
+        "name": {
+          "description": "The name of this site",
+          "type": "string"
+        },
+        "description": {
+          "description": "A short description or tagline about this site",
+          "type": "string"
+        },
+        "path": {
+          "description": "The url path to this site",
+          "type": "string"
+        },
+        "parent_id": {
+          "description": "The id of this section\u0027s parent site, if any",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "version",
+        "name"
+      ]
+    },
+    "..\\utils\\reference.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Representation of a normalized element",
+      "description": "This represents a reference to external content that should be denormalized",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "reference"
+          ]
+        },
+        "referent": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "The ANS type that the provider should return.",
+              "type": "string"
+            },
+            "service": {
+              "description": "The type of interaction the provider expects. E.g., \u0027oembed\u0027",
+              "type": "string"
+            },
+            "id": {
+              "description": "The id passed to the provider to retrieve an ANS document",
+              "type": "string"
+            },
+            "provider": {
+              "description": "A URL that can resolve the id into an ANS element",
+              "type": "string"
+            }
+          },
+          "required": [
+            "provider",
+            "id"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "referent"
+      ]
+    },
+    "trait_promo_items.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Promo Items",
+      "type": "object",
+      "description": "List of promotional content to use when highlighting the story.",
+      "properties": {
+        "basic": {
+          "$ref": "#/definitions/..\\content.json"
+        }
+      },
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/definitions/..\\content.json"
+        }
+      },
+      "required": [
+        "basic"
+      ]
+    },
+    "trait_owner.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Owner information ",
+      "description": "Trait that applies a owner information to a document or resource.",
+      "type": "object",
+      "properties": {
+        "owner": {
+          "description": "Information about the owner of this content.",
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "The unique identifier for this owner.",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "trait_planning.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Scheduling information",
+      "description": "Trait that applies planning information to a document or resource.",
+      "type": "object",
+      "properties": {
+        "planning": {
+          "description": "Planning information.",
+          "type": "object",
+          "properties": {
+            "scheduling": {
+              "description": "Scheduling information.",
+              "type": "object",
+              "properties": {
+                "planned_publish_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "When the content is planned to be published."
+                },
+                "scheduled_publish_date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "When the content was first published."
+                },
+                "will_have_gallery": {
+                  "description": "Will this content have galleries?",
+                  "type": "boolean"
+                },
+                "will_have_graphic": {
+                  "description": "Will this content have graphics?",
+                  "type": "boolean"
+                },
+                "will_have_image": {
+                  "description": "Will this content have images?",
+                  "type": "boolean"
+                },
+                "will_have_video": {
+                  "description": "Will this content have videos?",
+                  "type": "boolean"
+                }
+              }
+            },
+            "story_length": {
+              "description": "Story length information.",
+              "type": "object",
+              "properties": {
+                "word_count_planned": {
+                  "description": "The anticipated number of words in the story.",
+                  "type": "integer"
+                },
+                "word_count_actual": {
+                  "description": "Current number of words.",
+                  "type": "integer"
+                },
+                "inch_count_planned": {
+                  "description": "The anticipated length of the story in inches.",
+                  "type": "integer"
+                },
+                "inch_count_actual": {
+                  "description": "The current length of the story in inches.",
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "trait_revision.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Revision",
+      "description": "Revision information for this object",
+      "type": "object",
+      "properties": {
+        "revision_id": {
+          "type": "string"
+        },
+        "parent_id": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string"
+        },
+        "editions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "trait_syndication.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Syndication",
+      "type": "object",
+      "description": "Key-boolean pair of syndication services where this article may go",
+      "patternProperties": {
+        ".*": {
+          "type": "boolean"
+        }
+      }
+    },
+    "trait_source.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Source",
+      "description": "Information about the original source and/or owner of this content",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "trait_tracking.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Tracking",
+      "description": "Tracking information, probably implementation-dependent",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "trait_comments.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Comments",
+      "description": "Comment configuration data",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "trait_label.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Label",
+      "description": "What the Washington Post calls a Kicker",
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "object"
+        }
+      }
+    },
+    "trait_social.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Social Links",
+      "description": "Links to various social media",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "site": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": {}
+      }
+    }
+  }
+}

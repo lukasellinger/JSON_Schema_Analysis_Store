@@ -1,0 +1,240 @@
+{
+  "title": "TextSymbol3DLayer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Symbol layer for text and font definitions.",
+  "properties": {
+    "enable": {
+      "type": "boolean"
+    },
+    "font": {
+      "$ref": "#/definitions/font_schema.json"
+    },
+    "halo": {
+      "$ref": "#/definitions/halo_schema.json"
+    },
+    "material": {
+      "$ref": "#/definitions/material_schema.json"
+    },
+    "size": {
+      "type": "number",
+      "description": "Font size in points, positive only",
+      "minimum": 0
+    },
+    "text": {
+      "type": "string",
+      "description": "Text content in the label. Typically this property is not set, as text content is read from labeling field."
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of symbol used.",
+      "enum": [
+        "Text"
+      ]
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "schema": "labelSymbol3D_schema.json",
+        "code": {
+          "symbol": {
+            "type": "LabelSymbol3D",
+            "symbolLayers": [
+              {
+                "size": 12,
+                "type": "Text",
+                "material": {
+                  "color": [
+                    255,
+                    255,
+                    0
+                  ]
+                },
+                "font": {
+                  "family": "Arial",
+                  "weight": "bold"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "font_schema.json": {
+      "title": "font",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Font used for text symbols.",
+      "properties": {
+        "decoration": {
+          "type": "string",
+          "description": "The text decoration.",
+          "enum": [
+            "line-through",
+            "none",
+            "underline"
+          ],
+          "default": "none"
+        },
+        "family": {
+          "type": "string",
+          "description": "The font family."
+        },
+        "size": {
+          "type": "number",
+          "description": "The font size in points. Ignored when font is used on TextSymbol3DLayer."
+        },
+        "style": {
+          "type": "string",
+          "description": "The text style.",
+          "enum": [
+            "italic",
+            "normal",
+            "oblique"
+          ],
+          "default": "normal"
+        },
+        "weight": {
+          "type": "string",
+          "description": "The text weight.",
+          "enum": [
+            "bold",
+            "bolder",
+            "lighter",
+            "normal"
+          ],
+          "default": "normal"
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "font",
+            "code": {
+              "font": {
+                "family": "Arial",
+                "size": 12,
+                "style": "normal",
+                "weight": "bold",
+                "decoration": "none"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "halo_schema.json": {
+      "title": "halo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Halo definition.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "size": {
+          "type": "number",
+          "description": "Width of the halo in points."
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "A value between `100` (full transparency) and `0` (full opacity).",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 0
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "halo",
+            "code": {
+              "halo": {
+                "size": 2,
+                "color": [
+                  255,
+                  255,
+                  0
+                ],
+                "transparency": 70
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "material_schema.json": {
+      "title": "Material",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The material used to shade the geometry.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "A value between `100` (full transparency) and `0` (full opacity). Ignored if no color is specified.",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "material",
+            "code": {
+              "material": {
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "transparency": 20
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

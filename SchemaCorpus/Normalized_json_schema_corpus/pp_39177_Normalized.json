@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "tracks"
+  ],
+  "properties": {
+    "tracks": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/definitions/definitions.json_track-ref"
+      }
+    }
+  },
+  "definitions": {
+    "definitions.json_track-ref": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

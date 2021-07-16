@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "default": ""
+    },
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "numA": {
+          "$ref": "#/definitions/schemaRefTarget.json"
+        },
+        "hasDeepRef": {
+          "$ref": "#/definitions/deepRef1.json"
+        },
+        "hasFileRefThenDefRef": {
+          "$ref": "#/definitions/schemaRefTargetWithDef.json_definitions_exampleDef"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "schemaRefTarget.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "number",
+      "default": 0
+    },
+    "deepRef1.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "numA": {
+          "$ref": "#/definitions/schemaRefTarget.json"
+        }
+      }
+    },
+    "schemaRefTargetWithDef.json_definitions_exampleDef": {
+      "type": "string",
+      "enum": [
+        "foo",
+        "bar"
+      ]
+    }
+  }
+}

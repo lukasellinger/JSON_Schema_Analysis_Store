@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.twitter.api.WelcomeMessageRulesListResponse",
+  "javaInterfaces": [
+    "java.io.Serializable"
+  ],
+  "description": "https://developer.twitter.com/en/docs/direct-messages/welcome-messages/api-reference/list-welcome-message-rules",
+  "properties": {
+    "welcome_message_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\pojo\\WelcomeMessageRule.json"
+      }
+    },
+    "next_curser": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "..\\pojo\\WelcomeMessageRule.json": {
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "type": "object",
+      "javaType": "org.apache.streams.twitter.pojo.WelcomeMessageRule",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "description": "",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "welcome_message_id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

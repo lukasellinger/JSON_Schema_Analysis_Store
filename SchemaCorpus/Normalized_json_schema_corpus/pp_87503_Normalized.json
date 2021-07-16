@@ -1,0 +1,230 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.8.1/traits/trait_websites.json",
+  "title": "Websites Input",
+  "description": "Website-specific  metadata for url generation for multi-site copies. These fields are not indexed in Content API.",
+  "type": "object",
+  "patternProperties": {
+    "^[a-zA-Z0-9_]*": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "website_section": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/..\\utils\\reference.json"
+            },
+            {
+              "$ref": "#/definitions/..\\utils\\section.json"
+            }
+          ]
+        },
+        "website_url": {
+          "$ref": "#/definitions/trait_website_url.json"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "..\\utils\\reference.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Representation of a normalized element",
+      "description": "This represents a reference to external content that should be denormalized",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "reference"
+          ]
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/trait_additional_properties.json"
+        },
+        "_id": {
+          "$ref": "#/definitions/trait_id.json"
+        },
+        "subtype": {
+          "$ref": "#/definitions/trait_subtype.json"
+        },
+        "channels": {
+          "$ref": "#/definitions/trait_channel.json"
+        },
+        "alignment": {
+          "$ref": "#/definitions/trait_alignment.json"
+        },
+        "referent": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "description": "The ANS type that the provider should return.",
+              "type": "string"
+            },
+            "service": {
+              "description": "The type of interaction the provider expects. E.g., \u0027oembed\u0027",
+              "type": "string"
+            },
+            "id": {
+              "description": "The id passed to the provider to retrieve an ANS document",
+              "type": "string"
+            },
+            "provider": {
+              "description": "A URL that can resolve the id into an ANS element",
+              "type": "string"
+            },
+            "website": {
+              "description": "The website which the referenced id belongs to. Currently supported only for sections.",
+              "type": "string"
+            },
+            "referent_properties": {
+              "additionalProperties": {},
+              "description": "An object for key-value pairs that should override the values of keys with the same name in the denormalized object",
+              "type": "object"
+            }
+          },
+          "dependencies": {
+            "website": {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "section"
+                  ]
+                }
+              }
+            }
+          },
+          "required": [
+            "id"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "referent"
+      ]
+    },
+    "trait_additional_properties.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Has additional properties",
+      "description": "A grab-bag object for non-validatable data.",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "trait_id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "A globally unique identifier of the content in the ANS repository.",
+      "type": "string"
+    },
+    "trait_subtype.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Subtype trait",
+      "type": "string",
+      "description": "A more granular type than story, gallery, etc. (E.g., column, blog_post)"
+    },
+    "trait_channel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Channel trait",
+      "description": "An optional list of output types for which this element should be visible",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "trait_alignment.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Alignment",
+      "type": "string",
+      "description": "A property used to determine horizontal positioning of a content element relative to the elements that immediately follow it in the element sequence.",
+      "enum": [
+        "left",
+        "right",
+        "center"
+      ]
+    },
+    "..\\utils\\section.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Section",
+      "description": "A hierarchical section in a taxonomy. In the Arc ecosystem, these are stored in the arc-site-service.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "section"
+          ]
+        },
+        "_id": {
+          "$ref": "#/definitions/trait_id.json"
+        },
+        "_website": {
+          "$ref": "#/definitions/trait_website.json"
+        },
+        "version": {
+          "$ref": "#/definitions/trait_version.json"
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/trait_additional_properties.json"
+        },
+        "name": {
+          "description": "The name of this site",
+          "type": "string"
+        },
+        "description": {
+          "description": "A short description or tagline about this site",
+          "type": "string"
+        },
+        "path": {
+          "description": "The url path to this site",
+          "type": "string"
+        },
+        "parent_id": {
+          "description": "The id of this section\u0027s parent section in the default hierarchy, if any.",
+          "type": "string"
+        },
+        "parent": {
+          "description": "The id of this section\u0027s parent section in various commonly-used hierarchies, where available.",
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string"
+            }
+          }
+        },
+        "primary": {
+          "description": "Is this the primary site?",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "version",
+        "name"
+      ]
+    },
+    "trait_website.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Website",
+      "description": "The _id of the website on which this document exists. This field is only available in Content API. If different from canonical_website, then this document was originally sourced from the canonical_website. Generated at fetch time by Content API.",
+      "type": "string"
+    },
+    "trait_version.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Describes the ANS version of this object",
+      "description": "The version of ANS that this object was serialized as, in major.minor.patch format.  For top-level content objects, this is a required trait.",
+      "type": "string",
+      "enum": [
+        "0.8.1"
+      ]
+    },
+    "trait_website_url.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Website URL",
+      "description": "The relative URL to this document on the website specified by the `website` field. In a multi-site context, this is the url that is typically queried on when fetching by URL. It may be different than canonical_url. Generated at fetch time by Content API.",
+      "type": "string"
+    }
+  }
+}

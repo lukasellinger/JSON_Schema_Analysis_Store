@@ -1,0 +1,48 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "The Id Schema ",
+            "default": 0,
+            "examples": [
+              18
+            ]
+          },
+          "number": {
+            "type": "string",
+            "title": "The Number Schema ",
+            "default": "",
+            "examples": [
+              "1"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "title": "The Title Schema ",
+            "default": "",
+            "examples": [
+              "End poverty in all its forms everywhere"
+            ]
+          },
+          "cw_title": {
+            "type": "string",
+            "title": "The Cw_title Schema ",
+            "default": "",
+            "examples": [
+              "No poverty"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

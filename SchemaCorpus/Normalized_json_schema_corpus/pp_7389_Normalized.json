@@ -1,0 +1,17 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniPlatform/master/Files/Schema/mongodbDocumentStorage.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "mongodbDocumentStorage",
+  "description": "Настройки хранилища документов MongoDB.",
+  "type": "object",
+  "properties": {
+    "ConnectionString": {
+      "description": "Строка подключения. Подробнее см. https://docs.mongodb.com/manual/reference/connection-string.",
+      "type": "string",
+      "default": "mongodb://localhost:27017"
+    }
+  },
+  "required": [
+    "ConnectionString"
+  ]
+}

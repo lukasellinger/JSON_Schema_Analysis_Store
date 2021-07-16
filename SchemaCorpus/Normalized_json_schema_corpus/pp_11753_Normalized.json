@@ -1,0 +1,15 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "title": "Empty Object",
+        "description": "This accepts anything, as long as it\u0027s valid JSON."
+      }
+    }
+  }
+}

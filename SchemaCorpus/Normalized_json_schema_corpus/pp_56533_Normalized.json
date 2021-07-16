@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Circle",
+  "type": "object",
+  "properties": {
+    "circle": {
+      "$ref": "#/definitions/circle.json"
+    }
+  },
+  "definitions": {
+    "circle.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Circle",
+      "type": "object",
+      "properties": {
+        "circle": {
+          "$ref": "#/definitions/circle.json"
+        }
+      }
+    }
+  }
+}

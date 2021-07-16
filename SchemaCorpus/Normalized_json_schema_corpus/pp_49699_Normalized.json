@@ -1,0 +1,261 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.instagram.api.SearchMediaResponse",
+  "javaInterfaces": [
+    "java.io.Serializable"
+  ],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/..\\pojo\\Media.json"
+      }
+    },
+    "meta": {
+      "javaType": "org.apache.streams.instagram.api.Meta"
+    },
+    "pagination": {
+      "javaType": "org.apache.streams.instagram.api.Pagination"
+    }
+  },
+  "definitions": {
+    "..\\pojo\\Media.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.instagram.pojo.Media",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "properties": {
+        "caption": {
+          "type": "object",
+          "javaType": "org.apache.streams.instagram.pojo.Caption",
+          "properties": {
+            "created_time": {
+              "type": "string"
+            },
+            "from": {
+              "$ref": "#/definitions/..\\pojo\\UserInfo.json"
+            },
+            "id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          }
+        },
+        "comments": {
+          "type": "object",
+          "javaType": "org.apache.streams.instagram.pojo.Comments",
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/..\\pojo\\Comment.json"
+              }
+            }
+          }
+        },
+        "created_time": {
+          "type": "string"
+        },
+        "filter": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "images": {
+          "type": "object",
+          "properties": {
+            "low_resolution": {
+              "description": "this should be org.apache.streams.pojo.json.MediaLink, ../../../../../../../../../../streams-schemas/streams-schema-activitystreams/src/main/jsonschema/media_link.json",
+              "type": "object",
+              "javaType": "org.apache.streams.pojo.json.ImageParent"
+            },
+            "standard_resolution": {
+              "description": "this should be org.apache.streams.pojo.json.MediaLink, ../../../../../../../../../../streams-schemas/streams-schema-activitystreams/src/main/jsonschema/media_link.json",
+              "type": "object",
+              "javaType": "org.apache.streams.pojo.json.ImageParent"
+            },
+            "thumbnail": {
+              "description": "this should be org.apache.streams.pojo.json.MediaLink, ../../../../../../../../../../streams-schemas/streams-schema-activitystreams/src/main/jsonschema/media_link.json",
+              "type": "object",
+              "javaType": "org.apache.streams.pojo.json.ImageParent"
+            }
+          }
+        },
+        "likes": {
+          "type": "object",
+          "javaType": "org.apache.streams.instagram.pojo.LikeCounts",
+          "properties": {
+            "count": {
+              "type": "integer"
+            }
+          }
+        },
+        "link": {
+          "type": "string"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "latitude": {
+              "type": "number"
+            },
+            "longitude": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "image",
+            "video"
+          ]
+        },
+        "user": {
+          "$ref": "#/definitions/..\\pojo\\UserInfo.json"
+        },
+        "videos": {
+          "type": "object",
+          "properties": {
+            "low_resolution": {
+              "description": "this should be org.apache.streams.pojo.json.MediaLink, ../../../../../../../../../../streams-schemas/streams-schema-activitystreams/src/main/jsonschema/media_link.json",
+              "type": "object",
+              "javaType": "org.apache.streams.pojo.json.ImageParent"
+            },
+            "standard_resolution": {
+              "description": "this should be org.apache.streams.pojo.json.MediaLink, ../../../../../../../../../../streams-schemas/streams-schema-activitystreams/src/main/jsonschema/media_link.json",
+              "type": "object",
+              "javaType": "org.apache.streams.pojo.json.ImageParent"
+            },
+            "thumbnail": {
+              "description": "this should be org.apache.streams.pojo.json.MediaLink, ../../../../../../../../../../streams-schemas/streams-schema-activitystreams/src/main/jsonschema/media_link.json",
+              "type": "object",
+              "javaType": "org.apache.streams.pojo.json.ImageParent"
+            }
+          }
+        },
+        "users_in_photo": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "$ref": "#/definitions/..\\pojo\\UserInfo.json"
+              },
+              "position": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "..\\pojo\\UserInfo.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.instagram.pojo.UserInfo",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "profile_picture": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "counts": {
+          "type": "object",
+          "javaType": "org.apache.streams.instagram.pojo.UserInfoCounts",
+          "properties": {
+            "media": {
+              "type": "integer"
+            },
+            "follows": {
+              "type": "integer"
+            },
+            "followed_by": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "..\\pojo\\Comment.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.instagram.pojo.Comment",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_time": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "from": {
+          "$ref": "#/definitions/..\\pojo\\UserInfo.json"
+        }
+      }
+    }
+  }
+}

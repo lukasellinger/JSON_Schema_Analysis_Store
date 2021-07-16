@@ -1,0 +1,82 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/ServerAction.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Действие вызова операции на сервере",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/BaseAction.json"
+    },
+    {
+      "$ref": "#/definitions/BaseFallibleAction.json"
+    }
+  ],
+  "properties": {
+    "Origin": {
+      "description": "Базовая часть url запроса",
+      "type": "string"
+    },
+    "Path": {
+      "description": "Уточняющая часть url запроса",
+      "type": "string"
+    },
+    "Method": {
+      "description": "Метод запроса",
+      "type": "string",
+      "default": "get"
+    },
+    "ContentType": {
+      "description": "Тип данных",
+      "type": "string",
+      "default": "application/x-www-form-urlencoded; charset\u003dutf-8"
+    },
+    "Data": {
+      "description": "Данные запроса",
+      "type": "object"
+    },
+    "Params": {
+      "description": "Параметры запроса",
+      "type": "object"
+    }
+  },
+  "required": [
+    "Path"
+  ],
+  "definitions": {
+    "BaseAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Базовый тип для предопределенных действий",
+      "type": "object",
+      "properties": {
+        "OnExecuted": {
+          "description": "Обработчик события о том, что действие было выполнено",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "CanExecute": {
+          "description": "Проверка условия для выполнения экшена",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\Script\\LinkScript.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Ссылка на прикладной скрипт, выполняемый на стороне клиента",
+      "type": "string"
+    },
+    "BaseFallibleAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действия, которые могут завершиться ошибкой",
+      "type": "object",
+      "properties": {
+        "OnSuccess": {
+          "description": "Обработчик события о том, что действие было выполнено успешно",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnError": {
+          "description": "Обработчик события о том, что действие было выполнено с ошибкой",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    }
+  }
+}

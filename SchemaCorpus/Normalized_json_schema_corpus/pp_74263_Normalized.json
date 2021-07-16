@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\batch.json_definitions_batch"
+    }
+  ],
+  "example": {
+    "origin": {
+      "type": "user"
+    },
+    "jobs": [
+      "5a33fa6652e95c001707489c",
+      "5a33fa6652e95c001707489d",
+      "5a33fa6652e95c001707489e",
+      "5a33fa6652e95c001707489f"
+    ],
+    "created": "2017-12-15T16:37:55.538000+00:00",
+    "modified": "2017-12-15T16:38:01.107000+00:00",
+    "state": "complete",
+    "gear_id": "59b1b5b0e105c40019f50015",
+    "_id": "5a33fa6352e95c001707489b",
+    "config": {}
+  },
+  "definitions": {
+    "..\\definitions\\batch.json_definitions_batch": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_objectid"
+        },
+        "gear_id": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_gear_id"
+        },
+        "state": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_state"
+        },
+        "origin": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_job-origin"
+        },
+        "config": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_config"
+        },
+        "jobs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\definitions\\common.json_definitions_objectid"
+          }
+        },
+        "created": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/..\\definitions\\created-modified.json_definitions_modified"
+        }
+      }
+    },
+    "..\\definitions\\common.json_definitions_objectid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{24}$"
+    },
+    "..\\definitions\\job.json_definitions_gear_id": {
+      "type": "string"
+    },
+    "..\\definitions\\job.json_definitions_state": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "failed",
+        "complete",
+        "cancelled"
+      ]
+    },
+    "..\\definitions\\job.json_definitions_job-origin": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "..\\definitions\\job.json_definitions_config": {
+      "oneOf": [
+        {
+          "enum": [
+            null
+          ]
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "..\\definitions\\created-modified.json_definitions_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "..\\definitions\\created-modified.json_definitions_modified": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

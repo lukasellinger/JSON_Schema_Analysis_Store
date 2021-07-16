@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Tag Collection",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/tag-schema.json"
+  },
+  "definitions": {
+    "tag-schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Tag (Full Representation)",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The tag\u0027s name and also its unique identifier",
+          "type": "string"
+        },
+        "count": {
+          "description": "Number of notes that are associated with this tag",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "count"
+      ]
+    }
+  }
+}

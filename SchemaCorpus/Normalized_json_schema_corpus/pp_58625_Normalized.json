@@ -1,0 +1,193 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "schema validating people and vehicles",
+  "type": "object",
+  "definitions": {
+    "MyDef": {
+      "type": "object",
+      "properties": {
+        "chocolate": {
+          "type": "string"
+        }
+      }
+    },
+    "WithRef": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/MyDef"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "OneOf_TopLevel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "top level oneOf object",
+      "type": "object",
+      "oneOf": [
+        {
+          "properties": {
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "sport": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstName"
+          ]
+        },
+        {
+          "properties": {
+            "vehicle": {
+              "type": "string"
+            },
+            "price": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "OneOf_TopLevel_Array.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "top level oneOf object",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "properties": {
+              "firstName": {
+                "type": "string"
+              },
+              "lastName": {
+                "type": "string"
+              },
+              "sport": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "firstName"
+            ]
+          },
+          {
+            "properties": {
+              "vehicle": {
+                "type": "string"
+              },
+              "price": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "Enum_TopLevel_Array.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "top level oneOf enum array",
+      "type": "array",
+      "definitions": {
+        "MyEnum": {
+          "enum": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      },
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/Enum_TopLevel_Array.json_definitions_MyEnum"
+          },
+          {
+            "enum": [
+              "d",
+              "e"
+            ]
+          }
+        ]
+      }
+    },
+    "Enum_TopLevel_Array.json_definitions_MyEnum": {
+      "enum": [
+        "a",
+        "b",
+        "c"
+      ]
+    }
+  },
+  "properties": {
+    "oneOfRef": {
+      "$ref": "#/definitions/WithRef"
+    },
+    "thing": {
+      "type": "object",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/definitions/MyDef"
+        },
+        {
+          "properties": {
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "sport": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstName"
+          ]
+        },
+        {
+          "properties": {
+            "vehicle": {
+              "type": "string"
+            },
+            "price": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "topLevel": {
+      "$ref": "#/definitions/OneOf_TopLevel.json"
+    },
+    "topLevelArray": {
+      "$ref": "#/definitions/OneOf_TopLevel_Array.json"
+    },
+    "topLevelEnumArray": {
+      "$ref": "#/definitions/Enum_TopLevel_Array.json"
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "thing"
+      ]
+    },
+    {
+      "required": [
+        "thing"
+      ]
+    }
+  ]
+}

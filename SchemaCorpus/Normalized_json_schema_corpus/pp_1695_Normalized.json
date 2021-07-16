@@ -1,0 +1,213 @@
+{
+  "id": "https://schema.management.azure.com/schemas/2017-09-07-privatepreview/Microsoft.Kusto.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Microsoft.Kusto",
+  "description": "Microsoft Kusto Resource Types",
+  "resourceDefinitions": {
+    "clusters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The Cluster name"
+        },
+        "type": {
+          "enum": [
+            "Microsoft.Kusto/clusters"
+          ]
+        },
+        "apiVersion": {
+          "enum": [
+            "2017-09-07-privatepreview"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Cluster\u0027s location"
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Cluster tags"
+        },
+        "sku": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/Sku"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The SKU (pricing tier) of the Kusto cluster."
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/resourceDefinitions_clusters_databases"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "apiVersion",
+        "location",
+        "sku"
+      ],
+      "description": "Microsoft.Kusto/clusters"
+    },
+    "clusters_databases": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The Database name"
+        },
+        "type": {
+          "enum": [
+            "Microsoft.Kusto/clusters/databases"
+          ]
+        },
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2017-09-07-privatepreview"
+          ]
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/DatabaseProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Properties supplied to the Database Create Or Update Kusto operation."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "apiVersion",
+        "properties"
+      ],
+      "description": "Microsoft.Kusto/clusters/databases"
+    }
+  },
+  "definitions": {
+    "Sku": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/AzureSku"
+        },
+        {
+          "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+        }
+      ]
+    },
+    "AzureSku": {
+      "type": "object",
+      "required": [
+        "name",
+        "tier"
+      ],
+      "properties": {
+        "name": {
+          "description": "SKU name. Possible values include: \u0027KC8\u0027, \u0027KC16\u0027, \u0027KS8\u0027, \u0027KS16\u0027",
+          "type": "string",
+          "enum": [
+            "KC8",
+            "KC16",
+            "KS8",
+            "KS16"
+          ],
+          "x-ms-enum": {
+            "name": "AzureSkuName",
+            "modelAsString": true
+          }
+        },
+        "tier": {
+          "description": "SKU tier",
+          "type": "string",
+          "enum": [
+            "Standard"
+          ],
+          "x-ms-enum": {
+            "name": "AzureSkuTier",
+            "modelAsString": true
+          }
+        }
+      }
+    },
+    "DatabaseProperties": {
+      "properties": {
+        "softDeletePeriodInDays": {
+          "type": "integer",
+          "description": "The number of days data should be kept before it stops being accessible to queries."
+        }
+      },
+      "required": [
+        "softDeletePeriodInDays"
+      ],
+      "description": "Class representing the Kusto database properties."
+    },
+    "..\\common\\definitions.json_definitions_expression": {
+      "type": "string",
+      "pattern": "^\\[([^\\[].*)?\\]$",
+      "description": "Deployment template expression. See https://aka.ms/arm-template-expressions for more details on the ARM expression syntax."
+    },
+    "resourceDefinitions_clusters_databases": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The Database name"
+        },
+        "type": {
+          "enum": [
+            "Microsoft.Kusto/clusters/databases"
+          ]
+        },
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2017-09-07-privatepreview"
+          ]
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/DatabaseProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Properties supplied to the Database Create Or Update Kusto operation."
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "apiVersion",
+        "properties"
+      ],
+      "description": "Microsoft.Kusto/clusters/databases"
+    }
+  }
+}

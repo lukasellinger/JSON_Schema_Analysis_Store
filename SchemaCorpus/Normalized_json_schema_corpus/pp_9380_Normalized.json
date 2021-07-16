@@ -1,0 +1,13 @@
+{
+  "name": "{%\u003d title %}",
+  "description": "{%\u003d description %}",
+  "integration": {
+    "technology": "{%\u003d laxar_integration_technology %}",
+    "type": "activity"
+  },
+  "features": {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {}
+  }
+}

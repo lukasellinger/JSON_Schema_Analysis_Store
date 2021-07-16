@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "$ref": "#/definitions/common.json_cell"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "location": {
+        "$ref": "#/definitions/common.json_location"
+      },
+      "treadmill_root": {
+        "type": "string"
+      },
+      "treadmillid": {
+        "$ref": "#/definitions/common.json_proid"
+      },
+      "version": {
+        "type": "string"
+      },
+      "zk_auth_scheme": {
+        "type": "string"
+      }
+    }
+  },
+  "verbs": {
+    "create": {
+      "required": [
+        "treadmillid",
+        "version",
+        "location"
+      ]
+    },
+    "update": {
+      "required": []
+    }
+  },
+  "definitions": {
+    "common.json_cell": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[a-zA-Z0-9-]+$"
+    },
+    "common.json_location": {
+      "type": "string",
+      "pattern": "^[a-zA-Z]+$"
+    },
+    "common.json_proid": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 20,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    }
+  }
+}

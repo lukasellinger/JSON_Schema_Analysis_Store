@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Guice injector graph.",
+  "type": "object",
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/injector-node.json"
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/injector-edge.json"
+      }
+    }
+  },
+  "definitions": {
+    "injector-node.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Nodes in a Guice injector graph.",
+      "javaType": "com.xiantrimble.guice.jsongrapher.InjectorNode",
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "implementation",
+            "interface"
+          ]
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "className": {
+          "type": "string"
+        },
+        "annotationName": {
+          "type": "string"
+        },
+        "instanceName": {
+          "type": "string"
+        },
+        "sourceName": {
+          "type": "string"
+        }
+      }
+    },
+    "injector-edge.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Edges in a Guice injector graph.",
+      "type": "object",
+      "required": [
+        "fromId",
+        "toId",
+        "type"
+      ],
+      "properties": {
+        "fromId": {
+          "type": "string"
+        },
+        "toId": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "binding",
+            "dependency"
+          ]
+        },
+        "bindingType": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

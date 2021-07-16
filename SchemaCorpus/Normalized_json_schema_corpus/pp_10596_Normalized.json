@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "$ref": "#/definitions/common.json_app_id"
+  },
+  "pause": {
+    "type": "boolean"
+  },
+  "resume": {
+    "type": "boolean"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "resource": {
+        "$ref": "#/definitions/common.json_app_id"
+      },
+      "event": {
+        "enum": [
+          "app:start",
+          "app:stop",
+          "monitor:set-count"
+        ]
+      },
+      "expression": {
+        "type": "string",
+        "pattern": "^[\\w\\s\\-\\*\\/,]+$"
+      },
+      "count": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1000
+      }
+    }
+  },
+  "verbs": {
+    "create": {
+      "required": [
+        "event",
+        "resource",
+        "expression"
+      ]
+    },
+    "update": {
+      "required": []
+    }
+  },
+  "definitions": {
+    "common.json_app_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 117,
+          "pattern": "^[a-zA-Z0-9_-]{2,20}([.][\\w-]+)+$"
+        },
+        {
+          "type": "string",
+          "maxLength": 117,
+          "pattern": "^[a-zA-Z0-9_-]{2,20}@[\\w-]+([.][\\w-]+)+$"
+        }
+      ]
+    }
+  }
+}

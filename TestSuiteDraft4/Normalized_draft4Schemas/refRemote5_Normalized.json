@@ -1,0 +1,30 @@
+{
+  "id": "http://localhost:1234/scope_change_defs2.json",
+  "type": "object",
+  "definitions": {
+    "baz": {
+      "definitions": {
+        "bar": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/baseUriChangeFolderInSubschema_folderInteger.json"
+          }
+        }
+      }
+    },
+    "baseUriChangeFolderInSubschema_folderInteger.json": {
+      "type": "integer"
+    },
+    "definitions_baz_definitions_bar": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/baseUriChangeFolderInSubschema_folderInteger.json"
+      }
+    }
+  },
+  "properties": {
+    "list": {
+      "$ref": "#/definitions/definitions_baz_definitions_bar"
+    }
+  }
+}

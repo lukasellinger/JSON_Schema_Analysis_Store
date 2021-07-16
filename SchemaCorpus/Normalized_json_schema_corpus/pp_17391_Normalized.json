@@ -1,0 +1,227 @@
+{
+  "$id": "https://ggt.gaa.st/schema",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "properties": {
+    "version": {
+      "type": "integer",
+      "title": "File version number",
+      "description": "Should be the highest version number mentioned below in the file (I want to deprecate this field)",
+      "default": 0,
+      "examples": [
+        2018020100
+      ],
+      "minimum": 2008010100,
+      "maximum": 2022123199
+    },
+    "schedules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "title": "Version number of this entry",
+            "description": "Formatted like an old fashioned DNS SOA version number",
+            "default": 0,
+            "examples": [
+              2016072901
+            ],
+            "minimum": 2008010100,
+            "maximum": 2022123199
+          },
+          "url": {
+            "type": "string",
+            "title": "Schedule URL",
+            "description": "Points at the Pentabarf/etc file containing the event\u0027s full schedule",
+            "pattern": "^https?://.*",
+            "examples": [
+              "https://moca.olografix.org/moca2016.ics"
+            ]
+          },
+          "refresh_interval": {
+            "type": "integer",
+            "title": "Schedule file maximum cache lifetime (seconds)",
+            "description": "Overrides expiry data from server since it\u0027s barely ever set correctly",
+            "default": 86400,
+            "examples": [
+              86400
+            ],
+            "minimum": 300,
+            "maximum": 604800
+          },
+          "title": {
+            "type": "string",
+            "title": "Event title",
+            "description": "Must match title in the schedule file",
+            "default": "",
+            "examples": [
+              "MOCA 2016"
+            ]
+          },
+          "start": {
+            "type": "string",
+            "title": "First day of event",
+            "minLength": 10,
+            "maxLength": 10,
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "examples": [
+              "2016-08-19"
+            ]
+          },
+          "end": {
+            "type": "string",
+            "title": "Last day of event",
+            "minLength": 10,
+            "maxLength": 10,
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "description": "",
+            "default": "",
+            "examples": [
+              "2016-08-21"
+            ]
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "title": "URL to extra event info (website or file)",
+                      "pattern": "^(geo:|https?://).*",
+                      "examples": [
+                        "https://moca.olografix.org"
+                      ]
+                    },
+                    "title": {
+                      "type": "string",
+                      "title": "The Title Schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": "",
+                      "examples": [
+                        "Website"
+                      ]
+                    },
+                    "type": {
+                      "type": "string",
+                      "title": "MIME-type",
+                      "description": "Type of URL. If specified, will be downloaded and opened using an offline viewer instead of browser",
+                      "default": "",
+                      "examples": [
+                        "application/pdf",
+                        "image/png"
+                      ]
+                    }
+                  }
+                }
+              },
+              "icon": {
+                "type": "string",
+                "title": "Logo of the event",
+                "description": "Must be square and have an alpha layer. Will be used for the home shortcut among other things.",
+                "default": "",
+                "examples": [
+                  "https://moca.olografix.org/moca2016.png"
+                ]
+              },
+              "c3nav_base": {
+                "type": "string",
+                "title": "c3nav base URL",
+                "description": "For events using c3nav, specify its base URL here (without terminating /). Required if using c3nav_slug in the rooms list below.",
+                "default": "",
+                "examples": [
+                  "https://nav.fosdem.org"
+                ]
+              },
+              "rooms": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "Regex fully matching a room name",
+                      "description": "Using regexes (matching in full, no ^$ required) so multiple adjacent/same-building rooms can share an entry.",
+                      "default": "",
+                      "examples": [
+                        "K\\\\..*"
+                      ]
+                    },
+                    "show_name": {
+                      "type": "string",
+                      "title": "Name of room block/buildings to show instead of regex (used with latlon, not c3nav)",
+                      "default": "",
+                      "examples": [
+                        "K building"
+                      ]
+                    },
+                    "latlon": {
+                      "type": "array",
+                      "maxItems": 2,
+                      "minItems": 2,
+                      "items": [
+                        {
+                          "type": "number",
+                          "title": "Latitude",
+                          "examples": [
+                            42.45397186279297
+                          ]
+                        },
+                        {
+                          "type": "number",
+                          "title": "Longitude",
+                          "examples": [
+                            14.222503662109375
+                          ]
+                        }
+                      ]
+                    },
+                    "c3nav_slug": {
+                      "type": "string",
+                      "title": "c3nav slug/id for this location",
+                      "default": "",
+                      "examples": [
+                        "j-main"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "anyOf": [
+                    {
+                      "required": [
+                        "latlon"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "c3nav_slug"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "version",
+          "url",
+          "title",
+          "start",
+          "end"
+        ]
+      }
+    }
+  },
+  "required": [
+    "version",
+    "schedules"
+  ]
+}

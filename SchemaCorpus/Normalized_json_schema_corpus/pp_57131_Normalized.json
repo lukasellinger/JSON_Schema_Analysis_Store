@@ -1,0 +1,22 @@
+{
+  "description": "Open Container Runtime Socket Terminal Request Schema",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://opencontainers.org/schema/runtime/socket/terminal-request",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "terminal"
+      ]
+    },
+    "container": {
+      "description": "the container\u0027s ID",
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "container"
+  ]
+}

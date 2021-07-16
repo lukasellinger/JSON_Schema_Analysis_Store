@@ -1,0 +1,473 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "https://fiware.github.io/data-models/specs/Transportation/Vehicle/VehicleModel/schema.json",
+  "title": "FIWARE - Vehicle / Vehicle Model",
+  "description": "This entity models a particular vehicle model, including all properties which are common to multiple vehicle instances belonging to such model.",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\..\\..\\..\\common-schema.json_definitions_GSMA-Commons"
+    },
+    {
+      "$ref": "#/definitions/..\\..\\..\\..\\common-schema.json_definitions_Location-Commons"
+    },
+    {
+      "$ref": "#/definitions/..\\..\\..\\..\\common-schema.json_definitions_PhysicalObject-Commons"
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "VehicleModel"
+          ],
+          "description": "NGSI Entity type"
+        },
+        "vehicleType": {
+          "type": "string",
+          "enum": [
+            "agriculturalVehicle",
+            "bicycle",
+            "bus",
+            "minibus",
+            "car",
+            "tram",
+            "tanker",
+            "carWithCaravan",
+            "carWithTrailer",
+            "lorry",
+            "moped",
+            "motorcycle",
+            "motorcycleWithSideCar",
+            "motorscooter",
+            "trailer",
+            "van",
+            "caravan",
+            "constructionOrMaintenanceVehicle",
+            "trolley",
+            "binTrolley",
+            "sweepingMachine",
+            "cleaningTrolley"
+          ]
+        },
+        "brandName": {
+          "type": "string"
+        },
+        "modelName": {
+          "type": "string"
+        },
+        "manufacturerName": {
+          "type": "string"
+        },
+        "vehicleModelDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "cargoVolume": {
+          "type": "number",
+          "minimum": 0
+        },
+        "fuelType": {
+          "type": "string",
+          "enum": [
+            "gasoline",
+            "petrol(unleaded)",
+            "petrol(leaded)",
+            "petrol",
+            "diesel",
+            "electric",
+            "hydrogen",
+            "lpg",
+            "autogas",
+            "cng",
+            "biodiesel ethanol",
+            "hybrid electric/petrol",
+            "hybrid electric/diesel",
+            "other"
+          ]
+        },
+        "fuelConsumption": {
+          "type": "number",
+          "minimum": 0
+        },
+        "height": {
+          "type": "number",
+          "minimum": 0
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0
+        },
+        "depth": {
+          "type": "number",
+          "minimum": 0
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0
+        },
+        "vehicleEngine": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        }
+      }
+    }
+  ],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "vehicleType",
+    "brandName",
+    "modelName",
+    "manufacturerName"
+  ],
+  "definitions": {
+    "..\\..\\..\\..\\common-schema.json_definitions_GSMA-Commons": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/..\\..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+        },
+        "dateCreated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "alternateName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "dataProvider": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\..\\..\\..\\common-schema.json_definitions_EntityIdentifierType"
+          }
+        },
+        "seeAlso": {
+          "oneOf": [
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": [
+                {
+                  "type": "string",
+                  "format": "uri"
+                }
+              ]
+            },
+            {
+              "type": "string",
+              "format": "uri"
+            }
+          ]
+        }
+      }
+    },
+    "..\\..\\..\\..\\common-schema.json_definitions_EntityIdentifierType": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[\\w\\-\\.\\{\\}\\$\\+\\*\\[\\]`|~^@!,:\\\\]+$"
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    },
+    "..\\..\\..\\..\\common-schema.json_definitions_Location-Commons": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/definitions/https:__geojson.org_schema_Geometry.json"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "streetAddress": {
+              "type": "string"
+            },
+            "addressLocality": {
+              "type": "string"
+            },
+            "addressRegion": {
+              "type": "string"
+            },
+            "addressCountry": {
+              "type": "string"
+            },
+            "postalCode": {
+              "type": "string"
+            },
+            "postOfficeBoxNumber": {
+              "type": "string"
+            },
+            "areaServed": {
+              "type": "string"
+            }
+          }
+        },
+        "areaServed": {
+          "type": "string"
+        }
+      }
+    },
+    "https:__geojson.org_schema_Geometry.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GeoJSON Geometry",
+      "oneOf": [
+        {
+          "title": "GeoJSON Point",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "number"
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON LineString",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "LineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON Polygon",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 4,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiPoint",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiLineString",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "title": "GeoJSON MultiPolygon",
+          "type": "object",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "minItems": 4,
+                  "items": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            },
+            "bbox": {
+              "type": "array",
+              "minItems": 4,
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "..\\..\\..\\..\\common-schema.json_definitions_PhysicalObject-Commons": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

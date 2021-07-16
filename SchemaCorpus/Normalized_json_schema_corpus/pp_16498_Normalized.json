@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "filter.atrim",
+  "name": "atrim",
+  "defaults": {},
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "start",
+          "control": {
+            "type": "float",
+            "minimum": 0,
+            "singleStep": 1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "end",
+          "control": {
+            "type": "float",
+            "minimum": 0,
+            "singleStep": 1,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "start_sample",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "singleStep": 256,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "end_sample",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "singleStep": 256,
+            "value": 0
+          }
+        }
+      ]
+    }
+  ]
+}

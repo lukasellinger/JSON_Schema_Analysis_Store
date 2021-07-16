@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/images/create/response",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "progress": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "progressDetail": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "error": {
+      "type": "string"
+    }
+  }
+}

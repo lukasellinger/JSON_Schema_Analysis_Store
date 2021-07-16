@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\version.json_definitions_version-output",
+  "definitions": {
+    "..\\definitions\\version.json_definitions_version-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "database": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "_id",
+        "database"
+      ]
+    }
+  }
+}

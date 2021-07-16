@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "type": [
+    "object"
+  ],
+  "definitions": {
+    "medication_verification": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Medication Verification Resource",
+      "definitions": {
+        "response": {
+          "type": [
+            "object"
+          ],
+          "required": [
+            "medication_verification"
+          ],
+          "properties": {
+            "medication_verification": {
+              "$ref": "#/definitions/medication_verification",
+              "required": [
+                "patient_guid",
+                "verified_by_uid",
+                "verified_by_name",
+                "verified_at"
+              ]
+            }
+          }
+        }
+      },
+      "description": "API for knowing whether a patient\u0027s medication has been verified",
+      "type": [
+        "object"
+      ],
+      "links": [
+        {
+          "description": "Retrieve current medication verification",
+          "href": "/medication_verification",
+          "method": "GET",
+          "rel": "self",
+          "title": "Show",
+          "targetSchema": {
+            "$ref": "#/definitions/definitions_medication_verification_definitions_response"
+          }
+        },
+        {
+          "description": "Create a new medication verification",
+          "href": "/medication_verification",
+          "method": "POST",
+          "rel": "create",
+          "title": "Create",
+          "targetSchema": {
+            "$ref": "#/definitions/definitions_medication_verification_definitions_response"
+          }
+        }
+      ],
+      "properties": {
+        "patient_guid": {
+          "description": "The patient\u0027s GUID",
+          "example": "7b678e3a85316ac3b16e4be3ffd33011",
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "verified_by_uid": {
+          "description": "The UID of the practice user who validated the patient\u0027s medications",
+          "example": "7b678e3a85316ac3b16e4be3ffd33011",
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "verified_by_name": {
+          "description": "The name of the practice user who validated the patient\u0027s medications",
+          "example": "Fred Jones",
+          "type": [
+            "string"
+          ]
+        },
+        "verified_at": {
+          "description": "When the practice user valided the patient\u0027s medications",
+          "type": [
+            "string"
+          ],
+          "format": "date",
+          "example": "2015-11-24T10:11:12Z"
+        }
+      }
+    },
+    "definitions_medication_verification_definitions_response": {
+      "type": [
+        "object"
+      ],
+      "required": [
+        "medication_verification"
+      ],
+      "properties": {
+        "medication_verification": {
+          "$ref": "#/definitions/medication_verification",
+          "required": [
+            "patient_guid",
+            "verified_by_uid",
+            "verified_by_name",
+            "verified_at"
+          ]
+        }
+      }
+    }
+  },
+  "properties": {
+    "medication_verification": {
+      "$ref": "#/definitions/medication_verification"
+    }
+  },
+  "title": "Medication Verification API v3",
+  "description": "Medication Verification API v3",
+  "id": "medication-verification-v3",
+  "links": [
+    {
+      "href": "https://production.icisapp.com/api/v3",
+      "rel": "self"
+    }
+  ]
+}

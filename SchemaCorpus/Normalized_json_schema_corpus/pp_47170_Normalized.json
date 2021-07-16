@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "id": "https://raw.githubusercontent.com/evoldoers/machineboss/master/schema/seqpairlist.json",
+  "description": "MachineBoss sequence-pair list schema",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/seqpair.json"
+  },
+  "definitions": {
+    "seqpair.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "description": "MachineBoss sequence-pair schema",
+      "type": "object",
+      "oneOf": [
+        {
+          "required": [
+            "input",
+            "output"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "input": {
+              "$ref": "#/definitions/namedsequence.json"
+            },
+            "output": {
+              "$ref": "#/definitions/namedsequence.json"
+            },
+            "meta": {}
+          }
+        },
+        {
+          "required": [
+            "alignment"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "input": {
+              "$ref": "#/definitions/seqpair.json_definitions_nameWithOptionalSequence"
+            },
+            "output": {
+              "$ref": "#/definitions/seqpair.json_definitions_nameWithOptionalSequence"
+            },
+            "alignment": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "meta": {}
+            }
+          }
+        }
+      ],
+      "definitions": {
+        "nameWithOptionalSequence": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "sequence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "namedsequence.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "description": "MachineBoss named sequence schema",
+      "type": "object",
+      "required": [
+        "sequence"
+      ],
+      "properties": {
+        "sequence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "seqpair.json_definitions_nameWithOptionalSequence": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

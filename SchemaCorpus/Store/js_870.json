@@ -1,0 +1,37 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/TreeView/TreeView.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Иерархический список",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/ListEditorBase/ListEditorBase.json"
+    }
+  ],
+  "properties": {
+    "KeySelector": {
+      "description": "Функция выборки из элемента коллекции идентификатора",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "KeyProperty": {
+      "description": "Свойство элемента коллекции с идентификатором",
+      "type": "string"
+    },
+    "ParentSelector": {
+      "description": "Функция выборки из элемента коллекции идентификатора родителя",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "ParentProperty": {
+      "description": "Свойство элемента коллекции с идентификатором родителя",
+      "type": "string"
+    },
+    "OnExpand": {
+      "description": "Обработчик события при раскрытии какого-либо элемента",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "OnCollapse": {
+      "description": "Обработчик события при закрытии какого-либо элемента",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    }
+  }
+}

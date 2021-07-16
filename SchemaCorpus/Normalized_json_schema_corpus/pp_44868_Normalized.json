@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "prop1": {
+      "enum": [
+        "ændring",
+        "test"
+      ],
+      "type": "string"
+    },
+    "prop2": {
+      "$ref": "#/definitions/refSchema.json"
+    }
+  },
+  "definitions": {
+    "refSchema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "prop3": {
+          "enum": [
+            "ændring",
+            "test"
+          ],
+          "type": "string"
+        }
+      }
+    }
+  }
+}

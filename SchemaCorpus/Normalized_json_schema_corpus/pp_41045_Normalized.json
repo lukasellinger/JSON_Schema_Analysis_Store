@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "name": {
+      "title": "Name of the library",
+      "type": "string"
+    },
+    "version": {
+      "description": "version of the library",
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "homepage": {
+      "title": "Homepage the library",
+      "description": "The homepage contains additional documentation useful for the use of the library",
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "anyNumber": {
+      "type": "number"
+    },
+    "anyBoolean": {
+      "type": "boolean"
+    },
+    "anyInteger": {
+      "type": "integer"
+    },
+    "main": {
+      "type": "string"
+    },
+    "keywords": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "contributors": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "scripts": {
+      "type": "object",
+      "properties": {
+        "test": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "name",
+    "version",
+    "description",
+    "homepage",
+    "icon",
+    "license",
+    "main",
+    "keywords",
+    "author",
+    "contributors",
+    "repository",
+    "scripts"
+  ]
+}

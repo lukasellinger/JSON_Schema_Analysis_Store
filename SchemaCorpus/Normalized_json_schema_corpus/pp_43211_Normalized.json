@@ -1,0 +1,156 @@
+{
+  "definitions": {
+    "Season": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "playlists": {
+          "$ref": "#/definitions/playlists.schema.json"
+        },
+        "iconUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "endDate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "contentId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "playlists",
+        "iconUrl",
+        "name",
+        "startDate",
+        "endDate",
+        "isActive",
+        "id",
+        "contentId"
+      ]
+    },
+    "playlists.schema.json": {
+      "definitions": {
+        "Playlist": {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "isRanked": {
+              "type": "boolean"
+            },
+            "imageUrl": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "gameMode": {
+              "type": "string"
+            },
+            "isActive": {
+              "type": "boolean"
+            },
+            "id": {
+              "type": "string"
+            },
+            "contentId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "description",
+            "isRanked",
+            "imageUrl",
+            "gameMode",
+            "isActive",
+            "id",
+            "contentId"
+          ]
+        }
+      },
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/playlists.schema.json_definitions_Playlist"
+      }
+    },
+    "playlists.schema.json_definitions_Playlist": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "isRanked": {
+          "type": "boolean"
+        },
+        "imageUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gameMode": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "contentId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "description",
+        "isRanked",
+        "imageUrl",
+        "gameMode",
+        "isActive",
+        "id",
+        "contentId"
+      ]
+    }
+  },
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Season"
+  }
+}

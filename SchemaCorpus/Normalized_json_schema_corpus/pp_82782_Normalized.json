@@ -1,0 +1,591 @@
+{
+  "id": "http://schemas.triniti.io/json-schema/triniti/curator/mixin/render-promotion-request/1-0-0.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+      "pbj": {
+        "type": "uuid",
+        "rule": "single"
+      }
+    },
+    "occurred_at": {
+      "type": "string",
+      "pattern": "^[1-9]{1}[0-9]{12,15}$",
+      "pbj": {
+        "type": "microtime",
+        "rule": "single"
+      }
+    },
+    "ctx_retries": {
+      "type": "integer",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 255,
+      "description": "The \"ctx_retries\" field is used to keep track of how many attempts were made to handle this request. In some cases, the service or transport that handles the request may be down or over capacity and is being retried.",
+      "pbj": {
+        "type": "tiny-int",
+        "rule": "single"
+      }
+    },
+    "ctx_causator_ref": {
+      "type": "object",
+      "properties": {
+        "curie": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+)$",
+          "minLength": 0,
+          "maxLength": 146
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9:_\\-]+$",
+          "minLength": 0,
+          "maxLength": 255
+        },
+        "tag": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "curie",
+        "id"
+      ],
+      "additionalProperties": false,
+      "pbj": {
+        "type": "message-ref",
+        "rule": "single"
+      }
+    },
+    "ctx_correlator_ref": {
+      "type": "object",
+      "properties": {
+        "curie": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+)$",
+          "minLength": 0,
+          "maxLength": 146
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9:_\\-]+$",
+          "minLength": 0,
+          "maxLength": 255
+        },
+        "tag": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "curie",
+        "id"
+      ],
+      "additionalProperties": false,
+      "pbj": {
+        "type": "message-ref",
+        "rule": "single"
+      }
+    },
+    "ctx_user_ref": {
+      "type": "object",
+      "properties": {
+        "curie": {
+          "type": "string",
+          "pattern": "^([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+)$",
+          "minLength": 0,
+          "maxLength": 146
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9:_\\-]+$",
+          "minLength": 0,
+          "maxLength": 255
+        },
+        "tag": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "curie",
+        "id"
+      ],
+      "additionalProperties": false,
+      "pbj": {
+        "type": "message-ref",
+        "rule": "single"
+      }
+    },
+    "ctx_app": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/app"
+        }
+      ],
+      "description": "The \"ctx_app\" refers to the application used to make the request. This is different from ctx_ua (user_agent) because the agent used (Safari, Firefox) is not necessarily the app used (cms, iOS app, website)",
+      "pbj": {
+        "type": "message",
+        "rule": "single"
+      }
+    },
+    "ctx_cloud": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/cloud"
+        }
+      ],
+      "description": "The \"ctx_cloud\" is set by the server making the request and is generally only used internally for tracking and performance monitoring.",
+      "pbj": {
+        "type": "message",
+        "rule": "single"
+      }
+    },
+    "ctx_ip": {
+      "type": "string",
+      "format": "ipv4",
+      "pbj": {
+        "type": "string",
+        "rule": "single",
+        "format": "ipv4",
+        "overridable": true
+      }
+    },
+    "ctx_ipv6": {
+      "type": "string",
+      "format": "ipv6",
+      "pbj": {
+        "type": "string",
+        "rule": "single",
+        "format": "ipv6",
+        "overridable": true
+      }
+    },
+    "ctx_ua": {
+      "type": "string",
+      "minLength": 0,
+      "maxLength": 65535,
+      "pbj": {
+        "type": "text",
+        "rule": "single",
+        "overridable": true
+      }
+    },
+    "derefs": {
+      "type": "array",
+      "items": [
+        {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$"
+        }
+      ],
+      "uniqueItems": true,
+      "additionalProperties": false,
+      "description": "Field names to dereference, this serves as a hint to the server and is not necessarily gauranteed since authorization, availability, etc. are determined by the server not the client.",
+      "pbj": {
+        "type": "string",
+        "rule": "set"
+      }
+    },
+    "promotion_ref": {
+      "type": "string",
+      "pattern": "^[\\w\\/\\.:-]+$",
+      "pbj": {
+        "type": "identifier",
+        "rule": "single"
+      }
+    },
+    "slot": {
+      "type": "string",
+      "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+      "minLength": 0,
+      "maxLength": 255,
+      "description": "The name of the slot to use for finding the promotion to render. If promotion_ref is supplied this should be ignored.",
+      "pbj": {
+        "type": "string",
+        "rule": "single",
+        "format": "slug"
+      }
+    },
+    "render_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Used to preview a time other than now of what a promotion slot will render. This is primarily for CMS preview or unit testing.",
+      "pbj": {
+        "type": "date-time",
+        "rule": "single"
+      }
+    },
+    "context": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/render-context"
+        }
+      ],
+      "pbj": {
+        "type": "message",
+        "rule": "single"
+      }
+    }
+  },
+  "required": [
+    "request_id"
+  ],
+  "definitions": {
+    "app": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/..\\..\\..\\..\\gdbots\\contexts\\app\\1-0-0.json"
+        }
+      ]
+    },
+    "cloud": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/..\\..\\..\\..\\gdbots\\contexts\\cloud\\1-0-0.json"
+        }
+      ]
+    },
+    "render-context": {
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/..\\..\\..\\common\\render-context\\1-0-0.json"
+        },
+        {
+          "$ref": "#/definitions/..\\..\\..\\common\\render-context\\1-0-1.json"
+        }
+      ]
+    },
+    "..\\..\\..\\..\\gdbots\\contexts\\app\\1-0-0.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "_schema": {
+          "type": "string",
+          "pattern": "^pbj:([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+):([0-9]+-[0-9]+-[0-9]+)$",
+          "default": "pbj:gdbots:contexts::app:1-0-0"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        },
+        "vendor": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$"
+        },
+        "build": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$"
+        },
+        "variant": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$"
+        }
+      },
+      "required": [
+        "_schema"
+      ],
+      "additionalProperties": false
+    },
+    "..\\..\\..\\..\\gdbots\\contexts\\cloud\\1-0-0.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "_schema": {
+          "type": "string",
+          "pattern": "^pbj:([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+):([0-9]+-[0-9]+-[0-9]+)$",
+          "default": "pbj:gdbots:contexts::cloud:1-0-0"
+        },
+        "provider": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 20
+        },
+        "region": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 20
+        },
+        "zone": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 20
+        },
+        "instance_id": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$"
+        },
+        "instance_type": {
+          "type": "string",
+          "pattern": "^[\\w\\.-]+$"
+        }
+      },
+      "required": [
+        "_schema"
+      ],
+      "additionalProperties": false
+    },
+    "..\\..\\..\\common\\render-context\\1-0-0.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "_schema": {
+          "type": "string",
+          "pattern": "^pbj:([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+):([0-9]+-[0-9]+-[0-9]+)$",
+          "default": "pbj:triniti:common::render-context:1-0-0"
+        },
+        "cache_enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "cache_expiry": {
+          "type": "integer",
+          "default": 300,
+          "minimum": 0,
+          "maximum": 16777215,
+          "description": "Number of seconds the rendered output can be cached, if the cache_enabled field is true. Zero means cache indefinitely."
+        },
+        "container": {
+          "type": "object",
+          "description": "A message (e.g. article) where the rendering is taking place. This is used by some renderers when it needs data from the container or to generate urls."
+        },
+        "platform": {
+          "type": "string",
+          "default": "web",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255,
+          "description": "The platform the rendering is happening in, e.g. web, amp, apple-news, facebook-instant-articles."
+        },
+        "device_view": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255
+        },
+        "viewer_country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "promotion_slot": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255,
+          "description": "The promotion_slot the rendering is happening in, e.g. desktop-home-sidebar or smartphone-global-html-head."
+        },
+        "section": {
+          "type": "string",
+          "pattern": "^[\\w-]+$",
+          "description": "Refers to the location on the screen or application that the rendering is happening in, e.g. \"article-detail\", \"blogroll\", \"modal\", \"jumbotron\". Renderers can use this to customize the output."
+        },
+        "booleans": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_]{1}[\\w\\.:-]+$": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "floats": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_]{1}[\\w\\.:-]+$": {
+              "type": "number",
+              "default": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "ints": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_]{1}[\\w\\.:-]+$": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "maximum": 4294967295
+            }
+          },
+          "additionalProperties": false
+        },
+        "strings": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_]{1}[\\w\\.:-]+$": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255
+            }
+          },
+          "additionalProperties": false
+        },
+        "trinaries": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_]{1}[\\w\\.:-]+$": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "maximum": 2
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "_schema"
+      ],
+      "additionalProperties": false
+    },
+    "..\\..\\..\\common\\render-context\\1-0-1.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "_schema": {
+          "type": "string",
+          "pattern": "^pbj:([a-z0-9-]+):([a-z0-9\\.-]+):([a-z0-9-]+)?:([a-z0-9-]+):([0-9]+-[0-9]+-[0-9]+)$",
+          "default": "pbj:triniti:common::render-context:1-0-1"
+        },
+        "cache_enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "cache_expiry": {
+          "type": "integer",
+          "default": 300,
+          "minimum": 0,
+          "maximum": 16777215,
+          "description": "Number of seconds the rendered output can be cached, if the cache_enabled field is true. Zero means cache indefinitely."
+        },
+        "container": {
+          "type": "object",
+          "description": "A message (e.g. article) where the rendering is taking place. This is used by some renderers when it needs data from the container or to generate urls."
+        },
+        "platform": {
+          "type": "string",
+          "default": "web",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255,
+          "description": "The platform the rendering is happening in, e.g. web, amp, apple-news, facebook-instant-articles."
+        },
+        "device_view": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255
+        },
+        "viewer_country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "promotion_slot": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255,
+          "description": "The promotion_slot the rendering is happening in, e.g. desktop-home-sidebar or smartphone-global-html-head."
+        },
+        "section": {
+          "type": "string",
+          "pattern": "^[\\w-]+$",
+          "description": "Refers to the location on the screen or application that the rendering is happening in, e.g. \"article-detail\", \"blogroll\", \"modal\", \"jumbotron\". Renderers can use this to customize the output."
+        },
+        "format": {
+          "type": "string",
+          "pattern": "^([\\w\\/-]|[\\w-][\\w\\/-]*[\\w-])$",
+          "minLength": 0,
+          "maxLength": 255,
+          "description": "The format to be used for rendering, e.g. \"html\" or \"json\"."
+        },
+        "booleans": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_]{1}[\\w\\.:-]+$": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "floats": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_]{1}[\\w\\.:-]+$": {
+              "type": "number",
+              "default": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "ints": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_]{1}[\\w\\.:-]+$": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "maximum": 4294967295
+            }
+          },
+          "additionalProperties": false
+        },
+        "strings": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_]{1}[\\w\\.:-]+$": {
+              "type": "string",
+              "minLength": 0,
+              "maxLength": 255
+            }
+          },
+          "additionalProperties": false
+        },
+        "trinaries": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z_]{1}[\\w\\.:-]+$": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "maximum": 2
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "_schema"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

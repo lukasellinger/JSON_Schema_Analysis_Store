@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "tool",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/describable.json"
+    }
+  ],
+  "definitions": {
+    "describable.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "describable",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "A title for this construct"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description for this construct"
+        }
+      },
+      "required": [
+        "title"
+      ]
+    }
+  }
+}

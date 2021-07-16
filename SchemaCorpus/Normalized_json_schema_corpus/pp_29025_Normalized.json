@@ -1,0 +1,1646 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Inventory Manager GET Response Schema",
+  "description": "The shape of a successful response to a GET request for a single metadata record.",
+  "type": "object",
+  "properties": {
+    "input": {
+      "$ref": "#/definitions/input-schema.json"
+    },
+    "discovery": {
+      "$ref": "#/definitions/discovery-schema.json"
+    },
+    "analysis": {
+      "$ref": "#/definitions/analysis-schema.json"
+    },
+    "identifiers": {
+      "$ref": "#/definitions/identifiers-schema.json"
+    },
+    "publishing": {
+      "$ref": "#/definitions/publishing-schema.json"
+    }
+  },
+  "required": [
+    "input",
+    "discovery",
+    "analysis",
+    "identifiers",
+    "publishing"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "input-schema.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "",
+      "description": " ",
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "contentType": {
+          "enum": [
+            "application/xml",
+            "application/json"
+          ]
+        },
+        "host": {
+          "type": "string",
+          "format": "ipv4"
+        },
+        "id": {
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "POST",
+            "PUT"
+          ]
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "requestUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "source": {
+          "enum": [
+            null,
+            "common-ingest"
+          ]
+        }
+      },
+      "required": [
+        "content",
+        "contentType",
+        "host",
+        "id",
+        "method",
+        "protocol",
+        "requestUrl",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "discovery-schema.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Inventory Manager Discovery Schema",
+      "description": "The shape of the discovery object generated within Inventory Manager for a successfully parsed metadata document. This is the internal metadata format used within the system and ultimately sent downstream to OneStop.",
+      "type": "object",
+      "properties": {
+        "fileIdentifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parentIdentifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hierarchyLevelName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "doi": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "purpose": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "credit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "alternateTitle": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_keywordsElement"
+          }
+        },
+        "topicCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "temporalBounding": {
+          "type": "object",
+          "properties": {
+            "beginDate": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "beginIndeterminate": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "endDate": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "endIndeterminate": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "instant": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "instantIndeterminate": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "description": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "beginDate",
+            "beginIndeterminate",
+            "endDate",
+            "endIndeterminate",
+            "instant",
+            "instantIndeterminate",
+            "description"
+          ],
+          "additionalProperties": false
+        },
+        "spatialBounding": {
+          "$ref": "#/definitions/discovery-schema.json_definitions_Geometry"
+        },
+        "isGlobal": {
+          "type": "boolean"
+        },
+        "acquisitionInstruments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_instrument"
+          }
+        },
+        "acquisitionOperations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_operation"
+          }
+        },
+        "acquisitionPlatforms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_platform"
+          }
+        },
+        "dataFormats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_dataFormat"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_link"
+          }
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_responsibleParty"
+          }
+        },
+        "creators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_responsibleParty"
+          }
+        },
+        "publishers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_responsibleParty"
+          }
+        },
+        "thumbnail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "thumbnailDescription": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "creationDate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "revisionDate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "publicationDate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "citeAsStatements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "crossReferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_reference"
+          }
+        },
+        "largerWorks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_reference"
+          }
+        },
+        "useLimitation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "legalConstraints": {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "accessFeeStatement": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "orderingInstructions": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "edition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dsmmAccessibility": {
+          "type": "integer"
+        },
+        "dsmmDataIntegrity": {
+          "type": "integer"
+        },
+        "dsmmDataQualityAssessment": {
+          "type": "integer"
+        },
+        "dsmmDataQualityAssurance": {
+          "type": "integer"
+        },
+        "dsmmDataQualityControlMonitoring": {
+          "type": "integer"
+        },
+        "dsmmPreservability": {
+          "type": "integer"
+        },
+        "dsmmProductionSustainability": {
+          "type": "integer"
+        },
+        "dsmmTransparencyTraceability": {
+          "type": "integer"
+        },
+        "dsmmUsability": {
+          "type": "integer"
+        },
+        "dsmmAverage": {
+          "description": "Calculated mean average of individual DSMM scores for Accessibility, Data Integrity, Data Quality Assessment, Data Quality Assurance, Data Quality Control Monitoring, Preservability, Production Sustainability, Transparency Traceability, and Usability.",
+          "type": "number"
+        },
+        "updateFrequency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "presentationForm": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "services": {
+          "type": "array",
+          "description": "List of objects that represent an SV_ServiceIdentification section, if any, of ISO 19115 XML metadata document. Empty if not present.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/discovery-schema.json_definitions_service"
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false,
+      "definitions": {
+        "dataFormat": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "version": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "name",
+            "version"
+          ],
+          "additionalProperties": false
+        },
+        "keywordsElement": {
+          "type": "object",
+          "properties": {
+            "values": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "type": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "namespace": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "values",
+            "type",
+            "namespace"
+          ],
+          "additionalProperties": false
+        },
+        "instrument": {
+          "type": "object",
+          "properties": {
+            "instrumentIdentifier": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "instrumentType": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "instrumentDescription": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "instrumentIdentifier",
+            "instrumentType",
+            "instrumentDescription"
+          ],
+          "additionalProperties": false
+        },
+        "link": {
+          "type": "object",
+          "properties": {
+            "linkName": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "linkProtocol": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "linkUrl": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "linkDescription": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "linkFunction": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "linkName",
+            "linkProtocol",
+            "linkUrl",
+            "linkDescription",
+            "linkFunction"
+          ],
+          "additionalProperties": false
+        },
+        "operation": {
+          "type": "object",
+          "properties": {
+            "operationDescription": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "operationIdentifier": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "operationStatus": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "operationType": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "operationDescription",
+            "operationIdentifier",
+            "operationStatus",
+            "operationType"
+          ],
+          "additionalProperties": false
+        },
+        "platform": {
+          "type": "object",
+          "properties": {
+            "platformIdentifier": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "platformDescription": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "platformSponsor": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "platformIdentifier",
+            "platformDescription",
+            "platformSponsor"
+          ],
+          "additionalProperties": false
+        },
+        "reference": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "date": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "links": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/discovery-schema.json_definitions_link"
+              }
+            }
+          },
+          "required": [
+            "title",
+            "date",
+            "links"
+          ],
+          "additionalProperties": false
+        },
+        "responsibleParty": {
+          "type": "object",
+          "properties": {
+            "individualName": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "organizationName": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "positionName": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "role": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "email": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "phone": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "individualName",
+            "organizationName",
+            "positionName",
+            "role",
+            "email",
+            "phone"
+          ],
+          "additionalProperties": false
+        },
+        "Geometry": {
+          "description": "One geometry as defined by GeoJSON",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/discovery-schema.json_definitions_Point"
+            },
+            {
+              "$ref": "#/definitions/discovery-schema.json_definitions_MultiPoint"
+            },
+            {
+              "$ref": "#/definitions/discovery-schema.json_definitions_LineString"
+            },
+            {
+              "$ref": "#/definitions/discovery-schema.json_definitions_MultiLineString"
+            },
+            {
+              "$ref": "#/definitions/discovery-schema.json_definitions_Polygon"
+            },
+            {
+              "$ref": "#/definitions/discovery-schema.json_definitions_MultiPolygon"
+            }
+          ]
+        },
+        "Point": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/discovery-schema.json_definitions_position"
+            }
+          },
+          "required": [
+            "type",
+            "coordinates"
+          ]
+        },
+        "MultiPoint": {
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/discovery-schema.json_definitions_positionArray"
+            }
+          },
+          "required": [
+            "type",
+            "coordinates"
+          ]
+        },
+        "LineString": {
+          "properties": {
+            "type": {
+              "enum": [
+                "LineString"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/discovery-schema.json_definitions_lineString"
+            }
+          },
+          "required": [
+            "type",
+            "coordinates"
+          ]
+        },
+        "MultiLineString": {
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/discovery-schema.json_definitions_lineString"
+              }
+            }
+          },
+          "required": [
+            "type",
+            "coordinates"
+          ]
+        },
+        "Polygon": {
+          "properties": {
+            "type": {
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/discovery-schema.json_definitions_polygon"
+            }
+          },
+          "required": [
+            "type",
+            "coordinates"
+          ]
+        },
+        "MultiPolygon": {
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/discovery-schema.json_definitions_polygon"
+              }
+            }
+          },
+          "required": [
+            "type",
+            "coordinates"
+          ]
+        },
+        "position": {
+          "description": "A single position",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": [
+            {
+              "type": "number",
+              "minimum": -360,
+              "maximum": 360
+            },
+            {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            }
+          ],
+          "additionalItems": false
+        },
+        "positionArray": {
+          "description": "An array of positions",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_position"
+          }
+        },
+        "lineString": {
+          "description": "An array of two or more positions",
+          "allOf": [
+            {
+              "$ref": "#/definitions/discovery-schema.json_definitions_positionArray"
+            },
+            {
+              "minItems": 2
+            }
+          ]
+        },
+        "linearRing": {
+          "description": "An array of four positions where the first equals the last",
+          "allOf": [
+            {
+              "$ref": "#/definitions/discovery-schema.json_definitions_positionArray"
+            },
+            {
+              "minItems": 4
+            }
+          ]
+        },
+        "polygon": {
+          "description": "An array of linear rings",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_linearRing"
+          }
+        },
+        "service": {
+          "type": "object"
+        }
+      }
+    },
+    "discovery-schema.json_definitions_keywordsElement": {
+      "type": "object",
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "namespace": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "values",
+        "type",
+        "namespace"
+      ],
+      "additionalProperties": false
+    },
+    "discovery-schema.json_definitions_Geometry": {
+      "description": "One geometry as defined by GeoJSON",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/discovery-schema.json_definitions_Point"
+        },
+        {
+          "$ref": "#/definitions/discovery-schema.json_definitions_MultiPoint"
+        },
+        {
+          "$ref": "#/definitions/discovery-schema.json_definitions_LineString"
+        },
+        {
+          "$ref": "#/definitions/discovery-schema.json_definitions_MultiLineString"
+        },
+        {
+          "$ref": "#/definitions/discovery-schema.json_definitions_Polygon"
+        },
+        {
+          "$ref": "#/definitions/discovery-schema.json_definitions_MultiPolygon"
+        }
+      ]
+    },
+    "discovery-schema.json_definitions_Point": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "Point"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/discovery-schema.json_definitions_position"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    },
+    "discovery-schema.json_definitions_position": {
+      "description": "A single position",
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": [
+        {
+          "type": "number",
+          "minimum": -360,
+          "maximum": 360
+        },
+        {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        }
+      ],
+      "additionalItems": false
+    },
+    "discovery-schema.json_definitions_MultiPoint": {
+      "properties": {
+        "type": {
+          "enum": [
+            "MultiPoint"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/discovery-schema.json_definitions_positionArray"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    },
+    "discovery-schema.json_definitions_positionArray": {
+      "description": "An array of positions",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/discovery-schema.json_definitions_position"
+      }
+    },
+    "discovery-schema.json_definitions_LineString": {
+      "properties": {
+        "type": {
+          "enum": [
+            "LineString"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/discovery-schema.json_definitions_lineString"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    },
+    "discovery-schema.json_definitions_lineString": {
+      "description": "An array of two or more positions",
+      "allOf": [
+        {
+          "$ref": "#/definitions/discovery-schema.json_definitions_positionArray"
+        },
+        {
+          "minItems": 2
+        }
+      ]
+    },
+    "discovery-schema.json_definitions_MultiLineString": {
+      "properties": {
+        "type": {
+          "enum": [
+            "MultiLineString"
+          ]
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_lineString"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    },
+    "discovery-schema.json_definitions_Polygon": {
+      "properties": {
+        "type": {
+          "enum": [
+            "Polygon"
+          ]
+        },
+        "coordinates": {
+          "$ref": "#/definitions/discovery-schema.json_definitions_polygon"
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    },
+    "discovery-schema.json_definitions_polygon": {
+      "description": "An array of linear rings",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/discovery-schema.json_definitions_linearRing"
+      }
+    },
+    "discovery-schema.json_definitions_linearRing": {
+      "description": "An array of four positions where the first equals the last",
+      "allOf": [
+        {
+          "$ref": "#/definitions/discovery-schema.json_definitions_positionArray"
+        },
+        {
+          "minItems": 4
+        }
+      ]
+    },
+    "discovery-schema.json_definitions_MultiPolygon": {
+      "properties": {
+        "type": {
+          "enum": [
+            "MultiPolygon"
+          ]
+        },
+        "coordinates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_polygon"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "coordinates"
+      ]
+    },
+    "discovery-schema.json_definitions_instrument": {
+      "type": "object",
+      "properties": {
+        "instrumentIdentifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instrumentType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instrumentDescription": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "instrumentIdentifier",
+        "instrumentType",
+        "instrumentDescription"
+      ],
+      "additionalProperties": false
+    },
+    "discovery-schema.json_definitions_operation": {
+      "type": "object",
+      "properties": {
+        "operationDescription": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "operationIdentifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "operationStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "operationType": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "operationDescription",
+        "operationIdentifier",
+        "operationStatus",
+        "operationType"
+      ],
+      "additionalProperties": false
+    },
+    "discovery-schema.json_definitions_platform": {
+      "type": "object",
+      "properties": {
+        "platformIdentifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "platformDescription": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "platformSponsor": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "platformIdentifier",
+        "platformDescription",
+        "platformSponsor"
+      ],
+      "additionalProperties": false
+    },
+    "discovery-schema.json_definitions_dataFormat": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "discovery-schema.json_definitions_link": {
+      "type": "object",
+      "properties": {
+        "linkName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "linkProtocol": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "linkUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "linkDescription": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "linkFunction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "linkName",
+        "linkProtocol",
+        "linkUrl",
+        "linkDescription",
+        "linkFunction"
+      ],
+      "additionalProperties": false
+    },
+    "discovery-schema.json_definitions_responsibleParty": {
+      "type": "object",
+      "properties": {
+        "individualName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "organizationName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "positionName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "role": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "phone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "individualName",
+        "organizationName",
+        "positionName",
+        "role",
+        "email",
+        "phone"
+      ],
+      "additionalProperties": false
+    },
+    "discovery-schema.json_definitions_reference": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/discovery-schema.json_definitions_link"
+          }
+        }
+      },
+      "required": [
+        "title",
+        "date",
+        "links"
+      ],
+      "additionalProperties": false
+    },
+    "discovery-schema.json_definitions_service": {
+      "type": "object"
+    },
+    "analysis-schema.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Inventory Manager Analysis Schema",
+      "description": "The shape of the analysis object generated within Inventory Manager for a successfully parsed metadata document. Content within this object is related to the quality of the content of specific metadata fields, which can be used downstream to determine whether or not a given document should be accepted into another service, such as the OneStop search platform.",
+      "type": "object",
+      "properties": {
+        "identification": {
+          "description": "Assessment of the identifying elements of the metadata.",
+          "type": "object",
+          "properties": {
+            "fileIdentifier": {
+              "type": "object",
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                },
+                "fileIdentifierString": {
+                  "type": [
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "exists"
+              ],
+              "additionalProperties": false
+            },
+            "doi": {
+              "type": "object",
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                },
+                "doiString": {
+                  "type": [
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "exists"
+              ],
+              "additionalProperties": false
+            },
+            "parentIdentifier": {
+              "type": "object",
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                },
+                "parentIdentifierString": {
+                  "type": [
+                    "string"
+                  ]
+                }
+              },
+              "required": [
+                "exists"
+              ],
+              "additionalProperties": false
+            },
+            "hierarchyLevelName": {
+              "type": "object",
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                },
+                "matchesIdentifiers": {
+                  "description": "Resolves to true if \u0027granule\u0027 specified as hierarchy level and both fileId \u0026 parentId provided OR if no hierarchy level specified.",
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "exists",
+                "matchesIdentifiers"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "temporalBounding": {
+          "description": "Assessment of the temporal bounding in the metadata.",
+          "type": "object",
+          "properties": {
+            "begin": {
+              "$ref": "#/definitions/analysis-schema.json_definitions_dateInfo"
+            },
+            "end": {
+              "$ref": "#/definitions/analysis-schema.json_definitions_dateInfo"
+            },
+            "instant": {
+              "$ref": "#/definitions/analysis-schema.json_definitions_dateInfo"
+            },
+            "range": {
+              "type": "object",
+              "properties": {
+                "descriptor": {
+                  "enum": [
+                    "BOUNDED",
+                    "INSTANT",
+                    "INVALID",
+                    "ONGOING",
+                    "UNDEFINED"
+                  ]
+                },
+                "beginLTEEnd": {
+                  "enum": [
+                    true,
+                    false,
+                    "UNDEFINED"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "descriptor",
+                "beginLTEEnd"
+              ]
+            }
+          },
+          "required": [
+            "begin",
+            "end",
+            "instant",
+            "range"
+          ],
+          "additionalProperties": false
+        },
+        "spatialBounding": {
+          "description": "Assessment of the spatial bounding in the metadata.",
+          "type": "object",
+          "properties": {
+            "exists": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "exists"
+          ],
+          "additionalProperties": false
+        },
+        "titles": {
+          "description": "Assessment of the titles in the metadata.",
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "object",
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                },
+                "characters": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "exists",
+                "characters"
+              ],
+              "additionalProperties": false
+            },
+            "alternateTitle": {
+              "type": "object",
+              "properties": {
+                "exists": {
+                  "type": "boolean"
+                },
+                "characters": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "exists",
+                "characters"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "title",
+            "alternateTitle"
+          ],
+          "additionalProperties": false
+        },
+        "description": {
+          "description": "Assessment of the description in the metadata.",
+          "type": "object",
+          "properties": {
+            "exists": {
+              "type": "boolean"
+            },
+            "characters": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "exists",
+            "characters"
+          ],
+          "additionalProperties": false
+        },
+        "thumbnail": {
+          "description": "Assessment of the thumbnail information in the metadata.",
+          "type": "object",
+          "properties": {
+            "exists": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "exists"
+          ],
+          "additionalProperties": false
+        },
+        "dataAccess": {
+          "description": "Assessment of the data access elements in the metadata.",
+          "type": "object",
+          "properties": {
+            "exists": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "exists"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "definitions": {
+        "dateInfo": {
+          "type": "object",
+          "properties": {
+            "exists": {
+              "type": "boolean"
+            },
+            "precision": {
+              "enum": [
+                "Years",
+                "Days",
+                "Nanos",
+                "UNDEFINED",
+                "INVALID"
+              ]
+            },
+            "validSearchFormat": {
+              "enum": [
+                true,
+                false,
+                "UNDEFINED"
+              ]
+            },
+            "zoneSpecified": {
+              "type": "string"
+            },
+            "utcDateTimeString": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "exists",
+            "precision",
+            "validSearchFormat",
+            "zoneSpecified",
+            "utcDateTimeString"
+          ]
+        }
+      }
+    },
+    "analysis-schema.json_definitions_dateInfo": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        },
+        "precision": {
+          "enum": [
+            "Years",
+            "Days",
+            "Nanos",
+            "UNDEFINED",
+            "INVALID"
+          ]
+        },
+        "validSearchFormat": {
+          "enum": [
+            true,
+            false,
+            "UNDEFINED"
+          ]
+        },
+        "zoneSpecified": {
+          "type": "string"
+        },
+        "utcDateTimeString": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "exists",
+        "precision",
+        "validSearchFormat",
+        "zoneSpecified",
+        "utcDateTimeString"
+      ]
+    },
+    "identifiers-schema.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "",
+      "description": " ",
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "publishing-schema.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Inventory Manager Publishing Schema",
+      "description": "TBD",
+      "type": "object",
+      "properties": {
+        "private": {
+          "type": "boolean"
+        },
+        "until": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "private"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

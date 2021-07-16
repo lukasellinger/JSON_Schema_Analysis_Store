@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "integer"
+    },
+    "pageLimit": {
+      "type": "integer"
+    },
+    "pets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "petId": {
+            "type": "string"
+          },
+          "petType": {
+            "type": "string"
+          },
+          "petName": {
+            "type": "string"
+          },
+          "petAge": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "count",
+    "pageLimit",
+    "pets"
+  ]
+}

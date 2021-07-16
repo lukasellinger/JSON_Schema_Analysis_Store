@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "array",
+  "description": "A list of songs",
+  "items": {
+    "$ref": "#/definitions/..\\song.json"
+  },
+  "definitions": {
+    "..\\song.json": {
+      "$schema": "http://json-schema.org/schema",
+      "type": "object",
+      "description": "A canonical song",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "artist": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "artist"
+      ]
+    }
+  }
+}

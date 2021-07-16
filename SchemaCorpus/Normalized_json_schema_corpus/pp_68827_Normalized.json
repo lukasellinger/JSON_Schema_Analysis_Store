@@ -1,0 +1,249 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Result",
+  "description": "Result from processing a (plugin, instance) pair",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "success": {
+      "description": "Status of processing",
+      "type": "boolean"
+    },
+    "instance": {
+      "description": "Name of processed instance or null if no instance were processed",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/instance.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "plugin": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/plugin.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "duration": {
+      "description": "Time in milliseconds taken to process a pair",
+      "type": "number"
+    },
+    "error": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/error.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/record.json"
+      }
+    }
+  },
+  "definitions": {
+    "instance.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "title": "Instance",
+      "type": "object",
+      "required": [
+        "name",
+        "data"
+      ],
+      "properties": {
+        "name": {
+          "description": "Name of instance",
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "family": {
+              "description": "Family of instance",
+              "type": "string"
+            },
+            "compatibleInstances": {
+              "description": "Array of compatible plug-ins",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "plugin.json": {
+      "title": "Plugin",
+      "type": "object",
+      "required": [
+        "name",
+        "families",
+        "order",
+        "optional",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "description": "",
+          "type": "string"
+        },
+        "families": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "order": {
+          "type": "number"
+        },
+        "version": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "integer"
+          }
+        },
+        "optional": {
+          "type": "boolean"
+        },
+        "doc": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hasRepair": {
+          "type": "boolean"
+        },
+        "hasCompatible": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string"
+        },
+        "module": {
+          "type": "string"
+        },
+        "canRepairContext": {
+          "description": "Whether or not the plug-in has implemented Instance repair",
+          "type": "boolean"
+        },
+        "compatibleInstances": {
+          "description": "Array of compatible instances",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "process": {
+          "description": "Processing method",
+          "type": "object",
+          "properties": {
+            "args": {
+              "description": "Argument signature of process()",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "repair": {
+          "description": "Repair method",
+          "type": "object",
+          "properties": {
+            "args": {
+              "description": "Argument signature of repair()",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "error.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "title": "Error",
+      "description": "A Python exception",
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "description": "Message passed to exception",
+          "type": "string"
+        },
+        "line_number": {
+          "description": "Line at which exception occurred",
+          "type": "number"
+        },
+        "func": {
+          "description": "Name of function from which the exception was thrown",
+          "type": "string"
+        },
+        "fname": {
+          "description": "Name of file from which the exception was thrown",
+          "type": "string"
+        },
+        "exc": {
+          "description": "Message from extracted traceback (should be identical to `message`)",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "record.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "title": "Record",
+      "description": "An individual log message",
+      "type": "object",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "msecs": {},
+        "args": {},
+        "name": {},
+        "thread": {},
+        "created": {},
+        "process": {},
+        "threadName": {},
+        "module": {},
+        "filename": {},
+        "levelno": {},
+        "processName": {},
+        "pathname": {},
+        "lineno": {},
+        "exc_text": {},
+        "exc_info": {},
+        "funcName": {},
+        "relativeCreated": {},
+        "levelname": {}
+      }
+    }
+  }
+}

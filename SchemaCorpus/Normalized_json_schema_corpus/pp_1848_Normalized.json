@@ -1,0 +1,150 @@
+{
+  "id": "https://schema.management.azure.com/schemas/2018-12-03/Microsoft.EnterpriseKnowledgeGraph.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Microsoft.EnterpriseKnowledgeGraph",
+  "description": "Microsoft EnterpriseKnowledgeGraph Resource Types",
+  "resourceDefinitions": {
+    "services": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2018-12-03"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Specifies the location of the resource."
+        },
+        "name": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$",
+              "minLength": 2,
+              "maxLength": 64
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The name of the EnterpriseKnowledgeGraph resource."
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/EnterpriseKnowledgeGraphProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The parameters to provide for the EnterpriseKnowledgeGraph."
+        },
+        "sku": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/Sku"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The SKU of the EnterpriseKnowledgeGraph service account."
+        },
+        "tags": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "properties": {}
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Contains resource tags defined as key/value pairs."
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.EnterpriseKnowledgeGraph/services"
+          ]
+        }
+      },
+      "required": [
+        "apiVersion",
+        "name",
+        "properties",
+        "type"
+      ],
+      "description": "Microsoft.EnterpriseKnowledgeGraph/services"
+    }
+  },
+  "definitions": {
+    "EnterpriseKnowledgeGraphProperties": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "The description of the EnterpriseKnowledgeGraph"
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {},
+          "description": "Specifies the metadata  of the resource."
+        },
+        "provisioningState": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Creating",
+                "Deleting",
+                "Failed",
+                "Succeeded"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The state of EnterpriseKnowledgeGraph provisioning."
+        }
+      },
+      "description": "The parameters to provide for the EnterpriseKnowledgeGraph."
+    },
+    "Sku": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "F0",
+                "S1"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "The sku name."
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "description": "The SKU of the EnterpriseKnowledgeGraph service account."
+    },
+    "..\\common\\definitions.json_definitions_expression": {
+      "type": "string",
+      "pattern": "^\\[([^\\[].*)?\\]$",
+      "description": "Deployment template expression. See https://aka.ms/arm-template-expressions for more details on the ARM expression syntax."
+    }
+  }
+}

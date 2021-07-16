@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "title": "Global configuration for the dazzling fiction dialect",
+  "description": "Configuration of curies and default values for the fict command",
+  "name": "/",
+  "properties": {
+    "outputFormat": {
+      "type": "string",
+      "minLength": 1,
+      "title": "Output format",
+      "description": "The output format should be either csv or json",
+      "name": "outputFormat",
+      "enum": [
+        "json",
+        "csv"
+      ]
+    },
+    "curies": {
+      "type": "array",
+      "title": "List of curies",
+      "description": "The curies help to create a mapping between a real world url and a logic name",
+      "name": "curies",
+      "items": {
+        "type": "object",
+        "title": "Curie definition",
+        "description": "Description of rules for a specific curie",
+        "name": "0",
+        "properties": {
+          "startsWith": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Expected start string",
+            "description": "When the start string is found the rules will apply",
+            "name": "startsWith"
+          },
+          "prefix": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Prefix to apply to uri",
+            "description": "Prefix that will be concatenated if the rule is triggered",
+            "name": "prefix"
+          },
+          "suffix": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Suffix to apply to uri",
+            "description": "Suffix that will be concatenated if the rule is triggered",
+            "name": "suffix"
+          },
+          "contentType": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Content type",
+            "description": "Content type returned by the web service",
+            "name": "contentType",
+            "enum": [
+              "application/json",
+              "text/plain"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

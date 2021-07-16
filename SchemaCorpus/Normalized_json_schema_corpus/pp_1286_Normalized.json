@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "dtend": {
+      "type": "string"
+    },
+    "dtstart": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "description",
+    "dtend",
+    "dtstart",
+    "location",
+    "summary"
+  ]
+}

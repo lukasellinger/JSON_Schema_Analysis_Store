@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "filter.unsharp",
+  "name": "unsharp",
+  "defaults": {},
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "luma_msize_x",
+          "control": {
+            "maximum": 23,
+            "minimum": 3,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 5
+          }
+        },
+        {
+          "parameter": "luma_msize_y",
+          "control": {
+            "maximum": 23,
+            "minimum": 3,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 5
+          }
+        },
+        {
+          "parameter": "luma_amount",
+          "control": {
+            "maximum": 1.5,
+            "minimum": -1.5,
+            "singleStep": 0.1,
+            "type": "float",
+            "value": 1.0
+          }
+        },
+        {
+          "parameter": "chroma_msize_x",
+          "control": {
+            "maximum": 23,
+            "minimum": 3,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 5
+          }
+        },
+        {
+          "parameter": "chroma_msize_y",
+          "control": {
+            "maximum": 23,
+            "minimum": 3,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 5
+          }
+        },
+        {
+          "parameter": "chroma_amount",
+          "control": {
+            "maximum": 1.5,
+            "minimum": -1.5,
+            "singleStep": 0.1,
+            "type": "float",
+            "value": 0.0
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/OpenLightingProject/open-fixture-library/master/schemas/manufacturers.json",
+  "version": "12.2.1",
+  "type": "object",
+  "propertyNames": {
+    "$comment": "manufacturer key",
+    "type": "string",
+    "pattern": "^[a-z0-9\\-]+$|^\\$"
+  },
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "$ref": "#/definitions/definitions.json_nonEmptyString"
+      },
+      "comment": {
+        "$ref": "#/definitions/definitions.json_nonEmptyMultilineString"
+      },
+      "website": {
+        "$ref": "#/definitions/definitions.json_urlString"
+      },
+      "rdmId": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 65536
+      }
+    },
+    "required": [
+      "name"
+    ],
+    "additionalProperties": false
+  },
+  "required": [
+    "$schema"
+  ],
+  "patternProperties": {
+    "^\\$schema$": {
+      "const": "https://raw.githubusercontent.com/OpenLightingProject/open-fixture-library/master/schemas/manufacturers.json"
+    }
+  },
+  "definitions": {
+    "definitions.json_nonEmptyString": {
+      "type": "string",
+      "pattern": "^[^\n]+$"
+    },
+    "definitions.json_nonEmptyMultilineString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "definitions.json_urlString": {
+      "type": "string",
+      "pattern": "^(ftp|http|https)://[^ \"]+$",
+      "format": "uri"
+    }
+  }
+}

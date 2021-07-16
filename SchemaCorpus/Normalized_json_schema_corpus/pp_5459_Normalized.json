@@ -1,0 +1,4928 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Alexa Smart Home Message Schema",
+  "description": "A JSON message sent from a skill to Alexa, either proactively or as a response to a directive",
+  "definitions": {
+    "common.properties": {
+      "payloadVersion": {
+        "enum": [
+          "3"
+        ]
+      },
+      "message": {
+        "type": "string"
+      },
+      "currentDeviceMode": {
+        "enum": [
+          "ASLEEP",
+          "NOT_PROVISIONED",
+          "COLOR",
+          "OTHER"
+        ]
+      },
+      "messageId": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 127,
+        "pattern": "^[a-zA-Z0-9\\-]*$"
+      },
+      "correlationToken": {
+        "type": "string",
+        "minLength": 1
+      },
+      "temperature": {
+        "type": "object",
+        "required": [
+          "value",
+          "scale"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "type": "number"
+          },
+          "scale": {
+            "enum": [
+              "CELSIUS",
+              "FAHRENHEIT",
+              "KELVIN"
+            ]
+          }
+        }
+      },
+      "channel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "number": {
+            "type": "string"
+          },
+          "callSign": {
+            "type": "string"
+          },
+          "affiliateCallSign": {
+            "type": "string"
+          }
+        },
+        "minProperties": 1
+      },
+      "input": {
+        "type": "string",
+        "minLength": 1
+      },
+      "volume": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "muted": {
+        "type": "boolean"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "uncertaintyInMilliseconds": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "resolution": {
+        "type": "object",
+        "required": [
+          "width",
+          "height"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "width": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "protocol": {
+        "enum": [
+          "RTSP"
+        ]
+      },
+      "authorizationType": {
+        "enum": [
+          "BASIC",
+          "DIGEST",
+          "NONE"
+        ]
+      },
+      "videoCodec": {
+        "enum": [
+          "H264",
+          "MPEG2",
+          "MJPEG",
+          "JPG"
+        ]
+      },
+      "audioCodec": {
+        "enum": [
+          "G711",
+          "AAC",
+          "NONE"
+        ]
+      },
+      "cameraStream": {
+        "type": "object",
+        "required": [
+          "uri",
+          "protocol",
+          "resolution",
+          "authorizationType",
+          "videoCodec",
+          "audioCodec"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "uri": {
+            "type": "string",
+            "format": "uri"
+          },
+          "expirationTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "idleTimeoutSeconds": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "protocol": {
+            "$ref": "#/definitions/definitions_common.properties_protocol"
+          },
+          "resolution": {
+            "$ref": "#/definitions/definitions_common.properties_resolution"
+          },
+          "authorizationType": {
+            "$ref": "#/definitions/definitions_common.properties_authorizationType"
+          },
+          "videoCodec": {
+            "$ref": "#/definitions/definitions_common.properties_videoCodec"
+          },
+          "audioCodec": {
+            "$ref": "#/definitions/definitions_common.properties_audioCodec"
+          }
+        }
+      },
+      "cause": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "APP_INTERACTION",
+              "PHYSICAL_INTERACTION",
+              "PERIODIC_POLL",
+              "RULE_TRIGGER",
+              "VOICE_INTERACTION"
+            ]
+          }
+        }
+      },
+      "version": {
+        "enum": [
+          "3"
+        ]
+      },
+      "endpointId": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9_\\-\u003d#;:?@\u0026]*$",
+        "minLength": 1,
+        "maxLength": 256
+      },
+      "endpoint": {
+        "type": "object",
+        "required": [
+          "endpointId"
+        ],
+        "properties": {
+          "scope": {
+            "type": "object",
+            "required": [
+              "type",
+              "token"
+            ],
+            "properties": {
+              "type": {
+                "enum": [
+                  "BearerToken"
+                ]
+              },
+              "token": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "endpointId": {
+            "$ref": "#/definitions/definitions_common.properties_endpointId"
+          }
+        }
+      },
+      "interfaces": {
+        "Alexa": {
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              }
+            }
+          }
+        },
+        "EndpointHealth": {
+          "connectivity": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.EndpointHealth"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "connectivity"
+                  ]
+                },
+                "value": {
+                  "type": "object",
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "value": {
+                      "enum": [
+                        "OK",
+                        "UNREACHABLE"
+                      ]
+                    }
+                  }
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.EndpointHealth"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "connectivity"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "PowerController": {
+          "powerState": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.PowerController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "powerState"
+                  ]
+                },
+                "value": {
+                  "enum": [
+                    "ON",
+                    "OFF"
+                  ]
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.PowerController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "powerState"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "PowerLevelController": {
+          "powerLevel": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.PowerLevelController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "powerLevel"
+                  ]
+                },
+                "value": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.PowerLevelController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "powerLevel"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "PercentageController": {
+          "percentage": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.PercentageController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "percentage"
+                  ]
+                },
+                "value": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.PercentageController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "percentage"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "BrightnessController": {
+          "brightness": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.BrightnessController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "brightness"
+                  ]
+                },
+                "value": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.BrightnessController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "brightness"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CameraStreamController": {
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version",
+              "cameraStreamConfigurations"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.CameraStreamController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "cameraStreamConfigurations": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "protocols",
+                    "resolutions",
+                    "authorizationTypes",
+                    "videoCodecs",
+                    "audioCodecs"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "protocols": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/definitions/definitions_common.properties_protocol"
+                      }
+                    },
+                    "resolutions": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/definitions/definitions_common.properties_resolution"
+                      }
+                    },
+                    "authorizationTypes": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/definitions/definitions_common.properties_authorizationType"
+                      }
+                    },
+                    "videoCodecs": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/definitions/definitions_common.properties_videoCodec"
+                      }
+                    },
+                    "audioCodecs": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/definitions/definitions_common.properties_audioCodec"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ColorController": {
+          "color": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.ColorController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "color"
+                  ]
+                },
+                "value": {
+                  "type": "object",
+                  "required": [
+                    "hue",
+                    "saturation",
+                    "brightness"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "hue": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 360
+                    },
+                    "saturation": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "brightness": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  }
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.ColorController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "color"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ColorTemperatureController": {
+          "colorTemperatureInKelvin": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.ColorTemperatureController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "colorTemperatureInKelvin"
+                  ]
+                },
+                "value": {
+                  "type": "integer",
+                  "minimum": 1000,
+                  "maximum": 10000
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.ColorTemperatureController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "colorTemperatureInKelvin"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "LockController": {
+          "lockState": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.LockController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "lockState"
+                  ]
+                },
+                "value": {
+                  "enum": [
+                    "LOCKED",
+                    "UNLOCKED",
+                    "JAMMED"
+                  ]
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.LockController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "lockState"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ThermostatController": {
+          "setpoint": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.ThermostatController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "targetSetpoint",
+                    "lowerSetpoint",
+                    "upperSetpoint"
+                  ]
+                },
+                "value": {
+                  "$ref": "#/definitions/definitions_common.properties_temperature"
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "thermostatMode": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.ThermostatController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "thermostatMode"
+                  ]
+                },
+                "value": {
+                  "enum": [
+                    "HEAT",
+                    "COOL",
+                    "AUTO",
+                    "ECO",
+                    "OFF",
+                    "CUSTOM"
+                  ]
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.ThermostatController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "targetSetpoint",
+                            "lowerSetpoint",
+                            "upperSetpoint",
+                            "thermostatMode"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "TemperatureSensor": {
+          "temperature": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.TemperatureSensor"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "temperature"
+                  ]
+                },
+                "value": {
+                  "$ref": "#/definitions/definitions_common.properties_temperature"
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.TemperatureSensor"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "temperature"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ChannelController": {
+          "channel": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.ChannelController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "channel"
+                  ]
+                },
+                "value": {
+                  "$ref": "#/definitions/definitions_common.properties_channel"
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.ChannelController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "channel"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "InputController": {
+          "input": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.InputController"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "input"
+                  ]
+                },
+                "value": {
+                  "$ref": "#/definitions/definitions_common.properties_input"
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.InputController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "input"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Speaker": {
+          "volume": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.Speaker"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "volume"
+                  ]
+                },
+                "value": {
+                  "$ref": "#/definitions/definitions_common.properties_volume"
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "muted": {
+            "property": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "value",
+                "timeOfSample",
+                "uncertaintyInMilliseconds"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.Speaker"
+                  ]
+                },
+                "name": {
+                  "enum": [
+                    "muted"
+                  ]
+                },
+                "value": {
+                  "$ref": "#/definitions/definitions_common.properties_muted"
+                },
+                "timeOfSample": {
+                  "$ref": "#/definitions/definitions_common.properties_timestamp"
+                },
+                "uncertaintyInMilliseconds": {
+                  "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+                }
+              }
+            }
+          },
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.Speaker"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "properties": {
+                "type": "object",
+                "required": [
+                  "supported",
+                  "proactivelyReported",
+                  "retrievable"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "supported": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "enum": [
+                            "volume",
+                            "muted"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "proactivelyReported": {
+                    "type": "boolean"
+                  },
+                  "retrievable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "SceneController": {
+          "capabilities": {
+            "type": "object",
+            "required": [
+              "type",
+              "interface",
+              "version",
+              "supportsDeactivation",
+              "proactivelyReported"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "AlexaInterface"
+                ]
+              },
+              "interface": {
+                "enum": [
+                  "Alexa.SceneController"
+                ]
+              },
+              "version": {
+                "$ref": "#/definitions/definitions_common.properties_version"
+              },
+              "supportsDeactivation": {
+                "type": "boolean"
+              },
+              "proactivelyReported": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "state.properties": {
+        "type": "array",
+        "uniqueItems": true,
+        "additionalItems": false,
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_EndpointHealth_connectivity_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_PowerController_powerState_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_PowerLevelController_powerLevel_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_PercentageController_percentage_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_BrightnessController_brightness_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_ColorController_color_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_ColorTemperatureController_colorTemperatureInKelvin_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_LockController_lockState_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_ThermostatController_setpoint_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_ThermostatController_thermostatMode_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_TemperatureSensor_temperature_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_ChannelController_channel_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_InputController_input_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_Speaker_volume_property"
+            },
+            {
+              "$ref": "#/definitions/definitions_common.properties_interfaces_Speaker_muted_property"
+            }
+          ]
+        }
+      },
+      "context": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "properties": {
+            "$ref": "#/definitions/definitions_common.properties_state.properties"
+          }
+        }
+      },
+      "payload": {
+        "cameraStreams": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cameraStreams": {
+              "type": "array",
+              "uniqueItems": true,
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/definitions_common.properties_cameraStream"
+              }
+            },
+            "imageUri": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "sceneActivationDeactivation": {
+          "type": "object",
+          "required": [
+            "cause",
+            "timestamp"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "cause": {
+              "$ref": "#/definitions/definitions_common.properties_cause"
+            },
+            "timestamp": {
+              "$ref": "#/definitions/definitions_common.properties_timestamp"
+            }
+          }
+        }
+      }
+    },
+    "ErrorResponse.properties": {
+      "name": {
+        "enum": [
+          "ErrorResponse"
+        ]
+      },
+      "header.general": {
+        "type": "object",
+        "required": [
+          "namespace",
+          "name",
+          "payloadVersion",
+          "messageId"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "namespace": {
+            "enum": [
+              "Alexa"
+            ]
+          },
+          "name": {
+            "$ref": "#/definitions/definitions_ErrorResponse.properties_name"
+          },
+          "payloadVersion": {
+            "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+          },
+          "messageId": {
+            "$ref": "#/definitions/definitions_common.properties_messageId"
+          },
+          "correlationToken": {
+            "$ref": "#/definitions/definitions_common.properties_correlationToken"
+          }
+        }
+      },
+      "header.ThermostatController": {
+        "type": "object",
+        "required": [
+          "namespace",
+          "name",
+          "payloadVersion",
+          "messageId"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "namespace": {
+            "enum": [
+              "Alexa.ThermostatController"
+            ]
+          },
+          "name": {
+            "$ref": "#/definitions/definitions_ErrorResponse.properties_name"
+          },
+          "payloadVersion": {
+            "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+          },
+          "messageId": {
+            "$ref": "#/definitions/definitions_common.properties_messageId"
+          },
+          "correlationToken": {
+            "$ref": "#/definitions/definitions_common.properties_correlationToken"
+          }
+        }
+      },
+      "header.ColorTemperatureController": {
+        "type": "object",
+        "required": [
+          "namespace",
+          "name",
+          "payloadVersion",
+          "messageId"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "namespace": {
+            "enum": [
+              "Alexa.ColorTemperatureController"
+            ]
+          },
+          "name": {
+            "$ref": "#/definitions/definitions_ErrorResponse.properties_name"
+          },
+          "payloadVersion": {
+            "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+          },
+          "messageId": {
+            "$ref": "#/definitions/definitions_common.properties_messageId"
+          },
+          "correlationToken": {
+            "$ref": "#/definitions/definitions_common.properties_correlationToken"
+          }
+        }
+      },
+      "header.Authorization": {
+        "type": "object",
+        "required": [
+          "namespace",
+          "name",
+          "payloadVersion",
+          "messageId"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "namespace": {
+            "enum": [
+              "Alexa.Authorization"
+            ]
+          },
+          "name": {
+            "$ref": "#/definitions/definitions_ErrorResponse.properties_name"
+          },
+          "payloadVersion": {
+            "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+          },
+          "messageId": {
+            "$ref": "#/definitions/definitions_common.properties_messageId"
+          },
+          "correlationToken": {
+            "$ref": "#/definitions/definitions_common.properties_correlationToken"
+          }
+        }
+      },
+      "payload.general": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "BRIDGE_UNREACHABLE",
+              "ENDPOINT_BUSY",
+              "ENDPOINT_LOW_POWER",
+              "ENDPOINT_UNREACHABLE",
+              "EXPIRED_AUTHORIZATION_CREDENTIAL",
+              "FIRMWARE_OUT_OF_DATE",
+              "HARDWARE_MALFUNCTION",
+              "INTERNAL_ERROR",
+              "INVALID_AUTHORIZATION_CREDENTIAL",
+              "INVALID_DIRECTIVE",
+              "INVALID_VALUE",
+              "NO_SUCH_ENDPOINT",
+              "RATE_LIMIT_EXCEEDED",
+              "ACCEPT_GRANT_FAILED"
+            ]
+          },
+          "message": {
+            "$ref": "#/definitions/definitions_common.properties_message"
+          }
+        }
+      },
+      "payload.general.VALUE_OUT_OF_RANGE": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "VALUE_OUT_OF_RANGE"
+            ]
+          },
+          "message": {
+            "$ref": "#/definitions/definitions_common.properties_message"
+          },
+          "validRange": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "minimumValue": {
+                "type": "number"
+              },
+              "maximumValue": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "payload.general.NOT_SUPPORTED_IN_CURRENT_MODE": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "NOT_SUPPORTED_IN_CURRENT_MODE"
+            ]
+          },
+          "message": {
+            "$ref": "#/definitions/definitions_common.properties_message"
+          },
+          "currentDeviceMode": {
+            "$ref": "#/definitions/definitions_common.properties_currentDeviceMode"
+          }
+        }
+      },
+      "payload.general.ENDPOINT_LOW_POWER": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "ENDPOINT_LOW_POWER"
+            ]
+          },
+          "message": {
+            "$ref": "#/definitions/definitions_common.properties_message"
+          }
+        }
+      },
+      "payload.general.TEMPERATURE_VALUE_OUT_OF_RANGE": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "TEMPERATURE_VALUE_OUT_OF_RANGE"
+            ]
+          },
+          "message": {
+            "$ref": "#/definitions/definitions_common.properties_message"
+          },
+          "validRange": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "minimumValue": {
+                "$ref": "#/definitions/definitions_common.properties_temperature"
+              },
+              "maximumValue": {
+                "$ref": "#/definitions/definitions_common.properties_temperature"
+              }
+            }
+          }
+        }
+      },
+      "payload.ThermostatController.general": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "THERMOSTAT_IS_OFF",
+              "UNSUPPORTED_THERMOSTAT_MODE",
+              "DUAL_SETPOINTS_UNSUPPORTED",
+              "TRIPLE_SETPOINTS_UNSUPPORTED",
+              "UNWILLING_TO_SET_VALUE"
+            ]
+          },
+          "message": {
+            "$ref": "#/definitions/definitions_common.properties_message"
+          }
+        }
+      },
+      "payload.ThermostatController.REQUESTED_SETPOINTS_TOO_CLOSE": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "REQUESTED_SETPOINTS_TOO_CLOSE"
+            ]
+          },
+          "message": {
+            "$ref": "#/definitions/definitions_common.properties_message"
+          },
+          "minimumTemperatureDelta": {
+            "$ref": "#/definitions/definitions_common.properties_temperature"
+          }
+        }
+      }
+    },
+    "ResponseOrStateReport.properties": {
+      "name": {
+        "enum": [
+          "Response",
+          "StateReport",
+          "ActivationStarted",
+          "DeactivationStarted",
+          "AcceptGrant.Response"
+        ]
+      },
+      "with.payload": {
+        "type": "object",
+        "required": [
+          "event"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "$ref": "#/definitions/definitions_common.properties_context"
+          },
+          "event": {
+            "type": "object",
+            "required": [
+              "header",
+              "payload"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "header": {
+                "type": "object",
+                "required": [
+                  "namespace",
+                  "name",
+                  "payloadVersion",
+                  "messageId"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "namespace": {
+                    "enum": [
+                      "Alexa.CameraStreamController",
+                      "Alexa.SceneController"
+                    ]
+                  },
+                  "name": {
+                    "$ref": "#/definitions/definitions_ResponseOrStateReport.properties_name"
+                  },
+                  "payloadVersion": {
+                    "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+                  },
+                  "messageId": {
+                    "$ref": "#/definitions/definitions_common.properties_messageId"
+                  },
+                  "correlationToken": {
+                    "$ref": "#/definitions/definitions_common.properties_correlationToken"
+                  }
+                }
+              },
+              "endpoint": {
+                "$ref": "#/definitions/definitions_common.properties_endpoint"
+              },
+              "payload": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/definitions_common.properties_payload_cameraStreams"
+                  },
+                  {
+                    "$ref": "#/definitions/definitions_common.properties_payload_sceneActivationDeactivation"
+                  }
+                ],
+                "minProperties": 1
+              }
+            }
+          }
+        }
+      },
+      "without.payload": {
+        "type": "object",
+        "required": [
+          "event"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "$ref": "#/definitions/definitions_common.properties_context"
+          },
+          "event": {
+            "type": "object",
+            "required": [
+              "header",
+              "payload"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "header": {
+                "type": "object",
+                "required": [
+                  "namespace",
+                  "name",
+                  "payloadVersion",
+                  "messageId"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "namespace": {
+                    "enum": [
+                      "Alexa",
+                      "Alexa.Authorization"
+                    ]
+                  },
+                  "name": {
+                    "$ref": "#/definitions/definitions_ResponseOrStateReport.properties_name"
+                  },
+                  "payloadVersion": {
+                    "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+                  },
+                  "messageId": {
+                    "$ref": "#/definitions/definitions_common.properties_messageId"
+                  },
+                  "correlationToken": {
+                    "$ref": "#/definitions/definitions_common.properties_correlationToken"
+                  }
+                }
+              },
+              "endpoint": {
+                "$ref": "#/definitions/definitions_common.properties_endpoint"
+              },
+              "payload": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {},
+                "maxProperties": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "ChangeReport.properties": {
+      "name": {
+        "enum": [
+          "ChangeReport"
+        ]
+      }
+    },
+    "DeferredResponse.properties": {
+      "name": {
+        "enum": [
+          "DeferredResponse"
+        ]
+      }
+    },
+    "Discover.Response.properties": {
+      "name": {
+        "enum": [
+          "Discover.Response"
+        ]
+      }
+    },
+    "definitions_common.properties_protocol": {
+      "enum": [
+        "RTSP"
+      ]
+    },
+    "definitions_common.properties_resolution": {
+      "type": "object",
+      "required": [
+        "width",
+        "height"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "definitions_common.properties_authorizationType": {
+      "enum": [
+        "BASIC",
+        "DIGEST",
+        "NONE"
+      ]
+    },
+    "definitions_common.properties_videoCodec": {
+      "enum": [
+        "H264",
+        "MPEG2",
+        "MJPEG",
+        "JPG"
+      ]
+    },
+    "definitions_common.properties_audioCodec": {
+      "enum": [
+        "G711",
+        "AAC",
+        "NONE"
+      ]
+    },
+    "definitions_common.properties_endpointId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_\\-\u003d#;:?@\u0026]*$",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "definitions_common.properties_version": {
+      "enum": [
+        "3"
+      ]
+    },
+    "definitions_common.properties_timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "definitions_common.properties_uncertaintyInMilliseconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "definitions_common.properties_temperature": {
+      "type": "object",
+      "required": [
+        "value",
+        "scale"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "scale": {
+          "enum": [
+            "CELSIUS",
+            "FAHRENHEIT",
+            "KELVIN"
+          ]
+        }
+      }
+    },
+    "definitions_common.properties_channel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "number": {
+          "type": "string"
+        },
+        "callSign": {
+          "type": "string"
+        },
+        "affiliateCallSign": {
+          "type": "string"
+        }
+      },
+      "minProperties": 1
+    },
+    "definitions_common.properties_input": {
+      "type": "string",
+      "minLength": 1
+    },
+    "definitions_common.properties_volume": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "definitions_common.properties_muted": {
+      "type": "boolean"
+    },
+    "definitions_common.properties_interfaces_EndpointHealth_connectivity_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.EndpointHealth"
+          ]
+        },
+        "name": {
+          "enum": [
+            "connectivity"
+          ]
+        },
+        "value": {
+          "type": "object",
+          "required": [
+            "value"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "enum": [
+                "OK",
+                "UNREACHABLE"
+              ]
+            }
+          }
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_PowerController_powerState_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.PowerController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "powerState"
+          ]
+        },
+        "value": {
+          "enum": [
+            "ON",
+            "OFF"
+          ]
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_PowerLevelController_powerLevel_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.PowerLevelController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "powerLevel"
+          ]
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_PercentageController_percentage_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.PercentageController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "percentage"
+          ]
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_BrightnessController_brightness_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.BrightnessController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "brightness"
+          ]
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_ColorController_color_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.ColorController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "color"
+          ]
+        },
+        "value": {
+          "type": "object",
+          "required": [
+            "hue",
+            "saturation",
+            "brightness"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "hue": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 360
+            },
+            "saturation": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "brightness": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_ColorTemperatureController_colorTemperatureInKelvin_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.ColorTemperatureController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "colorTemperatureInKelvin"
+          ]
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 10000
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_LockController_lockState_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.LockController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "lockState"
+          ]
+        },
+        "value": {
+          "enum": [
+            "LOCKED",
+            "UNLOCKED",
+            "JAMMED"
+          ]
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_ThermostatController_setpoint_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.ThermostatController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "targetSetpoint",
+            "lowerSetpoint",
+            "upperSetpoint"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/definitions_common.properties_temperature"
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_ThermostatController_thermostatMode_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.ThermostatController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "thermostatMode"
+          ]
+        },
+        "value": {
+          "enum": [
+            "HEAT",
+            "COOL",
+            "AUTO",
+            "ECO",
+            "OFF",
+            "CUSTOM"
+          ]
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_TemperatureSensor_temperature_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.TemperatureSensor"
+          ]
+        },
+        "name": {
+          "enum": [
+            "temperature"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/definitions_common.properties_temperature"
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_ChannelController_channel_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.ChannelController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "channel"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/definitions_common.properties_channel"
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_InputController_input_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.InputController"
+          ]
+        },
+        "name": {
+          "enum": [
+            "input"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/definitions_common.properties_input"
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_Speaker_volume_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.Speaker"
+          ]
+        },
+        "name": {
+          "enum": [
+            "volume"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/definitions_common.properties_volume"
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_Speaker_muted_property": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "value",
+        "timeOfSample",
+        "uncertaintyInMilliseconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.Speaker"
+          ]
+        },
+        "name": {
+          "enum": [
+            "muted"
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/definitions_common.properties_muted"
+        },
+        "timeOfSample": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        },
+        "uncertaintyInMilliseconds": {
+          "$ref": "#/definitions/definitions_common.properties_uncertaintyInMilliseconds"
+        }
+      }
+    },
+    "definitions_common.properties_state.properties": {
+      "type": "array",
+      "uniqueItems": true,
+      "additionalItems": false,
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_EndpointHealth_connectivity_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_PowerController_powerState_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_PowerLevelController_powerLevel_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_PercentageController_percentage_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_BrightnessController_brightness_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_ColorController_color_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_ColorTemperatureController_colorTemperatureInKelvin_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_LockController_lockState_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_ThermostatController_setpoint_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_ThermostatController_thermostatMode_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_TemperatureSensor_temperature_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_ChannelController_channel_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_InputController_input_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_Speaker_volume_property"
+          },
+          {
+            "$ref": "#/definitions/definitions_common.properties_interfaces_Speaker_muted_property"
+          }
+        ]
+      }
+    },
+    "definitions_common.properties_cameraStream": {
+      "type": "object",
+      "required": [
+        "uri",
+        "protocol",
+        "resolution",
+        "authorizationType",
+        "videoCodec",
+        "audioCodec"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "expirationTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "idleTimeoutSeconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "protocol": {
+          "$ref": "#/definitions/definitions_common.properties_protocol"
+        },
+        "resolution": {
+          "$ref": "#/definitions/definitions_common.properties_resolution"
+        },
+        "authorizationType": {
+          "$ref": "#/definitions/definitions_common.properties_authorizationType"
+        },
+        "videoCodec": {
+          "$ref": "#/definitions/definitions_common.properties_videoCodec"
+        },
+        "audioCodec": {
+          "$ref": "#/definitions/definitions_common.properties_audioCodec"
+        }
+      }
+    },
+    "definitions_common.properties_cause": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "APP_INTERACTION",
+            "PHYSICAL_INTERACTION",
+            "PERIODIC_POLL",
+            "RULE_TRIGGER",
+            "VOICE_INTERACTION"
+          ]
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_name": {
+      "enum": [
+        "ErrorResponse"
+      ]
+    },
+    "definitions_common.properties_payloadVersion": {
+      "enum": [
+        "3"
+      ]
+    },
+    "definitions_common.properties_messageId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 127,
+      "pattern": "^[a-zA-Z0-9\\-]*$"
+    },
+    "definitions_common.properties_correlationToken": {
+      "type": "string",
+      "minLength": 1
+    },
+    "definitions_common.properties_message": {
+      "type": "string"
+    },
+    "definitions_common.properties_currentDeviceMode": {
+      "enum": [
+        "ASLEEP",
+        "NOT_PROVISIONED",
+        "COLOR",
+        "OTHER"
+      ]
+    },
+    "definitions_common.properties_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/definitions_common.properties_state.properties"
+        }
+      }
+    },
+    "definitions_ResponseOrStateReport.properties_name": {
+      "enum": [
+        "Response",
+        "StateReport",
+        "ActivationStarted",
+        "DeactivationStarted",
+        "AcceptGrant.Response"
+      ]
+    },
+    "definitions_common.properties_endpoint": {
+      "type": "object",
+      "required": [
+        "endpointId"
+      ],
+      "properties": {
+        "scope": {
+          "type": "object",
+          "required": [
+            "type",
+            "token"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "BearerToken"
+              ]
+            },
+            "token": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "endpointId": {
+          "$ref": "#/definitions/definitions_common.properties_endpointId"
+        }
+      }
+    },
+    "definitions_common.properties_payload_cameraStreams": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cameraStreams": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/definitions_common.properties_cameraStream"
+          }
+        },
+        "imageUri": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "definitions_common.properties_payload_sceneActivationDeactivation": {
+      "type": "object",
+      "required": [
+        "cause",
+        "timestamp"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "cause": {
+          "$ref": "#/definitions/definitions_common.properties_cause"
+        },
+        "timestamp": {
+          "$ref": "#/definitions/definitions_common.properties_timestamp"
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_header.general": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "payloadVersion",
+        "messageId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_ErrorResponse.properties_name"
+        },
+        "payloadVersion": {
+          "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+        },
+        "messageId": {
+          "$ref": "#/definitions/definitions_common.properties_messageId"
+        },
+        "correlationToken": {
+          "$ref": "#/definitions/definitions_common.properties_correlationToken"
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_payload.general": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "BRIDGE_UNREACHABLE",
+            "ENDPOINT_BUSY",
+            "ENDPOINT_LOW_POWER",
+            "ENDPOINT_UNREACHABLE",
+            "EXPIRED_AUTHORIZATION_CREDENTIAL",
+            "FIRMWARE_OUT_OF_DATE",
+            "HARDWARE_MALFUNCTION",
+            "INTERNAL_ERROR",
+            "INVALID_AUTHORIZATION_CREDENTIAL",
+            "INVALID_DIRECTIVE",
+            "INVALID_VALUE",
+            "NO_SUCH_ENDPOINT",
+            "RATE_LIMIT_EXCEEDED",
+            "ACCEPT_GRANT_FAILED"
+          ]
+        },
+        "message": {
+          "$ref": "#/definitions/definitions_common.properties_message"
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_payload.general.VALUE_OUT_OF_RANGE": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "VALUE_OUT_OF_RANGE"
+          ]
+        },
+        "message": {
+          "$ref": "#/definitions/definitions_common.properties_message"
+        },
+        "validRange": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "minimumValue": {
+              "type": "number"
+            },
+            "maximumValue": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_payload.general.NOT_SUPPORTED_IN_CURRENT_MODE": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "NOT_SUPPORTED_IN_CURRENT_MODE"
+          ]
+        },
+        "message": {
+          "$ref": "#/definitions/definitions_common.properties_message"
+        },
+        "currentDeviceMode": {
+          "$ref": "#/definitions/definitions_common.properties_currentDeviceMode"
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_payload.general.ENDPOINT_LOW_POWER": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "ENDPOINT_LOW_POWER"
+          ]
+        },
+        "message": {
+          "$ref": "#/definitions/definitions_common.properties_message"
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_header.ThermostatController": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "payloadVersion",
+        "messageId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.ThermostatController"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_ErrorResponse.properties_name"
+        },
+        "payloadVersion": {
+          "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+        },
+        "messageId": {
+          "$ref": "#/definitions/definitions_common.properties_messageId"
+        },
+        "correlationToken": {
+          "$ref": "#/definitions/definitions_common.properties_correlationToken"
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_payload.ThermostatController.general": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "THERMOSTAT_IS_OFF",
+            "UNSUPPORTED_THERMOSTAT_MODE",
+            "DUAL_SETPOINTS_UNSUPPORTED",
+            "TRIPLE_SETPOINTS_UNSUPPORTED",
+            "UNWILLING_TO_SET_VALUE"
+          ]
+        },
+        "message": {
+          "$ref": "#/definitions/definitions_common.properties_message"
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_payload.general.TEMPERATURE_VALUE_OUT_OF_RANGE": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "TEMPERATURE_VALUE_OUT_OF_RANGE"
+          ]
+        },
+        "message": {
+          "$ref": "#/definitions/definitions_common.properties_message"
+        },
+        "validRange": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "minimumValue": {
+              "$ref": "#/definitions/definitions_common.properties_temperature"
+            },
+            "maximumValue": {
+              "$ref": "#/definitions/definitions_common.properties_temperature"
+            }
+          }
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_payload.ThermostatController.REQUESTED_SETPOINTS_TOO_CLOSE": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "REQUESTED_SETPOINTS_TOO_CLOSE"
+          ]
+        },
+        "message": {
+          "$ref": "#/definitions/definitions_common.properties_message"
+        },
+        "minimumTemperatureDelta": {
+          "$ref": "#/definitions/definitions_common.properties_temperature"
+        }
+      }
+    },
+    "definitions_ErrorResponse.properties_header.Authorization": {
+      "type": "object",
+      "required": [
+        "namespace",
+        "name",
+        "payloadVersion",
+        "messageId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": {
+          "enum": [
+            "Alexa.Authorization"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_ErrorResponse.properties_name"
+        },
+        "payloadVersion": {
+          "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+        },
+        "messageId": {
+          "$ref": "#/definitions/definitions_common.properties_messageId"
+        },
+        "correlationToken": {
+          "$ref": "#/definitions/definitions_common.properties_correlationToken"
+        }
+      }
+    },
+    "definitions_ResponseOrStateReport.properties_with.payload": {
+      "type": "object",
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "context": {
+          "$ref": "#/definitions/definitions_common.properties_context"
+        },
+        "event": {
+          "type": "object",
+          "required": [
+            "header",
+            "payload"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "header": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "payloadVersion",
+                "messageId"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.CameraStreamController",
+                    "Alexa.SceneController"
+                  ]
+                },
+                "name": {
+                  "$ref": "#/definitions/definitions_ResponseOrStateReport.properties_name"
+                },
+                "payloadVersion": {
+                  "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+                },
+                "messageId": {
+                  "$ref": "#/definitions/definitions_common.properties_messageId"
+                },
+                "correlationToken": {
+                  "$ref": "#/definitions/definitions_common.properties_correlationToken"
+                }
+              }
+            },
+            "endpoint": {
+              "$ref": "#/definitions/definitions_common.properties_endpoint"
+            },
+            "payload": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/definitions_common.properties_payload_cameraStreams"
+                },
+                {
+                  "$ref": "#/definitions/definitions_common.properties_payload_sceneActivationDeactivation"
+                }
+              ],
+              "minProperties": 1
+            }
+          }
+        }
+      }
+    },
+    "definitions_ResponseOrStateReport.properties_without.payload": {
+      "type": "object",
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "context": {
+          "$ref": "#/definitions/definitions_common.properties_context"
+        },
+        "event": {
+          "type": "object",
+          "required": [
+            "header",
+            "payload"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "header": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "payloadVersion",
+                "messageId"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa",
+                    "Alexa.Authorization"
+                  ]
+                },
+                "name": {
+                  "$ref": "#/definitions/definitions_ResponseOrStateReport.properties_name"
+                },
+                "payloadVersion": {
+                  "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+                },
+                "messageId": {
+                  "$ref": "#/definitions/definitions_common.properties_messageId"
+                },
+                "correlationToken": {
+                  "$ref": "#/definitions/definitions_common.properties_correlationToken"
+                }
+              }
+            },
+            "endpoint": {
+              "$ref": "#/definitions/definitions_common.properties_endpoint"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {},
+              "maxProperties": 0
+            }
+          }
+        }
+      }
+    },
+    "definitions_ChangeReport.properties_name": {
+      "enum": [
+        "ChangeReport"
+      ]
+    },
+    "definitions_DeferredResponse.properties_name": {
+      "enum": [
+        "DeferredResponse"
+      ]
+    },
+    "definitions_Discover.Response.properties_name": {
+      "enum": [
+        "Discover.Response"
+      ]
+    },
+    "definitions_common.properties_interfaces_Alexa_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_EndpointHealth_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.EndpointHealth"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "connectivity"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_PowerController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.PowerController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "powerState"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_PowerLevelController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.PowerLevelController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "powerLevel"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_PercentageController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.PercentageController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "percentage"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_BrightnessController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.BrightnessController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "brightness"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_CameraStreamController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version",
+        "cameraStreamConfigurations"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.CameraStreamController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "cameraStreamConfigurations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "protocols",
+              "resolutions",
+              "authorizationTypes",
+              "videoCodecs",
+              "audioCodecs"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "protocols": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/definitions/definitions_common.properties_protocol"
+                }
+              },
+              "resolutions": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/definitions/definitions_common.properties_resolution"
+                }
+              },
+              "authorizationTypes": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/definitions/definitions_common.properties_authorizationType"
+                }
+              },
+              "videoCodecs": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/definitions/definitions_common.properties_videoCodec"
+                }
+              },
+              "audioCodecs": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/definitions/definitions_common.properties_audioCodec"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_ColorController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.ColorController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "color"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_ColorTemperatureController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.ColorTemperatureController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "colorTemperatureInKelvin"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_LockController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.LockController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "lockState"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_ThermostatController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.ThermostatController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "targetSetpoint",
+                      "lowerSetpoint",
+                      "upperSetpoint",
+                      "thermostatMode"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_TemperatureSensor_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.TemperatureSensor"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "temperature"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_ChannelController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.ChannelController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "channel"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_InputController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.InputController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "input"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_Speaker_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.Speaker"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "properties": {
+          "type": "object",
+          "required": [
+            "supported",
+            "proactivelyReported",
+            "retrievable"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "supported": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "volume",
+                      "muted"
+                    ]
+                  }
+                }
+              }
+            },
+            "proactivelyReported": {
+              "type": "boolean"
+            },
+            "retrievable": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "definitions_common.properties_interfaces_SceneController_capabilities": {
+      "type": "object",
+      "required": [
+        "type",
+        "interface",
+        "version",
+        "supportsDeactivation",
+        "proactivelyReported"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "AlexaInterface"
+          ]
+        },
+        "interface": {
+          "enum": [
+            "Alexa.SceneController"
+          ]
+        },
+        "version": {
+          "$ref": "#/definitions/definitions_common.properties_version"
+        },
+        "supportsDeactivation": {
+          "type": "boolean"
+        },
+        "proactivelyReported": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "description": "An ErrorResponse message",
+      "type": "object",
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "context": {
+          "$ref": "#/definitions/definitions_common.properties_context"
+        },
+        "event": {
+          "type": "object",
+          "required": [
+            "header",
+            "payload"
+          ],
+          "oneOf": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "header": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_header.general"
+                },
+                "endpoint": {
+                  "$ref": "#/definitions/definitions_common.properties_endpoint"
+                },
+                "payload": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_payload.general"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "header": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_header.general"
+                },
+                "endpoint": {
+                  "$ref": "#/definitions/definitions_common.properties_endpoint"
+                },
+                "payload": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_payload.general.VALUE_OUT_OF_RANGE"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "header": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_header.general"
+                },
+                "endpoint": {
+                  "$ref": "#/definitions/definitions_common.properties_endpoint"
+                },
+                "payload": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_payload.general.NOT_SUPPORTED_IN_CURRENT_MODE"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "header": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_header.general"
+                },
+                "endpoint": {
+                  "$ref": "#/definitions/definitions_common.properties_endpoint"
+                },
+                "payload": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_payload.general.ENDPOINT_LOW_POWER"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "header": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_header.ThermostatController"
+                },
+                "endpoint": {
+                  "$ref": "#/definitions/definitions_common.properties_endpoint"
+                },
+                "payload": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_payload.ThermostatController.general"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "header": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_header.general"
+                },
+                "endpoint": {
+                  "$ref": "#/definitions/definitions_common.properties_endpoint"
+                },
+                "payload": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_payload.general.TEMPERATURE_VALUE_OUT_OF_RANGE"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "header": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_header.ThermostatController"
+                },
+                "endpoint": {
+                  "$ref": "#/definitions/definitions_common.properties_endpoint"
+                },
+                "payload": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_payload.ThermostatController.REQUESTED_SETPOINTS_TOO_CLOSE"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "header": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_header.Authorization"
+                },
+                "payload": {
+                  "$ref": "#/definitions/definitions_ErrorResponse.properties_payload.general"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "A Response or StateReport message",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions_ResponseOrStateReport.properties_with.payload"
+        },
+        {
+          "$ref": "#/definitions/definitions_ResponseOrStateReport.properties_without.payload"
+        }
+      ]
+    },
+    {
+      "description": "A ChangeReport message",
+      "type": "object",
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "context": {
+          "$ref": "#/definitions/definitions_common.properties_context"
+        },
+        "event": {
+          "type": "object",
+          "required": [
+            "header",
+            "payload"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "header": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "payloadVersion",
+                "messageId"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa"
+                  ]
+                },
+                "name": {
+                  "$ref": "#/definitions/definitions_ChangeReport.properties_name"
+                },
+                "payloadVersion": {
+                  "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+                },
+                "messageId": {
+                  "$ref": "#/definitions/definitions_common.properties_messageId"
+                },
+                "correlationToken": {
+                  "$ref": "#/definitions/definitions_common.properties_correlationToken"
+                }
+              }
+            },
+            "endpoint": {
+              "$ref": "#/definitions/definitions_common.properties_endpoint"
+            },
+            "payload": {
+              "type": "object",
+              "required": [
+                "change"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "change": {
+                  "type": "object",
+                  "required": [
+                    "cause",
+                    "properties"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "cause": {
+                      "$ref": "#/definitions/definitions_common.properties_cause"
+                    },
+                    "properties": {
+                      "$ref": "#/definitions/definitions_common.properties_state.properties"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "A DeferredResponse message",
+      "type": "object",
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "event": {
+          "type": "object",
+          "required": [
+            "header",
+            "payload"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "header": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "payloadVersion",
+                "messageId"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa"
+                  ]
+                },
+                "name": {
+                  "$ref": "#/definitions/definitions_DeferredResponse.properties_name"
+                },
+                "payloadVersion": {
+                  "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+                },
+                "messageId": {
+                  "$ref": "#/definitions/definitions_common.properties_messageId"
+                },
+                "correlationToken": {
+                  "$ref": "#/definitions/definitions_common.properties_correlationToken"
+                }
+              }
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "estimatedDeferralInSeconds": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "A Discover.Response message",
+      "type": "object",
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "event": {
+          "type": "object",
+          "required": [
+            "header",
+            "payload"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "header": {
+              "type": "object",
+              "required": [
+                "namespace",
+                "name",
+                "payloadVersion",
+                "messageId"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "namespace": {
+                  "enum": [
+                    "Alexa.Discovery"
+                  ]
+                },
+                "name": {
+                  "$ref": "#/definitions/definitions_Discover.Response.properties_name"
+                },
+                "payloadVersion": {
+                  "$ref": "#/definitions/definitions_common.properties_payloadVersion"
+                },
+                "messageId": {
+                  "$ref": "#/definitions/definitions_common.properties_messageId"
+                }
+              }
+            },
+            "payload": {
+              "type": "object",
+              "required": [
+                "endpoints"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "endpoints": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "maxItems": 300,
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "endpointId",
+                      "manufacturerName",
+                      "friendlyName",
+                      "description",
+                      "displayCategories",
+                      "capabilities"
+                    ],
+                    "properties": {
+                      "endpointId": {
+                        "$ref": "#/definitions/definitions_common.properties_endpointId"
+                      },
+                      "manufacturerName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 128
+                      },
+                      "friendlyName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 128
+                      },
+                      "description": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 128
+                      },
+                      "displayCategories": {
+                        "type": "array",
+                        "minItems": 1,
+                        "uniqueItems": true,
+                        "items": {
+                          "enum": [
+                            "LIGHT",
+                            "SMARTPLUG",
+                            "SWITCH",
+                            "CAMERA",
+                            "DOOR",
+                            "THERMOSTAT",
+                            "TEMPERATURE_SENSOR",
+                            "SMARTLOCK",
+                            "SCENE_TRIGGER",
+                            "ACTIVITY_TRIGGER",
+                            "OTHER"
+                          ]
+                        }
+                      },
+                      "cookie": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      },
+                      "capabilities": {
+                        "type": "array",
+                        "minItems": 1,
+                        "uniqueItems": true,
+                        "additionalItems": false,
+                        "items": {
+                          "anyOf": [
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_Alexa_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_EndpointHealth_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_PowerController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_PowerLevelController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_PercentageController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_BrightnessController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_CameraStreamController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_ColorController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_ColorTemperatureController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_LockController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_ThermostatController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_TemperatureSensor_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_ChannelController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_InputController_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_Speaker_capabilities"
+                            },
+                            {
+                              "$ref": "#/definitions/definitions_common.properties_interfaces_SceneController_capabilities"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

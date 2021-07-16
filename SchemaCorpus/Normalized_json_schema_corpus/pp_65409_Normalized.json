@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "fff": {
+      "$ref": "#/definitions/includes\\ggg.json"
+    }
+  },
+  "definitions": {
+    "includes\\ggg.json": {
+      "type": "object",
+      "properties": {
+        "ggg": {
+          "$ref": "#/definitions/includes\\hhh.json"
+        }
+      }
+    },
+    "includes\\hhh.json": {
+      "type": "object",
+      "properties": {
+        "hhh": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

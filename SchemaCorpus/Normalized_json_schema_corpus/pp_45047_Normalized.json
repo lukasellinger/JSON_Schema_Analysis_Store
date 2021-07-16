@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Aquilon machine manifest schema",
+  "type": "object",
+  "properties": {
+    "cpuname": {
+      "description": "Name of the CPU model",
+      "type": "string"
+    },
+    "cpuvendor": {
+      "description": "Name of the CPU vendor",
+      "type": "string"
+    },
+    "cpucount": {
+      "description": "Number of CPU sockets",
+      "type": "integer",
+      "minimum": 0
+    },
+    "memory": {
+      "description": "Amount of memory, in MiB",
+      "type": "integer",
+      "minimum": 0
+    },
+    "disks": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-z0-9]+$": {
+          "$ref": "#/definitions/disk_entry"
+        }
+      },
+      "additionalProperties": false
+    },
+    "interfaces": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-z0-9]+$": {
+          "$ref": "#/definitions/interface_entry"
+        }
+      },
+      "additionalProperties": false
+    },
+    "uri": {
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "disk_entry": {
+      "_comment": "The contents of this file should be in sync with the parameters of the add_disk command",
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "size": {
+          "description": "Disk size, in GiB",
+          "type": "integer",
+          "minimum": 0
+        },
+        "controller": {
+          "enum": [
+            "sata",
+            "sas",
+            "scsi",
+            "cciss",
+            "flash",
+            "fibrechannel",
+            "ide",
+            "nvme"
+          ]
+        },
+        "boot": {
+          "type": "boolean"
+        },
+        "address": {
+          "type": "string",
+          "pattern": "^\\d+(:\\d+){1,3}$"
+        },
+        "bus_address": {
+          "type": "string"
+        },
+        "wwn": {
+          "type": "string"
+        },
+        "snapshot": {
+          "type": "boolean"
+        },
+        "share": {
+          "description": "NAS share where the virtual disk image is stored",
+          "type": "string"
+        },
+        "filesystem": {
+          "description": "Filesystem name where the virtual disk image is stored",
+          "type": "string"
+        },
+        "resourcegroup": {
+          "description": "Name of the resourcegroup which holds the share or filesystem",
+          "type": "string"
+        },
+        "iops_limit": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "comments": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "size",
+        "controller"
+      ]
+    },
+    "interface_entry": {
+      "_comment": "The contents of this file must be in sync with the parameters of the add_interface command",
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "iftype": {
+          "type": "string"
+        },
+        "boot": {
+          "type": "boolean"
+        },
+        "mac": {
+          "type": "string"
+        },
+        "automac": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "string"
+        },
+        "vendor": {
+          "type": "string"
+        },
+        "pg": {
+          "type": "string"
+        },
+        "autopg": {
+          "type": "boolean"
+        },
+        "bus_address": {
+          "type": "string"
+        },
+        "comments": {
+          "type": "string"
+        }
+      },
+      "dependencies": {
+        "vendor": [
+          "model"
+        ]
+      },
+      "additionalProperties": false
+    }
+  }
+}

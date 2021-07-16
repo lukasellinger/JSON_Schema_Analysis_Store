@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "osm_db": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "db_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "host",
+        "user",
+        "password",
+        "db_name"
+      ]
+    },
+    "map": {
+      "type": "object",
+      "properties": {
+        "bounding_box": {
+          "type": "array",
+          "items": [
+            {
+              "type": "array",
+              "items": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "items": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          ]
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "scale": {
+              "type": "integer"
+            }
+          }
+        },
+        "tiles": {
+          "type": "object",
+          "properties": {
+            "zoom_level_min": {
+              "type": "integer",
+              "enum": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ]
+            },
+            "zoom_level_max": {
+              "type": "integer",
+              "enum": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ]
+            }
+          }
+        },
+        "create_xcf": {
+          "type": "boolean"
+        }
+      }
+    },
+    "style": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "boolean"
+        },
+        "sketchy": {
+          "type": "boolean"
+        },
+        "style_path": {
+          "type": "null"
+        },
+        "style_name": {
+          "type": "string"
+        },
+        "polygon_fill": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "mask",
+                "fill",
+                "hachure"
+              ]
+            },
+            "outline": {
+              "type": "boolean"
+            }
+          }
+        },
+        "img_tile_span": {
+          "type": "integer"
+        }
+      }
+    },
+    "out_dir": {
+      "type": "null"
+    }
+  },
+  "required": [
+    "osm_db",
+    "map",
+    "style",
+    "out_dir"
+  ]
+}

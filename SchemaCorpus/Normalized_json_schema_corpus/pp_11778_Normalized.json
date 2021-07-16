@@ -1,0 +1,43 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "properties": {
+    "error_id": {
+      "type": "string",
+      "title": "The Error_id Schema.",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "cd8756ee-6898-40d5-804b-e6831b60e757"
+      ]
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "title": "The Code Schema.",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+              99216
+            ]
+          },
+          "message": {
+            "type": "string",
+            "title": "The Message Schema.",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "The specified IAM principal is not valid."
+            ]
+          }
+        }
+      }
+    }
+  }
+}

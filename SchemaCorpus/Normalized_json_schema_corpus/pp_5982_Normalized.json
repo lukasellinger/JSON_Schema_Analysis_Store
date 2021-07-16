@@ -1,0 +1,3495 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/OpenLightingProject/open-fixture-library/master/schemas/channel.json",
+  "$comment": "This file is used by another schema file and should not be used directly as a JSON schema.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "$comment": "if not set: use channel key",
+      "$ref": "#/definitions/definitions.json_nonEmptyString"
+    },
+    "fineChannelAliases": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/definitions/definitions.json_noVariablesString"
+          },
+          {
+            "$ref": "#/definitions/definitions.json_variablePixelKeyString",
+            "$comment": "only in template channels"
+          }
+        ]
+      }
+    },
+    "dmxValueResolution": {
+      "enum": [
+        "8bit",
+        "16bit",
+        "24bit"
+      ]
+    },
+    "defaultValue": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_dmxValue"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_dmxValuePercent"
+        }
+      ]
+    },
+    "highlightValue": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_dmxValue"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_dmxValuePercent"
+        }
+      ]
+    },
+    "constant": {
+      "type": "boolean"
+    },
+    "precedence": {
+      "enum": [
+        "LTP",
+        "HTP"
+      ]
+    },
+    "capability": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/capability.json"
+        }
+      ],
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "dmxRange"
+            ]
+          },
+          {
+            "required": [
+              "switchChannels"
+            ]
+          }
+        ]
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/capability.json"
+          }
+        ],
+        "required": [
+          "dmxRange"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "dmxValueResolution": [
+      "fineChannelAliases"
+    ]
+  },
+  "oneOf": [
+    {
+      "required": [
+        "capability"
+      ],
+      "not": {
+        "required": [
+          "capabilities"
+        ]
+      }
+    },
+    {
+      "not": {
+        "required": [
+          "capability"
+        ]
+      },
+      "required": [
+        "capabilities"
+      ]
+    }
+  ],
+  "allOf": [
+    {
+      "if": {
+        "$comment": "one capability sets switchChannels",
+        "properties": {
+          "capabilities": {
+            "contains": {
+              "required": [
+                "switchChannels"
+              ]
+            }
+          }
+        },
+        "required": [
+          "capabilities"
+        ]
+      },
+      "then": {
+        "$comment": "defaultValue must be set and all capabilities have to set switchChannels",
+        "required": [
+          "defaultValue"
+        ],
+        "properties": {
+          "capabilities": {
+            "items": {
+              "required": [
+                "switchChannels"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "$comment": "channel contains only one NoFunction capability",
+        "properties": {
+          "capability": {
+            "properties": {
+              "type": {
+                "const": "NoFunction"
+              }
+            }
+          }
+        },
+        "required": [
+          "capability"
+        ]
+      },
+      "then": {
+        "$comment": "fineChannelAliases must not be set",
+        "not": {
+          "required": [
+            "fineChannelAliases"
+          ]
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "definitions.json_nonEmptyString": {
+      "type": "string",
+      "pattern": "^[^\n]+$"
+    },
+    "definitions.json_noVariablesString": {
+      "type": "string",
+      "pattern": "^[^$\n]+$"
+    },
+    "definitions.json_variablePixelKeyString": {
+      "type": "string",
+      "pattern": "\\$pixelKey"
+    },
+    "definitions.json_units_dmxValue": {
+      "type": "integer",
+      "minimum": 0,
+      "$comment": "maximum depends on how many fine channels there are (255 if none, 65535 if one, etc.)"
+    },
+    "definitions.json_units_dmxValuePercent": {
+      "type": "string",
+      "pattern": "^(([1-9][0-9]?|0)(\\.[0-9]+)?|100)%$"
+    },
+    "capability.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "$comment": "This file is used by another schema file and should not be used directly as a JSON schema.",
+      "definitions": {
+        "dmxRange": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/definitions/definitions.json_units_dmxValue"
+          }
+        },
+        "menuClick": {
+          "enum": [
+            "start",
+            "center",
+            "end",
+            "hidden"
+          ]
+        },
+        "switchChannels": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "$comment": "switching channel alias keys",
+            "oneOf": [
+              {
+                "$ref": "#/definitions/definitions.json_noVariablesString"
+              },
+              {
+                "$ref": "#/definitions/definitions.json_variablePixelKeyString"
+              }
+            ]
+          },
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "$comment": "channel key or channel alias key",
+                "$ref": "#/definitions/definitions.json_noVariablesString"
+              },
+              {
+                "$comment": "template channel key or template channel alias key",
+                "$ref": "#/definitions/definitions.json_variablePixelKeyString"
+              }
+            ]
+          }
+        }
+      },
+      "type": "object",
+      "discriminator": {
+        "propertyName": "type"
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "NoFunction"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "ShutterStrobe"
+            },
+            "shutterEffect": {
+              "enum": [
+                "Open",
+                "Closed",
+                "Strobe",
+                "Pulse",
+                "RampUp",
+                "RampDown",
+                "RampUpDown",
+                "Lightning",
+                "Spikes"
+              ]
+            },
+            "soundControlled": {
+              "type": "boolean"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "duration": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "durationStart": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "durationEnd": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "randomTiming": {
+              "type": "boolean"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type",
+            "shutterEffect"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "speed",
+                  "speedStart"
+                ]
+              },
+              {
+                "required": [
+                  "duration",
+                  "durationStart"
+                ]
+              }
+            ]
+          },
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ],
+            "durationStart": [
+              "durationEnd"
+            ],
+            "durationEnd": [
+              "durationStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "StrobeSpeed"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "speed"
+              ]
+            },
+            {
+              "required": [
+                "speedStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "StrobeDuration"
+            },
+            "duration": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "durationStart": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "durationEnd": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "duration"
+              ]
+            },
+            {
+              "required": [
+                "durationStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "durationStart": [
+              "durationEnd"
+            ],
+            "durationEnd": [
+              "durationStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Intensity"
+            },
+            "brightness": {
+              "$ref": "#/definitions/definitions.json_entities_brightness"
+            },
+            "brightnessStart": {
+              "$ref": "#/definitions/definitions.json_entities_brightness"
+            },
+            "brightnessEnd": {
+              "$ref": "#/definitions/definitions.json_entities_brightness"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "not": {
+            "required": [
+              "brightness",
+              "brightnessStart"
+            ]
+          },
+          "dependencies": {
+            "brightnessStart": [
+              "brightnessEnd"
+            ],
+            "brightnessEnd": [
+              "brightnessStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "ColorIntensity"
+            },
+            "color": {
+              "enum": [
+                "Red",
+                "Green",
+                "Blue",
+                "Cyan",
+                "Magenta",
+                "Yellow",
+                "Amber",
+                "White",
+                "Warm White",
+                "Cold White",
+                "UV",
+                "Lime",
+                "Indigo"
+              ]
+            },
+            "brightness": {
+              "$ref": "#/definitions/definitions.json_entities_brightness"
+            },
+            "brightnessStart": {
+              "$ref": "#/definitions/definitions.json_entities_brightness"
+            },
+            "brightnessEnd": {
+              "$ref": "#/definitions/definitions.json_entities_brightness"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type",
+            "color"
+          ],
+          "not": {
+            "required": [
+              "brightness",
+              "brightnessStart"
+            ]
+          },
+          "dependencies": {
+            "brightnessStart": [
+              "brightnessEnd"
+            ],
+            "brightnessEnd": [
+              "brightnessStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "ColorPreset"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "colors": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/definitions.json_colorString"
+              }
+            },
+            "colorsStart": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/definitions.json_colorString"
+              }
+            },
+            "colorsEnd": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/definitions.json_colorString"
+              }
+            },
+            "colorTemperature": {
+              "$ref": "#/definitions/definitions.json_entities_colorTemperature"
+            },
+            "colorTemperatureStart": {
+              "$ref": "#/definitions/definitions.json_entities_colorTemperature"
+            },
+            "colorTemperatureEnd": {
+              "$ref": "#/definitions/definitions.json_entities_colorTemperature"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "colors",
+                  "colorsStart"
+                ]
+              },
+              {
+                "required": [
+                  "colorTemperature",
+                  "colorTemperatureStart"
+                ]
+              }
+            ]
+          },
+          "dependencies": {
+            "colorsStart": [
+              "colorsEnd"
+            ],
+            "colorsEnd": [
+              "colorsStart"
+            ],
+            "colorTemperatureStart": [
+              "colorTemperatureEnd"
+            ],
+            "colorTemperatureEnd": [
+              "colorTemperatureStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "ColorTemperature"
+            },
+            "colorTemperature": {
+              "$ref": "#/definitions/definitions.json_entities_colorTemperature"
+            },
+            "colorTemperatureStart": {
+              "$ref": "#/definitions/definitions.json_entities_colorTemperature"
+            },
+            "colorTemperatureEnd": {
+              "$ref": "#/definitions/definitions.json_entities_colorTemperature"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "colorTemperature"
+              ]
+            },
+            {
+              "required": [
+                "colorTemperatureStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "colorTemperatureStart": [
+              "colorTemperatureEnd"
+            ],
+            "colorTemperatureEnd": [
+              "colorTemperatureStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Pan"
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "angle"
+              ]
+            },
+            {
+              "required": [
+                "angleStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "PanContinuous"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "speed"
+              ]
+            },
+            {
+              "required": [
+                "speedStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Tilt"
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "angle"
+              ]
+            },
+            {
+              "required": [
+                "angleStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "TiltContinuous"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "speed"
+              ]
+            },
+            {
+              "required": [
+                "speedStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "PanTiltSpeed"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "duration": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "durationStart": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "durationEnd": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "speed"
+              ]
+            },
+            {
+              "required": [
+                "speedStart"
+              ]
+            },
+            {
+              "required": [
+                "duration"
+              ]
+            },
+            {
+              "required": [
+                "durationStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ],
+            "durationStart": [
+              "durationEnd"
+            ],
+            "durationEnd": [
+              "durationStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "WheelSlot"
+            },
+            "wheel": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "slotNumber": {
+              "$ref": "#/definitions/definitions.json_entities_slotNumber"
+            },
+            "slotNumberStart": {
+              "$ref": "#/definitions/definitions.json_entities_slotNumber"
+            },
+            "slotNumberEnd": {
+              "$ref": "#/definitions/definitions.json_entities_slotNumber"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "slotNumber"
+              ]
+            },
+            {
+              "required": [
+                "slotNumberStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "slotNumberStart": [
+              "slotNumberEnd"
+            ],
+            "slotNumberEnd": [
+              "slotNumberStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "WheelShake"
+            },
+            "wheel": {},
+            "isShaking": {
+              "enum": [
+                "wheel",
+                "slot"
+              ]
+            },
+            "slotNumber": {
+              "$ref": "#/definitions/definitions.json_entities_slotNumber"
+            },
+            "slotNumberStart": {
+              "$ref": "#/definitions/definitions.json_entities_slotNumber"
+            },
+            "slotNumberEnd": {
+              "$ref": "#/definitions/definitions.json_entities_slotNumber"
+            },
+            "shakeSpeed": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "shakeSpeedStart": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "shakeSpeedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "shakeAngle": {
+              "$ref": "#/definitions/definitions.json_entities_swingAngle"
+            },
+            "shakeAngleStart": {
+              "$ref": "#/definitions/definitions.json_entities_swingAngle"
+            },
+            "shakeAngleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_swingAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "slotNumber",
+                  "slotNumberStart"
+                ]
+              },
+              {
+                "required": [
+                  "shakeSpeed",
+                  "shakeSpeedStart"
+                ]
+              },
+              {
+                "required": [
+                  "shakeAngle",
+                  "shakeAngleStart"
+                ]
+              }
+            ]
+          },
+          "dependencies": {
+            "shakeSpeedStart": [
+              "shakeSpeedEnd"
+            ],
+            "shakeSpeedEnd": [
+              "shakeSpeedStart"
+            ],
+            "shakeAngleStart": [
+              "shakeAngleEnd"
+            ],
+            "shakeAngleEnd": [
+              "shakeAngleStart"
+            ],
+            "slotNumberStart": [
+              "slotNumberEnd"
+            ],
+            "slotNumberEnd": [
+              "slotNumberStart"
+            ]
+          },
+          "if": {
+            "$comment": "slotNumber is set",
+            "anyOf": [
+              {
+                "required": [
+                  "slotNumber"
+                ]
+              },
+              {
+                "required": [
+                  "slotNumberStart"
+                ]
+              }
+            ]
+          },
+          "then": {
+            "$comment": "wheel must be a single wheel",
+            "properties": {
+              "wheel": {
+                "$ref": "#/definitions/definitions.json_nonEmptyString"
+              }
+            }
+          },
+          "else": {
+            "$comment": "wheel can be a single wheel or multiple wheels",
+            "properties": {
+              "wheel": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/definitions.json_nonEmptyString"
+                  },
+                  {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "minItems": 2,
+                    "items": {
+                      "$ref": "#/definitions/definitions.json_nonEmptyString"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "WheelSlotRotation"
+            },
+            "wheel": {},
+            "slotNumber": {
+              "$ref": "#/definitions/definitions.json_entities_slotNumber"
+            },
+            "slotNumberStart": {
+              "$ref": "#/definitions/definitions.json_entities_slotNumber"
+            },
+            "slotNumberEnd": {
+              "$ref": "#/definitions/definitions.json_entities_slotNumber"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "speed"
+              ]
+            },
+            {
+              "required": [
+                "speedStart"
+              ]
+            },
+            {
+              "required": [
+                "angle"
+              ]
+            },
+            {
+              "required": [
+                "angleStart"
+              ]
+            }
+          ],
+          "not": {
+            "required": [
+              "slotNumber",
+              "slotNumberStart"
+            ]
+          },
+          "dependencies": {
+            "slotNumberStart": [
+              "slotNumberEnd"
+            ],
+            "slotNumberEnd": [
+              "slotNumberStart"
+            ],
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ],
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "if": {
+            "$comment": "slotNumber is set",
+            "anyOf": [
+              {
+                "required": [
+                  "slotNumber"
+                ]
+              },
+              {
+                "required": [
+                  "slotNumberStart"
+                ]
+              }
+            ]
+          },
+          "then": {
+            "$comment": "wheel must be a single wheel",
+            "properties": {
+              "wheel": {
+                "$ref": "#/definitions/definitions.json_nonEmptyString"
+              }
+            }
+          },
+          "else": {
+            "$comment": "wheel can be a single wheel or multiple wheels",
+            "properties": {
+              "wheel": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/definitions.json_nonEmptyString"
+                  },
+                  {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "minItems": 2,
+                    "items": {
+                      "$ref": "#/definitions/definitions.json_nonEmptyString"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "WheelRotation"
+            },
+            "wheel": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/definitions.json_nonEmptyString"
+                },
+                {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "minItems": 2,
+                  "items": {
+                    "$ref": "#/definitions/definitions.json_nonEmptyString"
+                  }
+                }
+              ]
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "speed"
+              ]
+            },
+            {
+              "required": [
+                "speedStart"
+              ]
+            },
+            {
+              "required": [
+                "angle"
+              ]
+            },
+            {
+              "required": [
+                "angleStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ],
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Effect"
+            },
+            "effectName": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "effectPreset": {
+              "$ref": "#/definitions/definitions.json_effectPreset"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "duration": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "durationStart": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "durationEnd": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "parameter": {
+              "$ref": "#/definitions/definitions.json_entities_parameter"
+            },
+            "parameterStart": {
+              "$ref": "#/definitions/definitions.json_entities_parameter"
+            },
+            "parameterEnd": {
+              "$ref": "#/definitions/definitions.json_entities_parameter"
+            },
+            "soundControlled": {
+              "type": "boolean"
+            },
+            "soundSensitivity": {
+              "$ref": "#/definitions/definitions.json_entities_percent"
+            },
+            "soundSensitivityStart": {
+              "$ref": "#/definitions/definitions.json_entities_percent"
+            },
+            "soundSensitivityEnd": {
+              "$ref": "#/definitions/definitions.json_entities_percent"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "effectName"
+              ]
+            },
+            {
+              "required": [
+                "effectPreset"
+              ]
+            }
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "speed",
+                  "speedStart"
+                ]
+              },
+              {
+                "required": [
+                  "duration",
+                  "durationStart"
+                ]
+              },
+              {
+                "required": [
+                  "parameter",
+                  "parameterStart"
+                ]
+              },
+              {
+                "required": [
+                  "soundSensitivity",
+                  "soundSensitivityStart"
+                ]
+              }
+            ]
+          },
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ],
+            "durationStart": [
+              "durationEnd"
+            ],
+            "durationEnd": [
+              "durationStart"
+            ],
+            "parameterStart": [
+              "parameterEnd"
+            ],
+            "parameterEnd": [
+              "parameterStart"
+            ],
+            "soundSensitivityStart": [
+              "soundSensitivityEnd"
+            ],
+            "soundSensitivityEnd": [
+              "soundSensitivityStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "EffectSpeed"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "speed"
+              ]
+            },
+            {
+              "required": [
+                "speedStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "EffectDuration"
+            },
+            "duration": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "durationStart": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "durationEnd": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "duration"
+              ]
+            },
+            {
+              "required": [
+                "durationStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "durationStart": [
+              "durationEnd"
+            ],
+            "durationEnd": [
+              "durationStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "EffectParameter"
+            },
+            "parameter": {
+              "$ref": "#/definitions/definitions.json_entities_parameter"
+            },
+            "parameterStart": {
+              "$ref": "#/definitions/definitions.json_entities_parameter"
+            },
+            "parameterEnd": {
+              "$ref": "#/definitions/definitions.json_entities_parameter"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "parameter"
+              ]
+            },
+            {
+              "required": [
+                "parameterStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "parameterStart": [
+              "parameterEnd"
+            ],
+            "parameterEnd": [
+              "parameterStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "SoundSensitivity"
+            },
+            "soundSensitivity": {
+              "$ref": "#/definitions/definitions.json_entities_percent"
+            },
+            "soundSensitivityStart": {
+              "$ref": "#/definitions/definitions.json_entities_percent"
+            },
+            "soundSensitivityEnd": {
+              "$ref": "#/definitions/definitions.json_entities_percent"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "soundSensitivity"
+              ]
+            },
+            {
+              "required": [
+                "soundSensitivityStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "soundSensitivityStart": [
+              "soundSensitivityEnd"
+            ],
+            "soundSensitivityEnd": [
+              "soundSensitivityStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "BeamAngle"
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_beamAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_beamAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_beamAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "angle"
+              ]
+            },
+            {
+              "required": [
+                "angleStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "BeamPosition"
+            },
+            "horizontalAngle": {
+              "$ref": "#/definitions/definitions.json_entities_horizontalAngle"
+            },
+            "horizontalAngleStart": {
+              "$ref": "#/definitions/definitions.json_entities_horizontalAngle"
+            },
+            "horizontalAngleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_horizontalAngle"
+            },
+            "verticalAngle": {
+              "$ref": "#/definitions/definitions.json_entities_verticalAngle"
+            },
+            "verticalAngleStart": {
+              "$ref": "#/definitions/definitions.json_entities_verticalAngle"
+            },
+            "verticalAngleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_verticalAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "anyOf": [
+            {
+              "oneOf": [
+                {
+                  "required": [
+                    "horizontalAngle"
+                  ]
+                },
+                {
+                  "required": [
+                    "horizontalAngleStart"
+                  ]
+                }
+              ]
+            },
+            {
+              "oneOf": [
+                {
+                  "required": [
+                    "verticalAngle"
+                  ]
+                },
+                {
+                  "required": [
+                    "verticalAngleStart"
+                  ]
+                }
+              ]
+            }
+          ],
+          "dependencies": {
+            "horizontalAngleStart": [
+              "horizontalAngleEnd"
+            ],
+            "horizontalAngleEnd": [
+              "horizontalAngleStart"
+            ],
+            "verticalAngleStart": [
+              "verticalAngleEnd"
+            ],
+            "verticalAngleEnd": [
+              "verticalAngleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Focus"
+            },
+            "distance": {
+              "$ref": "#/definitions/definitions.json_entities_distance"
+            },
+            "distanceStart": {
+              "$ref": "#/definitions/definitions.json_entities_distance"
+            },
+            "distanceEnd": {
+              "$ref": "#/definitions/definitions.json_entities_distance"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "distance"
+              ]
+            },
+            {
+              "required": [
+                "distanceStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "distanceStart": [
+              "distanceEnd"
+            ],
+            "distanceEnd": [
+              "distanceStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Zoom"
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_beamAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_beamAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_beamAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "angle"
+              ]
+            },
+            {
+              "required": [
+                "angleStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Iris"
+            },
+            "openPercent": {
+              "$ref": "#/definitions/definitions.json_entities_irisPercent"
+            },
+            "openPercentStart": {
+              "$ref": "#/definitions/definitions.json_entities_irisPercent"
+            },
+            "openPercentEnd": {
+              "$ref": "#/definitions/definitions.json_entities_irisPercent"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "openPercent"
+              ]
+            },
+            {
+              "required": [
+                "openPercentStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "openPercentStart": [
+              "openPercentEnd"
+            ],
+            "openPercentEnd": [
+              "openPercentStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "IrisEffect"
+            },
+            "effectName": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type",
+            "effectName"
+          ],
+          "not": {
+            "required": [
+              "speed",
+              "speedStart"
+            ]
+          },
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Frost"
+            },
+            "frostIntensity": {
+              "$ref": "#/definitions/definitions.json_entities_percent"
+            },
+            "frostIntensityStart": {
+              "$ref": "#/definitions/definitions.json_entities_percent"
+            },
+            "frostIntensityEnd": {
+              "$ref": "#/definitions/definitions.json_entities_percent"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "frostIntensity"
+              ]
+            },
+            {
+              "required": [
+                "frostIntensityStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "frostIntensityStart": [
+              "frostIntensityEnd"
+            ],
+            "frostIntensityEnd": [
+              "frostIntensityStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "FrostEffect"
+            },
+            "effectName": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type",
+            "effectName"
+          ],
+          "not": {
+            "required": [
+              "speed",
+              "speedStart"
+            ]
+          },
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Prism"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "speed",
+                  "speedStart"
+                ]
+              },
+              {
+                "required": [
+                  "angle",
+                  "angleStart"
+                ]
+              },
+              {
+                "required": [
+                  "speed",
+                  "angle"
+                ]
+              },
+              {
+                "required": [
+                  "speed",
+                  "angleStart"
+                ]
+              },
+              {
+                "required": [
+                  "speedStart",
+                  "angle"
+                ]
+              },
+              {
+                "required": [
+                  "speedStart",
+                  "angleStart"
+                ]
+              }
+            ]
+          },
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ],
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "PrismRotation"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "speed"
+              ]
+            },
+            {
+              "required": [
+                "speedStart"
+              ]
+            },
+            {
+              "required": [
+                "angle"
+              ]
+            },
+            {
+              "required": [
+                "angleStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ],
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "BladeInsertion"
+            },
+            "blade": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "Top",
+                    "Right",
+                    "Bottom",
+                    "Left"
+                  ]
+                },
+                {
+                  "$ref": "#/definitions/definitions.json_units_positiveInteger"
+                }
+              ]
+            },
+            "insertion": {
+              "$ref": "#/definitions/definitions.json_entities_insertion"
+            },
+            "insertionStart": {
+              "$ref": "#/definitions/definitions.json_entities_insertion"
+            },
+            "insertionEnd": {
+              "$ref": "#/definitions/definitions.json_entities_insertion"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type",
+            "blade"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "insertion"
+              ]
+            },
+            {
+              "required": [
+                "insertionStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "insertionStart": [
+              "insertionEnd"
+            ],
+            "insertionEnd": [
+              "insertionStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "BladeRotation"
+            },
+            "blade": {
+              "oneOf": [
+                {
+                  "enum": [
+                    "Top",
+                    "Right",
+                    "Bottom",
+                    "Left"
+                  ]
+                },
+                {
+                  "$ref": "#/definitions/definitions.json_units_positiveInteger"
+                }
+              ]
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type",
+            "blade"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "angle"
+              ]
+            },
+            {
+              "required": [
+                "angleStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "BladeSystemRotation"
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "angle"
+              ]
+            },
+            {
+              "required": [
+                "angleStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Fog"
+            },
+            "fogType": {
+              "enum": [
+                "Fog",
+                "Haze"
+              ]
+            },
+            "fogOutput": {
+              "$ref": "#/definitions/definitions.json_entities_fogOutput"
+            },
+            "fogOutputStart": {
+              "$ref": "#/definitions/definitions.json_entities_fogOutput"
+            },
+            "fogOutputEnd": {
+              "$ref": "#/definitions/definitions.json_entities_fogOutput"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "not": {
+            "required": [
+              "fogOutput",
+              "fogOutputStart"
+            ]
+          },
+          "dependencies": {
+            "fogOutputStart": [
+              "fogOutputEnd"
+            ],
+            "fogOutputEnd": [
+              "fogOutputStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "FogOutput"
+            },
+            "fogOutput": {
+              "$ref": "#/definitions/definitions.json_entities_fogOutput"
+            },
+            "fogOutputStart": {
+              "$ref": "#/definitions/definitions.json_entities_fogOutput"
+            },
+            "fogOutputEnd": {
+              "$ref": "#/definitions/definitions.json_entities_fogOutput"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "fogOutput"
+              ]
+            },
+            {
+              "required": [
+                "fogOutputStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "fogOutputStart": [
+              "fogOutputEnd"
+            ],
+            "fogOutputEnd": [
+              "fogOutputStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "FogType"
+            },
+            "fogType": {
+              "enum": [
+                "Fog",
+                "Haze"
+              ]
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type",
+            "fogType"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Rotation"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationSpeed"
+            },
+            "angle": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleStart": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "angleEnd": {
+              "$ref": "#/definitions/definitions.json_entities_rotationAngle"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "speed"
+              ]
+            },
+            {
+              "required": [
+                "speedStart"
+              ]
+            },
+            {
+              "required": [
+                "angle"
+              ]
+            },
+            {
+              "required": [
+                "angleStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ],
+            "angleStart": [
+              "angleEnd"
+            ],
+            "angleEnd": [
+              "angleStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Speed"
+            },
+            "speed": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedStart": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "speedEnd": {
+              "$ref": "#/definitions/definitions.json_entities_speed"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "speed"
+              ]
+            },
+            {
+              "required": [
+                "speedStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "speedStart": [
+              "speedEnd"
+            ],
+            "speedEnd": [
+              "speedStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Time"
+            },
+            "time": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "timeStart": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "timeEnd": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "time"
+              ]
+            },
+            {
+              "required": [
+                "timeStart"
+              ]
+            }
+          ],
+          "dependencies": {
+            "timeStart": [
+              "timeEnd"
+            ],
+            "timeEnd": [
+              "timeStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Maintenance"
+            },
+            "parameter": {
+              "$ref": "#/definitions/definitions.json_entities_parameter"
+            },
+            "parameterStart": {
+              "$ref": "#/definitions/definitions.json_entities_parameter"
+            },
+            "parameterEnd": {
+              "$ref": "#/definitions/definitions.json_entities_parameter"
+            },
+            "hold": {
+              "$ref": "#/definitions/definitions.json_entities_time"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "not": {
+            "required": [
+              "parameter",
+              "parameterStart"
+            ]
+          },
+          "dependencies": {
+            "parameterStart": [
+              "parameterEnd"
+            ],
+            "parameterEnd": [
+              "parameterStart"
+            ]
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dmxRange": {
+              "$ref": "#/definitions/capability.json_definitions_dmxRange"
+            },
+            "type": {
+              "const": "Generic"
+            },
+            "comment": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "helpWanted": {
+              "$ref": "#/definitions/definitions.json_nonEmptyString"
+            },
+            "menuClick": {
+              "$ref": "#/definitions/capability.json_definitions_menuClick"
+            },
+            "switchChannels": {
+              "$ref": "#/definitions/capability.json_definitions_switchChannels"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "capability.json_definitions_dmxRange": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/definitions/definitions.json_units_dmxValue"
+      }
+    },
+    "capability.json_definitions_menuClick": {
+      "enum": [
+        "start",
+        "center",
+        "end",
+        "hidden"
+      ]
+    },
+    "capability.json_definitions_switchChannels": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$comment": "switching channel alias keys",
+        "oneOf": [
+          {
+            "$ref": "#/definitions/definitions.json_noVariablesString"
+          },
+          {
+            "$ref": "#/definitions/definitions.json_variablePixelKeyString"
+          }
+        ]
+      },
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "$comment": "channel key or channel alias key",
+            "$ref": "#/definitions/definitions.json_noVariablesString"
+          },
+          {
+            "$comment": "template channel key or template channel alias key",
+            "$ref": "#/definitions/definitions.json_variablePixelKeyString"
+          }
+        ]
+      }
+    },
+    "definitions.json_entities_speed": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_hertz"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_beatsPerMinute"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "fast",
+            "slow",
+            "stop",
+            "slow reverse",
+            "fast reverse"
+          ]
+        }
+      ]
+    },
+    "definitions.json_units_hertz": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?Hz$"
+    },
+    "definitions.json_units_beatsPerMinute": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?bpm$"
+    },
+    "definitions.json_units_percent": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?%$"
+    },
+    "definitions.json_entities_time": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_seconds"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_milliSeconds"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "instant",
+            "short",
+            "long"
+          ]
+        }
+      ]
+    },
+    "definitions.json_units_seconds": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?s$"
+    },
+    "definitions.json_units_milliSeconds": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?ms$"
+    },
+    "definitions.json_entities_brightness": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_lumens"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "off",
+            "dark",
+            "bright"
+          ]
+        }
+      ]
+    },
+    "definitions.json_units_lumens": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?lm$"
+    },
+    "definitions.json_colorString": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$",
+      "format": "color-hex"
+    },
+    "definitions.json_entities_colorTemperature": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_kelvin"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "warm",
+            "CTO",
+            "default",
+            "cold",
+            "CTB"
+          ]
+        }
+      ]
+    },
+    "definitions.json_units_kelvin": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?K$"
+    },
+    "definitions.json_entities_rotationAngle": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_degrees"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        }
+      ]
+    },
+    "definitions.json_units_degrees": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?deg$"
+    },
+    "definitions.json_entities_rotationSpeed": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_hertz"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_roundsPerMinute"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "fast CW",
+            "slow CW",
+            "stop",
+            "slow CCW",
+            "fast CCW"
+          ]
+        }
+      ]
+    },
+    "definitions.json_units_roundsPerMinute": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?rpm$"
+    },
+    "definitions.json_entities_slotNumber": {
+      "$ref": "#/definitions/definitions.json_units_nonNegativeNumber"
+    },
+    "definitions.json_units_nonNegativeNumber": {
+      "type": "number",
+      "minimum": 0
+    },
+    "definitions.json_entities_swingAngle": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_degrees"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "closed",
+            "narrow",
+            "wide"
+          ]
+        }
+      ]
+    },
+    "definitions.json_effectPreset": {
+      "enum": [
+        "ColorJump",
+        "ColorFade"
+      ]
+    },
+    "definitions.json_entities_parameter": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_number"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "off",
+            "low",
+            "high",
+            "slow",
+            "fast",
+            "small",
+            "big",
+            "instant",
+            "short",
+            "long"
+          ]
+        }
+      ]
+    },
+    "definitions.json_units_number": {
+      "type": "number"
+    },
+    "definitions.json_entities_percent": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "off",
+            "low",
+            "high"
+          ]
+        }
+      ]
+    },
+    "definitions.json_entities_beamAngle": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_degrees"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "closed",
+            "narrow",
+            "wide"
+          ]
+        }
+      ]
+    },
+    "definitions.json_entities_horizontalAngle": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_degrees"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ]
+        }
+      ]
+    },
+    "definitions.json_entities_verticalAngle": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_degrees"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "top",
+            "center",
+            "bottom"
+          ]
+        }
+      ]
+    },
+    "definitions.json_entities_distance": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_meters"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "near",
+            "far"
+          ]
+        }
+      ]
+    },
+    "definitions.json_units_meters": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?m$"
+    },
+    "definitions.json_entities_irisPercent": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "closed",
+            "open"
+          ]
+        }
+      ]
+    },
+    "definitions.json_units_positiveInteger": {
+      "type": "integer",
+      "minimum": 0,
+      "exclusiveMinimum": 0
+    },
+    "definitions.json_entities_insertion": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "out",
+            "in"
+          ]
+        }
+      ]
+    },
+    "definitions.json_entities_fogOutput": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions.json_units_volumePerMinute"
+        },
+        {
+          "$ref": "#/definitions/definitions.json_units_percent"
+        },
+        {
+          "enum": [
+            "off",
+            "weak",
+            "strong"
+          ]
+        }
+      ]
+    },
+    "definitions.json_units_volumePerMinute": {
+      "type": "string",
+      "pattern": "^-?[0-9]+(\\.[0-9]+)?m\\^3/min$"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Product set",
+  "type": "array",
+  "items": {
+    "title": "Product",
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "The unique identifier for a product",
+        "type": "number"
+      },
+      "name": {
+        "type": "string"
+      },
+      "price": {
+        "type": "number",
+        "minimum": 0,
+        "exclusiveMinimum": true
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "uniqueItems": true
+      },
+      "dimensions": {
+        "type": "object",
+        "properties": {
+          "length": {
+            "type": "number"
+          },
+          "width": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "length",
+          "width",
+          "height"
+        ]
+      },
+      "warehouseLocation": {
+        "description": "Coordinates of the warehouse with the product",
+        "$ref": "#/definitions/https:__example.com_geographical-location.schema.json"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "price"
+    ]
+  },
+  "definitions": {
+    "https:__example.com_geographical-location.schema.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Longitude and Latitude Values",
+      "description": "A geographical coordinate.",
+      "required": [
+        "latitude",
+        "longitude"
+      ],
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        }
+      }
+    }
+  }
+}

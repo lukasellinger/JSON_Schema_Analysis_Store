@@ -1,0 +1,4 @@
+{
+  "pattern": "^\\W$",
+  "type": "string"
+}

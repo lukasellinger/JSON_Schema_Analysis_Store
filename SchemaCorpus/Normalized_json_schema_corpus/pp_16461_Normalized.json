@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "wavpack",
+  "name": "WAVPACK",
+  "defaults": {},
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "_sampleFormat",
+          "forced": true,
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 3,
+            "items": [
+              {
+                "value": "u8p"
+              },
+              {
+                "value": "s16p"
+              },
+              {
+                "value": "s32p"
+              },
+              {
+                "value": "fltp"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "compression_level",
+          "control": {
+            "maximum": 8,
+            "minimum": 0,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 1
+          }
+        },
+        {
+          "parameter": "frame_size",
+          "control": {
+            "maximum": 131072,
+            "minimum": 128,
+            "singleStep": 1,
+            "type": "float",
+            "value": 0
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "joint_stereo",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 2,
+            "items": [
+              {
+                "value": "on"
+              },
+              {
+                "value": "off"
+              },
+              {
+                "value": "auto"
+              }
+            ]
+          }
+        },
+        {
+          "parameter": "optimize_mono",
+          "control": {
+            "type": "combobox",
+            "selectedIndex": 0,
+            "items": [
+              {
+                "value": "on"
+              },
+              {
+                "value": "off"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

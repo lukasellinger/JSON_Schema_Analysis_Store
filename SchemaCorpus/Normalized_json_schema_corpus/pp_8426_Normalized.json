@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Email_schema.json"
+  },
+  "minItems": 1,
+  "uniqueItems": true,
+  "definitions": {
+    "Email_schema.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "body",
+        "subject"
+      ]
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "URLList": {
+    "type": "object",
+    "anyOf": [
+      {
+        "$ref": "#/definitions/UserURLList"
+      },
+      {
+        "$ref": "#/definitions/UserUUIDURLList"
+      },
+      {
+        "$ref": "#/definitions/UserAccountURLList"
+      },
+      {
+        "$ref": "#/definitions/HypertyURLList"
+      },
+      {
+        "$ref": "#/definitions/HypertyCatalogueURLList"
+      },
+      {
+        "$ref": "#/definitions/HypertyRuntimeURLList"
+      },
+      {
+        "$ref": "#/definitions/CommunicationURLList"
+      },
+      {
+        "$ref": "#/definitions/DomainURLList"
+      },
+      {
+        "$ref": "#/definitions/ContextURLList"
+      }
+    ],
+    "properties": {}
+  },
+  "UserURLList": {
+    "type": "object",
+    "properties": {}
+  },
+  "UserUUIDURLList": {
+    "type": "object",
+    "properties": {}
+  },
+  "DomainURLList": {
+    "type": "object",
+    "properties": {}
+  },
+  "UserAccountURLList": {
+    "type": "object",
+    "properties": {}
+  },
+  "HypertyURLList": {
+    "type": "object",
+    "properties": {}
+  },
+  "HypertyCatalogueURLList": {
+    "type": "object",
+    "properties": {}
+  },
+  "HypertyRuntimeURLList": {
+    "type": "object",
+    "properties": {}
+  },
+  "CommunicationURLList": {
+    "type": "object",
+    "properties": {}
+  },
+  "ContextURLList": {
+    "type": "object",
+    "properties": {}
+  },
+  "definitions": {
+    "UserURLList": {
+      "type": "object",
+      "properties": {}
+    },
+    "UserUUIDURLList": {
+      "type": "object",
+      "properties": {}
+    },
+    "UserAccountURLList": {
+      "type": "object",
+      "properties": {}
+    },
+    "HypertyURLList": {
+      "type": "object",
+      "properties": {}
+    },
+    "HypertyCatalogueURLList": {
+      "type": "object",
+      "properties": {}
+    },
+    "HypertyRuntimeURLList": {
+      "type": "object",
+      "properties": {}
+    },
+    "CommunicationURLList": {
+      "type": "object",
+      "properties": {}
+    },
+    "DomainURLList": {
+      "type": "object",
+      "properties": {}
+    },
+    "ContextURLList": {
+      "type": "object",
+      "properties": {}
+    }
+  }
+}

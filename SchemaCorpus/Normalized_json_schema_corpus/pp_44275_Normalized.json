@@ -1,0 +1,57 @@
+{
+  "id": "hotspot-transform-position",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "HotspotTransformPositionConfig",
+  "description": "An instance of \u003ca href\u003d\u0027#hotspot-transform-position\u0027\u003ea hotspot transform position.\u003c/a\u003e",
+  "type": "object",
+  "properties": {
+    "radius": {
+      "type": "number",
+      "title": "Radius",
+      "description": "The radius, ie the distance between the camera and the hotspot",
+      "minimum": 0,
+      "maximum": 1000,
+      "example": 200
+    },
+    "theta": {
+      "type": "number",
+      "title": "Theta",
+      "description": "The position on the horizontal axis in degrees",
+      "minimum": 0,
+      "maximum": 360,
+      "example": 90
+    },
+    "phi": {
+      "type": "number",
+      "title": "Phi",
+      "description": "The position on the vertical axis in degrees",
+      "minimum": -90,
+      "maximum": 90,
+      "example": 30
+    },
+    "x": {
+      "type": "number",
+      "title": "X",
+      "description": "The position on the X axis of the world",
+      "minimum": -10000,
+      "maximum": 10000,
+      "example": 240
+    },
+    "y": {
+      "type": "number",
+      "title": "Y",
+      "description": "The position on the Y axis of the world",
+      "minimum": -10000,
+      "maximum": 10000,
+      "example": 350
+    },
+    "z": {
+      "type": "number",
+      "title": "Z",
+      "description": "The position on the Z axis of the world",
+      "minimum": -10000,
+      "maximum": 10000,
+      "example": 480
+    }
+  }
+}

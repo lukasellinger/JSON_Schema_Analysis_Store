@@ -1,0 +1,338 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/containers/(id)/json",
+  "type": "object",
+  "properties": {
+    "AppArmorProfile": {
+      "type": "string"
+    },
+    "Args": {
+      "type": "array",
+      "items": {}
+    },
+    "Config": {
+      "type": "object",
+      "properties": {
+        "AttachStderr": {
+          "type": "boolean"
+        },
+        "AttachStdin": {
+          "type": "boolean"
+        },
+        "AttachStdout": {
+          "type": "boolean"
+        },
+        "Cmd": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "CpuShares": {
+          "type": "integer"
+        },
+        "Cpuset": {
+          "type": "string"
+        },
+        "Domainname": {
+          "type": "string"
+        },
+        "Entrypoint": {
+          "type": "null"
+        },
+        "Env": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ExposedPorts": {
+          "type": "object"
+        },
+        "Hostname": {
+          "type": "string"
+        },
+        "Image": {
+          "type": "string"
+        },
+        "MacAddress": {
+          "type": "string"
+        },
+        "Memory": {
+          "type": "integer"
+        },
+        "MemorySwap": {
+          "type": "integer"
+        },
+        "NetworkDisabled": {
+          "type": "boolean"
+        },
+        "OnBuild": {
+          "type": "null"
+        },
+        "OpenStdin": {
+          "type": "boolean"
+        },
+        "PortSpecs": {
+          "type": "null"
+        },
+        "StdinOnce": {
+          "type": "boolean"
+        },
+        "Tty": {
+          "type": "boolean"
+        },
+        "User": {
+          "type": "string"
+        },
+        "Volumes": {
+          "type": "object"
+        },
+        "WorkingDir": {
+          "type": "string"
+        }
+      }
+    },
+    "Created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "Driver": {
+      "type": "string"
+    },
+    "ExecDriver": {
+      "type": "string"
+    },
+    "ExecIDs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "HostConfig": {
+      "type": "object",
+      "properties": {
+        "Binds": {
+          "type": "array",
+          "items": {
+            "description": "Colon separated value denoting hostPath:containerPath",
+            "type": "string"
+          }
+        },
+        "CapAdd": {
+          "type": "null"
+        },
+        "CapDrop": {
+          "type": "null"
+        },
+        "ContainerIDFile": {
+          "type": "string"
+        },
+        "Devices": {
+          "type": "array",
+          "items": {}
+        },
+        "Dns": {
+          "type": "null"
+        },
+        "DnsSearch": {
+          "type": "null"
+        },
+        "ExtraHosts": {
+          "type": "null"
+        },
+        "IpcMode": {
+          "type": "string"
+        },
+        "Links": {
+          "type": "null"
+        },
+        "LxcConf": {
+          "type": "array",
+          "items": {}
+        },
+        "NetworkMode": {
+          "type": "string"
+        },
+        "PidMode": {
+          "type": "string"
+        },
+        "PortBindings": {
+          "type": "object"
+        },
+        "Privileged": {
+          "type": "boolean"
+        },
+        "PublishAllPorts": {
+          "type": "boolean"
+        },
+        "ReadonlyRootfs": {
+          "type": "boolean"
+        },
+        "RestartPolicy": {
+          "type": "object",
+          "properties": {
+            "MaximumRetryCount": {
+              "type": "integer"
+            },
+            "Name": {
+              "type": "string"
+            }
+          }
+        },
+        "SecurityOpt": {
+          "type": "null"
+        },
+        "VolumesFrom": {
+          "type": "null"
+        }
+      }
+    },
+    "HostnamePath": {
+      "type": "string"
+    },
+    "HostsPath": {
+      "type": "string"
+    },
+    "Id": {
+      "type": "string"
+    },
+    "Image": {
+      "type": "string"
+    },
+    "MountLabel": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "NetworkSettings": {
+      "type": "object",
+      "properties": {
+        "Bridge": {
+          "type": "string"
+        },
+        "Gateway": {
+          "type": "string"
+        },
+        "GlobalIPv6Address": {
+          "type": "string"
+        },
+        "GlobalIPv6PrefixLen": {
+          "type": "integer"
+        },
+        "IPAddress": {
+          "type": "string"
+        },
+        "IPPrefixLen": {
+          "type": "integer"
+        },
+        "IPv6Gateway": {
+          "type": "string"
+        },
+        "LinkLocalIPv6Address": {
+          "type": "string"
+        },
+        "LinkLocalIPv6PrefixLen": {
+          "type": "integer"
+        },
+        "MacAddress": {
+          "type": "string"
+        },
+        "PortMapping": {
+          "type": "null"
+        },
+        "Ports": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "HostIp": {
+                  "type": "string"
+                },
+                "HostPort": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Path": {
+      "type": "string"
+    },
+    "ProcessLabel": {
+      "type": "string"
+    },
+    "ResolvConfPath": {
+      "type": "string"
+    },
+    "RestartCount": {
+      "type": "integer"
+    },
+    "State": {
+      "type": "object",
+      "properties": {
+        "Error": {
+          "type": "string"
+        },
+        "ExitCode": {
+          "type": "integer"
+        },
+        "FinishedAt": {
+          "type": "string"
+        },
+        "OOMKilled": {
+          "type": "boolean"
+        },
+        "Paused": {
+          "type": "boolean"
+        },
+        "Pid": {
+          "type": "integer"
+        },
+        "Restarting": {
+          "type": "boolean"
+        },
+        "Running": {
+          "type": "boolean"
+        },
+        "StartedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "Volumes": {
+      "type": "object"
+    },
+    "VolumesRW": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "AppArmorProfile",
+    "Args",
+    "Config",
+    "Created",
+    "Driver",
+    "ExecDriver",
+    "ExecIDs",
+    "HostConfig",
+    "HostnamePath",
+    "HostsPath",
+    "Id",
+    "Image",
+    "MountLabel",
+    "Name",
+    "NetworkSettings",
+    "Path",
+    "ProcessLabel",
+    "ResolvConfPath",
+    "RestartCount",
+    "State",
+    "Volumes"
+  ]
+}

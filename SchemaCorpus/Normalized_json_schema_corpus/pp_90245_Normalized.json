@@ -1,0 +1,429 @@
+{
+  "title": "mosaicRule",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "The image service uses a mosaic rule to mosaick multiple rasters on the fly. The mosaic rule parameter is used by many image service operations, for example, export image and identify operations.",
+  "properties": {
+    "ascending": {
+      "type": "boolean",
+      "description": "Indicate whether to use ascending or descending order.",
+      "default": true
+    },
+    "fids": {
+      "type": "array",
+      "description": "A list that defines a subset of rasters used in the mosaic, be aware that the rasters may not be visible at all scales.",
+      "items": {
+        "type": "number"
+      }
+    },
+    "itemRenderingRule": {
+      "type": "object",
+      "description": "The rendering rule applies on items before mosaicking.",
+      "$ref": "#/definitions/renderingRule_schema.json"
+    },
+    "lockRasterIds": {
+      "type": "array",
+      "description": "Lock a few rasters in the image service. Used together with `esriMosaicLockRaster`.",
+      "items": {
+        "type": "number"
+      }
+    },
+    "mosaicMethod": {
+      "type": "string",
+      "description": "A string value that determines how the selected rasters are ordered.",
+      "enum": [
+        "esriMosaicAttribute",
+        "esriMosaicCenter",
+        "esriMosaicLockRaster",
+        "esriMosaicNadir",
+        "esriMosaicNone",
+        "esriMosaicNorthwest",
+        "esriMosaicSeamline",
+        "esriMosaicViewpoint"
+      ]
+    },
+    "mosaicOperation": {
+      "type": "string",
+      "description": "Use the mosaic operation to resolve overlap pixel values: from first or last raster, use the min, max or mean of the pixel values, or blend them.",
+      "enum": [
+        "MT_BLEND",
+        "MT_FIRST",
+        "MT_LAST",
+        "MT_MAX",
+        "MT_MEAN",
+        "MT_MIN",
+        "MT_SUM"
+      ],
+      "default": "MT_FIRST"
+    },
+    "multidimensionalDefinition": {
+      "type": "array",
+      "description": "Definition of multidimentional variables.",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/multidimensionalDefinition_schema.json"
+      }
+    },
+    "sortField": {
+      "type": "string",
+      "description": "The field name used together with `esriMosaicAttribute` method."
+    },
+    "sortValue": {
+      "type": [
+        "null",
+        "number",
+        "string"
+      ],
+      "description": "The base sort value used together with `esriMosaicAttribute` method and `sortField` parameter.",
+      "default": 0
+    },
+    "viewpoint": {
+      "type": "object",
+      "description": "Use a view point along with `esriMosaicViewpoint`.",
+      "$ref": "#/definitions/point_geometry_schema.json"
+    },
+    "where": {
+      "type": "string",
+      "description": "\u003cem\u003eDeprecated. Use `layerDefinition.definitionExpression` instead.\u003c/em\u003e"
+    }
+  },
+  "required": [
+    "mosaicMethod"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "additionalInformation": "[Mosaic rule](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r3000000s4000000) in ArcGIS REST API",
+    "examples": [
+      {
+        "title": "mosaic rule `None`",
+        "code": {
+          "mosaicRule": {
+            "mosaicMethod": "esriMosaicNone",
+            "ascending": true,
+            "fids": [
+              1,
+              2,
+              3
+            ],
+            "mosaicOperation": "MT_FIRST"
+          }
+        }
+      },
+      {
+        "title": "mosaic rule `ByAttribute`",
+        "code": {
+          "mosaicRule": {
+            "mosaicMethod": "esriMosaicAttribute",
+            "sortField": "acquisitionDate",
+            "sortValue": "2010/12/31"
+          }
+        }
+      },
+      {
+        "title": "mosaic rule `Viewpoint`",
+        "code": {
+          "mosaicRule": {
+            "mosaicMethod": "esriMosaicViewpoint",
+            "viewpoint": {
+              "x": 100,
+              "y": 90,
+              "spatialReference": {
+                "wkid": 4326
+              }
+            },
+            "where": "ImageType\u003d\u0027Landsat7\u0027"
+          }
+        }
+      },
+      {
+        "title": "mosaic rule `LockRaster`",
+        "code": {
+          "mosaicRule": {
+            "mosaicMethod": "esriMosaicLockRaster",
+            "lockRasterIds": [
+              1,
+              2,
+              3
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "renderingRule_schema.json": {
+      "title": "renderingRule",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Specifies the rendering rule for how the requested image should be rendered.",
+      "properties": {
+        "outputPixelType": {
+          "type": "string",
+          "description": "the output pixel type defines the output image\u0027s pixel type.",
+          "enum": [
+            "C128",
+            "C64",
+            "F32",
+            "F64",
+            "S16",
+            "S32",
+            "S8",
+            "U1",
+            "U16",
+            "U2",
+            "U32",
+            "U4",
+            "U8",
+            "UNKNOWN"
+          ],
+          "default": "UNKNOWN"
+        },
+        "rasterFunction": {
+          "type": "string",
+          "description": "The raster function name identifies the processing or rendering to be performed. For a list of possible types, please see the [Raster Functions](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Raster_Function_Objects/02r3000000rv000000/) help topic for additional information on this."
+        },
+        "rasterFunctionArguments": {
+          "type": "object",
+          "description": "The arguments for the referenced `rasterFunction`. For a description of arguments per raster function type, please see the [Raster Functions](http://resources.arcgis.com/en/help/arcgis-rest-api/#/Raster_Function_Objects/02r3000000rv000000/) help topic for additional information on this."
+        },
+        "variableName": {
+          "type": "string",
+          "description": "Variable name for the raster function."
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "additionalInformation": "[Raster function objects](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r3000000rv000000) in ArcGIS REST API",
+        "examples": [
+          {
+            "title": "renderingRule with Aspect rasterFunction",
+            "code": {
+              "renderingRule": {
+                "rasterFunction": "Aspect"
+              }
+            }
+          },
+          {
+            "title": "rendering rule with ArgStatistics rasterFunction",
+            "code": {
+              "renderingRule": {
+                "rasterFunction": "ArgStatistics",
+                "rasterFunctionArguments": {
+                  "ArgStatisticsType": 3,
+                  "MinValue": 0.15,
+                  "MaxValue": 1,
+                  "UndefinedClass": 100,
+                  "Raster": "$$"
+                },
+                "outputPixelType": "U8",
+                "variableName": "Raster"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "multidimensionalDefinition_schema.json": {
+      "title": "Multi-dimensional Definition",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "properties": {
+        "dimensionName": {
+          "type": "string",
+          "description": "Type of dimension being used (ex. StdTime)."
+        },
+        "isSlice": {
+          "type": "boolean",
+          "description": "Is slice?",
+          "default": true
+        },
+        "values": {
+          "type": "array",
+          "description": "Array where every element is either a single value, or an array of two values (lower and upper bound).",
+          "items": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              }
+            ]
+          }
+        },
+        "variableName": {
+          "type": "string",
+          "description": "Name of the variable."
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "variableName"
+          ]
+        },
+        {
+          "required": [
+            "dimensionName",
+            "values"
+          ]
+        }
+      ],
+      "additionalProperties": false,
+      "dependencies": {
+        "dimensionName": [
+          "values"
+        ],
+        "values": [
+          "dimensionName"
+        ]
+      },
+      "esriDocumentation": {
+        "additionalInformation": "[Multidimensional Definition](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r300000290000000) in ArcGIS REST API",
+        "examples": [
+          {
+            "code": {
+              "multidimensionalDefinition": {
+                "variableName": "AvgSalinity",
+                "dimensionName": "StdZ",
+                "values": [
+                  [
+                    1406181600000,
+                    1406182200000
+                  ],
+                  [
+                    1406224800000,
+                    1406225400000
+                  ]
+                ],
+                "isSlice": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    "point_geometry_schema.json": {
+      "title": "pointGeometry",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Defines the JSON formats of the point and spatial reference objects.",
+      "properties": {
+        "m": {
+          "type": "number",
+          "description": "M coordinate which contains measures used for linear referencing."
+        },
+        "spatialReference": {
+          "type": "object",
+          "description": "The spatial reference can be defined using a well-known ID (WKID) or well-known text (WKT).",
+          "$ref": "#/definitions/spatialReference_schema.json"
+        },
+        "x": {
+          "description": "X coordinate which is measured along the east/west axis.",
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "NaN"
+              ]
+            }
+          ]
+        },
+        "y": {
+          "type": "number",
+          "description": "Y coordinate which is measured along the north/south axis."
+        },
+        "z": {
+          "type": "number",
+          "description": "Z coordinate which measures height or elevation."
+        }
+      },
+      "required": [
+        "x"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "pointGeometry",
+            "code": {
+              "geometry": {
+                "x": -118.15,
+                "y": 33.8,
+                "spatialReference": {
+                  "wkid": 4326
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "spatialReference_schema.json": {
+      "title": "spatialReference",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The spatialReference object is located at the top level of the JSON hierarchy. In addition to this, it is also available within the operationalLayer and basemap objects.\n\nMany predefined spatial references have already been defined and are available for use. A spatial reference can be defined using a well-known ID (WKID) or well-known text (WKT). The default tolerance and resolution values for the associated coordinate system are used.\n\nA spatial reference can optionally include a definition for a vertical coordinate system (VCS), which is used to interpret the z values of a geometry.",
+      "properties": {
+        "latestVcsWkid": {
+          "type": "number",
+          "description": "(Optional) The current wkid value of the vertical coordinate system."
+        },
+        "latestWkid": {
+          "type": "number",
+          "description": "(Optional) Identifies the current wkid value associated with the same spatial reference. For example a WKID of \u0027102100\u0027 (Web Mercator) has a latestWKid of \u00273857\u0027."
+        },
+        "vcsWkid": {
+          "type": "number",
+          "description": "(Optional) The wkid value of the vertical coordinate system."
+        },
+        "wkid": {
+          "type": "number",
+          "description": "The well-known ID (WKID) of the coordinate system. Specify either WKID or the well-known text (WKT) of the coordinate system."
+        },
+        "wkt": {
+          "type": "string",
+          "description": "The well-known text (WKT) of the coordinate system. Specify either WKT or WKID of the coordinate system."
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "wkt"
+          ]
+        },
+        {
+          "required": [
+            "wkid"
+          ]
+        }
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "additionalInformation": "All operational layers in the scene are drawn or requested in the spatial reference of the basemap layers.\n\nThe **basemap** defines the spatial reference and tiling scheme of the scene. Each **baseMapLayer** must be in the same spatial reference and tiling scheme.\n\n\n\nFor a complete list of supported IDs and their corresponding definition strings, see:\n\n[Projected Coordinate Systems Listing](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Projected_coordinate_systems/02r3000000vt000000/)\n\n[Geographic Coordinate Systems Listing](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geographic_coordinate_systems/02r300000105000000/)\n\n[Vertical Coordinate Systems Listing](http://resources.arcgis.com/en/help/rest/apiref/vcs.html)\n\n\n\nAdditional information regarding how web scenes work with geometry and spatial reference can be found on the Resource Center:\n\n[ArcGIS Server REST API Geometry object](http://resources.arcgis.com/en/help/rest/apiref/geometry.html)\n\n[Using spatial references](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Using_spatial_references/02r3000000qq000000/)\n\n[Working with Geometry Objects](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_Objects/02r3000000n1000000/)",
+        "examples": [
+          {
+            "title": "wkid",
+            "code": {
+              "spatialreference": {
+                "wkid": 102100,
+                "latestWkid": 3857
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

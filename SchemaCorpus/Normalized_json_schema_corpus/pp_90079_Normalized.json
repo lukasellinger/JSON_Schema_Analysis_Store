@@ -1,0 +1,158 @@
+{
+  "title": "PointCloud RGB Renderer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "PointCloudRGBRenderer defines the color of each point in a PointCloudLayer based on the value of a color attribute.",
+  "properties": {
+    "colorModulation": {
+      "description": "",
+      "$ref": "#/definitions/colorModulationInfo_schema.json"
+    },
+    "field": {
+      "type": "string",
+      "description": "The name of the field that is used for the renderer."
+    },
+    "fieldTransformType": {
+      "type": "string",
+      "description": "A transform that is applied to the field value before evaluating the renderer.",
+      "enum": [
+        "none",
+        "lowFourBit",
+        "highFourBit",
+        "absoluteValue",
+        "moduloTen"
+      ]
+    },
+    "pointSizeAlgorithm": {
+      "description": "",
+      "$ref": "#/definitions/pointSizeAlgorithm_schema.json"
+    },
+    "pointsPerInch": {
+      "type": "number",
+      "description": "Number of point to draw per display inch."
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of renderer used.",
+      "enum": [
+        "pointCloudRGBRenderer"
+      ]
+    }
+  },
+  "required": [
+    "field",
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "pointCloudRGBRenderer",
+        "description": "",
+        "code": {
+          "renderer": {
+            "type": "pointCloudRGBRenderer",
+            "field": "RGB",
+            "pointsPerInch": 10
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "colorModulationInfo_schema.json": {
+      "title": "colorModulationInfo",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Indicates whether modulation should be used to render the point.",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "the attribute to use as a source for the modulation amplitude"
+        },
+        "maxValue": {
+          "type": "number",
+          "description": "maximum value to compute modulation linear mapping"
+        },
+        "minValue": {
+          "type": "number",
+          "description": "minimum value to compute modulation linear mapping"
+        }
+      },
+      "required": [
+        "field",
+        "maxValue",
+        "minValue"
+      ],
+      "additionalProperties": false
+    },
+    "pointSizeAlgorithm_schema.json": {
+      "title": "PointCloud Size Algorithm",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Size algorithms for point cloud performance.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/pointCloudFixedSizeAlgorithm_schema.json"
+        },
+        {
+          "$ref": "#/definitions/pointCloudSplatAlgorithm_schema.json"
+        }
+      ]
+    },
+    "pointCloudFixedSizeAlgorithm_schema.json": {
+      "title": "PointCloud FixedSize Algorithm",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Render points with fixed real world or screen space size.",
+      "properties": {
+        "size": {
+          "type": "number",
+          "description": "Symbol size in real world units or display unit"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "pointCloudFixedSizeAlgorithm"
+          ]
+        },
+        "useRealWorldSymbolSizes": {
+          "type": "boolean",
+          "description": " If true symbol size is in meters, display unit (pt) otherwise"
+        }
+      },
+      "required": [
+        "size",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "pointCloudSplatAlgorithm_schema.json": {
+      "title": "PointCloud Splat Algorithm",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Render points using sizes depending on point density.",
+      "properties": {
+        "minSize": {
+          "type": "number",
+          "description": "Minimum display space point size in points"
+        },
+        "scaleFactor": {
+          "type": "number",
+          "description": "Scale factor to applied to the computed point size (in real world)"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "pointCloudSplatAlgorithm"
+          ]
+        }
+      },
+      "required": [
+        "scaleFactor",
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

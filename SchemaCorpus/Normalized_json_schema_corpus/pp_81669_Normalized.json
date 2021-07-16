@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "type": "string",
+    "format": "hostname"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "cell": {
+        "$ref": "#/definitions/common.json_cell"
+      },
+      "traits": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_trait"
+        }
+      },
+      "label": {
+        "$ref": "#/definitions/common.json_label"
+      },
+      "parameters": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_parameter"
+        }
+      }
+    }
+  },
+  "verbs": {
+    "create": {
+      "required": []
+    },
+    "update": {
+      "required": []
+    }
+  },
+  "definitions": {
+    "common.json_cell": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[a-zA-Z0-9-]+$"
+    },
+    "common.json_trait": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "common.json_label": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 32
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "common.json_parameter": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-_]+\u003d.+$"
+    }
+  }
+}

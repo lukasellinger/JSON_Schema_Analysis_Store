@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Some app",
+  "type": "object",
+  "definitions": {
+    "app": {
+      "definitions": {
+        "domains": {
+          "items": {
+            "$ref": "#/definitions/domain"
+          },
+          "type": "array"
+        },
+        "name": {
+          "pattern": "^[a-z][a-z0-9-]{3,30}$",
+          "type": "string"
+        }
+      },
+      "properties": {
+        "domains": {
+          "$ref": "#/definitions/definitions_app_definitions_domains"
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_app_definitions_name"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "domain": {
+      "definitions": {
+        "name": {
+          "format": "hostname",
+          "type": "string"
+        }
+      },
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_domain_definitions_name"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "definitions_app_definitions_domains": {
+      "items": {
+        "$ref": "#/definitions/domain"
+      },
+      "type": "array"
+    },
+    "definitions_app_definitions_name": {
+      "pattern": "^[a-z][a-z0-9-]{3,30}$",
+      "type": "string"
+    },
+    "definitions_domain_definitions_name": {
+      "format": "hostname",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "app": {
+      "$ref": "#/definitions/app"
+    },
+    "domain": {
+      "$ref": "#/definitions/domain"
+    }
+  }
+}

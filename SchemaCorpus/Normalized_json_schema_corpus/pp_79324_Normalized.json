@@ -1,0 +1,273 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "commit": {
+      "properties": {
+        "author": {
+          "type": "null"
+        },
+        "author_email": {
+          "type": "string"
+        },
+        "author_gravatar_url": {
+          "type": "string"
+        },
+        "author_name": {
+          "type": "string"
+        },
+        "authored_date": {
+          "type": "string"
+        },
+        "commit_path": {
+          "type": "string"
+        },
+        "commit_url": {
+          "type": "string"
+        },
+        "committed_date": {
+          "type": "string"
+        },
+        "committer_email": {
+          "type": "string"
+        },
+        "committer_name": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "parent_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "short_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "details": {
+      "properties": {
+        "artifacts": {
+          "items": {},
+          "type": "array"
+        },
+        "duration": {
+          "type": "integer"
+        },
+        "finished_at": {
+          "type": "string"
+        },
+        "manual_actions": {
+          "items": {},
+          "type": "array"
+        },
+        "stages": {
+          "items": {
+            "properties": {
+              "dropdown_path": {
+                "type": "string"
+              },
+              "groups": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "properties": {
+                        "details_path": {
+                          "type": "null"
+                        },
+                        "favicon": {
+                          "type": "string"
+                        },
+                        "group": {
+                          "type": "string"
+                        },
+                        "has_details": {
+                          "type": "boolean"
+                        },
+                        "icon": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "status": {
+                "properties": {
+                  "details_path": {
+                    "type": "string"
+                  },
+                  "favicon": {
+                    "type": "string"
+                  },
+                  "group": {
+                    "type": "string"
+                  },
+                  "has_details": {
+                    "type": "boolean"
+                  },
+                  "icon": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "status": {
+          "properties": {
+            "details_path": {
+              "type": "string"
+            },
+            "favicon": {
+              "type": "string"
+            },
+            "group": {
+              "type": "string"
+            },
+            "has_details": {
+              "type": "boolean"
+            },
+            "icon": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "flags": {
+      "properties": {
+        "cancelable": {
+          "type": "boolean"
+        },
+        "latest": {
+          "type": "boolean"
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "stuck": {
+          "type": "boolean"
+        },
+        "triggered": {
+          "type": "boolean"
+        },
+        "yaml_errors": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "id": {
+      "type": "integer"
+    },
+    "path": {
+      "type": "string"
+    },
+    "ref": {
+      "properties": {
+        "branch": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "retry_path": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "user": {
+      "properties": {
+        "avatar_url": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "web_url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

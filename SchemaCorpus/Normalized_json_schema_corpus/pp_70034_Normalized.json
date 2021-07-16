@@ -1,0 +1,444 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/fge/sample-json-schemas/master/geojson/geojson.json#",
+  "title": "Geo JSON object",
+  "description": "Schema for a Geo JSON object",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "crs": {
+      "$ref": "#/definitions/crs"
+    },
+    "bbox": {
+      "$ref": "#/definitions/bbox"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/definitions/geometry"
+    },
+    {
+      "$ref": "#/definitions/geometryCollection"
+    },
+    {
+      "$ref": "#/definitions/feature"
+    },
+    {
+      "$ref": "#/definitions/featureCollection"
+    }
+  ],
+  "definitions": {
+    "geometryCollection": {
+      "title": "GeometryCollection",
+      "description": "A collection of geometry objects",
+      "required": [
+        "geometries"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "GeometryCollection"
+          ]
+        },
+        "geometries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geometry"
+          }
+        }
+      }
+    },
+    "feature": {
+      "title": "Feature",
+      "description": "A Geo JSON feature object",
+      "required": [
+        "geometry",
+        "properties"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "Feature"
+          ]
+        },
+        "geometry": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/geometry"
+            }
+          ]
+        },
+        "properties": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "id": {
+          "FIXME": "may be there, type not known (string? number?)"
+        }
+      }
+    },
+    "featureCollection": {
+      "title": "FeatureCollection",
+      "description": "A Geo JSON feature collection",
+      "required": [
+        "features"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "FeatureCollection"
+          ]
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/feature"
+          }
+        }
+      }
+    },
+    "geometry": {
+      "title": "geometry",
+      "description": "One geometry as defined by GeoJSON",
+      "type": "object",
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "oneOf": [
+        {
+          "title": "Point",
+          "properties": {
+            "type": {
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/definitions_geometry_definitions_position"
+            }
+          }
+        },
+        {
+          "title": "MultiPoint",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/definitions_geometry_definitions_positionArray"
+            }
+          }
+        },
+        {
+          "title": "LineString",
+          "properties": {
+            "type": {
+              "enum": [
+                "LineString"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/definitions_geometry_definitions_lineString"
+            }
+          }
+        },
+        {
+          "title": "MultiLineString",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/definitions_geometry_definitions_lineString"
+              }
+            }
+          }
+        },
+        {
+          "title": "Polygon",
+          "properties": {
+            "type": {
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/definitions_geometry_definitions_polygon"
+            }
+          }
+        },
+        {
+          "title": "MultiPolygon",
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/definitions_geometry_definitions_polygon"
+              }
+            }
+          }
+        }
+      ],
+      "definitions": {
+        "position": {
+          "description": "A single position",
+          "type": "array",
+          "minItems": 2,
+          "items": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "additionalItems": false
+        },
+        "positionArray": {
+          "description": "An array of positions",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_geometry_definitions_position"
+          }
+        },
+        "lineString": {
+          "description": "An array of two or more positions",
+          "allOf": [
+            {
+              "$ref": "#/definitions/definitions_geometry_definitions_positionArray"
+            },
+            {
+              "minItems": 2
+            }
+          ]
+        },
+        "linearRing": {
+          "description": "An array of four positions where the first equals the last",
+          "allOf": [
+            {
+              "$ref": "#/definitions/definitions_geometry_definitions_positionArray"
+            },
+            {
+              "minItems": 4
+            }
+          ]
+        },
+        "polygon": {
+          "description": "An array of linear rings",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_geometry_definitions_linearRing"
+          }
+        }
+      }
+    },
+    "crs": {
+      "title": "crs",
+      "description": "a Coordinate Reference System object",
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "type",
+        "properties"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "$ref": "#/definitions/definitions_crs_definitions_namedCrs"
+        },
+        {
+          "$ref": "#/definitions/definitions_crs_definitions_linkedCrs"
+        }
+      ],
+      "definitions": {
+        "namedCrs": {
+          "properties": {
+            "type": {
+              "enum": [
+                "name"
+              ]
+            },
+            "properties": {
+              "required": [
+                "name"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "FIXME": "semantic validation necessary"
+                }
+              }
+            }
+          }
+        },
+        "linkedObject": {
+          "type": "object",
+          "required": [
+            "href"
+          ],
+          "properties": {
+            "href": {
+              "type": "string",
+              "format": "uri",
+              "FIXME": "spec says \"dereferenceable\", cannot enforce that"
+            },
+            "type": {
+              "type": "string",
+              "description": "Suggested values: proj4, ogjwkt, esriwkt"
+            }
+          }
+        },
+        "linkedCrs": {
+          "properties": {
+            "type": {
+              "enum": [
+                "link"
+              ]
+            },
+            "properties": {
+              "$ref": "#/definitions/definitions_crs_definitions_linkedObject"
+            }
+          }
+        }
+      }
+    },
+    "bbox": {
+      "description": "A bounding box as defined by GeoJSON",
+      "FIXME": "unenforceable constraint: even number of elements in array",
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "definitions_geometry_definitions_position": {
+      "description": "A single position",
+      "type": "array",
+      "minItems": 2,
+      "items": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "additionalItems": false
+    },
+    "definitions_geometry_definitions_positionArray": {
+      "description": "An array of positions",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/definitions_geometry_definitions_position"
+      }
+    },
+    "definitions_geometry_definitions_lineString": {
+      "description": "An array of two or more positions",
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_geometry_definitions_positionArray"
+        },
+        {
+          "minItems": 2
+        }
+      ]
+    },
+    "definitions_geometry_definitions_polygon": {
+      "description": "An array of linear rings",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/definitions_geometry_definitions_linearRing"
+      }
+    },
+    "definitions_geometry_definitions_linearRing": {
+      "description": "An array of four positions where the first equals the last",
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_geometry_definitions_positionArray"
+        },
+        {
+          "minItems": 4
+        }
+      ]
+    },
+    "definitions_crs_definitions_namedCrs": {
+      "properties": {
+        "type": {
+          "enum": [
+            "name"
+          ]
+        },
+        "properties": {
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "FIXME": "semantic validation necessary"
+            }
+          }
+        }
+      }
+    },
+    "definitions_crs_definitions_linkedCrs": {
+      "properties": {
+        "type": {
+          "enum": [
+            "link"
+          ]
+        },
+        "properties": {
+          "$ref": "#/definitions/definitions_crs_definitions_linkedObject"
+        }
+      }
+    },
+    "definitions_crs_definitions_linkedObject": {
+      "type": "object",
+      "required": [
+        "href"
+      ],
+      "properties": {
+        "href": {
+          "type": "string",
+          "format": "uri",
+          "FIXME": "spec says \"dereferenceable\", cannot enforce that"
+        },
+        "type": {
+          "type": "string",
+          "description": "Suggested values: proj4, ogjwkt, esriwkt"
+        }
+      }
+    }
+  }
+}

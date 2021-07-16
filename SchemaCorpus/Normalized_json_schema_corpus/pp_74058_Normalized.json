@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Acquisition",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\acquisition.json_definitions_acquisition-input"
+    }
+  ],
+  "required": [
+    "label",
+    "session"
+  ],
+  "example": {
+    "label": "example-acquisition",
+    "session": "57e45328466d8e000e33a85b",
+    "public": false
+  },
+  "definitions": {
+    "..\\definitions\\acquisition.json_definitions_acquisition-input": {
+      "type": "object",
+      "properties": {
+        "public": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_public"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        },
+        "info": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_info"
+        },
+        "session": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_objectid"
+        },
+        "uid": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_uid"
+        },
+        "timestamp": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_timestamp"
+        },
+        "timezone": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_timezone"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "acquisition"
+    },
+    "..\\definitions\\container.json_definitions_public": {
+      "type": "boolean"
+    },
+    "..\\definitions\\common.json_definitions_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "..\\definitions\\container.json_definitions_info": {
+      "$ref": "#/definitions/..\\definitions\\common.json_definitions_info"
+    },
+    "..\\definitions\\common.json_definitions_info": {
+      "type": "object"
+    },
+    "..\\definitions\\common.json_definitions_objectid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{24}$"
+    },
+    "..\\definitions\\container.json_definitions_uid": {
+      "type": "string"
+    },
+    "..\\definitions\\container.json_definitions_timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "..\\definitions\\container.json_definitions_timezone": {
+      "type": "string"
+    }
+  }
+}

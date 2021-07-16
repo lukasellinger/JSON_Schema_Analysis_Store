@@ -1,0 +1,2018 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "patternProperties": {
+    "^__[a-z]+__$": {}
+  },
+  "properties": {
+    "__type__": {
+      "type": "string"
+    },
+    "include": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "angle": {
+      "type": "number"
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "CGI_CONTEXT_URL": {
+          "type": "string"
+        },
+        "MS_ENCRYPTION_KEY": {
+          "type": "string"
+        },
+        "MS_ERRORFILE": {
+          "type": "string"
+        },
+        "MS_NONSQUARE": {
+          "$ref": "#/definitions/yesno.json"
+        },
+        "ON_MISSING_DATA": {
+          "type": "string",
+          "enum": [
+            "FAIL",
+            "LOG",
+            "IGNORE"
+          ]
+        },
+        "PROJ_LIB": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "datapattern": {
+      "type": "string"
+    },
+    "debug": {
+      "$ref": "#/definitions/debug.json"
+    },
+    "defresolution": {
+      "type": "number",
+      "metadata": {
+        "minVersion": 5.6
+      }
+    },
+    "extent": {
+      "$ref": "#/definitions/extent.json"
+    },
+    "fontset": {
+      "type": "string"
+    },
+    "imagecolor": {
+      "$ref": "#/definitions/color.json"
+    },
+    "imagequality": {
+      "type": "integer"
+    },
+    "imagetype": {
+      "type": "string"
+    },
+    "interlace": {
+      "$ref": "#/definitions/onoff.json"
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/layer.json"
+      }
+    },
+    "legend": {
+      "type": "object"
+    },
+    "maxsize": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "outputformats": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "projection": {
+      "$ref": "#/definitions/projection.json"
+    },
+    "querymap": {
+      "$ref": "#/definitions/querymap.json"
+    },
+    "reference": {
+      "type": "object"
+    },
+    "resolution": {
+      "type": "number"
+    },
+    "scaledenom": {
+      "type": "number"
+    },
+    "scalebar": {
+      "type": "object"
+    },
+    "shapepath": {
+      "type": "string"
+    },
+    "size": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "status": {
+      "$ref": "#/definitions/onoff.json"
+    },
+    "symbolset": {
+      "type": "string"
+    },
+    "symbols": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/symbol.json"
+      }
+    },
+    "templatepattern": {
+      "type": "string"
+    },
+    "transparent": {
+      "$ref": "#/definitions/onoff.json"
+    },
+    "units": {
+      "$ref": "#/definitions/units.json"
+    },
+    "web": {
+      "type": "object"
+    }
+  },
+  "definitions": {
+    "yesno.json": {
+      "type": "string",
+      "enum": [
+        "YES",
+        "NO"
+      ]
+    },
+    "debug.json": {
+      "enum": [
+        "on",
+        "off",
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "extent.json": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "color.json": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -1,
+            "maximum": 255
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        {
+          "pattern": "^#([a-fA-F0-9]{6,8}|[a-fA-F0-9]{3,4})$",
+          "example": "#aa33cc",
+          "type": "string"
+        }
+      ]
+    },
+    "onoff.json": {
+      "type": "string",
+      "enum": [
+        "on",
+        "off"
+      ]
+    },
+    "layer.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "layer"
+          ]
+        },
+        "__comments__": {
+          "type": "object"
+        },
+        "__position__": {
+          "type": "object"
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/class.json"
+          }
+        },
+        "classgroup": {
+          "type": "string"
+        },
+        "classitem": {
+          "type": "string"
+        },
+        "cluster": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/cluster.json"
+            }
+          ],
+          "metadata": {
+            "minVersion": 6.0
+          }
+        },
+        "composites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/composite.json"
+          },
+          "metadata": {
+            "minVersion": 7.0
+          }
+        },
+        "connection": {
+          "type": "string"
+        },
+        "connectionoptions": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/connectionoptions.json"
+            }
+          ],
+          "metadata": {
+            "minVersion": 7.6
+          }
+        },
+        "connectiontype": {
+          "enum": [
+            "contour",
+            "kerneldensity",
+            "local",
+            "ogr",
+            "oraclespatial",
+            "plugin",
+            "postgis",
+            "sde",
+            "union",
+            "uvraster",
+            "wfs",
+            "wms",
+            "mygis"
+          ]
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "debug": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/debug.json"
+            }
+          ],
+          "metadata": {
+            "minVersion": 5.0
+          }
+        },
+        "dump": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/onoff.json"
+            }
+          ],
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "encoding": {
+          "type": "string",
+          "metadata": {
+            "minVersion": 7.0
+          }
+        },
+        "extent": {
+          "$ref": "#/definitions/extent.json"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/feature.json"
+          }
+        },
+        "filter": {
+          "$ref": "#/definitions/expression.json"
+        },
+        "filteritem": {
+          "type": "string"
+        },
+        "footer": {
+          "type": "string"
+        },
+        "geomtransform": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\((.*?)\\)$"
+            }
+          ],
+          "metadata": {
+            "minVersion": 6.4
+          }
+        },
+        "grid": {
+          "$ref": "#/definitions/grid.json"
+        },
+        "group": {
+          "type": "string"
+        },
+        "header": {
+          "type": "string"
+        },
+        "joins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/join.json"
+          }
+        },
+        "labelangleitem": {
+          "type": "string",
+          "metadata": {
+            "maxVersion": 5.6
+          }
+        },
+        "labelcache": {
+          "$ref": "#/definitions/onoff.json"
+        },
+        "labelitem": {
+          "type": "string"
+        },
+        "labelmaxscale": {
+          "type": "number",
+          "metadata": {
+            "maxVersion": 5.0
+          }
+        },
+        "labelminscale": {
+          "type": "number",
+          "metadata": {
+            "maxVersion": 5.0
+          }
+        },
+        "labelmaxscaledenom": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 5.0
+          }
+        },
+        "labelminscaledenom": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 5.0
+          }
+        },
+        "labelrequires": {
+          "type": "string"
+        },
+        "labelsizeitem": {
+          "type": "string",
+          "metadata": {
+            "maxVersion": 5.0
+          }
+        },
+        "mask": {
+          "type": "string",
+          "metadata": {
+            "minVersion": 6.2
+          }
+        },
+        "maxfeatures": {
+          "type": "integer"
+        },
+        "maxgeowidth": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 5.4
+          }
+        },
+        "maxscaledenom": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 5.0
+          }
+        },
+        "maxscale": {
+          "type": "number",
+          "metadata": {
+            "maxVersion": 5.0
+          }
+        },
+        "metadata": {
+          "$ref": "#/definitions/metadata.json"
+        },
+        "mingeowidth": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 5.4
+          }
+        },
+        "minscaledenom": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 5.0
+          }
+        },
+        "minscale": {
+          "type": "number",
+          "metadata": {
+            "maxVersion": 5.0
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "offsite": {
+          "$ref": "#/definitions/color.json"
+        },
+        "opacity": {
+          "type": "integer",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "plugin": {
+          "type": "string"
+        },
+        "postlabelcache": {
+          "type": "boolean"
+        },
+        "processing": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "projection": {
+          "$ref": "#/definitions/projection.json"
+        },
+        "requires": {
+          "type": "string"
+        },
+        "scaletokens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/scaletoken.json"
+          },
+          "metadata": {
+            "minVersion": 6.4
+          }
+        },
+        "sizeunits": {
+          "enum": [
+            "feet",
+            "inches",
+            "kilometers",
+            "meters",
+            "miles",
+            "nauticalmiles",
+            "pixels"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "on",
+            "off",
+            "default"
+          ]
+        },
+        "styleitem": {
+          "type": "string"
+        },
+        "symbolscaledenom": {
+          "type": "number"
+        },
+        "template": {
+          "type": "string"
+        },
+        "tileindex": {
+          "type": "string"
+        },
+        "tileitem": {
+          "type": "string"
+        },
+        "tilesrs": {
+          "type": "string"
+        },
+        "tolerance": {
+          "type": "number"
+        },
+        "toleranceunits": {
+          "enum": [
+            "pixels",
+            "feet",
+            "inches",
+            "kilometers",
+            "meters",
+            "miles",
+            "nauticalmiles",
+            "dd"
+          ]
+        },
+        "transparency": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "enum": [
+                "alpha"
+              ]
+            }
+          ],
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "transform": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/definitions/position.json"
+            }
+          ]
+        },
+        "type": {
+          "enum": [
+            "chart",
+            "circle",
+            "line",
+            "point",
+            "polygon",
+            "raster",
+            "query",
+            "annotation"
+          ]
+        },
+        "units": {
+          "enum": [
+            "dd",
+            "feet",
+            "inches",
+            "kilometers",
+            "meters",
+            "miles",
+            "nauticalmiles",
+            "percentages",
+            "pixels"
+          ]
+        },
+        "utfdata": {
+          "type": "string",
+          "metadata": {
+            "minVersion": 7.0
+          }
+        },
+        "utfitem": {
+          "type": "string",
+          "metadata": {
+            "minVersion": 7.0
+          }
+        },
+        "validation": {
+          "$ref": "#/definitions/validation.json"
+        }
+      }
+    },
+    "class.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "class"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "backgroundcolor": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/color.json"
+            }
+          ],
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "color": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/color.json"
+            }
+          ],
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "debug": {
+          "$ref": "#/definitions/onoff.json"
+        },
+        "expression": {
+          "$ref": "#/definitions/expression.json"
+        },
+        "group": {
+          "type": "string"
+        },
+        "keyimage": {
+          "type": "string",
+          "description": "filename"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/label.json"
+          }
+        },
+        "leader": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/leader.json"
+            }
+          ],
+          "metadata": {
+            "minVersion": 6.2
+          }
+        },
+        "maxscale": {
+          "type": "number",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "maxscaledenom": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 5.0
+          }
+        },
+        "maxsize": {
+          "type": "integer",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "metadata": {
+          "$ref": "#/definitions/metadata.json"
+        },
+        "minfeaturesize": {
+          "type": "number"
+        },
+        "minscale": {
+          "type": "number",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "minscaledenom": {
+          "type": "number"
+        },
+        "minsize": {
+          "type": "integer",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "outlinecolor": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/color.json"
+            }
+          ],
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "size": {
+          "type": "integer",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/onoff.json"
+        },
+        "styles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/style.json"
+          },
+          "metadata": {
+            "minVersion": 4.0
+          }
+        },
+        "symbol": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/definitions/symbol.json"
+            }
+          ],
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "template": {
+          "type": "string",
+          "description": "filename"
+        },
+        "text": {
+          "$ref": "#/definitions/expression.json"
+        },
+        "title": {
+          "type": "string"
+        },
+        "validation": {
+          "$ref": "#/definitions/validation.json"
+        }
+      }
+    },
+    "expression.json": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "string",
+          "pattern": "^\\((.*?)\\)$",
+          "description": "expression"
+        },
+        {
+          "type": "string",
+          "pattern": "^/(.*?)/$",
+          "description": "regex"
+        }
+      ]
+    },
+    "label.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "label"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "align": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "left",
+                "center",
+                "right"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute"
+            }
+          ],
+          "metadata": {
+            "minVersion": 5.4
+          }
+        },
+        "angle": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "auto",
+                "auto2",
+                "follow"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute",
+              "metadata": {
+                "minVersion": 5.0
+              }
+            }
+          ]
+        },
+        "antialias": {
+          "type": "boolean"
+        },
+        "backgroundcolor": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/color.json"
+            }
+          ],
+          "metadata": {
+            "maxVersion": 6.0
+          }
+        },
+        "backgroundshadowcolor": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/color.json"
+            }
+          ],
+          "metadata": {
+            "maxVersion": 6.0
+          }
+        },
+        "backgroundshadowsize": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/points.json"
+            }
+          ],
+          "metadata": {
+            "minVersion": 6.0
+          }
+        },
+        "buffer": {
+          "type": "integer"
+        },
+        "color": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/color.json"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute",
+              "metadata": {
+                "minVersion": 5.0
+              }
+            }
+          ]
+        },
+        "encoding": {
+          "type": "string",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "expression": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/expression.json"
+            }
+          ],
+          "metadata": {
+            "minVersion": 6.2
+          }
+        },
+        "font": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute",
+              "metadata": {
+                "minVersion": 5.6
+              }
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "force": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "enum": [
+                "group"
+              ],
+              "metadata": {
+                "minVersion": 6.2
+              }
+            }
+          ]
+        },
+        "maxlength": {
+          "type": "integer",
+          "metadata": {
+            "minVersion": 5.4
+          }
+        },
+        "maxoverlapangle": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 6.0
+          }
+        },
+        "maxscaledenom": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 5.4
+          }
+        },
+        "maxsize": {
+          "type": "integer"
+        },
+        "mindistance": {
+          "type": "integer"
+        },
+        "minfeaturesize": {
+          "oneOf": [
+            {
+              "enum": [
+                "auto"
+              ]
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "minscaledenom": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 5.4
+          }
+        },
+        "minsize": {
+          "type": "integer"
+        },
+        "offset": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^\\[(.*?)\\]$",
+                "description": "attribute"
+              },
+              "minItems": 2,
+              "maxItems": 2,
+              "metadata": {
+                "minVersion": 7.6
+              }
+            }
+          ]
+        },
+        "outlinecolor": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/color.json"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute",
+              "metadata": {
+                "minVersion": 5.0
+              }
+            }
+          ]
+        },
+        "outlinewidth": {
+          "type": "integer"
+        },
+        "partials": {
+          "type": "boolean"
+        },
+        "position": {
+          "oneOf": [
+            {
+              "enum": [
+                "auto"
+              ]
+            },
+            {
+              "$ref": "#/definitions/position.json"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute"
+            }
+          ]
+        },
+        "priority": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute"
+            }
+          ],
+          "metadata": {
+            "minVersion": 5.0
+          }
+        },
+        "repeatdistance": {
+          "type": "integer",
+          "default": 0,
+          "metadata": {
+            "minVersion": 5.6
+          }
+        },
+        "shadowcolor": {
+          "$ref": "#/definitions/color.json"
+        },
+        "shadowsize": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            {
+              "type": "array",
+              "items": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string",
+                  "pattern": "^\\[(.*?)\\]$",
+                  "description": "attribute"
+                }
+              ],
+              "minItems": 2,
+              "maxItems": 2,
+              "metadata": {
+                "minVersion": 6.0
+              }
+            }
+          ]
+        },
+        "size": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "tiny",
+                "small",
+                "medium",
+                "large",
+                "giant"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute",
+              "metadata": {
+                "minVersion": 5.0
+              }
+            },
+            {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/expression.json"
+                }
+              ],
+              "metadata": {
+                "maxVersion": 7.6
+              }
+            }
+          ]
+        },
+        "styles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/style.json"
+          }
+        },
+        "text": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/expression.json"
+            }
+          ],
+          "metadata": {
+            "minVersion": 6.2
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "bitmap",
+            "truetype"
+          ],
+          "additionalProperties": false
+        },
+        "wrap": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        }
+      }
+    },
+    "points.json": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number",
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "position.json": {
+      "enum": [
+        "ul",
+        "uc",
+        "ur",
+        "cl",
+        "cc",
+        "cr",
+        "ll",
+        "lc",
+        "lr"
+      ]
+    },
+    "style.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "style"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "angle": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute"
+            },
+            {
+              "enum": [
+                "auto"
+              ]
+            }
+          ]
+        },
+        "angleitem": {
+          "type": "string",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "antialias": {
+          "type": "boolean",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "backgroundcolor": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/color.json"
+            }
+          ],
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "color": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/color.json"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute",
+              "metadata": {
+                "minVersion": 5.0
+              }
+            }
+          ]
+        },
+        "colorrange": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "minItems": 6,
+              "maxItems": 6
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          ]
+        },
+        "datarange": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "gap": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 6.0
+          }
+        },
+        "geomtransform": {
+          "oneOf": [
+            {
+              "enum": [
+                "bbox",
+                "centroid",
+                "end",
+                "labelpnt",
+                "labelpoly",
+                "start",
+                "vertices"
+              ]
+            },
+            {
+              "type": "string",
+              "pattern": "^\\((.*?)\\)$",
+              "description": "expression"
+            }
+          ],
+          "metadata": {
+            "minVersion": 5.4
+          }
+        },
+        "initialgap": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 6.2
+          }
+        },
+        "linecap": {
+          "enum": [
+            "butt",
+            "round",
+            "square"
+          ],
+          "metadata": {
+            "minVersion": 6.0
+          }
+        },
+        "linejoin": {
+          "enum": [
+            "round",
+            "miter",
+            "bevel",
+            "none"
+          ],
+          "metadata": {
+            "minVersion": 6.0
+          }
+        },
+        "linejoinmaxsize": {
+          "type": "integer",
+          "metadata": {
+            "minVersion": 6.0
+          }
+        },
+        "maxscaledenom": {
+          "type": "number",
+          "metadata": {
+            "minVersion": 5.0
+          }
+        },
+        "maxsize": {
+          "type": "number"
+        },
+        "maxwidth": {
+          "type": "number"
+        },
+        "minscaledenom": {
+          "type": "number"
+        },
+        "minsize": {
+          "type": "number"
+        },
+        "minwidth": {
+          "type": "number"
+        },
+        "offset": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^\\[(.*?)\\]$",
+                "description": "attribute"
+              }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "opacity": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute",
+              "metadata": {
+                "minVersion": 5.6
+              }
+            }
+          ]
+        },
+        "outlinecolor": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/color.json"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute",
+              "metadata": {
+                "minVersion": 5.0
+              }
+            }
+          ]
+        },
+        "outlinewidth": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute"
+            }
+          ],
+          "metadata": {
+            "minVersion": 5.4
+          }
+        },
+        "pattern": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/points.json"
+            }
+          ],
+          "metadata": {
+            "minVersion": 6.0
+          }
+        },
+        "polaroffset": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^\\[(.*?)\\]$",
+                "description": "attribute"
+              }
+            ],
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "metadata": {
+            "minVersion": 6.2
+          }
+        },
+        "rangeitem": {
+          "type": "string",
+          "pattern": "^\\[(.*?)\\]$",
+          "description": "attribute"
+        },
+        "size": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute",
+              "metadata": {
+                "minVersion": 5.0
+              }
+            }
+          ]
+        },
+        "symbol": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/definitions/symbol.json"
+            }
+          ]
+        },
+        "width": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string",
+              "pattern": "^\\[(.*?)\\]$",
+              "description": "attribute",
+              "metadata": {
+                "minVersion": 5.4
+              }
+            }
+          ]
+        }
+      }
+    },
+    "symbol.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "symbol"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "anchorpoint": {
+          "type": "array",
+          "items": [
+            {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "metadata": {
+            "minVersion": 6.2
+          }
+        },
+        "antialias": {
+          "type": "boolean",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "backgroundcolor": {
+          "$ref": "#/definitions/color.json"
+        },
+        "character": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1
+            },
+            {
+              "pattern": "^\u0026#[0-9]+;$",
+              "example": "\u0026#10140;",
+              "type": "string"
+            }
+          ]
+        },
+        "filled": {
+          "type": "boolean"
+        },
+        "font": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "points": {
+          "$ref": "#/definitions/points.json"
+        },
+        "transparent": {
+          "type": "integer",
+          "metadata": {
+            "maxVersion": 7.6
+          }
+        },
+        "type": {
+          "enum": [
+            "ellipse",
+            "hatch",
+            "pixmap",
+            "svg",
+            "truetype",
+            "vector"
+          ]
+        }
+      }
+    },
+    "leader.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "leader"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gridstep": {
+          "type": "integer"
+        },
+        "maxdistance": {
+          "type": "integer"
+        },
+        "styles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "$ref": "#/definitions/style.json"
+          }
+        }
+      }
+    },
+    "metadata.json": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "validation.json": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "cluster.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "cluster"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "maxdistance": {
+          "type": "number"
+        },
+        "region": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^rectangle$"
+            },
+            {
+              "type": "string",
+              "pattern": "^ellipse$"
+            }
+          ]
+        },
+        "buffer": {
+          "type": "number"
+        },
+        "group": {
+          "$ref": "#/definitions/expression.json"
+        },
+        "filter": {
+          "$ref": "#/definitions/expression.json"
+        }
+      }
+    },
+    "composite.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "composite"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "opacity": {
+          "type": "integer"
+        },
+        "compop": {
+          "type": "string"
+        }
+      }
+    },
+    "connectionoptions.json": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true,
+      "metadata": {
+        "minVersion": 7.6
+      }
+    },
+    "feature.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "feature"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "points": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/points.json"
+              }
+            },
+            {
+              "$ref": "#/definitions/points.json"
+            }
+          ]
+        },
+        "items": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "wkt": {
+          "type": "string"
+        }
+      }
+    },
+    "grid.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "grid"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "labelformat": {
+          "type": "string",
+          "enum": [
+            "dd",
+            "ddmm",
+            "ddmmss"
+          ],
+          "additionalProperties": true
+        },
+        "minarcs": {
+          "type": "number",
+          "default": 16
+        },
+        "maxarcs": {
+          "type": "number"
+        },
+        "mininterval": {
+          "type": "number"
+        },
+        "maxinterval": {
+          "type": "number"
+        },
+        "minsubdivide": {
+          "type": "number"
+        },
+        "maxsubdivide": {
+          "type": "number",
+          "default": 256
+        }
+      }
+    },
+    "join.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "join"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "connection": {
+          "type": "string"
+        },
+        "footer": {
+          "type": "string",
+          "description": "filename"
+        },
+        "from": {
+          "type": "string"
+        },
+        "header": {
+          "type": "string",
+          "description": "filename"
+        },
+        "name": {
+          "type": "string"
+        },
+        "table": {
+          "type": "string"
+        },
+        "template": {
+          "type": "string",
+          "description": "filename"
+        },
+        "to": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "one-to-one",
+            "one-to-many"
+          ],
+          "additionalProperties": false
+        },
+        "connectiontype": {
+          "type": "string",
+          "enum": [
+            "csv",
+            "mysql",
+            "postgresql"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "projection.json": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        {
+          "enum": [
+            "auto"
+          ]
+        }
+      ]
+    },
+    "scaletoken.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "scaletoken"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "values": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+      }
+    },
+    "querymap.json": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^__[a-z]+__$": {}
+      },
+      "properties": {
+        "__type__": {
+          "enum": [
+            "querymap"
+          ]
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "color": {
+          "$ref": "#/definitions/color.json"
+        },
+        "size": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "status": {
+          "$ref": "#/definitions/onoff.json"
+        },
+        "style": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "hilite",
+            "selected"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "units.json": {
+      "enum": [
+        "dd",
+        "feet",
+        "inches",
+        "kilometers",
+        "meters",
+        "miles",
+        "nauticalmiles"
+      ]
+    }
+  }
+}

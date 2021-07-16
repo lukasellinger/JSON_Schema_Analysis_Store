@@ -1,0 +1,210 @@
+{
+  "title": "tileInfo",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Tile information, returned from the WMTS OGC Web Service. The tileInfo will contain the spatial reference of the layer. tileInfo is the same json representation as the ArcGIS Map/Image service tileInfo except that it may contain a levelValue on the lod objects that should be used instead of the level in the templateUrl.",
+  "properties": {
+    "cols": {
+      "type": "integer",
+      "description": "Requested tile\u0027s column."
+    },
+    "compressionQuality": {
+      "type": "number",
+      "description": "Compression quality of the tile.",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "dpi": {
+      "type": "number",
+      "description": "The dpi of the tiling scheme."
+    },
+    "format": {
+      "type": "string",
+      "description": "Image format of the cached tiles.",
+      "enum": [
+        "jpg",
+        "png",
+        "png24",
+        "png32",
+        "png8",
+        "pdf",
+        "bmp",
+        "gif",
+        "svg",
+        "svgz",
+        "emf",
+        "ps",
+        "mixed",
+        "lerc"
+      ]
+    },
+    "lods": {
+      "type": "array",
+      "description": "An array of levels of detail that define the tiling scheme.",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/lod_schema.json"
+      },
+      "uniqueItems": true
+    },
+    "origin": {
+      "type": "object",
+      "description": "The tiling scheme origin.",
+      "$ref": "#/definitions/point_geometry_schema.json"
+    },
+    "rows": {
+      "type": "integer",
+      "description": "Requested tile\u0027s row."
+    },
+    "spatialReference": {
+      "type": "object",
+      "description": "The spatial reference of the tiling schema.",
+      "$ref": "#/definitions/spatialReference_schema.json"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "lod_schema.json": {
+      "title": "lod",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "description": "ID for each level."
+        },
+        "levelValue": {
+          "type": "string",
+          "description": "String to be used when constructing URL to access a tile from this LOD."
+        },
+        "resolution": {
+          "type": "number",
+          "description": "Resolution in map units of each pixel in a tile for each level."
+        },
+        "scale": {
+          "type": "number",
+          "description": "Scale for each level."
+        }
+      },
+      "additionalProperties": false
+    },
+    "point_geometry_schema.json": {
+      "title": "pointGeometry",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Defines the JSON formats of the point and spatial reference objects.",
+      "properties": {
+        "m": {
+          "type": "number",
+          "description": "M coordinate which contains measures used for linear referencing."
+        },
+        "spatialReference": {
+          "type": "object",
+          "description": "The spatial reference can be defined using a well-known ID (WKID) or well-known text (WKT).",
+          "$ref": "#/definitions/spatialReference_schema.json"
+        },
+        "x": {
+          "description": "X coordinate which is measured along the east/west axis.",
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "NaN"
+              ]
+            }
+          ]
+        },
+        "y": {
+          "type": "number",
+          "description": "Y coordinate which is measured along the north/south axis."
+        },
+        "z": {
+          "type": "number",
+          "description": "Z coordinate which measures height or elevation."
+        }
+      },
+      "required": [
+        "x"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "pointGeometry",
+            "code": {
+              "geometry": {
+                "x": -118.15,
+                "y": 33.8,
+                "spatialReference": {
+                  "wkid": 4326
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "spatialReference_schema.json": {
+      "title": "spatialReference",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The spatialReference object is located at the top level of the JSON hierarchy. In addition to this, it is also available within the operationalLayer and basemap objects.\n\nMany predefined spatial references have already been defined and are available for use. A spatial reference can be defined using a well-known ID (WKID) or well-known text (WKT). The default tolerance and resolution values for the associated coordinate system are used.\n\nA spatial reference can optionally include a definition for a vertical coordinate system (VCS), which is used to interpret the z values of a geometry.",
+      "properties": {
+        "latestVcsWkid": {
+          "type": "number",
+          "description": "(Optional) The current wkid value of the vertical coordinate system."
+        },
+        "latestWkid": {
+          "type": "number",
+          "description": "(Optional) Identifies the current wkid value associated with the same spatial reference. For example a WKID of \u0027102100\u0027 (Web Mercator) has a latestWKid of \u00273857\u0027."
+        },
+        "vcsWkid": {
+          "type": "number",
+          "description": "(Optional) The wkid value of the vertical coordinate system."
+        },
+        "wkid": {
+          "type": "number",
+          "description": "The well-known ID (WKID) of the coordinate system. Specify either WKID or the well-known text (WKT) of the coordinate system.",
+          "default": 102100
+        },
+        "wkt": {
+          "type": "string",
+          "description": "The well-known text (WKT) of the coordinate system. Specify either WKT or WKID of the coordinate system."
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "wkt"
+          ]
+        },
+        {
+          "required": [
+            "wkid"
+          ]
+        }
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "additionalInformation": "All operational layers in the scene are drawn or requested in the spatial reference of the basemap layers.\n\nThe **basemap** defines the spatial reference and tiling scheme of the scene. Each **baseMapLayer** must be in the same spatial reference and tiling scheme.\n\n\n\nFor a complete list of supported IDs and their corresponding definition strings, see:\n\n[Projected Coordinate Systems Listing](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Projected_coordinate_systems/02r3000000vt000000/)\n\n[Geographic Coordinate Systems Listing](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geographic_coordinate_systems/02r300000105000000/)\n\n[Vertical Coordinate Systems Listing](http://resources.arcgis.com/en/help/rest/apiref/vcs.html)\n\n\n\nAdditional information regarding how web scenes work with geometry and spatial reference can be found on the Resource Center:\n\n[ArcGIS Server REST API Geometry object](http://resources.arcgis.com/en/help/rest/apiref/geometry.html)\n\n[Using spatial references](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Using_spatial_references/02r3000000qq000000/)\n\n[Working with Geometry Objects](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Geometry_Objects/02r3000000n1000000/)",
+        "examples": [
+          {
+            "title": "wkid",
+            "code": {
+              "spatialreference": {
+                "wkid": 102100,
+                "latestWkid": 3857
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "id": {
+      "type": "integer"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id"
+    },
+    "label": {
+      "type": "string"
+    },
+    "phase": {
+      "description": "Buckets have a phase, which represents the approximate part of the recruitment process this bucket is for - for example the phase \u0027interview\u0027 might have several buckets (e.g. \u0027line manager interview\u0027, etc.).",
+      "enum": [
+        "new",
+        "screening",
+        "interview",
+        "selection",
+        "offer",
+        "approval",
+        "hire",
+        "onboard",
+        "decline",
+        "other"
+      ]
+    },
+    "key": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "label",
+    "phase"
+  ],
+  "additionalProperties": false
+}

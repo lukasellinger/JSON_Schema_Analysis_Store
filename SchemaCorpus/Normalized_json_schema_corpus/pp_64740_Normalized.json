@@ -1,0 +1,54 @@
+{
+  "$id": "http://raw.githubusercontent.com/oasis-open/cti-stix2-json-schemas/stix2.1/schemas/common/properties.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "properties",
+  "description": "Rules for custom properties",
+  "patternProperties": {
+    "^[a-z][a-z0-9_]{0,245}_bin$": {
+      "$ref": "#/definitions/binary.json"
+    },
+    "^[a-z][a-z0-9_]{0,245}_hex$": {
+      "$ref": "#/definitions/hex.json"
+    },
+    "^([a-z][a-z0-9_]{2,249})|id$": {
+      "anyOf": [
+        {
+          "type": "array",
+          "minItems": 1
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "binary.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "binary",
+      "description": "The ​binary data type represents a sequence of bytes. In order to allow pattern matching on custom objects, for all properties that use the binary type, the property name MUST end with \u0027_bin\u0027. The JSON MTI serialization represents this as a base64-­encoded string as specified in RFC4648​. Other serializations SHOULD use a native binary type, if available.",
+      "type": "string",
+      "pattern": "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}\u003d|[A-Za-z0-9+/]{2}\u003d\u003d)$"
+    },
+    "hex.json": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "hex",
+      "description": "The hex data type encodes an array of octets (8-bit bytes) as hexadecimal. The string MUST consist of an even number of hexadecimal characters, which are the digits \u00270\u0027 through \u00279\u0027 and the letters \u0027a\u0027 through \u0027f\u0027.  In order to allow pattern matching on custom objects, all properties that use the hex type, the property name MUST end with \u0027_hex\u0027.",
+      "type": "string",
+      "pattern": "^([a-fA-F0-9]{2})+$"
+    }
+  }
+}

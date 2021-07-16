@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Withdrawal status list",
+  "description": "Accounting and status information corresponding to a voting pool outBailment consensus round",
+  "type": "object",
+  "properties": {
+    "roundID": {
+      "type": "number",
+      "description": "A positive integer representing the consensus round for which the withdrawal is associated",
+      "minimum": 0,
+      "exclusiveMinimum": false
+    },
+    "nextinputstart": {
+      "description": "The inputstart value to be used in the next consensus round as an address identifier",
+      "$ref": "#/definitions/https:__raw.githubusercontent.com_Open-Transactions_rfc_master_json_schema_addressid-01.json"
+    },
+    "nextchangestart": {
+      "description": "The changestart value to be used in the next consensus round as an address identifier",
+      "$ref": "#/definitions/https:__raw.githubusercontent.com_Open-Transactions_rfc_master_json_schema_addressid-01.json"
+    },
+    "fees": {
+      "type": "number",
+      "description": "Total transaction fees incurred by the transactions in this round",
+      "minimum": 0,
+      "exclusiveMinimum": false
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "outBailmentID": {
+            "$ref": "#/definitions/https:__raw.githubusercontent.com_Open-Transactions_rfc_draft_json_schema_outbailmentid-01.json",
+            "description": "the identifier of the originating nym\u0027s outBailment message"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status code for the outBailment"
+          },
+          "outpoints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ntxid": {
+                  "type": "string",
+                  "description": "Normalized transaction id associated with the withdrawal"
+                },
+                "index": {
+                  "type": "number",
+                  "description": "Output index in transaction which satisfies this outBailmentID",
+                  "minimum": 0,
+                  "exclusiveMinimum": false
+                },
+                "amount": {
+                  "type": "number",
+                  "description": "Monetary value of the output denoted by (ntxid,index), in fundamental units",
+                  "minimum": 0,
+                  "exclusiveMinimum": true
+                }
+              },
+              "required": [
+                "ntxid",
+                "index",
+                "amount"
+              ]
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "outBailmentID",
+          "status"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "roundID",
+    "nextinputstart",
+    "nextchangestart",
+    "fees",
+    "outputs"
+  ],
+  "definitions": {
+    "https:__raw.githubusercontent.com_Open-Transactions_rfc_master_json_schema_addressid-01.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Address identifier",
+      "description": "A unique identifier for a specific address in a voting pool",
+      "type": "object",
+      "properties": {
+        "series": {
+          "description": "the series identifier containing the address",
+          "$ref": "#/definitions/https:__raw.githubusercontent.com_Open-Transactions_rfc_master_json_schema_seriesid-01.json"
+        },
+        "branch": {
+          "type": "number",
+          "description": "the chain within the series containing the desired address",
+          "minimum": 0,
+          "exclusiveMinimum": false
+        },
+        "index": {
+          "type": "number",
+          "description": "the value used to derive the public keys used to create the multisig script",
+          "minimum": 0,
+          "exclusiveMinimum": false
+        }
+      },
+      "required": [
+        "series",
+        "branch",
+        "index"
+      ]
+    },
+    "https:__raw.githubusercontent.com_Open-Transactions_rfc_master_json_schema_seriesid-01.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Wallet identifier",
+      "description": "A unique identifier for a series in a voting pool",
+      "type": "object",
+      "properties": {
+        "pool": {
+          "type": "string",
+          "description": "the color definition of the pool\u0027s charter"
+        },
+        "series": {
+          "type": "number",
+          "description": "the series number of the given voting pool",
+          "minimum": 1,
+          "exclusiveMinimum": false
+        }
+      },
+      "required": [
+        "pool",
+        "series"
+      ]
+    },
+    "https:__raw.githubusercontent.com_Open-Transactions_rfc_draft_json_schema_outbailmentid-01.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "outBailment Identifier",
+      "description": "A UUID which selects a specific outBailment for tracking purposes",
+      "type": "object",
+      "properties": {
+        "pool": {
+          "type": "string",
+          "description": "The voting pool identifier for the pool in which the outBailment originated"
+        },
+        "server": {
+          "type": "string",
+          "description": "The OT server nym for the notary which issued the transaction number"
+        },
+        "transaction": {
+          "type": "number",
+          "description": "The OT transaction number associated with the outBailment",
+          "minimum": 0,
+          "exclusiveMinimum": true
+        }
+      },
+      "required": [
+        "pool",
+        "server",
+        "transaction"
+      ]
+    }
+  }
+}

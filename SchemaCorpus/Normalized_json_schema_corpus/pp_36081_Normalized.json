@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "A description of a B\\u00e9zier triangle.",
+  "type": "object",
+  "properties": {
+    "control_points": {
+      "description": "A list of x-y coordinates of the control points on the triangle.",
+      "type": "array",
+      "items": {
+        "description": "An x-y coordinate pair for a single control point.",
+        "type": "array",
+        "items": {
+          "description": "A coordinate as a numerical value.",
+          "$ref": "#/definitions/numerical.json"
+        },
+        "minItems": 3
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "note": {
+      "description": "Description of the triangle / patch within triangle.",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "control_points"
+  ],
+  "definitions": {
+    "numerical.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "A generic numerical value container: can be an integer, stringified fraction or stringified IEEE-754 value.",
+      "type": [
+        "integer",
+        "string"
+      ],
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "$ref": "#/definitions/numerical.json_definitions_fraction"
+        },
+        {
+          "$ref": "#/definitions/numerical.json_definitions_ieee754"
+        }
+      ],
+      "definitions": {
+        "fraction": {
+          "description": "A stringified fraction. For example ``4/7\u0027\u0027 or ``-11/3\u0027\u0027.",
+          "type": "string",
+          "pattern": "^-?\\d+/\\d+$"
+        },
+        "ieee754": {
+          "description": "A stringified IEEE-754 value in ``%a\u0027\u0027 format. For example, ``sqrt(2)`` is nearest to ``0x1.6a09e667f3bcdp+0\u0027\u0027.",
+          "type": "string",
+          "pattern": "^-?0x1\\.[0-9a-f]{13}p[+-]\\d+$"
+        }
+      }
+    },
+    "numerical.json_definitions_fraction": {
+      "description": "A stringified fraction. For example ``4/7\u0027\u0027 or ``-11/3\u0027\u0027.",
+      "type": "string",
+      "pattern": "^-?\\d+/\\d+$"
+    },
+    "numerical.json_definitions_ieee754": {
+      "description": "A stringified IEEE-754 value in ``%a\u0027\u0027 format. For example, ``sqrt(2)`` is nearest to ``0x1.6a09e667f3bcdp+0\u0027\u0027.",
+      "type": "string",
+      "pattern": "^-?0x1\\.[0-9a-f]{13}p[+-]\\d+$"
+    }
+  }
+}

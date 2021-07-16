@@ -1,0 +1,462 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "definitions": {
+    "class": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Class",
+      "definitions": {
+        "id": {
+          "description": "unique identifier of class",
+          "example": "1e",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/definitions_class_definitions_id"
+        },
+        "name": {
+          "description": "name of the class",
+          "example": "1E",
+          "type": [
+            "string"
+          ]
+        },
+        "grade": {
+          "description": "grade of the class",
+          "example": 1,
+          "type": [
+            "integer"
+          ]
+        },
+        "department": {
+          "description": "a name of the department",
+          "example": "電気情報工学科",
+          "type": [
+            "string"
+          ]
+        },
+        "course": {
+          "description": "a name of the course",
+          "example": "情報工学コース",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing class.",
+          "href": "/api/v1/classes/{(%23%2Fdefinitions%2Fclass%2Fdefinitions%2Fid)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing classs.",
+          "href": "/api/v1/classes",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/definitions_class_definitions_id"
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_class_definitions_name"
+        },
+        "grade": {
+          "$ref": "#/definitions/definitions_class_definitions_grade"
+        },
+        "department": {
+          "$ref": "#/definitions/definitions_class_definitions_department"
+        },
+        "course": {
+          "$ref": "#/definitions/definitions_class_definitions_course"
+        }
+      },
+      "type": [
+        "object"
+      ]
+    },
+    "lecture": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Lecture",
+      "definitions": {
+        "id": {
+          "description": "unique identifier of lecture",
+          "example": 1,
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/definitions_lecture_definitions_id"
+        },
+        "name": {
+          "description": "name of the lecture",
+          "example": "プログラミング I",
+          "type": [
+            "string"
+          ]
+        },
+        "special_target": {
+          "description": "the target of the lecture(overseasStudent or female)",
+          "example": "overseasStudent",
+          "type": [
+            "string"
+          ]
+        },
+        "code": {
+          "description": "the unique code of lecture",
+          "example": 2014121002101231110200,
+          "type": [
+            "string"
+          ]
+        },
+        "period": {
+          "description": "the preriod that lecture has taken",
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "start_time": {
+              "description": "time when the period start",
+              "example": "09:00:00+09:00",
+              "type": [
+                "string"
+              ]
+            },
+            "end_time": {
+              "description": "time when the period end",
+              "example": "10:30:00+09:00",
+              "type": [
+                "string"
+              ]
+            },
+            "wday": {
+              "description": "wday when the period taken",
+              "example": 1,
+              "type": [
+                "integer"
+              ]
+            }
+          }
+        },
+        "lecturer": {
+          "description": "name of the lecture",
+          "example": "新井 イスマイル",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing lectures.",
+          "href": "/api/v1/lectures/{(%2Fdefinitions%2Flecture%2Fdefinitions%2Fid)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing lectures.",
+          "href": "/api/v1/lectures",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/definitions_lecture_definitions_id"
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_lecture_definitions_name"
+        },
+        "grade": {
+          "$ref": "#/definitions/definitions_class_definitions_grade"
+        },
+        "department": {
+          "$ref": "#/definitions/definitions_class_definitions_department"
+        },
+        "course": {
+          "$ref": "#/definitions/definitions_class_definitions_course"
+        },
+        "special_target": {
+          "$ref": "#/definitions/definitions_lecture_definitions_special_target"
+        },
+        "periods": {
+          "type": [
+            "array"
+          ],
+          "items": {
+            "$ref": "#/definitions/definitions_lecture_definitions_period"
+          }
+        },
+        "lecturers": {
+          "type": [
+            "array"
+          ],
+          "items": {
+            "$ref": "#/definitions/definitions_lecture_definitions_lecturer"
+          }
+        },
+        "code": {
+          "$ref": "#/definitions/definitions_lecture_definitions_code"
+        }
+      },
+      "type": [
+        "object"
+      ]
+    },
+    "rescheduling": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Rescheduling",
+      "definitions": {
+        "id": {
+          "description": "unique identifier of the rescheduling",
+          "example": 1,
+          "type": [
+            "integer"
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/definitions_rescheduling_definitions_id"
+        },
+        "category": {
+          "description": "variations of reschedulings(change, cancel, extra)",
+          "example": "change",
+          "type": [
+            "string"
+          ]
+        },
+        "period": {
+          "description": "the preriod that lecture has taken",
+          "type": [
+            "object"
+          ],
+          "properties": {
+            "start_time": {
+              "description": "time when the period start",
+              "example": "09:00:00+09:00",
+              "type": [
+                "string"
+              ]
+            },
+            "end_time": {
+              "description": "time when the period end",
+              "example": "10:30:00+09:00",
+              "type": [
+                "string"
+              ]
+            },
+            "taken_on": {
+              "description": "date when the period taken",
+              "example": "2014-12-10",
+              "type": [
+                "string"
+              ]
+            }
+          }
+        }
+      },
+      "links": [
+        {
+          "description": "List existing reschedulings.",
+          "href": "/api/v1/reschedulings",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/definitions_rescheduling_definitions_id"
+        },
+        "category": {
+          "$ref": "#/definitions/definitions_rescheduling_definitions_category"
+        },
+        "lecture": {
+          "$ref": "#/definitions/lecture"
+        },
+        "before_period": {
+          "$ref": "#/definitions/definitions_rescheduling_definitions_period"
+        },
+        "after_period": {
+          "$ref": "#/definitions/definitions_rescheduling_definitions_period"
+        }
+      },
+      "type": [
+        "object"
+      ]
+    },
+    "definitions_class_definitions_id": {
+      "description": "unique identifier of class",
+      "example": "1e",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_class_definitions_name": {
+      "description": "name of the class",
+      "example": "1E",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_class_definitions_grade": {
+      "description": "grade of the class",
+      "example": 1,
+      "type": [
+        "integer"
+      ]
+    },
+    "definitions_class_definitions_department": {
+      "description": "a name of the department",
+      "example": "電気情報工学科",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_class_definitions_course": {
+      "description": "a name of the course",
+      "example": "情報工学コース",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_lecture_definitions_id": {
+      "description": "unique identifier of lecture",
+      "example": 1,
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_lecture_definitions_name": {
+      "description": "name of the lecture",
+      "example": "プログラミング I",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_lecture_definitions_special_target": {
+      "description": "the target of the lecture(overseasStudent or female)",
+      "example": "overseasStudent",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_lecture_definitions_period": {
+      "description": "the preriod that lecture has taken",
+      "type": [
+        "object"
+      ],
+      "properties": {
+        "start_time": {
+          "description": "time when the period start",
+          "example": "09:00:00+09:00",
+          "type": [
+            "string"
+          ]
+        },
+        "end_time": {
+          "description": "time when the period end",
+          "example": "10:30:00+09:00",
+          "type": [
+            "string"
+          ]
+        },
+        "wday": {
+          "description": "wday when the period taken",
+          "example": 1,
+          "type": [
+            "integer"
+          ]
+        }
+      }
+    },
+    "definitions_lecture_definitions_lecturer": {
+      "description": "name of the lecture",
+      "example": "新井 イスマイル",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_lecture_definitions_code": {
+      "description": "the unique code of lecture",
+      "example": 2014121002101231110200,
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_rescheduling_definitions_id": {
+      "description": "unique identifier of the rescheduling",
+      "example": 1,
+      "type": [
+        "integer"
+      ]
+    },
+    "definitions_rescheduling_definitions_category": {
+      "description": "variations of reschedulings(change, cancel, extra)",
+      "example": "change",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_rescheduling_definitions_period": {
+      "description": "the preriod that lecture has taken",
+      "type": [
+        "object"
+      ],
+      "properties": {
+        "start_time": {
+          "description": "time when the period start",
+          "example": "09:00:00+09:00",
+          "type": [
+            "string"
+          ]
+        },
+        "end_time": {
+          "description": "time when the period end",
+          "example": "10:30:00+09:00",
+          "type": [
+            "string"
+          ]
+        },
+        "taken_on": {
+          "description": "date when the period taken",
+          "example": "2014-12-10",
+          "type": [
+            "string"
+          ]
+        }
+      }
+    }
+  },
+  "properties": {
+    "class": {
+      "$ref": "#/definitions/class"
+    },
+    "lecture": {
+      "$ref": "#/definitions/lecture"
+    },
+    "rescheduling": {
+      "$ref": "#/definitions/rescheduling"
+    }
+  },
+  "type": [
+    "object"
+  ],
+  "description": "A schema for ANCT reschedulings API",
+  "id": "http://www.akashi.ac.jp/actopus/schema#",
+  "links": [
+    {
+      "href": "actopus.akashi.ac.jp",
+      "rel": "self"
+    }
+  ],
+  "title": "actopus API"
+}

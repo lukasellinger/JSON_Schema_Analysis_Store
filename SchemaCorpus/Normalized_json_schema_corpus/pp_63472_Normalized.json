@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$ref": "#/definitions/string.json",
+  "definitions": {
+    "string.json": {
+      "type": "string"
+    }
+  }
+}

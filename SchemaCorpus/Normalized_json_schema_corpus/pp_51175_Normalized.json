@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "external-reference",
+  "description": "External references are used to describe pointers to information represented outside of STIX.",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "A human readable description"
+    },
+    "url": {
+      "$ref": "#/definitions/url-regex.json",
+      "description": "A URL reference to an external resource."
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "source_name": {
+          "type": "string",
+          "description": "The source within which the external-reference is defined (system, registry, organization, etc.)",
+          "pattern": "^cve$"
+        },
+        "external_id": {
+          "type": "string",
+          "description": "An identifier for the external reference content.",
+          "pattern": "^CVE-\\d{4}-(0\\d{3}|[1-9]\\d{3,})$"
+        }
+      },
+      "required": [
+        "source_name",
+        "external_id"
+      ]
+    },
+    {
+      "properties": {
+        "source_name": {
+          "type": "string",
+          "description": "The source within which the external-reference is defined (system, registry, organization, etc.)",
+          "pattern": "^capec$"
+        },
+        "external_id": {
+          "type": "string",
+          "description": "An identifier for the external reference content.",
+          "pattern": "^CAPEC-\\d+$"
+        }
+      },
+      "required": [
+        "source_name",
+        "external_id"
+      ]
+    },
+    {
+      "properties": {
+        "source_name": {
+          "type": "string",
+          "description": "The source within which the external-reference is defined (system, registry, organization, etc.)",
+          "not": {
+            "pattern": "^(cve)|(capec)$"
+          }
+        },
+        "external_id": {
+          "type": "string",
+          "description": "An identifier for the external reference content.",
+          "not": {
+            "pattern": "^(CVE-\\d{4}-(0\\d{3}|[1-9]\\d{3,}))|(CAPEC-\\d+)$"
+          }
+        }
+      },
+      "required": [
+        "source_name"
+      ],
+      "anyOf": [
+        {
+          "required": [
+            "external_id"
+          ]
+        },
+        {
+          "required": [
+            "description"
+          ]
+        },
+        {
+          "required": [
+            "url"
+          ]
+        }
+      ]
+    }
+  ],
+  "definitions": {
+    "url-regex.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "url",
+      "description": "Matches the elements of a URL using a regular expression. Uses Diego Perini\u0027s regex from https://gist.github.com/dperini/729294.",
+      "type": "string",
+      "pattern": "^(?:(?:https?|ftp)://)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z¡-￿0-9]-*)*[a-z¡-￿0-9]+)(?:\\.(?:[a-z¡-￿0-9]-*)*[a-z¡-￿0-9]+)*(?:\\.(?:[a-z¡-￿]{2,}))\\.?)(?::\\d{2,5})?(?:[/?#]\\S*)?$"
+    }
+  }
+}

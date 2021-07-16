@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "resource_id": {
+    "type": "string"
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "memory": {
+        "$ref": "#/definitions/common.json_memory"
+      },
+      "cpu": {
+        "$ref": "#/definitions/common.json_cpu"
+      },
+      "disk": {
+        "$ref": "#/definitions/common.json_disk"
+      },
+      "rank": {
+        "$ref": "#/definitions/common.json_rank"
+      },
+      "rank_adjustment": {
+        "$ref": "#/definitions/common.json_rank_adjustment"
+      },
+      "max_utilization": {
+        "$ref": "#/definitions/common.json_max_utilization"
+      },
+      "partition": {
+        "$ref": "#/definitions/common.json_partition"
+      },
+      "traits": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/common.json_trait"
+        }
+      }
+    }
+  },
+  "verbs": {
+    "create": {
+      "required": [
+        "memory",
+        "cpu",
+        "disk"
+      ]
+    },
+    "update": {
+      "required": [
+        "memory",
+        "cpu",
+        "disk",
+        "partition"
+      ]
+    }
+  },
+  "definitions": {
+    "common.json_memory": {
+      "$ref": "#/definitions/common.json__priv_bytes"
+    },
+    "common.json__priv_bytes": {
+      "type": "string",
+      "pattern": "^\\d+[KkMmGg]$"
+    },
+    "common.json_cpu": {
+      "type": "string",
+      "pattern": "^\\d+%$"
+    },
+    "common.json_disk": {
+      "$ref": "#/definitions/common.json__priv_bytes"
+    },
+    "common.json_rank": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "common.json_rank_adjustment": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "common.json_max_utilization": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "common.json_partition": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 32
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "common.json_trait": {
+      "type": "string",
+      "maxLength": 32
+    }
+  }
+}

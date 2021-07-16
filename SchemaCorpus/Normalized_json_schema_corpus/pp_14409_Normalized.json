@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Anuncios Schema",
+  "type": "object",
+  "required": [
+    "SensorAnuncio"
+  ],
+  "properties": {
+    "_id": {
+      "type": "object",
+      "$ref": "#/definitions/titulo"
+    },
+    "SensorAnuncio": {
+      "type": "string",
+      "$ref": "#/definitions/datos"
+    }
+  },
+  "additionalProperties": false,
+  "titulo": {
+    "title": "id",
+    "description": "Titulo insertado del Anuncio",
+    "type": "object",
+    "properties": {
+      "$oid": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  },
+  "datos": {
+    "title": "datos",
+    "description": "Info contenido",
+    "type": "object",
+    "required": [
+      "titulo",
+      "timestamp",
+      "contenido"
+    ],
+    "properties": {
+      "titulo": {
+        "type": "string"
+      },
+      "timestamp": {
+        "type": "object",
+        "required": [
+          "$date"
+        ],
+        "properties": {
+          "$date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "contenido": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false
+  },
+  "definitions": {
+    "titulo": {
+      "title": "id",
+      "description": "Titulo insertado del Anuncio",
+      "type": "object",
+      "properties": {
+        "$oid": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "datos": {
+      "title": "datos",
+      "description": "Info contenido",
+      "type": "object",
+      "required": [
+        "titulo",
+        "timestamp",
+        "contenido"
+      ],
+      "properties": {
+        "titulo": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "object",
+          "required": [
+            "$date"
+          ],
+          "properties": {
+            "$date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "additionalProperties": false
+        },
+        "contenido": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

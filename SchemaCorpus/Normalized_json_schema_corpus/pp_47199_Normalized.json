@@ -1,0 +1,529 @@
+{
+  "collection": "reports",
+  "class": "schema",
+  "_id": "reports/schema/reportipd",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Leprosy and TB",
+  "type": "object",
+  "properties": {
+    "those_who_are_admitted_in_the_ward": {
+      "line_number": "1",
+      "sw": "Waliolazwa Wodini",
+      "en": "Those who are admitted into the ward"
+    },
+    "acute_flacid_paralysis": {
+      "line_number": "2",
+      "sw": "Acute Flacid Paralysis",
+      "en": "Acute Flacid Paralysis",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Acute Flacid Paralysis\u0027"
+    },
+    "cholera": {
+      "line_number": "3",
+      "sw": "Cholera",
+      "en": "Cholera",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Cholera\u0027"
+    },
+    "dysentery": {
+      "line_number": "4",
+      "sw": "Dysentery",
+      "en": "Dysentery",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Dysentery\u0027"
+    },
+    "measles": {
+      "line_number": "5",
+      "sw": "Measles",
+      "en": "Measles",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Measles\u0027"
+    },
+    "meningitis": {
+      "line_number": "6",
+      "sw": "Meningitis",
+      "en": "Meningitis",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Meningitis\u0027"
+    },
+    "tetanus_neonatal": {
+      "line_number": "7",
+      "sw": "Tetanus. Neonatal",
+      "en": "Tetanus. Neonatal",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Tetanus. Neonatal\u0027"
+    },
+    "plague": {
+      "line_number": "8",
+      "sw": "Plague",
+      "en": "Plague",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Plague\u0027"
+    },
+    "relapsing_fever_louse_borne_typhus": {
+      "line_number": "9",
+      "sw": "Relapsing Fever Louse borne Typhus",
+      "en": "Relapsing Fever Louse borne Typhus",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Relapsing Fever Louse borne Typhus\u0027"
+    },
+    "typhoid": {
+      "line_number": "10",
+      "sw": "Typhoid",
+      "en": "Typhoid",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Typhoid\u0027"
+    },
+    "diarrhea_acute": {
+      "line_number": "11",
+      "sw": "Diarrhea Acute \u003c14days",
+      "en": "Diarrhea Acute \u003c14days",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Diarrhea Acute \u003c14days\u0027"
+    },
+    "diarrhea_chronic": {
+      "line_number": "1",
+      "sw": "Diarrhea Chronic \u003eor\u003d 14days",
+      "en": "Diarrhea Chronic \u003eor\u003d 14days",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Diarrhea Chronic \u003eor\u003d 14days\u0027"
+    },
+    "malaria_severe_complicated_blood_side_positive": {
+      "line_number": "13a",
+      "sw": "Malaria Severe/Complicated Blood Side Positive",
+      "en": "Maleria Severe/Complicated Blood Side Positive",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Maleria Severe/Complicated Blood Side Positive\u0027"
+    },
+    "malaria_severe_complicated_mrdt_positive": {
+      "line_number": "13b",
+      "sw": "Malaria Severe/Complicated mRDT Positive",
+      "en": "Maleria Severe/Complicated mRDT Positive",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Maleria Severe/Complicated mRDT Positive\u0027"
+    },
+    "malaria_severe_complicated_clinical_no_test": {
+      "line_number": "13c",
+      "sw": "Malaria Severe/Complicated Clinical no test",
+      "en": "Maleria Severe/Complicated Clinical no test",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Maleria Severe/Complicated Clinical no test\u0027"
+    },
+    "schistosomiasis": {
+      "line_number": "14",
+      "sw": "Schistosomiasis",
+      "en": "Schistosomiasis",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Schistosomiasis\u0027"
+    },
+    "sti_genital_discharge_syndrome_gds": {
+      "line_number": "15",
+      "sw": "STI Genital Discharge Syndrome GDS",
+      "en": "STI Genital Discharge Syndrome GDS",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027STI Genital Discharge Syndrome GDS\u0027"
+    },
+    "sti_genital_ulcer_diseases_gud": {
+      "line_number": "16",
+      "sw": "STI Genital Ulcer Diseases GUD",
+      "en": "STI Genital Ulcer Diseases GUD",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027STI Genital Ulcer Diseases GUD\u0027"
+    },
+    "sti_pelvic_inflammatory_diseases": {
+      "line_number": "17",
+      "sw": "STI Pelvic Inflammatory diseases PID",
+      "en": "STI Pelvic Inflammatory diseases PID",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027STI Pelvic Inflammatory diseases PID\u0027"
+    },
+    "sexually_transmitted_infection_other": {
+      "line_number": "18",
+      "sw": "Sexually Transmitted Infection Other",
+      "en": "Sexually Transmitted Infection Other",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Sexually Transmitted Infection Other\u0027"
+    },
+    "gynaecological_diseases": {
+      "line_number": "19",
+      "sw": "Gynaecological diseases Other",
+      "en": "Gynaecological diseases Other",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Gynaecological diseases Other\u0027"
+    },
+    "tuberculosis": {
+      "line_number": "20",
+      "sw": "Tuberculosis",
+      "en": "Tuberculosis",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Tuberculosis\u0027"
+    },
+    "leprosy": {
+      "line_number": "21",
+      "sw": "Leprosy",
+      "en": "Leprosy",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Leprosy\u0027"
+    },
+    "diabetes_mellitus": {
+      "line_number": "22",
+      "sw": "Diabetes Mellitus",
+      "en": "Diabetes Mellitus",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Diabetes Mellitus\u0027"
+    },
+    "infant_of_diabetic_mother": {
+      "line_number": "23",
+      "sw": "Infant of Diabetic Mother",
+      "en": "Infant of Diabetic Mother",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Infant of Diabetic Mother\u0027"
+    },
+    "kwashiorkor": {
+      "line_number": "24",
+      "sw": "Kwashiorkor",
+      "en": "Kwashiorkor",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Kwashiorkor\u0027"
+    },
+    "marasmus": {
+      "line_number": "25",
+      "sw": "Marasmus",
+      "en": "Marasmus",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Marasmus\u0027"
+    },
+    "marasmic_kwashiorkor": {
+      "line_number": "26",
+      "sw": "Marasmic_kwashiorkor",
+      "en": "Marasmic_kwashiorkor",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Marasmic_kwashiorkor\u0027"
+    },
+    "moderate_malnutrition": {
+      "line_number": "27",
+      "sw": "Moderate Malnutrition",
+      "en": "Moderate Malnutrition",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Moderate Malnutrition\u0027"
+    },
+    "nutritional_disoders_other": {
+      "line_number": "28",
+      "sw": "Nutritional Disorders Other",
+      "en": "Nutritional Disorders Other",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Nutritional Disorders Other\u0027"
+    },
+    "thyroid_diseases": {
+      "line_number": "29",
+      "sw": "Thyroid Diseases",
+      "en": "Thyroid Diseases",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Thyroid Diseases\u0027"
+    },
+    "sickle_cell_disease": {
+      "line_number": "30",
+      "sw": "Sickle cell Disease",
+      "en": "Sickle cell Disease",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Sickle cell Disease\u0027"
+    },
+    "anaemia_mild_moderate": {
+      "line_number": "31",
+      "sw": "Anaemia Mild/Moderate",
+      "en": "Anaemia Mild/Moderate",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Anaemia Mild/Moderate\u0027"
+    },
+    "anaemia_severe": {
+      "line_number": "32",
+      "sw": "Anaemia Severe",
+      "en": "Anaemia Severe",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Anaemia Severe\u0027"
+    },
+    "psychoses": {
+      "line_number": "33",
+      "sw": "Psychoses",
+      "en": "Psychoses",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Psychoses\u0027"
+    },
+    "neuroses": {
+      "line_number": "34",
+      "sw": "Neuroses",
+      "en": "Neuroses",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Neuroses\u0027"
+    },
+    "cerebral_palsy": {
+      "line_number": "35",
+      "sw": "Cerebral Palsy",
+      "en": "Cerebral Palsy",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Cerebral Palsy\u0027"
+    },
+    "epilepsy": {
+      "line_number": "36",
+      "sw": "Epilepsy",
+      "en": "Epilepsy",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Epilepsy\u0027"
+    },
+    "ear_diseases_non_infectious": {
+      "line_number": "37",
+      "sw": "Ear Diseases non-infectious",
+      "en": "Ear Diseases non-infectious",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Ear Diseases non-infectious\u0027"
+    },
+    "ear_infection_acute": {
+      "line_number": "38",
+      "sw": "Ear infection Acute",
+      "en": "Ear infection Acute",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Ear infection Acute\u0027"
+    },
+    "ear_infection_chronic": {
+      "line_number": "39",
+      "sw": "Ear Infection Chronic",
+      "en": "Ear Infection Chronic",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Ear Infection Chronic\u0027"
+    },
+    "eye_infections_viral_keratoconjunctivitis": {
+      "line_number": "40",
+      "sw": "Eye Infections Viral Keratoconjunctivitis",
+      "en": "Eye Infections Viral Keratoconjunctivitis",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Eye Infections Viral Keratoconjunctivitis\u0027"
+    },
+    "eye_infections_other": {
+      "line_number": "41",
+      "sw": "Eye Infections Other",
+      "en": "Eye Infections Other",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Eye Infections Other\u0027"
+    },
+    "eye_diseases_non-infectious": {
+      "line_number": "42",
+      "sw": "Eye Diseases Non-infectious",
+      "en": "Eye Diseases Non-infectious",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Eye Diseases Non-infectious\u0027"
+    },
+    "cardiac_failure": {
+      "line_number": "43",
+      "sw": "Cardiac Failure",
+      "en": "Cardiac Failure",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Cardiac Failure\u0027"
+    },
+    "hypertension_severe": {
+      "line_number": "44",
+      "sw": "Hypertension severe",
+      "en": "Hypertension severe",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Hypertension severe\u0027"
+    },
+    "rheumatic_fever": {
+      "line_number": "45",
+      "sw": "Rheumatic Fever",
+      "en": "Rheumatic Fever",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Rheumatic Fever\u0027"
+    },
+    "cardiovascular_disorders_other": {
+      "line_number": "46",
+      "sw": "Cardiovascular Disorders Other",
+      "en": "Cardiovascular Disorders Other",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Cardiovascular Disorders Other\u0027"
+    },
+    "broncial_asthma_severe": {
+      "line_number": "47",
+      "sw": "Broncial Asthma Severe",
+      "en": "Broncial Asthma Severe",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Broncial Asthma Severe\u0027"
+    },
+    "upper_respiratory_infections_pharyngitis_tonsillitis_rhinitis": {
+      "line_number": "48",
+      "sw": "Upper Respiratory Infections Pharyngitis/Tonsillitis/Rhinitis",
+      "en": "Upper Respiratory Infections Pharyngitis/Tonsillitis/Rhinitis",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Upper Respiratory Infections Pharyngitis/Tonsillitis/Rhinitis\u0027"
+    },
+    "pneumonia": {
+      "line_number": "49",
+      "sw": "Pneumonia",
+      "en": "Pneumonia",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Pneumonia\u0027"
+    },
+    "pneumonia_severe": {
+      "line_number": "50",
+      "sw": "Pneumonia Severe",
+      "en": "Pneumonia Severe",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Pneumonia Severe\u0027"
+    },
+    "respiratory_system_disorders_other": {
+      "line_number": "51",
+      "sw": "Respiratory System disorders Other",
+      "en": "Respiratory System disorders Other",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Respiratory System disorders Other\u0027"
+    },
+    "peptic_ulcers": {
+      "line_number": "52",
+      "sw": "Peptic ulcers",
+      "en": "Peptic ulcers",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Peptic ulcers\u0027"
+    },
+    "liver_diseases_non_infectious": {
+      "line_number": "53",
+      "sw": "Liver diseases Non-infectious",
+      "en": "Liver diseases Non-infectious",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Liver diseases Non-infectious\u0027"
+    },
+    "gastrointestinal_disease_other_non_infectious": {
+      "line_number": "54",
+      "sw": "Gastrointestinal diseases Other non-infectious",
+      "en": "Gastrointestinal diseases Other non-infectious",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Gastrointestinal diseases Other non-infectious\u0027"
+    },
+    "urinary_tract_infections": {
+      "line_number": "55",
+      "sw": "Urinary Tract Infections UTI",
+      "en": "Urinary Tract Infections UTI",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Urinary Tract Infections UTI\u0027"
+    },
+    "nephrotic_syndrome": {
+      "line_number": "56",
+      "sw": "Nephrotic Syndrome",
+      "en": "Nephrotic Syndrome",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Nephrotic Syndrome\u0027"
+    },
+    "acute_glumerulonephritis": {
+      "line_number": "57",
+      "sw": "Acute glumerulonephritis",
+      "en": "Acute glumerulonephritis",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Acute glumerulonephritis\u0027"
+    },
+    "skin_infections": {
+      "line_number": "58",
+      "sw": "Skin Infections",
+      "en": "Skin Infections",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Skin Infections\u0027"
+    },
+    "skin_diseases_non_infectious": {
+      "line_number": "59",
+      "sw": "Skin diseases Non-infectious",
+      "en": "Skin diseases Non-infectious",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Skin diseases Non-infectious\u0027"
+    },
+    "osteomyelitis": {
+      "line_number": "60",
+      "sw": "Osteomyelitis",
+      "en": "Osteomyelitis",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Osteomyelitis\u0027"
+    },
+    "rheumatoid_and_joint_disease": {
+      "line_number": "61",
+      "sw": "Rheumatoid and Joint diseases",
+      "en": "Rheumatoid and Joint diseases",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Rheumatoid and Joint diseases\u0027"
+    },
+    "low_birth_weight_and_prematurity_complications": {
+      "line_number": "62",
+      "sw": "Low birth weight and Prematurity complications",
+      "en": "Low birth weight and Prematurity complications",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Low birth weight and Prematurity complications\u0027"
+    },
+    "birth_asphyxia": {
+      "line_number": "63",
+      "sw": "Birth asphyxia",
+      "en": "Birth asphyxia",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Birth asphyxia\u0027"
+    },
+    "neonatal_septicaemia_local_infections": {
+      "line_number": "64",
+      "sw": "Neonatal Septicaemia Local infections",
+      "en": "Neonatal Septicaemia Local infections",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Neonatal Septicaemia Local infections\u0027"
+    },
+    "road_traffic_accidents": {
+      "line_number": "65",
+      "sw": "Road Traffic Accidents",
+      "en": "Road Traffic Accidents",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Road Traffic Accidents\u0027"
+    },
+    "fractures": {
+      "line_number": "66",
+      "sw": "Fractures",
+      "en": "Fractures",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Fractures\u0027"
+    },
+    "poisoning": {
+      "line_number": "67",
+      "sw": "Poisoning",
+      "en": "Poisoning",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Poisoning\u0027"
+    },
+    "burns": {
+      "line_number": "68",
+      "sw": "Burns",
+      "en": "Burns",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Burns\u0027"
+    },
+    "animal_bites_suspected_rabies": {
+      "line_number": "69",
+      "sw": "Animal Bites Suspected Rabies",
+      "en": "Animal Bites Suspected Rabies",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Animal Bites Suspected Rabies\u0027"
+    },
+    "animal_bites_no_suspected_rabies": {
+      "line_number": "70",
+      "sw": "Animal Bites No suspected Rabies",
+      "en": "Animal Bites No suspected Rabies",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Animal Bites No suspected Rabies\u0027"
+    },
+    "hiv_infection_symptomatic": {
+      "line_number": "71",
+      "sw": "HIV infection Symptomatic",
+      "en": "HIV infection Symptomatic",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027HIV infection Symptomatic\u0027"
+    },
+    "congenital_disorders": {
+      "line_number": "72",
+      "sw": "Congenital Disorders",
+      "en": "Congenital Disorders",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Congenital Disorders\u0027"
+    },
+    "hepatitis": {
+      "line_number": "73",
+      "sw": "Hepatitis",
+      "en": "Hepatitis",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Hepatitis\u0027"
+    },
+    "neoplasm": {
+      "line_number": "74",
+      "sw": "Neoplasm",
+      "en": "Neoplasm",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Neoplasm\u0027"
+    },
+    "soil_transmitted_helminths": {
+      "line_number": "75",
+      "sw": "Soil transmitted helminths",
+      "en": "Soil transmitted helminths",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Soil transmitted helminths\u0027"
+    },
+    "lympatic_filairiasis": {
+      "line_number": "76",
+      "sw": "Lympatic filairiasis",
+      "en": "Lympatic filairiasis",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Lympatic filairiasis\u0027"
+    },
+    "anthrax": {
+      "line_number": "77",
+      "sw": "Anthrax",
+      "en": "Anthrax",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Anthrax\u0027"
+    },
+    "diagnoses_other": {
+      "line_number": "78",
+      "sw": "Diagnoses Other",
+      "en": "Diagnoses Other",
+      "condition": "disease_diagnosis.admission \u0026\u0026 disease_diagnosis.diagnosis \u003d\u003d \u0027Diagnoses Other\u0027"
+    },
+    "definitions": {
+      "columns": {
+        "lessthan1male": {
+          "title": "Males",
+          "condition": "FIXME \u0026\u0026 patient.gender \u003d\u003d \u0027male\u0027"
+        },
+        "lessthan1female": {
+          "title": "Less than 1 Month - Females",
+          "condition": "FIXME \u0026\u0026 patient.gender \u003d\u003d \u0027female\u0027"
+        },
+        "lessthan1total": {
+          "title": "Less than 1 Month - Total",
+          "condition": "FIXME"
+        },
+        "more1momale": {
+          "title": "More than 1 month and less than 1 Year - Male",
+          "condition": "FIXME \u0026\u0026 patient.gender \u003d\u003d \u0027male\u0027"
+        },
+        "more1mofemale": {
+          "title": "More than 1 month and less than 1 Year - Females",
+          "condition": "FIXME \u0026\u0026 patient.gender \u003d\u003d \u0027female\u0027"
+        },
+        "more1mototal": {
+          "title": "More than 1 month and less than 1 Year - Total",
+          "condition": "FIXME "
+        },
+        "above1below5male": {
+          "title": "More than 1 year and less than 5 Years - Male",
+          "condition": "patient.approxage \u003e 1 \u0026\u0026 patient.approxage \u003c 5 \u0026\u0026 patient.gender \u003d\u003d \u0027male\u0027"
+        },
+        "above1below5female": {
+          "title": "More than 1 year and less than 5 Years - Females",
+          "condition": "patient.approxage \u003e 1 \u0026\u0026 patient.approxage \u003c 5 \u0026\u0026 patient.gender \u003d\u003d \u0027female\u0027"
+        },
+        "above1below5total": {
+          "title": "More than 1 year and less than 5 Years - Total",
+          "condition": "patient.approxage \u003e 1 \u0026\u0026 patient.approxage \u003c 5"
+        }
+      }
+    }
+  }
+}

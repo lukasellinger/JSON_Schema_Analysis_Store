@@ -1,0 +1,92 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/DeleteAction.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Действие удаления текущего элемента из источника данных",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/BaseAction.json"
+    },
+    {
+      "$ref": "#/definitions/BaseFallibleAction.json"
+    }
+  ],
+  "properties": {
+    "DestinationValue": {
+      "description": "Источник данных",
+      "type": "object",
+      "properties": {
+        "Source": {
+          "description": "Название источника данных",
+          "type": "string"
+        },
+        "Property": {
+          "description": "Путь до документа в источнике данных, который будет удалятся",
+          "type": "string"
+        }
+      },
+      "required": [
+        "Source",
+        "Property"
+      ]
+    },
+    "Accept": {
+      "description": "Нужно ли подтверждение удаления",
+      "type": "boolean",
+      "default": true
+    },
+    "AcceptMessage": {
+      "description": "Текст для сообщения во всплывающем окне",
+      "type": "string"
+    },
+    "AcceptMessageType": {
+      "description": "Тип всплывающего окна",
+      "enum": [
+        "default",
+        "warning",
+        "error"
+      ],
+      "default": "default"
+    }
+  },
+  "required": [
+    "DestinationValue"
+  ],
+  "definitions": {
+    "BaseAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Базовый тип для предопределенных действий",
+      "type": "object",
+      "properties": {
+        "OnExecuted": {
+          "description": "Обработчик события о том, что действие было выполнено",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "CanExecute": {
+          "description": "Проверка условия для выполнения экшена",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    },
+    "..\\Script\\LinkScript.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Ссылка на прикладной скрипт, выполняемый на стороне клиента",
+      "type": "string"
+    },
+    "BaseFallibleAction.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Действия, которые могут завершиться ошибкой",
+      "type": "object",
+      "properties": {
+        "OnSuccess": {
+          "description": "Обработчик события о том, что действие было выполнено успешно",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        },
+        "OnError": {
+          "description": "Обработчик события о том, что действие было выполнено с ошибкой",
+          "$ref": "#/definitions/..\\Script\\LinkScript.json"
+        }
+      }
+    }
+  }
+}

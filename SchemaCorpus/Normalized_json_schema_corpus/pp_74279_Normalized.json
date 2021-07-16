@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\group.json_definitions_group-new-output",
+  "definitions": {
+    "..\\definitions\\group.json_definitions_group-new-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_string-id"
+        }
+      },
+      "required": [
+        "_id"
+      ],
+      "x-sdk-return": "_id"
+    },
+    "..\\definitions\\common.json_definitions_string-id": {
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 2,
+      "pattern": "^[0-9a-z][0-9a-z.@_-]{0,30}[0-9a-z]$"
+    }
+  }
+}

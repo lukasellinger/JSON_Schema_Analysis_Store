@@ -1,0 +1,295 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Blockchain Certificates Certificate Schema, Version 1.2",
+  "id": "https://w3id.org/blockcerts/schema/1.2/certificate-1.2.json",
+  "description": "Extends the Open Badges Certificate Schema for certificates on the blockchain",
+  "type": "object",
+  "definitions": {
+    "JsonLdContext": {
+      "description": "A link to a valid JSON-LD context file, that maps term names to contexts. Blockchain Certificate contexts may also define JSON-schema to validate Blockchain Certificates against. In a Blockchain Certificate Object, this will almost always be a string:uri to a single context file, but might rarely be an array of links or context objects instead. This schema also allows direct mapping of terms to IRIs by using an object as an option within an array.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "array"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "JsonLdType": {
+      "description": "A type or an array of types that the Blockchain Certificate object represents. The first or only item should be \u0027Certificate\u0027, and any others should each be an IRI (usually a URL) corresponding to a definition of the type itself. In almost all cases, there will be only one type: \u0027Certificate\u0027",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "Issuer": {
+      "$ref": "#/definitions/http:__w3id.org_blockcerts_schema_1.2_issuer-1.2.json"
+    },
+    "http:__w3id.org_blockcerts_schema_1.2_issuer-1.2.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Blockchain Certificates Issuer Schema, Version 1.2",
+      "description": "Extends the Open Badges Issuer Schema for certificates on the blockchain",
+      "type": "object",
+      "definitions": {
+        "JsonLdContext": {
+          "description": "A link to a valid JSON-LD context file, that maps term names to contexts. Blockchain Certificate contexts may also define JSON-schema to validate Blockchain Certificates against. In a Blockchain Certificate Object, this will almost always be a string:uri to a single context file, but might rarely be an array of links or context objects instead. This schema also allows direct mapping of terms to IRIs by using an object as an option within an array.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object"
+                  },
+                  {
+                    "type": "array"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "JsonLdType": {
+          "description": "A type or an array of types that the Blockchain Certificate object represents. The first or only item should be \u0027Issuer\u0027, and any others should each be an IRI (usually a URL) corresponding to a definition of the type itself. In almost all cases, there will be only one type: \u0027Issuer\u0027",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "BCBadgeImage": {
+          "description": "An image representative of the entity. This overrides BadgeImage from OBI because oneOf, compared to anyOf, was failing validation",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/https:__openbadgespec.org_v1_schema_issuer.json_definitions_ImageDataUrl"
+            },
+            {
+              "type": "string",
+              "format": "uri"
+            }
+          ]
+        }
+      },
+      "properties": {
+        "@context": {
+          "$ref": "#/definitions/http:__w3id.org_blockcerts_schema_1.2_issuer-1.2.json_definitions_JsonLdContext"
+        },
+        "type": {
+          "$ref": "#/definitions/http:__w3id.org_blockcerts_schema_1.2_issuer-1.2.json_definitions_JsonLdType"
+        },
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to a JSON that details the issuer\u0027s issuing and recovation keys. Default is https://[domain]/issuer/[org_abbr]-issuer.json. Included for (near) backward compatibility with open badges specification 1.1"
+        },
+        "image": {
+          "$ref": "#/definitions/http:__w3id.org_blockcerts_schema_1.2_issuer-1.2.json_definitions_BCBadgeImage"
+        },
+        "name": {
+          "description": "Human-readable name of the issuing entity",
+          "type": "string"
+        },
+        "url": {
+          "description": "The URL of the issuer\u0027s website or homepage",
+          "type": "string",
+          "format": "uri"
+        },
+        "description": {
+          "type": "string",
+          "description": "A text description of the issuing organization"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact address for the individual or organization."
+        },
+        "revocationList": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "name",
+        "url",
+        "id"
+      ],
+      "additionalProperties": true
+    },
+    "https:__openbadgespec.org_v1_schema_issuer.json_definitions_ImageDataUrl": {
+      "type": "string",
+      "pattern": "^data:"
+    },
+    "http:__w3id.org_blockcerts_schema_1.2_issuer-1.2.json_definitions_JsonLdContext": {
+      "description": "A link to a valid JSON-LD context file, that maps term names to contexts. Blockchain Certificate contexts may also define JSON-schema to validate Blockchain Certificates against. In a Blockchain Certificate Object, this will almost always be a string:uri to a single context file, but might rarely be an array of links or context objects instead. This schema also allows direct mapping of terms to IRIs by using an object as an option within an array.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "array"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "http:__w3id.org_blockcerts_schema_1.2_issuer-1.2.json_definitions_JsonLdType": {
+      "description": "A type or an array of types that the Blockchain Certificate object represents. The first or only item should be \u0027Issuer\u0027, and any others should each be an IRI (usually a URL) corresponding to a definition of the type itself. In almost all cases, there will be only one type: \u0027Issuer\u0027",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "http:__w3id.org_blockcerts_schema_1.2_issuer-1.2.json_definitions_BCBadgeImage": {
+      "description": "An image representative of the entity. This overrides BadgeImage from OBI because oneOf, compared to anyOf, was failing validation",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/https:__openbadgespec.org_v1_schema_issuer.json_definitions_ImageDataUrl"
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    },
+    "https:__openbadgespec.org_v1_schema_badgeclass.json_definitions_AlignmentArray": {
+      "description": "List of objects describing which educational standards this badge aligns to, if any, and linking to the appropriate standard.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/https:__openbadgespec.org_v1_schema_badgeclass.json_definitions_AlignmentObject"
+      }
+    },
+    "https:__openbadgespec.org_v1_schema_badgeclass.json_definitions_AlignmentObject": {
+      "description": "Each object in an alignment array is an object that describes a particular standard or standard element and provides an appropriate link",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "url"
+      ]
+    },
+    "https:__openbadgespec.org_v1_schema_badgeclass.json_definitions_TagsArray": {
+      "description": "An array of strings. TagsArray is not a controlled vocabulary; it\u0027s a folksonomy",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    }
+  },
+  "properties": {
+    "@context": {
+      "$ref": "#/definitions/JsonLdContext"
+    },
+    "type": {
+      "$ref": "#/definitions/JsonLdType"
+    },
+    "id": {
+      "type": "string",
+      "format": "uri",
+      "description": "URI link to a JSON that describes the type of certificate. Default format is https://[domain]/criteria/[year]/[month]/[certificate_title].json. V1.2 change: this field is optional."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name (or title) of the certificate. V1.2 change: renamed from \u0027title\u0027 to be consistent with OBI schema"
+    },
+    "description": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string",
+      "pattern": "data:image/png;base64,",
+      "description": "Data URI; a base-64 encoded png image of the certificate\u0027s image. https://en.wikipedia.org/wiki/Data_URI_scheme"
+    },
+    "criteria": {
+      "type": "string",
+      "format": "uri"
+    },
+    "issuer": {
+      "$ref": "#/definitions/Issuer"
+    },
+    "alignment": {
+      "$ref": "#/definitions/https:__openbadgespec.org_v1_schema_badgeclass.json_definitions_AlignmentArray"
+    },
+    "tags": {
+      "$ref": "#/definitions/https:__openbadgespec.org_v1_schema_badgeclass.json_definitions_TagsArray"
+    },
+    "language": {
+      "type": "string",
+      "description": "Represents the ieft language and ieft country codes. Format is [ieft_language]-[IEFT_COUNTRY]. V1.2 changes: this field is optional",
+      "pattern": "[a-z]{2}-[A-Z]{2}"
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "Subtitle of the certificate. V1.2 changes: this type is now string, and this field is optional"
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "image",
+    "issuer"
+  ],
+  "additionalProperties": true
+}

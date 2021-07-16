@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "webhooks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "mod_date": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "hook_url": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "repo-push": {
+          "type": "object",
+          "properties": {
+            "max": {
+              "type": "integer"
+            },
+            "used": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  }
+}

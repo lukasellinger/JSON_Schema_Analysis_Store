@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "name": "Evaluation",
+  "properties": {
+    "@id": {
+      "type": "string"
+    },
+    "@type": {
+      "type": "array"
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/metric.json"
+      },
+      "default": []
+    },
+    "evaluatesOn": {
+      "description": "Name of the dataset evaluated ",
+      "type": "string"
+    },
+    "evaluates": {
+      "description": "Classifier or plugin evaluated",
+      "type": "string"
+    }
+  },
+  "required": [
+    "@id",
+    "metrics"
+  ],
+  "definitions": {
+    "metric.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "minValue": {
+          "type": "number"
+        },
+        "value": {
+          "type": "number"
+        },
+        "deviation": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "@id"
+      ]
+    }
+  }
+}

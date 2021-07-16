@@ -1,0 +1,304 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "Integration Template",
+  "description": "The integration template supported by Contentful",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "The name of this integration"
+    },
+    "clientId": {
+      "type": "string",
+      "title": "Client Id",
+      "description": "The Auth0 client Id corresponding to this integration"
+    },
+    "configUrl": {
+      "type": "string",
+      "title": "Config Url",
+      "format": "url",
+      "description": "A URL to the UI to be presented for configuring this integration"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": "A description of what this integration supports (presented on the integrations page)"
+    },
+    "integrationConfig": {
+      "type": "object",
+      "title": "Integration Config",
+      "description": "Common integration JSON configuration to reflect how this integration interacts with SaaSquatch",
+      "$ref": "#/definitions/IntegrationConfig.schema.json"
+    },
+    "logo": {
+      "type": "string",
+      "title": "Logo",
+      "description": "A logo representing this integration (presented on the integrations page)"
+    },
+    "panelHeading": {
+      "type": "string",
+      "title": "Panel Heading",
+      "description": "A descriptive heading title for this integration (presented on the integrations page)"
+    },
+    "globallyInstallable": {
+      "type": "boolean",
+      "title": "Globally Installable",
+      "description": "Indicates whether this integration can be installed by any tenant"
+    },
+    "installableByTenants": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "title": "Installable by Tenants",
+      "description": "The tenants that can install this integration if it\u0027s not globally installable",
+      "items": {
+        "type": "string",
+        "title": "Tenant Alias",
+        "description": "The tenant alias for a tenant that can install this integration"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "clientId",
+    "configUrl",
+    "description",
+    "logo",
+    "panelHeading"
+  ],
+  "definitions": {
+    "IntegrationConfig.schema.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "title": "Integration Configuration",
+      "description": "The schema used to generate integration configuration in Contentful",
+      "type": "object",
+      "properties": {
+        "webhooks": {
+          "type": "array",
+          "title": "Managed Webhooks",
+          "description": "A list of webhooks managed by this integration",
+          "items": {
+            "$ref": "#/definitions/IntegrationConfig.schema.json_definitions_webhook"
+          }
+        },
+        "linkInterceptors": {
+          "type": "array",
+          "title": "Managed Link Interceptors",
+          "description": "A list of link interceptors managed by this integration",
+          "items": {
+            "$ref": "#/definitions/IntegrationConfig.schema.json_definitions_linkInterceptor"
+          }
+        },
+        "formHandler": {
+          "$ref": "#/definitions/IntegrationConfig.schema.json_definitions_formHandler"
+        }
+      },
+      "additionalProperties": false,
+      "definitions": {
+        "webhook": {
+          "type": "object",
+          "title": "Managed Webhook",
+          "description": "Configuration for setting up a webhook",
+          "properties": {
+            "endpointUrl": {
+              "type": "string",
+              "title": "Endpoint Url",
+              "format": "url",
+              "description": "The webhook destination"
+            },
+            "name": {
+              "type": "string",
+              "title": "Name",
+              "description": "The name of the webhook (e.g. Stripe Integration Entry Point)"
+            },
+            "webhookTypes": {
+              "type": "array",
+              "title": "Webhook Types",
+              "description": "Webhook types accepted by this webhook endpoint",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "coupon.created",
+                  "reward.created",
+                  "email.referral.started",
+                  "email.referred.reward.earned",
+                  "email.referral.paid",
+                  "user.created",
+                  "theme.publish.finished",
+                  "email.referral.rewardLimitReached",
+                  "export.created",
+                  "export.completed",
+                  "referral.started",
+                  "referral.converted",
+                  "referral.ended",
+                  "referral.automoderation.complete",
+                  "user.reward.balance.changed"
+                ]
+              }
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "endpointUrl",
+            "name"
+          ]
+        },
+        "linkInterceptor": {
+          "type": "object",
+          "title": "Managed Link Interceptor",
+          "description": "Configuration for a link interceptor",
+          "properties": {
+            "endpointUrl": {
+              "type": "string",
+              "title": "Endpoint Url",
+              "format": "url",
+              "description": "The link interceptor POST endpoint URL"
+            },
+            "name": {
+              "type": "string",
+              "title": "Name",
+              "description": "The name of the link interceptor"
+            },
+            "order": {
+              "type": "number",
+              "title": "Order",
+              "description": "The order of this link interceptor among other link interceptors"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "endpointUrl",
+            "name",
+            "order"
+          ]
+        },
+        "formHandler": {
+          "type": "object",
+          "title": "Managed Form Handler",
+          "description": "Configuration for a form handler",
+          "properties": {
+            "endpointUrl": {
+              "type": "string",
+              "title": "Endpoint Url",
+              "format": "url",
+              "description": "The form handler POST endpoint URL"
+            },
+            "name": {
+              "type": "string",
+              "title": "Name",
+              "description": "The name of the form handler"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "endpointUrl",
+            "name"
+          ]
+        }
+      }
+    },
+    "IntegrationConfig.schema.json_definitions_webhook": {
+      "type": "object",
+      "title": "Managed Webhook",
+      "description": "Configuration for setting up a webhook",
+      "properties": {
+        "endpointUrl": {
+          "type": "string",
+          "title": "Endpoint Url",
+          "format": "url",
+          "description": "The webhook destination"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "The name of the webhook (e.g. Stripe Integration Entry Point)"
+        },
+        "webhookTypes": {
+          "type": "array",
+          "title": "Webhook Types",
+          "description": "Webhook types accepted by this webhook endpoint",
+          "items": {
+            "type": "string",
+            "enum": [
+              "coupon.created",
+              "reward.created",
+              "email.referral.started",
+              "email.referred.reward.earned",
+              "email.referral.paid",
+              "user.created",
+              "theme.publish.finished",
+              "email.referral.rewardLimitReached",
+              "export.created",
+              "export.completed",
+              "referral.started",
+              "referral.converted",
+              "referral.ended",
+              "referral.automoderation.complete",
+              "user.reward.balance.changed"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "endpointUrl",
+        "name"
+      ]
+    },
+    "IntegrationConfig.schema.json_definitions_linkInterceptor": {
+      "type": "object",
+      "title": "Managed Link Interceptor",
+      "description": "Configuration for a link interceptor",
+      "properties": {
+        "endpointUrl": {
+          "type": "string",
+          "title": "Endpoint Url",
+          "format": "url",
+          "description": "The link interceptor POST endpoint URL"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "The name of the link interceptor"
+        },
+        "order": {
+          "type": "number",
+          "title": "Order",
+          "description": "The order of this link interceptor among other link interceptors"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "endpointUrl",
+        "name",
+        "order"
+      ]
+    },
+    "IntegrationConfig.schema.json_definitions_formHandler": {
+      "type": "object",
+      "title": "Managed Form Handler",
+      "description": "Configuration for a form handler",
+      "properties": {
+        "endpointUrl": {
+          "type": "string",
+          "title": "Endpoint Url",
+          "format": "url",
+          "description": "The form handler POST endpoint URL"
+        },
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "The name of the form handler"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "endpointUrl",
+        "name"
+      ]
+    }
+  }
+}

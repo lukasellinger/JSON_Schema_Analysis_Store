@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://jetbrains.org/intellij/schema/product.schema.json",
+  "title": "IntelliJ-based IDE installation",
+  "description": "Meta-information about installation of an IDE based on IntelliJ Platform",
+  "version": "0.1",
+  "type": "object",
+  "required": [
+    "name",
+    "version",
+    "buildNumber",
+    "productCode",
+    "launch"
+  ],
+  "properties": {
+    "name": {
+      "description": "Full name of the product without edition, e.g. \u0027IntelliJ IDEA\u0027 or \u0027PyCharm\u0027",
+      "type": "string"
+    },
+    "version": {
+      "description": "Marketing version of the product, e.g. \u00272018.3\u0027",
+      "type": "string"
+    },
+    "versionSuffix": {
+      "description": "Specifies type of this product version which is shown after the version number in UI, e.g. \u0027EAP\u0027, \u0027EAP 2\u0027, \u0027Preview\u0027, etc. May be omitted (e.g. for release builds).",
+      "type": "string"
+    },
+    "buildNumber": {
+      "description": "Build number of the product, e.g. \u0027183.239\u0027 or \u0027183.SNAPSHOT\u0027",
+      "type": "string"
+    },
+    "productCode": {
+      "description": "Product code (e.g. \u0027IC\u0027 for IntelliJ IDEA Community Edition) as used in full build number",
+      "type": "string"
+    },
+    "svgIconPath": {
+      "description": "Path to an svg file which contains the product icon (relative to the parent directory of this file, \u0027/\u0027 as a separator, may start with \u0027../\u0027), e.g. \u0027bin/idea.svg\u0027",
+      "type": "string"
+    },
+    "launch": {
+      "description": "Specifies how the IDE can be launched",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "os",
+          "launcherPath",
+          "vmOptionsFilePath"
+        ],
+        "minItems": 1,
+        "properties": {
+          "os": {
+            "description": "Operation system this launch method is supposed to be used for",
+            "type": "string",
+            "enum": [
+              "Windows",
+              "Linux",
+              "macOS"
+            ]
+          },
+          "launcherPath": {
+            "description": "Path to an executable file which starts the IDE (relative to the parent directory of this file, \u0027/\u0027 as a separator, may start with \u0027../\u0027), e.g. \u0027bin/idea.sh\u0027",
+            "type": "string"
+          },
+          "javaExecutablePath": {
+            "description": "Path to an JRE executable file (relative to the parent directory of this file, \u0027/\u0027 as a separator, may start with \u0027../\u0027), e.g. \u0027jre64/bin/java\u0027. May be missing if JRE isn\u0027t bundled with the product.",
+            "type": "string"
+          },
+          "vmOptionsFilePath": {
+            "description": "Path to a file containing JVM options which are used to start the IDE (relative to the parent directory of this file, \u0027/\u0027 as a separator, may start with \u0027../\u0027), e.g. \u0027bin/idea64.vmoptions\u0027",
+            "type": "string"
+          },
+          "startupWmClass": {
+            "description": "Value of \u0027WMClass\u0027 property used by some Linux desktop distributions to associate windows with the owning application, e.g. \u0027jetbrains-idea\u0027. May be specified only if \u0027os\u0027 is \u0027Linux\u0027.",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

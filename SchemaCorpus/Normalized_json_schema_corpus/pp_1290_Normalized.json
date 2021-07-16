@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "flavors": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "vcpus": {
+              "type": "integer"
+            },
+            "ram": {
+              "type": "integer"
+            },
+            "disk": {
+              "type": "integer"
+            },
+            "swap": {
+              "type": "integer"
+            },
+            "promoted": {
+              "type": "boolean"
+            },
+            "public": {
+              "type": "boolean"
+            },
+            "nodes": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "vcpus",
+            "ram",
+            "disk",
+            "swap",
+            "promoted",
+            "public",
+            "nodes"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "vcpus": {
+              "type": "integer"
+            },
+            "ram": {
+              "type": "integer"
+            },
+            "disk": {
+              "type": "integer"
+            },
+            "swap": {
+              "type": "integer"
+            },
+            "promoted": {
+              "type": "boolean"
+            },
+            "public": {
+              "type": "boolean"
+            },
+            "nodes": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "vcpus": {
+              "type": "integer"
+            },
+            "ram": {
+              "type": "integer"
+            },
+            "disk": {
+              "type": "integer"
+            },
+            "swap": {
+              "type": "integer"
+            },
+            "promoted": {
+              "type": "boolean"
+            },
+            "public": {
+              "type": "boolean"
+            },
+            "nodes": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "vcpus": {
+              "type": "integer"
+            },
+            "ram": {
+              "type": "integer"
+            },
+            "disk": {
+              "type": "integer"
+            },
+            "swap": {
+              "type": "integer"
+            },
+            "promoted": {
+              "type": "boolean"
+            },
+            "public": {
+              "type": "boolean"
+            },
+            "nodes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ],
+      "required": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ]
+    }
+  },
+  "required": [
+    "flavors"
+  ]
+}

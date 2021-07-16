@@ -1,0 +1,2631 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/applicationRead.json"
+  },
+  "definitions": {
+    "applicationRead.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "definitions": {
+        "id": {
+          "type": "integer"
+        },
+        "tracker": {
+          "type": "integer",
+          "description": "The tracker, if any, associated with this application. This is fixed at the time that application is made."
+        },
+        "formFactor": {
+          "enum": [
+            "mobile",
+            "desktop",
+            "tablet",
+            "other"
+          ]
+        },
+        "source": {
+          "type": "string"
+        },
+        "bucketMovement": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/definitions/bucket.json_definitions_id"
+            },
+            "landed": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "landed"
+          ]
+        },
+        "bucketMovements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/applicationRead.json_definitions_bucketMovement"
+          }
+        },
+        "dateLastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "remuneration": {
+          "type": "object",
+          "description": "See HR/XML OnBoardingDeploymentType",
+          "properties": {
+            "amount": {
+              "type": "number",
+              "description": "The monetary value of the object in which the amount is associated"
+            },
+            "rateIntervalCode": {
+              "type": "string",
+              "description": "See HR/XML PayRateIntervalCodeType"
+            },
+            "typeCode": {
+              "type": "string",
+              "description": "A code classifying the type of remuneration (HR/XML)"
+            }
+          },
+          "additionalProperties": false
+        },
+        "dutyEntryDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Per- HR-XML, the date the employee or human resource actually begins work or enters on duty"
+        },
+        "hireDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Per- HR-XML, The date on which the associated person was hired."
+        },
+        "onBoardedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date on which the associated person completed onboarding."
+        },
+        "hireDetails": {
+          "type": "object",
+          "properties": {
+            "remuneration": {
+              "$ref": "#/definitions/applicationRead.json_definitions_remuneration"
+            },
+            "dutyEntryDate": {
+              "$ref": "#/definitions/applicationRead.json_definitions_dutyEntryDate"
+            },
+            "hireDate": {
+              "$ref": "#/definitions/applicationRead.json_definitions_hireDate"
+            },
+            "onBoardedDate": {
+              "$ref": "#/definitions/applicationRead.json_definitions_onBoardedDate"
+            }
+          },
+          "additionalProperties": false
+        },
+        "since": {
+          "type": "string",
+          "format": "date-time",
+          "description": "If this application was fetched via a filter, the date-time when the application satisfied the filter (e.g., in a call to GET /applications/at/interview/ever, this would be the date the application first entered the interview phase"
+        }
+      },
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/applicationRead.json_definitions_id"
+        },
+        "since": {
+          "$ref": "#/definitions/applicationRead.json_definitions_since"
+        },
+        "source": {
+          "$ref": "#/definitions/applicationRead.json_definitions_source"
+        },
+        "formFactor": {
+          "$ref": "#/definitions/applicationRead.json_definitions_formFactor"
+        },
+        "bucketMovements": {
+          "$ref": "#/definitions/applicationRead.json_definitions_bucketMovements"
+        },
+        "candidate": {
+          "$ref": "#/definitions/candidateRead.json"
+        },
+        "job": {
+          "$ref": "#/definitions/jobRead.json"
+        },
+        "bucket": {
+          "$ref": "#/definitions/bucket.json_definitions_id"
+        },
+        "tracker": {
+          "$ref": "#/definitions/applicationRead.json_definitions_tracker"
+        },
+        "dateLastUpdated": {
+          "$ref": "#/definitions/applicationRead.json_definitions_dateLastUpdated"
+        },
+        "hireDetails": {
+          "$ref": "#/definitions/applicationRead.json_definitions_hireDetails"
+        },
+        "items": {
+          "$ref": "#/definitions/itemPackagesRead.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bucket.json_definitions_id": {
+      "type": "integer"
+    },
+    "applicationRead.json_definitions_bucketMovement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/bucket.json_definitions_id"
+        },
+        "landed": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "landed"
+      ]
+    },
+    "applicationRead.json_definitions_remuneration": {
+      "type": "object",
+      "description": "See HR/XML OnBoardingDeploymentType",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "The monetary value of the object in which the amount is associated"
+        },
+        "rateIntervalCode": {
+          "type": "string",
+          "description": "See HR/XML PayRateIntervalCodeType"
+        },
+        "typeCode": {
+          "type": "string",
+          "description": "A code classifying the type of remuneration (HR/XML)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "applicationRead.json_definitions_dutyEntryDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Per- HR-XML, the date the employee or human resource actually begins work or enters on duty"
+    },
+    "applicationRead.json_definitions_hireDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Per- HR-XML, The date on which the associated person was hired."
+    },
+    "applicationRead.json_definitions_onBoardedDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date on which the associated person completed onboarding."
+    },
+    "applicationRead.json_definitions_id": {
+      "type": "integer"
+    },
+    "applicationRead.json_definitions_since": {
+      "type": "string",
+      "format": "date-time",
+      "description": "If this application was fetched via a filter, the date-time when the application satisfied the filter (e.g., in a call to GET /applications/at/interview/ever, this would be the date the application first entered the interview phase"
+    },
+    "applicationRead.json_definitions_source": {
+      "type": "string"
+    },
+    "applicationRead.json_definitions_formFactor": {
+      "enum": [
+        "mobile",
+        "desktop",
+        "tablet",
+        "other"
+      ]
+    },
+    "applicationRead.json_definitions_bucketMovements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/applicationRead.json_definitions_bucketMovement"
+      }
+    },
+    "candidateRead.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "notifications": {
+          "type": "boolean",
+          "description": "whether this candidate wants to receive email alerts about new jobs"
+        },
+        "internalFlag": {
+          "type": "boolean",
+          "description": "whether this candidate is an internal"
+        },
+        "id": {
+          "type": "integer"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/candidateRead.json_definitions_id"
+        },
+        "notifications": {
+          "$ref": "#/definitions/candidateRead.json_definitions_notifications"
+        },
+        "internalFlag": {
+          "$ref": "#/definitions/candidateRead.json_definitions_internalFlag"
+        },
+        "person": {
+          "$ref": "#/definitions/person.json"
+        },
+        "resumeMeta": {
+          "$ref": "#/definitions/fileDownload.json"
+        },
+        "items": {
+          "$ref": "#/definitions/itemPackagesRead.json"
+        },
+        "categories": {
+          "$ref": "#/definitions/categoriesActual.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidateRead.json_definitions_id": {
+      "type": "integer"
+    },
+    "candidateRead.json_definitions_notifications": {
+      "type": "boolean",
+      "description": "whether this candidate wants to receive email alerts about new jobs"
+    },
+    "candidateRead.json_definitions_internalFlag": {
+      "type": "boolean",
+      "description": "whether this candidate is an internal"
+    },
+    "person.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "definitions": {
+        "givenName": {
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "givenName": {
+          "$ref": "#/definitions/person.json_definitions_givenName"
+        },
+        "familyName": {
+          "$ref": "#/definitions/person.json_definitions_familyName"
+        },
+        "email": {
+          "$ref": "#/definitions/person.json_definitions_email"
+        },
+        "image": {
+          "$ref": "#/definitions/person.json_definitions_image"
+        },
+        "vcard": {
+          "$ref": "#/definitions/jcard.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "person.json_definitions_givenName": {
+      "type": "string"
+    },
+    "person.json_definitions_familyName": {
+      "type": "string"
+    },
+    "person.json_definitions_email": {
+      "type": "string"
+    },
+    "person.json_definitions_image": {
+      "type": "string",
+      "format": "uri"
+    },
+    "jcard.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "type": "array",
+      "description": "A jcard holding personal details, as per https://tools.ietf.org/html/rfc7095"
+    },
+    "fileDownload.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "details for a previously uploaded file",
+      "definitions": {
+        "via": {
+          "type": "string",
+          "description": "the mechanism via which the file was uploaded - either \u0027device\u0027 or the fqdn of a cloud storage platform (e.g. dropbox.com)"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "mediaType": {
+          "description": "keep in synch with the trait document_asStream",
+          "enum": [
+            "application/pdf",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/msword",
+            "application/rtf",
+            "text/plain",
+            "image/png",
+            "image/jpeg",
+            "image/gif",
+            "text/html",
+            "audio/x-mpeg-3",
+            "video/x-msvideo",
+            "video/mp4"
+          ]
+        },
+        "data": {
+          "type": "string",
+          "media": {
+            "binaryEncoding": "base64"
+          }
+        }
+      },
+      "type": "object",
+      "properties": {
+        "fileName": {
+          "$ref": "#/definitions/fileDownload.json_definitions_fileName"
+        },
+        "via": {
+          "$ref": "#/definitions/fileDownload.json_definitions_via"
+        },
+        "mediaType": {
+          "$ref": "#/definitions/fileDownload.json_definitions_mediaType"
+        },
+        "size": {
+          "type": "integer"
+        },
+        "md5": {
+          "type": "string",
+          "description": "hash of the file\u0027s binary content"
+        },
+        "dateUploaded": {
+          "type": "string",
+          "format": "date-time",
+          "description": "the date and time the file was uploaded"
+        },
+        "preSignedUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "pre-signed link as per http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html to access the raw data. Includes file name as the trailing component so that browsers name the download correctly."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "fileName",
+        "size",
+        "mediaType",
+        "preSignedUri"
+      ]
+    },
+    "fileDownload.json_definitions_fileName": {
+      "type": "string"
+    },
+    "fileDownload.json_definitions_via": {
+      "type": "string",
+      "description": "the mechanism via which the file was uploaded - either \u0027device\u0027 or the fqdn of a cloud storage platform (e.g. dropbox.com)"
+    },
+    "fileDownload.json_definitions_mediaType": {
+      "description": "keep in synch with the trait document_asStream",
+      "enum": [
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/msword",
+        "application/rtf",
+        "text/plain",
+        "image/png",
+        "image/jpeg",
+        "image/gif",
+        "text/html",
+        "audio/x-mpeg-3",
+        "video/x-msvideo",
+        "video/mp4"
+      ]
+    },
+    "itemPackagesRead.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemPackageRead.json"
+      }
+    },
+    "itemPackageRead.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/itemMeta.json"
+        },
+        "item": {
+          "$ref": "#/definitions/itemRead.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "itemMeta.json": {
+      "definitions": {
+        "title": {
+          "type": "string",
+          "description": "a short, markdown-formatted label for this item, e.g. \u0027Date of birth\u0027"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "description": "markdown-formatted description to a person as to what this option is used for if it\u0027s not clear from the title"
+        },
+        "instructions": {
+          "type": "string",
+          "description": "markdown-formatted instructions to a person as to how to complete/interpret this item, if it\u0027s not obvious from the title"
+        },
+        "footer": {
+          "type": "string"
+        },
+        "elementId": {
+          "type": "string",
+          "description": "It will be used as the id attribute of the form element. This will be the values of payloadElements and reRenderElements in the callback object"
+        },
+        "callback": {
+          "type": "object",
+          "description": "The callback object dictates where the additional info will be taken from and how it should render the form elements on the page",
+          "properties": {
+            "apiUri": {
+              "type": "string",
+              "format": "uri",
+              "description": "the API endpoint to be called"
+            },
+            "method": {
+              "enum": [
+                "GET",
+                "POST"
+              ]
+            },
+            "formEvent": {
+              "enum": [
+                "onChange"
+              ]
+            },
+            "reRenderWholePage": {
+              "type": "boolean",
+              "description": "If this is set to true, all the elements on the page should be re-rendered"
+            },
+            "payloadElements": {
+              "type": "array",
+              "description": "It is only applicable to GET method. The values of the elements should be included in the request",
+              "items": {
+                "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+              }
+            },
+            "autoComplete": {
+              "type": "boolean",
+              "description": "If this is set to true, this input field will be treated as auto complete field. It only applies to string question type and singleLine format and it only applicable to GET method"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "apiUri",
+            "method"
+          ]
+        },
+        "sectionMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "section"
+              ]
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "subMetas": {
+              "$ref": "#/definitions/itemMetas.json"
+            }
+          }
+        },
+        "booleanMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "boolean"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "presentation": {
+              "enum": [
+                "checkbox",
+                "select"
+              ],
+              "description": "a hint as to how the item should be rendered"
+            },
+            "nullLabel": {
+              "type": "string",
+              "description": "The label that should be used for the \u0027no selection\u0027 choice. When present, implies presentation \u003d\u003d select"
+            },
+            "defaultValue": {
+              "type": "boolean",
+              "description": "defaults to false if not present"
+            },
+            "trueLabel": {
+              "type": "string",
+              "description": "defaults to \u0027yes\u0027"
+            },
+            "falseLabel": {
+              "type": "string",
+              "description": "defaults to \u0027no\u0027"
+            },
+            "mandatory": {
+              "type": "boolean"
+            }
+          }
+        },
+        "numberMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "number"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "precision": {
+              "type": "integer"
+            },
+            "scale": {
+              "type": "integer"
+            },
+            "minValue": {
+              "type": "number"
+            },
+            "maxValue": {
+              "type": "number"
+            },
+            "defaultValue": {
+              "type": "number"
+            },
+            "mandatory": {
+              "type": "boolean"
+            }
+          }
+        },
+        "stringMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "string"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "format": {
+              "enum": [
+                "singleLine",
+                "multiLine",
+                "markDown"
+              ],
+              "description": "what sort of string the item holds"
+            },
+            "minLength": {
+              "type": "integer"
+            },
+            "maxLength": {
+              "type": "integer"
+            },
+            "defaultValue": {
+              "type": "string"
+            },
+            "mandatory": {
+              "type": "boolean"
+            },
+            "pattern": {
+              "type": "string"
+            },
+            "hidden": {
+              "type": "boolean",
+              "description": "If this is set to true, user wouldn\u0027t see this item from UI."
+            }
+          }
+        },
+        "dateMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "date"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "showTime": {
+              "type": "boolean",
+              "description": "whether time component should be shown - entered dates default to midnight if false"
+            },
+            "nullLabel": {
+              "type": "string",
+              "description": "if present, results in a selectable UI element that equates to no selection"
+            },
+            "minDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "maxDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "defaultValue": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "mandatory": {
+              "type": "boolean"
+            }
+          }
+        },
+        "fileMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "file"
+              ]
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "purpose": {
+              "enum": [
+                "audio",
+                "document",
+                "image",
+                "video"
+              ]
+            },
+            "accept": {
+              "type": "array",
+              "description": "the allowable internet media types (mime types) for the resume, e.g. word and pdf files",
+              "items": {
+                "$ref": "#/definitions/fileDownload.json_definitions_mediaType"
+              }
+            },
+            "maxSize": {
+              "type": "integer",
+              "description": "maximum file size in bytes"
+            },
+            "mandatory": {
+              "type": "boolean"
+            }
+          }
+        },
+        "tableMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "table"
+              ]
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "minRows": {
+              "type": "integer"
+            },
+            "maxRows": {
+              "type": "integer"
+            },
+            "columns": {
+              "$ref": "#/definitions/itemMeta.json_definitions_columns"
+            }
+          }
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json"
+          },
+          "description": "a series of itemMetas, each representing a column within the table"
+        },
+        "picklistMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "picklist"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "nullLabel": {
+              "type": "string",
+              "description": "if present,  and presentation \u003d\u003d showOne, then a pseudo-choice will be injected"
+            },
+            "minChoices": {
+              "type": "integer"
+            },
+            "maxChoices": {
+              "type": "integer"
+            },
+            "presentation": {
+              "enum": [
+                "showOne",
+                "showAll"
+              ],
+              "description": "showOne is only usable when maxChoices \u003d\u003d 1"
+            },
+            "choices": {
+              "$ref": "#/definitions/itemMeta.json_definitions_picklistChoices"
+            }
+          }
+        },
+        "picklistChoices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json_definitions_picklistChoice"
+          },
+          "description": "a bunch of choices that are \u0027unlocked\u0027 due to the user selecting their enclosing choice within the picklist"
+        },
+        "picklistChoice": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "description": "an unique id for picklist choice"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "name": {
+              "type": "string",
+              "description": "this choice - ideally immutable"
+            },
+            "isDefault": {
+              "type": "boolean",
+              "description": "will always be compatible with minChoices, maxChoices"
+            },
+            "choices": {
+              "$ref": "#/definitions/itemMeta.json_definitions_picklistChoices"
+            }
+          }
+        },
+        "cascadeMeta": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "cascade"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "instructions": {
+              "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+            },
+            "nullLabel": {
+              "type": "string",
+              "description": "if present,  and presentation \u003d\u003d showOne, then a pseudo-choice will be injected"
+            },
+            "minChoices": {
+              "type": "integer"
+            },
+            "maxChoices": {
+              "type": "integer"
+            },
+            "presentation": {
+              "enum": [
+                "showOne",
+                "showAll",
+                "showCards"
+              ],
+              "description": "showOne is only usable when maxChoices \u003d\u003d 1. If it\u0027s showCards, maxChoices must be 1 and it will display all options as card components."
+            },
+            "choices": {
+              "$ref": "#/definitions/itemMeta.json_definitions_cascadeChoices"
+            }
+          }
+        },
+        "cascadeChoices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json_definitions_cascadeChoice"
+          },
+          "description": "a bunch of items that are \u0027unlocked\u0027 due to the user selecting their enclosing choice within the picklist"
+        },
+        "cascadeChoice": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "this choice - ideally immutable"
+            },
+            "title": {
+              "$ref": "#/definitions/itemMeta.json_definitions_title"
+            },
+            "subtitle": {
+              "$ref": "#/definitions/itemMeta.json_definitions_subtitle",
+              "description": "It\u0027s only usable when presentation of cascade item is showCards"
+            },
+            "description": {
+              "$ref": "#/definitions/itemMeta.json_definitions_description",
+              "description": "It\u0027s only usable when presentation of cascade item is showCards"
+            },
+            "footer": {
+              "$ref": "#/definitions/itemMeta.json_definitions_footer",
+              "description": "It\u0027s only usable when presentation of cascade item is showCards"
+            },
+            "level": {
+              "type": "number",
+              "description": "defines the colour of the card components when the presentation of cascade item is showCards. Starts at zero."
+            },
+            "isDisabled": {
+              "type": "boolean",
+              "description": "will disable this cascade choice on the UI"
+            },
+            "isDefault": {
+              "type": "boolean",
+              "description": "will always be compatible with minChoices, maxChoices"
+            },
+            "subItems": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/itemMeta.json"
+              },
+              "description": "items unlocked based on a choice"
+            }
+          }
+        }
+      },
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_sectionMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_booleanMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_numberMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_stringMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_dateMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_fileMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_picklistMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_cascadeMeta"
+        },
+        {
+          "$ref": "#/definitions/itemMeta.json_definitions_tableMeta"
+        }
+      ]
+    },
+    "itemMeta.json_definitions_elementId": {
+      "type": "string",
+      "description": "It will be used as the id attribute of the form element. This will be the values of payloadElements and reRenderElements in the callback object"
+    },
+    "itemRead.json_definitions_name": {
+      "type": "string",
+      "description": "name of the item"
+    },
+    "itemMeta.json_definitions_title": {
+      "type": "string",
+      "description": "a short, markdown-formatted label for this item, e.g. \u0027Date of birth\u0027"
+    },
+    "itemMeta.json_definitions_instructions": {
+      "type": "string",
+      "description": "markdown-formatted instructions to a person as to how to complete/interpret this item, if it\u0027s not obvious from the title"
+    },
+    "itemMetas.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemMeta.json"
+      }
+    },
+    "itemMeta.json_definitions_callback": {
+      "type": "object",
+      "description": "The callback object dictates where the additional info will be taken from and how it should render the form elements on the page",
+      "properties": {
+        "apiUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "the API endpoint to be called"
+        },
+        "method": {
+          "enum": [
+            "GET",
+            "POST"
+          ]
+        },
+        "formEvent": {
+          "enum": [
+            "onChange"
+          ]
+        },
+        "reRenderWholePage": {
+          "type": "boolean",
+          "description": "If this is set to true, all the elements on the page should be re-rendered"
+        },
+        "payloadElements": {
+          "type": "array",
+          "description": "It is only applicable to GET method. The values of the elements should be included in the request",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+          }
+        },
+        "autoComplete": {
+          "type": "boolean",
+          "description": "If this is set to true, this input field will be treated as auto complete field. It only applies to string question type and singleLine format and it only applicable to GET method"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "apiUri",
+        "method"
+      ]
+    },
+    "itemMeta.json_definitions_columns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemMeta.json"
+      },
+      "description": "a series of itemMetas, each representing a column within the table"
+    },
+    "itemMeta.json_definitions_picklistChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemMeta.json_definitions_picklistChoice"
+      },
+      "description": "a bunch of choices that are \u0027unlocked\u0027 due to the user selecting their enclosing choice within the picklist"
+    },
+    "itemMeta.json_definitions_picklistChoice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "an unique id for picklist choice"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "name": {
+          "type": "string",
+          "description": "this choice - ideally immutable"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "will always be compatible with minChoices, maxChoices"
+        },
+        "choices": {
+          "$ref": "#/definitions/itemMeta.json_definitions_picklistChoices"
+        }
+      }
+    },
+    "itemMeta.json_definitions_cascadeChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemMeta.json_definitions_cascadeChoice"
+      },
+      "description": "a bunch of items that are \u0027unlocked\u0027 due to the user selecting their enclosing choice within the picklist"
+    },
+    "itemMeta.json_definitions_cascadeChoice": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "this choice - ideally immutable"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "subtitle": {
+          "$ref": "#/definitions/itemMeta.json_definitions_subtitle",
+          "description": "It\u0027s only usable when presentation of cascade item is showCards"
+        },
+        "description": {
+          "$ref": "#/definitions/itemMeta.json_definitions_description",
+          "description": "It\u0027s only usable when presentation of cascade item is showCards"
+        },
+        "footer": {
+          "$ref": "#/definitions/itemMeta.json_definitions_footer",
+          "description": "It\u0027s only usable when presentation of cascade item is showCards"
+        },
+        "level": {
+          "type": "number",
+          "description": "defines the colour of the card components when the presentation of cascade item is showCards. Starts at zero."
+        },
+        "isDisabled": {
+          "type": "boolean",
+          "description": "will disable this cascade choice on the UI"
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "will always be compatible with minChoices, maxChoices"
+        },
+        "subItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemMeta.json"
+          },
+          "description": "items unlocked based on a choice"
+        }
+      }
+    },
+    "itemMeta.json_definitions_subtitle": {
+      "type": "string"
+    },
+    "itemMeta.json_definitions_description": {
+      "type": "string",
+      "description": "markdown-formatted description to a person as to what this option is used for if it\u0027s not clear from the title"
+    },
+    "itemMeta.json_definitions_footer": {
+      "type": "string"
+    },
+    "itemMeta.json_definitions_sectionMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "section"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "subMetas": {
+          "$ref": "#/definitions/itemMetas.json"
+        }
+      }
+    },
+    "itemMeta.json_definitions_booleanMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "boolean"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "presentation": {
+          "enum": [
+            "checkbox",
+            "select"
+          ],
+          "description": "a hint as to how the item should be rendered"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "The label that should be used for the \u0027no selection\u0027 choice. When present, implies presentation \u003d\u003d select"
+        },
+        "defaultValue": {
+          "type": "boolean",
+          "description": "defaults to false if not present"
+        },
+        "trueLabel": {
+          "type": "string",
+          "description": "defaults to \u0027yes\u0027"
+        },
+        "falseLabel": {
+          "type": "string",
+          "description": "defaults to \u0027no\u0027"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "itemMeta.json_definitions_numberMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "number"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "precision": {
+          "type": "integer"
+        },
+        "scale": {
+          "type": "integer"
+        },
+        "minValue": {
+          "type": "number"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "defaultValue": {
+          "type": "number"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "itemMeta.json_definitions_stringMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "string"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "format": {
+          "enum": [
+            "singleLine",
+            "multiLine",
+            "markDown"
+          ],
+          "description": "what sort of string the item holds"
+        },
+        "minLength": {
+          "type": "integer"
+        },
+        "maxLength": {
+          "type": "integer"
+        },
+        "defaultValue": {
+          "type": "string"
+        },
+        "mandatory": {
+          "type": "boolean"
+        },
+        "pattern": {
+          "type": "string"
+        },
+        "hidden": {
+          "type": "boolean",
+          "description": "If this is set to true, user wouldn\u0027t see this item from UI."
+        }
+      }
+    },
+    "itemMeta.json_definitions_dateMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "date"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "showTime": {
+          "type": "boolean",
+          "description": "whether time component should be shown - entered dates default to midnight if false"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "if present, results in a selectable UI element that equates to no selection"
+        },
+        "minDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "maxDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "defaultValue": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "itemMeta.json_definitions_fileMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "file"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "purpose": {
+          "enum": [
+            "audio",
+            "document",
+            "image",
+            "video"
+          ]
+        },
+        "accept": {
+          "type": "array",
+          "description": "the allowable internet media types (mime types) for the resume, e.g. word and pdf files",
+          "items": {
+            "$ref": "#/definitions/fileDownload.json_definitions_mediaType"
+          }
+        },
+        "maxSize": {
+          "type": "integer",
+          "description": "maximum file size in bytes"
+        },
+        "mandatory": {
+          "type": "boolean"
+        }
+      }
+    },
+    "itemMeta.json_definitions_picklistMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "picklist"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "if present,  and presentation \u003d\u003d showOne, then a pseudo-choice will be injected"
+        },
+        "minChoices": {
+          "type": "integer"
+        },
+        "maxChoices": {
+          "type": "integer"
+        },
+        "presentation": {
+          "enum": [
+            "showOne",
+            "showAll"
+          ],
+          "description": "showOne is only usable when maxChoices \u003d\u003d 1"
+        },
+        "choices": {
+          "$ref": "#/definitions/itemMeta.json_definitions_picklistChoices"
+        }
+      }
+    },
+    "itemMeta.json_definitions_cascadeMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "cascade"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "nullLabel": {
+          "type": "string",
+          "description": "if present,  and presentation \u003d\u003d showOne, then a pseudo-choice will be injected"
+        },
+        "minChoices": {
+          "type": "integer"
+        },
+        "maxChoices": {
+          "type": "integer"
+        },
+        "presentation": {
+          "enum": [
+            "showOne",
+            "showAll",
+            "showCards"
+          ],
+          "description": "showOne is only usable when maxChoices \u003d\u003d 1. If it\u0027s showCards, maxChoices must be 1 and it will display all options as card components."
+        },
+        "choices": {
+          "$ref": "#/definitions/itemMeta.json_definitions_cascadeChoices"
+        }
+      }
+    },
+    "itemMeta.json_definitions_tableMeta": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "table"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "title": {
+          "$ref": "#/definitions/itemMeta.json_definitions_title"
+        },
+        "instructions": {
+          "$ref": "#/definitions/itemMeta.json_definitions_instructions"
+        },
+        "minRows": {
+          "type": "integer"
+        },
+        "maxRows": {
+          "type": "integer"
+        },
+        "columns": {
+          "$ref": "#/definitions/itemMeta.json_definitions_columns"
+        }
+      }
+    },
+    "itemRead.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_booleanItem"
+        },
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_stringItem"
+        },
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_numberItem"
+        },
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_dateItem"
+        },
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_fileItem"
+        },
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_cascadeItem"
+        },
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_picklistItem"
+        },
+        {
+          "$ref": "#/definitions/itemRead.json_definitions_tableItem"
+        }
+      ],
+      "definitions": {
+        "picklistItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "picklist"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "id": {
+              "type": "integer",
+              "description": "a unique id for picklist choice",
+              "deprecated": true
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "$ref": "#/definitions/itemRead.json_definitions_pickChoices"
+            },
+            "selectedIds": {
+              "$ref": "#/definitions/itemRead.json_definitions_selectedIds"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "pickChoices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemRead.json_definitions_pickChoice"
+          }
+        },
+        "pickChoice": {
+          "type": "string",
+          "description": "the name of a choice that the user selected"
+        },
+        "selectedIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemRead.json_definitions_selectedId"
+          }
+        },
+        "selectedId": {
+          "type": "integer",
+          "description": "the id of a choice that the user selected"
+        },
+        "tableItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "table"
+              ]
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "$ref": "#/definitions/itemRead.json_definitions_tableRows"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "tableRows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemRead.json_definitions_tableRow"
+          }
+        },
+        "tableRow": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemRead.json"
+          }
+        },
+        "cascadeItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "cascade"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "$ref": "#/definitions/itemRead.json_definitions_cascadeChoices"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "cascadeChoices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemRead.json_definitions_cascadeChoice"
+          }
+        },
+        "cascadeChoice": {
+          "type": "object",
+          "properties": {
+            "choice": {
+              "type": "string",
+              "description": "the name of a choice that the user selected"
+            },
+            "subItems": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/itemRead.json"
+              },
+              "description": "items unlocked based on a cascade choice"
+            }
+          },
+          "required": [
+            "choice"
+          ],
+          "additionalProperties": false
+        },
+        "name": {
+          "type": "string",
+          "description": "name of the item"
+        },
+        "booleanItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "boolean"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "type": "boolean",
+              "description": "json representation of a boolean item\u0027s current value"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "stringItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "string"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "type": "string",
+              "description": "json representation of a string item\u0027s current value"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "numberItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "number"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "type": "number",
+              "description": "json representation of a number item\u0027s current value"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "dateItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "date"
+              ]
+            },
+            "elementId": {
+              "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+            },
+            "callback": {
+              "$ref": "#/definitions/itemMeta.json_definitions_callback"
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "type": "string",
+              "format": "date-time",
+              "description": "json representation of a date item\u0027s current value"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        },
+        "fileItem": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "file"
+              ]
+            },
+            "name": {
+              "$ref": "#/definitions/itemRead.json_definitions_name"
+            },
+            "value": {
+              "$ref": "#/definitions/fileDownload.json"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "value"
+          ]
+        }
+      }
+    },
+    "itemRead.json_definitions_booleanItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "boolean"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "type": "boolean",
+          "description": "json representation of a boolean item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemRead.json_definitions_stringItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "string"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "type": "string",
+          "description": "json representation of a string item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemRead.json_definitions_numberItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "number"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "type": "number",
+          "description": "json representation of a number item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemRead.json_definitions_dateItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "date"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "type": "string",
+          "format": "date-time",
+          "description": "json representation of a date item\u0027s current value"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemRead.json_definitions_fileItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "file"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "$ref": "#/definitions/fileDownload.json"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemRead.json_definitions_cascadeItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "cascade"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "$ref": "#/definitions/itemRead.json_definitions_cascadeChoices"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemRead.json_definitions_cascadeChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemRead.json_definitions_cascadeChoice"
+      }
+    },
+    "itemRead.json_definitions_cascadeChoice": {
+      "type": "object",
+      "properties": {
+        "choice": {
+          "type": "string",
+          "description": "the name of a choice that the user selected"
+        },
+        "subItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemRead.json"
+          },
+          "description": "items unlocked based on a cascade choice"
+        }
+      },
+      "required": [
+        "choice"
+      ],
+      "additionalProperties": false
+    },
+    "itemRead.json_definitions_picklistItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "picklist"
+          ]
+        },
+        "elementId": {
+          "$ref": "#/definitions/itemMeta.json_definitions_elementId"
+        },
+        "callback": {
+          "$ref": "#/definitions/itemMeta.json_definitions_callback"
+        },
+        "id": {
+          "type": "integer",
+          "description": "a unique id for picklist choice",
+          "deprecated": true
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "$ref": "#/definitions/itemRead.json_definitions_pickChoices"
+        },
+        "selectedIds": {
+          "$ref": "#/definitions/itemRead.json_definitions_selectedIds"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemRead.json_definitions_pickChoices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemRead.json_definitions_pickChoice"
+      }
+    },
+    "itemRead.json_definitions_pickChoice": {
+      "type": "string",
+      "description": "the name of a choice that the user selected"
+    },
+    "itemRead.json_definitions_selectedIds": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemRead.json_definitions_selectedId"
+      }
+    },
+    "itemRead.json_definitions_selectedId": {
+      "type": "integer",
+      "description": "the id of a choice that the user selected"
+    },
+    "itemRead.json_definitions_tableItem": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "table"
+          ]
+        },
+        "name": {
+          "$ref": "#/definitions/itemRead.json_definitions_name"
+        },
+        "value": {
+          "$ref": "#/definitions/itemRead.json_definitions_tableRows"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "value"
+      ]
+    },
+    "itemRead.json_definitions_tableRows": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemRead.json_definitions_tableRow"
+      }
+    },
+    "itemRead.json_definitions_tableRow": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/itemRead.json"
+      }
+    },
+    "categoriesActual.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "categoryActual": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "integer"
+            },
+            "values": {
+              "$ref": "#/definitions/categoriesActual.json_definitions_values"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "category",
+            "values"
+          ]
+        }
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/categoriesActual.json_definitions_categoryActual"
+      }
+    },
+    "categoriesActual.json_definitions_values": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "categoriesActual.json_definitions_categoryActual": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "integer"
+        },
+        "values": {
+          "$ref": "#/definitions/categoriesActual.json_definitions_values"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "values"
+      ]
+    },
+    "jobRead.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "definitions": {
+        "id": {
+          "type": "integer"
+        },
+        "org": {
+          "type": "integer",
+          "description": "the job\u0027s org (a value from GET /orgs)"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "complete"
+          ],
+          "description": "from HR-XML"
+        },
+        "shortSummary": {
+          "type": "string",
+          "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+        },
+        "description": {
+          "type": "string",
+          "description": "Formatted using a subset (no angle brackets) of markdown with individual lines demarcated with \n."
+        },
+        "company": {
+          "type": "string",
+          "description": "as per Salesforce, more explicit than org"
+        },
+        "country": {
+          "type": "string",
+          "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
+        },
+        "code": {
+          "type": "string",
+          "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
+        },
+        "accessCode": {
+          "type": "string",
+          "description": "a code that, if held on an incoming tracker, allows the holder to view and apply for the job even if it would otherwise be not visible to them"
+        },
+        "title": {
+          "type": "string",
+          "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
+        },
+        "templateFlag": {
+          "type": "boolean",
+          "description": "true if this job is a template, otherwise false/null/not present"
+        },
+        "availability": {
+          "type": "object",
+          "properties": {
+            "availableInternally": {
+              "type": "boolean",
+              "description": "Position is currently open to internals (implies status is active, but callers should check that relevant closeDates are in the future)"
+            },
+            "availableExternally": {
+              "type": "boolean",
+              "description": "Position is currently open to externals (implies status is active, but callers should check that relevant closeDates are in the future)"
+            },
+            "jobPublishDates": {
+              "type": "object",
+              "properties": {
+                "publishDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "the date on which the job was published (became available to candidates)"
+                },
+                "internalPublishDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "the date on which the job was published to internal candidates. If not set, use publishDate."
+                },
+                "externalPublishDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "the date on which the job was published to external candidates. If not set, use publishDate."
+                }
+              },
+              "required": [
+                "publishDate"
+              ],
+              "additionalProperties": false
+            },
+            "applicationCloseDates": {
+              "type": "object",
+              "properties": {
+                "closeDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "the date on which applications are scheduled to close"
+                },
+                "internalCloseDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
+                },
+                "externalCloseDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
+                }
+              },
+              "required": [
+                "closeDate"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "workflow": {
+          "type": "integer"
+        },
+        "dateLastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/jobRead.json_definitions_id"
+        },
+        "status": {
+          "$ref": "#/definitions/jobRead.json_definitions_status"
+        },
+        "org": {
+          "$ref": "#/definitions/jobRead.json_definitions_org"
+        },
+        "templateFlag": {
+          "$ref": "#/definitions/jobRead.json_definitions_templateFlag"
+        },
+        "availability": {
+          "$ref": "#/definitions/jobRead.json_definitions_availability"
+        },
+        "code": {
+          "$ref": "#/definitions/jobRead.json_definitions_code"
+        },
+        "externalId": {
+          "$ref": "#/definitions/jobRead.json_definitions_externalId"
+        },
+        "accessCode": {
+          "$ref": "#/definitions/jobRead.json_definitions_accessCode"
+        },
+        "title": {
+          "$ref": "#/definitions/jobRead.json_definitions_title"
+        },
+        "shortSummary": {
+          "$ref": "#/definitions/jobRead.json_definitions_shortSummary"
+        },
+        "description": {
+          "$ref": "#/definitions/jobRead.json_definitions_description"
+        },
+        "company": {
+          "$ref": "#/definitions/jobRead.json_definitions_company"
+        },
+        "country": {
+          "$ref": "#/definitions/jobRead.json_definitions_country"
+        },
+        "manager": {
+          "$ref": "#/definitions/userRead.json"
+        },
+        "recruiter": {
+          "$ref": "#/definitions/userRead.json"
+        },
+        "workflow": {
+          "$ref": "#/definitions/jobRead.json_definitions_workflow"
+        },
+        "categories": {
+          "$ref": "#/definitions/categoriesActual.json"
+        },
+        "items": {
+          "$ref": "#/definitions/itemPackagesRead.json"
+        },
+        "dateLastUpdated": {
+          "$ref": "#/definitions/jobRead.json_definitions_dateLastUpdated"
+        }
+      },
+      "additionalProperties": false
+    },
+    "jobRead.json_definitions_id": {
+      "type": "integer"
+    },
+    "jobRead.json_definitions_status": {
+      "enum": [
+        "active",
+        "complete"
+      ],
+      "description": "from HR-XML"
+    },
+    "jobRead.json_definitions_org": {
+      "type": "integer",
+      "description": "the job\u0027s org (a value from GET /orgs)"
+    },
+    "jobRead.json_definitions_templateFlag": {
+      "type": "boolean",
+      "description": "true if this job is a template, otherwise false/null/not present"
+    },
+    "jobRead.json_definitions_availability": {
+      "type": "object",
+      "properties": {
+        "availableInternally": {
+          "type": "boolean",
+          "description": "Position is currently open to internals (implies status is active, but callers should check that relevant closeDates are in the future)"
+        },
+        "availableExternally": {
+          "type": "boolean",
+          "description": "Position is currently open to externals (implies status is active, but callers should check that relevant closeDates are in the future)"
+        },
+        "jobPublishDates": {
+          "type": "object",
+          "properties": {
+            "publishDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which the job was published (became available to candidates)"
+            },
+            "internalPublishDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which the job was published to internal candidates. If not set, use publishDate."
+            },
+            "externalPublishDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which the job was published to external candidates. If not set, use publishDate."
+            }
+          },
+          "required": [
+            "publishDate"
+          ],
+          "additionalProperties": false
+        },
+        "applicationCloseDates": {
+          "type": "object",
+          "properties": {
+            "closeDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which applications are scheduled to close"
+            },
+            "internalCloseDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which applications from internal candidates are scheduled to close. If not set, closeDate is used."
+            },
+            "externalCloseDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "the date on which applications from external candidates are scheduled to close. If not set, closeDate is used."
+            }
+          },
+          "required": [
+            "closeDate"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "jobRead.json_definitions_code": {
+      "type": "string",
+      "description": "A code, often used in advertisements and when referring to the job opening with candidates. Codes are expected to be unique within currently active job openings. Not in HR/XML"
+    },
+    "jobRead.json_definitions_externalId": {
+      "type": "string",
+      "description": "An immutable external identifier, e.g. primary key in an upstream system, used to identify the job"
+    },
+    "jobRead.json_definitions_accessCode": {
+      "type": "string",
+      "description": "a code that, if held on an incoming tracker, allows the holder to view and apply for the job even if it would otherwise be not visible to them"
+    },
+    "jobRead.json_definitions_title": {
+      "type": "string",
+      "description": "A short phrase describing the position as it would be listed on a business card or in a company directory"
+    },
+    "jobRead.json_definitions_shortSummary": {
+      "type": "string",
+      "description": "A short (up to 75 characters) and enticing call to action for candidates for this job"
+    },
+    "jobRead.json_definitions_description": {
+      "type": "string",
+      "description": "Formatted using a subset (no angle brackets) of markdown with individual lines demarcated with \n."
+    },
+    "jobRead.json_definitions_company": {
+      "type": "string",
+      "description": "as per Salesforce, more explicit than org"
+    },
+    "jobRead.json_definitions_country": {
+      "type": "string",
+      "description": "a 2 letter country code for the job as per ISO 3166-1 alpha-2"
+    },
+    "userRead.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "definitions": {
+        "activeFlag": {
+          "type": "boolean"
+        },
+        "recruiterDetail": {
+          "type": "object"
+        },
+        "managerDetail": {
+          "type": "object"
+        }
+      },
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "activeFlag": {
+          "$ref": "#/definitions/userRead.json_definitions_activeFlag"
+        },
+        "orgs": {
+          "$ref": "#/definitions/categoriesActual.json_definitions_values"
+        },
+        "person": {
+          "$ref": "#/definitions/person.json"
+        },
+        "login": {
+          "$ref": "#/definitions/login.json"
+        },
+        "manager": {
+          "$ref": "#/definitions/userRead.json_definitions_managerDetail"
+        },
+        "recruiter": {
+          "$ref": "#/definitions/userRead.json_definitions_recruiterDetail"
+        },
+        "dateLastUpdated": {
+          "$ref": "#/definitions/jobRead.json_definitions_dateLastUpdated"
+        },
+        "items": {
+          "$ref": "#/definitions/itemPackagesRead.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "userRead.json_definitions_activeFlag": {
+      "type": "boolean"
+    },
+    "login.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "definitions": {
+        "entityID": {
+          "type": "string",
+          "description": "entity ID for the principal"
+        },
+        "nameID": {
+          "type": "string",
+          "description": "name ID for the principal"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "entityID": {
+          "$ref": "#/definitions/login.json_definitions_entityID"
+        },
+        "nameID": {
+          "$ref": "#/definitions/login.json_definitions_nameID"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "entityID",
+        "nameID"
+      ]
+    },
+    "login.json_definitions_entityID": {
+      "type": "string",
+      "description": "entity ID for the principal"
+    },
+    "login.json_definitions_nameID": {
+      "type": "string",
+      "description": "name ID for the principal"
+    },
+    "userRead.json_definitions_managerDetail": {
+      "type": "object"
+    },
+    "userRead.json_definitions_recruiterDetail": {
+      "type": "object"
+    },
+    "jobRead.json_definitions_dateLastUpdated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "jobRead.json_definitions_workflow": {
+      "type": "integer"
+    },
+    "applicationRead.json_definitions_tracker": {
+      "type": "integer",
+      "description": "The tracker, if any, associated with this application. This is fixed at the time that application is made."
+    },
+    "applicationRead.json_definitions_dateLastUpdated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "applicationRead.json_definitions_hireDetails": {
+      "type": "object",
+      "properties": {
+        "remuneration": {
+          "$ref": "#/definitions/applicationRead.json_definitions_remuneration"
+        },
+        "dutyEntryDate": {
+          "$ref": "#/definitions/applicationRead.json_definitions_dutyEntryDate"
+        },
+        "hireDate": {
+          "$ref": "#/definitions/applicationRead.json_definitions_hireDate"
+        },
+        "onBoardedDate": {
+          "$ref": "#/definitions/applicationRead.json_definitions_onBoardedDate"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "Id": {
+      "type": "string"
+    },
+    "Image": {
+      "type": "string"
+    },
+    "Command": {
+      "type": "string"
+    },
+    "Created": {
+      "type": "integer"
+    },
+    "Status": {
+      "type": "string"
+    },
+    "Ports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "PrivatePort": {
+            "type": "integer"
+          },
+          "PublicPort": {
+            "type": "integer"
+          },
+          "Type": {
+            "type": "string"
+          },
+          "IP": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "SizeRw": {
+      "type": "integer"
+    },
+    "SizeRootFs": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "Id",
+    "Image",
+    "Command",
+    "Created",
+    "Status",
+    "Ports",
+    "SizeRw",
+    "SizeRootFs"
+  ]
+}

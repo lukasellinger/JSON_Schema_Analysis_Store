@@ -1,0 +1,268 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": {
+    "oneOf": [
+      {
+        "$ref": "#/definitions/basicAuth"
+      },
+      {
+        "$ref": "#/definitions/apiKey"
+      },
+      {
+        "$ref": "#/definitions/oauth2"
+      }
+    ]
+  },
+  "definitions": {
+    "basicAuth": {
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "basicAuth"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "apiKey": {
+      "required": [
+        "type",
+        "passAs",
+        "keyname"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "apiKey"
+          ]
+        },
+        "passAs": {
+          "enum": [
+            "header",
+            "query"
+          ]
+        },
+        "keyname": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "oauth2": {
+      "type": "object",
+      "required": [
+        "type",
+        "grantTypes"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "oauth2"
+          ]
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/oauth2Scope"
+          }
+        },
+        "grantTypes": {
+          "$ref": "#/definitions/oauth2GrantType.json"
+        }
+      },
+      "additionalProperties": false
+    },
+    "oauth2Scope": {
+      "type": "object",
+      "required": [
+        "scope"
+      ],
+      "properties": {
+        "scope": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "oauth2GrantType.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "implicit": {
+          "$ref": "#/definitions/oauth2GrantType.json_definitions_implicit"
+        },
+        "authorization_code": {
+          "$ref": "#/definitions/oauth2GrantType.json_definitions_authorizationCode"
+        }
+      },
+      "definitions": {
+        "implicit": {
+          "type": "object",
+          "required": [
+            "loginEndpoint"
+          ],
+          "properties": {
+            "loginEndpoint": {
+              "$ref": "#/definitions/oauth2GrantType.json_definitions_loginEndpoint"
+            },
+            "tokenName": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "authorizationCode": {
+          "type": "object",
+          "required": [
+            "tokenEndpoint",
+            "tokenRequestEndpoint"
+          ],
+          "properties": {
+            "tokenEndpoint": {
+              "$ref": "#/definitions/oauth2GrantType.json_definitions_tokenEndpoint"
+            },
+            "tokenRequestEndpoint": {
+              "$ref": "#/definitions/oauth2GrantType.json_definitions_tokenRequestEndpoint"
+            }
+          },
+          "additionalProperties": false
+        },
+        "loginEndpoint": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "additionalProperties": false
+        },
+        "tokenEndpoint": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "tokenName": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "tokenRequestEndpoint": {
+          "type": "object",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "clientIdName": {
+              "type": "string"
+            },
+            "clientSecretName": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "oauth2GrantType.json_definitions_implicit": {
+      "type": "object",
+      "required": [
+        "loginEndpoint"
+      ],
+      "properties": {
+        "loginEndpoint": {
+          "$ref": "#/definitions/oauth2GrantType.json_definitions_loginEndpoint"
+        },
+        "tokenName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "oauth2GrantType.json_definitions_loginEndpoint": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    },
+    "oauth2GrantType.json_definitions_authorizationCode": {
+      "type": "object",
+      "required": [
+        "tokenEndpoint",
+        "tokenRequestEndpoint"
+      ],
+      "properties": {
+        "tokenEndpoint": {
+          "$ref": "#/definitions/oauth2GrantType.json_definitions_tokenEndpoint"
+        },
+        "tokenRequestEndpoint": {
+          "$ref": "#/definitions/oauth2GrantType.json_definitions_tokenRequestEndpoint"
+        }
+      },
+      "additionalProperties": false
+    },
+    "oauth2GrantType.json_definitions_tokenEndpoint": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "tokenName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "oauth2GrantType.json_definitions_tokenRequestEndpoint": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "clientIdName": {
+          "type": "string"
+        },
+        "clientSecretName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

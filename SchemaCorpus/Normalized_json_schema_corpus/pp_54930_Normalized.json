@@ -1,0 +1,118 @@
+{
+  "$schema": "http://interagent.github.io/interagent-hyper-schema",
+  "type": [
+    "object"
+  ],
+  "definitions": {
+    "user": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "User",
+      "description": "User API",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of user",
+          "example": 1,
+          "readOnly": true,
+          "type": [
+            "integer"
+          ]
+        },
+        "name": {
+          "description": "user name",
+          "example": "kata0hka",
+          "type": [
+            "string"
+          ]
+        },
+        "mail": {
+          "description": "unique user email",
+          "example": "kata0hka@gmail.com",
+          "type": [
+            "string"
+          ]
+        },
+        "password": {
+          "description": "user password",
+          "example": "my_password",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/definitions_user_definitions_id"
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing user.",
+          "href": "/users/{(%23%2Fdefinitions%2Fuser%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/definitions_user_definitions_id"
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_user_definitions_name"
+        },
+        "mail": {
+          "$ref": "#/definitions/definitions_user_definitions_mail"
+        },
+        "password": {
+          "$ref": "#/definitions/definitions_user_definitions_password"
+        }
+      }
+    },
+    "definitions_user_definitions_id": {
+      "description": "unique identifier of user",
+      "example": 1,
+      "readOnly": true,
+      "type": [
+        "integer"
+      ]
+    },
+    "definitions_user_definitions_name": {
+      "description": "user name",
+      "example": "kata0hka",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_user_definitions_mail": {
+      "description": "unique user email",
+      "example": "kata0hka@gmail.com",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_user_definitions_password": {
+      "description": "user password",
+      "example": "my_password",
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "properties": {
+    "user": {
+      "$ref": "#/definitions/user"
+    }
+  },
+  "description": "Sample Rails5 API",
+  "id": "sample_rails_5",
+  "links": [
+    {
+      "href": "http://0.0.0.0:3000",
+      "rel": "self"
+    }
+  ],
+  "title": "Sample Rails5 API"
+}

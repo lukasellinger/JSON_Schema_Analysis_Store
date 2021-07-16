@@ -1,0 +1,407 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/beerjson/beerjson/master/json/hop.json",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "HopVarietyBase": {
+      "type": "object",
+      "description": "HopVarietyBase provides unique properties to identify individual records of a hop variety.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        },
+        "form": {
+          "type": "string",
+          "enum": [
+            "extract",
+            "leaf",
+            "leaf (wet)",
+            "pellet",
+            "powder",
+            "plug"
+          ]
+        },
+        "alpha_acid": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "beta_acid": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        }
+      },
+      "required": [
+        "name",
+        "alpha_acid"
+      ]
+    },
+    "VarietyInformation": {
+      "type": "object",
+      "description": "VarietyInformation collects the attributes of a hop variety to store as record information.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/HopVarietyBase"
+        },
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "aroma",
+                "bittering",
+                "flavor",
+                "aroma/bittering",
+                "bittering/flavor",
+                "aroma/flavor",
+                "aroma/bittering/flavor"
+              ]
+            },
+            "notes": {
+              "type": "string"
+            },
+            "percent_lost": {
+              "description": " Defined as the percentage of hop alpha lost in 6 months of storage.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "substitutes": {
+              "type": "string"
+            },
+            "oil_content": {
+              "description": "Oil Content information object.",
+              "$ref": "#/definitions/OilContentType"
+            },
+            "inventory": {
+              "$ref": "#/definitions/HopInventoryType"
+            }
+          }
+        }
+      ]
+    },
+    "HopAdditionType": {
+      "type": "object",
+      "description": "HopAdditionType collects the attributes of each hop ingredient for use in a recipe hop bil.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/HopVarietyBase"
+        },
+        {
+          "properties": {
+            "timing": {
+              "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+              "$ref": "#/definitions/timing.json_definitions_TimingType"
+            },
+            "amount": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+                },
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "required": [
+        "amount",
+        "timing"
+      ]
+    },
+    "IBUEstimateType": {
+      "description": "Used to differentiate which IBU formula is being used in a recipe. If formula is modified in any way, eg to support whirlpool/flameout additions etc etc, please use `Other` for transparency.",
+      "type": "object",
+      "properties": {
+        "method": {
+          "$ref": "#/definitions/IBUMethodType"
+        }
+      }
+    },
+    "IBUMethodType": {
+      "type": "string",
+      "enum": [
+        "Rager",
+        "Tinseth",
+        "Garetz",
+        "Other"
+      ]
+    },
+    "OilContentType": {
+      "type": "object",
+      "description": "oil_content collects all information of a hop variety pertaining to oil content, polyphenols, and thiols. Each individual compound is expressed as a percent of the total oil measurement.",
+      "properties": {
+        "total_oil_ml_per_100g": {
+          "description": "The total amount of oil, including hydrocarbons, esters, and terpene alcohols in units of ml of oil per 100g of hop mass.",
+          "type": "number"
+        },
+        "humulene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "caryophyllene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "cohumulone": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "myrcene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "farnesene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "geraniol": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "b_pinene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "linalool": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "limonene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "nerol": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "pinene": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "polyphenols": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "xanthohumol": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        }
+      }
+    },
+    "HopInventoryType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+            },
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+            }
+          ]
+        }
+      }
+    },
+    "measureable_units.json_definitions_PercentType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_PercentUnitType": {
+      "type": "string",
+      "enum": [
+        "%"
+      ]
+    },
+    "timing.json_definitions_TimingType": {
+      "type": "object",
+      "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+      "additionalProperties": false,
+      "properties": {
+        "time": {
+          "description": "What time during a process step is added, eg a value of 2 days for a dry hop addition would be added 2 days into the fermentation step.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "duration": {
+          "description": "How long an ingredient addition remains, this was referred to as time in the BeerXML standard. E.G. A 40 minute hop boil additions means to boil for 40 minutes, and a 2 day duration for a dry hop means to remove it after 2 days.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "continuous": {
+          "description": "A continuous addition is spread out evenly and added during the entire process step, eg 60 minute IPA by dogfish head takes all ofthe hop additions and adds them throughout the entire boil.",
+          "type": "boolean"
+        },
+        "specific_gravity": {
+          "description": "Used to indicate when an addition is added based on a desired specific gravity. E.G. Add dry hop at when SG is 1.018.",
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "pH": {
+          "description": "Used to indicate when an addition is added based on a desired specific gravity. eg Add brett when pH is 3.4.",
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "step": {
+          "description": "Used to indicate what step this ingredient timing addition is referencing. EG A value of 2 for add_to_fermentation would mean to add during the second fermentation step.",
+          "type": "integer"
+        },
+        "use": {
+          "$ref": "#/definitions/timing.json_definitions_UseType"
+        }
+      }
+    },
+    "measureable_units.json_definitions_TimeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeUnitType"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TimeUnitType": {
+      "type": "string",
+      "enum": [
+        "sec",
+        "min",
+        "hr",
+        "day",
+        "week"
+      ]
+    },
+    "measureable_units.json_definitions_GravityType": {
+      "type": "object",
+      "description": "Gravity refers to the both the measurements of percent of sugar content, ie plato and brix, as well as relative density ie specific gravity.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_GravityUnitType": {
+      "type": "string",
+      "enum": [
+        "sg",
+        "plato",
+        "brix"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityUnitType": {
+      "type": "string",
+      "enum": [
+        "pH"
+      ]
+    },
+    "timing.json_definitions_UseType": {
+      "type": "string",
+      "description": "Differentiates the specific process type when this ingredient addition is used.",
+      "enum": [
+        "add_to_mash",
+        "add_to_boil",
+        "add_to_fermentation",
+        "add_to_package"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeUnitType": {
+      "type": "string",
+      "enum": [
+        "ml",
+        "l",
+        "tsp",
+        "tbsp",
+        "floz",
+        "cup",
+        "pt",
+        "qt",
+        "gal",
+        "bbl",
+        "ifloz",
+        "ipt",
+        "iqt",
+        "igal",
+        "ibbl"
+      ]
+    },
+    "measureable_units.json_definitions_MassType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_MassUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_MassUnitType": {
+      "type": "string",
+      "enum": [
+        "mg",
+        "g",
+        "kg",
+        "lb",
+        "oz"
+      ]
+    }
+  }
+}

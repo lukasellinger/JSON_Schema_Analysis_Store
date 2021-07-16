@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/v0_3/list_item.json",
+  "description": "A list item element",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/ans.json",
+      "properties": {
+        "content": {
+          "description": "A single item in a list.",
+          "type": "string"
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "ans.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Root-level ANS schema.",
+      "description": "Holds common attributes of ANS objects.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/trait_typed.json",
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "The ANS Version of this ANS object"
+            }
+          }
+        }
+      ]
+    },
+    "trait_typed.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Type trait",
+      "description": "Trait that helps support strongly-typed implementations of this schema.",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "description": "The concrete type of element the implementing element is.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

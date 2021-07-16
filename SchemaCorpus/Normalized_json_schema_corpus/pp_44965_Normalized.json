@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/response.json"
+    },
+    {
+      "title": "AggregatedEvaluation",
+      "description": "The results of the evaluation",
+      "type": "object",
+      "properties": {
+        "@context": {
+          "$ref": "#/definitions/context.json"
+        },
+        "@type": {},
+        "@id": {
+          "description": "ID of the aggregated evaluation",
+          "type": "string"
+        },
+        "evaluations": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/evaluation.json"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "@id",
+        "evaluations"
+      ]
+    }
+  ],
+  "definitions": {
+    "response.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "object",
+          "default": {}
+        }
+      },
+      "required": [
+        "@type"
+      ]
+    },
+    "context.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "JSON-LD Context",
+      "type": [
+        "array",
+        "string",
+        "object"
+      ]
+    },
+    "evaluation.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "name": "Evaluation",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "array"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/metric.json"
+          },
+          "default": []
+        },
+        "evaluatesOn": {
+          "description": "Name of the dataset evaluated ",
+          "type": "string"
+        },
+        "evaluates": {
+          "description": "Classifier or plugin evaluated",
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "metrics"
+      ]
+    },
+    "metric.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "string"
+        },
+        "maxValue": {
+          "type": "number"
+        },
+        "minValue": {
+          "type": "number"
+        },
+        "value": {
+          "type": "number"
+        },
+        "deviation": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "@id"
+      ]
+    }
+  }
+}

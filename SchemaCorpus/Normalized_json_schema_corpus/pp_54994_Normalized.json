@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://kddart.org",
+  "type": "object",
+  "properties": {
+    "DATA": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "recordid": {
+                "type": "integer"
+              },
+              "layerattrib": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "dt": {
+                "type": "string"
+              },
+              "geometry": {
+                "type": "string"
+              },
+              "deviceid": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "recordid",
+              "layerattrib",
+              "value",
+              "dt",
+              "geometry"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "DATA"
+  ]
+}

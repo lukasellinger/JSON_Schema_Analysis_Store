@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "reana_spec",
+  "type": "object",
+  "title": "REANA analysis specification",
+  "description": "Full analysis specification including data, sofware, environment and workflow enabling reproducibility on a REANA cluster.",
+  "required": [
+    "workflow"
+  ],
+  "properties": {
+    "environments": {
+      "type": "array",
+      "title": "Set of analysis\u0027 environments.",
+      "description": "All container images needed to reproduce the analysis.",
+      "items": {
+        "type": "object",
+        "optional": true,
+        "title": "Analysis environments.",
+        "description": "Analysis environments represented by container technology and image name.",
+        "properties": {
+          "image": {
+            "type": "string",
+            "title": "Environment image id.",
+            "description": "String which represents an image used as environment for one or more steps of an analysis.",
+            "default": "busybox"
+          },
+          "type": {
+            "type": "string",
+            "title": "Container technology.",
+            "description": "Name which represents a supported container technology to provide as a REANA environment.",
+            "default": "docker"
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "title": "Analysis metadata.",
+      "properties": {
+        "author": {
+          "type": "string",
+          "title": "Analysis author.",
+          "description": "User or group who created the analysis.",
+          "default": "@reanahub/developers"
+        },
+        "title": {
+          "type": "string",
+          "title": "Analysis title",
+          "default": "REANA analysis example"
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "title": "Analysis outputs.",
+      "properties": {
+        "files": {
+          "type": "array",
+          "title": "Analysis results.",
+          "description": "Expected output from analysis represented by a set of files.",
+          "items": {
+            "type": "string",
+            "title": "Relative path to the file."
+          }
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "title": "Analysis inputs.",
+      "properties": {
+        "files": {
+          "type": "array",
+          "title": "Analysis input files.",
+          "description": "List of files provided as input for a given analysis.",
+          "optional": true,
+          "items": {
+            "type": "string",
+            "title": "Relative path to the file."
+          }
+        },
+        "directories": {
+          "type": "array",
+          "title": "Analysis input directories.",
+          "description": "List of directories provided as input for a given analysis.",
+          "optional": true,
+          "items": {
+            "type": "string",
+            "title": "Relative path to the directory."
+          }
+        },
+        "parameters": {
+          "type": "object",
+          "title": "Analysis parameters.",
+          "description": "Key value data structure which represents the analysis parameters.",
+          "optional": true
+        },
+        "options": {
+          "type": "object",
+          "title": "Workflow operational options.",
+          "description": "Extra operational options accepted by workflow engines."
+        }
+      }
+    },
+    "workflow": {
+      "type": "object",
+      "title": "Analysis workflow.",
+      "description": "Workflow which represents the steps that need to be run to reproduce an analysis.",
+      "properties": {
+        "specification": {
+          "type": "object",
+          "title": "Workflow specification in yaml format."
+        },
+        "file": {
+          "type": "string",
+          "title": "Workflow file name."
+        },
+        "type": {
+          "type": "string",
+          "title": "Workflow engine.",
+          "description": "Name which represents a supported workflow engine to be used to reproduce the analysis."
+        },
+        "resources": {
+          "type": "object",
+          "title": "Workflow resources in yaml format.",
+          "properties": {
+            "cvmfs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "title": "CVMFS repos",
+                "optional": false
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "type"
+      ]
+    }
+  }
+}

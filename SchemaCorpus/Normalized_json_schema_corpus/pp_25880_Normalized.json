@@ -1,0 +1,429 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/beerjson/beerjson/master/json/fermentable.json",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "FermentableBase": {
+      "type": "object",
+      "description": "FermentableBase provides unique properties to identify individual records of fermentable ingredients.",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "dry extract",
+            "extract",
+            "grain",
+            "sugar",
+            "fruit",
+            "juice",
+            "honey",
+            "other"
+          ]
+        },
+        "origin": {
+          "type": "string"
+        },
+        "producer": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "grain_group": {
+          "type": "string",
+          "enum": [
+            "base",
+            "caramel",
+            "flaked",
+            "roasted",
+            "specialty",
+            "smoked",
+            "adjunct"
+          ]
+        },
+        "yield": {
+          "$ref": "#/definitions/YieldType"
+        },
+        "color": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ColorType"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "yield",
+        "color"
+      ]
+    },
+    "FermentableType": {
+      "type": "object",
+      "description": "FermentableType collects the attributes of a fermentable ingredient to store as record information.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/FermentableBase"
+        },
+        {
+          "properties": {
+            "notes": {
+              "type": "string"
+            },
+            "moisture": {
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "alpha_amylase": {
+              "description": "Where diastatic power gives the total amount of all enzymes, alpha amylase, also known as dextrinizing units, refers to only the total amount of alpa amylase in the malted grain. A value of 25-50 is desirable for base malt.",
+              "type": "number"
+            },
+            "diastatic_power": {
+              "description": "Diastatic power is a measurement of malted grains enzymatic content. A value of 35 Lintner is needed to self convert, while a value of 100 or more is desirable.",
+              "$ref": "#/definitions/measureable_units.json_definitions_DiastaticPowerType"
+            },
+            "protein": {
+              "description": "The percentage of protein. Higher values may indicate a possibility of haze, or lautering issues.",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "kolbach_index": {
+              "description": "The Kolbach Index, also known as soluble to total ratio of nitrogen or protein, is used to indcate the degree of malt modification. A value above 35% is desired for simple single infusion mashing, undermodified malt may require multiple step mashes or decoction.",
+              "type": "number"
+            },
+            "max_in_batch": {
+              "description": "The recommended maximum percentage to use in a grain bill. ",
+              "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+            },
+            "recommend_mash": {
+              "description": "True if the fermentable must be mashed, false if it can be steeped. ",
+              "type": "boolean"
+            },
+            "inventory": {
+              "$ref": "#/definitions/FermentableInventoryType"
+            }
+          }
+        }
+      ]
+    },
+    "FermentableAdditionType": {
+      "type": "object",
+      "description": "FermentableAdditionType collects the attributes of each fermentable ingredient for use in a recipe fermentable bill.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/FermentableBase"
+        },
+        {
+          "properties": {
+            "timing": {
+              "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+              "$ref": "#/definitions/timing.json_definitions_TimingType"
+            },
+            "amount": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+                },
+                {
+                  "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "required": [
+        "amount"
+      ]
+    },
+    "YieldType": {
+      "type": "object",
+      "description": "The potential yield of the fermentable ingredient, supporting SG, or percentage. eg 1.037 or 80% are valid yield types.",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "properties": {
+        "fine_grind": {
+          "description": "Percentage yield compared to succrose of a fine grind. eg 80%",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "coarse_grind": {
+          "description": "Percentage yield compared to succrose of a coarse grind. eg 78%",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "fine_coarse_difference": {
+          "description": "The difference between fine and coarse grind, a difference more than 2 percent can indicate a protein or step mash may be desirable. eg 2%.",
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentType"
+        },
+        "potential": {
+          "description": "The potential yield of the fermentable ingredient for 1 lb of grain mashed in 1 gallon of water. eg 1.037",
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        }
+      }
+    },
+    "FermentableInventoryType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_VolumeType"
+            },
+            {
+              "$ref": "#/definitions/measureable_units.json_definitions_MassType"
+            }
+          ]
+        }
+      }
+    },
+    "measureable_units.json_definitions_ColorType": {
+      "type": "object",
+      "description": "ColorType supports both grain color properties, such as Lovibond, and wort color properties such as SRM and EBC.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_ColorUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_ColorUnitType": {
+      "type": "string",
+      "enum": [
+        "EBC",
+        "Lovi",
+        "SRM"
+      ]
+    },
+    "measureable_units.json_definitions_PercentType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_PercentUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_PercentUnitType": {
+      "type": "string",
+      "enum": [
+        "%"
+      ]
+    },
+    "measureable_units.json_definitions_DiastaticPowerType": {
+      "type": "object",
+      "description": "Diastatic power is a measurement of malted grains enzymatic content. A value of 35 Lintner is needed to self convert, while a value of 100 or more is desirable for base malts.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_DiastaticPowerUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_DiastaticPowerUnitType": {
+      "type": "string",
+      "enum": [
+        "Lintner",
+        "WK"
+      ]
+    },
+    "timing.json_definitions_TimingType": {
+      "type": "object",
+      "description": "The timing object fully describes the timing of an addition with options for basis on time, gravity, or pH at any process step.",
+      "additionalProperties": false,
+      "properties": {
+        "time": {
+          "description": "What time during a process step is added, eg a value of 2 days for a dry hop addition would be added 2 days into the fermentation step.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "duration": {
+          "description": "How long an ingredient addition remains, this was referred to as time in the BeerXML standard. E.G. A 40 minute hop boil additions means to boil for 40 minutes, and a 2 day duration for a dry hop means to remove it after 2 days.",
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeType"
+        },
+        "continuous": {
+          "description": "A continuous addition is spread out evenly and added during the entire process step, eg 60 minute IPA by dogfish head takes all ofthe hop additions and adds them throughout the entire boil.",
+          "type": "boolean"
+        },
+        "specific_gravity": {
+          "description": "Used to indicate when an addition is added based on a desired specific gravity. E.G. Add dry hop at when SG is 1.018.",
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityType"
+        },
+        "pH": {
+          "description": "Used to indicate when an addition is added based on a desired specific gravity. eg Add brett when pH is 3.4.",
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityType"
+        },
+        "step": {
+          "description": "Used to indicate what step this ingredient timing addition is referencing. EG A value of 2 for add_to_fermentation would mean to add during the second fermentation step.",
+          "type": "integer"
+        },
+        "use": {
+          "$ref": "#/definitions/timing.json_definitions_UseType"
+        }
+      }
+    },
+    "measureable_units.json_definitions_TimeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_TimeUnitType"
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_TimeUnitType": {
+      "type": "string",
+      "enum": [
+        "sec",
+        "min",
+        "hr",
+        "day",
+        "week"
+      ]
+    },
+    "measureable_units.json_definitions_GravityType": {
+      "type": "object",
+      "description": "Gravity refers to the both the measurements of percent of sugar content, ie plato and brix, as well as relative density ie specific gravity.",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_GravityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_GravityUnitType": {
+      "type": "string",
+      "enum": [
+        "sg",
+        "plato",
+        "brix"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_AcidityUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_AcidityUnitType": {
+      "type": "string",
+      "enum": [
+        "pH"
+      ]
+    },
+    "timing.json_definitions_UseType": {
+      "type": "string",
+      "description": "Differentiates the specific process type when this ingredient addition is used.",
+      "enum": [
+        "add_to_mash",
+        "add_to_boil",
+        "add_to_fermentation",
+        "add_to_package"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_VolumeUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_VolumeUnitType": {
+      "type": "string",
+      "enum": [
+        "ml",
+        "l",
+        "tsp",
+        "tbsp",
+        "floz",
+        "cup",
+        "pt",
+        "qt",
+        "gal",
+        "bbl",
+        "ifloz",
+        "ipt",
+        "iqt",
+        "igal",
+        "ibbl"
+      ]
+    },
+    "measureable_units.json_definitions_MassType": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/measureable_units.json_definitions_MassUnitType"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "measureable_units.json_definitions_MassUnitType": {
+      "type": "string",
+      "enum": [
+        "mg",
+        "g",
+        "kg",
+        "lb",
+        "oz"
+      ]
+    }
+  }
+}

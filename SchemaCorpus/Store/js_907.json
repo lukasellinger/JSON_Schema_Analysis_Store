@@ -1,0 +1,44 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/Action.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Действие, которое может быть вызвано из визуального представления",
+  "type": "object",
+  "properties": {
+    "AcceptAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/AcceptAction.json"
+    },
+    "CancelAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/CancelAction.json"
+    },
+    "AddAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/AddAction.json"
+    },
+    "CreateItemAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/CreateItemAction.json"
+    },
+    "EditAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/EditAction.json"
+    },
+    "DeleteAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/DeleteAction.json"
+    },
+    "SaveAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/SaveAction.json"
+    },
+    "UpdateAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/UpdateAction.json"
+    },
+    "OpenAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/OpenAction.json"
+    },
+    "SelectAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/SelectAction.json"
+    },
+    "ServerAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/ServerAction.json"
+    },
+    "RouteToAction": {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Action/RouteToAction.json"
+    }
+  }
+}

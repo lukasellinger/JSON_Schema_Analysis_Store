@@ -1,0 +1,241 @@
+{
+  "title": "ObjectSymbol3DLayer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "ObjectSymbol3DLayer is used to render Point geometries using a volumetric 3D shape (e.g., a sphere or cylinder) with a Symbol3D in a SceneView.",
+  "properties": {
+    "anchor": {
+      "type": "string",
+      "description": "The positioning of the object relative to the geometry.",
+      "enum": [
+        "center",
+        "bottom",
+        "origin",
+        "top"
+      ],
+      "default": "origin"
+    },
+    "depth": {
+      "type": "number",
+      "description": "Object depth in meters, positive only",
+      "minimum": 0
+    },
+    "enable": {
+      "type": "boolean"
+    },
+    "heading": {
+      "type": "number",
+      "description": "Rotation angle around Z axis in degrees. At 0 degrees, the model points in the direction of the Y-axis. Positive values indicate clockwise rotation (when looked at from the top). [Detailed description](static/objectSymbolLayerOrientation.md)."
+    },
+    "height": {
+      "type": "number",
+      "description": "Object height in meters, positive only",
+      "minimum": 0
+    },
+    "material": {
+      "$ref": "#/definitions/material_schema.json"
+    },
+    "resource": {
+      "$ref": "#/definitions/objectSymbol3DLayer_resource_schema.json"
+    },
+    "roll": {
+      "type": "number",
+      "description": "Rotation angle around Y axis in degrees. At 0 degrees, the model is level. A positive value lifts the left part and lowers the right part of the model. [Detailed description](static/objectSymbolLayerOrientation.md)."
+    },
+    "tilt": {
+      "type": "number",
+      "description": "Rotation angle around X axis in degrees. At 0 degrees, the model is level. A positive value lifts the front and lowers the back of the model. [Detailed description](static/objectSymbolLayerOrientation.md)."
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of symbol used.",
+      "enum": [
+        "Object"
+      ]
+    },
+    "width": {
+      "type": "number",
+      "description": "Object width in meters, positive only",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "additionalInformation": "[Anchor and `origin`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-ObjectSymbol3DLayer.html#anchor) in ArcGIS API for JavaScript.",
+    "examples": [
+      {
+        "title": "Object Symbol",
+        "code": {
+          "symbolLayers": [
+            {
+              "type": "Object",
+              "resource": {
+                "primitive": "sphere"
+              },
+              "width": 50000,
+              "height": 50000,
+              "material": {
+                "color": [
+                  128,
+                  255,
+                  0
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "title": "Object Symbol with 3-axis rotation",
+        "code": {
+          "symbolLayers": [
+            {
+              "type": "Object",
+              "resource": {
+                "primitive": "diamond"
+              },
+              "width": 50000,
+              "height": 50000,
+              "material": {
+                "color": [
+                  128,
+                  255,
+                  0
+                ]
+              },
+              "heading": 12,
+              "tilt": 10,
+              "roll": 5
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "material_schema.json": {
+      "title": "Material",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The material used to shade the geometry.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "colorMixMode": {
+          "type": "string",
+          "description": "Controls how symbolLayer or visualVariable color is applied onto the underlying geometry color/texture. This property only applies to FillSymbol3DLayer within MeshSymbol3D.\u003cbr\u003e\u003cul\u003e\u003cli\u003e`tint`: the feature\u0027s appearance (in terms of color) should be altered to match the symbol / visual variable color.\u003c/li\u003e\u003cli\u003e`replace`: the feature\u0027s color is replaced with the symbol / visual variable color.\u003c/li\u003e\u003cli\u003e`multiply`: the feature\u0027s color is multiplied with the symbol color.\u003c/li\u003e\u003c/ul\u003e",
+          "enum": [
+            "tint",
+            "replace",
+            "multiply"
+          ],
+          "default": "tint"
+        },
+        "transparency": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "material",
+            "code": {
+              "material": {
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "transparency": 20,
+                "colorMixMode": "tint"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "objectSymbol3DLayer_resource_schema.json": {
+      "title": "ObjectSymbol3DLayer Resource",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The primitive shape (primitive) or external 3D model (href) used to visualize the points.",
+      "properties": {
+        "href": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "An absolute URL",
+              "pattern": "^https?://.+$"
+            },
+            {
+              "type": "string",
+              "description": "A relative path starting with ./",
+              "pattern": "^\\./.+$"
+            }
+          ]
+        },
+        "primitive": {
+          "type": "string",
+          "enum": [
+            "sphere",
+            "cylinder",
+            "cube",
+            "cone",
+            "invertedCone",
+            "diamond",
+            "tetrahedron"
+          ]
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "primitive"
+          ]
+        },
+        {
+          "required": [
+            "href"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

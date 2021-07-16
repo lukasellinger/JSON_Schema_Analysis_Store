@@ -1,0 +1,28 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/DataNavigation/DataNavigation.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Панель навигации по данным",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/Element.json"
+    }
+  ],
+  "properties": {
+    "AvailablePageSizes": {
+      "description": "Список доступных размеров страниц",
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "DataSource": {
+      "description": "Наименование источника данных",
+      "type": "string"
+    }
+  },
+  "required": [
+    "DataSource"
+  ]
+}

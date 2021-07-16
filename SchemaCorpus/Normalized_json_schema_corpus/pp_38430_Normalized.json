@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "nullable": "false",
+  "id": "http://wso2jsonschema.org",
+  "title": "root",
+  "type": "object",
+  "properties": {
+    "contacts": {
+      "type": "object",
+      "nullable": "false",
+      "properties": {
+        "list": {
+          "type": "array",
+          "nullable": "false",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "nullable": "false"
+                },
+                "FullName": {
+                  "type": "string",
+                  "nullable": "false"
+                },
+                "Email": {
+                  "type": "string",
+                  "nullable": "false"
+                }
+              }
+            }
+          ]
+        },
+        "size": {
+          "type": "number",
+          "nullable": "false"
+        }
+      }
+    }
+  }
+}

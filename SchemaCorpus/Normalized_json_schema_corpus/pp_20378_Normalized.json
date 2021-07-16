@@ -1,0 +1,176 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "Name",
+    "Tables"
+  ],
+  "properties": {
+    "Name": {
+      "type": "string",
+      "title": "The Name Schema",
+      "default": "",
+      "examples": [
+        "DB2"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "Tables": {
+      "type": "array",
+      "title": "The Tables Schema",
+      "items": {
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "Name",
+          "Schema",
+          "Columns",
+          "HasUniqueIndex"
+        ],
+        "properties": {
+          "Name": {
+            "type": "string",
+            "title": "The Name Schema",
+            "default": "",
+            "examples": [
+              "Customer"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "Schema": {
+            "type": "string",
+            "title": "The Schema Schema",
+            "default": "",
+            "examples": [
+              "dbo"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "Columns": {
+            "type": "array",
+            "title": "The Columns Schema",
+            "items": {
+              "type": "object",
+              "title": "The Items Schema",
+              "required": [
+                "Name",
+                "ColumnType",
+                "CharacterString",
+                "MinValue",
+                "MaxValue",
+                "MaskingType",
+                "SubType",
+                "Format",
+                "Deterministic",
+                "Nullable",
+                "Composite"
+              ],
+              "properties": {
+                "Name": {
+                  "type": "string",
+                  "title": "The Name Schema",
+                  "default": "",
+                  "examples": [
+                    "Firstname"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "ColumnType": {
+                  "type": "string",
+                  "title": "The Columntype Schema",
+                  "default": "",
+                  "examples": [
+                    "varchar"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "CharacterString": {
+                  "type": "string",
+                  "title": "The Characterstring Schema",
+                  "default": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+                  "pattern": "^[1-9][0-9]*$",
+                  "examples": [
+                    null
+                  ]
+                },
+                "MinValue": {
+                  "type": "null",
+                  "title": "The Minvalue Schema",
+                  "examples": [
+                    null
+                  ]
+                },
+                "MaxValue": {
+                  "type": "null",
+                  "title": "The Maxvalue Schema",
+                  "examples": [
+                    null
+                  ]
+                },
+                "MaskingType": {
+                  "type": "string",
+                  "title": "The Maskingtype Schema",
+                  "default": "",
+                  "examples": [
+                    "Name"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "SubType": {
+                  "type": "string",
+                  "title": "The Subtype Schema",
+                  "default": "",
+                  "examples": [
+                    "Firstname"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "Format": {
+                  "type": "string",
+                  "title": "The Format Schema",
+                  "examples": [
+                    null
+                  ]
+                },
+                "Deterministic": {
+                  "type": "boolean",
+                  "title": "The Deterministic Schema",
+                  "default": false,
+                  "examples": [
+                    false
+                  ]
+                },
+                "Nullable": {
+                  "type": "boolean",
+                  "title": "The Nullable Schema",
+                  "default": false,
+                  "examples": [
+                    false
+                  ]
+                },
+                "Composite": {
+                  "type": "null",
+                  "title": "The Composite Schema",
+                  "examples": [
+                    null
+                  ]
+                }
+              }
+            }
+          },
+          "HasUniqueIndex": {
+            "type": "boolean",
+            "title": "The Hasuniqueindex Schema",
+            "default": false,
+            "examples": [
+              false
+            ]
+          }
+        }
+      }
+    }
+  }
+}

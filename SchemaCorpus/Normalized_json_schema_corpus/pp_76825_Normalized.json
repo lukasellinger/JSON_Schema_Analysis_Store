@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "id": "#",
+  "javaType": "org.apache.streams.hdfs.HdfsWriterConfiguration",
+  "extends": {
+    "$ref": "#/definitions/HdfsConfiguration.json"
+  },
+  "javaInterfaces": [
+    "java.io.Serializable"
+  ],
+  "properties": {
+    "writerPath": {
+      "type": "string",
+      "description": "Path "
+    },
+    "writerFilePrefix": {
+      "type": "string",
+      "description": "File Prefix"
+    }
+  },
+  "definitions": {
+    "HdfsConfiguration.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "javaType": "org.apache.streams.hdfs.HdfsConfiguration",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "WebHdfs host"
+        },
+        "port": {
+          "type": "integer",
+          "description": "WebHdfs port"
+        },
+        "path": {
+          "type": "string",
+          "description": "Base path"
+        },
+        "user": {
+          "type": "string",
+          "description": "User"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password"
+        }
+      }
+    }
+  }
+}

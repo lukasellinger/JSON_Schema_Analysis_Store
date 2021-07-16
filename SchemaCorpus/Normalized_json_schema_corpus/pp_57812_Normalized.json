@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "id": "#",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "preferred_support_tool": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "preferred_support_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "icon_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "labels": {
+      "type": "array"
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "creation_date": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "short_description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "tools": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "mount_point": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "video_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "socialnetworks": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "accounturl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "socialnetwork": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "type": "array"
+    },
+    "moved_to_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "shortname": {
+      "type": "string"
+    },
+    "developers": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "screenshots": {
+      "type": "array"
+    },
+    "external_homepage": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "categories": {
+      "type": "object",
+      "properties": {
+        "developmentstatus": {
+          "type": "array"
+        },
+        "environment": {
+          "type": "array"
+        },
+        "language": {
+          "type": "array"
+        },
+        "license": {
+          "type": "array"
+        },
+        "database": {
+          "type": "array"
+        },
+        "topic": {
+          "type": "array"
+        },
+        "audience": {
+          "type": "array"
+        },
+        "translation": {
+          "type": "array"
+        },
+        "os": {
+          "type": "array"
+        }
+      }
+    }
+  }
+}

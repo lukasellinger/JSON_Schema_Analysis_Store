@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "consumingAppInstall": {
+      "$ref": "#/definitions/routeBase.json_definitions_installDetail"
+    },
+    "consumedApi": {
+      "$ref": "#/definitions/routeBase.json_definitions_consumedApi"
+    },
+    "producingAppInstalls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/routeBase.json_definitions_installDetail"
+      }
+    }
+  },
+  "definitions": {
+    "routeBase.json_definitions_installDetail": {
+      "type": "object",
+      "properties": {
+        "tenant": {
+          "type": "string"
+        },
+        "app": {
+          "type": "string"
+        },
+        "methods": {
+          "$ref": "#/definitions/routeBase.json_definitions_methods"
+        },
+        "securityGeneration": {
+          "type": "integer"
+        },
+        "endPoint": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tenant",
+        "app",
+        "securityGeneration"
+      ],
+      "additionalProperties": false
+    },
+    "routeBase.json_definitions_methods": {
+      "description": "The subset of the http methods (a) listed against an API and required from all producers (SoT or not); or (b) listed on an API consumer as being used.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "HEAD",
+          "GET",
+          "DELETE",
+          "PATCH",
+          "POST",
+          "PUT"
+        ]
+      }
+    },
+    "routeBase.json_definitions_consumedApi": {
+      "type": "object",
+      "properties": {
+        "apiDeveloper": {
+          "type": "string"
+        },
+        "apiUriTemplate": {
+          "type": "string"
+        },
+        "consumedAsSourceOfTruth": {
+          "type": "boolean"
+        },
+        "methods": {
+          "$ref": "#/definitions/routeBase.json_definitions_methods"
+        },
+        "principalType": {
+          "$ref": "#/definitions/samlSubject.json_definitions_principalType",
+          "description": "the principal type of this API (not present if this is not an on-behalf API)"
+        }
+      },
+      "required": [
+        "apiDeveloper",
+        "apiUriTemplate",
+        "consumedAsSourceOfTruth",
+        "methods"
+      ]
+    },
+    "samlSubject.json_definitions_principalType": {
+      "enum": [
+        "user",
+        "candidate"
+      ],
+      "description": "a class of principal (typically a human) identifiable by SSO. In theory developer-defined but for now only TAS can create."
+    }
+  }
+}

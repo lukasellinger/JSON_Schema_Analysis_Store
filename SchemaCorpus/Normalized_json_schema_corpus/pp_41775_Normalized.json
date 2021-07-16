@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "An Array of Notifications",
+  "type": "object",
+  "properties": {
+    "notifications": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/notification-schema.json"
+      }
+    }
+  },
+  "definitions": {
+    "notification-schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A Notification",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/definitions-schema.json_definitions_id"
+        },
+        "date": {
+          "type": "integer",
+          "multipleOf": 1.0
+        },
+        "votes": {
+          "type": "integer",
+          "multipleOf": 1.0
+        },
+        "message": {
+          "type": "string"
+        },
+        "routeId": {
+          "type": "integer",
+          "multipleOf": 1.0
+        },
+        "transport": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "integer",
+          "multipleOf": 1.0
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "definitions-schema.json_definitions_id": {
+      "type": "integer",
+      "multipleOf": 1.0,
+      "minimum": 0
+    }
+  }
+}

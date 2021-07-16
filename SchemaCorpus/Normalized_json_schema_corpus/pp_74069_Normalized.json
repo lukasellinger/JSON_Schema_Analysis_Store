@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\file.json_definitions_file-update"
+    }
+  ],
+  "definitions": {
+    "..\\definitions\\file.json_definitions_file-update": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_file-type"
+        },
+        "modality": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_modality"
+        },
+        "measurements": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_measurements"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "file-entry"
+    },
+    "..\\definitions\\file.json_definitions_file-type": {
+      "type": "string"
+    },
+    "..\\definitions\\file.json_definitions_modality": {
+      "type": "string"
+    },
+    "..\\definitions\\file.json_definitions_measurements": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    }
+  }
+}

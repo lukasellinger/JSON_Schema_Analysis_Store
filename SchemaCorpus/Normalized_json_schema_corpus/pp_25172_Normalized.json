@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "properties": {
+    "bar": {
+      "$ref": "#/definitions/bar\\bar.json"
+    },
+    "baz": {
+      "$ref": "#/definitions/bar\\baz\\baz.json"
+    },
+    "qux": {
+      "$ref": "#/definitions/qux\\qux.json"
+    }
+  },
+  "definitions": {
+    "bar\\bar.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "properties": {
+        "foo": {
+          "$ref": "#/definitions/foo.json"
+        },
+        "baz": {
+          "$ref": "#/definitions/bar\\baz\\baz.json"
+        },
+        "qux": {
+          "$ref": "#/definitions/qux\\qux.json"
+        }
+      }
+    },
+    "foo.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "properties": {
+        "bar": {
+          "$ref": "#/definitions/bar\\bar.json"
+        },
+        "baz": {
+          "$ref": "#/definitions/bar\\baz\\baz.json"
+        },
+        "qux": {
+          "$ref": "#/definitions/qux\\qux.json"
+        }
+      }
+    },
+    "bar\\baz\\baz.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "properties": {
+        "foo": {
+          "$ref": "#/definitions/foo.json"
+        },
+        "bar": {
+          "$ref": "#/definitions/bar\\bar.json"
+        },
+        "qux": {
+          "$ref": "#/definitions/qux\\qux.json"
+        }
+      }
+    },
+    "qux\\qux.json": {
+      "$schema": "http://json-schema.org/draft-06/schema#",
+      "properties": {
+        "foo": {
+          "$ref": "#/definitions/foo.json"
+        },
+        "bar": {
+          "$ref": "#/definitions/bar\\bar.json"
+        },
+        "baz": {
+          "$ref": "#/definitions/bar\\baz\\baz.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "An Array of Transports",
+  "type": "object",
+  "properties": {
+    "transports": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/transport-schema.json"
+      }
+    }
+  },
+  "definitions": {
+    "transport-schema.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "title": "A Transport",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/definitions-schema.json_definitions_id"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "definitions-schema.json_definitions_id": {
+      "type": "integer",
+      "multipleOf": 1.0,
+      "minimum": 0
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "javaType": "com.massisframework.massis3.stream.PositionUpdate",
+  "title": "Position update",
+  "description": "Defines a change of position of an entity in the simulation environment",
+  "type": "object",
+  "properties": {
+    "entity": {
+      "description": "Referenced entity",
+      "$ref": "#/definitions/http:__schemas.massisframework.com_simsilica_EntityId.json"
+    },
+    "position": {
+      "description": "Position of the entity",
+      "$ref": "#/definitions/http:__schemas.massisframework.com_jme3_Vector3f.json"
+    },
+    "time": {
+      "type": "integer",
+      "description": "simulation time when the event was produced in ms",
+      "javaType": "java.lang.Long",
+      "minimum": 0
+    }
+  },
+  "definitions": {
+    "http:__schemas.massisframework.com_simsilica_EntityId.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "javaType": "com.simsilica.es.EntityId",
+      "title": "EntityId",
+      "description": "Defines a unique id for an entity in an ECS",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "javaType": "java.lang.Long"
+        }
+      }
+    },
+    "http:__schemas.massisframework.com_jme3_Vector3f.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "javaType": "com.jme3.math.Vector3f",
+      "title": "Vector3f",
+      "description": "Defines a Vector for a three float value tuple",
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

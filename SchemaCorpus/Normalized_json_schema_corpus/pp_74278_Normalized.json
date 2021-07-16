@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\common.json_definitions_deleted-count",
+  "definitions": {
+    "..\\definitions\\common.json_definitions_deleted-count": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

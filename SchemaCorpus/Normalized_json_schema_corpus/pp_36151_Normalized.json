@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://dice.cyfronet.pl/hyperflow",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "processes": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "function": {
+              "type": "string"
+            },
+            "parlevel": {
+              "type": "integer"
+            },
+            "ordering": {
+              "type": "string"
+            },
+            "ins": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "outs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "function": {
+              "type": "string"
+            },
+            "ins": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "outs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "signals": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "data": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "ins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "name",
+    "processes",
+    "signals",
+    "ins",
+    "outs"
+  ]
+}

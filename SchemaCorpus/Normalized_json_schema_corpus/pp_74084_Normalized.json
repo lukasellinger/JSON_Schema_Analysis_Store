@@ -1,0 +1,234 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\batch.json_definitions_batch-proposal-input"
+    }
+  ],
+  "example": {
+    "gear_id": "59b1b5b0e105c40019f50015",
+    "config": {},
+    "tags": [
+      "test-tag"
+    ],
+    "targets": [
+      {
+        "type": "session"
+      }
+    ]
+  },
+  "definitions": {
+    "..\\definitions\\batch.json_definitions_batch-proposal-input": {
+      "type": "object",
+      "properties": {
+        "gear_id": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_gear_id"
+        },
+        "config": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_config"
+        },
+        "tags": {
+          "$ref": "#/definitions/..\\definitions\\tag.json_definitions_tag-list"
+        },
+        "analysis": {
+          "$ref": "#/definitions/..\\definitions\\analysis.json_definitions_analysis-input-job"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\definitions\\container.json_definitions_container-reference"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "..\\definitions\\job.json_definitions_gear_id": {
+      "type": "string"
+    },
+    "..\\definitions\\job.json_definitions_config": {
+      "oneOf": [
+        {
+          "enum": [
+            null
+          ]
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "..\\definitions\\tag.json_definitions_tag-list": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "..\\definitions\\analysis.json_definitions_analysis-input-job": {
+      "type": "object",
+      "properties": {
+        "job": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_job-input"
+        },
+        "notes": {
+          "$ref": "#/definitions/..\\definitions\\note.json_definitions_notes-list-input"
+        },
+        "description": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_description"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_label"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "analysis-input"
+    },
+    "..\\definitions\\job.json_definitions_job-input": {
+      "type": "object",
+      "properties": {
+        "gear_id": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_gear_id"
+        },
+        "inputs": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_inputs-object"
+        },
+        "destination": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_destination"
+        },
+        "tags": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_tags"
+        },
+        "config": {
+          "$ref": "#/definitions/..\\definitions\\job.json_definitions_config"
+        }
+      },
+      "required": [
+        "gear_id"
+      ],
+      "additionalProperties": false,
+      "x-sdk-model": "job"
+    },
+    "..\\definitions\\job.json_definitions_inputs-object": {
+      "type": "object",
+      "patternProperties": {
+        "[-_ a-zA-Z0-9]+": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_file-reference"
+        }
+      }
+    },
+    "..\\definitions\\file.json_definitions_file-reference": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_container-type"
+        },
+        "id": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions__id"
+        },
+        "name": {
+          "$ref": "#/definitions/..\\definitions\\file.json_definitions_name"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "name"
+      ],
+      "additionalProperties": false,
+      "description": "A reference to an individual file in a container, by type, id and name"
+    },
+    "..\\definitions\\container.json_definitions_container-type": {
+      "type": "string",
+      "enum": [
+        "group",
+        "project",
+        "session",
+        "acquisition",
+        "collection",
+        "analysis"
+      ],
+      "description": "The type of container (e.g. session)"
+    },
+    "..\\definitions\\container.json_definitions__id": {
+      "type": "string"
+    },
+    "..\\definitions\\file.json_definitions_name": {
+      "type": "string"
+    },
+    "..\\definitions\\job.json_definitions_destination": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "..\\definitions\\job.json_definitions_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "..\\definitions\\note.json_definitions_notes-list-input": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/..\\definitions\\note.json_definitions_note-input"
+          }
+        ]
+      }
+    },
+    "..\\definitions\\note.json_definitions_note-input": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "$ref": "#/definitions/..\\definitions\\note.json_definitions_text"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "note"
+    },
+    "..\\definitions\\note.json_definitions_text": {
+      "type": "string",
+      "x-sdk-positional": true
+    },
+    "..\\definitions\\common.json_definitions_description": {
+      "type": "string"
+    },
+    "..\\definitions\\common.json_definitions_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "..\\definitions\\container.json_definitions_container-reference": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions_container-type"
+        },
+        "id": {
+          "$ref": "#/definitions/..\\definitions\\container.json_definitions__id"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false,
+      "description": "A reference to an individual container, by type and id"
+    }
+  }
+}

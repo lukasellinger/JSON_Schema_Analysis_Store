@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "defaultSchema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "city": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "airport": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^/wiki/[A-Za-z0-9-_.%(),/]*$"
+          }
+        }
+      }
+    },
+    "required": [
+      "city",
+      "airport"
+    ]
+  },
+  "minItems": 1
+}

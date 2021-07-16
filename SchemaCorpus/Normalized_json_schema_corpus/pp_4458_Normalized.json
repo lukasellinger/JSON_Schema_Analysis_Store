@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "title": "list of features",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/feature.json"
+  },
+  "definitions": {
+    "feature.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "feature",
+      "type": "object",
+      "properties": {
+        "geometry": {
+          "title": "feature geometry",
+          "$ref": "#/definitions/http:__schemas.opengis.net_gsr_1.0_geometry.json"
+        },
+        "attributes": {
+          "title": "feature attributes",
+          "$ref": "#/definitions/http:__schemas.opengis.net_gsr_1.0_attributes.json"
+        }
+      }
+    },
+    "http:__schemas.opengis.net_gsr_1.0_geometry.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "geometry object",
+      "type": "object"
+    },
+    "http:__schemas.opengis.net_gsr_1.0_attributes.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "properties",
+      "type": [
+        "null",
+        "object"
+      ],
+      "patternProperties": {
+        "\\w*": {
+          "type": [
+            "null",
+            "string",
+            "number",
+            "boolean",
+            "array"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "id": "https://github.com/myedibleenso/processors-server/tree/master/src/main/resources/json/schema/sentence.json",
+  "properties": {
+    "words": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "startOffsets": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "endOffsets": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "lemmas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "norms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "chunks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "graphs": {
+      "type": "object",
+      "properties": {
+        "stanford-basic": {
+          "type": "object",
+          "properties": {
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "source": {
+                    "type": "integer"
+                  },
+                  "destination": {
+                    "type": "integer"
+                  },
+                  "relation": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "source",
+                  "destination",
+                  "relation"
+                ]
+              }
+            },
+            "roots": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "required": [
+            "edges",
+            "roots"
+          ]
+        },
+        "stanford-collapsed": {
+          "type": "object",
+          "properties": {
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "source": {
+                    "type": "integer"
+                  },
+                  "destination": {
+                    "type": "integer"
+                  },
+                  "relation": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "source",
+                  "destination",
+                  "relation"
+                ]
+              }
+            },
+            "roots": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "required": [
+            "edges",
+            "roots"
+          ]
+        }
+      },
+      "required": [
+        "stanford-basic",
+        "stanford-collapsed"
+      ]
+    }
+  },
+  "required": [
+    "words",
+    "startOffsets",
+    "endOffsets"
+  ]
+}

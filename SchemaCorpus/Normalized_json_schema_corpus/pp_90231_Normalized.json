@@ -1,0 +1,141 @@
+{
+  "title": "LineSymbol3DLayer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "LineSymbol3DLayer renders Polyline geometries using a flat 2D line with a LineSymbol3D in a 3D SceneView.",
+  "properties": {
+    "cap": {
+      "type": "string",
+      "description": "Shape of the beginning and the end of each line geometry.",
+      "enum": [
+        "butt",
+        "round",
+        "square"
+      ],
+      "default": "butt"
+    },
+    "enable": {
+      "type": "boolean"
+    },
+    "join": {
+      "type": "string",
+      "description": "Shape of the intersection of two line segments.",
+      "enum": [
+        "bevel",
+        "miter",
+        "round"
+      ],
+      "default": "miter"
+    },
+    "material": {
+      "$ref": "#/definitions/material_schema.json"
+    },
+    "size": {
+      "type": "number",
+      "description": "Line width in points, positive only",
+      "minimum": 0
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of symbol used.",
+      "enum": [
+        "Line"
+      ]
+    }
+  },
+  "required": [
+    "size",
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "Line SymbolLayer",
+        "code": {
+          "symbolLayers": [
+            {
+              "type": "Line",
+              "material": {
+                "color": [
+                  255,
+                  0,
+                  0
+                ]
+              },
+              "size": 12,
+              "cap": "round",
+              "join": "round"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "material_schema.json": {
+      "title": "Material",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The material used to shade the geometry.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "A value between `100` (full transparency) and `0` (full opacity). Ignored if no color is specified.",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "material",
+            "code": {
+              "material": {
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "transparency": 20
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

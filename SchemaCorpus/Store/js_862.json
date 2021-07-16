@@ -1,0 +1,27 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/FileBox/FileBox.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Редактор файлов",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/Element.json"
+    },
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/EditorBase/EditorBase.json"
+    }
+  ],
+  "properties": {
+    "AcceptTypes": {
+      "description": "Список допустимых форматов данных",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "MaxSize": {
+      "description": "Максимальный размер данных в байтах",
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Record step",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "record"
+      ]
+    },
+    "label": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "next": {
+      "$ref": "#/definitions/rvdproject-schema.json_nullOrString"
+    },
+    "method": {
+      "enum": [
+        "GET",
+        "POST"
+      ]
+    },
+    "timeout": {
+      "type": "integer"
+    },
+    "finishOnKey": {
+      "type": "string",
+      "pattern": "($^)|(^[0-9*#]$)"
+    },
+    "maxLength": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "transcribe": {
+      "type": "boolean"
+    },
+    "transcribeCallback": {
+      "type": "string"
+    },
+    "playBeep": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "name",
+    "kind",
+    "label",
+    "title",
+    "next"
+  ],
+  "definitions": {
+    "rvdproject-schema.json_nullOrString": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
+    }
+  }
+}

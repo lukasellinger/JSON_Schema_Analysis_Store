@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/washingtonpost/ans-schema/master/src/main/resources/schema/ans/0.5.3/story_elements/list_element.json",
+  "title": "A valid list element.",
+  "description": "Lists the schemas we allow as \u0027list elements\u0027 in our collection schema.",
+  "type": "object",
+  "additionalProperties": {},
+  "anyOf": [
+    {
+      "$ref": "#/definitions/list.json"
+    },
+    {
+      "$ref": "#/definitions/text.json"
+    }
+  ],
+  "definitions": {
+    "list.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "A list.",
+      "description": " list of text items or other lists",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "list"
+          ]
+        },
+        "_id": {
+          "$ref": "#/definitions/..\\traits\\trait_id.json"
+        },
+        "subtype": {
+          "$ref": "#/definitions/..\\traits\\trait_subtype.json"
+        },
+        "channels": {
+          "$ref": "#/definitions/..\\traits\\trait_channel.json"
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/..\\traits\\trait_additional_properties.json"
+        },
+        "list_type": {
+          "type": "string",
+          "description": "The type of list to render as (ordered, unordered, etc)"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#"
+          },
+          "description": "The items in this list."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "..\\traits\\trait_id.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Globally Unique ID trait",
+      "description": "A globally unique identifier of the content in the ANS repository.",
+      "type": "string"
+    },
+    "..\\traits\\trait_subtype.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Subtype trait",
+      "type": "string",
+      "description": "A more granular type than story, gallery, etc. (E.g., column, blog_post)"
+    },
+    "..\\traits\\trait_channel.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Channel trait",
+      "description": "An optional list of output types for which this element should be visible",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "..\\traits\\trait_additional_properties.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Has additional properties",
+      "description": "A grab-bag object for non-validatable data.",
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "text.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "A textual content element",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "text"
+          ]
+        },
+        "_id": {
+          "$ref": "#/definitions/..\\traits\\trait_id.json"
+        },
+        "subtype": {
+          "$ref": "#/definitions/..\\traits\\trait_subtype.json"
+        },
+        "channels": {
+          "$ref": "#/definitions/..\\traits\\trait_channel.json"
+        },
+        "additional_properties": {
+          "$ref": "#/definitions/..\\traits\\trait_additional_properties.json"
+        },
+        "content": {
+          "description": "The text of the paragraph.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "content"
+      ]
+    }
+  }
+}

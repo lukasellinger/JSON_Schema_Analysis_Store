@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/assessmentType.json"
+  },
+  "definitions": {
+    "assessmentType.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "definitions": {
+        "key": {
+          "type": "string",
+          "description": "the assessment app\u0027s unique (within that app) and immutable key for this assessment type"
+        },
+        "userTitle": {
+          "type": "string",
+          "description": "A user-facing label/title for this assessment type"
+        },
+        "candidateTitle": {
+          "type": "string",
+          "description": "If present, a more specific label/title seen by candidates for this assessment type"
+        },
+        "canReuse": {
+          "type": "boolean",
+          "description": "true if an assessment result on one job application can be reused when the same candidate makes another job application"
+        },
+        "daysToExpire": {
+          "type": "integer",
+          "description": "when canReuse \u003d\u003d true, this is the default number of elapsed days before the previous assessment\u0027s result becomes no longer valid (as measured from the date that assessment was completed) - pass 0 to never expire"
+        },
+        "daysToExpireIsFixed": {
+          "type": "boolean",
+          "description": "when canReuse \u003d\u003d true, this determines whether users are allowed to override daysToExpire when configuring an assessment"
+        },
+        "isPassFail": {
+          "type": "boolean",
+          "description": "whether this assessment results in an unambiguous pass/fail result, as stored in assessmentDetail.overallResult.passedIndicator"
+        },
+        "sortable": {
+          "type": "boolean",
+          "description": "whether assessment results can be sorted - if so, an API on the assessment app is called, passing an array of existing assessment IDs, so the app can return them in sorted order. Defaults to false if not present"
+        },
+        "candidateDescription": {
+          "type": "string",
+          "description": "If present, a more specific label/title seen by the candidate, of the purpose of this assessment. Markdown format. e.g.: Video interview is a short procedure you can complete on your own phone. We like to see who we\u0027re hiring."
+        },
+        "userDescription": {
+          "type": "string",
+          "description": "A description, worded for the user, of the purpose of this assessment. Markdown format. e.g.: Video interview captures a short video from the candidate."
+        },
+        "appCommunicatesDirectlyToCandidate": {
+          "type": "boolean",
+          "description": "Deprecated - all apps should communicate directly to candidates"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/assessmentType.json_definitions_key"
+        },
+        "userTitle": {
+          "$ref": "#/definitions/assessmentType.json_definitions_userTitle"
+        },
+        "candidateTitle": {
+          "$ref": "#/definitions/assessmentType.json_definitions_candidateTitle"
+        },
+        "daysToExpire": {
+          "$ref": "#/definitions/assessmentType.json_definitions_daysToExpire"
+        },
+        "daysToExpireIsFixed": {
+          "$ref": "#/definitions/assessmentType.json_definitions_daysToExpireIsFixed"
+        },
+        "canReuse": {
+          "$ref": "#/definitions/assessmentType.json_definitions_canReuse"
+        },
+        "isPassFail": {
+          "$ref": "#/definitions/assessmentType.json_definitions_isPassFail"
+        },
+        "sortable": {
+          "$ref": "#/definitions/assessmentType.json_definitions_sortable"
+        },
+        "candidateDescription": {
+          "$ref": "#/definitions/assessmentType.json_definitions_candidateDescription"
+        },
+        "userDescription": {
+          "$ref": "#/definitions/assessmentType.json_definitions_userDescription"
+        },
+        "appCommunicatesDirectlyToCandidate": {
+          "$ref": "#/definitions/assessmentType.json_definitions_appCommunicatesDirectlyToCandidate"
+        },
+        "image": {
+          "$ref": "#/definitions/assessmentRead.json_definitions_imageUrl"
+        }
+      },
+      "required": [
+        "key",
+        "userTitle",
+        "daysToExpire",
+        "isPassFail",
+        "canReuse",
+        "userDescription",
+        "image"
+      ]
+    },
+    "assessmentType.json_definitions_key": {
+      "type": "string",
+      "description": "the assessment app\u0027s unique (within that app) and immutable key for this assessment type"
+    },
+    "assessmentType.json_definitions_userTitle": {
+      "type": "string",
+      "description": "A user-facing label/title for this assessment type"
+    },
+    "assessmentType.json_definitions_candidateTitle": {
+      "type": "string",
+      "description": "If present, a more specific label/title seen by candidates for this assessment type"
+    },
+    "assessmentType.json_definitions_daysToExpire": {
+      "type": "integer",
+      "description": "when canReuse \u003d\u003d true, this is the default number of elapsed days before the previous assessment\u0027s result becomes no longer valid (as measured from the date that assessment was completed) - pass 0 to never expire"
+    },
+    "assessmentType.json_definitions_daysToExpireIsFixed": {
+      "type": "boolean",
+      "description": "when canReuse \u003d\u003d true, this determines whether users are allowed to override daysToExpire when configuring an assessment"
+    },
+    "assessmentType.json_definitions_canReuse": {
+      "type": "boolean",
+      "description": "true if an assessment result on one job application can be reused when the same candidate makes another job application"
+    },
+    "assessmentType.json_definitions_isPassFail": {
+      "type": "boolean",
+      "description": "whether this assessment results in an unambiguous pass/fail result, as stored in assessmentDetail.overallResult.passedIndicator"
+    },
+    "assessmentType.json_definitions_sortable": {
+      "type": "boolean",
+      "description": "whether assessment results can be sorted - if so, an API on the assessment app is called, passing an array of existing assessment IDs, so the app can return them in sorted order. Defaults to false if not present"
+    },
+    "assessmentType.json_definitions_candidateDescription": {
+      "type": "string",
+      "description": "If present, a more specific label/title seen by the candidate, of the purpose of this assessment. Markdown format. e.g.: Video interview is a short procedure you can complete on your own phone. We like to see who we\u0027re hiring."
+    },
+    "assessmentType.json_definitions_userDescription": {
+      "type": "string",
+      "description": "A description, worded for the user, of the purpose of this assessment. Markdown format. e.g.: Video interview captures a short video from the candidate."
+    },
+    "assessmentType.json_definitions_appCommunicatesDirectlyToCandidate": {
+      "type": "boolean",
+      "description": "Deprecated - all apps should communicate directly to candidates"
+    },
+    "assessmentRead.json_definitions_imageUrl": {
+      "description": "url of an image that will be loaded from an  app into the assessment hub to represent an assessment\u0027s status or an unstarted assessment type",
+      "type": "string",
+      "format": "url"
+    }
+  }
+}

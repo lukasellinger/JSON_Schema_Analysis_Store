@@ -1,0 +1,219 @@
+{
+  "id": "https://schema.management.azure.com/schemas/2019-04-01/Microsoft.Capacity.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Microsoft.Capacity",
+  "description": "Microsoft Capacity Resource Types",
+  "resourceDefinitions": {},
+  "tenant_resourceDefinitions": {
+    "reservationOrders": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "string",
+          "enum": [
+            "2019-04-01"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "The Azure Region where the reserved resource lives."
+        },
+        "name": {
+          "type": "string",
+          "description": "Order Id of the reservation"
+        },
+        "properties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PurchaseRequestProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "sku": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/SkuName"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Microsoft.Capacity/reservationOrders"
+          ]
+        }
+      },
+      "required": [
+        "apiVersion",
+        "name",
+        "properties",
+        "type"
+      ],
+      "description": "Microsoft.Capacity/reservationOrders"
+    }
+  },
+  "definitions": {
+    "PurchaseRequestProperties": {
+      "type": "object",
+      "properties": {
+        "appliedScopes": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "List of the subscriptions that the benefit will be applied. Do not specify if AppliedScopeType is Shared."
+        },
+        "appliedScopeType": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Single",
+                "Shared"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "billingPlan": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "Upfront",
+                "Monthly"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "billingScopeId": {
+          "type": "string",
+          "description": "Subscription that will be charged for purchasing Reservation"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Friendly name of the Reservation"
+        },
+        "quantity": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Quantity of the SKUs that are part of the Reservation. Must be greater than zero."
+        },
+        "renew": {
+          "oneOf": [
+            {
+              "type": "boolean",
+              "default": false
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Setting this to true will automatically purchase a new reservation on the expiration date time."
+        },
+        "reservedResourceProperties": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/PurchaseRequestPropertiesReservedResourceProperties"
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ],
+          "description": "Properties specific to each reserved resource type. Not required if not applicable."
+        },
+        "reservedResourceType": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "VirtualMachines",
+                "SqlDatabases",
+                "SuseLinux",
+                "CosmosDb",
+                "RedHat",
+                "SqlDataWarehouse",
+                "VMwareCloudSimple",
+                "RedHatOsa"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        },
+        "term": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "P1Y",
+                "P3Y"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        }
+      }
+    },
+    "PurchaseRequestPropertiesReservedResourceProperties": {
+      "type": "object",
+      "properties": {
+        "instanceFlexibility": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "On",
+                "Off"
+              ]
+            },
+            {
+              "$ref": "#/definitions/..\\common\\definitions.json_definitions_expression"
+            }
+          ]
+        }
+      },
+      "description": "Properties specific to each reserved resource type. Not required if not applicable."
+    },
+    "SkuName": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "..\\common\\definitions.json_definitions_expression": {
+      "type": "string",
+      "pattern": "^\\[([^\\[].*)?\\]$",
+      "description": "Deployment template expression. See https://aka.ms/arm-template-expressions for more details on the ARM expression syntax."
+    }
+  }
+}

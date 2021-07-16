@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "cell_name": {
+    "$ref": "#/definitions/common.json_cell"
+  },
+  "host": {
+    "type": "string",
+    "format": "hostname"
+  },
+  "priority": {
+    "type": "integer",
+    "minimum": 0,
+    "maximum": 65535
+  },
+  "weight": {
+    "type": "integer",
+    "minimum": 0,
+    "maximum": 65535
+  },
+  "resource": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "targets": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "host": {
+              "$ref": "#/definitions/host"
+            },
+            "port": {
+              "$ref": "#/definitions/common.json_port"
+            },
+            "priority": {
+              "$ref": "#/definitions/priority"
+            },
+            "weight": {
+              "$ref": "#/definitions/weight"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "common.json_cell": {
+      "type": "string",
+      "maxLength": 20,
+      "pattern": "^[a-zA-Z0-9-]+$"
+    },
+    "host": {
+      "type": "string",
+      "format": "hostname"
+    },
+    "common.json_port": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    },
+    "weight": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    }
+  }
+}

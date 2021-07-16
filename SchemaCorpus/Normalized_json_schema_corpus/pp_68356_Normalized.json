@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "policies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "effect"
+        ],
+        "properties": {
+          "target": {
+            "type": "object",
+            "required": [
+              "resource"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "resource": {
+                "type": "object",
+                "required": [
+                  "uriTemplate"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "uriTemplate": {
+                    "type": "string"
+                  },
+                  "attributeUriTemplate": {
+                    "type": "string"
+                  }
+                }
+              },
+              "action": {
+                "type": "string"
+              },
+              "subject": {
+                "type": "object",
+                "required": [
+                  "attributes"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "attributes": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "issuer": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "condition": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "condition"
+              ]
+            }
+          },
+          "effect": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "policies",
+    "name"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "android",
+    "iOS",
+    "hostMachines"
+  ],
+  "properties": {
+    "android": {
+      "type": "object",
+      "title": "The Android Schema",
+      "required": [
+        "automationName"
+      ],
+      "properties": {
+        "automationName": {
+          "type": "string",
+          "title": "The Automationname Schema",
+          "default": "",
+          "examples": [
+            "UIAutomator2 or Espresso"
+          ],
+          "pattern": "^(.*)$"
+        }
+      }
+    },
+    "iOS": {
+      "type": "object",
+      "title": "The Ios Schema"
+    },
+    "hostMachines": {
+      "type": "array",
+      "title": "The Hostmachines Schema",
+      "items": {
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "machineIP"
+        ],
+        "properties": {
+          "machineIP": {
+            "type": [
+              "array",
+              "string"
+            ],
+            "title": "The Machineip Schema",
+            "default": "",
+            "examples": [
+              "127.0.0.1"
+            ],
+            "pattern": "^(.*)$"
+          }
+        }
+      }
+    }
+  }
+}

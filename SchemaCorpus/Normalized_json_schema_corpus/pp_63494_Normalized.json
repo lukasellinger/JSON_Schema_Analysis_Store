@@ -1,0 +1,193 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Camera",
+  "type": "object",
+  "description": "A camera\u0027s projection.  A node can reference a camera to apply a transform to place the camera in the scene.",
+  "allOf": [
+    {
+      "$ref": "#/definitions/glTFChildOfRootProperty.schema.json"
+    }
+  ],
+  "properties": {
+    "orthographic": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/camera.orthographic.schema.json"
+        }
+      ],
+      "description": "An orthographic camera containing properties to create an orthographic projection matrix."
+    },
+    "perspective": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/camera.perspective.schema.json"
+        }
+      ],
+      "description": "A perspective camera containing properties to create a perspective projection matrix."
+    },
+    "type": {
+      "description": "Specifies if the camera uses a perspective or orthographic projection.",
+      "gltf_detailedDescription": "Specifies if the camera uses a perspective or orthographic projection.  Based on this, either the camera\u0027s `perspective` or `orthographic` property will be defined.",
+      "anyOf": [
+        {
+          "enum": [
+            "perspective"
+          ]
+        },
+        {
+          "enum": [
+            "orthographic"
+          ]
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "name": {},
+    "extensions": {},
+    "extras": {}
+  },
+  "required": [
+    "type"
+  ],
+  "not": {
+    "required": [
+      "perspective",
+      "orthographic"
+    ]
+  },
+  "definitions": {
+    "glTFChildOfRootProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Child of Root Property",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The user-defined name of this object.",
+          "gltf_detailedDescription": "The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name."
+        }
+      }
+    },
+    "glTFProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Property",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extension.schema.json"
+        },
+        "extras": {
+          "$ref": "#/definitions/extras.schema.json"
+        }
+      }
+    },
+    "extension.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extension",
+      "type": "object",
+      "description": "Dictionary object with extension-specific objects.",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "extras.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extras",
+      "description": "Application-specific data."
+    },
+    "camera.orthographic.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Camera Orthographic",
+      "type": "object",
+      "description": "An orthographic camera containing properties to create an orthographic projection matrix.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "xmag": {
+          "type": "number",
+          "description": "The floating-point horizontal magnification of the view. Must not be zero."
+        },
+        "ymag": {
+          "type": "number",
+          "description": "The floating-point vertical magnification of the view. Must not be zero."
+        },
+        "zfar": {
+          "type": "number",
+          "description": "The floating-point distance to the far clipping plane. `zfar` must be greater than `znear`.",
+          "minimum": 0.0,
+          "exclusiveMinimum": true
+        },
+        "znear": {
+          "type": "number",
+          "description": "The floating-point distance to the near clipping plane.",
+          "minimum": 0.0
+        },
+        "extensions": {},
+        "extras": {}
+      },
+      "required": [
+        "xmag",
+        "ymag",
+        "zfar",
+        "znear"
+      ]
+    },
+    "camera.perspective.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Camera Perspective",
+      "type": "object",
+      "description": "A perspective camera containing properties to create a perspective projection matrix.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "aspectRatio": {
+          "type": "number",
+          "description": "The floating-point aspect ratio of the field of view.",
+          "minimum": 0.0,
+          "exclusiveMinimum": true,
+          "gltf_detailedDescription": "The floating-point aspect ratio of the field of view. When this is undefined, the aspect ratio of the canvas is used."
+        },
+        "yfov": {
+          "type": "number",
+          "description": "The floating-point vertical field of view in radians.",
+          "minimum": 0.0,
+          "exclusiveMinimum": true
+        },
+        "zfar": {
+          "type": "number",
+          "description": "The floating-point distance to the far clipping plane.",
+          "minimum": 0.0,
+          "exclusiveMinimum": true,
+          "gltf_detailedDescription": "The floating-point distance to the far clipping plane. When defined, `zfar` must be greater than `znear`. If `zfar` is undefined, runtime must use infinite projection matrix."
+        },
+        "znear": {
+          "type": "number",
+          "description": "The floating-point distance to the near clipping plane.",
+          "minimum": 0.0,
+          "exclusiveMinimum": true,
+          "gltf_detailedDescription": "The floating-point distance to the near clipping plane."
+        },
+        "extensions": {},
+        "extras": {}
+      },
+      "required": [
+        "yfov",
+        "znear"
+      ]
+    }
+  }
+}

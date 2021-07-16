@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "PlaylistId": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "PlaylistClassification": {
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "HighestCsr": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/definitions/competitive-skill-rank.schema.json"
+        }
+      ]
+    },
+    "TotalTimePlayed": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "TotalMatchesStarted": {
+      "type": "integer"
+    },
+    "TotalMatchesCompleted": {
+      "type": "integer"
+    },
+    "TotalMatchesWon": {
+      "type": "integer"
+    },
+    "TotalMatchesLost": {
+      "type": "integer"
+    },
+    "TotalPointCaptures": {
+      "type": "integer"
+    },
+    "TotalUnitsBuilt": {
+      "type": "integer"
+    },
+    "TotalUnitsLost": {
+      "type": "integer"
+    },
+    "TotalUnitsDestroyed": {
+      "type": "integer"
+    },
+    "TotalCardPlays": {
+      "type": "integer"
+    },
+    "HighestWaveCompleted": {
+      "type": "integer"
+    },
+    "LeaderStats": {
+      "$ref": "#/definitions/leader-stats.schema.json"
+    }
+  },
+  "required": [
+    "PlaylistId",
+    "PlaylistClassification",
+    "HighestCsr",
+    "TotalTimePlayed",
+    "TotalMatchesStarted",
+    "TotalMatchesCompleted",
+    "TotalMatchesWon",
+    "TotalMatchesLost",
+    "TotalPointCaptures",
+    "TotalUnitsBuilt",
+    "TotalUnitsLost",
+    "TotalUnitsDestroyed",
+    "TotalCardPlays",
+    "HighestWaveCompleted",
+    "LeaderStats"
+  ],
+  "definitions": {
+    "competitive-skill-rank.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Tier": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "Designation": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "Raw": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "PercentToNextTier": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "MeasurementMatchesRemaining": {
+          "type": "integer"
+        },
+        "Rank": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        }
+      },
+      "required": [
+        "Tier",
+        "Designation",
+        "Raw",
+        "PercentToNextTier",
+        "MeasurementMatchesRemaining",
+        "Rank"
+      ]
+    },
+    "leader-stats.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "TotalTimePlayed": {
+            "type": "string"
+          },
+          "TotalMatchesStarted": {
+            "type": "integer"
+          },
+          "TotalMatchesCompleted": {
+            "type": "integer"
+          },
+          "TotalMatchesWon": {
+            "type": "integer"
+          },
+          "TotalMatchesLost": {
+            "type": "integer"
+          },
+          "TotalLeaderPowersCast": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "TotalTimePlayed",
+          "TotalMatchesStarted",
+          "TotalMatchesCompleted",
+          "TotalMatchesWon",
+          "TotalMatchesLost",
+          "TotalLeaderPowersCast"
+        ]
+      }
+    }
+  }
+}

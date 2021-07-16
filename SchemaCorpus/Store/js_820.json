@@ -1,0 +1,67 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Container/Container.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Контейнер визуальных элементов представления",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Element/Element.json"
+    }
+  ],
+  "properties": {
+    "Items": {
+      "description": "Список дочерних элементов контейнера",
+      "anyOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/DataBinding/DataBinding.json"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/VisualElement/VisualElement.json"
+          }
+        }
+      ]
+    },
+    "ItemTemplate": {
+      "description": "Шаблон отображения дочерних элементов контейнера",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/VisualElement/VisualElement.json"
+    },
+    "ItemFormat": {
+      "description": "Формат отображения дочерних элементов контейнера",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/TextEditorBase/DisplayFormat/DisplayFormat.json"
+    },
+    "ItemSelector": {
+      "description": "Функция, конструирующая отображаемое значение",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "ItemProperty": {
+      "description": "Свойство дочерних элементов контейнера для отображения в контейнере",
+      "type": "string"
+    },
+    "GroupValueSelector": {
+      "description": "Функция выборки из элемента коллекции значения для группировки",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "GroupValueProperty": {
+      "description": "Свойство элемента коллекции со значением для группировки",
+      "type": "string"
+    },
+    "GroupItemTemplate": {
+      "description": "Шаблон отображения элемента коллекции для заголовка группы",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/VisualElement/VisualElement.json"
+    },
+    "GroupItemFormat": {
+      "description": "Правила форматирования элемента коллекции для заголовка группы",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/TextEditorBase/DisplayFormat/DisplayFormat.json"
+    },
+    "GroupItemSelector": {
+      "description": "Функция выборки из элемента коллеции значения для заголовка группы",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "GroupItemProperty": {
+      "description": "Свойство элемента коллекции со значением для заголовка группы",
+      "type": "string"
+    }
+  }
+}

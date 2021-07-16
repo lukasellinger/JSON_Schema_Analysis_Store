@@ -1,0 +1,247 @@
+{
+  "title": "Color Ramp",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "A colorRamp object is used to specify a range of colors that are applied to a group of symbols.",
+  "properties": {
+    "algorithm": {
+      "type": "string",
+      "description": "Algorithm used for calculating the ramp.",
+      "enum": [
+        "esriHSVAlgorithm",
+        "esriCIELabAlgorithm",
+        "esriLabLChAlgorithm"
+      ]
+    },
+    "colorRamps": {
+      "type": "array",
+      "description": "A multipart color ramp is defined by a list of constituent color ramps.",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/colorRamp_schema.json"
+      }
+    },
+    "fromColor": {
+      "description": "Array representing the initial color to start the ramp from.",
+      "$ref": "#/definitions/color_schema.json"
+    },
+    "toColor": {
+      "description": "Array representing the final color to end the ramp with.",
+      "$ref": "#/definitions/color_schema.json"
+    },
+    "type": {
+      "type": "string",
+      "description": "Value indicating the type of colorRamp.",
+      "enum": [
+        "algorithmic",
+        "multipart"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "Algorithmic",
+        "code": {
+          "colorRamp": {
+            "type": "algorithmic",
+            "fromColor": [
+              115,
+              76,
+              0,
+              255
+            ],
+            "toColor": [
+              255,
+              25,
+              86,
+              255
+            ],
+            "algorithm": "esriHSVAlgorithm"
+          }
+        }
+      },
+      {
+        "title": "Multipart",
+        "code": {
+          "colorRamp": {
+            "type": "multipart",
+            "colorRamps": [
+              {
+                "type": "algorithmic",
+                "fromColor": [
+                  255,
+                  0,
+                  0,
+                  255
+                ],
+                "toColor": [
+                  255,
+                  255,
+                  0,
+                  255
+                ],
+                "algorithm": "esriHSVAlgorithm"
+              },
+              {
+                "type": "algorithmic",
+                "fromColor": [
+                  0,
+                  255,
+                  255,
+                  255
+                ],
+                "toColor": [
+                  0,
+                  0,
+                  255,
+                  255
+                ],
+                "algorithm": "esriHSVAlgorithm"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "colorRamp_schema.json": {
+      "title": "Color Ramp",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "A colorRamp object is used to specify a range of colors that are applied to a group of symbols.",
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "description": "Algorithm used for calculating the ramp.",
+          "enum": [
+            "esriHSVAlgorithm",
+            "esriCIELabAlgorithm",
+            "esriLabLChAlgorithm"
+          ]
+        },
+        "colorRamps": {
+          "type": "array",
+          "description": "A multipart color ramp is defined by a list of constituent color ramps.",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/colorRamp_schema.json"
+          }
+        },
+        "fromColor": {
+          "description": "Array representing the initial color to start the ramp from.",
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "toColor": {
+          "description": "Array representing the final color to end the ramp with.",
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "type": {
+          "type": "string",
+          "description": "Value indicating the type of colorRamp.",
+          "enum": [
+            "algorithmic",
+            "multipart"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Algorithmic",
+            "code": {
+              "colorRamp": {
+                "type": "algorithmic",
+                "fromColor": [
+                  115,
+                  76,
+                  0,
+                  255
+                ],
+                "toColor": [
+                  255,
+                  25,
+                  86,
+                  255
+                ],
+                "algorithm": "esriHSVAlgorithm"
+              }
+            }
+          },
+          {
+            "title": "Multipart",
+            "code": {
+              "colorRamp": {
+                "type": "multipart",
+                "colorRamps": [
+                  {
+                    "type": "algorithmic",
+                    "fromColor": [
+                      255,
+                      0,
+                      0,
+                      255
+                    ],
+                    "toColor": [
+                      255,
+                      255,
+                      0,
+                      255
+                    ],
+                    "algorithm": "esriHSVAlgorithm"
+                  },
+                  {
+                    "type": "algorithmic",
+                    "fromColor": [
+                      0,
+                      255,
+                      255,
+                      255
+                    ],
+                    "toColor": [
+                      0,
+                      0,
+                      255,
+                      255
+                    ],
+                    "algorithm": "esriHSVAlgorithm"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

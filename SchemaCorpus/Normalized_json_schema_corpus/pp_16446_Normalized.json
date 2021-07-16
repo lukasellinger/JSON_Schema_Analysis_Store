@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "libvpx",
+  "name": "VP8",
+  "defaults": {
+    "_pixelFormat": "yuv420p"
+  },
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "_strategy",
+          "control": {
+            "items": [
+              {
+                "value": "bitrate",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": false
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "crf",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "value": "bitrate_crf",
+                "filters": [
+                  {
+                    "filter": "OnSelection",
+                    "params": {
+                      "ShowOptions": [
+                        {
+                          "visible": true
+                        },
+                        {
+                          "visible": false
+                        },
+                        {
+                          "visible": true
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "selectedIndex": 1,
+            "type": "combobox"
+          }
+        },
+        {
+          "parameter": "b",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 288000,
+            "singleStep": 1000,
+            "value": 15000,
+            "visible": false
+          },
+          "multiplicationFactor": 1000
+        },
+        {
+          "parameter": "_2pass",
+          "control": {
+            "items": [
+              {
+                "value": "1"
+              }
+            ],
+            "selectedIndex": 0,
+            "type": "combobox"
+          }
+        },
+        {
+          "parameter": "crf",
+          "control": {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 63,
+            "singleStep": 1,
+            "value": 10
+          }
+        },
+        {
+          "parameter": "quality",
+          "control": {
+            "items": [
+              {
+                "value": "good"
+              },
+              {
+                "value": "best"
+              },
+              {
+                "value": "realtime"
+              }
+            ],
+            "selectedIndex": 0,
+            "type": "combobox"
+          }
+        },
+        {
+          "parameter": "cpu-used",
+          "control": {
+            "maximum": 16,
+            "minimum": 0,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 1
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "g",
+          "control": {
+            "maximum": 600,
+            "minimum": 0,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 250
+          }
+        },
+        {
+          "parameter": "auto-alt-ref",
+          "control": {
+            "items": [
+              {
+                "value": "-1"
+              },
+              {
+                "value": "0"
+              },
+              {
+                "value": "1"
+              }
+            ],
+            "selectedIndex": 0,
+            "type": "combobox"
+          }
+        },
+        {
+          "parameter": "threads",
+          "control": {
+            "maximum": 24,
+            "minimum": 1,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 8
+          }
+        },
+        {
+          "parameter": "lag-in-frames",
+          "control": {
+            "maximum": 25,
+            "minimum": 0,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 0
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "sharpness",
+          "control": {
+            "maximum": 7,
+            "minimum": 0,
+            "singleStep": 1,
+            "type": "integer",
+            "value": 0
+          }
+        }
+      ]
+    }
+  ]
+}

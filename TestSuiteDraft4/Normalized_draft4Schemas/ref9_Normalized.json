@@ -1,0 +1,52 @@
+{
+  "description": "tree of nodes",
+  "id": "http://localhost:1234/tree",
+  "type": "object",
+  "definitions": {
+    "node": {
+      "description": "node",
+      "type": "object",
+      "properties": {
+        "subtree": {
+          "$ref": "#"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "id_node": {
+      "description": "node",
+      "type": "object",
+      "properties": {
+        "subtree": {
+          "$ref": "#"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  },
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/id_node"
+      }
+    },
+    "meta": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "meta",
+    "nodes"
+  ]
+}

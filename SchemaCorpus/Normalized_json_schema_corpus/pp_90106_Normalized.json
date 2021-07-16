@@ -1,0 +1,75 @@
+{
+  "title": "relatedRecordsInfo",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "The sort in the popupInfo for the parent feature. This impacts the sorting order for the returned child records.",
+  "properties": {
+    "orderByFields": {
+      "type": "array",
+      "description": "Array of orderByFields objects indicating the field display order for the related records and whether they should be sorted in ascending \u003ccode\u003e\u0027asc\u0027\u003c/code\u003e or descending \u003ccode\u003e\u0027desc\u0027\u003c/code\u003e order.",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/orderByFields_schema.json"
+      }
+    },
+    "showRelatedRecords": {
+      "type": "boolean",
+      "description": "Required boolean value indicating whether to display related records. If \u003ccode\u003etrue\u003c/code\u003e, client should let the user navigate to the related records. Defaults to \u003ccode\u003etrue\u003c/code\u003e if the layer participates in a relationship AND the related layer/table has already been added to the scene (either as an operationalLayer or as a table)."
+    }
+  },
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "relatedRecordsInfo",
+        "code": {
+          "relatedRecordsInfo": {
+            "showRelatedRecords": true,
+            "orderByFields": [
+              {
+                "field": "relationships/0/FieldName",
+                "order": "asc"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "orderByFields_schema.json": {
+      "title": "orderByFields",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Object indicating the field display order for the related records and whether they should be sorted in ascending or descending order.",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "The attribute value of the field selected that will drive the sorting of related records."
+        },
+        "order": {
+          "type": "string",
+          "description": "Set the ascending or descending sort order of the returned related records.",
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        }
+      },
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "orderByFields",
+            "code": {
+              "orderByFields": [
+                {
+                  "field": "relationships/0/FieldName",
+                  "order": "asc"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

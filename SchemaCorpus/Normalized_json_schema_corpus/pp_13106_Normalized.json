@@ -1,0 +1,174 @@
+{
+  "@context": "http://qiicr.org/dcmqi/contexts/dcmqi.jsonld",
+  "id": "https://raw.githubusercontent.com/qiicr/dcmqi/master/doc/schemas/segment-context-schema.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "@schema": {
+      "type": "string"
+    },
+    "SegmentationCategoryTypeContextName": {
+      "type": "string"
+    },
+    "SegmentationCodes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Category": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/segment-context-common-schema.json_definitions_CategoryDefinition"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "segment-context-common-schema.json_definitions_CategoryDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "CodeValue": {
+          "$ref": "#/definitions/common-schema.json_definitions_SH"
+        },
+        "CodeMeaning": {
+          "$ref": "#/definitions/common-schema.json_definitions_LO"
+        },
+        "CodingSchemeDesignator": {
+          "$ref": "#/definitions/common-schema.json_definitions_SH"
+        },
+        "recommendedDisplayRGBValue": {
+          "$ref": "#/definitions/common-schema.json_definitions_RGB"
+        },
+        "3dSlicerLabel": {
+          "type": "string"
+        },
+        "cid": {
+          "type": "string"
+        },
+        "contextGroupName": {
+          "type": "string"
+        },
+        "UMLSConceptUID": {
+          "type": "string"
+        },
+        "SNOMEDCTConceptID": {
+          "type": "string"
+        },
+        "showAnatomy": {
+          "type": "boolean"
+        },
+        "Type": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/segment-context-common-schema.json_definitions_TypeDefinition"
+          }
+        }
+      }
+    },
+    "common-schema.json_definitions_SH": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "common-schema.json_definitions_LO": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "common-schema.json_definitions_RGB": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "segment-context-common-schema.json_definitions_TypeDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "CodeValue": {
+          "$ref": "#/definitions/common-schema.json_definitions_SH"
+        },
+        "CodeMeaning": {
+          "$ref": "#/definitions/common-schema.json_definitions_LO"
+        },
+        "CodingSchemeDesignator": {
+          "$ref": "#/definitions/common-schema.json_definitions_SH"
+        },
+        "recommendedDisplayRGBValue": {
+          "$ref": "#/definitions/common-schema.json_definitions_RGB"
+        },
+        "paired": {
+          "enum": [
+            "Y",
+            "N",
+            "U"
+          ]
+        },
+        "3dSlicerLabel": {
+          "type": "string"
+        },
+        "3dSlicerIntegerLabel": {
+          "type": "integer"
+        },
+        "cid": {
+          "type": "string"
+        },
+        "contextGroupName": {
+          "type": "string"
+        },
+        "UMLSConceptUID": {
+          "type": "string"
+        },
+        "SNOMEDCTConceptID": {
+          "type": "string"
+        },
+        "Modifier": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/segment-context-common-schema.json_definitions_ModifierDefinition"
+          }
+        }
+      }
+    },
+    "segment-context-common-schema.json_definitions_ModifierDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "CodeValue": {
+          "$ref": "#/definitions/common-schema.json_definitions_SH"
+        },
+        "CodeMeaning": {
+          "$ref": "#/definitions/common-schema.json_definitions_LO"
+        },
+        "CodingSchemeDesignator": {
+          "$ref": "#/definitions/common-schema.json_definitions_SH"
+        },
+        "recommendedDisplayRGBValue": {
+          "$ref": "#/definitions/common-schema.json_definitions_RGB"
+        },
+        "3dSlicerLabel": {
+          "type": "string"
+        },
+        "3dSlicerIntegerLabel": {
+          "type": "integer"
+        },
+        "cid": {
+          "type": "string"
+        },
+        "contextGroupName": {
+          "type": "string"
+        },
+        "UMLSConceptUID": {
+          "type": "string"
+        },
+        "SNOMEDCTConceptID": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

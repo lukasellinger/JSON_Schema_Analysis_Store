@@ -1,0 +1,380 @@
+{
+  "@context": "http://qiicr.org/dcmqi/contexts/dcmqi.jsonld",
+  "id": "https://raw.githubusercontent.com/qiicr/dcmqi/master/doc/schemas/sr-tid1500-schema.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "measurementModifier": {
+      "type": "object",
+      "properties": {
+        "modifier": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "modifierValue": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        }
+      }
+    },
+    "measurementNumProperty": {
+      "type": "object",
+      "properties": {
+        "numProperty": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "numPropertyValue": {
+          "type": "string"
+        },
+        "numPropertyUnits": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        }
+      }
+    },
+    "measurementDerivationParameter": {
+      "type": "object",
+      "properties": {
+        "derivationParameter": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "derivationParameterValue": {
+          "type": "string"
+        },
+        "derivationParameterUnits": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        }
+      }
+    },
+    "measurementItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "$ref": "#/definitions/common-schema.json_definitions_DS"
+        },
+        "quantity": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "units": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "derivationModifier": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "measurementModifiers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/measurementModifier"
+          }
+        },
+        "measurementDerivationParameters": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/measurementDerivationParameter"
+          }
+        },
+        "measurementNumProperties": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/measurementNumProperty"
+          }
+        },
+        "measurementPopulationDescription": {
+          "type": "string"
+        },
+        "measurementAlgorithmIdentification": {
+          "$ref": "#/definitions/sr-common-schema.json_definitions_measurementAlgorithmIdentification"
+        }
+      }
+    },
+    "qualitativeEvaluationItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "conceptCode": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "conceptValue": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "MeasurementGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "TrackingIdentifier": {
+          "$ref": "#/definitions/sr-common-schema.json_definitions_TEXT"
+        },
+        "TrackingUniqueIdentifier": {
+          "$ref": "#/definitions/sr-common-schema.json_definitions_UIDREF"
+        },
+        "ReferencedSegment": {
+          "type": "number"
+        },
+        "SourceSeriesForImageSegmentation": {
+          "$ref": "#/definitions/sr-common-schema.json_definitions_UIDREF"
+        },
+        "segmentationSOPInstanceUID": {
+          "$ref": "#/definitions/sr-common-schema.json_definitions_UIDREF"
+        },
+        "rwvmMapUsedForMeasurement": {
+          "$ref": "#/definitions/sr-common-schema.json_definitions_UIDREF"
+        },
+        "MeasurementMethod": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "Finding": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "FindingSite": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "Laterality": {
+          "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+        },
+        "measurementAlgorithmIdentification": {
+          "$ref": "#/definitions/sr-common-schema.json_definitions_measurementAlgorithmIdentification"
+        },
+        "measurementItems": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/measurementItem"
+          }
+        },
+        "qualitativeEvaluations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/qualitativeEvaluationItem"
+          }
+        }
+      }
+    },
+    "referencedImageFileNames": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "common-schema.json_definitions_codeSequence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "CodeValue",
+        "CodingSchemeDesignator",
+        "CodeMeaning"
+      ],
+      "properties": {
+        "CodeValue": {
+          "$ref": "#/definitions/common-schema.json_definitions_SH",
+          "default": "85756007"
+        },
+        "CodingSchemeDesignator": {
+          "$ref": "#/definitions/common-schema.json_definitions_SH",
+          "default": "SCT"
+        },
+        "CodeMeaning": {
+          "$ref": "#/definitions/common-schema.json_definitions_LO",
+          "default": "Tissue"
+        }
+      }
+    },
+    "common-schema.json_definitions_SH": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "common-schema.json_definitions_LO": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "common-schema.json_definitions_DS": {
+      "type": "string",
+      "maxLength": 16,
+      "pattern": "^( )*(-|\\+)?[0-9]*(.[0-9]+)?((e|E)(-|\\+)?[0-9]+)?( )*$"
+    },
+    "sr-common-schema.json_definitions_measurementAlgorithmIdentification": {
+      "type": "object",
+      "properties": {
+        "AlgorithmName": {
+          "type": "string"
+        },
+        "AlgorithmVersion": {
+          "type": "string"
+        },
+        "AlgorithmParameters": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sr-common-schema.json_definitions_TEXT": {
+      "type": "string"
+    },
+    "sr-common-schema.json_definitions_UIDREF": {
+      "type": "string"
+    },
+    "common-schema.json_definitions_dicomInstancesFileNameList": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "sr-common-schema.json_definitions_observerContext": {
+      "type": "object",
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "PersonObserverName": {
+              "$ref": "#/definitions/sr-common-schema.json_definitions_PNAME"
+            },
+            "ObserverType": {
+              "type": "string",
+              "enum": [
+                "PERSON"
+              ]
+            }
+          },
+          "required": [
+            "PersonObserverName",
+            "ObserverType"
+          ]
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "DeviceObserverUID": {
+              "$ref": "#/definitions/sr-common-schema.json_definitions_UIDREF"
+            },
+            "ObserverType": {
+              "type": "string",
+              "enum": [
+                "DEVICE"
+              ]
+            },
+            "DeviceObserverName": {
+              "$ref": "#/definitions/sr-common-schema.json_definitions_TEXT"
+            },
+            "DeviceObserverManufacturer": {
+              "$ref": "#/definitions/sr-common-schema.json_definitions_TEXT"
+            },
+            "DeviceObserverModelName": {
+              "$ref": "#/definitions/sr-common-schema.json_definitions_TEXT"
+            },
+            "DeviceObserverSerialNumber": {
+              "$ref": "#/definitions/sr-common-schema.json_definitions_TEXT"
+            }
+          },
+          "required": [
+            "ObserverType"
+          ]
+        }
+      ]
+    },
+    "sr-common-schema.json_definitions_PNAME": {
+      "type": "string"
+    },
+    "common-schema.json_definitions_CS": {
+      "type": "string",
+      "maxLength": 16
+    },
+    "common-schema.json_definitions_IS": {
+      "type": "string",
+      "maxLength": 12
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "@schema": {
+      "type": "string"
+    },
+    "compositeContext": {
+      "$ref": "#/definitions/common-schema.json_definitions_dicomInstancesFileNameList"
+    },
+    "imageLibrary": {
+      "$ref": "#/definitions/common-schema.json_definitions_dicomInstancesFileNameList"
+    },
+    "observerContext": {
+      "$ref": "#/definitions/sr-common-schema.json_definitions_observerContext"
+    },
+    "activitySession": {
+      "type": "string",
+      "default": "1"
+    },
+    "timePoint": {
+      "type": "string",
+      "default": "1"
+    },
+    "measurementMethod": {
+      "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+    },
+    "procedureReported": {
+      "$ref": "#/definitions/common-schema.json_definitions_codeSequence"
+    },
+    "VerificationFlag": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common-schema.json_definitions_CS"
+        },
+        {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED"
+          ]
+        },
+        {
+          "default": "UNVERIFIED"
+        }
+      ]
+    },
+    "CompletionFlag": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common-schema.json_definitions_CS"
+        },
+        {
+          "enum": [
+            "PARTIAL",
+            "COMPLETE"
+          ]
+        },
+        {
+          "default": "PARTIAL"
+        }
+      ]
+    },
+    "SeriesDescription": {
+      "$ref": "#/definitions/common-schema.json_definitions_LO",
+      "default": "Measurements"
+    },
+    "SeriesNumber": {
+      "$ref": "#/definitions/common-schema.json_definitions_IS",
+      "default": "400"
+    },
+    "InstanceNumber": {
+      "$ref": "#/definitions/common-schema.json_definitions_IS",
+      "default": "1"
+    },
+    "Measurements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/MeasurementGroup"
+      }
+    }
+  }
+}

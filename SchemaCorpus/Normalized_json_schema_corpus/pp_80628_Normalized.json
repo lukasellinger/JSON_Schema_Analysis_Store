@@ -1,0 +1,308 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "id": "material.json",
+  "type": "object",
+  "properties": {
+    "shader_type": {
+      "type": "string",
+      "enum": [
+        "cubemap",
+        "texture"
+      ]
+    },
+    "main_texture": {
+      "$ref": "#/definitions/texture.json"
+    },
+    "textures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/texture.json"
+      }
+    },
+    "color": {
+      "$ref": "#/definitions/color.json"
+    },
+    "ambient_color": {
+      "$ref": "#/definitions/color.json"
+    },
+    "diffuse_color": {
+      "$ref": "#/definitions/color.json"
+    },
+    "specular_color": {
+      "$ref": "#/definitions/color.json"
+    },
+    "specular_exponent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 128
+    },
+    "opacity": {
+      "$ref": "#/definitions/scalar.json"
+    }
+  },
+  "definitions": {
+    "texture.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "definitions": {
+        "texture_filter_type": {
+          "type": "string",
+          "enum": [
+            "GL_LINEAR",
+            "GL_NEAREST",
+            "GL_NEAREST_MIPMAP_NEAREST",
+            "GL_NEAREST_MIPMAP_LINEAR",
+            "GL_LINEAR_MIPMAP_NEAREST",
+            "GL_LINEAR_MIPMAP_LINEAR"
+          ]
+        },
+        "texture_wrap_type": {
+          "type": "string",
+          "enum": [
+            "GL_CLAMP_TO_EDGE",
+            "GL_MIRRORED_REPEAT",
+            "GL_REPEAT"
+          ]
+        },
+        "texture_parameters": {
+          "type": "object",
+          "properties": {
+            "min_filter_type": {
+              "$ref": "#/definitions/texture.json_definitions_texture_filter_type"
+            },
+            "mag_filter_type": {
+              "$ref": "#/definitions/texture.json_definitions_texture_filter_type"
+            },
+            "wrap_s_type": {
+              "$ref": "#/definitions/texture.json_definitions_texture_wrap_type"
+            },
+            "wrap_t_type": {
+              "$ref": "#/definitions/texture.json_definitions_texture_wrap_type"
+            },
+            "anisotropic_value": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                4,
+                8,
+                16
+              ]
+            }
+          }
+        },
+        "bitmap": {
+          "type": "object",
+          "properties": {
+            "resource_type": {
+              "type": "string",
+              "enum": [
+                "asset",
+                "file",
+                "resource",
+                "user"
+              ]
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "compressed",
+                "compressed_cubemap",
+                "cubemap",
+                "uncompressed"
+              ]
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "resource_type",
+            "type",
+            "id"
+          ]
+        },
+        "bitmap_texture_properties": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "pattern": "bitmap"
+            },
+            "bitmap": {
+              "$ref": "#/definitions/texture.json_definitions_bitmap"
+            },
+            "texture_parameters": {
+              "$ref": "#/definitions/texture.json_definitions_texture_parameters"
+            }
+          },
+          "required": [
+            "bitmap",
+            "type"
+          ]
+        },
+        "texture": {}
+      },
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/texture.json_definitions_bitmap_texture_properties"
+        }
+      ]
+    },
+    "texture.json_definitions_texture_filter_type": {
+      "type": "string",
+      "enum": [
+        "GL_LINEAR",
+        "GL_NEAREST",
+        "GL_NEAREST_MIPMAP_NEAREST",
+        "GL_NEAREST_MIPMAP_LINEAR",
+        "GL_LINEAR_MIPMAP_NEAREST",
+        "GL_LINEAR_MIPMAP_LINEAR"
+      ]
+    },
+    "texture.json_definitions_texture_wrap_type": {
+      "type": "string",
+      "enum": [
+        "GL_CLAMP_TO_EDGE",
+        "GL_MIRRORED_REPEAT",
+        "GL_REPEAT"
+      ]
+    },
+    "texture.json_definitions_bitmap": {
+      "type": "object",
+      "properties": {
+        "resource_type": {
+          "type": "string",
+          "enum": [
+            "asset",
+            "file",
+            "resource",
+            "user"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "compressed",
+            "compressed_cubemap",
+            "cubemap",
+            "uncompressed"
+          ]
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "resource_type",
+        "type",
+        "id"
+      ]
+    },
+    "texture.json_definitions_texture_parameters": {
+      "type": "object",
+      "properties": {
+        "min_filter_type": {
+          "$ref": "#/definitions/texture.json_definitions_texture_filter_type"
+        },
+        "mag_filter_type": {
+          "$ref": "#/definitions/texture.json_definitions_texture_filter_type"
+        },
+        "wrap_s_type": {
+          "$ref": "#/definitions/texture.json_definitions_texture_wrap_type"
+        },
+        "wrap_t_type": {
+          "$ref": "#/definitions/texture.json_definitions_texture_wrap_type"
+        },
+        "anisotropic_value": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            4,
+            8,
+            16
+          ]
+        }
+      }
+    },
+    "texture.json_definitions_bitmap_texture_properties": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "pattern": "bitmap"
+        },
+        "bitmap": {
+          "$ref": "#/definitions/texture.json_definitions_bitmap"
+        },
+        "texture_parameters": {
+          "$ref": "#/definitions/texture.json_definitions_texture_parameters"
+        }
+      },
+      "required": [
+        "bitmap",
+        "type"
+      ]
+    },
+    "color.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        {
+          "description": "CSS style color specification: one or two hexadecimal digits per color component, with the alpha component optional.",
+          "type": "string",
+          "pattern": "#([0-9a-fA-F]{3,4})|([0-9a-fA-F]{6}([0-9a-fA-F]{2})?)"
+        },
+        {
+          "description": "Color specified as an object with required \u0027r\u0027, \u0027g\u0027, \u0027b\u0027 fields, and optional \u0027a\u0027 field",
+          "type": "object",
+          "properties": {
+            "r": {
+              "$ref": "#/definitions/scalar.json"
+            },
+            "g": {
+              "$ref": "#/definitions/scalar.json"
+            },
+            "b": {
+              "$ref": "#/definitions/scalar.json"
+            },
+            "a": {
+              "$ref": "#/definitions/scalar.json"
+            }
+          },
+          "required": [
+            "r",
+            "g",
+            "b"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "description": "Color specified as an array of floating point values; minimum of 3 for \u0027r\u0027, \u0027g\u0027, \u0027b\u0027, optional 4th for \u0027a\u0027",
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/definitions/scalar.json"
+          }
+        },
+        {
+          "description": "Color specified using Android Color constant names",
+          "type": "string",
+          "pattern": "BLACK|BLUE|CYAN|DKGRAY|GRAY|GREEN|LTGRAY|MAGENTA|RED|TRANSPARENT|WHITE|YELLOW"
+        }
+      ]
+    },
+    "scalar.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  }
+}

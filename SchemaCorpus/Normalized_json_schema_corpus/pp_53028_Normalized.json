@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Object schema",
+  "description": "Description of a physical object that is involved in a step. This can be a tool, a part or the result of a step.",
+  "type": "object",
+  "properties": {
+    "obj_id": {
+      "$ref": "#/definitions/common.json_obj_id"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the object"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the object",
+      "default": ""
+    },
+    "images": {
+      "type": "array",
+      "description": "A list of ImageReferences",
+      "items": {
+        "$ref": "#/definitions/references.json_img_ref"
+      },
+      "default": []
+    }
+  },
+  "required": [
+    "obj_id",
+    "name"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "common.json_obj_id": {
+      "type": "string",
+      "title": "Object ID",
+      "description": "ID of an object",
+      "pattern": "^[a-zA-Z0-9_-]*$"
+    },
+    "references.json_img_ref": {
+      "type": "object",
+      "title": "Image Reference",
+      "description": "Description of a reference to an image",
+      "properties": {
+        "blob_id": {
+          "$ref": "#/definitions/common.json_blob_id"
+        },
+        "sourcefiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/references.json_source_file_ref"
+          },
+          "default": []
+        },
+        "extension": {
+          "type": "string",
+          "description": "Extension of the image file."
+        },
+        "alt": {
+          "type": "string",
+          "description": "Alternative description of the image."
+        }
+      },
+      "required": [
+        "blob_id",
+        "extension",
+        "alt"
+      ],
+      "additionalProperties": false
+    },
+    "common.json_blob_id": {
+      "type": "string",
+      "title": "Blob ID",
+      "description": "ID of a blob",
+      "pattern": "^[a-zA-Z0-9_-]*$"
+    },
+    "references.json_source_file_ref": {
+      "type": "object",
+      "title": "Source File Reference",
+      "description": "Reference to a file from which others are generated.",
+      "properties": {
+        "blob_id": {
+          "$ref": "#/definitions/common.json_blob_id"
+        },
+        "filename": {
+          "type": "string",
+          "description": "Filename of the file"
+        }
+      },
+      "required": [
+        "blob_id",
+        "filename"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

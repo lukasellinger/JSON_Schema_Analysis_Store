@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "oneTimeCharge",
+  "id": "oneTimeCharge",
+  "description": "An one-time charge is levied once. An example is an activation fee.",
+  "type": "object",
+  "required": [
+    "objectType",
+    "price"
+  ],
+  "properties": {
+    "objectType": {
+      "type": "string",
+      "enum": [
+        "oneTimeCharge"
+      ],
+      "description": "The type of the object, oneTimeCharge."
+    },
+    "name": {
+      "type": "string",
+      "enum": [
+        "CONSTRUCTION",
+        "SERVICE",
+        "EQUIPMENT",
+        "FEATURE"
+      ],
+      "description": "The name the One-Time Charge is known by (e.g., Activation Fee)."
+    },
+    "price": {
+      "$ref": "#/definitions/money",
+      "description": "The amount of money that characterizes the price."
+    }
+  },
+  "definitions": {
+    "money": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "money",
+      "description": "A base / value business entity used to represent money.",
+      "type": "object",
+      "required": [
+        "amount"
+      ],
+      "properties": {
+        "amount": {
+          "type": "string",
+          "description": "A floating point number representing the money amount."
+        },
+        "units": {
+          "type": "string",
+          "description": "Currency of the money amount."
+        }
+      }
+    }
+  }
+}

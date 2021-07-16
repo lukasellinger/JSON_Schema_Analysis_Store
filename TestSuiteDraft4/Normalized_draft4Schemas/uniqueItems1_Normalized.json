@@ -1,0 +1,11 @@
+{
+  "uniqueItems": true,
+  "items": [
+    {
+      "type": "boolean"
+    },
+    {
+      "type": "boolean"
+    }
+  ]
+}

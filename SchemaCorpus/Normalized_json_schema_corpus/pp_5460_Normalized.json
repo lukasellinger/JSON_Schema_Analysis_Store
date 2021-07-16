@@ -1,0 +1,796 @@
+{
+  "$schema": "http://interagent.github.io/interagent-hyper-schema",
+  "type": [
+    "object"
+  ],
+  "definitions": {
+    "infection": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Infection",
+      "description": "Infection reports of survivors, when a survivor is reported as infected 3 times, he/she is considered a zombie and therefore cannot trade or interact anymore.",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of infection",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "survivor_id": {
+          "description": "unique identifier of item owner",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "reporter_id": {
+          "description": "unique identifier of item owner",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/definitions_infection_definitions_id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when item was created",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when item was updated",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Report another survivor as infected, only works when logged.",
+          "href": "/infections/{(%23%2Fdefinitions%2Finfection%2Fdefinitions%2Fidentity)}",
+          "method": "POST",
+          "rel": "self",
+          "title": "Create"
+        }
+      ],
+      "properties": {
+        "created_at": {
+          "$ref": "#/definitions/definitions_infection_definitions_created_at"
+        },
+        "id": {
+          "$ref": "#/definitions/definitions_infection_definitions_id"
+        },
+        "reporter_id": {
+          "$ref": "#/definitions/definitions_infection_definitions_reporter_id"
+        },
+        "survivor_id": {
+          "$ref": "#/definitions/definitions_infection_definitions_survivor_id"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/definitions_infection_definitions_updated_at"
+        }
+      }
+    },
+    "item": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Item",
+      "description": "Items - Water, food, medicataion or ammunition of a survivor",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of item",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "name": {
+          "description": "unique name of item",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "item_value": {
+          "description": "value of item",
+          "readOnly": true,
+          "type": [
+            "number"
+          ]
+        },
+        "survivor_id": {
+          "description": "unique identifier of item owner",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/definitions_item_definitions_id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when item was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when item was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing item.",
+          "href": "/items/{(%23%2Fdefinitions%2Fitem%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        }
+      ],
+      "properties": {
+        "created_at": {
+          "$ref": "#/definitions/definitions_item_definitions_created_at"
+        },
+        "id": {
+          "$ref": "#/definitions/definitions_item_definitions_id"
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_item_definitions_name"
+        },
+        "item_value": {
+          "$ref": "#/definitions/definitions_item_definitions_item_value"
+        },
+        "survivor_id": {
+          "$ref": "#/definitions/definitions_item_definitions_survivor_id"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/definitions_item_definitions_updated_at"
+        }
+      }
+    },
+    "survivor": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Survivor",
+      "description": "User of the system, surviving on the zombie-crawled wasteland. When with pending trades to accept or review a pending_trade HTTP header will be attached to all requests",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of survivor",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "name": {
+          "description": "unique name of survivor",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "age": {
+          "description": "age of survivor",
+          "readOnly": false,
+          "type": [
+            "integer"
+          ]
+        },
+        "gender": {
+          "description": "gender of survivor",
+          "readOnly": false,
+          "type": [
+            "string"
+          ]
+        },
+        "infections": {
+          "description": "infections of survivor",
+          "readOnly": false,
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "items": {
+          "description": "items of survivor",
+          "readOnly": true,
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "lat": {
+          "description": "latitude of survivor",
+          "readOnly": false,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "lng": {
+          "description": "longitude of survivor",
+          "readOnly": false,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/definitions_survivor_definitions_id"
+            },
+            {
+              "$ref": "#/definitions/definitions_survivor_definitions_name"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when survivor was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when survivor was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Create a new survivor.",
+          "href": "/survivors",
+          "method": "POST",
+          "rel": "create",
+          "schema": {
+            "properties": {},
+            "type": [
+              "null",
+              "object"
+            ]
+          },
+          "title": "Create"
+        },
+        {
+          "description": "Delete an existing survivor.",
+          "href": "/survivors/{(%23%2Fdefinitions%2Fsurvivor%2Fdefinitions%2Fidentity)}",
+          "method": "DELETE",
+          "rel": "destroy",
+          "title": "Delete"
+        },
+        {
+          "description": "Info for existing survivor.",
+          "href": "/survivors/{(%23%2Fdefinitions%2Fsurvivor%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing survivors.",
+          "href": "/survivors",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        },
+        {
+          "description": "Receives reports of population status, including - healthy percentage, infected percentage, and totals",
+          "href": "/reports/status",
+          "method": "GET",
+          "rel": "reports",
+          "title": "Survivors status"
+        },
+        {
+          "description": "Receives reports of items status, including - Average amount of each kind of resource by survivor (e.g. 5 waters per user) and Points lost because of infected survivor. et. al.\",",
+          "href": "/reports/items",
+          "method": "GET",
+          "rel": "items report",
+          "title": "Items status"
+        },
+        {
+          "description": "Update an existing survivor.",
+          "href": "/survivors/{(%23%2Fdefinitions%2Fsurvivor%2Fdefinitions%2Fidentity)}",
+          "method": "PATCH",
+          "rel": "update",
+          "schema": {
+            "properties": {},
+            "type": [
+              "null",
+              "object"
+            ]
+          },
+          "title": "Update"
+        }
+      ],
+      "properties": {
+        "created_at": {
+          "$ref": "#/definitions/definitions_survivor_definitions_created_at"
+        },
+        "id": {
+          "$ref": "#/definitions/definitions_survivor_definitions_id"
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_survivor_definitions_name"
+        },
+        "age": {
+          "$ref": "#/definitions/definitions_survivor_definitions_age"
+        },
+        "gender": {
+          "$ref": "#/definitions/definitions_survivor_definitions_gender"
+        },
+        "infections": {
+          "$ref": "#/definitions/definitions_survivor_definitions_infections"
+        },
+        "items": {
+          "$ref": "#/definitions/definitions_survivor_definitions_items"
+        },
+        "lat": {
+          "$ref": "#/definitions/definitions_survivor_definitions_lat"
+        },
+        "lng": {
+          "$ref": "#/definitions/definitions_survivor_definitions_lng"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/definitions_survivor_definitions_updated_at"
+        }
+      }
+    },
+    "trade": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Trade",
+      "description": "Represents the transaction of items between survivors, while a survivor has a trade that hasn\u0027t been marked as :accepted and :reviewed it will receive all logged on requests marked with a \u0027pending_trade\u0027 HTTP header, which contains the trade\u0027s information as JSON",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of trade",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "from_items": {
+          "description": "items from the origin of transaction, represented by \u0027items\u0027 array of JSON Item objects",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "to": {
+          "description": "survivor recipient of the trade, will be warned of pending trade through pending_trade HTTP header on every logged request, until it is marked as :accepted and :reviewed",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "to_items": {
+          "description": "items added to trade with :from_items :owner, represented by \u0027items\u0027 array of JSON Item objects. It\u0027s owner will be warned of pending trade through pending_trade HTTP header on every logged request, until it is marked as :accepted and :reviewed",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "accepted": {
+          "description": "boolean to indicate acceptance of trade by :to recipient",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "reviewed": {
+          "description": "boolean to indicate review of trade by \u0027from\u0027 recipient and, after value is set to true it\u0027s items are exchanged",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/definitions_trade_definitions_id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when trade was created",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when trade was updated",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Create a new trade, at this point, only the attributes :to and :from_items must to be passed. After it\u0027s creation both users will receive all responses marked with pending_trade HHTP header, containing the data for this trade, until marked as :accepted and :reviewed.",
+          "href": "/trades",
+          "method": "POST",
+          "rel": "create",
+          "schema": {
+            "properties": {
+              "to": {
+                "$ref": "#/definitions/definitions_trade_definitions_to"
+              },
+              "from_items": {
+                "$ref": "#/definitions/definitions_trade_definitions_from_items"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "title": "Create"
+        },
+        {
+          "description": "Info for existing trade.",
+          "href": "/trades/{(%23%2Fdefinitions%2Ftrade%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing trades.",
+          "href": "/trades",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        },
+        {
+          "description": "Delete an existing trade, only possible if logged survivor is one the :to or :from_items survivors and if trade isn\u0027t accepted and reviewed.",
+          "href": "/trades/{(%23%2Fdefinitions%2Ftrade%2Fdefinitions%2Fidentity)}",
+          "method": "DELETE",
+          "rel": "destroy",
+          "title": "Delete"
+        },
+        {
+          "description": "Update an existing trade, at this point there are 2 options for trade update 1 - The :to survivor is replying with :accepted and :to_items 2 - The survivor that owns :from_survivor is replying with :reviewed, so that the trade can be completed",
+          "href": "/trades/{(%23%2Fdefinitions%2Ftrade%2Fdefinitions%2Fidentity)}",
+          "method": "PATCH",
+          "rel": "update",
+          "schema": {
+            "properties": {
+              "accepted": {
+                "$ref": "#/definitions/definitions_trade_definitions_accepted"
+              },
+              "reviewed": {
+                "$ref": "#/definitions/definitions_trade_definitions_reviewed"
+              },
+              "to_items": {
+                "$ref": "#/definitions/definitions_trade_definitions_to_items"
+              },
+              "to": {
+                "$ref": "#/definitions/definitions_trade_definitions_to"
+              },
+              "from_items": {
+                "$ref": "#/definitions/definitions_trade_definitions_from_items"
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "title": "Update"
+        }
+      ],
+      "properties": {
+        "created_at": {
+          "$ref": "#/definitions/definitions_trade_definitions_created_at"
+        },
+        "id": {
+          "$ref": "#/definitions/definitions_trade_definitions_id"
+        },
+        "accepted": {
+          "$ref": "#/definitions/definitions_trade_definitions_accepted"
+        },
+        "reviewed": {
+          "$ref": "#/definitions/definitions_trade_definitions_reviewed"
+        },
+        "to_items": {
+          "$ref": "#/definitions/definitions_trade_definitions_to_items"
+        },
+        "to": {
+          "$ref": "#/definitions/definitions_trade_definitions_to"
+        },
+        "from_items": {
+          "$ref": "#/definitions/definitions_trade_definitions_from_items"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/definitions_trade_definitions_updated_at"
+        }
+      }
+    },
+    "definitions_infection_definitions_id": {
+      "description": "unique identifier of infection",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_infection_definitions_created_at": {
+      "description": "when item was created",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_infection_definitions_reporter_id": {
+      "description": "unique identifier of item owner",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_infection_definitions_survivor_id": {
+      "description": "unique identifier of item owner",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_infection_definitions_updated_at": {
+      "description": "when item was updated",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_item_definitions_id": {
+      "description": "unique identifier of item",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_item_definitions_created_at": {
+      "description": "when item was created",
+      "format": "date-time",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_item_definitions_name": {
+      "description": "unique name of item",
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_item_definitions_item_value": {
+      "description": "value of item",
+      "readOnly": true,
+      "type": [
+        "number"
+      ]
+    },
+    "definitions_item_definitions_survivor_id": {
+      "description": "unique identifier of item owner",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_item_definitions_updated_at": {
+      "description": "when item was updated",
+      "format": "date-time",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_survivor_definitions_id": {
+      "description": "unique identifier of survivor",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_survivor_definitions_name": {
+      "description": "unique name of survivor",
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_survivor_definitions_created_at": {
+      "description": "when survivor was created",
+      "format": "date-time",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_survivor_definitions_age": {
+      "description": "age of survivor",
+      "readOnly": false,
+      "type": [
+        "integer"
+      ]
+    },
+    "definitions_survivor_definitions_gender": {
+      "description": "gender of survivor",
+      "readOnly": false,
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_survivor_definitions_infections": {
+      "description": "infections of survivor",
+      "readOnly": false,
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "definitions_survivor_definitions_items": {
+      "description": "items of survivor",
+      "readOnly": true,
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "definitions_survivor_definitions_lat": {
+      "description": "latitude of survivor",
+      "readOnly": false,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "definitions_survivor_definitions_lng": {
+      "description": "longitude of survivor",
+      "readOnly": false,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "definitions_survivor_definitions_updated_at": {
+      "description": "when survivor was updated",
+      "format": "date-time",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_trade_definitions_id": {
+      "description": "unique identifier of trade",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_trade_definitions_to": {
+      "description": "survivor recipient of the trade, will be warned of pending trade through pending_trade HTTP header on every logged request, until it is marked as :accepted and :reviewed",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_trade_definitions_from_items": {
+      "description": "items from the origin of transaction, represented by \u0027items\u0027 array of JSON Item objects",
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_trade_definitions_accepted": {
+      "description": "boolean to indicate acceptance of trade by :to recipient",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "definitions_trade_definitions_reviewed": {
+      "description": "boolean to indicate review of trade by \u0027from\u0027 recipient and, after value is set to true it\u0027s items are exchanged",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "definitions_trade_definitions_to_items": {
+      "description": "items added to trade with :from_items :owner, represented by \u0027items\u0027 array of JSON Item objects. It\u0027s owner will be warned of pending trade through pending_trade HTTP header on every logged request, until it is marked as :accepted and :reviewed",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "definitions_trade_definitions_created_at": {
+      "description": "when trade was created",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_trade_definitions_updated_at": {
+      "description": "when trade was updated",
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "properties": {
+    "infection": {
+      "$ref": "#/definitions/infection"
+    },
+    "item": {
+      "$ref": "#/definitions/item"
+    },
+    "survivor": {
+      "$ref": "#/definitions/survivor"
+    },
+    "trade": {
+      "$ref": "#/definitions/trade"
+    }
+  },
+  "description": "Social-zombie is a system to share resources between non-infected humans via API.",
+  "id": "social-zombie",
+  "links": [
+    {
+      "href": "https://github.com/ErvlahouS/social-zombie",
+      "rel": "self"
+    }
+  ],
+  "title": "Social-Zombie"
+}

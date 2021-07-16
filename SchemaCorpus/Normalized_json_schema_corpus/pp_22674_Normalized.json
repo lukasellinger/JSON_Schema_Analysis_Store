@@ -1,0 +1,445 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.fullcontact.pojo.CompanyDetails",
+  "properties": {
+    "entity": {
+      "type": "object",
+      "javaType": "org.apache.streams.fullcontact.pojo.CompanyEntity",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "founded": {
+          "type": "integer"
+        },
+        "employees": {
+          "type": "integer"
+        }
+      }
+    },
+    "locales": {
+      "type": "array",
+      "items": {
+        "javaType": "org.apache.streams.fullcontact.pojo.CompanyLocale",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "javaType": "org.apache.streams.fullcontact.pojo.CompanyCategory",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "industries": {
+      "type": "array",
+      "items": {
+        "javaType": "org.apache.streams.fullcontact.pojo.CompanyIndustry",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "emails": {
+      "type": "array",
+      "items": {
+        "javaType": "org.apache.streams.fullcontact.pojo.CompanyEmail",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "locations": {
+      "type": "array",
+      "items": {
+        "javaType": "org.apache.streams.fullcontact.pojo.CompanyLocation",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "addressLine1": {
+            "type": "string"
+          },
+          "addressLine2": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "regionCode": {
+            "type": "string"
+          },
+          "postalCode": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "formatted": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "keyPeople": {
+      "type": "array",
+      "description": "The Key People Data Add-on will return a list of influential individuals within an organization, including their full name, title, and an accompanying photo or avatar.",
+      "items": {
+        "type": "object",
+        "javaType": "org.apache.streams.fullcontact.pojo.CompanyKeyPerson",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "description": "The full name of the person."
+          },
+          "title": {
+            "type": "string",
+            "description": "The job title of the person."
+          },
+          "avatar": {
+            "type": "string",
+            "description": "A URL to a photo or avatar of the person."
+          }
+        }
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "javaType": "org.apache.streams.fullcontact.pojo.CompanyImage",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "phones": {
+      "type": "array",
+      "items": {
+        "javaType": "org.apache.streams.fullcontact.pojo.CompanyPhone",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "profiles": {
+      "$ref": "#/definitions/SocialProfiles.json"
+    },
+    "traffic": {
+      "type": "object",
+      "javaType": "org.apache.streams.fullcontact.pojo.CompanyTraffic",
+      "properties": {
+        "countryRank": {
+          "type": "object",
+          "javaType": "org.apache.streams.fullcontact.pojo.CompanyTrafficCountryRank",
+          "additionalProperties": {
+            "$ref": "#/definitions/CompanyTrafficRank.json"
+          }
+        },
+        "localeRank": {
+          "type": "object",
+          "javaType": "org.apache.streams.fullcontact.pojo.CompanyTrafficLocaleRank",
+          "additionalProperties": {
+            "javaType": "org.apache.streams.fullcontact.pojo.CompanyTrafficRank"
+          }
+        }
+      }
+    },
+    "urls": {
+      "type": "array",
+      "items": {
+        "javaType": "org.apache.streams.fullcontact.pojo.CompanyURL",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SocialProfiles.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.SocialProfiles",
+      "description": "The All Social Profiles Data Add-on enables API consumers to retrieve a list of all known social profiles of a given contact, returning data for each social platform such as any applicable usernames/handles, the URL of the platform, any bio that the user supplied, and more.",
+      "properties": {
+        "aboutme": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "angellist": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "bandcamp": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "behance": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "blogger": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "crunchbase": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "delicious": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "deviantart": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "dribbble": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "facebook": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "facebookpage": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "flavorsme": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "flickr": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "foursquare": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "getsatisfaction": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "github": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "goodreads": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "google": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "googleplus": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "gravatar": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "hackernews": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "hiim": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "identica": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "instagram": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "intensedebate": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "keybase": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "klout": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "lastfm": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "linkedin": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "livejournal": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "medium": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "myspace": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "pandora": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "pinboard": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "pinterest": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "plancast": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "posterous": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "quora": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "reddit": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "reverbnation": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "scribd": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "slideshare": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "soundcloud": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "spotify": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "tripit": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "tumblr": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "twitter": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "vimeo": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "weibo": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "wordpress": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "yahoo": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "yelp": {
+          "$ref": "#/definitions/SocialProfile.json"
+        },
+        "youtube": {
+          "$ref": "#/definitions/SocialProfile.json"
+        }
+      }
+    },
+    "SocialProfile.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.SocialProfile",
+      "properties": {
+        "bio": {
+          "type": "string",
+          "description": "Bio of the profile form the social platform."
+        },
+        "followers": {
+          "type": "integer",
+          "description": "Number of follows of the profile, if applicable."
+        },
+        "following": {
+          "type": "integer",
+          "description": "Number of profiles or topics the user is following, if applicable."
+        },
+        "score": {
+          "type": "integer",
+          "description": "Only present on klout profiles."
+        },
+        "service": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to the profile on the social platform."
+        },
+        "userid": {
+          "type": "string",
+          "description": "User ID associated with the profile."
+        },
+        "username": {
+          "type": "string",
+          "description": "Displayable username of the profile."
+        }
+      }
+    },
+    "CompanyTrafficRank.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.pojo.CompanyTrafficRank",
+      "properties": {
+        "rank": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

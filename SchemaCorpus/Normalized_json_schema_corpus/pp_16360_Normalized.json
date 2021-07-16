@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Computed Public Key Expression",
+  "type": "object",
+  "properties": {
+    "computed_pub_key": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/vault_contents.schema.json"
+        },
+        {
+          "$ref": "#/definitions/external_input.schema.json"
+        }
+      ]
+    }
+  },
+  "required": [
+    "computed_pub_key"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "vault_contents.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Vault Tree Vault Contents Expression",
+      "type": "object",
+      "properties": {
+        "vault_contents": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "vault_contents"
+      ],
+      "additionalProperties": false
+    },
+    "external_input.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Vault Tree External Input Expression",
+      "type": "object",
+      "properties": {
+        "external_input": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "external_input"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

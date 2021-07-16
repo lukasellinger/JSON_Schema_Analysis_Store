@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\group.json_definitions_group-input"
+    }
+  ],
+  "required": [
+    "_id"
+  ],
+  "example": {
+    "label": "Example Group",
+    "_id": "example_group"
+  },
+  "definitions": {
+    "..\\definitions\\group.json_definitions_group-input": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_string-id"
+        },
+        "label": {
+          "$ref": "#/definitions/..\\definitions\\group.json_definitions_label"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "group"
+    },
+    "..\\definitions\\common.json_definitions_string-id": {
+      "type": "string",
+      "maxLength": 64,
+      "minLength": 2,
+      "pattern": "^[0-9a-z][0-9a-z.@_-]{0,30}[0-9a-z]$"
+    },
+    "..\\definitions\\group.json_definitions_label": {
+      "maxLength": 64,
+      "minLength": 1,
+      "pattern": "^[0-9A-Za-z][0-9A-Za-z .@_-]{0,30}[0-9A-Za-z]$",
+      "title": "label",
+      "type": "string"
+    }
+  }
+}

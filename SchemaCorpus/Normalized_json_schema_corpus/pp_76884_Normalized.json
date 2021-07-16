@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema#",
+  "title": "label array",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/label.json"
+  },
+  "definitions": {
+    "label.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "label",
+      "type": "object",
+      "properties": {
+        "labelPlacement": {
+          "title": "label placement",
+          "type": "string"
+        },
+        "labelExpression": {
+          "title": "label expression",
+          "type": "string"
+        },
+        "useCodedValues": {
+          "title": "use coded values",
+          "type": "boolean"
+        },
+        "symbol": {
+          "$ref": "#/definitions/ts.json"
+        },
+        "minScale": {
+          "title": "minimum scale",
+          "type": "number"
+        },
+        "maxScale": {
+          "title": "maximum scale",
+          "type": "number"
+        }
+      }
+    },
+    "ts.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "text symbol",
+      "type": "object",
+      "extends": {
+        "$ref": "#/definitions/http:__schemas.opengis.net_gsr_1.0_marker.json"
+      },
+      "properties": {
+        "type": {
+          "title": "marker type",
+          "type": "string",
+          "required": true,
+          "enum": [
+            "TS"
+          ]
+        },
+        "color": {
+          "$ref": "#/definitions/http:__schemas.opengis.net_gsr_1.0_color.json"
+        },
+        "backgroundColor": {
+          "$ref": "#/definitions/http:__schemas.opengis.net_gsr_1.0_color.json"
+        },
+        "borderLineColor": {
+          "$ref": "#/definitions/http:__schemas.opengis.net_gsr_1.0_color.json"
+        },
+        "verticalAlignment": {
+          "title": "vertical alignment",
+          "description": "value should be baseline, top, middle, bottom",
+          "type": "string"
+        },
+        "horizontalAlignment": {
+          "title": "horizontal alignment",
+          "description": "value should be left, right, center, justify",
+          "type": "string"
+        },
+        "rightToLeft": {
+          "title": "right to left",
+          "type": "boolean"
+        },
+        "angle": {
+          "title": "angle",
+          "type": "number"
+        },
+        "xoffset": {
+          "title": "angle",
+          "type": "number"
+        },
+        "yoffset": {
+          "title": "angle",
+          "type": "number"
+        },
+        "kerning": {
+          "title": "kerning",
+          "type": "boolean"
+        },
+        "font": {
+          "title": "font",
+          "$ref": "#/definitions/http:__schemas.opengis.net_gsr_1.0_font.json"
+        }
+      }
+    },
+    "http:__schemas.opengis.net_gsr_1.0_marker.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "marker",
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "marker type",
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "http:__schemas.opengis.net_gsr_1.0_color.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "domain",
+      "type": [
+        "null",
+        "array"
+      ],
+      "minItems": 4,
+      "maxItems": 4,
+      "description": "[ \u003cred\u003e, \u003cgreen\u003e, \u003cblue\u003e, \u003calpha\u003e ]",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      }
+    },
+    "http:__schemas.opengis.net_gsr_1.0_font.json": {
+      "$schema": "http://json-schema.org/draft-03/schema#",
+      "title": "domain",
+      "type": "object",
+      "properties": {
+        "family": {
+          "title": "font family",
+          "type": "string",
+          "required": true
+        },
+        "size": {
+          "title": "font size",
+          "type": "number",
+          "required": true
+        },
+        "style": {
+          "title": "font style",
+          "description": "value SHOULD be italic, normal, oblique",
+          "type": "string",
+          "default": "normal"
+        },
+        "weight": {
+          "title": "font style",
+          "description": "value SHOULD be bold, border, lighter, normal",
+          "type": "string",
+          "default": "normal"
+        },
+        "decoration": {
+          "title": "font style",
+          "description": "value SHOULD be line-through, underline, none",
+          "type": "string",
+          "default": "none"
+        }
+      }
+    }
+  }
+}

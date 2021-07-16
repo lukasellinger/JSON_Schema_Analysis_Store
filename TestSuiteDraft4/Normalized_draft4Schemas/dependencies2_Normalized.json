@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "bar": {
+      "properties": {
+        "bar": {
+          "type": "integer"
+        },
+        "foo": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

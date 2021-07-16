@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "flavor": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "vcpus": {
+          "type": "integer"
+        },
+        "ram": {
+          "type": "integer"
+        },
+        "disk": {
+          "type": "integer"
+        },
+        "swap": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "vcpus",
+        "ram",
+        "disk",
+        "swap"
+      ]
+    }
+  },
+  "required": [
+    "flavor"
+  ]
+}

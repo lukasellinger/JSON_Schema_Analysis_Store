@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "#/vox/shop/product",
+  "type": "object",
+  "title": "Product Definition Schema",
+  "properties": {
+    "cash": {
+      "$ref": "#/definitions/product.json_definitions_cash"
+    }
+  },
+  "required": [
+    "cash"
+  ],
+  "definitions": {
+    "product.json_definitions_cash": {
+      "type": "object",
+      "title": "cash amount",
+      "properties": {
+        "currency": {
+          "$ref": "#/definitions/product.json_definitions_currency",
+          "title": "price currency"
+        },
+        "cost": {
+          "title": "cost for specified amount",
+          "type": "number"
+        }
+      },
+      "required": [
+        "currency",
+        "cost"
+      ]
+    },
+    "product.json_definitions_currency": {
+      "type": "string",
+      "title": "3 letter currency code",
+      "pattern": "^[A-Z]{3}$"
+    }
+  }
+}

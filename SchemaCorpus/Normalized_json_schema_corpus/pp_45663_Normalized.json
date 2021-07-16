@@ -1,0 +1,75 @@
+{
+  "type": "object",
+  "properties": {
+    "meta": {
+      "$ref": "#/definitions/_definitions.json_definitions_metaInfo"
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/_definitions.json_definitions_error"
+      }
+    }
+  },
+  "required": [
+    "meta",
+    "errors"
+  ],
+  "$schema": "http://json-schema.org/schema#",
+  "definitions": {
+    "_definitions.json_definitions_metaInfo": {
+      "type": "object",
+      "properties": {
+        "docs": {
+          "type": "string",
+          "description": "Location of the public documentation."
+        },
+        "homepage": {
+          "type": "string",
+          "description": "Server homepage."
+        },
+        "openapi": {
+          "type": "string",
+          "description": "OpenAPI specification."
+        },
+        "version": {
+          "type": "string",
+          "description": "Server version."
+        }
+      },
+      "required": [
+        "docs",
+        "homepage",
+        "openapi",
+        "version"
+      ]
+    },
+    "_definitions.json_definitions_error": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "HTTP status code."
+        },
+        "statusString": {
+          "type": "string",
+          "description": "HTTP status as text string."
+        },
+        "module": {
+          "type": "string",
+          "description": "Location of error."
+        },
+        "title": {
+          "type": "string",
+          "description": "Message describing the error."
+        }
+      },
+      "required": [
+        "status",
+        "statusString",
+        "module",
+        "title"
+      ]
+    }
+  }
+}

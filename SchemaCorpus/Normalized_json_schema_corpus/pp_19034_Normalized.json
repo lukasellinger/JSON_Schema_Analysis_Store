@@ -1,0 +1,3647 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "medium.json#",
+  "type": "object",
+  "title": "medium",
+  "description": "Information about offline media on which the resource can be stored or distributed.",
+  "example": "../examples/medium.json",
+  "additionalProperties": true,
+  "properties": {
+    "mediumSpecification": {
+      "$ref": "#/definitions/citation.json",
+      "description": "Name of the formaton which the resource may be stored",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_Medium \u003e name [MD_MediumNameCode]"
+        ],
+        "FGDC CSDGM": [
+          "distinfo \u003e stdorder \u003e digform \u003e digtopt \u003e offoptn \u003e offmedia"
+        ]
+      }
+    },
+    "density": {
+      "type": "number",
+      "description": "Density at which the data are recorded."
+    },
+    "units": {
+      "type": "string",
+      "description": "Units of measure for the recording density."
+    },
+    "numberOfVolumes": {
+      "type": "integer",
+      "description": "The number of items identified in the media resource.",
+      "translation": {}
+    },
+    "mediumFormat": {
+      "type": "array",
+      "description": "Method used by the resource provider to write to the medium, such as: tar, iso9660, etc.",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_Medium \u003e mediumFormat [MD_MediumFormatCode]"
+        ],
+        "FGDC CSDGM": [
+          "distinfo \u003e stdorder \u003e digform \u003e digtopt \u003e offoptn \u003e recfmt"
+        ]
+      },
+      "items": {
+        "type": "string"
+      }
+    },
+    "note": {
+      "type": "string",
+      "description": "Description of other limitations or requirements for using the medium.",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_Medium \u003e mediumNote"
+        ],
+        "FGDC CSDGM": [
+          "distinfo \u003e stdorder \u003e digform \u003e digtopt \u003e offoptn \u003e compat"
+        ]
+      }
+    },
+    "identifier": {
+      "$ref": "#/definitions/identifier.json",
+      "description": "Unique identifier for the medium."
+    }
+  },
+  "definitions": {
+    "citation.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "citation",
+      "description": "A citation object.",
+      "required": [
+        "title"
+      ],
+      "example": "../examples/citation.json",
+      "translation": {
+        "FGDC CSDGM": [
+          "idinfo \u003e citation \u003e citeinfo"
+        ],
+        "ISO 19115-2": [
+          "CI_Citation"
+        ]
+      },
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Name by which the cited resource is known.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_Citation \u003e title",
+              "FC_FeatureCatalogue \u003e name"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e citation \u003e citeinfo \u003e title"
+            ]
+          }
+        },
+        "alternateTitle": {
+          "type": "array",
+          "description": "Alias by which the cited resource is known.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_Citation \u003e alternateTitle"
+            ]
+          },
+          "items": {
+            "type": "string"
+          }
+        },
+        "date": {
+          "type": "array",
+          "description": "Date referenced to the cited resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_Citation \u003e date \u003e CI_Date"
+            ]
+          },
+          "items": {
+            "$ref": "#/definitions/common.json_definitions_dateObject"
+          }
+        },
+        "edition": {
+          "type": "string",
+          "description": "Version identifier for the resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_Citation \u003e edition",
+              "FC_FeatureCatalogue \u003e versionNumber"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e citation \u003e edition"
+            ]
+          }
+        },
+        "responsibleParty": {
+          "type": "array",
+          "description": "Identification of, and means of communication with, person(s) and organization(s) associated with the cited resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_Citation \u003e citedResponsibleParty \u003e CI_ResponsibleParty",
+              "FC_FeatureCatalogue \u003e producer \u003e CI_ResponisbleParty"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e ptcontac \u003e cntinfo"
+            ]
+          },
+          "items": {
+            "$ref": "#/definitions/responsibility.json"
+          }
+        },
+        "presentationForm": {
+          "type": "array",
+          "description": "The form that the resource is presented, such as: digital map, digital document, etc.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_Citation \u003e presentationForm [CI_PresentationFormCode]"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e citation \u003e geoform"
+            ]
+          },
+          "items": {
+            "type": "string"
+          }
+        },
+        "identifier": {
+          "type": "array",
+          "description": "Identifier for the resource in the context of the citation.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_Citation \u003e identifier"
+            ]
+          },
+          "items": {
+            "$ref": "#/definitions/identifier.json"
+          }
+        },
+        "series": {
+          "$ref": "#/definitions/citation.json_definitions_series"
+        },
+        "otherCitationDetails": {
+          "type": "array",
+          "description": "Other information required to complete the citation that is not recorded elsewhere.",
+          "translation": {},
+          "items": {
+            "type": "string"
+          }
+        },
+        "onlineResource": {
+          "type": "array",
+          "description": "On-line information related to the citation.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_Citation \u003e citedResponsibleParty \u003e CI_ResponsibleParty \u003e contact \u003e CI_Contact \u003e onlineResource \u003e CI_OnlineResource"
+            ]
+          },
+          "items": {
+            "$ref": "#/definitions/onlineResource.json"
+          }
+        },
+        "graphic": {
+          "type": "array",
+          "description": "Online graphic associated with the citation",
+          "translation": {},
+          "items": {
+            "$ref": "#/definitions/graphic.json"
+          }
+        }
+      },
+      "definitions": {
+        "series": {
+          "type": "object",
+          "title": "series",
+          "description": "Information about the series, or aggregate resource, to which a resource belongs.",
+          "example": "../series.json",
+          "translation": {},
+          "additionalProperties": true,
+          "properties": {
+            "seriesName": {
+              "type": "string"
+            },
+            "seriesIssue": {
+              "type": "string"
+            },
+            "issuePage": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "common.json_definitions_dateObject": {
+      "type": "object",
+      "description": "An ISO 8601 date/timestamp and type.",
+      "example": "../examples/dateObject.json",
+      "required": [
+        "date",
+        "dateType"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "date": {
+          "$ref": "#/definitions/common.json_definitions_date"
+        },
+        "dateType": {
+          "type": "string",
+          "description": "The type of date.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_Date \u003e dateType [CI_DateTypeCode]"
+            ]
+          },
+          "codelist": "iso_dateType",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "description": "Supplemental information describing the date context."
+        }
+      }
+    },
+    "common.json_definitions_date": {
+      "type": "string",
+      "description": "An ISO 8601 date/timestamp.",
+      "example": "../examples/date.json",
+      "translation": {
+        "ISO 19115-2": [
+          "CI_Date \u003e date",
+          "FC_FeatureCatalogue \u003e versionDate"
+        ],
+        "FGDC CSDGM": [
+          "idinfo \u003e citation \u003e citeinfo \u003e pubdate"
+        ]
+      },
+      "pattern": "^(\\d{4}(-\\d{2})?(-\\d{2})?$)|(^\\d{4}-\\d{2}-\\d{2}(T\\d{2})?(\\:\\d{2}(\\:\\d{2}(\\.\\d+)?)?|Z)?(Z|(-|\\+)\\d{2}(:\\d{2})?)?$)"
+    },
+    "responsibility.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "Identifies contact role(s).",
+      "example": "../examples/responsibility.json",
+      "required": [
+        "role",
+        "party"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "role": {
+          "type": "string",
+          "description": "Function performed by the contact in the current context.",
+          "translation": {
+            "ISO 19115-2": [
+              "MI_Metadata \u003e Contact \u003e CI_Contact \u003e role [CI_RoleCode]"
+            ],
+            "FGDC CSDGM": [
+              "metainfo \u003e cntinfo \u003e cntpos"
+            ]
+          },
+          "minLength": 1
+        },
+        "roleExtent": {
+          "type": "array",
+          "description": "The area or period of time for which the role is valid.",
+          "translation": {},
+          "items": {
+            "$ref": "#/definitions/extent.json"
+          }
+        },
+        "party": {
+          "type": "array",
+          "description": "Identifies all the contacts associated with the role.",
+          "translation": {},
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/responsibility.json_definitions_party"
+          }
+        }
+      },
+      "definitions": {
+        "party": {
+          "type": "object",
+          "required": [
+            "contactId"
+          ],
+          "properties": {
+            "contactId": {
+              "type": "string",
+              "description": "Identifier matching a contactId in the main contact array."
+            },
+            "organizationMembers": {
+              "type": "array",
+              "description": "Identifies individuals that have an association with an organization contact.",
+              "translation": {},
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "extent.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "Information about the geographic, vertical, and temporal extent of a resource.",
+      "example": "../examples/extent.json",
+      "translation": {
+        "ISO 19115-2": [
+          "EX_Extent"
+        ]
+      },
+      "additionalProperties": true,
+      "anyOf": [
+        {
+          "title": "description is required",
+          "required": [
+            "description"
+          ]
+        },
+        {
+          "title": "geographicExtent is required",
+          "required": [
+            "geographicExtent"
+          ]
+        },
+        {
+          "title": "verticalExtent is required",
+          "required": [
+            "verticalExtent"
+          ]
+        },
+        {
+          "title": "temporalExtent is required",
+          "required": [
+            "temporalExtent"
+          ]
+        }
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of the extent.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e description"
+            ]
+          }
+        },
+        "geographicExtent": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geographicExtent.json"
+          }
+        },
+        "verticalExtent": {
+          "type": "array",
+          "description": "An array of objects each describing a vertical boundary comprising all or a portion of the resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e verticalElement \u003e EX_VerticalExtent "
+            ]
+          },
+          "items": {
+            "$ref": "#/definitions/verticalExtent.json"
+          }
+        },
+        "temporalExtent": {
+          "type": "array",
+          "description": "An array of objects each describing a temporal boundary comprising all or a portion of the resource.",
+          "items": {
+            "$ref": "#/definitions/temporalExtent.json"
+          }
+        }
+      }
+    },
+    "geographicExtent.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "Describes the spatial area of the resource",
+      "example": "../examples/geographicExtent.json",
+      "additionalProperties": true,
+      "properties": {
+        "containsData": {
+          "type": "boolean",
+          "description": "Idication of whether the geographic element encompasses an area covered by the data or an area where data are not present.",
+          "translation": {},
+          "default": true
+        },
+        "identifier": {
+          "$ref": "#/definitions/identifier.json",
+          "description": "Identifier representing a geographic area."
+        },
+        "boundingBox": {
+          "$ref": "#/definitions/geographicExtent.json_definitions_boundingBox",
+          "description": "General geographic position of the resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_GeographicBoundingBox"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding"
+            ]
+          }
+        },
+        "geographicElement": {
+          "type": "array",
+          "description": "An array of objects each describing a geographic boundary or location comprising all or a portion of the resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement"
+            ]
+          },
+          "items": {
+            "$ref": "#/definitions/geographicExtent.json_definitions_geographicElement"
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description of the geographic areal domain of the data set. Examples include, \"Manistee River watershed\", \"extent of 7 ½ minute quads containing any property belonging to Yellowstone National Park\", or \"ponds and reservoirs larger than 2 acres in Jefferson County, Colorado\".",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement \u003e EX_GeographicDescription \u003e geographicIdentifier \u003e MD_Identifier \u003e code"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e descgeog"
+            ]
+          }
+        }
+      },
+      "anyOf": [
+        {
+          "title": "identifier is required",
+          "required": [
+            "identifier"
+          ]
+        },
+        {
+          "title": "boundingBox is required",
+          "required": [
+            "boundingBox"
+          ]
+        },
+        {
+          "title": "geographicElement is required",
+          "required": [
+            "geographicElement"
+          ]
+        },
+        {
+          "title": "description is required",
+          "required": [
+            "description"
+          ]
+        }
+      ],
+      "definitions": {
+        "boundingBox": {
+          "type": "object",
+          "description": "The four sides of geodetic box defining the area of the resource",
+          "example": "../examples/boundingBox.json",
+          "required": [
+            "westLongitude",
+            "eastLongitude",
+            "southLatitude",
+            "northLatitude"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "westLongitude": {
+              "type": "number",
+              "description": "Western-most coordinate of the limit of the dataset extent expressed in longitude, in decimal degrees.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_GeographicBoundingBox \u003e westBoundLongitude"
+                ],
+                "FGDC CSDGM": [
+                  "idinfo \u003e spdom \u003e bounding \u003e westbc"
+                ]
+              }
+            },
+            "eastLongitude": {
+              "type": "number",
+              "description": "Eastern-most coordinate of the limit of the dataset extent expressed in longitude, in decimal degrees.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_GeographicBoundingBox \u003e eastBoundLongitude"
+                ],
+                "FGDC CSDGM": [
+                  "idinfo \u003e spdom \u003e bounding \u003e eastbc"
+                ]
+              }
+            },
+            "southLatitude": {
+              "type": "number",
+              "description": "Southern-most coordinate of the limit of the dataset extent expressed in latitude, in decimal degrees.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_GeographicBoundingBox \u003e southBoundLatitude"
+                ],
+                "FGDC CSDGM": [
+                  "idinfo \u003e spdom \u003e bounding \u003e southbc"
+                ]
+              }
+            },
+            "northLatitude": {
+              "type": "number",
+              "description": "Northern-most coordinate of the limit of the dataset extent expressed in latitude, in decimal degrees.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_GeographicBoundingBox \u003e northBoundLatitude"
+                ],
+                "FGDC CSDGM": [
+                  "idinfo \u003e spdom \u003e bounding \u003e northbc"
+                ]
+              }
+            },
+            "minimumAltitude": {
+              "type": "number",
+              "description": "The minimum altitude(height above sea level) extent of coverage.",
+              "translation": {
+                "FGDC CSDGM": [
+                  "idinfo \u003e spdom \u003e bounding \u003e boundalt \u003e altmin"
+                ]
+              }
+            },
+            "maximumAltitude": {
+              "type": "number",
+              "description": "The maximum altitude(height above sea level) extent of coverage.",
+              "translation": {
+                "FGDC CSDGM": [
+                  "idinfo \u003e spdom \u003e bounding \u003e boundalt \u003e altmax"
+                ]
+              }
+            },
+            "unitsOfAltitude": {
+              "type": "string",
+              "description": "The units of measure in which altitude is expressed.",
+              "translation": {
+                "FGDC CSDGM": [
+                  "idinfo \u003e spdom \u003e bounding \u003e boundalt \u003e altunit"
+                ]
+              }
+            }
+          },
+          "dependencies": {
+            "minimumAltitude": [
+              "unitsOfAltitude"
+            ],
+            "maximumAltitude": [
+              "unitsOfAltitude"
+            ]
+          }
+        },
+        "geographicElement": {
+          "type": "object",
+          "example": "../examples/geoJson.json",
+          "properties": {
+            "type": {
+              "enum": [
+                "Feature",
+                "FeatureCollection",
+                "GeometryCollection",
+                "Point",
+                "MultiPoint",
+                "LineString",
+                "MultiLineString",
+                "Polygon",
+                "MultiPolygon"
+              ],
+              "description": "The type of geographic object."
+            }
+          },
+          "oneOf": [
+            {
+              "$ref": "#/definitions/geojson.json"
+            }
+          ]
+        }
+      }
+    },
+    "identifier.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "identifier",
+      "description": "Assigned identifier for a resource.",
+      "example": "../examples/identifier.json",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_Identifier"
+        ]
+      },
+      "type": "object",
+      "required": [
+        "identifier"
+      ],
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "description": "A name that is used to identify the resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_Identifier \u003e code"
+            ]
+          }
+        },
+        "namespace": {
+          "type": "string",
+          "description": "A string which unambiguously defines the namespace for the identifier.",
+          "translation": {
+            "ISO 19115-2": [
+              "RS_Identifier \u003e codeSpace"
+            ]
+          }
+        },
+        "version": {
+          "type": "string",
+          "description": "The version of the identifier.",
+          "translation": {
+            "ISO 19115-2": [
+              "RS_Identifier \u003e version"
+            ]
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "A natural language description of the meaning of the identifier value."
+        },
+        "authority": {
+          "description": "Citation for the authority issuing the identifier.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_Identifier \u003e authority \u003e CI_Citation"
+            ]
+          },
+          "$ref": "#/definitions/citation.json"
+        }
+      }
+    },
+    "geographicExtent.json_definitions_boundingBox": {
+      "type": "object",
+      "description": "The four sides of geodetic box defining the area of the resource",
+      "example": "../examples/boundingBox.json",
+      "required": [
+        "westLongitude",
+        "eastLongitude",
+        "southLatitude",
+        "northLatitude"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "westLongitude": {
+          "type": "number",
+          "description": "Western-most coordinate of the limit of the dataset extent expressed in longitude, in decimal degrees.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_GeographicBoundingBox \u003e westBoundLongitude"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e westbc"
+            ]
+          }
+        },
+        "eastLongitude": {
+          "type": "number",
+          "description": "Eastern-most coordinate of the limit of the dataset extent expressed in longitude, in decimal degrees.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_GeographicBoundingBox \u003e eastBoundLongitude"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e eastbc"
+            ]
+          }
+        },
+        "southLatitude": {
+          "type": "number",
+          "description": "Southern-most coordinate of the limit of the dataset extent expressed in latitude, in decimal degrees.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_GeographicBoundingBox \u003e southBoundLatitude"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e southbc"
+            ]
+          }
+        },
+        "northLatitude": {
+          "type": "number",
+          "description": "Northern-most coordinate of the limit of the dataset extent expressed in latitude, in decimal degrees.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_GeographicBoundingBox \u003e northBoundLatitude"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e northbc"
+            ]
+          }
+        },
+        "minimumAltitude": {
+          "type": "number",
+          "description": "The minimum altitude(height above sea level) extent of coverage.",
+          "translation": {
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e boundalt \u003e altmin"
+            ]
+          }
+        },
+        "maximumAltitude": {
+          "type": "number",
+          "description": "The maximum altitude(height above sea level) extent of coverage.",
+          "translation": {
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e boundalt \u003e altmax"
+            ]
+          }
+        },
+        "unitsOfAltitude": {
+          "type": "string",
+          "description": "The units of measure in which altitude is expressed.",
+          "translation": {
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e boundalt \u003e altunit"
+            ]
+          }
+        }
+      },
+      "dependencies": {
+        "minimumAltitude": [
+          "unitsOfAltitude"
+        ],
+        "maximumAltitude": [
+          "unitsOfAltitude"
+        ]
+      }
+    },
+    "geographicExtent.json_definitions_geographicElement": {
+      "type": "object",
+      "example": "../examples/geoJson.json",
+      "properties": {
+        "type": {
+          "enum": [
+            "Feature",
+            "FeatureCollection",
+            "GeometryCollection",
+            "Point",
+            "MultiPoint",
+            "LineString",
+            "MultiLineString",
+            "Polygon",
+            "MultiPolygon"
+          ],
+          "description": "The type of geographic object."
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/definitions/geojson.json"
+        }
+      ]
+    },
+    "geojson.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "GeoJSON object",
+      "description": "GeoJSON is a format for encoding a variety of geographic data structures. A GeoJSON object may represent a geometry, a feature, or a collection of features. \n\nGeoJSON supports the following geometry types: Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection. Features in GeoJSON contain a geometry object and additional properties, and a feature collection represents a list of features. \n\n The coordinate reference system for all GeoJSON coordinates is a geographic coordinate reference system, using the World Geodetic System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units    of decimal degrees.  This is equivalent to the coordinate reference    system identified by the Open Geospatial Consortium (OGC) URN    urn:ogc:def:crs:OGC::CRS84. \n\nSee http://geojson.org for the full specification.",
+      "example": "../examples/geoJson.json",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "bbox": {
+          "$ref": "#/definitions/bbox.json"
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "#/definitions/geometry.json"
+        },
+        {
+          "$ref": "#/definitions/geojson.json_definitions_geometryCollection"
+        },
+        {
+          "$ref": "#/definitions/geojson.json_definitions_feature"
+        },
+        {
+          "$ref": "#/definitions/geojson.json_definitions_featureCollection"
+        }
+      ],
+      "definitions": {
+        "geometryCollection": {
+          "title": "GeometryCollection",
+          "description": "A collection of geometry objects",
+          "example": "../examples/geometryCollection.json",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry"
+            ]
+          },
+          "required": [
+            "geometries"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "GeometryCollection"
+              ],
+              "description": "Type of geometry object."
+            },
+            "geometries": {
+              "type": "array",
+              "description": "The set of geometry objects constituting the GeometryCollection.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry \u003e geometryMembers"
+                ]
+              },
+              "items": {
+                "$ref": "#/definitions/geometry.json"
+              }
+            }
+          }
+        },
+        "feature": {
+          "title": "Feature",
+          "type": "object",
+          "description": "A GeoJSON object with the type \"Feature\" is a feature object. A feature object has a geometry, properties, and an optional identifier.",
+          "example": "../examples/geometryFeature.json",
+          "required": [
+            "geometry",
+            "properties"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "Feature"
+              ],
+              "description": "Type of GeoJSON object."
+            },
+            "geometry": {
+              "description": "The geometry object associated with the Feature.",
+              "oneOf": [
+                {
+                  "type": "null",
+                  "title": "null geometry",
+                  "description": "A feature object with no associated geometry. For example, a null value may be used when defining a bounding box only."
+                },
+                {
+                  "$ref": "#/definitions/geometry.json"
+                },
+                {
+                  "$ref": "#/definitions/geojson.json_definitions_geometryCollection"
+                }
+              ]
+            },
+            "properties": {
+              "$ref": "#/definitions/geojson.json_definitions_featureProperties"
+            },
+            "id": {
+              "type": [
+                "string",
+                "number"
+              ],
+              "description": "Unique identifier for the GeoJSON feature object.",
+              "translation": {
+                "ISO 19115-2": [
+                  "geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e [Point, LineString, Polygon] @id"
+                ]
+              }
+            }
+          }
+        },
+        "featureCollection": {
+          "title": "FeatureCollection",
+          "type": "object",
+          "description": "A GeoJSON object comprised of multiple Feature objects.",
+          "example": "../examples/featureCollection.json",
+          "required": [
+            "features"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "FeatureCollection"
+              ],
+              "description": "Type of GeoJSON object."
+            },
+            "features": {
+              "type": "array",
+              "description": "Set of Features constituting the FeatureCollection.",
+              "translation": {
+                "ISO 19115-2": [
+                  "geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry"
+                ]
+              },
+              "items": {
+                "$ref": "#/definitions/geojson.json_definitions_feature"
+              }
+            }
+          }
+        },
+        "featureProperties": {
+          "title": "FeatureProperties",
+          "description": "JSON object containing information about a feature or collection.",
+          "example": "../examples/featureProperties.json",
+          "oneOf": [
+            {
+              "title": "null",
+              "type": "null",
+              "description": "A feature object with no identified properties."
+            },
+            {
+              "type": "object",
+              "title": "featureProperties",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "A description of the feature.",
+                  "translation": {
+                    "ISO 19115-2": [
+                      "geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e [Point, LineString, Polygon] \u003e description"
+                    ]
+                  }
+                },
+                "featureName": {
+                  "type": "array",
+                  "description": "A title associated with a feature.",
+                  "translation": {
+                    "ISO 19115-2": [
+                      "geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e [Point, LineString, Polygon] \u003e name"
+                    ]
+                  },
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "featureScope": {
+                  "type": "string",
+                  "description": "A word or phrase identifying the type of object described by the feature."
+                },
+                "acquisitionMethod": {
+                  "type": "string",
+                  "description": "Method used to establish the position of the geographic feature. "
+                },
+                "identifier": {
+                  "type": "array",
+                  "description": "Identifier for the geographic element with optional cited authority.",
+                  "translation": {
+                    "ISO 19115-2": [
+                      "geographicElement \u003e EX_GeographicDescription \u003e geographicIdentifier \u003e MD_Identifier"
+                    ]
+                  },
+                  "items": {
+                    "$ref": "#/definitions/identifier.json"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "bbox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "A GeoJSON object MAY have a member named \u0027bbox\u0027 to include information on the coordinate range for its Geometries, Features, or FeatureCollections. The value of the bbox member MUST be an array of length 2 * n where n is the number of dimensions represented in the contained geometries, with all axes of the most southwesterly point followed by all axes of the more northeasterly point. The axes order of a bbox follows the axes order of geometries. The values of a \u0027bbox\u0027 array are[west, south, east, north].",
+      "translation": {
+        "ISO 19115-2": [
+          "EX_Extent \u003e geographicElement \u003e EX_GeographicBoundingBox, EX_GeographicBoundingBox \u003e westBoundLongitude \u003e Decimal {west}, EX_GeographicBoundingBox \u003e eastBoundLongitude \u003e Decimal {east}, EX_GeographicBoundingBox \u003e southBoundLatitude \u003e Decimal {south}, EX_GeographicBoundingBox \u003e northBoundLatitude \u003e Decimal {north}"
+        ],
+        "FGDC CSDGM": [
+          "[idinfo \u003e spdom \u003e bounding \u003e westbc], [idinfo \u003e spdom \u003e bounding \u003e eastbc], [idinfo \u003e spdom \u003e bounding \u003e northbc], [idinfo \u003e spdom \u003e bounding \u003e southbc]"
+        ]
+      },
+      "example": "../examples/boundingBox.json",
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "number"
+      }
+    },
+    "geometry.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "geometry",
+      "description": "A geometry is a GeoJSON object where the type member\u0027s value is one of the following strings: \"Point\", \"MultiPoint\", \"LineString\", \"MultiLineString\", \"Polygon\", \"MultiPolygon\", or \"GeometryCollection\".\n\nA GeoJSON geometry object of any type other than \"GeometryCollection\" must have a member with the name \"coordinates\". The value of the coordinates member is always an array. The structure for the elements in this array is determined by the type of geometry.",
+      "example": "../examples/geometryObject.json",
+      "translation": {
+        "ISO 19115-2": [
+          "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e [Point | LineString | Polygon \u003e [interior | exterior] | MultiGeometry]"
+        ]
+      },
+      "type": "object",
+      "required": [
+        "type",
+        "coordinates"
+      ],
+      "oneOf": [
+        {
+          "title": "Point",
+          "type": "object",
+          "description": "A point geometry object.",
+          "example": "../examples/geometryObject.json",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e Point"
+            ]
+          },
+          "properties": {
+            "type": {
+              "enum": [
+                "Point"
+              ],
+              "description": "Type of geometry object."
+            },
+            "coordinates": {
+              "description": "The position representing a point, represented by an array of numbers following x, y, z order (easting, northing, altitude for coordinates in a projected coordinate reference system, or longitude, latitude, altitude for coordinates in a geographic coordinate reference system).",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e Point \u003e coordinates"
+                ]
+              },
+              "$ref": "#/definitions/geometry.json_definitions_position"
+            }
+          }
+        },
+        {
+          "title": "MultiPoint",
+          "type": "object",
+          "description": "A geographic object comprised of multiple points.",
+          "example": "../examples/geometryObject.json",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry \u003e geometryMembers \u003e Point[ ]"
+            ]
+          },
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPoint"
+              ],
+              "description": "Type of geometry object."
+            },
+            "coordinates": {
+              "description": "The set of positions that constitute the MultiPoint geometry.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry \u003e geometryMembers \u003e Point[ ] \u003e coordinates"
+                ]
+              },
+              "$ref": "#/definitions/geometry.json_definitions_positionArray"
+            }
+          }
+        },
+        {
+          "title": "LineString",
+          "type": "object",
+          "description": "A geometry object comprised of a minimum of two positions.",
+          "example": "../examples/geometryObject.json",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e LineString"
+            ]
+          },
+          "properties": {
+            "type": {
+              "enum": [
+                "LineString"
+              ],
+              "description": "Type of geometry object."
+            },
+            "coordinates": {
+              "description": "The set of positions that constitute the LineString geometry.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e LineString \u003e coordinates"
+                ]
+              },
+              "$ref": "#/definitions/geometry.json_definitions_lineString"
+            }
+          }
+        },
+        {
+          "title": "MultiLineString",
+          "type": "object",
+          "description": "A geometry object comprised of one or more LineStrings.",
+          "example": "../examples/geometryObject.json",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry \u003e geometryMembers \u003e LineString[ ]"
+            ]
+          },
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiLineString"
+              ],
+              "description": "Type of geometry object."
+            },
+            "coordinates": {
+              "type": "array",
+              "description": "The set of LineString(s) that constitute the MultiLineString.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry \u003e geometryMembers \u003e LineString[ ] \u003e coordinates"
+                ]
+              },
+              "items": {
+                "$ref": "#/definitions/geometry.json_definitions_lineString"
+              }
+            }
+          }
+        },
+        {
+          "title": "Polygon",
+          "type": "object",
+          "description": "A geometry object that is composed of a set of LinearRings. A LinearRing is a closed LineString with 4 or more positions. The first and last positions are equivalent (they represent equivalent points).\n\nFor Polygons with multiple rings, the first must be the exterior ring and any others must be interior rings or holes.",
+          "example": "../examples/geometryObject.json",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e Polygon"
+            ]
+          },
+          "properties": {
+            "type": {
+              "enum": [
+                "Polygon"
+              ],
+              "description": "Type of geometry object."
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geometry.json_definitions_polygon"
+            }
+          }
+        },
+        {
+          "title": "MultiPolygon",
+          "type": "object",
+          "description": "A geometry object comprised of multiple polygons. ",
+          "example": "../examples/geometryObject.json",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry \u003e geometryMembers \u003e Polygon[ ]"
+            ]
+          },
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPolygon"
+              ],
+              "description": "Type of geometry object."
+            },
+            "coordinates": {
+              "type": "array",
+              "description": "The set of Polygons that constitute the MultiPolygon.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry \u003e geometryMembers \u003e Polygon[ ] \u003e [exterior \u003e LinearRing \u003e coordinates | interior[ ] \u003e LinearRing \u003e coordinates]"
+                ]
+              },
+              "items": {
+                "$ref": "#/definitions/geometry.json_definitions_polygon"
+              }
+            }
+          }
+        }
+      ],
+      "definitions": {
+        "position": {
+          "title": "position",
+          "description": "A position is the fundamental geometry construct. A position is represented by an array of numbers following x, y, z order (easting, northing, altitude for coordinates in a projected coordinate reference system, or longitude, latitude, altitude for coordinates in a geographic coordinate reference system).",
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          },
+          "additionalItems": false
+        },
+        "positionArray": {
+          "title": "positionArray",
+          "description": "An array of positions",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geometry.json_definitions_position"
+          }
+        },
+        "lineString": {
+          "title": "lineString",
+          "description": "An array of two or more positions",
+          "allOf": [
+            {
+              "$ref": "#/definitions/geometry.json_definitions_positionArray"
+            },
+            {
+              "title": "minimum 2",
+              "description": "The LineString must consist of two or more positions",
+              "minItems": 2
+            }
+          ]
+        },
+        "linearRing": {
+          "title": "LinearRing",
+          "description": "An array of a minimum of four positions where the first equals the last",
+          "allOf": [
+            {
+              "$ref": "#/definitions/geometry.json_definitions_positionArray"
+            },
+            {
+              "title": "minimum 4",
+              "description": "A LinearRing is a closed LineString with 4 or more positions.",
+              "minItems": 4
+            }
+          ]
+        },
+        "polygon": {
+          "title": "Polygon",
+          "description": "A set of LinearRings that constitute a Polygon geometry. For Polygons with multiple rings, the first must be the exterior ring and any others must be interior rings or holes.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e Polygon \u003e [exterior \u003e LinearRing \u003e coordinates | interior[ ] \u003e LinearRing \u003e coordinates]"
+            ]
+          },
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geometry.json_definitions_linearRing"
+          }
+        }
+      }
+    },
+    "geometry.json_definitions_position": {
+      "title": "position",
+      "description": "A position is the fundamental geometry construct. A position is represented by an array of numbers following x, y, z order (easting, northing, altitude for coordinates in a projected coordinate reference system, or longitude, latitude, altitude for coordinates in a geographic coordinate reference system).",
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 3,
+      "items": {
+        "type": "number"
+      },
+      "additionalItems": false
+    },
+    "geometry.json_definitions_positionArray": {
+      "title": "positionArray",
+      "description": "An array of positions",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/geometry.json_definitions_position"
+      }
+    },
+    "geometry.json_definitions_lineString": {
+      "title": "lineString",
+      "description": "An array of two or more positions",
+      "allOf": [
+        {
+          "$ref": "#/definitions/geometry.json_definitions_positionArray"
+        },
+        {
+          "title": "minimum 2",
+          "description": "The LineString must consist of two or more positions",
+          "minItems": 2
+        }
+      ]
+    },
+    "geometry.json_definitions_polygon": {
+      "title": "Polygon",
+      "description": "A set of LinearRings that constitute a Polygon geometry. For Polygons with multiple rings, the first must be the exterior ring and any others must be interior rings or holes.",
+      "translation": {
+        "ISO 19115-2": [
+          "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e Polygon \u003e [exterior \u003e LinearRing \u003e coordinates | interior[ ] \u003e LinearRing \u003e coordinates]"
+        ]
+      },
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/geometry.json_definitions_linearRing"
+      }
+    },
+    "geometry.json_definitions_linearRing": {
+      "title": "LinearRing",
+      "description": "An array of a minimum of four positions where the first equals the last",
+      "allOf": [
+        {
+          "$ref": "#/definitions/geometry.json_definitions_positionArray"
+        },
+        {
+          "title": "minimum 4",
+          "description": "A LinearRing is a closed LineString with 4 or more positions.",
+          "minItems": 4
+        }
+      ]
+    },
+    "geojson.json_definitions_geometryCollection": {
+      "title": "GeometryCollection",
+      "description": "A collection of geometry objects",
+      "example": "../examples/geometryCollection.json",
+      "translation": {
+        "ISO 19115-2": [
+          "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry"
+        ]
+      },
+      "required": [
+        "geometries"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "GeometryCollection"
+          ],
+          "description": "Type of geometry object."
+        },
+        "geometries": {
+          "type": "array",
+          "description": "The set of geometry objects constituting the GeometryCollection.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_Extent \u003e geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry \u003e geometryMembers"
+            ]
+          },
+          "items": {
+            "$ref": "#/definitions/geometry.json"
+          }
+        }
+      }
+    },
+    "geojson.json_definitions_feature": {
+      "title": "Feature",
+      "type": "object",
+      "description": "A GeoJSON object with the type \"Feature\" is a feature object. A feature object has a geometry, properties, and an optional identifier.",
+      "example": "../examples/geometryFeature.json",
+      "required": [
+        "geometry",
+        "properties"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "Feature"
+          ],
+          "description": "Type of GeoJSON object."
+        },
+        "geometry": {
+          "description": "The geometry object associated with the Feature.",
+          "oneOf": [
+            {
+              "type": "null",
+              "title": "null geometry",
+              "description": "A feature object with no associated geometry. For example, a null value may be used when defining a bounding box only."
+            },
+            {
+              "$ref": "#/definitions/geometry.json"
+            },
+            {
+              "$ref": "#/definitions/geojson.json_definitions_geometryCollection"
+            }
+          ]
+        },
+        "properties": {
+          "$ref": "#/definitions/geojson.json_definitions_featureProperties"
+        },
+        "id": {
+          "type": [
+            "string",
+            "number"
+          ],
+          "description": "Unique identifier for the GeoJSON feature object.",
+          "translation": {
+            "ISO 19115-2": [
+              "geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e [Point, LineString, Polygon] @id"
+            ]
+          }
+        }
+      }
+    },
+    "geojson.json_definitions_featureProperties": {
+      "title": "FeatureProperties",
+      "description": "JSON object containing information about a feature or collection.",
+      "example": "../examples/featureProperties.json",
+      "oneOf": [
+        {
+          "title": "null",
+          "type": "null",
+          "description": "A feature object with no identified properties."
+        },
+        {
+          "type": "object",
+          "title": "featureProperties",
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "A description of the feature.",
+              "translation": {
+                "ISO 19115-2": [
+                  "geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e [Point, LineString, Polygon] \u003e description"
+                ]
+              }
+            },
+            "featureName": {
+              "type": "array",
+              "description": "A title associated with a feature.",
+              "translation": {
+                "ISO 19115-2": [
+                  "geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e [Point, LineString, Polygon] \u003e name"
+                ]
+              },
+              "items": {
+                "type": "string"
+              }
+            },
+            "featureScope": {
+              "type": "string",
+              "description": "A word or phrase identifying the type of object described by the feature."
+            },
+            "acquisitionMethod": {
+              "type": "string",
+              "description": "Method used to establish the position of the geographic feature. "
+            },
+            "identifier": {
+              "type": "array",
+              "description": "Identifier for the geographic element with optional cited authority.",
+              "translation": {
+                "ISO 19115-2": [
+                  "geographicElement \u003e EX_GeographicDescription \u003e geographicIdentifier \u003e MD_Identifier"
+                ]
+              },
+              "items": {
+                "$ref": "#/definitions/identifier.json"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "geojson.json_definitions_featureCollection": {
+      "title": "FeatureCollection",
+      "type": "object",
+      "description": "A GeoJSON object comprised of multiple Feature objects.",
+      "example": "../examples/featureCollection.json",
+      "required": [
+        "features"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "FeatureCollection"
+          ],
+          "description": "Type of GeoJSON object."
+        },
+        "features": {
+          "type": "array",
+          "description": "Set of Features constituting the FeatureCollection.",
+          "translation": {
+            "ISO 19115-2": [
+              "geographicElement \u003e EX_BoundingPolygon \u003e polygon \u003e MultiGeometry"
+            ]
+          },
+          "items": {
+            "$ref": "#/definitions/geojson.json_definitions_feature"
+          }
+        }
+      }
+    },
+    "verticalExtent.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "Vertical element of an extent.",
+      "example": "../examples/verticalExtent.json",
+      "translation": {
+        "ISO 19115-2": [
+          "EX_Extent \u003e verticalElement \u003e EX_VerticalExtent "
+        ]
+      },
+      "additionalProperties": true,
+      "required": [
+        "minValue",
+        "maxValue",
+        "crsId"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "A brief description providing relevant information about the verticalExtent."
+        },
+        "minValue": {
+          "type": "number",
+          "description": "Lowest vertical extent contained in the resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_VerticalExtent \u003e minimumValue \u003e Real "
+            ]
+          }
+        },
+        "maxValue": {
+          "type": "number",
+          "description": "Highest vertical extent contained in the resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_VerticalExtent \u003e maximumValue \u003e Real "
+            ]
+          }
+        },
+        "crsId": {
+          "$ref": "#/definitions/spatialReference.json",
+          "description": "Identifies the vertical coordinate reference system used for the minimum and maximum values."
+        }
+      }
+    },
+    "spatialReference.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "Geospatial referencing system used in the the data resource. The reference can be provided by an EPSG number, a named reference, or providing the parameters in a well known text (WKT) format.",
+      "example": "../examples/spatialReference.json",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_Metadata \u003e referenceSystemInfo \u003e MD_ReferenceSystem \u003e referenceSystemIdentifier \u003e RS_Identifier \u003e code"
+        ]
+      },
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "referenceSystemType": {
+          "type": "string",
+          "description": "Type of reference system used.",
+          "translation": {},
+          "codelist": "iso_referenceSystemType",
+          "minLength": 1
+        },
+        "referenceSystemIdentifier": {
+          "$ref": "#/definitions/identifier.json",
+          "description": "The reference system identifier or definition."
+        },
+        "referenceSystemWKT": {
+          "type": "string",
+          "description": "Well Known Text (WKT) for spatial reference system."
+        },
+        "referenceSystemParameterSet": {
+          "$ref": "#/definitions/referenceSystemParameterSet.json"
+        }
+      },
+      "anyOf": [
+        {
+          "title": "referenceSystemType is required",
+          "required": [
+            "referenceSystemType"
+          ]
+        },
+        {
+          "title": "referenceSystemIdentifier is required",
+          "required": [
+            "referenceSystemIdentifier"
+          ]
+        },
+        {
+          "title": "referenceSystemWKT is required",
+          "required": [
+            "referenceSystemWKT"
+          ]
+        },
+        {
+          "title": "referenceSystemParameterSet is required",
+          "required": [
+            "referenceSystemParameterSet"
+          ]
+        }
+      ]
+    },
+    "referenceSystemParameterSet.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "referenceSystemParameterSet",
+      "description": "The set of parameters describing a spatial reference system.",
+      "example": "../examples/referenceSystemParameterSet.json",
+      "additionalProperties": true,
+      "properties": {
+        "projection": {
+          "$ref": "#/definitions/projection.json"
+        },
+        "geodetic": {
+          "$ref": "#/definitions/geodetic.json"
+        },
+        "verticalDatum": {
+          "$ref": "#/definitions/verticalDatum.json"
+        }
+      },
+      "oneOf": [
+        {
+          "title": "projection is required.",
+          "required": [
+            "projection"
+          ]
+        },
+        {
+          "title": "geodetic is required.",
+          "required": [
+            "geodetic"
+          ]
+        },
+        {
+          "title": "verticalDatum is required.",
+          "required": [
+            "verticalDatum"
+          ]
+        }
+      ]
+    },
+    "projection.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "projection",
+      "description": "The set of parameters for the projection that applies to the resource.",
+      "example": "../examples/projection.json",
+      "translation": {
+        "ISO 19115-2": [
+          "referenceSystemInfo \u003e MD_CRS \u003e projection"
+        ],
+        "FGDC CSDGM": [
+          "metadata \u003e spref \u003e horizsys \u003e planar \u003e mapproj"
+        ]
+      },
+      "required": [
+        "projectionIdentifier"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "projectionIdentifier": {
+          "description": "The identifier for the projection.",
+          "required": [
+            "identifier"
+          ],
+          "translation": {
+            "ISO 19115-2": [
+              "referenceSystemInfo \u003e MD_CRS \u003e projection \u003e RS_Identifier"
+            ]
+          },
+          "properties": {
+            "identifier": {
+              "type": "string",
+              "description": "The identifier for the projection. Combine with a namespace to explicitly identify the projection. For example, code\u003d\"albers\" and namespace\u003d\"org.adiwg.code.mapProjection\".",
+              "codelist": "adiwg_mapProjection"
+            },
+            "description": {
+              "type": "string",
+              "description": "A complete description of a grid system, not defined elsewhere in this standard, that was used for the data set. The information provided shall include the name of the grid system, the names of the parameters and values used for the data set, and the citation of the specification for the algorithms that describe the mathematical relationship between the Earth and the coordinates of the grid system.",
+              "translation": {
+                "FGDC CSDGM": [
+                  "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e otherprj"
+                ]
+              }
+            },
+            "name": {
+              "type": "string",
+              "description": "A descriptive name for the projection.",
+              "translation": {
+                "FGDC CSDGM": [
+                  "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e mapprojn"
+                ]
+              }
+            }
+          },
+          "allOf": [
+            {
+              "$ref": "#/definitions/identifier.json"
+            }
+          ],
+          "dependencies": {
+            "namespace": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "namespace": {
+                      "enum": [
+                        "org.adiwg.code.mapProjection"
+                      ]
+                    },
+                    "identifier": {
+                      "enum": [
+                        "alaska",
+                        "albers",
+                        "azimuthalEquidistant",
+                        "equidistantConic",
+                        "equirectangular",
+                        "generalVertical",
+                        "gnomonic",
+                        "lambertConic",
+                        "lambertEqualArea",
+                        "mercator",
+                        "miller",
+                        "obliqueMercator",
+                        "orthographic",
+                        "parameters",
+                        "polarStereo",
+                        "polyconic",
+                        "robinson",
+                        "sinusoidal",
+                        "spaceOblique",
+                        "stereographic",
+                        "transverseMercator",
+                        "grinten",
+                        "localPlanar",
+                        "localSystem",
+                        "other"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "not": {
+                    "properties": {
+                      "namespace": {
+                        "enum": [
+                          "org.adiwg.code.mapProjection"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "gridIdentifier": {
+          "description": "The identifier for the grid system.",
+          "required": [
+            "identifier"
+          ],
+          "properties": {
+            "identifier": {
+              "type": "string",
+              "description": "The identifier for the grid system. Combine with a namespace to explicitly identify the grid system. For example, code\u003d\"utm\" and namespace\u003d\"org.adiwg.code.mapGridSystem\".",
+              "codelist": "adiwg_mapGridSystem"
+            },
+            "description": {
+              "type": "string",
+              "description": "A complete description of a grid system, not defined elsewhere in this standard, that was used for the data set. The information provided shall include the name of the grid system, the names of the parameters and values used for the data set, and the citation of the specification for the algorithms that describe the mathematical relationship between the Earth and the coordinates of the grid system.",
+              "translation": {
+                "FGDC CSDGM": [
+                  "spref \u003e horizsys \u003e planar \u003e gridsys \u003e othergrd"
+                ]
+              }
+            },
+            "name": {
+              "type": "string",
+              "description": "A descriptive name for the grid system.",
+              "translation": {
+                "FGDC CSDGM": [
+                  "spref \u003e horizsys \u003e planar \u003e gridsys \u003e gridsysn"
+                ]
+              }
+            }
+          },
+          "allOf": [
+            {
+              "$ref": "#/definitions/identifier.json"
+            }
+          ],
+          "dependencies": {
+            "namespace": {
+              "oneOf": [
+                {
+                  "properties": {
+                    "namespace": {
+                      "enum": [
+                        "org.adiwg.code.mapGridSystem"
+                      ]
+                    },
+                    "identifier": {
+                      "enum": [
+                        "utm",
+                        "ups",
+                        "spcs",
+                        "arcsys",
+                        "other"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "not": {
+                    "properties": {
+                      "namespace": {
+                        "enum": [
+                          "org.adiwg.code.mapGridSystem"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "gridZone": {
+          "type": "string",
+          "description": "The unique zone identifier for grid coordinate systems."
+        },
+        "standardParallel1": {
+          "type": "number",
+          "description": "The line of constant latitude at which the surface of the Earth and the plane or developable surface intersect.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e standardParallel"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e stdparll"
+            ]
+          }
+        },
+        "standardParallel2": {
+          "type": "number",
+          "description": "The line of constant latitude at which the surface of the Earth and the plane or developable surface intersect.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e standardParallel"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e stdparll"
+            ]
+          }
+        },
+        "longitudeOfCentralMeridian": {
+          "type": "number",
+          "description": "The line of longitude at the center of a map projection generally used as the basis for constructing the projection.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e longitudeOfCentralMeridian"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e longcm"
+            ]
+          }
+        },
+        "latitudeOfProjectionOrigin": {
+          "type": "number",
+          "description": "The latitude chosen as the origin of rectangular coordinates for a map projection.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e latitudeOfProjectionOrigin"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e latprjo"
+            ]
+          }
+        },
+        "falseEasting": {
+          "type": "number",
+          "description": "The value added to all \u0027x\u0027 values in the rectangular coordinates for a map projection. This value frequently is assigned to eliminate negative numbers.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e falseEasting"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e feast"
+            ]
+          }
+        },
+        "falseNorthing": {
+          "type": "number",
+          "description": "The value added to all \u0027y\u0027 values in the rectangular coordinates for a map projection. This value frequently is assigned to eliminate negative numbers.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e falseNorthing"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e fnorth"
+            ]
+          }
+        },
+        "falseEastingNorthingUnits": {
+          "type": "string",
+          "description": "The units of measure for falseEasting and falseNorthing.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e falseEastingNorthingUnits"
+            ]
+          }
+        },
+        "scaleFactorAtEquator": {
+          "type": "number",
+          "description": "A multiplier for reducing a distance obtained from a map by computation or scaling to the actual distance along the equator.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e scaleFactorAtEquator"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e sfequat"
+            ]
+          }
+        },
+        "heightOfProspectivePointAboveSurface": {
+          "type": "number",
+          "description": "The height of viewpoint above the Earth, expressed in meters.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e heightOfProspectivePointAboveSurface"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e heightpt"
+            ]
+          }
+        },
+        "longitudeOfProjectionCenter": {
+          "type": "number",
+          "description": "The longitude of the point of projection for azimuthal projections.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e longitudeOfProjectionCenter"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e longpc"
+            ]
+          }
+        },
+        "latitudeOfProjectionCenter": {
+          "type": "number",
+          "description": "The latitude of the point of projection for azimuthal projections.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e latitudeOfProjectionCenter"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e latprjc"
+            ]
+          }
+        },
+        "scaleFactorAtCenterLine": {
+          "type": "number",
+          "description": "A multiplier for reducing a distance obtained from a map by computation or scaling to the actual distance along the center line.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e latitudeOfProjectionCenter"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e latprjc"
+            ]
+          }
+        },
+        "scaleFactorAtCentralMeridian": {
+          "type": "number",
+          "description": "A multiplier for reducing a distance obtained from a map by computation or scaling to the actual distance along the central meridian.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e latitudeOfProjectionCenter"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e latprjc"
+            ]
+          }
+        },
+        "straightVerticalLongitudeFromPole": {
+          "type": "number",
+          "description": "The longitude to be oriented straight up from the North or South Pole.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e latitudeOfProjectionCenter"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e latprjc"
+            ]
+          }
+        },
+        "scaleFactorAtProjectionOrigin": {
+          "type": "number",
+          "description": "A multiplier for reducing a distance obtained from a map by computation or scaling to the actual distance at the projection origin.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e latitudeOfProjectionCenter"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e latprjc"
+            ]
+          }
+        },
+        "azimuthAngle": {
+          "type": "number",
+          "description": "The angle measured clockwise from north, and expressed in degrees.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e obliqueLineAzimuthParameter \u003e MD_ObliqueLineAzimuth \u003e azimuthAngle"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e obqlazim \u003e azimangl"
+            ]
+          }
+        },
+        "azimuthMeasurePointLongitude": {
+          "type": "number",
+          "description": "The longitude of the map projection origin.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e obliqueLineAzimuthParameter \u003e MD_ObliqueLineAzimuth \u003e azimuthMeasurePointLongitude"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e obqlazim \u003e azimptl"
+            ]
+          }
+        },
+        "obliqueLinePoint": {
+          "$ref": "#/definitions/projection.json_definitions_obliqueLinePoint"
+        },
+        "landsatNumber": {
+          "type": "integer",
+          "description": "The number of the Landsat satellite.",
+          "translation": {
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e landsat"
+            ]
+          }
+        },
+        "landsatPath": {
+          "type": "integer",
+          "description": "The number of the orbit of the Landsat satellite.",
+          "translation": {
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapprojp \u003e pathnum"
+            ]
+          }
+        },
+        "local": {
+          "$ref": "#/definitions/projection.json_definitions_local"
+        }
+      },
+      "definitions": {
+        "obliqueLinePoint": {
+          "type": "array",
+          "description": "The method used to describe the line along which an oblique Mercator map projection is centered using two points near the limits of the mapped region that define the center line.",
+          "example": "../examples/obliqueLinePoint.json",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_ProjectionParameters \u003e obliqueLineLatitude"
+            ],
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e planar \u003e mapproj \u003e obqmerc \u003e obqlpt"
+            ]
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "title": "point",
+            "description": "A point near the limits of the mapped region that define the center line for an oblique Mercator map projection.",
+            "translation": {
+              "ISO 19115-2": [
+                "MD_ObliqueLinePoint"
+              ],
+              "FGDC CSDGM": [
+                "spref \u003e horizsys \u003e planar \u003e mapproj \u003e obqmerc \u003e obqlpt"
+              ]
+            },
+            "required": [
+              "obliqueLineLatitude",
+              "obliqueLineLongitude"
+            ],
+            "additionalProperties": true,
+            "properties": {
+              "obliqueLineLatitude": {
+                "type": "number",
+                "description": "The latitude of a point defining the oblique line.",
+                "translation": {
+                  "ISO 19115-2": [
+                    "MD_ObliqueLinePoint \u003e obliqueLineLatitude"
+                  ],
+                  "FGDC CSDGM": [
+                    "spref \u003e horizsys \u003e planar \u003e mapproj \u003e obqmerc \u003e obqlpt \u003e obqllat"
+                  ]
+                }
+              },
+              "obliqueLineLongitude": {
+                "type": "number",
+                "description": "The longitude of a point defining the oblique line.",
+                "translation": {
+                  "ISO 19115-2": [
+                    "MD_ObliqueLinePoint \u003e obliqueLineLongitude"
+                  ],
+                  "FGDC CSDGM": [
+                    "spref \u003e horizsys \u003e planar \u003e mapproj \u003e obqmerc \u003e obqlpt \u003e obqllong"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "local": {
+          "type": "object",
+          "description": "A description of a local coordinate system.",
+          "example": "../examples/projection.json#/4",
+          "translation": {
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e local",
+              "spref \u003e horizsys \u003e planar \u003e localp"
+            ]
+          },
+          "required": [
+            "description",
+            "georeference"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "A description of the local reference system.",
+              "translation": {
+                "FGDC CSDGM": [
+                  "spref \u003e horizsys \u003e local \u003e localgeo",
+                  "spref \u003e horizsys \u003e planar \u003e localp \u003e localpd"
+                ]
+              }
+            },
+            "georeference": {
+              "type": "string",
+              "description": "A description of the information provided to register the local system to the Earth (e.g. control points, satellite ephemeral data, inertial navigation data).",
+              "translation": {
+                "FGDC CSDGM": [
+                  "spref \u003e horizsys \u003e local \u003e localdes",
+                  "spref \u003e horizsys \u003e planar \u003e localp \u003e localpgi"
+                ]
+              }
+            },
+            "fixedToEarth": {
+              "type": "boolean",
+              "default": true,
+              "description": "True if the z-axis of the coordinate system coincides with a plumb line through the origin that locally is aligned with the surface of the Earth."
+            }
+          }
+        }
+      }
+    },
+    "projection.json_definitions_obliqueLinePoint": {
+      "type": "array",
+      "description": "The method used to describe the line along which an oblique Mercator map projection is centered using two points near the limits of the mapped region that define the center line.",
+      "example": "../examples/obliqueLinePoint.json",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_ProjectionParameters \u003e obliqueLineLatitude"
+        ],
+        "FGDC CSDGM": [
+          "spref \u003e horizsys \u003e planar \u003e mapproj \u003e obqmerc \u003e obqlpt"
+        ]
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "title": "point",
+        "description": "A point near the limits of the mapped region that define the center line for an oblique Mercator map projection.",
+        "translation": {
+          "ISO 19115-2": [
+            "MD_ObliqueLinePoint"
+          ],
+          "FGDC CSDGM": [
+            "spref \u003e horizsys \u003e planar \u003e mapproj \u003e obqmerc \u003e obqlpt"
+          ]
+        },
+        "required": [
+          "obliqueLineLatitude",
+          "obliqueLineLongitude"
+        ],
+        "additionalProperties": true,
+        "properties": {
+          "obliqueLineLatitude": {
+            "type": "number",
+            "description": "The latitude of a point defining the oblique line.",
+            "translation": {
+              "ISO 19115-2": [
+                "MD_ObliqueLinePoint \u003e obliqueLineLatitude"
+              ],
+              "FGDC CSDGM": [
+                "spref \u003e horizsys \u003e planar \u003e mapproj \u003e obqmerc \u003e obqlpt \u003e obqllat"
+              ]
+            }
+          },
+          "obliqueLineLongitude": {
+            "type": "number",
+            "description": "The longitude of a point defining the oblique line.",
+            "translation": {
+              "ISO 19115-2": [
+                "MD_ObliqueLinePoint \u003e obliqueLineLongitude"
+              ],
+              "FGDC CSDGM": [
+                "spref \u003e horizsys \u003e planar \u003e mapproj \u003e obqmerc \u003e obqlpt \u003e obqllong"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "projection.json_definitions_local": {
+      "type": "object",
+      "description": "A description of a local coordinate system.",
+      "example": "../examples/projection.json#/4",
+      "translation": {
+        "FGDC CSDGM": [
+          "spref \u003e horizsys \u003e local",
+          "spref \u003e horizsys \u003e planar \u003e localp"
+        ]
+      },
+      "required": [
+        "description",
+        "georeference"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "A description of the local reference system.",
+          "translation": {
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e local \u003e localgeo",
+              "spref \u003e horizsys \u003e planar \u003e localp \u003e localpd"
+            ]
+          }
+        },
+        "georeference": {
+          "type": "string",
+          "description": "A description of the information provided to register the local system to the Earth (e.g. control points, satellite ephemeral data, inertial navigation data).",
+          "translation": {
+            "FGDC CSDGM": [
+              "spref \u003e horizsys \u003e local \u003e localdes",
+              "spref \u003e horizsys \u003e planar \u003e localp \u003e localpgi"
+            ]
+          }
+        },
+        "fixedToEarth": {
+          "type": "boolean",
+          "default": true,
+          "description": "True if the z-axis of the coordinate system coincides with a plumb line through the origin that locally is aligned with the surface of the Earth."
+        }
+      }
+    },
+    "geodetic.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "geodetic",
+      "description": "Parameters for defining the shape of the earth.",
+      "example": "../examples/geodetic.json",
+      "translation": {
+        "ISO 19115-2": [
+          "referenceSystemInfo \u003e MD_CRS"
+        ],
+        "FGDC CSDGM": [
+          "metadata \u003e spref \u003e horizsys \u003e geodetic"
+        ]
+      },
+      "additionalProperties": true,
+      "properties": {
+        "datumIdentifier": {
+          "description": "The identification given to the reference system used for defining the coordinates of points.",
+          "translation": {
+            "ISO 19115-2": [
+              "referenceSystemInfo \u003e MD_CRS \u003e datum \u003e RS_Identifier \u003e code"
+            ],
+            "FGDC CSDGM": [
+              "metadata \u003e spref \u003e horizsys \u003e geodetic \u003e horizdn"
+            ]
+          },
+          "$ref": "#/definitions/identifier.json"
+        },
+        "ellipsoidIdentifier": {
+          "description": "The identification given to established representations of the Earth\u0027s shape.",
+          "translation": {
+            "ISO 19115-2": [
+              "referenceSystemInfo \u003e MD_CRS \u003e ellipsoid \u003e RS_Identifier \u003e code"
+            ],
+            "FGDC CSDGM": [
+              "metadata \u003e spref \u003e horizsys \u003e geodetic \u003e horizdn"
+            ]
+          },
+          "$ref": "#/definitions/identifier.json"
+        },
+        "semiMajorAxis": {
+          "type": "number",
+          "description": "The radius of the equatorial axis of the ellipsoid.",
+          "translation": {
+            "ISO 19115-2": [
+              "referenceSystemInfo \u003e MD_CRS \u003e projection \u003e ellipsoidParameters \u003e MD_EllipsoidParameters \u003e semiMajorAxis"
+            ],
+            "FGDC CSDGM": [
+              "metadata \u003e spref \u003e horizsys \u003e geodetic \u003e semiaxis"
+            ]
+          }
+        },
+        "axisUnits": {
+          "type": "string",
+          "description": "The units of the semi-major axis.",
+          "translation": {
+            "ISO 19115-2": [
+              "referenceSystemInfo \u003e MD_CRS \u003e projection \u003e ellipsoidParameters \u003e MD_EllipsoidParameters \u003e axisUnits"
+            ]
+          }
+        },
+        "denominatorOfFlatteningRatio": {
+          "type": "number",
+          "description": "The denominator of the ratio of the difference between the equatorial and polar radii of the ellipsoid when the numerator is set to 1.",
+          "translation": {
+            "ISO 19115-2": [
+              "referenceSystemInfo \u003e MD_CRS \u003e projection \u003e ellipsoidParameters \u003e MD_EllipsoidParameters \u003e denominatorOfFlatteningRatio"
+            ],
+            "FGDC CSDGM": [
+              "metadata \u003e spref \u003e horizsys \u003e geodetic \u003e denflat"
+            ]
+          }
+        }
+      },
+      "dependencies": {
+        "semiMajorAxis": [
+          "ellipsoidIdentifier",
+          "axisUnits",
+          "denominatorOfFlatteningRatio"
+        ],
+        "denominatorOfFlatteningRatio": [
+          "ellipsoidIdentifier",
+          "semiMajorAxis",
+          "axisUnits"
+        ],
+        "axisUnits": [
+          "ellipsoidIdentifier",
+          "semiMajorAxis",
+          "denominatorOfFlatteningRatio"
+        ]
+      }
+    },
+    "verticalDatum.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "verticalDatum",
+      "description": "The reference frame or system from which vertical distances (altitudes or depths) are measured.",
+      "example": "../examples/verticalDatum.json",
+      "translation": {
+        "ISO 19115-2": [
+          "referenceSystemInfo \u003e MD_CRS \u003e datum"
+        ],
+        "FGDC CSDGM": [
+          "metadata \u003e spref \u003e vertdef",
+          "metadata \u003e spref \u003e depthsys"
+        ]
+      },
+      "required": [
+        "datumIdentifier"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "datumIdentifier": {
+          "description": "The identification given to the surface taken as the surface of reference from which altitudes or depths are measured.",
+          "translation": {
+            "ISO 19115-2": [
+              "referenceSystemInfo \u003e MD_CRS \u003e datum \u003e RS_Identifier \u003e code"
+            ],
+            "FGDC CSDGM": [
+              "metadata \u003e spref \u003e vertdef \u003e altsys \u003e altdatum",
+              "metadata \u003e spref \u003e vertdef \u003e depthsys \u003e depthdn"
+            ]
+          },
+          "$ref": "#/definitions/identifier.json"
+        },
+        "encodingMethod": {
+          "type": "string",
+          "description": "The means used to encode the altitudes.",
+          "translation": {
+            "FGDC CSDGM": [
+              "metadata \u003e spref \u003e vertdef \u003e altsys \u003e altenc",
+              "metadata \u003e spref \u003e vertdef \u003e depthsys \u003e depthem"
+            ]
+          }
+        },
+        "isDepthSystem": {
+          "type": "boolean",
+          "description": "True if depth system, false if altitude system.",
+          "default": false
+        },
+        "verticalResolution": {
+          "type": "number",
+          "description": "The minimum distance possible between two adjacent altitude or depth values, expressed in units of measure.",
+          "translation": {
+            "FGDC CSDGM": [
+              "metadata \u003e spref \u003e vertdef \u003e altsys \u003e altres",
+              "metadata \u003e spref \u003e vertdef \u003e depthsys \u003e depthres"
+            ]
+          }
+        },
+        "unitOfMeasure": {
+          "type": "string",
+          "description": "The units of measure for altitude or depth measurements.",
+          "translation": {
+            "FGDC CSDGM": [
+              "metadata \u003e spref \u003e vertdef \u003e altsys \u003e altunits",
+              "metadata \u003e spref \u003e vertdef \u003e depthsys \u003e depthdu"
+            ]
+          }
+        }
+      },
+      "dependencies": {
+        "encodingMethod": [
+          "isDepthSystem",
+          "verticalResolution",
+          "unitOfMeasure",
+          "datumIdentifier"
+        ],
+        "isDepthSystem": [
+          "encodingMethod",
+          "verticalResolution",
+          "unitOfMeasure",
+          "datumIdentifier"
+        ],
+        "verticalResolution": [
+          "isDepthSystem",
+          "encodingMethod",
+          "unitOfMeasure",
+          "datumIdentifier"
+        ],
+        "unitOfMeasure": [
+          "isDepthSystem",
+          "verticalResolution",
+          "encodingMethod",
+          "datumIdentifier"
+        ]
+      }
+    },
+    "temporalExtent.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "",
+      "description": "A temporal boundary comprising all or a portion of the resource.",
+      "example": "../examples/temporalExtent.json",
+      "additionalProperties": true,
+      "minProperties": 1,
+      "oneOf": [
+        {
+          "title": "Type is instant.",
+          "required": [
+            "timeInstant"
+          ],
+          "properties": {
+            "timeInstant": {
+              "$ref": "#/definitions/timeInstant.json",
+              "description": "Represents an identifiable position in time."
+            }
+          }
+        },
+        {
+          "title": "Type is period.",
+          "required": [
+            "timePeriod"
+          ],
+          "properties": {
+            "timePeriod": {
+              "$ref": "#/definitions/timePeriod.json"
+            }
+          }
+        }
+      ]
+    },
+    "timeInstant.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "example": "../examples/timeInstant.json",
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier for the timeInstant.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_TemporalExtent \u003e extent \u003e TimeInstant @id"
+            ]
+          }
+        },
+        "identifier": {
+          "$ref": "#/definitions/identifier.json",
+          "description": "Identifier assigned to the timeInstant."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description providing relevant information about the date and time.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_TemporalExtent \u003e extent \u003e TimeInstant \u003e description"
+            ]
+          }
+        },
+        "instantName": {
+          "type": "array",
+          "title": "",
+          "description": "Name of the timeInstant",
+          "translation": {},
+          "items": {
+            "type": "string"
+          }
+        },
+        "geologicAge": {
+          "translation": {
+            "FGDC CSDGM": [
+              "timeperd \u003e timeinfo \u003e mdattim \u003e sngdate \u003e geolage"
+            ]
+          },
+          "$ref": "#/definitions/geologicAge.json"
+        },
+        "dateTime": {
+          "translation": {
+            "ISO 19115-2": [
+              "EX_TemporalExtent \u003e extent \u003e TimeInstant \u003e timePosition"
+            ]
+          },
+          "$ref": "#/definitions/common.json_definitions_date"
+        }
+      },
+      "oneOf": [
+        {
+          "title": "dateTime required",
+          "example": "../examples/timeInstant.json#/0",
+          "required": [
+            "dateTime"
+          ]
+        },
+        {
+          "title": "geologicAge required",
+          "example": "../examples/timeInstant.json#/1",
+          "required": [
+            "geologicAge"
+          ]
+        }
+      ]
+    },
+    "geologicAge.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "geologicAge",
+      "description": "A name, code, or date describing an event or period in geologic time, expressed either as an absolute date calculated using a named dating method, or as a relative date that is drawn from stratigraphy or biostratigraphy.",
+      "example": "../examples/geologicAge.json",
+      "translation": {
+        "FGDC CSDGM": [
+          "timeperd \u003e timeinfo \u003e sngdate \u003e geolage"
+        ]
+      },
+      "required": [
+        "ageTimeScale",
+        "ageEstimate"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "ageTimeScale": {
+          "type": "string",
+          "description": "Name of a recognized geologic time scale. This includes \"Absolute\" as the name of the time scale for measuring geologic dates before the present and names of geologic dating systems that are arrangements of symbols or names in order of relative geologic time",
+          "translation": {
+            "FGDC CSDGM": [
+              "timeperd \u003e timeinfo \u003e sngdate \u003e geolage \u003e geolscal"
+            ]
+          }
+        },
+        "ageEstimate": {
+          "type": "string",
+          "description": "Either an absolute geologic date or a relative geologic age name describing an event or period in geologic time based on the Geologic_Time_Scale.",
+          "translation": {
+            "FGDC CSDGM": [
+              "timeperd \u003e timeinfo \u003e sngdate \u003e geolage \u003e geolest"
+            ]
+          }
+        },
+        "ageUncertainty": {
+          "type": "string",
+          "description": "The error estimate for the geologic time. This should include the units of measure, a description of what the error estimate represents and how it was calculated.",
+          "translation": {
+            "FGDC CSDGM": [
+              "timeperd \u003e timeinfo \u003e sngdate \u003e geolage \u003e geolun"
+            ]
+          }
+        },
+        "ageExplanation": {
+          "type": "string",
+          "description": "The name and/or description of the method used to calculate the ageEstimate. Detailed information about the method may be provided through references contained in the ageReference.",
+          "translation": {
+            "FGDC CSDGM": [
+              "timeperd \u003e timeinfo \u003e sngdate \u003e geolage \u003e geolexpl"
+            ]
+          }
+        },
+        "ageReference": {
+          "type": "array",
+          "description": "Citation for works providing detailed information about any element of the geologicAge.",
+          "translation": {
+            "FGDC CSDGM": [
+              "timeperd \u003e timeinfo \u003e sngdate \u003e geolage \u003e geolcit"
+            ]
+          },
+          "items": {
+            "$ref": "#/definitions/citation.json"
+          }
+        }
+      },
+      "definitions": {}
+    },
+    "timePeriod.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "A span of time represented by a starting date-time and an ending date-time.",
+      "example": "../examples/timePeriod.json",
+      "minProperties": 1,
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "A unique identifier for a time period.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_TemporalExtent \u003e extent \u003e TimePeriod @id"
+            ]
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description providing relevant information about the time period.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_TemporalExtent \u003e extent \u003e TimePeriod \u003e description "
+            ]
+          }
+        },
+        "identifier": {
+          "$ref": "#/definitions/identifier.json",
+          "description": "Identifier for the timePeriod."
+        },
+        "periodName": {
+          "type": "array",
+          "description": "Names associated with the time period.",
+          "translation": {},
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "title": "dateTime",
+          "type": "object",
+          "description": "A timePeriod with a startDateTime and/or endDateTime.",
+          "example": "../examples/timePeriod.json#/0",
+          "properties": {
+            "startDateTime": {
+              "description": "Starting date, or date and time.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_TemporalExtent \u003e extent \u003e TimePeriod \u003e beginPosition "
+                ],
+                "FGDC CSDGM": [
+                  "idinfo \u003e timeperd \u003e rngdates \u003e begdate"
+                ]
+              },
+              "$ref": "#/definitions/common.json_definitions_date"
+            },
+            "endDateTime": {
+              "description": "Ending date, or date and time.",
+              "translation": {
+                "ISO 19115-2": [
+                  "EX_TemporalExtent \u003e extent \u003e TimePeriod \u003e endPosition"
+                ],
+                "FGDC CSDGM": [
+                  "idinfo \u003e timeperd \u003e rngdates \u003e enddate"
+                ]
+              },
+              "$ref": "#/definitions/common.json_definitions_date"
+            },
+            "timeInterval": {
+              "$ref": "#/definitions/timePeriod.json_definitions_timeInterval"
+            },
+            "duration": {
+              "$ref": "#/definitions/timePeriod.json_definitions_duration"
+            }
+          },
+          "anyOf": [
+            {
+              "title": "startDateTime required",
+              "required": [
+                "startDateTime"
+              ]
+            },
+            {
+              "title": "endDateTime required",
+              "required": [
+                "endDateTime"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "geologicAge",
+          "type": "object",
+          "description": "A timePeriod with a startGeologicAge and/or endGeologicAge.",
+          "example": "../examples/timePeriod.json#/1",
+          "properties": {
+            "startGeologicAge": {
+              "$ref": "#/definitions/geologicAge.json",
+              "description": "A name, code, or date for the beginning of an event or period in geologic time.",
+              "translation": {
+                "FGDC CSDGM": [
+                  "timeperd \u003e timeinfo \u003e rngdates \u003e beggeol"
+                ]
+              }
+            },
+            "endGeologicAge": {
+              "$ref": "#/definitions/geologicAge.json",
+              "description": "A name, code, or date for the end of an event or period in geologic time.",
+              "translation": {
+                "FGDC CSDGM": [
+                  "timeperd \u003e timeinfo \u003e rngdates \u003e endgeol"
+                ]
+              }
+            }
+          },
+          "anyOf": [
+            {
+              "title": "startGeologicAge required",
+              "required": [
+                "startGeologicAge"
+              ]
+            },
+            {
+              "title": "endGeologicAge required",
+              "required": [
+                "endGeologicAge"
+              ]
+            }
+          ]
+        }
+      ],
+      "definitions": {
+        "duration": {
+          "type": "object",
+          "description": "Object for collecting information about a duration or period of time.",
+          "example": "../examples/duration.json",
+          "translation": {},
+          "minProperties": 1,
+          "additionalProperties": true,
+          "properties": {
+            "years": {
+              "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+            },
+            "months": {
+              "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+            },
+            "days": {
+              "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+            },
+            "hours": {
+              "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+            },
+            "minutes": {
+              "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+            },
+            "seconds": {
+              "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+            }
+          },
+          "anyOf": [
+            {
+              "title": "years is required",
+              "required": [
+                "years"
+              ]
+            },
+            {
+              "title": "months is required",
+              "required": [
+                "months"
+              ]
+            },
+            {
+              "title": "days is required",
+              "required": [
+                "days"
+              ]
+            },
+            {
+              "title": "hours is required",
+              "required": [
+                "hours"
+              ]
+            },
+            {
+              "title": "minutes is required",
+              "required": [
+                "minutes"
+              ]
+            },
+            {
+              "title": "seconds is required",
+              "required": [
+                "seconds"
+              ]
+            }
+          ]
+        },
+        "durationPart": {
+          "type": "integer"
+        },
+        "timeInterval": {
+          "type": "object",
+          "description": "Defines a length of time in specific units.",
+          "example": "../examples/timeInterval.json",
+          "translation": {},
+          "required": [
+            "interval",
+            "units"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "interval": {
+              "type": "number",
+              "description": "The amount of time.",
+              "translation": {}
+            },
+            "units": {
+              "enum": [
+                "year",
+                "month",
+                "day",
+                "hour",
+                "minute",
+                "second"
+              ],
+              "description": "The unit of time for the interval.",
+              "translation": {}
+            }
+          }
+        }
+      }
+    },
+    "timePeriod.json_definitions_timeInterval": {
+      "type": "object",
+      "description": "Defines a length of time in specific units.",
+      "example": "../examples/timeInterval.json",
+      "translation": {},
+      "required": [
+        "interval",
+        "units"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "interval": {
+          "type": "number",
+          "description": "The amount of time.",
+          "translation": {}
+        },
+        "units": {
+          "enum": [
+            "year",
+            "month",
+            "day",
+            "hour",
+            "minute",
+            "second"
+          ],
+          "description": "The unit of time for the interval.",
+          "translation": {}
+        }
+      }
+    },
+    "timePeriod.json_definitions_duration": {
+      "type": "object",
+      "description": "Object for collecting information about a duration or period of time.",
+      "example": "../examples/duration.json",
+      "translation": {},
+      "minProperties": 1,
+      "additionalProperties": true,
+      "properties": {
+        "years": {
+          "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+        },
+        "months": {
+          "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+        },
+        "days": {
+          "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+        },
+        "hours": {
+          "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+        },
+        "minutes": {
+          "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+        },
+        "seconds": {
+          "$ref": "#/definitions/timePeriod.json_definitions_durationPart"
+        }
+      },
+      "anyOf": [
+        {
+          "title": "years is required",
+          "required": [
+            "years"
+          ]
+        },
+        {
+          "title": "months is required",
+          "required": [
+            "months"
+          ]
+        },
+        {
+          "title": "days is required",
+          "required": [
+            "days"
+          ]
+        },
+        {
+          "title": "hours is required",
+          "required": [
+            "hours"
+          ]
+        },
+        {
+          "title": "minutes is required",
+          "required": [
+            "minutes"
+          ]
+        },
+        {
+          "title": "seconds is required",
+          "required": [
+            "seconds"
+          ]
+        }
+      ]
+    },
+    "timePeriod.json_definitions_durationPart": {
+      "type": "integer"
+    },
+    "responsibility.json_definitions_party": {
+      "type": "object",
+      "required": [
+        "contactId"
+      ],
+      "properties": {
+        "contactId": {
+          "type": "string",
+          "description": "Identifier matching a contactId in the main contact array."
+        },
+        "organizationMembers": {
+          "type": "array",
+          "description": "Identifies individuals that have an association with an organization contact.",
+          "translation": {},
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "citation.json_definitions_series": {
+      "type": "object",
+      "title": "series",
+      "description": "Information about the series, or aggregate resource, to which a resource belongs.",
+      "example": "../series.json",
+      "translation": {},
+      "additionalProperties": true,
+      "properties": {
+        "seriesName": {
+          "type": "string"
+        },
+        "seriesIssue": {
+          "type": "string"
+        },
+        "issuePage": {
+          "type": "string"
+        }
+      }
+    },
+    "onlineResource.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "Information about accessing online resources and services.",
+      "example": "../examples/onlineResource.json",
+      "required": [
+        "uri"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "uri": {
+          "$ref": "#/definitions/common.json_definitions_uri"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the online resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_OnlineResource \u003e name"
+            ]
+          }
+        },
+        "protocol": {
+          "type": "string",
+          "description": "The connection protocol to be used such as: ftp, http, etc.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_OnlineResource \u003e protocol"
+            ]
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed text description of what the online resource is/does.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_OnlineResource \u003e description"
+            ]
+          }
+        },
+        "function": {
+          "type": "string",
+          "description": "Function performed by the online resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_OnlineResource \u003e function \u003e CI_OnlineFunctionCode [codelist]"
+            ]
+          }
+        },
+        "applicationProfile": {
+          "type": "string",
+          "description": "Name of an application profile that can be used with the online resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "CI_OnlineResource \u003e applicationProfile"
+            ]
+          }
+        },
+        "protocolRequest": {
+          "type": "string",
+          "description": "Request used to access the resource depending on the protocol, e.g. body of POST(http)_ request.",
+          "translation": {
+            "ISO 19115-1": [
+              "CI_OnlineResource \u003e protocolRequest"
+            ]
+          }
+        }
+      }
+    },
+    "common.json_definitions_uri": {
+      "type": "string",
+      "description": "Location (address) for on-line access using a Uniform Resource Identifier, usually in the form of a Uniform Resource Locator (URL).",
+      "example": "../examples/uri.json",
+      "translation": {
+        "ISO 19115-2": [
+          "CI_OnlineResource \u003e linkage"
+        ]
+      },
+      "pattern": "([A-Za-z][A-Za-z0-9+\\-.]*):(?:(//)(?:((?:[A-Za-z0-9\\-._~!$\u0026\u0027()*+,;\u003d:]|%[0-9A-Fa-f]{2})*)@)?((?:\\[(?:(?:(?:(?:[0-9A-Fa-f]{1,4}:){6}|::(?:[0-9A-Fa-f]{1,4}:){5}|(?:[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){4}|(?:(?:[0-9A-Fa-f]{1,4}:){0,1}[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){3}|(?:(?:[0-9A-Fa-f]{1,4}:){0,2}[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){2}|(?:(?:[0-9A-Fa-f]{1,4}:){0,3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:|(?:(?:[0-9A-Fa-f]{1,4}:){0,4}[0-9A-Fa-f]{1,4})?::)(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(?:(?:[0-9A-Fa-f]{1,4}:){0,5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(?:(?:[0-9A-Fa-f]{1,4}:){0,6}[0-9A-Fa-f]{1,4})?::)|[Vv][0-9A-Fa-f]+\\.[A-Za-z0-9\\-._~!$\u0026\u0027()*+,;\u003d:]+)\\]|(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(?:[A-Za-z0-9\\-._~!$\u0026\u0027()*+,;\u003d]|%[0-9A-Fa-f]{2})*))(?::([0-9]*))?((?:/(?:[A-Za-z0-9\\-._~!$\u0026\u0027()*+,;\u003d:@]|%[0-9A-Fa-f]{2})*)*)|/((?:(?:[A-Za-z0-9\\-._~!$\u0026\u0027()*+,;\u003d:@]|%[0-9A-Fa-f]{2})+(?:/(?:[A-Za-z0-9\\-._~!$\u0026\u0027()*+,;\u003d:@]|%[0-9A-Fa-f]{2})*)*)?)|((?:[A-Za-z0-9\\-._~!$\u0026\u0027()*+,;\u003d:@]|%[0-9A-Fa-f]{2})+(?:/(?:[A-Za-z0-9\\-._~!$\u0026\u0027()*+,;\u003d:@]|%[0-9A-Fa-f]{2})*)*)|)(?:\\?((?:[A-Za-z0-9\\-._~!$\u0026\u0027()*+,;\u003d:@/?]|%[0-9A-Fa-f]{2})*))?(?:\\#((?:[A-Za-z0-9\\-._~!$\u0026\u0027()*+,;\u003d:@/?]|%[0-9A-Fa-f]{2})*))?"
+    },
+    "graphic.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "graphic",
+      "example": "../examples/graphic.json",
+      "description": "Provides a path or link to images, maps, flow charts, models, etc. that illustrate the resource.",
+      "type": "object",
+      "required": [
+        "fileName"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "fileName": {
+          "type": "string",
+          "description": "Name of the file that contains a graphic describing the resource.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_BrowseGraphic \u003e filename"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e browse \u003e browsen"
+            ]
+          }
+        },
+        "fileDescription": {
+          "type": "string",
+          "description": "Description of the graphic.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_BrowseGraphic \u003e fileDescription"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e browse \u003e browsed"
+            ]
+          }
+        },
+        "fileType": {
+          "type": "string",
+          "description": "The format in which the illustration is encoded such as GIF, JPEG, PBM, PS, TIFF.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_BrowseGraphic \u003e fileType"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e browse \u003e browset"
+            ]
+          }
+        },
+        "fileConstraint": {
+          "type": "array",
+          "description": "Identifies, legal, security, and other constraint requirements associated with use and distribution of the graphic",
+          "translation": {},
+          "items": {
+            "$ref": "#/definitions/constraint.json"
+          }
+        },
+        "fileUri": {
+          "type": "array",
+          "description": "URI of the graphic.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_BrowseGraphic \u003e filename @xlink:href"
+            ]
+          },
+          "items": {
+            "$ref": "#/definitions/onlineResource.json"
+          }
+        }
+      }
+    },
+    "constraint.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "description": "schema for constraint",
+      "example": "../examples/constraint.json",
+      "required": [
+        "type"
+      ],
+      "anyOf": [
+        {
+          "type": "object",
+          "title": "useLimitation is required",
+          "required": [
+            "useLimitation"
+          ]
+        },
+        {
+          "type": "object",
+          "title": "security required if type is security",
+          "required": [
+            "security"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "security"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "title": "legal required if type is legal",
+          "required": [
+            "legal"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "legal"
+              ]
+            }
+          }
+        }
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "use",
+            "legal",
+            "security"
+          ],
+          "description": "Indicates the type of constraint."
+        },
+        "useLimitation": {
+          "type": "array",
+          "description": "Limitation affecting the fitness for use of the resource or metadata. For example, \"not to be used for navigation\".",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_Constraints \u003e useLimitation"
+            ]
+          },
+          "items": {
+            "type": "string"
+          }
+        },
+        "scope": {
+          "description": "temporal extent and or level of the application of the constraint restrictions.",
+          "$ref": "#/definitions/scope.json"
+        },
+        "graphic": {
+          "type": "array",
+          "description": "Graphic or symbol indicating the constraint",
+          "items": {
+            "$ref": "#/definitions/graphic.json"
+          }
+        },
+        "reference": {
+          "type": "array",
+          "description": "Citation for the limitation or constraint",
+          "translation": {},
+          "items": {
+            "$ref": "#/definitions/citation.json"
+          }
+        },
+        "releasability": {
+          "$ref": "#/definitions/releasability.json",
+          "description": "Information concerning the parties to who the resource can or cannot be released."
+        },
+        "responsibleParty": {
+          "type": "array",
+          "description": "Entity responsible for the resource constraint",
+          "translation": {},
+          "items": {
+            "$ref": "#/definitions/responsibility.json"
+          }
+        },
+        "legal": {
+          "$ref": "#/definitions/constraint.json_definitions_legalConstraint"
+        },
+        "security": {
+          "$ref": "#/definitions/constraint.json_definitions_securityConstraint"
+        }
+      },
+      "definitions": {
+        "legalConstraint": {
+          "type": "object",
+          "description": "Restrictions and legal prerequisites for accessing and using the resource or metadata.",
+          "example": "../examples/legalConstraint.json",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_LegalConstraints"
+            ]
+          },
+          "additionalProperties": true,
+          "minProperties": 1,
+          "properties": {
+            "accessConstraint": {
+              "type": "array",
+              "description": "Access constraints applied to assure the protection of privacy or intellectual property, and any special restrictions or limitations on obtaining the resource or metadata.",
+              "translation": {
+                "ISO 19115-2": [
+                  "MD_LegalConstraints \u003e accessConstraints [MD_RestrictionCode]"
+                ],
+                "FGDC CSDGM": [
+                  "idinfo \u003e accconst"
+                ]
+              },
+              "items": {
+                "type": "string"
+              }
+            },
+            "useConstraint": {
+              "type": "array",
+              "description": "Constraints applied to assure the protection of privacy or intellectual property, and any special restrictions or limitations or warnings on using the resource or metadata.",
+              "translation": {
+                "ISO 19115-2": [
+                  "MD_LegalConstraints \u003e useConstraints [MD_RestrictionCode]"
+                ],
+                "FGDC CSDGM": [
+                  "idinfo \u003e useconst"
+                ]
+              },
+              "items": {
+                "type": "string"
+              }
+            },
+            "otherConstraint": {
+              "type": "array",
+              "description": "Other restrictions and legal prerequisites for accessing and using the resource or metadata.",
+              "translation": {
+                "ISO 19115-2": [
+                  "MD_LegalConstraints \u003e otherConstraints"
+                ]
+              },
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "anyOf": [
+            {
+              "title": "accessConstraint is required",
+              "required": [
+                "accessConstraint"
+              ]
+            },
+            {
+              "title": "useConstraint is required",
+              "required": [
+                "useConstraint"
+              ]
+            },
+            {
+              "title": "otherConstraint is required",
+              "required": [
+                "otherConstraint"
+              ]
+            }
+          ]
+        },
+        "securityConstraint": {
+          "type": "object",
+          "description": "Handling restrictions imposed on the resource or metadata for national security or similar security concerns.",
+          "example": "../examples/securityConstraint.json",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_SecurityConstraints"
+            ]
+          },
+          "required": [
+            "classification"
+          ],
+          "minProperties": 1,
+          "additionalProperties": true,
+          "properties": {
+            "classification": {
+              "type": "string",
+              "description": "Name of the handling restrictions on the resource or metadata.",
+              "translation": {
+                "ISO 19115-2": [
+                  "MD_SecurityConstraints \u003e classification [MD_ClassificationCode]"
+                ]
+              }
+            },
+            "userNote": {
+              "type": "string",
+              "description": "Explanation of the application of the legal constraints or other restrictions and legal prerequisites for obtaining and using the resource or metadata.",
+              "translation": {
+                "ISO 19115-2": [
+                  "MD_SecurityConstraints \u003e userNote"
+                ]
+              }
+            },
+            "classificationSystem": {
+              "type": "string",
+              "description": "Name of the classification system associated with a security constraint.",
+              "translation": {
+                "ISO 19115-2": [
+                  "MD_SecurityConstraints \u003e classificationSystem"
+                ]
+              }
+            },
+            "handlingDescription": {
+              "type": "string",
+              "description": "Additional description regarding the security handling of the resource or metadata.",
+              "translation": {
+                "ISO 19115-2": [
+                  "MD_SecurityConstraints \u003e handlingDescription"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "scope.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "title": "",
+      "description": "The target resource and physical extent for which information is reported.",
+      "example": "../examples/scope.json",
+      "additionalProperties": true,
+      "required": [
+        "scopeCode"
+      ],
+      "properties": {
+        "scopeCode": {
+          "type": "string",
+          "title": "",
+          "description": "Class of information to which the resource applies.",
+          "translation": {}
+        },
+        "scopeDescription": {
+          "type": "array",
+          "description": "Detailed description/listing of the items specified by the scope.",
+          "translation": {},
+          "items": {
+            "$ref": "#/definitions/scope.json_definitions_scopeDescription"
+          }
+        },
+        "scopeExtent": {
+          "type": "array",
+          "description": "Information about the horizontal, vertical and temporal extent of the resource specified by the scope.",
+          "translation": {},
+          "items": {
+            "$ref": "#/definitions/extent.json"
+          }
+        }
+      },
+      "definitions": {
+        "scopeDescription": {
+          "type": "object",
+          "additionalProperties": true,
+          "minProperties": 1,
+          "properties": {
+            "dataset": {
+              "type": "string",
+              "description": "Dataset to which the information applies.",
+              "translation": {}
+            },
+            "attributes": {
+              "type": "string",
+              "description": "Instances of attribute types to which the information is applied.",
+              "translation": {}
+            },
+            "features": {
+              "type": "string",
+              "description": "Instances of feature types to which the information is applied.",
+              "translation": {}
+            },
+            "other": {
+              "type": "string",
+              "description": "Class of information that does not fall into the other categories to which the information applies.",
+              "translation": {}
+            }
+          }
+        }
+      }
+    },
+    "scope.json_definitions_scopeDescription": {
+      "type": "object",
+      "additionalProperties": true,
+      "minProperties": 1,
+      "properties": {
+        "dataset": {
+          "type": "string",
+          "description": "Dataset to which the information applies.",
+          "translation": {}
+        },
+        "attributes": {
+          "type": "string",
+          "description": "Instances of attribute types to which the information is applied.",
+          "translation": {}
+        },
+        "features": {
+          "type": "string",
+          "description": "Instances of feature types to which the information is applied.",
+          "translation": {}
+        },
+        "other": {
+          "type": "string",
+          "description": "Class of information that does not fall into the other categories to which the information applies.",
+          "translation": {}
+        }
+      }
+    },
+    "releasability.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "description": "Information about resource release constraints.",
+      "example": "../examples/releasability.json",
+      "minProperties": 1,
+      "additionalProperties": true,
+      "properties": {
+        "addressee": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/responsibility.json"
+          }
+        },
+        "statement": {
+          "type": "string",
+          "description": "The release statement.",
+          "translation": {},
+          "minLength": 1
+        },
+        "disseminationConstraint": {
+          "type": "array",
+          "description": "Factor in determining releasability",
+          "translation": {},
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "anyOf": [
+        {
+          "title": "Addressee is required.",
+          "required": [
+            "addressee"
+          ]
+        },
+        {
+          "title": "Statement is required.",
+          "required": [
+            "statement"
+          ]
+        }
+      ]
+    },
+    "constraint.json_definitions_legalConstraint": {
+      "type": "object",
+      "description": "Restrictions and legal prerequisites for accessing and using the resource or metadata.",
+      "example": "../examples/legalConstraint.json",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_LegalConstraints"
+        ]
+      },
+      "additionalProperties": true,
+      "minProperties": 1,
+      "properties": {
+        "accessConstraint": {
+          "type": "array",
+          "description": "Access constraints applied to assure the protection of privacy or intellectual property, and any special restrictions or limitations on obtaining the resource or metadata.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_LegalConstraints \u003e accessConstraints [MD_RestrictionCode]"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e accconst"
+            ]
+          },
+          "items": {
+            "type": "string"
+          }
+        },
+        "useConstraint": {
+          "type": "array",
+          "description": "Constraints applied to assure the protection of privacy or intellectual property, and any special restrictions or limitations or warnings on using the resource or metadata.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_LegalConstraints \u003e useConstraints [MD_RestrictionCode]"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e useconst"
+            ]
+          },
+          "items": {
+            "type": "string"
+          }
+        },
+        "otherConstraint": {
+          "type": "array",
+          "description": "Other restrictions and legal prerequisites for accessing and using the resource or metadata.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_LegalConstraints \u003e otherConstraints"
+            ]
+          },
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "anyOf": [
+        {
+          "title": "accessConstraint is required",
+          "required": [
+            "accessConstraint"
+          ]
+        },
+        {
+          "title": "useConstraint is required",
+          "required": [
+            "useConstraint"
+          ]
+        },
+        {
+          "title": "otherConstraint is required",
+          "required": [
+            "otherConstraint"
+          ]
+        }
+      ]
+    },
+    "constraint.json_definitions_securityConstraint": {
+      "type": "object",
+      "description": "Handling restrictions imposed on the resource or metadata for national security or similar security concerns.",
+      "example": "../examples/securityConstraint.json",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_SecurityConstraints"
+        ]
+      },
+      "required": [
+        "classification"
+      ],
+      "minProperties": 1,
+      "additionalProperties": true,
+      "properties": {
+        "classification": {
+          "type": "string",
+          "description": "Name of the handling restrictions on the resource or metadata.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_SecurityConstraints \u003e classification [MD_ClassificationCode]"
+            ]
+          }
+        },
+        "userNote": {
+          "type": "string",
+          "description": "Explanation of the application of the legal constraints or other restrictions and legal prerequisites for obtaining and using the resource or metadata.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_SecurityConstraints \u003e userNote"
+            ]
+          }
+        },
+        "classificationSystem": {
+          "type": "string",
+          "description": "Name of the classification system associated with a security constraint.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_SecurityConstraints \u003e classificationSystem"
+            ]
+          }
+        },
+        "handlingDescription": {
+          "type": "string",
+          "description": "Additional description regarding the security handling of the resource or metadata.",
+          "translation": {
+            "ISO 19115-2": [
+              "MD_SecurityConstraints \u003e handlingDescription"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "recurring": {
+      "$ref": "#/definitions/ActionRecurring_schema.json"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "new",
+        "changed",
+        "ok",
+        "scheduled",
+        "disabled",
+        "error",
+        "running"
+      ]
+    }
+  },
+  "required": [
+    "code",
+    "name",
+    "recurring",
+    "state"
+  ],
+  "definitions": {
+    "ActionRecurring_schema.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "type": "object",
+      "properties": {
+        "last_run": {
+          "type": "integer"
+        },
+        "period": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "last_run",
+        "period"
+      ]
+    }
+  }
+}

@@ -1,0 +1,488 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Step schema",
+  "description": "Description of a single step of the instructions",
+  "step": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "description": "Title for this step"
+      },
+      "duration": {
+        "type": "string",
+        "description": "active time required, e.g. 1 hour 15 min or 2 m 20 s"
+      },
+      "waiting": {
+        "type": "string",
+        "description": "waiting time after active time, same format as duration"
+      },
+      "requires": {
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "The ids of the steps on which this step depends"
+            }
+          },
+          {
+            "type": "string",
+            "description": "A single id if only a single step is required"
+          }
+        ]
+      },
+      "description": {
+        "type": "string",
+        "description": "textual description for this step"
+      },
+      "attention": {
+        "type": "string",
+        "description": "warnings about critical mistakes that can be made"
+      },
+      "images": {
+        "type": "object",
+        "patternProperties": {
+          "^([a-zA-Z][0-9a-zA-Z]*)$": {
+            "$ref": "#/definitions/image.json_image"
+          }
+        },
+        "additionalProperties": false
+      },
+      "files": {
+        "type": "object",
+        "patternProperties": {
+          "^([a-zA-Z][0-9a-zA-Z]*)$": {
+            "$ref": "#/definitions/file.json_file"
+          }
+        },
+        "additionalProperties": false
+      },
+      "tools": {
+        "type": "object",
+        "patternProperties": {
+          "^([a-zA-Z][0-9a-zA-Z]*)$": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/object.json_object"
+              },
+              {
+                "$ref": "#/definitions/object.json_reference"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "parts": {
+        "type": "object",
+        "patternProperties": {
+          "^([a-zA-Z][0-9a-zA-Z]*)$": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/object.json_object"
+              },
+              {
+                "$ref": "#/definitions/object.json_reference"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "results": {
+        "type": "object",
+        "patternProperties": {
+          "^([a-zA-Z][0-9a-zA-Z]*)$": {
+            "$ref": "#/definitions/object.json_object"
+          }
+        },
+        "additionalProperties": false
+      },
+      "assertions": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "Assertions about the results of the step"
+        }
+      },
+      "openscad": {
+        "$ref": "#/definitions/openscad.json_openscad"
+      },
+      "bolts": {
+        "$ref": "#/definitions/bolts.json_bolts"
+      }
+    },
+    "required": [
+      "title",
+      "description",
+      "duration"
+    ],
+    "additionalProperties": false
+  },
+  "definitions": {
+    "image.json_image": {
+      "type": "object",
+      "description": "data about a image",
+      "properties": {
+        "filename": {
+          "type": "string",
+          "description": "Filename of image in local filesystem"
+        },
+        "alt": {
+          "type": "string",
+          "description": "Alternative text for image"
+        }
+      },
+      "required": [
+        "filename"
+      ],
+      "additionalProperties": false
+    },
+    "file.json_file": {
+      "type": "object",
+      "description": "description of a file",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path of the file"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "object.json_object": {
+      "type": "object",
+      "description": "description of an object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the object"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the object"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Number of instances of this object",
+          "default": 1
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "If this object is strictly required",
+          "default": false
+        },
+        "images": {
+          "type": "array",
+          "description": "Images illustrating this object",
+          "items": {
+            "$ref": "#/definitions/image.json_image"
+          }
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "object.json_reference": {
+      "type": "object",
+      "description": "description of an object reference",
+      "properties": {
+        "ref": {
+          "type": "string",
+          "pattern": "^[a-zA-Z][0-9a-zA-Z]*.results.[a-zA-Z][0-9a-zA-Z]*$",
+          "description": "reference on a object in a different step"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Number of instances of this object"
+        }
+      },
+      "required": [
+        "ref"
+      ],
+      "additionalProperties": false
+    },
+    "openscad.json_openscad": {
+      "type": "object",
+      "description": "A dictionary with openscad import data for different categories",
+      "properties": {
+        "images": {
+          "type": "object",
+          "description": "A dictionary for image imports",
+          "patternProperties": {
+            "^([a-zA-Z][0-9a-zA-Z]*)$": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/openscad.json_input"
+                },
+                {
+                  "$ref": "#/definitions/openscad.json_image"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "files": {
+          "type": "object",
+          "description": "A dictionary for file imports",
+          "patternProperties": {
+            "^([a-zA-Z][0-9a-zA-Z]*)$": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/openscad.json_input"
+                },
+                {
+                  "$ref": "#/definitions/openscad.json_file"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "parts": {
+          "type": "object",
+          "description": "A dictionary for part imports",
+          "patternProperties": {
+            "^([a-zA-Z][0-9a-zA-Z]*)$": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/openscad.json_input"
+                },
+                {
+                  "$ref": "#/definitions/openscad.json_object"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "tools": {
+          "type": "object",
+          "description": "A dictionary for tool imports",
+          "patternProperties": {
+            "^([a-zA-Z][0-9a-zA-Z]*)$": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/openscad.json_input"
+                },
+                {
+                  "$ref": "#/definitions/openscad.json_object"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "results": {
+          "type": "object",
+          "description": "A dictionary for result imports",
+          "patternProperties": {
+            "^([a-zA-Z][0-9a-zA-Z]*)$": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/openscad.json_input"
+                },
+                {
+                  "$ref": "#/definitions/openscad.json_object"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "openscad.json_input": {
+      "type": "object",
+      "description": "The details of a module call, which yields an object when evaluated",
+      "properties": {
+        "scadfile": {
+          "type": "string",
+          "description": "The filename of the scad file"
+        },
+        "module": {
+          "type": "string",
+          "description": "Name of the module to be called, if omitted use full file"
+        },
+        "parameters": {
+          "type": "array",
+          "description": "Parameters to invoke module with"
+        }
+      },
+      "required": [
+        "scadfile"
+      ]
+    },
+    "openscad.json_image": {
+      "type": "object",
+      "description": "Details about how the input should be transformed into a image",
+      "properties": {
+        "camera": {
+          "type": "array",
+          "description": "Position of the camera",
+          "maxItems": 3,
+          "minItems": 3,
+          "items": {
+            "type": "number",
+            "description": "A coordinate"
+          }
+        },
+        "size": {
+          "type": "array",
+          "description": "Size of the image",
+          "maxItems": 2,
+          "minItems": 2,
+          "items": {
+            "type": "number",
+            "description": "A pixel number"
+          }
+        },
+        "alt": {
+          "type": "string",
+          "description": "Textual description of the image"
+        }
+      }
+    },
+    "openscad.json_file": {
+      "type": "object",
+      "description": "Details about how the input should be transformed into a stl file",
+      "properties": {
+        "filename": {
+          "type": "string",
+          "description": "The filename of the exported stl"
+        }
+      },
+      "required": [
+        "filename"
+      ]
+    },
+    "openscad.json_object": {
+      "type": "object",
+      "description": "Details about how the input should be transformed to an Object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the object"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Number of instances of this object",
+          "default": 1
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "If this object is strictly required",
+          "default": false
+        },
+        "camera": {
+          "type": "array",
+          "description": "Position of the camera",
+          "maxItems": 3,
+          "minItems": 3,
+          "items": {
+            "type": "number",
+            "description": "A coordinate"
+          }
+        },
+        "size": {
+          "type": "array",
+          "description": "Size of the image",
+          "maxItems": 2,
+          "minItems": 2,
+          "items": {
+            "type": "number",
+            "description": "A pixel number"
+          }
+        },
+        "alt": {
+          "type": "string",
+          "description": "Textual description of the image"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "bolts.json_bolts": {
+      "type": "object",
+      "description": "A dictionary of BOLTS data",
+      "patternProperties": {
+        "^([a-zA-Z][0-9a-zA-Z]*)$": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/bolts.json_standard"
+            },
+            {
+              "$ref": "#/definitions/bolts.json_name"
+            }
+          ]
+        }
+      }
+    },
+    "bolts.json_standard": {
+      "type": "object",
+      "description": "The information necessary for BOLTS to look up information about a standard",
+      "properties": {
+        "standard": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_]*$",
+          "description": "The BOLTS id of the standard"
+        },
+        "free": {
+          "type": "object",
+          "description": "Values for the free parameters"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Number of instances of this object",
+          "default": 1
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "If this object is strictly required",
+          "default": false
+        }
+      },
+      "required": [
+        "standard"
+      ],
+      "additionalProperties": false
+    },
+    "bolts.json_name": {
+      "type": "object",
+      "description": "The information necessary for BOLTS to look up information about a name",
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_]*$",
+          "description": "The BOLTS id of the name"
+        },
+        "free": {
+          "type": "object",
+          "description": "Values for the free parameters"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Number of instances of this object",
+          "default": 1
+        },
+        "optional": {
+          "type": "boolean",
+          "description": "If this object is strictly required",
+          "default": false
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

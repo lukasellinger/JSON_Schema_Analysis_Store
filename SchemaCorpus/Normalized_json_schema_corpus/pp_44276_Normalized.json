@@ -1,0 +1,27 @@
+{
+  "id": "hotspot-transform-rotation",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "HotspotTransformRotationConfig",
+  "description": "An instance of \u003ca href\u003d\u0027#hotspot-transform-rotation\u0027\u003ea hotspot transform rotation.\u003c/a\u003e",
+  "type": "object",
+  "properties": {
+    "x": {
+      "type": "number",
+      "title": "X",
+      "description": "Rotation on x in the local hotspot system",
+      "example": 8
+    },
+    "y": {
+      "type": "number",
+      "title": "Y",
+      "description": "Rotation on y in the local hotspot system",
+      "example": 3
+    },
+    "z": {
+      "type": "number",
+      "title": "Z",
+      "description": "Rotation on z in the local hotspot system",
+      "example": 5
+    }
+  }
+}

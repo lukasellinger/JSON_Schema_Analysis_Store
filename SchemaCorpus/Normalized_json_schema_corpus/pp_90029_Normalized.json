@@ -1,0 +1,261 @@
+{
+  "title": "ExtrudeSymbol3DLayer",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "ExtrudeSymbol3DLayer is used to render Polygon geometries by extruding them upward from the ground, creating a 3D volumetric object.",
+  "properties": {
+    "edges": {
+      "type": "object",
+      "description": "Specifies an edge visualization style.",
+      "$ref": "#/definitions/edges_schema.json"
+    },
+    "enable": {
+      "type": "boolean"
+    },
+    "material": {
+      "$ref": "#/definitions/material_schema.json"
+    },
+    "size": {
+      "type": "number",
+      "description": "Extrusion height in meters."
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of symbol used.",
+      "enum": [
+        "Extrude"
+      ]
+    }
+  },
+  "required": [
+    "size",
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "Extrude SymbolLayer",
+        "code": {
+          "symbolLayer": {
+            "type": "Extrude",
+            "material": {
+              "color": [
+                255,
+                0,
+                0
+              ]
+            },
+            "size": 250
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "edges_schema.json": {
+      "title": "Edges",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Edges describe additional styles applied to visually important edges of 3D objects.",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/sketchEdges_schema.json"
+        },
+        {
+          "$ref": "#/definitions/solidEdges_schema.json"
+        }
+      ]
+    },
+    "sketchEdges_schema.json": {
+      "title": "Sketch Edges",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The sketch edge rendering configuration of a symbol layer. Edges of type `sketch` are rendered with a hand-drawn look in mind.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "extensionLength": {
+          "type": "number",
+          "description": "A size in points by which to extend edges beyond their original end points."
+        },
+        "size": {
+          "type": "number",
+          "description": "Edge size in points, positive only",
+          "minimum": 0
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "The value has to lie between `100` (full transparency) and `0` (full opacity).",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of edge visualization.",
+          "enum": [
+            "sketch"
+          ]
+        }
+      },
+      "required": [
+        "color",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "edges",
+            "code": {
+              "edges": {
+                "type": "sketch",
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "size": 0.75,
+                "transparency": 10,
+                "extensionLength": 5
+              }
+            }
+          }
+        ]
+      }
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "solidEdges_schema.json": {
+      "title": "Solid Edges",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The solid edge rendering configuration of a symbol layer. Edges of type `solid` are rendered in a single color, unaffected by scene lighting.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "extensionLength": {
+          "type": "number",
+          "description": "A size in points by which to extend edges beyond their original end points."
+        },
+        "size": {
+          "type": "number",
+          "description": "Edge size in points, positive only",
+          "minimum": 0
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "The value has to lie between `100` (full transparency) and `0` (full opacity).",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of edge visualization.",
+          "enum": [
+            "solid"
+          ]
+        }
+      },
+      "required": [
+        "color",
+        "type"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "edges",
+            "code": {
+              "edges": {
+                "type": "solid",
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "size": 0.75,
+                "transparency": 10,
+                "extensionLength": 5
+              }
+            }
+          }
+        ]
+      }
+    },
+    "material_schema.json": {
+      "title": "Material",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The material used to shade the geometry.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "colorMixMode": {
+          "type": "string",
+          "description": "Controls how symbolLayer or visualVariable color is applied onto the underlying geometry color/texture. This property only applies to FillSymbol3DLayer within MeshSymbol3D.\u003cbr\u003e\u003cul\u003e\u003cli\u003e`tint`: the feature\u0027s appearance (in terms of color) should be altered to match the symbol / visual variable color.\u003c/li\u003e\u003cli\u003e`replace`: the feature\u0027s color is replaced with the symbol / visual variable color.\u003c/li\u003e\u003cli\u003e`multiply`: the feature\u0027s color is multiplied with the symbol color.\u003c/li\u003e\u003c/ul\u003e",
+          "enum": [
+            "tint",
+            "replace",
+            "multiply"
+          ],
+          "default": "tint"
+        },
+        "transparency": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "material",
+            "code": {
+              "material": {
+                "color": [
+                  255,
+                  0,
+                  0
+                ],
+                "transparency": 20,
+                "colorMixMode": "tint"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

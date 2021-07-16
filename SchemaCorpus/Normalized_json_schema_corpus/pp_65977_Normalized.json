@@ -1,0 +1,241 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Transaction",
+  "description": "PayPal transaction json schema",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "$ref": "#/definitions/amount.json"
+    },
+    "description": {
+      "description": "Description of transaction. 127 characters max.",
+      "type": "string",
+      "maxLength": 127
+    },
+    "item_list": {
+      "$ref": "#/definitions/item_list.json"
+    },
+    "related_resources": {
+      "description": "Financial transactions related to a payment.",
+      "type": "array"
+    },
+    "invoice_number": {
+      "description": "Invoice number used to track the payment. Only supported when thepayment_method is set to paypal.",
+      "type": "string",
+      "maxLength": 256
+    },
+    "custom": {
+      "description": "Free-form field for the use of clients. Only supported when thepayment_method is set to paypal.",
+      "type": "string",
+      "maxLength": 256
+    },
+    "soft_descriptor": {
+      "description": "Soft descriptor used when charging this funding source. Only supported when thepayment_method is set to paypal.",
+      "type": "string",
+      "maxLength": 22
+    },
+    "payment_options": {
+      "$ref": "#/definitions/payment_options.json"
+    }
+  },
+  "required": [
+    "amount"
+  ],
+  "definitions": {
+    "amount.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Amount",
+      "description": "PayPal amount json schema",
+      "type": "object",
+      "properties": {
+        "currency": {
+          "description": "3-letter currency code. PayPal does not support all currencies.",
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3
+        },
+        "total": {
+          "description": "Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places.",
+          "type": "string",
+          "maxLength": 10
+        },
+        "details": {
+          "type": "object",
+          "properties": {
+            "shipping": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "subtotal": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "tax": {
+              "type": "string",
+              "maxLength": 10
+            },
+            "handling_fee": {
+              "type": "string"
+            },
+            "insurance": {
+              "type": "string"
+            },
+            "shipping_discount": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "currency",
+        "total"
+      ]
+    },
+    "item_list.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Item list",
+      "description": "PayPal item_list json schema",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/item.json"
+              }
+            ]
+          }
+        },
+        "shipping_address": {
+          "$ref": "#/definitions/shipping_address.json"
+        }
+      }
+    },
+    "item.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Item",
+      "description": "PayPal item json schema",
+      "type": "object",
+      "properties": {
+        "quantity": {
+          "description": "Number of a particular item. 10 characters max.",
+          "type": "string",
+          "maxLength": 10
+        },
+        "name": {
+          "description": "Item name. 127 characters max.",
+          "type": "string",
+          "maxLength": 127
+        },
+        "price": {
+          "description": "Item cost. 10 characters max.",
+          "type": "string",
+          "maxLength": 10
+        },
+        "currency": {
+          "description": "3-letter currency code.",
+          "type": "string",
+          "maxLength": 3
+        },
+        "sku": {
+          "description": "Stock keeping unit corresponding (SKU) to item. 50 characters max.",
+          "type": "string",
+          "maxLength": 50
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 127
+        },
+        "tax": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "quantity",
+        "name",
+        "price",
+        "currency"
+      ]
+    },
+    "shipping_address.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Shipping Address",
+      "description": "PayPal shipping_address json schema",
+      "type": "object",
+      "properties": {
+        "recipient_name": {
+          "description": "Name of the recipient at this address. 50 characters max.",
+          "type": "string",
+          "maxLength": 50
+        },
+        "type": {
+          "description": "Address type. Must be one of the following: residential, business, or mailbox.",
+          "type": "string",
+          "enum": [
+            "residential",
+            "business",
+            "mailbox"
+          ]
+        },
+        "line1": {
+          "description": "Line 1 of the address (e.g., Number, street, etc). 100 characters max.",
+          "type": "string",
+          "maxLength": 100
+        },
+        "line2": {
+          "description": "Line 2 of the address (e.g., Suite, apt #, etc). 100 characters max.",
+          "type": "string",
+          "maxLength": 100
+        },
+        "city": {
+          "description": "City name. 50 characters max.",
+          "type": "string",
+          "maxLength": 50
+        },
+        "country_code": {
+          "description": "2-letter country code. 2 characters max",
+          "type": "string",
+          "maxLength": 2,
+          "minLength": 2
+        },
+        "postal_code": {
+          "description": "Zip code or equivalent is usually required for countries that have them. 20 characters max.",
+          "type": "string",
+          "maxLength": 20
+        },
+        "state": {
+          "description": "2-letter code for US states, and the equivalent for other countries. 100 characters max.",
+          "type": "string",
+          "maxLength": 100
+        },
+        "phone": {
+          "description": "Phone number in E.123 format. 50 characters max.",
+          "type": "string",
+          "maxLength": 50
+        }
+      },
+      "require": [
+        "recipient_name",
+        "line1",
+        "city",
+        "country_code"
+      ]
+    },
+    "payment_options.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Payment options",
+      "description": "payment options json schema",
+      "type": "object",
+      "properties": {
+        "allowed_payment_method": {
+          "type": "string",
+          "enum": [
+            "INSTANT_FUNDING_SOURCE"
+          ]
+        }
+      }
+    }
+  }
+}

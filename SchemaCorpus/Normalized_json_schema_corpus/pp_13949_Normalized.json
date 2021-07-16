@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "string"
+      },
+      "nanoentities": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string"
+            },
+            "contextName": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "additionalItems": false
+      },
+      "couplingInstances": {
+        "type": "null"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "name",
+      "nanoentities",
+      "couplingInstances"
+    ]
+  },
+  "additionalItems": false,
+  "required": [
+    "1"
+  ]
+}

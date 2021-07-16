@@ -1,0 +1,479 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ModuleList",
+  "description": "List of Module Descriptors",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/ModuleDescriptor.json"
+  },
+  "definitions": {
+    "ModuleDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "ModuleDescriptor",
+      "description": "A FOLIO Module",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Module ID with format product-semver",
+          "type": "string"
+        },
+        "name": {
+          "description": "Short name for module (does not include version)",
+          "type": "string"
+        },
+        "replaces": {
+          "description": "List of modules that this replaces",
+          "type": "array",
+          "items": {
+            "description": "Module name - without semantic version",
+            "type": "string"
+          }
+        },
+        "tags": {
+          "description": "Module tags",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "description": "Module tag",
+            "type": "string"
+          }
+        },
+        "requires": {
+          "description": "Required interfaces",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/InterfaceReference.json"
+          }
+        },
+        "provides": {
+          "description": "Provided interfaces",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/InterfaceDescriptor.json"
+          }
+        },
+        "optional": {
+          "description": "Optional interfaces",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/InterfaceReference.json"
+          }
+        },
+        "filters": {
+          "description": "Provided filters",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoutingEntry.json"
+          }
+        },
+        "permissionSets": {
+          "description": "Module Permission Sets",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/Permission.json"
+          }
+        },
+        "env": {
+          "description": "Supported environment variables",
+          "$ref": "#/definitions/EnvEntryList.json"
+        },
+        "metadata": {
+          "description": "Module Metadata (any object)",
+          "type": "object"
+        },
+        "uiDescriptor": {
+          "description": "UI module descriptor",
+          "$ref": "#/definitions/UiModuleDescriptor.json"
+        },
+        "launchDescriptor": {
+          "description": "Default deployment for this module",
+          "$ref": "#/definitions/LaunchDescriptor.json"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "InterfaceReference.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "InterfaceReference",
+      "description": "A reference to an interfaceDescriptor, by name and version",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Interface ID",
+          "type": "string"
+        },
+        "version": {
+          "description": "One or more versions in major.minor format",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ]
+    },
+    "InterfaceDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "InterfaceDescriptor",
+      "description": "An interface that a module can provide",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Interface ID",
+          "type": "string"
+        },
+        "version": {
+          "description": "Interface version in major.minor format",
+          "type": "string"
+        },
+        "interfaceType": {
+          "description": "Type: proxy (default), system, internal, multiple",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "handlers": {
+          "description": "Handler entries for this interface",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/RoutingEntry.json"
+          }
+        },
+        "permissionSets": {
+          "description": "Permissions for this interface",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/Permission.json"
+          }
+        },
+        "scope": {
+          "description": "Interface scope",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ]
+    },
+    "RoutingEntry.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "RoutingEntry",
+      "description": "Okapi proxy routing entry",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "methods": {
+          "description": "List of methods GET, POST,.. * (for all)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pathPattern": {
+          "description": "Path pattern match. * matches any path. {x} matches one or more characters but not slash",
+          "type": "string"
+        },
+        "path": {
+          "description": "Path prefix match",
+          "type": "string"
+        },
+        "rewritePath": {
+          "description": "Rewrite path. e.g. have filter rewrite \u0027/*\u0027 to \u0027/events/*\u0027",
+          "type": "string"
+        },
+        "phase": {
+          "description": "If given, may be auth, pre or post",
+          "type": "string"
+        },
+        "level": {
+          "description": "Processing level. Default is 50 (handlers)",
+          "type": "string"
+        },
+        "type": {
+          "description": "Proxy handling. One of: request-response, request-only, headers, redirect, system, internal, request-response-1.0. The default is request-response",
+          "type": "string"
+        },
+        "redirectPath": {
+          "description": "If given, path that we internally redirect to",
+          "type": "string"
+        },
+        "unit": {
+          "description": "Delay unit",
+          "type": "string"
+        },
+        "delay": {
+          "description": "Delay between calls; a value of zero disables timer",
+          "type": "string"
+        },
+        "schedule": {
+          "description": "Timer schedule using cron-utils",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cron": {
+              "description": "crontab specification",
+              "type": "string"
+            },
+            "zone": {
+              "description": "time zone (UTC is the default); See https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html",
+              "type": "string"
+            }
+          }
+        },
+        "permissionsRequired": {
+          "description": "Required permissions for this entry",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "permissionsDesired": {
+          "description": "Desired permissions for this entry",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "modulePermissions": {
+          "description": "Module permissions for this entry",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "permissionsRequiredTenant": {
+          "description": "Required permissions that replace permissionsRequired when the user is authenticated and either the tenant matches each {tenantId} in pathPattern or pathPattern doesn\u0027t contain {tenantId}",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "delegateCORS": {
+          "description": "Okapi handles CORS by default. Set to true to delegate CORS handling to the module. This only applies to calls made via /_/invoke/tenant/\u003ctid\u003e/\u003cpath\u003e",
+          "type": "boolean"
+        }
+      }
+    },
+    "Permission.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Permissions Definition Schema",
+      "description": "Permission entity",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "permissionName": {
+          "description": "Permission ID (usually module.service.method or similar)",
+          "type": "string"
+        },
+        "replaces": {
+          "description": "previously used names for this permission",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "displayName": {
+          "description": "Human readable name for permission",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description for permission",
+          "type": "string"
+        },
+        "subPermissions": {
+          "description": "Sub permissions",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "visible": {
+          "description": "Whether to show the permission in UI",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "permissionName"
+      ]
+    },
+    "EnvEntryList.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "EnvEntryList",
+      "description": "List of environment variables",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/EnvEntry.json"
+      }
+    },
+    "EnvEntry.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "EnvEntry",
+      "description": "Environment Variable",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Key",
+          "type": "string"
+        },
+        "value": {
+          "description": "Value",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "UiModuleDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "UiModuleDescriptor",
+      "description": "UI Module description",
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "npm": {
+          "description": "NPM module",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "description": "URL",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "local": {
+          "description": "Local",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "args": {
+          "description": "Arguments",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "LaunchDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "LaunchDescriptor",
+      "description": "Specifies how a module is deployed and undeployed",
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "exec": {
+          "description": "Process execution with string passed to exec and %p is replaced with assigned port",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cmdlineStart": {
+          "description": "Process start instruction where the idea is that shell or process spawned thereof goes into background on its own. The string is passed to Bourne shell (Unix Only) and %p is replaced with the assigned port",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cmdlineStop": {
+          "description": "Process stop instruction where the idea is that shell or process spawned thereof stops service",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dockerImage": {
+          "description": "Deploy using Docker container and string is Docker image",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dockerPull": {
+          "description": "Whether Docker should attempt pulling",
+          "type": "boolean"
+        },
+        "dockerCMD": {
+          "description": "Override/set CMD of Dockerfile",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "dockerArgs": {
+          "description": "Create Container JSON object passed to create container call for Docker. See https://docs.docker.com/engine/api/v1.37/#operation/ContainerCreate",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "waitIterations": {
+          "description": "Number of iterations that Okapi waits for module to be fully ready",
+          "type": "integer"
+        },
+        "env": {
+          "description": "Default environment for deployment",
+          "$ref": "#/definitions/EnvEntryList.json"
+        }
+      }
+    }
+  }
+}

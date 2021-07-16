@@ -1,0 +1,74 @@
+{
+  "title": "popupElement media",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Configures media in popup elements.",
+  "properties": {
+    "mediaInfos": {
+      "type": "array",
+      "description": "An array of `mediaInfo` objects representing an image or chart for display. If no `mediaInfos` property is provided, the popupElement will display whatever is specified in the `popupInfo.mediaInfos` property.",
+      "items": {
+        "type": "object",
+        "$ref": "mediaInfo_schema.json"
+      }
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "media"
+      ]
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "additionalInformation": "Each popupElement has a `type` property. This string value indicates the type of popupElement used.",
+    "examples": [
+      {
+        "title": "popupElement media imag",
+        "code": {
+          "popupElements": [
+            {
+              "mediaInfos": [
+                {
+                  "type": "image",
+                  "title": "\u003cdiv\u003e\u003cp style\u003d\u0027font-weight:bold;\u0027\u003e\u003cspan\u003eImage\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                  "caption": "\u003cdiv\u003e\u003cp\u003e\u003cspan\u003ecaliforniaa flag\u003c/span\u003e\u003c/p\u003e\u003cp\u003e\u003cspan /\u003e\u003c/p\u003e\u003c/div\u003e",
+                  "value": {
+                    "sourceURL": "http://www.50states.com/flag/image/nunst0006.gif"
+                  }
+                }
+              ],
+              "type": "media"
+            }
+          ]
+        }
+      },
+      {
+        "title": "popupElement media chart",
+        "code": {
+          "popupElements": [
+            {
+              "mediaInfos": [
+                {
+                  "type": "columnchart",
+                  "title": "\u003cdiv\u003e\u003cp style\u003d\u0027font-weight:bold;\u0027\u003e\u003cspan\u003eChart\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                  "caption": "\u003cdiv\u003e\u003cp\u003e\u003cspan style\u003d\"color:#DF73FF;\"\u003eThis shows Rotation and size.\u003c/span\u003e\u003c/p\u003e\u003c/div\u003e",
+                  "value": {
+                    "fields": [
+                      "rotation",
+                      "size"
+                    ]
+                  }
+                }
+              ],
+              "type": "media"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

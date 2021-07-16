@@ -1,0 +1,128 @@
+{
+  "title": "fieldInfo",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Defines how a field in the dataset participates (or does not participate) in a popup window.",
+  "properties": {
+    "fieldName": {
+      "type": "string",
+      "description": "A string containing the field name as defined by the service. Anywhere that a fieldname is referenced as `{field-name} in popupInfo, an Arcade expression can also be referenced as `{expression/\u003cexpression-name\u003e}`."
+    },
+    "format": {
+      "type": "object",
+      "description": "A format object used with numerical or date fields to provide more detail about how the value should be displayed in a popup window.",
+      "$ref": "#/definitions/format_schema.json"
+    },
+    "isEditable": {
+      "type": "boolean",
+      "description": "A Boolean determining whether users can edit this field. Not applicable to Arcade expressions.",
+      "default": false
+    },
+    "label": {
+      "type": "string",
+      "description": "A string containing the field alias. This can be overridden by the web map author. Not applicable to Arcade expressions as `title` is used instead."
+    },
+    "statisticType": {
+      "type": "string",
+      "description": "Used in a 1:many or many:many relationship to compute the statistics on the field to show in the popup.",
+      "enum": [
+        "avg",
+        "count",
+        "max",
+        "min",
+        "stddev",
+        "sum",
+        "var"
+      ]
+    },
+    "stringFieldOption": {
+      "type": "string",
+      "description": "A string determining what type of input box editors see when editing the field. Applies only to string fields. Not applicable to Arcade expressions.",
+      "enum": [
+        "richtext",
+        "textarea",
+        "textbox"
+      ],
+      "default": "textbox"
+    },
+    "tooltip": {
+      "type": "string",
+      "description": "A string providing an editing hint for editors of the field. Not applicable to Arcade expressions."
+    },
+    "visible": {
+      "type": "boolean",
+      "description": "A Boolean determining whether the field is visible in the popup window."
+    }
+  },
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "fieldInfo",
+        "code": {
+          "fieldInfo": {
+            "fieldName": "relationships/2/Postcode",
+            "label": "Postcode",
+            "isEditable": false,
+            "visible": false,
+            "statisticType": "count",
+            "stringFieldOption": "textbox"
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "format_schema.json": {
+      "title": "format",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The format object can be used with numerical or date fields to provide more detail about how values should be displayed in popup windows.",
+      "properties": {
+        "dateFormat": {
+          "type": "string",
+          "description": "A string used with date fields to specify how the date should appear in popup windows.",
+          "enum": [
+            "dayShortMonthYear",
+            "dayShortMonthYearLongTime",
+            "dayShortMonthYearLongTime24",
+            "dayShortMonthYearShortTime",
+            "dayShortMonthYearShortTime24",
+            "longDate",
+            "longDateLongTime",
+            "longDateLongTime24",
+            "longDateShortTime",
+            "longDateShortTime24",
+            "longMonthDayYear",
+            "longMonthDayYearLongTime",
+            "longMonthDayYearLongTime24",
+            "longMonthDayYearShortTime",
+            "longMonthDayYearShortTime24",
+            "longMonthYear",
+            "shortDate",
+            "shortDateLE",
+            "shortDateLELongTime",
+            "shortDateLELongTime24",
+            "shortDateLEShortTime",
+            "shortDateLEShortTime24",
+            "shortDateLongTime",
+            "shortDateLongTime24",
+            "shortDateShortTime",
+            "shortDateShortTime24",
+            "shortMonthYear",
+            "year"
+          ]
+        },
+        "digitSeparator": {
+          "type": "boolean",
+          "description": "A Boolean used with numerical fields. A value of true allows the number to have a digit (or thousands) separator when the value appears in popup windows. Depending on the locale, this separator is a decimal point or a comma. A value of false means that no separator will be used."
+        },
+        "places": {
+          "type": "integer",
+          "description": "An integer used with numerical fields to specify the number of supported decimal places that should appear in popup windows. Any places beyond this value are rounded."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,359 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "_id": {
+      "$ref": "#/definitions/common.json_definitions_objectid"
+    },
+    "firstname": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "lastname": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "age": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "sex": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "male",
+            "female",
+            "other",
+            "unknown"
+          ]
+        }
+      ]
+    },
+    "race": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "American Indian or Alaska Native",
+            "Asian",
+            "Native Hawaiian or Other Pacific Islander",
+            "Black or African American",
+            "White",
+            "More Than One Race",
+            "Unknown or Not Reported"
+          ]
+        }
+      ]
+    },
+    "ethnicity": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "Not Hispanic or Latino",
+            "Hispanic or Latino",
+            "Unknown or Not Reported"
+          ]
+        }
+      ]
+    },
+    "code": {
+      "type": "string",
+      "maxLength": 64
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "subject-input": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/_id"
+        },
+        "firstname": {
+          "$ref": "#/definitions/firstname"
+        },
+        "lastname": {
+          "$ref": "#/definitions/lastname"
+        },
+        "age": {
+          "$ref": "#/definitions/age"
+        },
+        "sex": {
+          "$ref": "#/definitions/sex"
+        },
+        "race": {
+          "$ref": "#/definitions/race"
+        },
+        "ethnicity": {
+          "$ref": "#/definitions/ethnicity"
+        },
+        "code": {
+          "$ref": "#/definitions/code"
+        },
+        "tags": {
+          "$ref": "#/definitions/tags"
+        },
+        "info": {
+          "$ref": "#/definitions/common.json_definitions_info"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-input"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "subject"
+    },
+    "subject-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/_id"
+        },
+        "firstname": {
+          "$ref": "#/definitions/firstname"
+        },
+        "lastname": {
+          "$ref": "#/definitions/lastname"
+        },
+        "age": {
+          "$ref": "#/definitions/age"
+        },
+        "sex": {
+          "$ref": "#/definitions/sex"
+        },
+        "race": {
+          "$ref": "#/definitions/race"
+        },
+        "ethnicity": {
+          "$ref": "#/definitions/ethnicity"
+        },
+        "code": {
+          "$ref": "#/definitions/code"
+        },
+        "tags": {
+          "$ref": "#/definitions/tags"
+        },
+        "info": {
+          "$ref": "#/definitions/common.json_definitions_info"
+        },
+        "info_exists": {
+          "$ref": "#/definitions/container.json_definitions_info_exists"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file.json_definitions_file-output"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "subject"
+    },
+    "subject-output-default-required": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/subject-output"
+        }
+      ],
+      "required": [
+        "_id"
+      ],
+      "x-sdk-model": "subject"
+    },
+    "common.json_definitions_objectid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{24}$"
+    },
+    "common.json_definitions_info": {
+      "type": "object"
+    },
+    "file.json_definitions_file-input": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/file.json_definitions_name"
+        },
+        "type": {
+          "$ref": "#/definitions/file.json_definitions_file-type"
+        },
+        "mimetype": {
+          "$ref": "#/definitions/file.json_definitions_mimetype"
+        },
+        "modality": {
+          "$ref": "#/definitions/file.json_definitions_modality"
+        },
+        "measurements": {
+          "$ref": "#/definitions/file.json_definitions_measurements"
+        },
+        "tags": {
+          "$ref": "#/definitions/tags"
+        },
+        "info": {
+          "$ref": "#/definitions/common.json_definitions_info"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "file-entry"
+    },
+    "file.json_definitions_name": {
+      "type": "string"
+    },
+    "file.json_definitions_file-type": {
+      "type": "string"
+    },
+    "file.json_definitions_mimetype": {
+      "type": "string"
+    },
+    "file.json_definitions_modality": {
+      "type": "string"
+    },
+    "file.json_definitions_measurements": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "container.json_definitions_info_exists": {
+      "type": "boolean"
+    },
+    "file.json_definitions_file-output": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/file.json_definitions_file-entry"
+        }
+      ],
+      "required": [
+        "modified",
+        "size"
+      ],
+      "x-sdk-model": "file-entry"
+    },
+    "file.json_definitions_file-entry": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/file.json_definitions_name"
+        },
+        "type": {
+          "$ref": "#/definitions/file.json_definitions_file-type"
+        },
+        "mimetype": {
+          "$ref": "#/definitions/file.json_definitions_mimetype"
+        },
+        "modality": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/file.json_definitions_modality"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "measurements": {
+          "$ref": "#/definitions/file.json_definitions_measurements"
+        },
+        "tags": {
+          "$ref": "#/definitions/tags"
+        },
+        "info": {
+          "$ref": "#/definitions/common.json_definitions_info"
+        },
+        "origin": {
+          "$ref": "#/definitions/file.json_definitions_file-origin"
+        },
+        "hash": {
+          "$ref": "#/definitions/file.json_definitions_hash"
+        },
+        "created": {
+          "$ref": "#/definitions/created-modified.json_definitions_created"
+        },
+        "modified": {
+          "$ref": "#/definitions/created-modified.json_definitions_modified"
+        },
+        "size": {
+          "$ref": "#/definitions/file.json_definitions_size"
+        },
+        "info_exists": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "x-sdk-model": "file-entry"
+    },
+    "file.json_definitions_file-origin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "via": {
+          "$ref": "#/definitions/file.json_definitions_via"
+        }
+      },
+      "additionalProperties": false
+    },
+    "file.json_definitions_via": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "file.json_definitions_hash": {
+      "type": "string",
+      "minLength": 106,
+      "maxLength": 106
+    },
+    "created-modified.json_definitions_created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created-modified.json_definitions_modified": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "file.json_definitions_size": {
+      "type": "integer"
+    }
+  }
+}

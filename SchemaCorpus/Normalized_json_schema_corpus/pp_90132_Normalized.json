@@ -1,0 +1,129 @@
+{
+  "title": "TransparencyInfo Visual Variable",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "The transparencyInfo visual variable defines the transparency, or opacity, of each feature\u0027s symbol based on a numeric attribute field value.",
+  "properties": {
+    "field": {
+      "type": "string",
+      "description": "Attribute field used for setting the transparency of a feature if no `valueExpression` is provided."
+    },
+    "legendOptions": {
+      "type": "object",
+      "$ref": "#/definitions/visualVariableLegendOptions_schema.json"
+    },
+    "normalizationField": {
+      "type": "string",
+      "description": "Attribute field used to normalize the data."
+    },
+    "stops": {
+      "type": "array",
+      "description": "An array of transparencyStop objects.",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/transparencyStop_schema.json"
+      }
+    },
+    "type": {
+      "type": "string",
+      "description": "Specifies the type of visual variable.",
+      "enum": [
+        "transparencyInfo"
+      ]
+    },
+    "valueExpression": {
+      "type": "string",
+      "description": "An [Arcade expression](https://developers.arcgis.com/arcade/) evaluating to a number."
+    },
+    "valueExpressionTitle": {
+      "type": "string",
+      "description": "The title identifying and describing the associated [Arcade](https://developers.arcgis.com/arcade/) expression as defined in the `valueExpression` property."
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "transparencyInfo",
+        "description": "Live sample web scene showing [use of the transparencyInfo visual variable](https://www.arcgis.com/home/webscene/viewer.html?webscene\u003d593dc1e98a1d447fb09b09d486355ef0).",
+        "code": {
+          "visualVariables": [
+            {
+              "type": "transparencyInfo",
+              "field": "strength",
+              "stops": [
+                {
+                  "value": 21,
+                  "transparency": 60
+                },
+                {
+                  "value": 39,
+                  "transparency": 10
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "visualVariableLegendOptions_schema.json": {
+      "title": "Visual Variable Legend Options",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Options available for the legend for visual variables.",
+      "properties": {
+        "showLegend": {
+          "type": "boolean",
+          "description": "Indicates whether to show the color/size/opacity ramp in the legend."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the legend."
+        }
+      }
+    },
+    "transparencyStop_schema.json": {
+      "title": "transparencyStop",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "The transparencyStop object defines the thematic opacity ramp in a sequence of stops. At least two stops are required. The stops must be listed in ascending order based on the value of the `value` property in each stop.",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "A string value used to label the stop in the legend."
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "A numeric transparancy value for a stop ranging from 0-100, where 0 is opaque and 100 is 100% transparent.",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "value": {
+          "type": "number",
+          "description": "The pixel intensity value. Describes the pixel intensity value that the color should be associated with."
+        }
+      },
+      "required": [
+        "transparency",
+        "value"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "code": {
+              "stop": {
+                "value": 0,
+                "transparency": 50
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

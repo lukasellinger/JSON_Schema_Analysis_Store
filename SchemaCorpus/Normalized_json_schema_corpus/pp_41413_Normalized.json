@@ -1,0 +1,213 @@
+{
+  "gear": {
+    "name": "dcm2niix",
+    "label": "DCM2NIIX: v1.0.20170923",
+    "description": "Chris Rorden\u0027s dcm2niiX version v1.0.20170923 (OpenJPEG build) GCC4.8.4 (64-bit Linux). dcm2niix is a popular tool for converting images from the complicated formats used by scanner manufacturers (DICOM, PAR/REC) to the simple NIfTI format used by many scientific tools. dcm2niix works for all modalities (CT, MRI, PET, SPECT) and sequence types.",
+    "maintainer": "Michael Perry \u003clmperry@stanford.edu\u003e",
+    "author": "Chris Rorden (@neurolabusc)",
+    "url": "https://github.com/rordenlab/dcm2niix",
+    "source": "https://github.com/scitran-apps/dcm2niix",
+    "license": "BSD-2-Clause",
+    "flywheel": "0",
+    "version": "0.3.3_1.0.20171215",
+    "custom": {
+      "docker-image": "scitran/dcm2niix:0.3.3_1.0.20171215"
+    },
+    "config": {
+      "decompress_dicoms": {
+        "default": false,
+        "type": "boolean",
+        "description": "Decompress DICOM files prior to conversion. This will perform decompression using gdcmconv and then perform conversion using dcm2niix. (true/false, default\u003dfalse)"
+      },
+      "bids_sidecar": {
+        "description": "Output BIDS sidecar in JSON format. Options are \u0027y\u0027\u003dyes, \u0027n\u0027\u003dno, and \u0027o\u0027\u003donly (whereby no NIfTI file will be generated). Default\u003d\u0027n\u0027.",
+        "type": "string",
+        "default": "n"
+      },
+      "merge2d": {
+        "description": "merge 2D slices from same series regardless of study time, echo, coil, orientation, etc. (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "text_notes_private": {
+        "description": "text notes includes private patient details (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "crop": {
+        "description": "Crop images (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "compress_nifti": {
+        "description": "Compress output NIfTI file (y/n/3, default y)  [y\u003dpigz, n\u003dno, 3\u003dno,3D]. Note that if option \u00273\u0027 is chosen, the filename flag will be set to \u0027-f %p_%s\u0027 to prevent overwriting files",
+        "type": "string",
+        "default": "y"
+      },
+      "filename": {
+        "description": "Determine how files are named: filename (%a\u003dantenna (coil) number, %c\u003dcomments, %d\u003ddescription, %e\u003decho number, %f\u003dfolder name, %i\u003dID of patient, %m\u003dmanufacturer, %n\u003dname of patient, %p\u003dprotocol, %s\u003dseries number, %t\u003dtime, %u\u003dacquisition number, %z\u003dsequence name; [default\u003d\u0027%f\u0027])",
+        "type": "string",
+        "default": "%f"
+      },
+      "anonymize_bids": {
+        "description": "Anonymize BIDS (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "ignore_derived": {
+        "description": "ignore derived, localizer and 2D images (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "philips_scaling": {
+        "description": "Philips precise float (not display) scaling (y/n, default y)",
+        "type": "string",
+        "default": "y"
+      },
+      "single_file_mode": {
+        "description": "single file mode, do not convert other images in folder (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "3Dvol": {
+        "description": "Output 3D uncompressed volumes (true/false, default\u003dfalse). Note that the filename flag will be set to \u0027-f %p_%s\u0027 to prevent overwriting files",
+        "type": "boolean",
+        "default": false
+      },
+      "sort_diffusion_volumes": {
+        "description": "diffusion volumes sorted by b-value (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "convert_only_series": {
+        "description": "only convert this series number - can be used up to 16 times (default convert all). Provide series numbers in a space-separated list within single quotes, e.g., \u002712 13\u0027",
+        "type": "string",
+        "default": "\u0027all\u0027"
+      }
+    },
+    "inputs": {
+      "dcm2niix_input": {
+        "description": "Input file for dcm2niix. This can be either a DICOM archive (\u0027.dicom.zip\u0027), an enhanced DICOM file (gzipped or not, e.g., \u0027IM0001.gz\u0027, \u0027IM0001\u0027), or a PAR/REC archive (\u0027.parrec.zip\u0027)",
+        "base": "file",
+        "type": {
+          "enum": [
+            "dicom",
+            "parrec"
+          ]
+        }
+      }
+    }
+  },
+  "exchange": {
+    "git-commit": "e16f3652c398eacf1704b6954d52c177024ea481",
+    "rootfs-hash": "sha384:8ad22bfda13812daa4e336c93883faaf9aa5ef0dfbf2dbf07f5f32168093e448225ec63b692a4f276c2f4bebab2a0de1",
+    "rootfs-url": "https://storage.googleapis.com/flywheel-exchange/scitran-dcm2niix-sha384-8ad22bfda13812daa4e336c93883faaf9aa5ef0dfbf2dbf07f5f32168093e448225ec63b692a4f276c2f4bebab2a0de1.tgz"
+  },
+  "invocation-schema": {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "required": [
+      "config",
+      "inputs"
+    ],
+    "type": "object",
+    "properties": {
+      "inputs": {
+        "required": [
+          "dcm2niix_input"
+        ],
+        "type": "object",
+        "properties": {
+          "dcm2niix_input": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "dicom",
+                  "parrec"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "config": {
+        "required": [
+          "sort_diffusion_volumes",
+          "3Dvol",
+          "single_file_mode",
+          "merge2d",
+          "philips_scaling",
+          "anonymize_bids",
+          "bids_sidecar",
+          "text_notes_private",
+          "crop",
+          "filename",
+          "compress_nifti",
+          "decompress_dicoms",
+          "convert_only_series",
+          "ignore_derived"
+        ],
+        "type": "object",
+        "properties": {
+          "sort_diffusion_volumes": {
+            "default": "n",
+            "type": "string"
+          },
+          "compress_nifti": {
+            "default": "y",
+            "type": "string"
+          },
+          "merge2d": {
+            "default": "n",
+            "type": "string"
+          },
+          "philips_scaling": {
+            "default": "y",
+            "type": "string"
+          },
+          "anonymize_bids": {
+            "default": "n",
+            "type": "string"
+          },
+          "bids_sidecar": {
+            "default": "n",
+            "type": "string"
+          },
+          "3Dvol": {
+            "default": false,
+            "type": "boolean"
+          },
+          "crop": {
+            "default": "n",
+            "type": "string"
+          },
+          "text_notes_private": {
+            "default": "n",
+            "type": "string"
+          },
+          "single_file_mode": {
+            "default": "n",
+            "type": "string"
+          },
+          "decompress_dicoms": {
+            "default": false,
+            "type": "boolean"
+          },
+          "convert_only_series": {
+            "default": "\u0027all\u0027",
+            "type": "string"
+          },
+          "ignore_derived": {
+            "default": "n",
+            "type": "string"
+          },
+          "filename": {
+            "default": "%f",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "title": "Invocation manifest for DCM2NIIX: v1.0.20170923"
+  }
+}

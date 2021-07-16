@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "a": {
+    "b": {
+      "c": {
+        "type": "object",
+        "properties": {
+          "col": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "x": {
+    "y": {
+      "z": {
+        "$ref": "#/definitions/a_b_c"
+      }
+    }
+  },
+  "properties": {
+    "banana": {
+      "$ref": "#/definitions/x_y_z"
+    }
+  },
+  "definitions": {
+    "a_b_c": {
+      "type": "object",
+      "properties": {
+        "col": {
+          "type": "string"
+        }
+      }
+    },
+    "x_y_z": {
+      "$ref": "#/definitions/a_b_c"
+    }
+  }
+}

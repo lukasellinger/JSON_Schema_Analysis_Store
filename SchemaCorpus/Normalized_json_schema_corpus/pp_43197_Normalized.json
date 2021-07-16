@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": [
+    "object",
+    "null"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "xp": {
+      "type": "integer"
+    },
+    "requisitionPacks": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/definitions/requisition-pack.schema.json"
+      }
+    },
+    "id": {
+      "type": "string"
+    },
+    "contentId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "xp",
+    "requisitionPacks",
+    "id",
+    "contentId"
+  ],
+  "definitions": {
+    "requisition-pack.schema.json": {
+      "definitions": {
+        "StackedRequisitionPack": {
+          "$ref": "#/definitions/requisition-pack.schema.json"
+        }
+      },
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "largeImageUrl": {
+          "type": "string"
+        },
+        "isStack": {
+          "type": "boolean"
+        },
+        "isFeatured": {
+          "type": "boolean"
+        },
+        "isGiftOnly": {
+          "type": "boolean"
+        },
+        "isNew": {
+          "type": "boolean"
+        },
+        "creditPrice": {
+          "type": "integer"
+        },
+        "isPurchasableWithCredits": {
+          "type": "boolean"
+        },
+        "isPurchasableFromMarketplace": {
+          "type": "boolean"
+        },
+        "xboxMarketplaceProductId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "xboxMarketplaceProductUrl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "merchandisingOrder": {
+          "type": "integer"
+        },
+        "flair": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "giftableAcquisitionMethods": {
+          "type": "integer"
+        },
+        "stackedRequisitionPacks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/requisition-pack.schema.json_definitions_StackedRequisitionPack"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "contentId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "description",
+        "largeImageUrl",
+        "isStack",
+        "isFeatured",
+        "isGiftOnly",
+        "isNew",
+        "creditPrice",
+        "isPurchasableWithCredits",
+        "isPurchasableFromMarketplace",
+        "xboxMarketplaceProductId",
+        "xboxMarketplaceProductUrl",
+        "merchandisingOrder",
+        "flair",
+        "giftableAcquisitionMethods",
+        "stackedRequisitionPacks",
+        "id",
+        "contentId"
+      ]
+    },
+    "requisition-pack.schema.json_definitions_StackedRequisitionPack": {
+      "$ref": "#/definitions/requisition-pack.schema.json"
+    }
+  }
+}

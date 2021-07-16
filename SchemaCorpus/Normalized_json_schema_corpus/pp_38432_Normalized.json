@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "nullable": "false",
+  "id": "http://wso2jsonschema.org",
+  "title": "root",
+  "type": "object",
+  "properties": {
+    "engineers": {
+      "type": "object",
+      "nullable": "false",
+      "properties": {
+        "engineerList": {
+          "type": "array",
+          "nullable": "false",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "fullname": {
+                  "type": "string",
+                  "nullable": "false"
+                },
+                "addresses": {
+                  "type": "object",
+                  "nullable": "false",
+                  "properties": {
+                    "address": {
+                      "type": "array",
+                      "nullable": "false",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "location": {
+                              "type": "string",
+                              "nullable": "false"
+                            },
+                            "city": {
+                              "type": "object",
+                              "nullable": "false",
+                              "properties": {
+                                "postalcode": {
+                                  "type": "number",
+                                  "nullable": "false"
+                                },
+                                "text": {
+                                  "type": "string",
+                                  "nullable": "false"
+                                }
+                              }
+                            },
+                            "road": {
+                              "type": "string",
+                              "nullable": "false"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

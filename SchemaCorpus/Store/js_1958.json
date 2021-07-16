@@ -1,0 +1,206 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "geographicExtent.json#",
+  "type": "object",
+  "description": "Describes the spatial area of the resource",
+  "example": "../examples/geographicExtent.json",
+  "additionalProperties": true,
+  "properties": {
+    "containsData": {
+      "type": "boolean",
+      "description": "Idication of whether the geographic element encompasses an area covered by the data or an area where data are not present.",
+      "translation": {},
+      "default": true
+    },
+    "identifier": {
+      "$ref": "./identifier.json#",
+      "description": "Identifier representing a geographic area."
+    },
+    "boundingBox": {
+      "$ref": "#/definitions/boundingBox",
+      "description": "General geographic position of the resource.",
+      "translation": {
+        "ISO 19115-2": [
+          "EX_GeographicBoundingBox"
+        ],
+        "FGDC CSDGM": [
+          "idinfo \u003e spdom \u003e bounding"
+        ]
+      }
+    },
+    "geographicElement": {
+      "type": "array",
+      "description": "An array of objects each describing a geographic boundary or location comprising all or a portion of the resource.",
+      "translation": {
+        "ISO 19115-2": [
+          "EX_Extent \u003e geographicElement"
+        ]
+      },
+      "items": {
+        "$ref": "#/definitions/geographicElement"
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description of the geographic areal domain of the data set. Examples include, \"Manistee River watershed\", \"extent of 7 ½ minute quads containing any property belonging to Yellowstone National Park\", or \"ponds and reservoirs larger than 2 acres in Jefferson County, Colorado\".",
+      "translation": {
+        "ISO 19115-2": [
+          "EX_Extent \u003e geographicElement \u003e EX_GeographicDescription \u003e geographicIdentifier \u003e MD_Identifier \u003e code"
+        ],
+        "FGDC CSDGM": [
+          "idinfo \u003e spdom \u003e descgeog"
+        ]
+      }
+    }
+  },
+  "anyOf": [
+    {
+      "title": "identifier is required",
+      "required": [
+        "identifier"
+      ]
+    },
+    {
+      "title": "boundingBox is required",
+      "required": [
+        "boundingBox"
+      ]
+    },
+    {
+      "title": "geographicElement is required",
+      "required": [
+        "geographicElement"
+      ]
+    },
+    {
+      "title": "description is required",
+      "required": [
+        "description"
+      ]
+    }
+  ],
+  "definitions": {
+    "boundingBox": {
+      "type": "object",
+      "description": "The four sides of geodetic box defining the area of the resource",
+      "example": "../examples/boundingBox.json",
+      "required": [
+        "westLongitude",
+        "eastLongitude",
+        "southLatitude",
+        "northLatitude"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "westLongitude": {
+          "type": "number",
+          "description": "Western-most coordinate of the limit of the dataset extent expressed in longitude, in decimal degrees.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_GeographicBoundingBox \u003e westBoundLongitude"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e westbc"
+            ]
+          }
+        },
+        "eastLongitude": {
+          "type": "number",
+          "description": "Eastern-most coordinate of the limit of the dataset extent expressed in longitude, in decimal degrees.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_GeographicBoundingBox \u003e eastBoundLongitude"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e eastbc"
+            ]
+          }
+        },
+        "southLatitude": {
+          "type": "number",
+          "description": "Southern-most coordinate of the limit of the dataset extent expressed in latitude, in decimal degrees.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_GeographicBoundingBox \u003e southBoundLatitude"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e southbc"
+            ]
+          }
+        },
+        "northLatitude": {
+          "type": "number",
+          "description": "Northern-most coordinate of the limit of the dataset extent expressed in latitude, in decimal degrees.",
+          "translation": {
+            "ISO 19115-2": [
+              "EX_GeographicBoundingBox \u003e northBoundLatitude"
+            ],
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e northbc"
+            ]
+          }
+        },
+        "minimumAltitude": {
+          "type": "number",
+          "description": "The minimum altitude(height above sea level) extent of coverage.",
+          "translation": {
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e boundalt \u003e altmin"
+            ]
+          }
+        },
+        "maximumAltitude": {
+          "type": "number",
+          "description": "The maximum altitude(height above sea level) extent of coverage.",
+          "translation": {
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e boundalt \u003e altmax"
+            ]
+          }
+        },
+        "unitsOfAltitude": {
+          "type": "string",
+          "description": "The units of measure in which altitude is expressed.",
+          "translation": {
+            "FGDC CSDGM": [
+              "idinfo \u003e spdom \u003e bounding \u003e boundalt \u003e altunit"
+            ]
+          }
+        }
+      },
+      "dependencies": {
+        "minimumAltitude": [
+          "unitsOfAltitude"
+        ],
+        "maximumAltitude": [
+          "unitsOfAltitude"
+        ]
+      }
+    },
+    "geographicElement": {
+      "type": "object",
+      "example": "../examples/geoJson.json",
+      "properties": {
+        "type": {
+          "enum": [
+            "Feature",
+            "FeatureCollection",
+            "GeometryCollection",
+            "Point",
+            "MultiPoint",
+            "LineString",
+            "MultiLineString",
+            "Polygon",
+            "MultiPolygon"
+          ],
+          "description": "The type of geographic object."
+        }
+      },
+      "oneOf": [
+        {
+          "$ref": "geojson.json#"
+        }
+      ]
+    }
+  }
+}

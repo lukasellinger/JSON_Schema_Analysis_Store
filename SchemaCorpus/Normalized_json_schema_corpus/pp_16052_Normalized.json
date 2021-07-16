@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://iot.ee.surrey.ac.uk/fiware/schemas/ngsi9",
+  "type": "object",
+  "properties": {
+    "duration": {
+      "type": "string"
+    },
+    "registrationId": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "duration",
+    "registrationId"
+  ]
+}

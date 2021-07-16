@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "specificResource.json",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": [
+        "string",
+        "object"
+      ],
+      "oneOf": [
+        {
+          "$ref": "#/definitions/stringUri.json"
+        },
+        {
+          "$ref": "#/definitions/externalWebResource.json"
+        }
+      ]
+    }
+  },
+  "required": [
+    "source"
+  ],
+  "definitions": {
+    "stringUri.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "string",
+      "format": "uri"
+    },
+    "externalWebResource.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/stringUri.json"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  }
+}

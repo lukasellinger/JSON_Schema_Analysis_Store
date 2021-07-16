@@ -1,0 +1,55 @@
+{
+  "id": "scene-media-level",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "SceneMediaLevelConfig",
+  "description": "The level of a media source object. An instance of \u003ca href\u003d\"#scene-media-level\"\u003ea scene source level.\u003c/a\u003e",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "If set, specifies the \u003ccode\u003e{level}\u003c/code\u003e pattern for this level. If not, the value will be the index of the level in the levels array.",
+      "example": "4K"
+    },
+    "url": {
+      "type": "string",
+      "title": "URL",
+      "description": "If set, overrides any computed URL by this one. If not, the URL will be computed from other values",
+      "example": "multi/video-2K.mp4"
+    },
+    "device": {
+      "type": "object",
+      "title": "Device",
+      "description": "The device requirements.",
+      "example": {
+        "safari": false,
+        "webvr": true,
+        "os": "Windows"
+      }
+    },
+    "pattern": {
+      "type": "string",
+      "title": "Pattern",
+      "description": "The pattern to respect in case of a multi tiles media. Four parameters are authorized:\u003cul\u003e\u003cli\u003e\u003ccode\u003e{face}\u003c/code\u003e is for the face, in case of a cubemap media\u003c/li\u003e\u003cli\u003e\u003ccode\u003e{level}\u003c/code\u003e is for the level of quality of the tile, in case of a multi resolution media\u003c/li\u003e\u003cli\u003e\u003ccode\u003e{x}\u003c/code\u003e if for the \u003cb\u003ex\u003c/b\u003e coordinates of the tile\u003c/li\u003e\u003cli\u003e\u003ccode\u003e{y}\u003c/code\u003e if for the \u003cb\u003ey\u003c/b\u003e coordinates of the tile\u003c/li\u003e",
+      "example": "multi/equi/{level}/{y}/{x}.jpg"
+    },
+    "width": {
+      "type": "number",
+      "title": "Width",
+      "description": "The width of the source. It will be used with the height and tile to compute the value of the \u003ccode\u003e{x}\u003c/code\u003e and \u003ccode\u003e{y}\u003c/code\u003e patterns.",
+      "example": 2048
+    },
+    "height": {
+      "type": "number",
+      "title": "Height",
+      "description": "The height of the source. It will be used with the width and tile to compute the value of the \u003ccode\u003e{x}\u003c/code\u003e and \u003ccode\u003e{y}\u003c/code\u003e patterns.",
+      "example": 1024
+    },
+    "tile": {
+      "type": "number",
+      "title": "Tile",
+      "description": "The size of a tile, which corresponds to the width and the height of a tile. It will be used with the width and height to compute the value of the \u003ccode\u003e{x}\u003c/code\u003e and \u003ccode\u003e{y}\u003c/code\u003e patterns.",
+      "example": 512
+    }
+  }
+}

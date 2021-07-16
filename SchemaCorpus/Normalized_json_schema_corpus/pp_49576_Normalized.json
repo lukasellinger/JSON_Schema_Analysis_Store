@@ -1,0 +1,133 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.fullcontact.api.EnrichPersonRequest",
+  "properties": {
+    "email": {
+      "type": "string",
+      "description": "One email addresses of the contact. Can accept cleartext, an MD5 or SHA-256 hash representation of the email address to query. Be certain to lowercase and trim the email address prior to hashing. There is a limit of 10 hashed emails (Queryable)"
+    },
+    "emails": {
+      "type": "array",
+      "description": "One or many email addresses of the contact. Can accept cleartext, an MD5 or SHA-256 hash representation of the email address to query. Be certain to lowercase and trim the email address prior to hashing. (Queryable)",
+      "items": {
+        "type": "string"
+      }
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number of the contact. (Queryable)"
+    },
+    "phones": {
+      "type": "array",
+      "description": "One or many phone numbers of the contact. (Queryable)",
+      "items": {
+        "type": "string"
+      }
+    },
+    "location": {
+      "$ref": "#/definitions/LocationQuery.json"
+    },
+    "name": {
+      "$ref": "#/definitions/NameQuery.json"
+    },
+    "profiles": {
+      "type": "array",
+      "description": "URLs, IDs and usernames to the profiles on the social platform. (Queryable)",
+      "items": {
+        "$ref": "#/definitions/ProfileQuery.json"
+      }
+    },
+    "twitter": {
+      "type": "string",
+      "description": "Twitter handle of the contact. Acceptable formats include handle (with or without \"@\"), as well as the URL to the profile. (Queryable)"
+    }
+  },
+  "definitions": {
+    "LocationQuery.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.api.LocationQuery",
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "description": "The first address line for each location. Only queryable when provided in conjunction with name."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "The second address line for each location. Only queryable when provided in conjunction with name."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city of each location. Only queryable when provided in conjunction with name."
+        },
+        "region": {
+          "type": "string",
+          "description": "The region of each location. This is often the state or province. Only queryable when provided in conjunction with name."
+        },
+        "regionCode": {
+          "type": "string",
+          "description": "The region code of each location. Only queryable when provided in conjunction with name."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal or ZIP code for each location. Can accept Zip + 4 or Zip. Only queryable when provided in conjunction with name."
+        }
+      }
+    },
+    "NameQuery.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.api.NameQuery",
+      "properties": {
+        "full": {
+          "type": "string",
+          "description": "Full name of the contact (givenName, familyName). Only queryable when provided in conjunction with postal address."
+        },
+        "given": {
+          "type": "string",
+          "description": "The given name (first name) of the individual. Only queryable when provided in conjunction with postal address."
+        },
+        "family": {
+          "type": "string",
+          "description": "The family name (last name) of the individual. Only queryable when provided in conjunction with postal address."
+        }
+      }
+    },
+    "ProfileQuery.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.fullcontact.api.ProfileQuery",
+      "properties": {
+        "service": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to the profile on the social platform."
+        },
+        "userid": {
+          "type": "string",
+          "description": "User ID associated with the profile."
+        },
+        "username": {
+          "type": "string",
+          "description": "Displayable username of the profile."
+        }
+      }
+    }
+  }
+}

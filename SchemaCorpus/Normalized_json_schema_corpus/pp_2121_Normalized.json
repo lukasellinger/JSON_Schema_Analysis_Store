@@ -1,0 +1,2960 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "SubType": {
+      "Alphanumeric": {
+        "type": "string",
+        "subType": "charstring",
+        "pattern": "^[a-zA-Z0-9]*$"
+      },
+      "AnyTypeValues": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_anytype"
+          },
+          {
+            "enum": [
+              {
+                "integer": 5
+              },
+              {
+                "boolean": false
+              },
+              {
+                "bitstring": "0011"
+              },
+              {
+                "charstring": "mine"
+              }
+            ]
+          }
+        ]
+      },
+      "AsValueUnion": {
+        "anyOf": [
+          {
+            "originalName": "i",
+            "$ref": "#/definitions/definitions_SubType_Int"
+          },
+          {
+            "originalName": "str",
+            "type": "string",
+            "subType": "charstring"
+          }
+        ]
+      },
+      "AsValueUnionValues": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_AsValueUnion"
+          },
+          {
+            "enum": [
+              3,
+              "abc"
+            ],
+            "valueList": [
+              {
+                "i": 3
+              },
+              {
+                "str": "abc"
+              }
+            ]
+          }
+        ]
+      },
+      "CapitalLetters": {
+        "type": "string",
+        "subType": "charstring",
+        "minLength": 1,
+        "maxLength": 6,
+        "pattern": "^[A-Z]*$"
+      },
+      "CapitalStringList": {
+        "type": "array",
+        "subType": "set of",
+        "items": {
+          "$ref": "#/definitions/definitions_SubType_CapitalLetters"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      },
+      "CharstringPattern": {
+        "type": "string",
+        "subType": "charstring",
+        "pattern": "^abc.*xyz$"
+      },
+      "CharstringPatternLong": {
+        "type": "string",
+        "subType": "charstring",
+        "pattern": "^.*ab.\\*\\?\\(\\+[\n-\r*0-9?A-Fa-f]{2,4}xx([^a-c]+)$|^([a-c]+)xx[0-9][0-9]x[0-9A-Za-z]x[\n-\r]x\rx[\t-\r ]x\"x\"x\\\\d$"
+      },
+      "CharstringPatternRef": {
+        "type": "string",
+        "subType": "charstring",
+        "pattern": "^xab.cx$"
+      },
+      "ComplexSet": {
+        "type": "object",
+        "subType": "set",
+        "properties": {
+          "r": {
+            "$ref": "#/definitions/definitions_SubType_Rec"
+          },
+          "ro": {
+            "type": "array",
+            "subType": "record of",
+            "items": {
+              "$ref": "#/definitions/definitions_SubType_Rec"
+            }
+          },
+          "i": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "omitAsNull": false
+          }
+        },
+        "additionalProperties": false,
+        "fieldOrder": [
+          "r",
+          "ro",
+          "i"
+        ],
+        "required": [
+          "r",
+          "ro"
+        ]
+      },
+      "ComplexSetValues": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_ComplexSet"
+          },
+          {
+            "enum": [
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              },
+              {
+                "r": {
+                  "int": 0,
+                  "b": false
+                },
+                "ro": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": true
+                  },
+                  {
+                    "int": 2,
+                    "os": "1001",
+                    "b": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "Int": {
+        "type": "integer"
+      },
+      "ItsComplicated": {
+        "anyOf": [
+          {
+            "type": "number",
+            "anyOf": [
+              {
+                "enum": [
+                  0.0,
+                  0.5,
+                  1.0,
+                  3.14
+                ]
+              },
+              {
+                "maximum": -1.0,
+                "exclusiveMaximum": false
+              }
+            ]
+          },
+          {
+            "enum": [
+              "not_a_number",
+              "-infinity"
+            ]
+          }
+        ]
+      },
+      "LargeSize": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_Size"
+          },
+          {
+            "enum": [
+              "Large"
+            ]
+          }
+        ]
+      },
+      "MoreAsValueUnionValues": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_AsValueUnion"
+          },
+          {
+            "enum": [
+              3,
+              "abc",
+              6
+            ],
+            "valueList": [
+              {
+                "i": 3
+              },
+              {
+                "str": "abc"
+              },
+              {
+                "i": 6
+              }
+            ]
+          }
+        ]
+      },
+      "NegFloat": {
+        "anyOf": [
+          {
+            "type": "number",
+            "maximum": 0.0,
+            "exclusiveMaximum": false
+          },
+          {
+            "enum": [
+              "-infinity"
+            ]
+          }
+        ]
+      },
+      "NegFloatExcl": {
+        "type": "number",
+        "maximum": 0.0,
+        "exclusiveMaximum": true
+      },
+      "NonZero": {
+        "type": "integer",
+        "anyOf": [
+          {
+            "maximum": 0,
+            "exclusiveMaximum": true
+          },
+          {
+            "minimum": 0,
+            "exclusiveMinimum": true
+          }
+        ]
+      },
+      "OneTwo": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_OnesAndTwos"
+          },
+          {
+            "enum": [
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                2,
+                1,
+                2
+              ]
+            ]
+          }
+        ]
+      },
+      "OnesAndTwos": {
+        "type": "array",
+        "subType": "record of",
+        "items": {
+          "type": "integer",
+          "enum": [
+            1,
+            2
+          ]
+        }
+      },
+      "PosInt": {
+        "type": "integer",
+        "minimum": 0,
+        "exclusiveMinimum": true
+      },
+      "PosIntCopy": {
+        "$ref": "#/definitions/definitions_SubType_PosInt"
+      },
+      "PosIntList": {
+        "type": "array",
+        "subType": "record of",
+        "items": {
+          "$ref": "#/definitions/definitions_SubType_PosInt"
+        },
+        "minItems": 3
+      },
+      "PosIntValues": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_PosInt"
+          },
+          {
+            "enum": [
+              1,
+              5,
+              7,
+              10
+            ]
+          }
+        ]
+      },
+      "Rec": {
+        "type": "object",
+        "subType": "record",
+        "properties": {
+          "posInt": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "originalName": "val",
+                "$ref": "#/definitions/definitions_SubType_PosIntValues"
+              }
+            ],
+            "omitAsNull": false
+          },
+          "int": {
+            "originalName": "i",
+            "allOf": [
+              {
+                "$ref": "#/definitions/definitions_SubType_Int"
+              },
+              {
+                "minimum": 0,
+                "exclusiveMinimum": false,
+                "maximum": 3,
+                "exclusiveMaximum": false
+              }
+            ]
+          },
+          "os": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "subType": "octetstring",
+                "pattern": "^([0-9A-Fa-f][0-9A-Fa-f])*$",
+                "enum": [
+                  "1010",
+                  "1001",
+                  "1100"
+                ]
+              }
+            ],
+            "omitAsNull": false
+          },
+          "b": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "omitAsNull": false
+          }
+        },
+        "additionalProperties": false,
+        "fieldOrder": [
+          "posInt",
+          "int",
+          "os",
+          "b"
+        ],
+        "required": [
+          "int"
+        ]
+      },
+      "RecValues": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_Rec"
+          },
+          {
+            "enum": [
+              {
+                "posInt": 1,
+                "int": 0,
+                "os": "1010",
+                "b": false
+              },
+              {
+                "posInt": 5,
+                "int": 0,
+                "os": "1001",
+                "b": true
+              },
+              {
+                "posInt": 7,
+                "int": 2,
+                "b": true
+              },
+              {
+                "posInt": 7,
+                "int": 2,
+                "b": true
+              },
+              {
+                "int": 1
+              },
+              {
+                "int": 1
+              },
+              {
+                "int": 1
+              },
+              {
+                "int": 1
+              },
+              {
+                "int": 1
+              },
+              {
+                "int": 1
+              },
+              {
+                "int": 1
+              },
+              {
+                "int": 1
+              }
+            ]
+          }
+        ]
+      },
+      "RegularUnion": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "int": {
+                "originalName": "i",
+                "$ref": "#/definitions/definitions_SubType_Int"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "int"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "str": {
+                "type": "string",
+                "subType": "charstring"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "str"
+            ]
+          }
+        ]
+      },
+      "RegularUnionValues": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_RegularUnion"
+          },
+          {
+            "enum": [
+              {
+                "int": 3
+              },
+              {
+                "str": "abc"
+              }
+            ]
+          }
+        ]
+      },
+      "RestrictedSetWithAsValues": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_SetWithAsValues"
+          },
+          {
+            "enum": [
+              {
+                "num": 6,
+                "u2s": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": false
+                  },
+                  8
+                ]
+              },
+              {
+                "num": 6,
+                "u2s": [
+                  {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": false
+                  },
+                  8
+                ]
+              },
+              {
+                "num": 1,
+                "u2s": [
+                  {
+                    "posInt": 5,
+                    "int": 0,
+                    "os": "1001",
+                    "b": true
+                  },
+                  2
+                ]
+              }
+            ],
+            "valueList": [
+              {
+                "num": 6,
+                "u2s": [
+                  {
+                    "r": {
+                      "posInt": 7,
+                      "int": 1,
+                      "b": false
+                    }
+                  },
+                  {
+                    "i": 8
+                  }
+                ]
+              },
+              {
+                "num": 1,
+                "u2s": [
+                  {
+                    "r": {
+                      "posInt": 5,
+                      "int": 0,
+                      "os": "1001",
+                      "b": true
+                    }
+                  },
+                  {
+                    "i": 2
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "SetWithAsValues": {
+        "type": "object",
+        "subType": "set",
+        "properties": {
+          "num": {
+            "type": "integer"
+          },
+          "u2s": {
+            "$ref": "#/definitions/definitions_SubType_U2List"
+          }
+        },
+        "additionalProperties": false,
+        "fieldOrder": [
+          "num",
+          "u2s"
+        ],
+        "required": [
+          "num",
+          "u2s"
+        ]
+      },
+      "SimpleVerdict": {
+        "enum": [
+          "pass",
+          "fail",
+          "error"
+        ]
+      },
+      "Size": {
+        "enum": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "numericValues": [
+          0,
+          1,
+          2
+        ]
+      },
+      "SpecialFloat": {
+        "enum": [
+          "not_a_number",
+          "infinity",
+          "-infinity"
+        ]
+      },
+      "StringValues": {
+        "type": "string",
+        "subType": "universal charstring",
+        "enum": [
+          "almafa",
+          "áram",
+          "űrhajó"
+        ]
+      },
+      "U": {
+        "anyOf": [
+          {
+            "originalName": "i",
+            "type": "integer"
+          },
+          {
+            "originalName": "c",
+            "type": "string",
+            "subType": "charstring"
+          },
+          {
+            "originalName": "j",
+            "type": "integer"
+          }
+        ]
+      },
+      "U2": {
+        "anyOf": [
+          {
+            "originalName": "i",
+            "type": "integer"
+          },
+          {
+            "originalName": "r",
+            "$ref": "#/definitions/definitions_SubType_Rec"
+          }
+        ]
+      },
+      "U2List": {
+        "type": "array",
+        "subType": "record of",
+        "items": {
+          "$ref": "#/definitions/definitions_SubType_U2"
+        }
+      },
+      "U2ListValues": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_U2List"
+          },
+          {
+            "enum": [
+              [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": false
+                },
+                8
+              ],
+              [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": false
+                },
+                8
+              ],
+              [
+                {
+                  "posInt": 5,
+                  "int": 0,
+                  "os": "1001",
+                  "b": true
+                },
+                2
+              ]
+            ],
+            "valueList": [
+              [
+                {
+                  "r": {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": false
+                  }
+                },
+                {
+                  "i": 8
+                }
+              ],
+              [
+                {
+                  "r": {
+                    "posInt": 5,
+                    "int": 0,
+                    "os": "1001",
+                    "b": true
+                  }
+                },
+                {
+                  "i": 2
+                }
+              ]
+            ]
+          }
+        ]
+      },
+      "U2Values": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_U2"
+          },
+          {
+            "enum": [
+              8,
+              {
+                "posInt": 7,
+                "int": 1,
+                "b": true
+              },
+              {
+                "posInt": 7,
+                "int": 1,
+                "b": true
+              }
+            ],
+            "valueList": [
+              {
+                "i": 8
+              },
+              {
+                "r": {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "UnicodePattern": {
+        "type": "string",
+        "subType": "universal charstring",
+        "pattern": "^abc.űz\\\\q1\u0002$"
+      },
+      "UnicodeStringRanges": {
+        "type": "string",
+        "subType": "universal charstring",
+        "pattern": "^[ő-űł-š]*$"
+      },
+      "Uwithvalue": {
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_SubType_U"
+          },
+          {
+            "enum": [
+              1,
+              "zssfss",
+              2
+            ],
+            "valueList": [
+              {
+                "i": 1
+              },
+              {
+                "c": "zssfss"
+              },
+              {
+                "j": 2
+              }
+            ]
+          }
+        ]
+      },
+      "anytype": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "integer": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "integer"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "boolean"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "bitstring": {
+                "type": "string",
+                "subType": "bitstring",
+                "pattern": "^[01]*$"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "bitstring"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "charstring": {
+                "type": "string",
+                "subType": "charstring"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "charstring"
+            ]
+          }
+        ]
+      }
+    },
+    "definitions_SubType_anytype": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "integer": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "integer"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "boolean": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "boolean"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "bitstring": {
+              "type": "string",
+              "subType": "bitstring",
+              "pattern": "^[01]*$"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "bitstring"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "charstring": {
+              "type": "string",
+              "subType": "charstring"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "charstring"
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_Int": {
+      "type": "integer"
+    },
+    "definitions_SubType_AsValueUnion": {
+      "anyOf": [
+        {
+          "originalName": "i",
+          "$ref": "#/definitions/definitions_SubType_Int"
+        },
+        {
+          "originalName": "str",
+          "type": "string",
+          "subType": "charstring"
+        }
+      ]
+    },
+    "definitions_SubType_CapitalLetters": {
+      "type": "string",
+      "subType": "charstring",
+      "minLength": 1,
+      "maxLength": 6,
+      "pattern": "^[A-Z]*$"
+    },
+    "definitions_SubType_Rec": {
+      "type": "object",
+      "subType": "record",
+      "properties": {
+        "posInt": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "originalName": "val",
+              "$ref": "#/definitions/definitions_SubType_PosIntValues"
+            }
+          ],
+          "omitAsNull": false
+        },
+        "int": {
+          "originalName": "i",
+          "allOf": [
+            {
+              "$ref": "#/definitions/definitions_SubType_Int"
+            },
+            {
+              "minimum": 0,
+              "exclusiveMinimum": false,
+              "maximum": 3,
+              "exclusiveMaximum": false
+            }
+          ]
+        },
+        "os": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "subType": "octetstring",
+              "pattern": "^([0-9A-Fa-f][0-9A-Fa-f])*$",
+              "enum": [
+                "1010",
+                "1001",
+                "1100"
+              ]
+            }
+          ],
+          "omitAsNull": false
+        },
+        "b": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "omitAsNull": false
+        }
+      },
+      "additionalProperties": false,
+      "fieldOrder": [
+        "posInt",
+        "int",
+        "os",
+        "b"
+      ],
+      "required": [
+        "int"
+      ]
+    },
+    "definitions_SubType_PosIntValues": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_PosInt"
+        },
+        {
+          "enum": [
+            1,
+            5,
+            7,
+            10
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_PosInt": {
+      "type": "integer",
+      "minimum": 0,
+      "exclusiveMinimum": true
+    },
+    "definitions_SubType_ComplexSet": {
+      "type": "object",
+      "subType": "set",
+      "properties": {
+        "r": {
+          "$ref": "#/definitions/definitions_SubType_Rec"
+        },
+        "ro": {
+          "type": "array",
+          "subType": "record of",
+          "items": {
+            "$ref": "#/definitions/definitions_SubType_Rec"
+          }
+        },
+        "i": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "omitAsNull": false
+        }
+      },
+      "additionalProperties": false,
+      "fieldOrder": [
+        "r",
+        "ro",
+        "i"
+      ],
+      "required": [
+        "r",
+        "ro"
+      ]
+    },
+    "definitions_SubType_Size": {
+      "enum": [
+        "Small",
+        "Medium",
+        "Large"
+      ],
+      "numericValues": [
+        0,
+        1,
+        2
+      ]
+    },
+    "definitions_SubType_OnesAndTwos": {
+      "type": "array",
+      "subType": "record of",
+      "items": {
+        "type": "integer",
+        "enum": [
+          1,
+          2
+        ]
+      }
+    },
+    "definitions_SubType_RegularUnion": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "int": {
+              "originalName": "i",
+              "$ref": "#/definitions/definitions_SubType_Int"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "int"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "str": {
+              "type": "string",
+              "subType": "charstring"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "str"
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_SetWithAsValues": {
+      "type": "object",
+      "subType": "set",
+      "properties": {
+        "num": {
+          "type": "integer"
+        },
+        "u2s": {
+          "$ref": "#/definitions/definitions_SubType_U2List"
+        }
+      },
+      "additionalProperties": false,
+      "fieldOrder": [
+        "num",
+        "u2s"
+      ],
+      "required": [
+        "num",
+        "u2s"
+      ]
+    },
+    "definitions_SubType_U2List": {
+      "type": "array",
+      "subType": "record of",
+      "items": {
+        "$ref": "#/definitions/definitions_SubType_U2"
+      }
+    },
+    "definitions_SubType_U2": {
+      "anyOf": [
+        {
+          "originalName": "i",
+          "type": "integer"
+        },
+        {
+          "originalName": "r",
+          "$ref": "#/definitions/definitions_SubType_Rec"
+        }
+      ]
+    },
+    "definitions_SubType_U": {
+      "anyOf": [
+        {
+          "originalName": "i",
+          "type": "integer"
+        },
+        {
+          "originalName": "c",
+          "type": "string",
+          "subType": "charstring"
+        },
+        {
+          "originalName": "j",
+          "type": "integer"
+        }
+      ]
+    },
+    "definitions_SubType_U2Values": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_U2"
+        },
+        {
+          "enum": [
+            8,
+            {
+              "posInt": 7,
+              "int": 1,
+              "b": true
+            },
+            {
+              "posInt": 7,
+              "int": 1,
+              "b": true
+            }
+          ],
+          "valueList": [
+            {
+              "i": 8
+            },
+            {
+              "r": {
+                "posInt": 7,
+                "int": 1,
+                "b": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_RecValues": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_Rec"
+        },
+        {
+          "enum": [
+            {
+              "posInt": 1,
+              "int": 0,
+              "os": "1010",
+              "b": false
+            },
+            {
+              "posInt": 5,
+              "int": 0,
+              "os": "1001",
+              "b": true
+            },
+            {
+              "posInt": 7,
+              "int": 2,
+              "b": true
+            },
+            {
+              "posInt": 7,
+              "int": 2,
+              "b": true
+            },
+            {
+              "int": 1
+            },
+            {
+              "int": 1
+            },
+            {
+              "int": 1
+            },
+            {
+              "int": 1
+            },
+            {
+              "int": 1
+            },
+            {
+              "int": 1
+            },
+            {
+              "int": 1
+            },
+            {
+              "int": 1
+            }
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_PosIntCopy": {
+      "$ref": "#/definitions/definitions_SubType_PosInt"
+    },
+    "definitions_SubType_LargeSize": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_Size"
+        },
+        {
+          "enum": [
+            "Large"
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_NegFloat": {
+      "anyOf": [
+        {
+          "type": "number",
+          "maximum": 0.0,
+          "exclusiveMaximum": false
+        },
+        {
+          "enum": [
+            "-infinity"
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_NegFloatExcl": {
+      "type": "number",
+      "maximum": 0.0,
+      "exclusiveMaximum": true
+    },
+    "definitions_SubType_SpecialFloat": {
+      "enum": [
+        "not_a_number",
+        "infinity",
+        "-infinity"
+      ]
+    },
+    "definitions_SubType_PosIntList": {
+      "type": "array",
+      "subType": "record of",
+      "items": {
+        "$ref": "#/definitions/definitions_SubType_PosInt"
+      },
+      "minItems": 3
+    },
+    "definitions_SubType_CapitalStringList": {
+      "type": "array",
+      "subType": "set of",
+      "items": {
+        "$ref": "#/definitions/definitions_SubType_CapitalLetters"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "definitions_SubType_OneTwo": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_OnesAndTwos"
+        },
+        {
+          "enum": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2,
+              1,
+              2
+            ]
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_SimpleVerdict": {
+      "enum": [
+        "pass",
+        "fail",
+        "error"
+      ]
+    },
+    "definitions_SubType_RegularUnionValues": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_RegularUnion"
+        },
+        {
+          "enum": [
+            {
+              "int": 3
+            },
+            {
+              "str": "abc"
+            }
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_AsValueUnionValues": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_AsValueUnion"
+        },
+        {
+          "enum": [
+            3,
+            "abc"
+          ],
+          "valueList": [
+            {
+              "i": 3
+            },
+            {
+              "str": "abc"
+            }
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_MoreAsValueUnionValues": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_AsValueUnion"
+        },
+        {
+          "enum": [
+            3,
+            "abc",
+            6
+          ],
+          "valueList": [
+            {
+              "i": 3
+            },
+            {
+              "str": "abc"
+            },
+            {
+              "i": 6
+            }
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_AnyTypeValues": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_anytype"
+        },
+        {
+          "enum": [
+            {
+              "integer": 5
+            },
+            {
+              "boolean": false
+            },
+            {
+              "bitstring": "0011"
+            },
+            {
+              "charstring": "mine"
+            }
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_StringValues": {
+      "type": "string",
+      "subType": "universal charstring",
+      "enum": [
+        "almafa",
+        "áram",
+        "űrhajó"
+      ]
+    },
+    "definitions_SubType_Alphanumeric": {
+      "type": "string",
+      "subType": "charstring",
+      "pattern": "^[a-zA-Z0-9]*$"
+    },
+    "definitions_SubType_NonZero": {
+      "type": "integer",
+      "anyOf": [
+        {
+          "maximum": 0,
+          "exclusiveMaximum": true
+        },
+        {
+          "minimum": 0,
+          "exclusiveMinimum": true
+        }
+      ]
+    },
+    "definitions_SubType_ItsComplicated": {
+      "anyOf": [
+        {
+          "type": "number",
+          "anyOf": [
+            {
+              "enum": [
+                0.0,
+                0.5,
+                1.0,
+                3.14
+              ]
+            },
+            {
+              "maximum": -1.0,
+              "exclusiveMaximum": false
+            }
+          ]
+        },
+        {
+          "enum": [
+            "not_a_number",
+            "-infinity"
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_UnicodeStringRanges": {
+      "type": "string",
+      "subType": "universal charstring",
+      "pattern": "^[ő-űł-š]*$"
+    },
+    "definitions_SubType_CharstringPattern": {
+      "type": "string",
+      "subType": "charstring",
+      "pattern": "^abc.*xyz$"
+    },
+    "definitions_SubType_CharstringPatternLong": {
+      "type": "string",
+      "subType": "charstring",
+      "pattern": "^.*ab.\\*\\?\\(\\+[\n-\r*0-9?A-Fa-f]{2,4}xx([^a-c]+)$|^([a-c]+)xx[0-9][0-9]x[0-9A-Za-z]x[\n-\r]x\rx[\t-\r ]x\"x\"x\\\\d$"
+    },
+    "definitions_SubType_CharstringPatternRef": {
+      "type": "string",
+      "subType": "charstring",
+      "pattern": "^xab.cx$"
+    },
+    "definitions_SubType_UnicodePattern": {
+      "type": "string",
+      "subType": "universal charstring",
+      "pattern": "^abc.űz\\\\q1\u0002$"
+    },
+    "definitions_SubType_Uwithvalue": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_U"
+        },
+        {
+          "enum": [
+            1,
+            "zssfss",
+            2
+          ],
+          "valueList": [
+            {
+              "i": 1
+            },
+            {
+              "c": "zssfss"
+            },
+            {
+              "j": 2
+            }
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_ComplexSetValues": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_ComplexSet"
+        },
+        {
+          "enum": [
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            },
+            {
+              "r": {
+                "int": 0,
+                "b": false
+              },
+              "ro": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": true
+                },
+                {
+                  "int": 2,
+                  "os": "1001",
+                  "b": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_U2ListValues": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_U2List"
+        },
+        {
+          "enum": [
+            [
+              {
+                "posInt": 7,
+                "int": 1,
+                "b": false
+              },
+              8
+            ],
+            [
+              {
+                "posInt": 7,
+                "int": 1,
+                "b": false
+              },
+              8
+            ],
+            [
+              {
+                "posInt": 5,
+                "int": 0,
+                "os": "1001",
+                "b": true
+              },
+              2
+            ]
+          ],
+          "valueList": [
+            [
+              {
+                "r": {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": false
+                }
+              },
+              {
+                "i": 8
+              }
+            ],
+            [
+              {
+                "r": {
+                  "posInt": 5,
+                  "int": 0,
+                  "os": "1001",
+                  "b": true
+                }
+              },
+              {
+                "i": 2
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "definitions_SubType_RestrictedSetWithAsValues": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_SubType_SetWithAsValues"
+        },
+        {
+          "enum": [
+            {
+              "num": 6,
+              "u2s": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": false
+                },
+                8
+              ]
+            },
+            {
+              "num": 6,
+              "u2s": [
+                {
+                  "posInt": 7,
+                  "int": 1,
+                  "b": false
+                },
+                8
+              ]
+            },
+            {
+              "num": 1,
+              "u2s": [
+                {
+                  "posInt": 5,
+                  "int": 0,
+                  "os": "1001",
+                  "b": true
+                },
+                2
+              ]
+            }
+          ],
+          "valueList": [
+            {
+              "num": 6,
+              "u2s": [
+                {
+                  "r": {
+                    "posInt": 7,
+                    "int": 1,
+                    "b": false
+                  }
+                },
+                {
+                  "i": 8
+                }
+              ]
+            },
+            {
+              "num": 1,
+              "u2s": [
+                {
+                  "r": {
+                    "posInt": 5,
+                    "int": 0,
+                    "os": "1001",
+                    "b": true
+                  }
+                },
+                {
+                  "i": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "anyOf": [
+    {
+      "$ref": "#/definitions/definitions_SubType_U2Values"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_PosInt"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_PosIntValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_Rec"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_RecValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_Int"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_PosIntCopy"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_Size"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_LargeSize"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_CapitalLetters"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_NegFloat"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_NegFloatExcl"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_SpecialFloat"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_PosIntList"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_CapitalStringList"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_OnesAndTwos"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_OneTwo"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_SimpleVerdict"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_RegularUnion"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_RegularUnionValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_AsValueUnion"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_AsValueUnionValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_MoreAsValueUnionValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_AnyTypeValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_StringValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_Alphanumeric"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_NonZero"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_ItsComplicated"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_UnicodeStringRanges"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_CharstringPattern"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_CharstringPatternLong"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_CharstringPatternRef"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_UnicodePattern"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_U"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_Uwithvalue"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_U2"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_ComplexSet"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_ComplexSetValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_U2List"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_U2ListValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_SetWithAsValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_RestrictedSetWithAsValues"
+    },
+    {
+      "$ref": "#/definitions/definitions_SubType_anytype"
+    }
+  ]
+}

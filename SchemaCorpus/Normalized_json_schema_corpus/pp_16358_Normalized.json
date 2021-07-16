@@ -1,0 +1,147 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Asymmetric Key Expression",
+  "type": "object",
+  "properties": {
+    "asym_prv_key": {
+      "type": "object",
+      "$ref": "#/definitions/expression.schema.json"
+    },
+    "asym_pub_key": {
+      "type": "object",
+      "$ref": "#/definitions/expression.schema.json"
+    }
+  },
+  "required": [
+    "asym_prv_key",
+    "asym_pub_key"
+  ],
+  "definitions": {
+    "expression.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Vault Tree Expression",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/expressions\\vault_contents.schema.json"
+        },
+        {
+          "$ref": "#/definitions/expressions\\random_key.schema.json"
+        },
+        {
+          "$ref": "#/definitions/expressions\\open_key.schema.json"
+        },
+        {
+          "$ref": "#/definitions/expressions\\vaults.schema.json"
+        },
+        {
+          "$ref": "#/definitions/expressions\\computed_pub_key.schema.json"
+        },
+        {
+          "$ref": "#/definitions/expressions\\external_input.schema.json"
+        }
+      ]
+    },
+    "expressions\\vault_contents.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Vault Tree Vault Contents Expression",
+      "type": "object",
+      "properties": {
+        "vault_contents": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "vault_contents"
+      ],
+      "additionalProperties": false
+    },
+    "expressions\\random_key.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Random Key Expression",
+      "type": "object",
+      "properties": {
+        "random_key": {
+          "enum": [
+            "sym_key",
+            "asym_prv_key"
+          ]
+        }
+      },
+      "required": [
+        "random_key"
+      ],
+      "additionalProperties": false
+    },
+    "expressions\\open_key.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Open Key Expression",
+      "type": "object",
+      "properties": {
+        "open_key": {
+          "enum": [
+            "sym_key",
+            "asym_prv_key"
+          ]
+        }
+      },
+      "required": [
+        "open_key"
+      ],
+      "additionalProperties": false
+    },
+    "expressions\\vaults.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Vault Collection Expression",
+      "type": "object",
+      "properties": {
+        "vaults": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      },
+      "required": [
+        "vaults"
+      ],
+      "additionalProperties": false
+    },
+    "expressions\\computed_pub_key.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Computed Public Key Expression",
+      "type": "object",
+      "properties": {
+        "computed_pub_key": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/expressions\\vault_contents.schema.json"
+            },
+            {
+              "$ref": "#/definitions/expressions\\external_input.schema.json"
+            }
+          ]
+        }
+      },
+      "required": [
+        "computed_pub_key"
+      ],
+      "additionalProperties": false
+    },
+    "expressions\\external_input.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Vault Tree External Input Expression",
+      "type": "object",
+      "properties": {
+        "external_input": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "external_input"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

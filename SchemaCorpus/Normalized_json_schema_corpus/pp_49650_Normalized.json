@@ -1,0 +1,663 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponse",
+  "properties": {
+    "address": {
+      "$ref": "#/definitions/DemographicsAppendResponseAddress.json"
+    },
+    "phones": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DemographicsAppendResponsePhones.json"
+      }
+    },
+    "category_match": {
+      "type": "string",
+      "values": [
+        "ADDRESS",
+        "HOUSEHOLD",
+        "INDIVIDUAL",
+        "NAME_AND_ZIP",
+        "NONE"
+      ]
+    },
+    "life_styles": {
+      "$ref": "#/definitions/DemographicsAppendResponseLifeStyles.json"
+    },
+    "demographics": {
+      "$ref": "#/definitions/DemographicsAppendResponseDemographics.json"
+    }
+  },
+  "definitions": {
+    "DemographicsAppendResponseAddress.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseAddress",
+      "properties": {
+        "zipcode": {
+          "type": "string"
+        },
+        "unit_number": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "post_direction": {
+          "type": "string"
+        },
+        "street_number": {
+          "type": "string"
+        },
+        "pre_direction": {
+          "type": "string"
+        },
+        "street_type": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "unit_type": {
+          "type": "string"
+        },
+        "street_name": {
+          "type": "string"
+        }
+      }
+    },
+    "DemographicsAppendResponsePhones.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponsePhones",
+      "properties": {
+        "phone": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseLifeStyles.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseLifeStyles",
+      "properties": {
+        "book": {
+          "$ref": "#/definitions/DemographicsAppendResponseLifeStylesBook.json"
+        },
+        "apparel": {
+          "$ref": "#/definitions/DemographicsAppendResponseLifeStylesApparel.json"
+        },
+        "value_shopper": {
+          "type": "boolean"
+        },
+        "interests": {
+          "$ref": "#/definitions/DemographicsAppendResponseLifeStylesInterests.json"
+        },
+        "pet": {
+          "type": "string",
+          "values": [
+            "HAS_PETS",
+            "EQUESTRIAN",
+            "CAT",
+            "DOG"
+          ]
+        }
+      }
+    },
+    "DemographicsAppendResponseLifeStylesBook.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseLifeStylesBook",
+      "properties": {
+        "reader": {
+          "type": "boolean"
+        },
+        "buyer": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DemographicsAppendResponseLifeStylesApparel.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseLifeStylesApparel",
+      "properties": {
+        "men": {
+          "type": "string",
+          "values": [
+            "PURCHASED",
+            "PURCHASED_BIG_AND_TALL"
+          ]
+        },
+        "women": {
+          "type": "string",
+          "values": [
+            "PURCHASED",
+            "PURCHASED_PLUS_SIZE"
+          ]
+        },
+        "child": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DemographicsAppendResponseLifeStylesInterests.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseLifeStylesInterests",
+      "properties": {
+        "home_and_garden": {
+          "type": "string",
+          "values": [
+            "SEWING_AND_KNITTING",
+            "WOODWORKING",
+            "PHOTOGRAPHY",
+            "HOME_AND_GARDEN"
+          ]
+        },
+        "motercycling": {
+          "type": "boolean"
+        },
+        "sports": {
+          "type": "string",
+          "values": [
+            "GENERAL_INTEREST",
+            "BASEBALL",
+            "FOOTBALL",
+            "GOLF",
+            "TENNIS",
+            "RACING"
+          ]
+        },
+        "self_improvement": {
+          "type": "string",
+          "values": [
+            "HEALTH_AND_MEDICAL",
+            "DIETING_WEIGHT_LOSS",
+            "SELF_IMPROVEMENT"
+          ]
+        },
+        "gambling": {
+          "type": "boolean"
+        },
+        "collectibles": {
+          "type": "string",
+          "values": [
+            "GENERAL_INTEREST",
+            "ANTIQUES_INTEREST",
+            "SPORTS_INTEREST"
+          ]
+        },
+        "technology": {
+          "type": "boolean"
+        },
+        "outdoors": {
+          "type": "string",
+          "values": [
+            "GENERAL_INTEREST",
+            "SNOW_SPORTS",
+            "WATER_SPORTS",
+            "HUNTING_AND_FISHING"
+          ]
+        },
+        "fitness": {
+          "type": "string",
+          "values": [
+            "HEALTH_EXERCISE",
+            "RUNNING",
+            "WALKING",
+            "AEROBICS"
+          ]
+        },
+        "home_improvement": {
+          "type": "string",
+          "values": [
+            "GENERAL_INTEREST",
+            "DIY_INTEREST"
+          ]
+        },
+        "cooking": {
+          "type": "string",
+          "values": [
+            "GOURMET_FOOD_AND_WINE",
+            "COOKING",
+            "NATURAL_FOODS"
+          ]
+        },
+        "auto_parts": {
+          "type": "boolean"
+        },
+        "investing": {
+          "type": "boolean"
+        },
+        "boating": {
+          "type": "boolean"
+        },
+        "travel": {
+          "type": "string",
+          "values": [
+            "TRAVEL",
+            "DOMESTIC",
+            "INTERNATIONAL",
+            "CRUISE"
+          ]
+        },
+        "arts": {
+          "type": "string",
+          "values": [
+            "ARTS_INTEREST",
+            "AVID_MUSIC_LISTENER",
+            "ANTIQUES_INTEREST",
+            "PERFORMING_ARTS_INTEREST"
+          ]
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographics.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographics",
+      "properties": {
+        "level": {
+          "type": "string",
+          "values": [
+            "ZIP_9",
+            "ZIP_7",
+            "ZIP_5"
+          ]
+        },
+        "person": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsPerson.json"
+        },
+        "residence": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsResidence.json"
+        },
+        "family": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsFamily.json"
+        },
+        "vehicle": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsVehicle.json"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsPerson.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponsePhones",
+      "properties": {
+        "education": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsPersonEducation.json"
+        },
+        "gender": {
+          "type": "string",
+          "values": [
+            "M",
+            "F",
+            "U"
+          ]
+        },
+        "ethnicity": {
+          "type": "string",
+          "values": [
+            "ASIAN",
+            "AFRICAN_AMERICAN",
+            "HISPANIC"
+          ]
+        },
+        "race": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsPersonRace.json"
+        },
+        "date_of_birth": {
+          "type": "string"
+        },
+        "worker_type": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsPersonWorkerType.json"
+        },
+        "percent_mail_order_respondent": {
+          "type": "integer"
+        },
+        "language": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsPersonLanguage.json"
+        },
+        "finances": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsPersonFinances.json"
+        },
+        "is_senior": {
+          "type": "boolean"
+        },
+        "age": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsPersonEducation.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsPersonEducation",
+      "properties": {
+        "level": {
+          "type": "string",
+          "values": [
+            "HIGH_SCHOOL",
+            "COLLEGE",
+            "GRADUATE_SCHOOL",
+            "VOCATIONAL_OR_TECHNICAL"
+          ]
+        },
+        "median_years_schooling": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsPersonRace.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsPersonRace",
+      "properties": {
+        "percent_hispanic": {
+          "type": "integer"
+        },
+        "percent_black": {
+          "type": "integer"
+        },
+        "percent_white": {
+          "type": "integer"
+        },
+        "percent_asian": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsPersonWorkerType.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsPersonRace",
+      "properties": {
+        "percent_white_collar": {
+          "type": "integer"
+        },
+        "percent_blue_collar": {
+          "type": "integer"
+        },
+        "percent_other": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsPersonLanguage.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsPersonRace",
+      "properties": {
+        "percent_spanish_speaker": {
+          "type": "integer"
+        },
+        "percent_asian_speaker": {
+          "type": "integer"
+        },
+        "percent_english_speaker": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsPersonFinances.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsPersonFinances",
+      "properties": {
+        "estimated_income": {
+          "type": "string",
+          "values": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I"
+          ]
+        },
+        "estimated_net_worth": {
+          "type": "string",
+          "values": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H"
+          ]
+        },
+        "is_charity_donar": {
+          "type": "boolean"
+        },
+        "uses_credit_card": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsResidence.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsResidence",
+      "properties": {
+        "homeowner": {
+          "type": "string",
+          "values": [
+            "TENANT",
+            "OWNER",
+            "SINGLE",
+            "MARRIED"
+          ]
+        },
+        "has_pool": {
+          "type": "boolean"
+        },
+        "estimated_market_value": {
+          "type": "string",
+          "values": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S"
+          ]
+        },
+        "length_of_residence": {
+          "type": "integer"
+        },
+        "year_home_built": {
+          "type": "integer"
+        },
+        "median_house_value": {
+          "type": "string",
+          "values": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I"
+          ]
+        },
+        "dwelling": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsResidenceDwelling.json"
+        },
+        "is_mobile_home": {
+          "type": "integer"
+        },
+        "has_fireplace": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsResidenceDwelling.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsResidence",
+      "properties": {
+        "percent_single_family": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string",
+          "values": [
+            "SINGLE_FAMILY",
+            "MULTIPLE_FAMILY"
+          ]
+        },
+        "percent_multiple_family": {
+          "type": "integer"
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsFamily.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsFamily",
+      "properties": {
+        "is_single_parent": {
+          "type": "boolean"
+        },
+        "children": {
+          "$ref": "#/definitions/DemographicsAppendResponseDemographicsFamilyChildren.json"
+        },
+        "married": {
+          "type": "string",
+          "values": [
+            "INFERRED_MARRIED",
+            "INFERRED_SINGLE",
+            "SINGLE",
+            "MARRIED"
+          ]
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsFamilyChildren.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsFamilyChildren",
+      "properties": {
+        "has_children": {
+          "type": "boolean"
+        },
+        "number_children": {
+          "type": "string",
+          "values": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        "children_age": {
+          "type": "string",
+          "values": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        }
+      }
+    },
+    "DemographicsAppendResponseDemographicsVehicle.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.thedatagroup.api.DemographicsAppendResponseDemographicsVehicle",
+      "properties": {
+        "owns_suv_vehicle": {
+          "type": "boolean"
+        },
+        "owns_luxury_vehicle": {
+          "type": "boolean"
+        },
+        "owns_pickup_vehicle": {
+          "type": "boolean"
+        },
+        "percent_vehicle_owner": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

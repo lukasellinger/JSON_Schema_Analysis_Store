@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "komic_cli_version": {
+      "type": "string"
+    },
+    "content_json_version": {
+      "type": "string"
+    },
+    "content_json_uuid": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "author": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "thumbnails": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "type": "integer"
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "images": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "web": {
+              "type": "object",
+              "properties": {
+                "src": {
+                  "type": "object",
+                  "properties": {
+                    "default": {
+                      "type": "string"
+                    },
+                    "jpg": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                }
+              }
+            },
+            "src": {
+              "type": "string"
+            },
+            "width": {
+              "type": "integer"
+            },
+            "height": {
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "komic_cli_version",
+    "content_json_version",
+    "name",
+    "author",
+    "description",
+    "thumbnails",
+    "images"
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "description": "OLE Item Type output by the OLE server.",
+  "allOf": [
+    {
+      "$ref": "#/definitions/baseVocabularyObject.json"
+    }
+  ],
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "@id",
+    "code",
+    "name"
+  ],
+  "definitions": {
+    "baseVocabularyObject.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "description": "Base type for maintenance objects with a \u0027source\u0027 vocabulary",
+      "allOf": [
+        {
+          "$ref": "#/definitions/baseObject.json"
+        }
+      ],
+      "properties": {
+        "source": {
+          "description": "A description or URI for the source vocabulary",
+          "type": "string"
+        },
+        "active": {
+          "description": "Whether this item type is currently in use",
+          "type": "boolean"
+        },
+        "source_date": {
+          "description": "Date the value was retrieved from the source",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "baseObject.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "type": "object",
+      "description": "Base definition for maintenance object objects in the API.",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "description": "This is the resource URI for the specific object",
+          "format": "uri"
+        },
+        "@context": {
+          "type": "string",
+          "description": "Indicates the type of object; individual extending types may use \u0027pattern\u0027 to match a specific URI",
+          "format": "uri"
+        },
+        "code": {
+          "description": "A short(-ish) code used as an alternate (contextual) reference for the object",
+          "type": "string"
+        },
+        "name": {
+          "description": "A human readable name for the object",
+          "type": "string"
+        }
+      },
+      "required": [
+        "@id",
+        "code",
+        "name"
+      ]
+    }
+  }
+}

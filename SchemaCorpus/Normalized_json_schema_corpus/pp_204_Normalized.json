@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net",
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "integer"
+    },
+    "pageLimit": {
+      "type": "integer"
+    },
+    "streams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "streamId": {
+            "type": "string"
+          },
+          "streamType": {
+            "type": "string"
+          },
+          "streamName": {
+            "type": "string"
+          },
+          "streamAge": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "count",
+    "pageLimit",
+    "streams"
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "title": "elevationInfo",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Elevation info defines how features are aligned to ground or other layers.",
+  "properties": {
+    "featureExpression": {
+      "type": "object",
+      "description": "\u003cem\u003eDeprecated with 1.8, use `featureExpressionInfo` instead\u003c/em\u003e. `{\"value\":0}` ignores geometry z-values.",
+      "properties": {
+        "value": {
+          "type": "number",
+          "enum": [
+            0
+          ]
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    },
+    "featureExpressionInfo": {
+      "type": "object",
+      "description": "An object that defines an expression for per-feature elevation. If not set, geometry.z values are used for elevation. `unit` is applied to the resulting expression value.",
+      "$ref": "#/definitions/featureExpressionInfo_schema.json"
+    },
+    "mode": {
+      "type": "string",
+      "description": "Determines how the service elevation values are combined with the elevation of the scene.",
+      "enum": [
+        "relativeToGround",
+        "absoluteHeight",
+        "onTheGround",
+        "relativeToScene"
+      ]
+    },
+    "offset": {
+      "type": "number",
+      "description": "Offset is always added to the result of the above logic except for onTheGround where offset is ignored."
+    },
+    "unit": {
+      "type": "string",
+      "description": "A string value indicating the unit for the values in elevationInfo. Applies to both `offset` and `featureExpressionInfo`. Defaults to `meter` if not set. \u003ca href\u003d\"#unit\"\u003e\u003csup\u003e1\u003c/sup\u003e\u003c/a\u003e",
+      "default": "meter"
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "additionalInformation": "[ElevationInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#elevationInfo) in ArcGIS API for JavaScript.\u003cbr\u003e\u003ca id\u003d\"unit\"\u003e\u003csup\u003e1\u003c/sup\u003e\u003c/a\u003eSupported units: `foot`, `kilometer`, `meter`, `mile`, `us-foot`, `yard`",
+    "examples": [
+      {
+        "code": {
+          "elevationInfo": {
+            "mode": "relativeToGround",
+            "offset": 200,
+            "featureExpressionInfo": {
+              "expression": "$feature.ELEVATION_FOOT"
+            },
+            "unit": "foot"
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "featureExpressionInfo_schema.json": {
+      "title": "featureExpressionInfo",
+      "type": "object",
+      "description": "An object that defines an expression for per-feature elevation.",
+      "properties": {
+        "expression": {
+          "type": "string",
+          "description": "An [Arcade expression](https://developers.arcgis.com/arcade/) evaluating to a number.",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the expression.",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "expression"
+      ],
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "Zero expression",
+            "description": "Do not use geometry.z values",
+            "code": {
+              "featureExpressionInfo": {
+                "expression": "0"
+              }
+            }
+          },
+          {
+            "title": "Expression with field name",
+            "description": "Elevation from field value without geometry.z",
+            "code": {
+              "featureExpressionInfo": {
+                "expression": "$feature.ELEVATION_FOOT"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

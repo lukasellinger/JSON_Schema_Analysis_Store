@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "topic": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "posts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "attachments": {
+                "type": "array",
+                "items": {}
+              },
+              "author": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "last_edited": {
+                "type": "null"
+              },
+              "slug": {
+                "type": "string"
+              },
+              "subject": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "discussion_id": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        }
+      }
+    },
+    "count": {
+      "type": "integer"
+    },
+    "limit": {
+      "type": "integer"
+    },
+    "page": {
+      "type": "integer"
+    }
+  }
+}

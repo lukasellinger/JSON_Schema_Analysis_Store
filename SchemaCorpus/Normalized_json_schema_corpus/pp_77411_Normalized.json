@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Category",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "name",
+    "slug",
+    "createdAt",
+    "lastModifiedAt",
+    "ancestors"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/id.schema.json"
+    },
+    "version": {
+      "$ref": "#/definitions/version.schema.json"
+    },
+    "name": {
+      "$ref": "#/definitions/localized-string.schema.json"
+    },
+    "slug": {
+      "$ref": "#/definitions/localized-string-slug.schema.json"
+    },
+    "description": {
+      "$ref": "#/definitions/localized-string.schema.json"
+    },
+    "ancestors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/reference-category.schema.json"
+      }
+    },
+    "parent": {
+      "$ref": "#/definitions/reference-category.schema.json"
+    },
+    "orderHint": {
+      "type": "string",
+      "description": "An attribute as base for a custom category order in one level",
+      "pattern": "^0\\.\\d+$"
+    },
+    "externalId": {
+      "$ref": "#/definitions/external-id.schema.json"
+    },
+    "createdAt": {
+      "$ref": "#/definitions/created-at.schema.json"
+    },
+    "lastModifiedAt": {
+      "$ref": "#/definitions/last-modified-at.schema.json"
+    }
+  },
+  "definitions": {
+    "id.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "string",
+      "description": "The unique ID of this object"
+    },
+    "version.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "number",
+      "description": "The current version"
+    },
+    "localized-string.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "LocalizedString",
+      "description": "A localized string is a JSON object where the keys are ISO language tags, and the values the corresponding strings used for that language",
+      "type": "object",
+      "patternProperties": {
+        "^[a-z]{2}$": {
+          "type": "string",
+          "description": "The value for this language"
+        }
+      }
+    },
+    "localized-string-slug.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "LocalizedString",
+      "description": "A localized string is a JSON object where the keys are ISO language tags, and the values the corresponding strings used for that language",
+      "type": "object",
+      "patternProperties": {
+        "^[a-z]{2}$": {
+          "type": "string",
+          "description": "The slug for this language",
+          "pattern": "^[-a-zA-Z0-9_]{2,64}$"
+        }
+      }
+    },
+    "reference-category.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Reference (Category)",
+      "description": "A `Reference` is a JSON object representing a (loose) reference to another resource on SPHERE.IO platform",
+      "type": "object",
+      "properties": {
+        "typeId ": {
+          "type": "string",
+          "description": "The typeId designates the type of the referenced resource",
+          "enum": [
+            "category"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "description": "The unique ID of the referenced resource"
+        }
+      }
+    },
+    "external-id.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "string",
+      "description": "Optional ID defined in some external system"
+    },
+    "created-at.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "string",
+      "format": "date-time",
+      "description": "Date of the creation"
+    },
+    "last-modified-at.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "string",
+      "format": "date-time",
+      "description": "Date of last modification"
+    }
+  }
+}

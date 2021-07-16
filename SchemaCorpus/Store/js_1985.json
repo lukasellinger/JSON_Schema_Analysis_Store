@@ -1,0 +1,61 @@
+{
+  "id": "distributor.json#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "distributor",
+  "example": "../examples/distributor.json",
+  "description": "Information about the distributor of and options for obtaining the resource.",
+  "translation": {
+    "ISO 19115-2": [
+      "MD_Distribution"
+    ],
+    "FGDC CSDGM": [
+      "distinfo"
+    ]
+  },
+  "required": [
+    "contact"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "contact": {
+      "description": "Party from whom the resource may be obtained. Note: This list need not be exhaustive.",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_Distribution \u003e distributor \u003e MD_Distributor \u003e distributorContact \u003e CI_ResponsibleParty"
+        ],
+        "FGDC CSDGM": [
+          "distinfo \u003e distrib \u003e cntinfo"
+        ]
+      },
+      "$ref": "./responsibility.json#"
+    },
+    "orderProcess": {
+      "type": "array",
+      "description": "Provides information about how the resource may be obtained and related instructions and fee information.",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_Distribution \u003e distributor \u003e MD_Distributor \u003e distributionOrderProcess"
+        ]
+      },
+      "items": {
+        "$ref": "./orderProcess.json#"
+      }
+    },
+    "transferOption": {
+      "type": "array",
+      "description": "Describes method and media by which a resource is obtained from the distributor.",
+      "translation": {
+        "ISO 19115-2": [
+          "MD_Distributor \u003e distributorTransferOptions"
+        ],
+        "FGDC CSDGM": [
+          "distinfo \u003e stdorder \u003e digform \u003e digtopt"
+        ]
+      },
+      "items": {
+        "$ref": "./transferOption.json#"
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "allOf": [
+    {
+      "$ref": "#/definitions/response.json"
+    },
+    {
+      "required": [
+        "datasets"
+      ],
+      "properties": {
+        "datasets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dataset.json"
+          }
+        }
+      }
+    }
+  ],
+  "definitions": {
+    "response.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "object",
+          "default": {}
+        }
+      },
+      "required": [
+        "@type"
+      ]
+    },
+    "dataset.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "name": "Dataset",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "compression": {
+          "type": "string"
+        },
+        "expected_bytes": {
+          "type": "int"
+        },
+        "filename": {
+          "description": "Name of the dataset",
+          "type": "string"
+        },
+        "url": {
+          "description": "Classifier or plugin evaluated",
+          "type": "string"
+        },
+        "stats": {}
+      },
+      "required": [
+        "@id"
+      ]
+    }
+  }
+}

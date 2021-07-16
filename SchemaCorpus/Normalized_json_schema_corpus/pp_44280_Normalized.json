@@ -1,0 +1,25 @@
+{
+  "id": "i18n-locale-files",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "I18nLocaleFileConfig",
+  "description": "an instance of \u003ca href\u003d\"i18n-locale-files\"\u003ea i18n locale file\u003c/a\u003e.",
+  "type": "object",
+  "properties": {
+    "key": {
+      "type": "string",
+      "title": "Key",
+      "description": "It is the unique identifier for this file.",
+      "example": "project.en-US"
+    },
+    "url": {
+      "type": "string",
+      "title": "URL",
+      "description": "The file can be local or on a distant server, but must be a valid JSON one.",
+      "example": "./i18n/en-US/locale.json"
+    }
+  },
+  "required": [
+    "key",
+    "url"
+  ]
+}

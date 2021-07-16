@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "iii": {
+      "$ref": "#/definitions/includes\\jjj.json"
+    }
+  },
+  "definitions": {
+    "includes\\jjj.json": {
+      "type": "object",
+      "properties": {
+        "jjj": {
+          "$ref": "#/definitions/kkk.json"
+        }
+      }
+    },
+    "kkk.json": {
+      "type": "object",
+      "properties": {
+        "kkk": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

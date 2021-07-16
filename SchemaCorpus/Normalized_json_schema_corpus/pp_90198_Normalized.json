@@ -1,0 +1,154 @@
+{
+  "title": "environment",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "Represents settings that affect the environment in which the web scene is displayed. It is entirely stored as part of the initial state of the web scene, and partially in the slides in the presentation.",
+  "properties": {
+    "atmosphereEnabled": {
+      "type": "boolean",
+      "description": "Whether the atmosphere should be visualized. This includes sky and haze effects.",
+      "default": true
+    },
+    "background": {
+      "type": "object",
+      "description": "The background is what is displayed behind any scene objects, stars and atmosphere.",
+      "$ref": "#/definitions/environment_background_color_schema.json"
+    },
+    "lighting": {
+      "type": "object",
+      "$ref": "#/definitions/lighting_schema.json"
+    },
+    "starsEnabled": {
+      "type": "boolean",
+      "description": "Whether stars should be displayed in the sky.",
+      "default": true
+    }
+  },
+  "additionalProperties": false,
+  "esriDocumentation": {
+    "examples": [
+      {
+        "title": "environment",
+        "code": {
+          "environment": {
+            "atmosphereEnabled": true,
+            "background": {
+              "type": "color",
+              "color": [
+                0,
+                0,
+                0
+              ],
+              "transparency": 0
+            },
+            "starsEnabled": true
+          }
+        }
+      }
+    ]
+  },
+  "definitions": {
+    "environment_background_color_schema.json": {
+      "title": "color background",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Specifies a single color to fill the background of the scene with. The scene background is displayed behind any scene objects, stars and atmosphere.",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/color_schema.json"
+        },
+        "transparency": {
+          "type": "integer",
+          "description": "The value has to lie between `100` (full transparency) and `0` (full opacity).",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of background.",
+          "enum": [
+            "color"
+          ]
+        }
+      },
+      "required": [
+        "color",
+        "type"
+      ],
+      "default": {
+        "type": "color",
+        "color": [
+          0,
+          0,
+          0
+        ]
+      },
+      "additionalProperties": false
+    },
+    "color_schema.json": {
+      "title": "color",
+      "type": "array",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Color is represented as a three or four-element array. The four elements represent values for red, green, blue, and alpha in that order. Values range from 0 through 255. If color is undefined for a symbol, the color value is null.",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 255
+      },
+      "minItems": 3,
+      "maxItems": 4,
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "color",
+            "code": {
+              "color": [
+                13,
+                38,
+                68,
+                255
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "lighting_schema.json": {
+      "title": "lighting",
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "description": "Object containing information on how the scene is lit.",
+      "properties": {
+        "datetime": {
+          "type": "number",
+          "description": "The current date and time of the simulated sun. It is a number representing the number of milliseconds since 1 January, 1970 UTC."
+        },
+        "directShadows": {
+          "type": "boolean",
+          "description": "Indicates whether to show shadows cast by the sun.",
+          "default": false
+        },
+        "displayUTCOffset": {
+          "type": "number",
+          "description": "UTC offset in decimal hours. Not to be applied to datetime for sun position, only to adjust display of datetime in UI. If displayUTCOffset is null, offset is calculated for the current location (approximate only)."
+        }
+      },
+      "additionalProperties": false,
+      "esriDocumentation": {
+        "examples": [
+          {
+            "title": "lighting",
+            "code": {
+              "lighting": {
+                "datetime": 1458054000000,
+                "directShadows": true,
+                "displayUTCOffset": 1
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

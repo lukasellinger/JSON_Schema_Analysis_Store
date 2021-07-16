@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "filter.hqdn3d",
+  "name": "hqdn3d",
+  "defaults": {},
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "luma_spatial",
+          "forced": true,
+          "control": {
+            "type": "float",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "singleStep": 0.1,
+            "value": 4.0
+          }
+        },
+        {
+          "parameter": "chroma_spatial",
+          "forced": true,
+          "control": {
+            "type": "float",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "singleStep": 0.1,
+            "value": 3.0
+          }
+        },
+        {
+          "parameter": "luma_tmp",
+          "forced": true,
+          "control": {
+            "type": "float",
+            "maximum": 100.0,
+            "minimum": -100.0,
+            "singleStep": 0.1,
+            "value": 6.0
+          }
+        },
+        {
+          "parameter": "chroma_tmp",
+          "forced": true,
+          "control": {
+            "type": "float",
+            "maximum": 100.0,
+            "minimum": -100.0,
+            "singleStep": 0.1,
+            "value": 4.5
+          }
+        }
+      ]
+    }
+  ]
+}

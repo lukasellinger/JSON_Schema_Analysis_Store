@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-04/hyper-schema",
+  "type": [
+    "object"
+  ],
+  "definitions": {
+    "duration": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "FIXME - Duration",
+      "description": "FIXME",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of duration",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "name": {
+          "description": "unique name of duration",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/definitions_duration_definitions_id"
+            },
+            {
+              "$ref": "#/definitions/definitions_duration_definitions_name"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when duration was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when duration was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Create a new duration.",
+          "href": "/durations",
+          "method": "POST",
+          "rel": "create",
+          "schema": {
+            "properties": {},
+            "type": [
+              "object"
+            ]
+          },
+          "title": "Create"
+        },
+        {
+          "description": "Delete an existing duration.",
+          "href": "/durations/{(%23%2Fdefinitions%2Fduration%2Fdefinitions%2Fidentity)}",
+          "method": "DELETE",
+          "rel": "destroy",
+          "title": "Delete"
+        },
+        {
+          "description": "Info for existing duration.",
+          "href": "/durations/{(%23%2Fdefinitions%2Fduration%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing durations.",
+          "href": "/durations",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        },
+        {
+          "description": "Update an existing duration.",
+          "href": "/durations/{(%23%2Fdefinitions%2Fduration%2Fdefinitions%2Fidentity)}",
+          "method": "PATCH",
+          "rel": "update",
+          "schema": {
+            "properties": {},
+            "type": [
+              "object"
+            ]
+          },
+          "title": "Update"
+        }
+      ],
+      "properties": {
+        "created_at": {
+          "$ref": "#/definitions/definitions_duration_definitions_created_at"
+        },
+        "id": {
+          "$ref": "#/definitions/definitions_duration_definitions_id"
+        },
+        "name": {
+          "$ref": "#/definitions/definitions_duration_definitions_name"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/definitions_duration_definitions_updated_at"
+        }
+      }
+    },
+    "definitions_duration_definitions_id": {
+      "description": "unique identifier of duration",
+      "readOnly": true,
+      "format": "uuid",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_duration_definitions_name": {
+      "description": "unique name of duration",
+      "readOnly": true,
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_duration_definitions_created_at": {
+      "description": "when duration was created",
+      "format": "date-time",
+      "type": [
+        "string"
+      ]
+    },
+    "definitions_duration_definitions_updated_at": {
+      "description": "when duration was updated",
+      "format": "date-time",
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "properties": {
+    "duration": {
+      "$ref": "#/definitions/duration"
+    }
+  },
+  "description": "infra-metrics API v1 Alpha Document",
+  "id": "infra-metrics",
+  "links": [
+    {
+      "href": "https://\u003cyour-infra-metrics-server\u003e.com",
+      "rel": "self",
+      "title": "infra-metrics API v1 Alpha"
+    }
+  ]
+}

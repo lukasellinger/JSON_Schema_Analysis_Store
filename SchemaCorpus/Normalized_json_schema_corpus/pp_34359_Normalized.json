@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Collection of Users",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/users"
+  },
+  "definitions": {
+    "users": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "users",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "Admin",
+            "Describer",
+            "Anonymous"
+          ],
+          "default": "Anonymous"
+        },
+        "active": {
+          "type": "boolean",
+          "default": 0
+        },
+        "token": {
+          "type": "string",
+          "hidden": true
+        }
+      },
+      "required": [
+        "name",
+        "mail",
+        "token"
+      ]
+    }
+  }
+}

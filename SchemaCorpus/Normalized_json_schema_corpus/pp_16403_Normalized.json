@@ -1,0 +1,136 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "The Id Schema ",
+            "default": 0,
+            "examples": [
+              712096
+            ]
+          },
+          "country": {
+            "type": "string",
+            "title": "The Country Schema ",
+            "default": "",
+            "examples": [
+              "Poland"
+            ]
+          },
+          "iso_code3": {
+            "type": "string",
+            "title": "The Iso_code3 Schema ",
+            "default": "",
+            "examples": [
+              "POL"
+            ]
+          },
+          "indicator": {
+            "type": "string",
+            "title": "The Indicator Schema ",
+            "default": "",
+            "examples": [
+              "NDC summary"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "title": "The Value Schema ",
+            "default": "",
+            "examples": [
+              "\u003cp\u003eThe European Union and its 28 Member States submitted a joint NDC.\u003c/p\u003e"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "title": "The Source Schema ",
+            "default": "",
+            "examples": [
+              "CAIT"
+            ]
+          },
+          "categories": {
+            "type": "string",
+            "title": "The Categories Schema ",
+            "default": "",
+            "examples": [
+              "NDC, Overview"
+            ]
+          },
+          "label": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "title": "The Label Schema ",
+            "examples": [
+              null
+            ]
+          },
+          "sector": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "title": "The Sector Schema ",
+            "examples": [
+              null
+            ]
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "sorting": {
+          "type": "object",
+          "properties": {
+            "sort_col": {
+              "type": "string",
+              "title": "The Sort_col Schema ",
+              "default": "",
+              "examples": [
+                "indicator"
+              ]
+            },
+            "sort_dir": {
+              "type": "string",
+              "title": "The Sort_dir Schema ",
+              "default": "",
+              "examples": [
+                "ASC"
+              ]
+            }
+          }
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "title": "The 0th Schema ",
+            "default": "",
+            "examples": [
+              "id",
+              "iso_code3",
+              "country",
+              "indicator",
+              "source",
+              "label",
+              "sector",
+              "value"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

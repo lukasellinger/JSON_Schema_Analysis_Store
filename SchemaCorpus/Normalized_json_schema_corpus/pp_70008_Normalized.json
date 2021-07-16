@@ -1,0 +1,502 @@
+{
+  "$schema": "http://json-schema.org/draft-07/hyper-schema#",
+  "$id": "http://json-schema.org/draft-07/links#",
+  "title": "Link Description Object",
+  "allOf": [
+    {
+      "required": [
+        "rel",
+        "href"
+      ]
+    },
+    {
+      "$ref": "#/definitions/noRequiredFields"
+    }
+  ],
+  "definitions": {
+    "noRequiredFields": {
+      "type": "object",
+      "properties": {
+        "anchor": {
+          "type": "string",
+          "format": "uri-template"
+        },
+        "anchorPointer": {
+          "type": "string",
+          "anyOf": [
+            {
+              "format": "json-pointer"
+            },
+            {
+              "format": "relative-json-pointer"
+            }
+          ]
+        },
+        "rel": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string",
+          "format": "uri-template"
+        },
+        "hrefSchema": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "templatePointers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "anyOf": [
+              {
+                "format": "json-pointer"
+              },
+              {
+                "format": "relative-json-pointer"
+              }
+            ]
+          }
+        },
+        "templateRequired": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "targetSchema": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "targetMediaType": {
+          "type": "string"
+        },
+        "targetHints": {},
+        "headerSchema": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "submissionMediaType": {
+          "type": "string",
+          "default": "application/json"
+        },
+        "submissionSchema": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "$comment": {
+          "type": "string"
+        }
+      }
+    },
+    "hyper-schema": {
+      "$schema": "http://json-schema.org/draft-07/hyper-schema#",
+      "title": "JSON Hyper-Schema",
+      "definitions": {
+        "schemaArray": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/schema_definitions_schemaArray"
+            },
+            {
+              "items": {
+                "$ref": "#/definitions/hyper-schema"
+              }
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/schema"
+        }
+      ],
+      "properties": {
+        "additionalItems": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "additionalProperties": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "dependencies": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/hyper-schema"
+              },
+              {
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/hyper-schema"
+            },
+            {
+              "$ref": "#/definitions/hyper-schema_definitions_schemaArray"
+            }
+          ]
+        },
+        "definitions": {
+          "additionalProperties": {
+            "$ref": "#/definitions/hyper-schema"
+          }
+        },
+        "patternProperties": {
+          "additionalProperties": {
+            "$ref": "#/definitions/hyper-schema"
+          }
+        },
+        "properties": {
+          "additionalProperties": {
+            "$ref": "#/definitions/hyper-schema"
+          }
+        },
+        "if": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "then": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "else": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "allOf": {
+          "$ref": "#/definitions/hyper-schema_definitions_schemaArray"
+        },
+        "anyOf": {
+          "$ref": "#/definitions/hyper-schema_definitions_schemaArray"
+        },
+        "oneOf": {
+          "$ref": "#/definitions/hyper-schema_definitions_schemaArray"
+        },
+        "not": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "contains": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "propertyNames": {
+          "$ref": "#/definitions/hyper-schema"
+        },
+        "base": {
+          "type": "string",
+          "format": "uri-template"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#"
+          }
+        }
+      },
+      "links": [
+        {
+          "rel": "self",
+          "href": "{+%24id}"
+        }
+      ]
+    },
+    "schema_definitions_schemaArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/schema"
+      }
+    },
+    "schema": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Core schema meta-schema",
+      "definitions": {
+        "schemaArray": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/schema"
+          }
+        },
+        "nonNegativeInteger": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "nonNegativeIntegerDefault0": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/schema_definitions_nonNegativeInteger"
+            },
+            {
+              "default": 0
+            }
+          ]
+        },
+        "simpleTypes": {
+          "enum": [
+            "array",
+            "boolean",
+            "integer",
+            "null",
+            "number",
+            "object",
+            "string"
+          ]
+        },
+        "stringArray": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      },
+      "type": [
+        "object",
+        "boolean"
+      ],
+      "properties": {
+        "$id": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "$schema": {
+          "type": "string",
+          "format": "uri"
+        },
+        "$ref": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "$comment": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "default": true,
+        "readOnly": {
+          "type": "boolean",
+          "default": false
+        },
+        "writeOnly": {
+          "type": "boolean",
+          "default": false
+        },
+        "examples": {
+          "type": "array",
+          "items": true
+        },
+        "multipleOf": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "maximum": {
+          "type": "number"
+        },
+        "exclusiveMaximum": {
+          "type": "number"
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "exclusiveMinimum": {
+          "type": "number"
+        },
+        "maxLength": {
+          "$ref": "#/definitions/schema_definitions_nonNegativeInteger"
+        },
+        "minLength": {
+          "$ref": "#/definitions/schema_definitions_nonNegativeIntegerDefault0"
+        },
+        "pattern": {
+          "type": "string",
+          "format": "regex"
+        },
+        "additionalItems": {
+          "$ref": "#/definitions/schema"
+        },
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/schema"
+            },
+            {
+              "$ref": "#/definitions/schema_definitions_schemaArray"
+            }
+          ],
+          "default": true
+        },
+        "maxItems": {
+          "$ref": "#/definitions/schema_definitions_nonNegativeInteger"
+        },
+        "minItems": {
+          "$ref": "#/definitions/schema_definitions_nonNegativeIntegerDefault0"
+        },
+        "uniqueItems": {
+          "type": "boolean",
+          "default": false
+        },
+        "contains": {
+          "$ref": "#/definitions/schema"
+        },
+        "maxProperties": {
+          "$ref": "#/definitions/schema_definitions_nonNegativeInteger"
+        },
+        "minProperties": {
+          "$ref": "#/definitions/schema_definitions_nonNegativeIntegerDefault0"
+        },
+        "required": {
+          "$ref": "#/definitions/schema_definitions_stringArray"
+        },
+        "additionalProperties": {
+          "$ref": "#/definitions/schema"
+        },
+        "definitions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/schema"
+          },
+          "default": {}
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/schema"
+          },
+          "default": {}
+        },
+        "patternProperties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/schema"
+          },
+          "propertyNames": {
+            "format": "regex"
+          },
+          "default": {}
+        },
+        "dependencies": {
+          "type": "object",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/schema"
+              },
+              {
+                "$ref": "#/definitions/schema_definitions_stringArray"
+              }
+            ]
+          }
+        },
+        "propertyNames": {
+          "$ref": "#/definitions/schema"
+        },
+        "const": true,
+        "enum": {
+          "type": "array",
+          "items": true,
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/schema_definitions_simpleTypes"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/schema_definitions_simpleTypes"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          ]
+        },
+        "format": {
+          "type": "string"
+        },
+        "contentMediaType": {
+          "type": "string"
+        },
+        "contentEncoding": {
+          "type": "string"
+        },
+        "if": {
+          "$ref": "#/definitions/schema"
+        },
+        "then": {
+          "$ref": "#/definitions/schema"
+        },
+        "else": {
+          "$ref": "#/definitions/schema"
+        },
+        "allOf": {
+          "$ref": "#/definitions/schema_definitions_schemaArray"
+        },
+        "anyOf": {
+          "$ref": "#/definitions/schema_definitions_schemaArray"
+        },
+        "oneOf": {
+          "$ref": "#/definitions/schema_definitions_schemaArray"
+        },
+        "not": {
+          "$ref": "#/definitions/schema"
+        }
+      },
+      "default": true
+    },
+    "schema_definitions_nonNegativeInteger": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "schema_definitions_nonNegativeIntegerDefault0": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/schema_definitions_nonNegativeInteger"
+        },
+        {
+          "default": 0
+        }
+      ]
+    },
+    "schema_definitions_stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "schema_definitions_simpleTypes": {
+      "enum": [
+        "array",
+        "boolean",
+        "integer",
+        "null",
+        "number",
+        "object",
+        "string"
+      ]
+    },
+    "hyper-schema_definitions_schemaArray": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/schema_definitions_schemaArray"
+        },
+        {
+          "items": {
+            "$ref": "#/definitions/hyper-schema"
+          }
+        }
+      ]
+    }
+  }
+}

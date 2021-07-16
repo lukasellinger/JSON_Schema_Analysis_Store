@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/mimmi20/ua-result/master/schema/result.json",
+  "definitions": {
+    "result": {
+      "type": "object",
+      "properties": {
+        "headers": {
+          "$ref": "#/definitions/headers.json_definitions_headers"
+        },
+        "device": {
+          "$ref": "#/definitions/device.json_definitions_device"
+        },
+        "browser": {
+          "$ref": "#/definitions/browser.json_definitions_browser"
+        },
+        "os": {
+          "$ref": "#/definitions/platform.json_definitions_os"
+        },
+        "engine": {
+          "$ref": "#/definitions/engine.json_definitions_engine"
+        }
+      },
+      "required": [
+        "headers",
+        "device",
+        "browser",
+        "os",
+        "engine"
+      ]
+    },
+    "headers.json_definitions_headers": {
+      "type": "object",
+      "properties": {
+        "user-agent": {
+          "type": "string"
+        }
+      }
+    },
+    "device.json_definitions_device": {
+      "type": "object",
+      "properties": {
+        "deviceName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "marketingName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "display": {
+          "$ref": "#/definitions/display.json_definitions_display"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "deviceName",
+        "marketingName",
+        "manufacturer",
+        "brand",
+        "display",
+        "type"
+      ]
+    },
+    "display.json_definitions_display": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "height": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "touch": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "size": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "width",
+        "height",
+        "touch",
+        "size"
+      ]
+    },
+    "browser.json_definitions_browser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "modus": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "version": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "bits": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "modus",
+        "version",
+        "manufacturer",
+        "bits",
+        "type"
+      ]
+    },
+    "platform.json_definitions_os": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "marketingName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "version": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "bits": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "marketingName",
+        "version",
+        "manufacturer",
+        "bits"
+      ]
+    },
+    "engine.json_definitions_engine": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "version": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "manufacturer"
+      ]
+    }
+  },
+  "$ref": "#/definitions/result"
+}

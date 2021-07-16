@@ -1,0 +1,537 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "properties": {
+    "accelerator": {
+      "title": "Accelerator",
+      "type": "string"
+    },
+    "affiliations": {
+      "items": {
+        "properties": {
+          "curated_relation": {
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name of the institution",
+            "type": "string"
+          },
+          "record": {
+            "$ref": "#/definitions/elements\\json_reference.json",
+            "title": "Record URI of the institution."
+          }
+        },
+        "type": "object"
+      },
+      "title": "Institutions with which experiment is affiliated.",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "collaboration": {
+      "title": "Collaboration",
+      "type": "string"
+    },
+    "collaboration_alternative_names": {
+      "items": {
+        "title": "Collaboration alternative name",
+        "type": "string"
+      },
+      "title": "Collaboration alternative names",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "contact_details": {
+      "items": {
+        "$ref": "#/definitions/elements\\contact.json"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "curated_relation": {
+      "title": "Curated relation",
+      "type": "boolean"
+    },
+    "date_approved": {
+      "format": "date",
+      "title": "Date approved",
+      "type": "string"
+    },
+    "date_cancelled": {
+      "format": "date",
+      "title": "Date cancelled",
+      "type": "string"
+    },
+    "date_completed": {
+      "format": "date",
+      "title": "Date completed",
+      "type": "string"
+    },
+    "date_proposed": {
+      "format": "date",
+      "title": "Date proposed",
+      "type": "string"
+    },
+    "date_started": {
+      "format": "date",
+      "title": "Date started",
+      "type": "string"
+    },
+    "deleted": {
+      "type": "boolean"
+    },
+    "description": {
+      "title": "Description",
+      "type": "array"
+    },
+    "experiment_names": {
+      "items": {
+        "$ref": "#/definitions/elements\\title.json"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "field_categories": {
+      "items": {
+        "$ref": "#/definitions/elements\\field.json"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "free_keywords": {
+      "items": {
+        "title": "Free keyword",
+        "type": "string"
+      },
+      "title": "Free keywords",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "hidden_note": {
+      "title": "Hidden note",
+      "type": "string"
+    },
+    "nonpublic_note": {
+      "description": "FIXME: difference from hidden_note!?",
+      "title": "Non public note",
+      "type": "string"
+    },
+    "other_experiment_names": {
+      "items": {
+        "$ref": "#/definitions/elements\\title.json"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "public_note": {
+      "title": "Public note",
+      "type": "string"
+    },
+    "related_experiments": {
+      "items": {
+        "properties": {
+          "curated_relation": {
+            "title": "Is the relation curated?",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name of related experiment",
+            "type": "string"
+          },
+          "record": {
+            "$ref": "#/definitions/elements\\json_reference.json",
+            "title": "URI for the related experiment record"
+          },
+          "relation": {
+            "description": "FIXME: shall we simply store preceeding experiment and generate the symmetric relation automatically?",
+            "enum": [
+              "predecessor",
+              "successor"
+            ],
+            "title": "Type of relation",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "title": "Related experiments",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "self": {
+      "$ref": "#/definitions/elements\\json_reference.json",
+      "description": "Url of the record itself",
+      "title": "Url of the record"
+    },
+    "spokespersons": {
+      "items": {
+        "properties": {
+          "curated_relation": {
+            "title": "Is the relation curated?",
+            "type": "boolean"
+          },
+          "current": {
+            "title": "Is current Spokesperson?",
+            "type": "boolean"
+          },
+          "end_date": {
+            "format": "date",
+            "title": "End date",
+            "type": "string"
+          },
+          "ids": {
+            "items": {
+              "$ref": "#/definitions/elements\\id.json"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "record": {
+            "$ref": "#/definitions/elements\\json_reference.json",
+            "title": "URI for the person record"
+          },
+          "start_date": {
+            "format": "date",
+            "title": "Start date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "Spokesperson",
+        "type": "object"
+      },
+      "title": "Spokespersons",
+      "type": "array",
+      "uniqueItems": true
+    },
+    "titles": {
+      "items": {
+        "$ref": "#/definitions/elements\\title.json"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "urls": {
+      "items": {
+        "$ref": "#/definitions/elements\\url.json"
+      },
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "title": "Experiment",
+  "type": "object",
+  "definitions": {
+    "elements\\json_reference.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "properties": {
+        "$ref": {
+          "description": "URL to the referenced resource",
+          "format": "url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "$ref"
+      ],
+      "type": "object"
+    },
+    "elements\\contact.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "description": "Contact person\u0027s data",
+      "properties": {
+        "email": {
+          "description": "Contact person\u0027s e-mail",
+          "format": "email",
+          "type": "string"
+        },
+        "name": {
+          "description": "Contact person\u0027s name",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "elements\\title.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "elements\\field.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "properties": {
+        "scheme": {
+          "title": "INSPIRE",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "INSPIRE",
+            "submitter",
+            "conference",
+            "curator",
+            "publisher",
+            "magpie"
+          ],
+          "type": "string"
+        },
+        "term": {
+          "enum": [
+            "Accelerators",
+            "Astrophysics",
+            "Computing",
+            "Data Analysis and Statistics",
+            "Experiment-HEP",
+            "Experiment-Nucl",
+            "General Physics",
+            "Gravitation and Cosmology",
+            "Instrumentation",
+            "Lattice",
+            "Math and Math Physics",
+            "Other",
+            "Phenomenology-HEP",
+            "Theory-HEP",
+            "Theory-Nucl"
+          ],
+          "title": "INSPIRE term",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "elements\\id.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "anyOf": [
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "INSPIRE ID"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "pattern": "INSPIRE-\\d{8}",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "INSPIRE BAI"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "pattern": "(\\w+\\.)+\\d+",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "ORCID"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "pattern": "\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9Xx]",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "JACOW"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "pattern": "JACoW-\\d{8}",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "KAKEN"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "pattern": "KAKEN-\\d{8}",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "ARXIV"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "pattern": "\\w+_(\\w_)?\\d+",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "CERN"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "pattern": "CERN-\\d+",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "DESY"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "pattern": "DESY-\\d+",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "GOOGLESCHOLAR"
+              ]
+            },
+            "value": {
+              "pattern": "(\\w|-){12}",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "VIAF"
+              ]
+            },
+            "value": {
+              "pattern": "\\d{7,9}",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "RESEARCHERID"
+              ]
+            },
+            "value": {
+              "pattern": "[A-z]-\\d{4}-\\d{4}",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "SCOPUS"
+              ]
+            },
+            "value": {
+              "pattern": "\\d{10,11}",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "WIKIPEDIA"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "pattern": "\\w+",
+              "type": "string"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "SLAC"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "pattern": "SLAC-\\d+",
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "required": [
+        "type",
+        "value"
+      ]
+    },
+    "elements\\url.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "value": {
+          "format": "url",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

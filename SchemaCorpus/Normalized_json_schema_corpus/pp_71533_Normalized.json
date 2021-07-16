@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "names": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/any_of_ref_john_schema.json"
+          },
+          {
+            "$ref": "#/definitions/any_of_ref_jane_schema.json"
+          },
+          {
+            "$ref": "#/definitions/any_of_ref_jimmy_schema.json"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "any_of_ref_john_schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "string",
+      "pattern": "john"
+    },
+    "any_of_ref_jane_schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "string",
+      "pattern": "jane"
+    },
+    "any_of_ref_jimmy_schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "string",
+      "pattern": "jimmy"
+    }
+  }
+}

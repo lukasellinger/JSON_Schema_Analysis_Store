@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\collection.json_definitions_collection-new-output",
+  "definitions": {
+    "..\\definitions\\collection.json_definitions_collection-new-output": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/..\\definitions\\common.json_definitions_objectid"
+        }
+      },
+      "required": [
+        "_id"
+      ],
+      "x-sdk-return": "_id"
+    },
+    "..\\definitions\\common.json_definitions_objectid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{24}$"
+    }
+  }
+}

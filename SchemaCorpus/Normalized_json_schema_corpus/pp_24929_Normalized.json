@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "tweets": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "additionalItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "time": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "account": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "accounts": {
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "handle": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "tweets",
+    "accounts"
+  ]
+}

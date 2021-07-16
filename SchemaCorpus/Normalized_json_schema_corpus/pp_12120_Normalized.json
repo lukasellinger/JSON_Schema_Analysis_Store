@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://jsonschema.net/vcard",
+  "type": "object",
+  "title": "vcard",
+  "properties": {
+    "vcard:fn": {
+      "type": "string",
+      "title": "Name"
+    },
+    "vcard:hasTelephone": {
+      "type": "string",
+      "title": "Telephone"
+    },
+    "vcard:hasEmail": {
+      "type": "string",
+      "title": "Email"
+    },
+    "vcard:hasURL": {
+      "type": "string",
+      "title": "URL"
+    }
+  }
+}

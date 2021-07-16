@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Member Merge Var",
+  "description": "An individual merge var and value for a member.",
+  "properties": {},
+  "additionalProperties": {
+    "anyOf": [
+      {
+        "type": "string"
+      },
+      {
+        "type": "number"
+      },
+      {
+        "type": "object",
+        "required": [
+          "addr1",
+          "city",
+          "state",
+          "zip"
+        ],
+        "properties": {
+          "addr1": {
+            "type": "string"
+          },
+          "addr2": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          }
+        }
+      }
+    ]
+  }
+}

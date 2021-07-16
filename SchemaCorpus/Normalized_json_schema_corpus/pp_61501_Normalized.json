@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Address identifier",
+  "description": "A unique identifier for a specific address in a voting pool",
+  "type": "object",
+  "properties": {
+    "series": {
+      "description": "the series identifier containing the address",
+      "$ref": "#/definitions/https:__raw.githubusercontent.com_Open-Transactions_rfc_master_json_schema_seriesid-01.json"
+    },
+    "branch": {
+      "type": "number",
+      "description": "the chain within the series containing the desired address",
+      "minimum": 0,
+      "exclusiveMinimum": false
+    },
+    "index": {
+      "type": "number",
+      "description": "the value used to derive the public keys used to create the multisig script",
+      "minimum": 0,
+      "exclusiveMinimum": false
+    }
+  },
+  "required": [
+    "series",
+    "branch",
+    "index"
+  ],
+  "definitions": {
+    "https:__raw.githubusercontent.com_Open-Transactions_rfc_master_json_schema_seriesid-01.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Wallet identifier",
+      "description": "A unique identifier for a series in a voting pool",
+      "type": "object",
+      "properties": {
+        "pool": {
+          "type": "string",
+          "description": "the color definition of the pool\u0027s charter"
+        },
+        "series": {
+          "type": "number",
+          "description": "the series number of the given voting pool",
+          "minimum": 1,
+          "exclusiveMinimum": false
+        }
+      },
+      "required": [
+        "pool",
+        "series"
+      ]
+    }
+  }
+}

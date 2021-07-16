@@ -1,0 +1,48 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/DataGrid/DataGridColumn.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Колонка DataGrid",
+  "type": "object",
+  "properties": {
+    "HeaderTemplate": {
+      "description": "Шаблон отображения заголовка колонки",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/VisualElement/VisualElement.json"
+    },
+    "Header": {
+      "description": "Заголовок колонки",
+      "type": "string"
+    },
+    "CellSelector": {
+      "description": "Функция выборки из элемента коллеции значения для ячейки",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "CellProperty": {
+      "description": "Свойство элемента коллекции со значением для ячейки",
+      "type": "string"
+    },
+    "CellFormat": {
+      "description": "Правила форматирования элемента коллекции для ячейки",
+      "type": "string"
+    },
+    "CellTemplate": {
+      "description": "Шаблон отображения элемента коллекции для ячейки",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/VisualElement/VisualElement.json"
+    },
+    "Width": {
+      "description": "Ширина колонки",
+      "type": "string"
+    },
+    "Sortable": {
+      "description": "Флаг указывающий, что данную колонку можно сортировать",
+      "type": "boolean"
+    },
+    "SortedDefault": {
+      "description": "Флаг указывающий, что элементы отсортированы по данной колонке в одном из направлений",
+      "type": "string"
+    },
+    "SortFunction": {
+      "description": "Функция сортировки при клике на колонке, принимает в аргументах направление сортировки",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    }
+  }
+}

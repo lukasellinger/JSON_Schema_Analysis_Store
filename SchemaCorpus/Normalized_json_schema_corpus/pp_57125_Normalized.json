@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "POST template preview schema response",
+  "type": "object",
+  "title": "reponse v2/template/{id}/preview",
+  "properties": {
+    "id": {
+      "$ref": "#/definitions/definitions.json_uuid"
+    },
+    "type": {
+      "enum": [
+        "sms",
+        "email",
+        "letter"
+      ]
+    },
+    "version": {
+      "type": "integer"
+    },
+    "body": {
+      "type": "string"
+    },
+    "subject": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "type",
+    "version",
+    "body"
+  ],
+  "definitions": {
+    "definitions.json_uuid": {
+      "type": "string",
+      "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+    }
+  }
+}

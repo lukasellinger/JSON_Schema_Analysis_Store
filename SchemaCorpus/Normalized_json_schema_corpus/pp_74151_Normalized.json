@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$ref": "#/definitions/..\\definitions\\report.json_definitions_report-site",
+  "definitions": {
+    "..\\definitions\\report.json_definitions_report-site": {
+      "type": "object",
+      "properties": {
+        "group_count": {
+          "type": "integer"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/..\\definitions\\report.json_definitions_group-report"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "group_count",
+        "groups"
+      ]
+    },
+    "..\\definitions\\report.json_definitions_group-report": {
+      "type": "object",
+      "properties": {
+        "project_count": {
+          "type": "integer"
+        },
+        "label": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/..\\definitions\\group.json_definitions_label"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "session_count": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "project_count",
+        "label",
+        "session_count"
+      ]
+    },
+    "..\\definitions\\group.json_definitions_label": {
+      "maxLength": 64,
+      "minLength": 1,
+      "pattern": "^[0-9A-Za-z][0-9A-Za-z .@_-]{0,30}[0-9A-Za-z]$",
+      "title": "label",
+      "type": "string"
+    }
+  }
+}

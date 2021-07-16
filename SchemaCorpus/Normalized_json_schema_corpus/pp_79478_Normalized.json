@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "presumedRole": {
+      "type": "string",
+      "description": "a role (e.g. \u0027internal\u0027) that TAS would have inferred from this email address had the user successfully logged in with it. Useful where the back end identity database is not just email and password, but also needs to store basic information such as internal"
+    },
+    "presumedRoles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/presumedRole"
+      }
+    },
+    "passwordManagerAccount.json_definitions_email": {
+      "type": "string",
+      "format": "email"
+    },
+    "passwordManagerAccount.json_definitions_password": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "email": {
+      "$ref": "#/definitions/passwordManagerAccount.json_definitions_email"
+    },
+    "password": {
+      "$ref": "#/definitions/passwordManagerAccount.json_definitions_password"
+    },
+    "presumedRoles": {
+      "$ref": "#/definitions/presumedRoles"
+    }
+  },
+  "required": [
+    "email",
+    "password",
+    "presumedRoles"
+  ]
+}

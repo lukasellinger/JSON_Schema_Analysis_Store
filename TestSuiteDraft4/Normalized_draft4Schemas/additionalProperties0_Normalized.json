@@ -1,0 +1,10 @@
+{
+  "patternProperties": {
+    "^v": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "bar": {},
+    "foo": {}
+  }
+}

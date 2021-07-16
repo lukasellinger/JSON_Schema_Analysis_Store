@@ -1,0 +1,376 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/nhuebel/TopoJSON_schema/master/topojson.json#",
+  "title": "TopoJSON object",
+  "description": "Schema for a TopoJSON object",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "bbox": {
+      "$ref": "#/definitions/bbox.json"
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/definitions/topology.json"
+    },
+    {
+      "$ref": "#/definitions/geometry.json"
+    }
+  ],
+  "definitions": {
+    "bbox.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "TopoJSON bounding box",
+      "description": "A bounding box as defined by TopoJSON",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/bbox.json_definitions_dimension"
+      },
+      "minItems": 2,
+      "maxItems": 2,
+      "definitions": {
+        "dimension": {
+          "type": "array",
+          "description": "This array should have an entry per dimension in the geometries",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "TODO": "check number of dimensions (2*n), n being the number of dimensions represented in the contained geometries), with the lowest values for all axes followed by the highest values "
+    },
+    "bbox.json_definitions_dimension": {
+      "type": "array",
+      "description": "This array should have an entry per dimension in the geometries",
+      "items": {
+        "type": "number"
+      }
+    },
+    "topology.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Topology",
+      "description": "A Topology object as defined by TopoJSON",
+      "type": "object",
+      "required": [
+        "objects",
+        "arcs"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "Topology"
+          ]
+        },
+        "objects": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/geometry.json"
+          }
+        },
+        "arcs": {
+          "$ref": "#/definitions/topology.json_definitions_arcs"
+        },
+        "transform": {
+          "$ref": "#/definitions/topology.json_definitions_transform"
+        },
+        "bbox": {
+          "$ref": "#/definitions/bbox.json"
+        }
+      },
+      "definitions": {
+        "transform": {
+          "type": "object",
+          "required": [
+            "scale",
+            "translate"
+          ],
+          "properties": {
+            "scale": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2
+            },
+            "translate": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2
+            }
+          }
+        },
+        "arcs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/topology.json_definitions_position"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "minItems": 2
+          }
+        },
+        "position": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2
+        }
+      }
+    },
+    "geometry.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Geometry objects",
+      "description": "A Geometry object as defined by TopoJSON",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "properties": {
+          "type": "object"
+        }
+      },
+      "oneOf": [
+        {
+          "title": "Point",
+          "description": "A Point Geometry object as defined by TopoJSON",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "Point"
+              ]
+            },
+            "coordinates": {
+              "$ref": "#/definitions/geometry.json_definitions_position"
+            }
+          }
+        },
+        {
+          "title": "MultiPoint",
+          "description": "A MultiPoint Geometry object as defined by TopoJSON",
+          "required": [
+            "type",
+            "coordinates"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPoint"
+              ]
+            },
+            "coordinates": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geometry.json_definitions_position"
+              }
+            }
+          }
+        },
+        {
+          "title": "LineString",
+          "description": "A LineString Geometry object as defined by TopoJSON",
+          "required": [
+            "type",
+            "arcs"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "LineString"
+              ]
+            },
+            "arcs": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        {
+          "title": "MultiLineString",
+          "description": "A MultiLineString Geometry object as defined by TopoJSON",
+          "required": [
+            "type",
+            "arcs"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiLineString"
+              ]
+            },
+            "arcs": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Polygon",
+          "description": "A Polygon Geometry object as defined by TopoJSON",
+          "required": [
+            "type",
+            "arcs"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "Polygon"
+              ]
+            },
+            "arcs": {
+              "TODO": "Check if arcs refer to valid LinearRings",
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "MultiPolygon",
+          "description": "A MultiPolygon Geometry object as defined by TopoJSON",
+          "required": [
+            "type",
+            "arcs"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "MultiPolygon"
+              ]
+            },
+            "arcs": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "GeometryCollection",
+          "description": "A MultiPolygon Geometry object as defined by TopoJSON",
+          "required": [
+            "type",
+            "geometries"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "GeometryCollection"
+              ]
+            },
+            "geometries": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/geometry.json"
+              }
+            }
+          }
+        }
+      ],
+      "definitions": {
+        "position": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2
+        }
+      }
+    },
+    "geometry.json_definitions_position": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2
+    },
+    "topology.json_definitions_arcs": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/topology.json_definitions_position"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "minItems": 2
+      }
+    },
+    "topology.json_definitions_position": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2
+    },
+    "topology.json_definitions_transform": {
+      "type": "object",
+      "required": [
+        "scale",
+        "translate"
+      ],
+      "properties": {
+        "scale": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2
+        },
+        "translate": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2
+        }
+      }
+    }
+  }
+}

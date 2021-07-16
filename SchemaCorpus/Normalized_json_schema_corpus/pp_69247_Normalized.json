@@ -1,0 +1,317 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "id": "catalog.json#",
+  "definitions": {
+    "asset": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/asset.json_definitions_core"
+        },
+        {
+          "properties": {
+            "uri": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
+      ]
+    },
+    "link": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "properties": {
+          "$ref": "#/definitions/catalog"
+        }
+      }
+    },
+    "catalog": {
+      "title": "Catalog",
+      "type": "object",
+      "properties": {
+        "TODO": {
+          "TODO": "URL pattern info + frequency"
+        },
+        "name": {
+          "description": "Name",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description",
+          "type": "string"
+        },
+        "license": {
+          "description": "License (as an SPDX license string)",
+          "type": "string"
+        },
+        "features": {
+          "description": "Features",
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/asset"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "links": {
+          "description": "Links to other catalogs",
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/definitions/link"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "contact": {
+          "$ref": "#/definitions/asset.json_definitions_entity"
+        },
+        "formats": {
+          "description": "Included asset formats",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "keywords": {
+          "description": "Keywords",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "homepage": {
+          "type": "string"
+        },
+        "geometry": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/geojson.json_definitions_geometry"
+            },
+            {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "Polygon",
+                    "MultiPolygon"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "provider": {
+          "description": "Provider-specific properties",
+          "type": "object"
+        }
+      }
+    },
+    "asset.json_definitions_core": {
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/geojson.json_definitions_feature"
+            },
+            {
+              "$ref": "#/definitions/geojson.json_definitions_featurecollection"
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "geometry": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "Polygon",
+                    "MultiPolygon"
+                  ]
+                }
+              }
+            },
+            "id": {
+              "title": "Provider ID",
+              "description": "Provider item ID",
+              "type": "string"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "startDate": {
+                  "title": "Date Start",
+                  "description": "First date/time",
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "endDate": {
+                  "title": "Date End",
+                  "description": "Last date/time",
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "provider": {
+                  "title": "Provider",
+                  "description": "Provider name and contact",
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "#/definitions/asset.json_definitions_entity"
+                    }
+                  ]
+                },
+                "license": {
+                  "title": "Data license",
+                  "description": "Data license name based on SPDX License List"
+                },
+                "links": {
+                  "title": "Resource links",
+                  "description": "Links to resources, could be download or other URLs",
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "geojson.json_definitions_feature": {
+      "title": "Feature",
+      "description": "A GeoJSON object with the type `Feature` is a feature object.\n\n* A feature object must have a member with the name `geometry`. The value of the geometry member is a geometry object as defined above or a JSON null value.\n\n* A feature object must have a member with the name `properties`. The value of the properties member is an object (any JSON object or a JSON null value).\n\n* If a feature has a commonly used identifier, that identifier should be included as a member of the feature object with the name `id`.",
+      "required": [
+        "geometry",
+        "properties"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "Feature"
+          ]
+        },
+        "geometry": {
+          "title": "Geometry",
+          "oneOf": [
+            {
+              "$ref": "#/definitions/geojson.json_definitions_geometry"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "properties": {
+          "title": "Properties",
+          "oneOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {}
+      }
+    },
+    "geojson.json_definitions_geometry": {
+      "title": "Geometry",
+      "description": "A geometry is a GeoJSON object where the type member\u0027s value is one of the following strings: `Point`, `MultiPoint`, `LineString`, `MultiLineString`, `Polygon`, `MultiPolygon`, or `GeometryCollection`.",
+      "properties": {
+        "type": {
+          "enum": [
+            "Point",
+            "MultiPoint",
+            "LineString",
+            "MultiLineString",
+            "Polygon",
+            "MultiPolygon",
+            "GeometryCollection"
+          ]
+        }
+      }
+    },
+    "geojson.json_definitions_featurecollection": {
+      "title": "Feature Collection",
+      "description": "A GeoJSON object with the type `FeatureCollection` is a feature collection object.\n\nAn object of type `FeatureCollection` must have a member with the name `features`. The value corresponding to `features` is an array. Each element in the array is a feature object as defined above.",
+      "required": [
+        "features"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "FeatureCollection"
+          ]
+        },
+        "features": {
+          "title": "Features",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/geojson.json_definitions_feature"
+          }
+        }
+      }
+    },
+    "asset.json_definitions_entity": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "#/definitions/catalog"
+    },
+    {
+      "required": [
+        "name",
+        "description",
+        "license",
+        "features",
+        "links"
+      ]
+    }
+  ]
+}

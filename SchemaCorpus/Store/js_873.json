@@ -1,0 +1,27 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/LayoutPanel/TabPanel/TabPanel.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Контейнер в виде набора закладок",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Container/Container.json"
+    }
+  ],
+  "properties": {
+    "HeaderLocation": {
+      "description": "Расположение закладок",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/LayoutPanel/TabPanel/TabHeaderLocation.json",
+      "default": "Top"
+    },
+    "HeaderOrientation": {
+      "description": "Ориентация закладок",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/LayoutPanel/TabPanel/TabHeaderOrientation.json",
+      "default": "Horizontal"
+    },
+    "OnSelectedItemChanged": {
+      "description": "Обработчик события о том, что элемент был выделен",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    }
+  }
+}

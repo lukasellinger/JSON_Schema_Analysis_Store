@@ -1,0 +1,8 @@
+{
+  "$ref": "#/definitions/http:__localhost:1234_subSchemas.json_integer",
+  "definitions": {
+    "http:__localhost:1234_subSchemas.json_integer": {
+      "type": "integer"
+    }
+  }
+}

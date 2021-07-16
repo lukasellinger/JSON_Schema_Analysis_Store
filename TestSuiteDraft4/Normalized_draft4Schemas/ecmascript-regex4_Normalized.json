@@ -1,0 +1,4 @@
+{
+  "pattern": "^\\d$",
+  "type": "string"
+}

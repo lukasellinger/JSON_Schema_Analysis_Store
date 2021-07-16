@@ -1,0 +1,114 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "$license": [
+    "http://www.apache.org/licenses/LICENSE-2.0"
+  ],
+  "id": "#",
+  "javaType": "org.apache.streams.graph.GraphWriterConfiguration",
+  "extends": {
+    "$ref": "#/definitions/GraphConfiguration.json"
+  },
+  "javaInterfaces": [
+    "java.io.Serializable"
+  ],
+  "properties": {
+    "vertices": {
+      "type": "object",
+      "javaType": "org.apache.streams.graph.GraphVertexWriterConfiguration"
+    },
+    "edges": {
+      "type": "object",
+      "javaType": "org.apache.streams.graph.GraphEdgeWriterConfiguration"
+    }
+  },
+  "definitions": {
+    "GraphConfiguration.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "$license": [
+        "http://www.apache.org/licenses/LICENSE-2.0"
+      ],
+      "javaType": "org.apache.streams.graph.GraphConfiguration",
+      "extends": {
+        "$ref": "#/definitions/..\\..\\..\\..\\..\\..\\..\\..\\..\\streams-components\\streams-http\\src\\main\\jsonschema\\org\\apache\\streams\\components\\http\\HttpConfiguration.json"
+      },
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Graph DB type",
+          "enum": [
+            "neo4j",
+            "rexster"
+          ]
+        },
+        "graph": {
+          "type": "string",
+          "description": "Graph DB Graph ID"
+        }
+      }
+    },
+    "..\\..\\..\\..\\..\\..\\..\\..\\..\\streams-components\\streams-http\\src\\main\\jsonschema\\org\\apache\\streams\\components\\http\\HttpConfiguration.json": {
+      "type": "object",
+      "$schema": "http://json-schema.org/draft-03/schema",
+      "javaType": "org.apache.streams.components.http.HttpConfiguration",
+      "javaInterfaces": [
+        "java.io.Serializable"
+      ],
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "description": "Protocol",
+          "default": "http"
+        },
+        "hostname": {
+          "type": "string",
+          "description": "Hostname",
+          "required": true
+        },
+        "port": {
+          "type": "integer",
+          "description": "Port",
+          "default": 80
+        },
+        "resourcePath": {
+          "type": "string",
+          "description": "Resource Path",
+          "required": true
+        },
+        "requestMethod": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST"
+          ],
+          "default": "GET"
+        },
+        "content-type": {
+          "type": "string",
+          "description": "Resource content-type",
+          "required": true,
+          "default": "application/json"
+        },
+        "access_token": {
+          "type": "string",
+          "description": "Known Access Token",
+          "required": false
+        },
+        "username": {
+          "type": "string",
+          "description": "Basic Auth Username",
+          "required": false
+        },
+        "password": {
+          "type": "string",
+          "description": "Basic Auth Password",
+          "required": false
+        }
+      }
+    }
+  }
+}

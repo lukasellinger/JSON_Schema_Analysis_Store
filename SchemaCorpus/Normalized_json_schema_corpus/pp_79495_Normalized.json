@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "incarnation": {
+      "type": "integer",
+      "description": "a number representing the \u0027configuration version\u0027 of this tenant. Incremented on any changes to the installed apps."
+    },
+    "securityGeneration": {
+      "type": "integer",
+      "description": "a number representing the \u0027security version\u0027 of this tenant. Incremented when tenant signals such during a patch operation."
+    },
+    "state": {
+      "enum": [
+        "PREHALTING",
+        "PREHALTED",
+        "HALTING",
+        "HALTED",
+        "PRESTARTING",
+        "PRESTARTED",
+        "STARTING",
+        "STARTED",
+        "BROKEN"
+      ],
+      "description": "The tenant\u0027s current status."
+    }
+  },
+  "required": [
+    "incarnation",
+    "securityGeneration"
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://raw.githubusercontent.com/AlekseyBuzmakov/FCAPS/master/FCAPS/schemas/patterns/BinarySet.json",
+  "title": "A binary set pattern",
+  "description": "A pattern given by a binary set",
+  "anyOf": [
+    {
+      "description": "It is a either a named est, ...",
+      "$ref": "#/definitions/NamedSet.json"
+    },
+    {
+      "description": "... or a indexed set",
+      "$ref": "#/definitions/IndexedSet.json"
+    }
+  ],
+  "definitions": {
+    "NamedSet.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Named Set Pattern",
+      "description": "Pattern corresponds to a set given by the names of its elements",
+      "allOf": [
+        {
+          "description": "It is a pattern",
+          "$ref": "#/definitions/pattern.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Count": {
+              "title": "Set Cardinality",
+              "description": "The number of elements in the set",
+              "type": "integer",
+              "minimum": 0
+            },
+            "Names": {
+              "title": "Element Names",
+              "description": "The list of element names",
+              "type": "array",
+              "items": {
+                "title": "Element Name",
+                "description": "The name of an element in the set",
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "Count",
+            "Names"
+          ]
+        }
+      ]
+    },
+    "pattern.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Pattern Description",
+      "description": "A description of a pattern"
+    },
+    "IndexedSet.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Indexed Set Pattern",
+      "description": "Pattern corresponds to a set given by the indices of its elements",
+      "allOf": [
+        {
+          "description": "It is a pattern",
+          "$ref": "#/definitions/pattern.json"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Count": {
+              "title": "Set Cardinality",
+              "description": "The number of elements in the set",
+              "type": "integer",
+              "minimum": 0
+            },
+            "Inds": {
+              "title": "Element Indices",
+              "description": "The list of element indices",
+              "type": "array",
+              "items": {
+                "title": "Element Index",
+                "description": "The index of an element in the set",
+                "type": "integer"
+              }
+            }
+          },
+          "required": [
+            "Count",
+            "Inds"
+          ]
+        }
+      ]
+    }
+  }
+}

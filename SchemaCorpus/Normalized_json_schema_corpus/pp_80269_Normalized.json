@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "role": {
+        "type": "string",
+        "default": "public"
+      },
+      "paths": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "default": "/"
+            },
+            "verbs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": "GET"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "gear": {
+    "name": "dcm2niix",
+    "label": "DCM2NIIX: v1.0.20170130",
+    "description": "Chris Rorden\u0027s dcm2niiX version v1.0.20170130 (64-bit Linux). dcm2niix is a popular tool for converting images from the complicated formats used by scanner manufacturers (DICOM, PAR/REC) to the simple NIfTI format used by many scientific tools. dcm2niix works for all modalities (CT, MRI, PET, SPECT) and sequence types.",
+    "maintainer": "Michael Perry \u003clmperry@stanford.edu\u003e",
+    "author": "Chris Rorden",
+    "url": "https://www.nitrc.org/projects/dcm2nii",
+    "source": "https://github.com/scitran-apps/dcm2niiix",
+    "license": "BSD-2-Clause",
+    "flywheel": "0",
+    "version": "0.1.0",
+    "config": {
+      "decompress_dicoms": {
+        "default": false,
+        "type": "boolean",
+        "description": "Decompress dicom files prior to conversion. This will perform decompression using gdcmconv and subsequently perform conversion using dcm2niix. (true/false, default\u003dfalse)"
+      },
+      "bids_sidecar": {
+        "description": "Output BIDS sidecar in JSON format. (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "merge2d": {
+        "description": "merge 2D slices from same series regardless of study time, echo, coil, orientation, etc. (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "text_notes_private": {
+        "description": "text notes includes private patient details (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "crop": {
+        "description": "Crop images (y/n, default n)",
+        "type": "string",
+        "default": "n"
+      },
+      "compress_nifti": {
+        "description": "Compress output NIfTI file. Options, y\u003dpigz, i\u003dinternal, n\u003dno. (y/i/n, default\u003dy) ",
+        "type": "string",
+        "default": "y"
+      },
+      "filename": {
+        "description": "Determine how files are named: filename (%a\u003dantenna (coil) number, %c\u003dcomments, %d\u003ddescription, %e\u003decho number, %f\u003dfolder name, %i\u003dID of patient, %m\u003dmanufacturer, %n\u003dname of patient, %p\u003dprotocol, %s\u003dseries number, %t\u003dtime, %u\u003dacquisition number, %z\u003dsequence name; [default\u003d\u0027%f\u0027])",
+        "type": "string",
+        "default": "%f"
+      }
+    },
+    "inputs": {
+      "dcm2niix_input": {
+        "description": "Input file for dcm2niix. This can be either a DICOM archive (\u0027.dicom.zip\u0027), an enhanced dicom file (gzipped or not, e.g., \u0027IM0001.gz\u0027, \u0027IM0001\u0027), or a PAR/REC archive (\u0027.parrec.zip\u0027)",
+        "base": "file",
+        "type": {
+          "enum": [
+            "dicom",
+            "parrec"
+          ]
+        }
+      }
+    },
+    "custom": {
+      "docker-image": "scitran/dcm2niix:v0.1.0"
+    }
+  },
+  "exchange": {
+    "git-commit": "acdae2552ce6b3772edaeb59b514180314297ea4",
+    "rootfs-hash": "sha384:e9c99ca4b2b56f3345bb6a6662654330f22486db357a1858ad81d81af5c00e1a194fb748ff011ea1db7c1c4f884b1d0e",
+    "rootfs-url": "https://storage.googleapis.com/flywheel-exchange/scitran-dcm2niix-sha384-e9c99ca4b2b56f3345bb6a6662654330f22486db357a1858ad81d81af5c00e1a194fb748ff011ea1db7c1c4f884b1d0e.tgz"
+  },
+  "invocation-schema": {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "required": [
+      "config",
+      "inputs"
+    ],
+    "type": "object",
+    "properties": {
+      "inputs": {
+        "required": [
+          "dcm2niix_input"
+        ],
+        "type": "object",
+        "properties": {
+          "dcm2niix_input": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "dicom",
+                  "parrec"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "config": {
+        "required": [
+          "merge2d",
+          "bids_sidecar",
+          "text_notes_private",
+          "crop",
+          "filename",
+          "compress_nifti",
+          "decompress_dicoms"
+        ],
+        "type": "object",
+        "properties": {
+          "merge2d": {
+            "default": "n",
+            "type": "string"
+          },
+          "bids_sidecar": {
+            "default": "n",
+            "type": "string"
+          },
+          "text_notes_private": {
+            "default": "n",
+            "type": "string"
+          },
+          "crop": {
+            "default": "n",
+            "type": "string"
+          },
+          "filename": {
+            "default": "%f",
+            "type": "string"
+          },
+          "compress_nifti": {
+            "default": "y",
+            "type": "string"
+          },
+          "decompress_dicoms": {
+            "default": false,
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "title": "Invocation manifest for DCM2NIIX: v1.0.20170130"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "properties": {
+    "ggg": {
+      "$ref": "hhh.json"
+    }
+  }
+}

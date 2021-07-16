@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "#/definitions/..\\definitions\\batch.json_definitions_batch-cancel-output"
+    }
+  ],
+  "example": {
+    "number_cancelled": 4
+  },
+  "definitions": {
+    "..\\definitions\\batch.json_definitions_batch-cancel-output": {
+      "type": "object",
+      "properties": {
+        "number_cancelled": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "number_cancelled"
+      ],
+      "x-sdk-return": "number_cancelled"
+    }
+  }
+}

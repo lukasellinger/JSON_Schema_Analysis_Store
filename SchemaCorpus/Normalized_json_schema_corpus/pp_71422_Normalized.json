@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "breachCharacteristics": {
+      "properties": {
+        "averageSideSlopes": {
+          "type": "integer"
+        },
+        "averageWidth": {
+          "type": "integer"
+        },
+        "bottomWidth": {
+          "type": "integer"
+        },
+        "breachShape": {
+          "type": "integer"
+        },
+        "erodedVolume": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "topWidth": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "damInformation": {
+      "properties": {
+        "damUid": {
+          "type": "integer"
+        },
+        "dam": {
+          "type": "string"
+        },
+        "built": {
+          "type": "integer"
+        },
+        "failed": {
+          "type": "integer"
+        },
+        "failureMode": {
+          "type": "string"
+        },
+        "construction": {
+          "type": "string"
+        },
+        "damType": {
+          "type": "string"
+        },
+        "damEnrodibility": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "embankmentDimensions": {
+      "properties": {
+        "averageWidth": {
+          "type": "integer"
+        },
+        "baseWidth": {
+          "type": "integer"
+        },
+        "crestWidth": {
+          "type": "integer"
+        },
+        "damHeight": {
+          "type": "integer"
+        },
+        "downstreamSlope": {
+          "type": "integer"
+        },
+        "length": {
+          "type": "integer"
+        },
+        "peakOutflow": {
+          "type": "integer"
+        },
+        "upstreamSlope": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "hydraulicCharacteristics": {
+      "properties": {
+        "breachFormationFactor": {
+          "type": "integer"
+        },
+        "depthAboveBreach": {
+          "type": "integer"
+        },
+        "determinantMethod": {
+          "type": "string"
+        },
+        "reservoirStorage": {
+          "type": "integer"
+        },
+        "surfaceArea": {
+          "type": "integer"
+        },
+        "volAboveBreachInvert": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "timeParameters": {
+      "properties": {
+        "breachAndEmptyTime": {
+          "type": "integer"
+        },
+        "developmentTime": {
+          "type": "integer"
+        },
+        "failureTime": {
+          "type": "integer"
+        },
+        "formationTime": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

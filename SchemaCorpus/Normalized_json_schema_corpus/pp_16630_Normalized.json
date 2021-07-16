@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "filter.pad",
+  "name": "pad",
+  "defaults": {},
+  "groups": [
+    {
+      "class": "standard",
+      "properties": [
+        {
+          "parameter": "width",
+          "forced": true,
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8192,
+            "singleStep": 16,
+            "value": 800
+          }
+        },
+        {
+          "parameter": "height",
+          "forced": true,
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8192,
+            "singleStep": 8,
+            "value": 600
+          }
+        }
+      ]
+    },
+    {
+      "class": "advanced",
+      "properties": [
+        {
+          "parameter": "x",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8192,
+            "singleStep": 16,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "y",
+          "control": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8192,
+            "singleStep": 8,
+            "value": 0
+          }
+        },
+        {
+          "parameter": "color",
+          "control": {
+            "type": "string",
+            "value": "black"
+          }
+        },
+        {
+          "parameter": "aspect",
+          "control": {
+            "type": "float",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "singleStep": 0.1,
+            "value": 0.0
+          }
+        }
+      ]
+    }
+  ]
+}

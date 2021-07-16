@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$ref": "#/definitions/..\\sub\\sub-ref.json",
+  "definitions": {
+    "..\\sub\\sub-ref.json": {
+      "$schema": "http://json-schema.org/schema#",
+      "$ref": "#/definitions/..\\sub\\sub2\\sub-string.json"
+    },
+    "..\\sub\\sub2\\sub-string.json": {
+      "type": "string"
+    }
+  }
+}

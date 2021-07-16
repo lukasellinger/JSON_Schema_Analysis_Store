@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "HealthStatusList",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/HealthDescriptor.json"
+  },
+  "definitions": {
+    "HealthDescriptor.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "HealthDescriptor",
+      "type": "object",
+      "properties": {
+        "srvcId": {
+          "type": "string"
+        },
+        "instId": {
+          "type": "string"
+        },
+        "healthMessage": {
+          "type": "string"
+        },
+        "healthStatus": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "srvcId",
+        "instId",
+        "healthMessage",
+        "healthStatus"
+      ]
+    }
+  }
+}

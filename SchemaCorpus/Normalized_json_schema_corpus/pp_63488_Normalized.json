@@ -1,0 +1,244 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "Animation",
+  "type": "object",
+  "description": "A keyframe animation.",
+  "allOf": [
+    {
+      "$ref": "#/definitions/glTFChildOfRootProperty.schema.json"
+    }
+  ],
+  "properties": {
+    "channels": {
+      "type": "array",
+      "description": "An array of channels, each of which targets an animation\u0027s sampler at a node\u0027s property. Different channels of the same animation can\u0027t have equal targets.",
+      "items": {
+        "$ref": "#/definitions/animation.channel.schema.json"
+      },
+      "minItems": 1
+    },
+    "samplers": {
+      "type": "array",
+      "description": "An array of samplers that combines input and output accessors with an interpolation algorithm to define a keyframe graph (but not its target).",
+      "items": {
+        "$ref": "#/definitions/animation.sampler.schema.json"
+      },
+      "minItems": 1
+    },
+    "name": {},
+    "extensions": {},
+    "extras": {}
+  },
+  "required": [
+    "channels",
+    "samplers"
+  ],
+  "definitions": {
+    "glTFChildOfRootProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Child of Root Property",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The user-defined name of this object.",
+          "gltf_detailedDescription": "The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name."
+        }
+      }
+    },
+    "glTFProperty.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Property",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extension.schema.json"
+        },
+        "extras": {
+          "$ref": "#/definitions/extras.schema.json"
+        }
+      }
+    },
+    "extension.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extension",
+      "type": "object",
+      "description": "Dictionary object with extension-specific objects.",
+      "properties": {},
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "extras.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Extras",
+      "description": "Application-specific data."
+    },
+    "animation.channel.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Animation Channel",
+      "type": "object",
+      "description": "Targets an animation\u0027s sampler at a node\u0027s property.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "sampler": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/glTFid.schema.json"
+            }
+          ],
+          "description": "The index of a sampler in this animation used to compute the value for the target.",
+          "gltf_detailedDescription": "The index of a sampler in this animation used to compute the value for the target, e.g., a node\u0027s translation, rotation, or scale (TRS)."
+        },
+        "target": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/animation.channel.target.schema.json"
+            }
+          ],
+          "description": "The index of the node and TRS property to target."
+        },
+        "extensions": {},
+        "extras": {}
+      },
+      "required": [
+        "sampler",
+        "target"
+      ]
+    },
+    "glTFid.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "glTF Id",
+      "type": "integer",
+      "minimum": 0
+    },
+    "animation.channel.target.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Animation Channel Target",
+      "type": "object",
+      "description": "The index of the node and TRS property that an animation channel targets.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "node": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/glTFid.schema.json"
+            }
+          ],
+          "description": "The index of the node to target."
+        },
+        "path": {
+          "description": "The name of the node\u0027s TRS property to modify, or the \"weights\" of the Morph Targets it instantiates. For the \"translation\" property, the values that are provided by the sampler are the translation along the x, y, and z axes. For the \"rotation\" property, the values are a quaternion in the order (x, y, z, w), where w is the scalar. For the \"scale\" property, the values are the scaling factors along the x, y, and z axes.",
+          "anyOf": [
+            {
+              "enum": [
+                "translation"
+              ]
+            },
+            {
+              "enum": [
+                "rotation"
+              ]
+            },
+            {
+              "enum": [
+                "scale"
+              ]
+            },
+            {
+              "enum": [
+                "weights"
+              ]
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "extensions": {},
+        "extras": {}
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "animation.sampler.schema.json": {
+      "$schema": "http://json-schema.org/draft-04/schema",
+      "title": "Animation Sampler",
+      "type": "object",
+      "description": "Combines input and output accessors with an interpolation algorithm to define a keyframe graph (but not its target).",
+      "allOf": [
+        {
+          "$ref": "#/definitions/glTFProperty.schema.json"
+        }
+      ],
+      "properties": {
+        "input": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/glTFid.schema.json"
+            }
+          ],
+          "description": "The index of an accessor containing keyframe input values, e.g., time.",
+          "gltf_detailedDescription": "The index of an accessor containing keyframe input values, e.g., time. That accessor must have componentType `FLOAT`. The values represent time in seconds with `time[0] \u003e\u003d 0.0`, and strictly increasing values, i.e., `time[n + 1] \u003e time[n]`."
+        },
+        "interpolation": {
+          "description": "Interpolation algorithm.",
+          "default": "LINEAR",
+          "gltf_detailedDescription": "Interpolation algorithm.",
+          "anyOf": [
+            {
+              "enum": [
+                "LINEAR"
+              ],
+              "description": "The animated values are linearly interpolated between keyframes. When targeting a rotation, spherical linear interpolation (slerp) should be used to interpolate quaternions. The number output of elements must equal the number of input elements."
+            },
+            {
+              "enum": [
+                "STEP"
+              ],
+              "description": "The animated values remain constant to the output of the first keyframe, until the next keyframe. The number of output elements must equal the number of input elements."
+            },
+            {
+              "enum": [
+                "CUBICSPLINE"
+              ],
+              "description": "The animation\u0027s interpolation is computed using a cubic spline with specified tangents. The number of output elements must equal three times the number of input elements. For each input element, the output stores three elements, an in-tangent, a spline vertex, and an out-tangent. There must be at least two keyframes when using this interpolation."
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "output": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/glTFid.schema.json"
+            }
+          ],
+          "description": "The index of an accessor, containing keyframe output values.",
+          "gltf_detailedDescription": "The index of an accessor containing keyframe output values. When targeting translation or scale paths, the `accessor.componentType` of the output values must be `FLOAT`. When targeting rotation or morph weights, the `accessor.componentType` of the output values must be `FLOAT` or normalized integer. For weights, each output element stores `SCALAR` values with a count equal to the number of morph targets."
+        },
+        "extensions": {},
+        "extras": {}
+      },
+      "required": [
+        "input",
+        "output"
+      ]
+    }
+  }
+}

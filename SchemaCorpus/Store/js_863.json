@@ -1,0 +1,53 @@
+{
+  "id": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/ComboBox/ComboBox.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Выпадающий список",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Components/ListEditorBase/ListEditorBase.json"
+    }
+  ],
+  "properties": {
+    "LabelText": {
+      "description": "Текст метки",
+      "type": "string"
+    },
+    "LabelFloating": {
+      "description": "Является ли метка плавающей",
+      "type": "boolean",
+      "default": false
+    },
+    "Autocomplete": {
+      "description": "Разрешено ли автозавершение ввода",
+      "type": "boolean",
+      "default": false
+    },
+    "AutocompleteProperty": {
+      "description": "Свойство, по которому будет выполняться автозавершение ввода",
+      "type": "string"
+    },
+    "ShowClear": {
+      "description": "Наличие кнопки, очищающей выбранное значение",
+      "type": "boolean",
+      "default": true
+    },
+    "ValueTemplate": {
+      "description": "Функция шаблонизации выбранного элемента",
+      "$ref": "https://raw.githubusercontent.com/InfinniPlatform/InfinniUI-schema/master/Script/LinkScript.json"
+    },
+    "ValueFormat": {
+      "description": "Формат отображения выбранного элемента",
+      "type": "string"
+    },
+    "NoItemsMessage": {
+      "description": "Текст сообщения о неудачном результате поиска",
+      "type": "string"
+    },
+    "ExpandOnEnter": {
+      "description": "Открытие выпадающего списка по нажатию на клавишу Enter",
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

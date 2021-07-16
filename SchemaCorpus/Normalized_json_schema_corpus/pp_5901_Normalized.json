@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "https://fiware.github.io/data-models/specs/AgriFood/agrifood-schema.json",
+  "title": "AgriFood Commons schema",
+  "description": "Common defintions to describe FIWARE agri food data models",
+  "definitions": {
+    "AgriFood-Commons": {
+      "type": "object",
+      "properties": {
+        "relatedSource": {
+          "type": "array",
+          "description": "List of IDs the current entity may have in external applications",
+          "items": [
+            {
+              "type": "object",
+              "values": {
+                "application": {
+                  "$ref": "#/definitions/..\\..\\common-schema.json_definitions_EntityIdentifierType"
+                },
+                "applicationEntityId": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "..\\..\\common-schema.json_definitions_EntityIdentifierType": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[\\w\\-\\.\\{\\}\\$\\+\\*\\[\\]`|~^@!,:\\\\]+$"
+        },
+        {
+          "type": "string",
+          "format": "uri"
+        }
+      ]
+    }
+  }
+}

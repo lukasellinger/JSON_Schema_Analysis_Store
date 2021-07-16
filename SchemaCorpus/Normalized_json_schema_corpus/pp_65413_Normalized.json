@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "aaa": {
+      "type": "string",
+      "format": "date"
+    },
+    "bbb": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "date"
+      }
+    },
+    "ccc": {
+      "$ref": "#/definitions/includes\\zzz.json"
+    }
+  },
+  "definitions": {
+    "includes\\zzz.json": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "type": "object",
+      "properties": {
+        "ddd": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}

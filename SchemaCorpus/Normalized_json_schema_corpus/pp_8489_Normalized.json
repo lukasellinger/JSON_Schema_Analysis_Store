@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "description": "An explanation about the purpose of this instance.",
+  "properties": {
+    "dhcp_subnet": {
+      "type": "array",
+      "description": "An explanation about the purpose of this instance.",
+      "items": {
+        "type": "object",
+        "description": "An explanation about the purpose of this instance.",
+        "properties": {
+          "default_lease_time": {
+            "type": "integer",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 21600
+          },
+          "dhcp_range": {
+            "type": "null",
+            "description": "An explanation about the purpose of this instance."
+          },
+          "dns_server_list": {
+            "type": "string",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "[\u0027127.0.0.1\u0027, \u00278.8.8.8\u0027]"
+          },
+          "max_lease_time": {
+            "type": "integer",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 43200
+          },
+          "search_domains_list": {
+            "type": "string",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "[\u0027englab.juniper.net\u0027]"
+          },
+          "subnet_address": {
+            "type": "string",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "99.1.1.0"
+          },
+          "subnet_domain": {
+            "type": "string",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "englab.juniper.net"
+          },
+          "subnet_gateway": {
+            "type": "string",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "99.1.1.9"
+          },
+          "subnet_mask": {
+            "type": "string",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "255.255.255.0"
+          }
+        },
+        "required": [
+          "subnet_address",
+          "subnet_domain",
+          "subnet_gateway",
+          "subnet_mask"
+        ]
+      }
+    }
+  }
+}

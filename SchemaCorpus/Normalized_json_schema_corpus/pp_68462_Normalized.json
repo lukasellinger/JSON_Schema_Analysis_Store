@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "OrderInformation": {
+      "type": "object",
+      "additionalProperties": true,
+      "title": "Order Information schema.",
+      "properties": {
+        "orderNumber": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "fills": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "quantityOrdered": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "orderExpirationDateTime": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "orderDateTime": {
+          "$ref": "#/definitions/common.json_definitions_SecondsSinceEpoch"
+        },
+        "provider_id": {
+          "$ref": "#/definitions/common.json_definitions_BsonObjectId"
+        }
+      }
+    },
+    "common.json_definitions_SecondsSinceEpoch": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "multipleOf": 1,
+      "title": "Milliseconds since Epoch",
+      "description": "Number of milliseconds since Jan 1, 1970"
+    },
+    "common.json_definitions_BsonObjectId": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "maxLength": 12,
+      "minLength": 12
+    }
+  }
+}
