@@ -1,0 +1,1 @@
+{"id":"http://localhost:1234/scope_change_defs1.json","type":"object","definitions":{"baz":{"id":"baseUriChangeFolder/","type":"array","items":{"$ref":"folderInteger.json"}}},"properties":{"list":{"$ref":"#/definitions/baz"}}}

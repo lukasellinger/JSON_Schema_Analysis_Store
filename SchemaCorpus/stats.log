@@ -1,0 +1,15 @@
+[2021-07-16 14:51:53] [INFO   ] Total single-file-schemas: 33625 
+[2021-07-16 14:51:53] [INFO   ] Single-file-schemas Rekursion: 3630 
+[2021-07-16 14:51:53] [INFO   ] Avg LoC single-file-schemas: 229 
+[2021-07-16 14:51:53] [INFO   ] Avg LoC single-file-schemas normalized: 253 
+[2021-07-16 14:51:53] [INFO   ] BlowUp single-file-schemas: 0.10480349344978168 
+[2021-07-16 14:51:53] [INFO   ] ---------------------------------- 
+[2021-07-16 14:51:53] [INFO   ] Total distributed-schemas: 10501 
+[2021-07-16 14:51:53] [INFO   ] Distributed-schemas Rekursion: 3123 
+[2021-07-16 14:51:53] [INFO   ] Avg LoC distributed-schemas: 399 
+[2021-07-16 14:51:53] [INFO   ] Avg LoC distributed-schemas normalized: 789 
+[2021-07-16 14:51:53] [INFO   ] BlowUp distributed-schemas: 0.9774436090225564 
+[2021-07-16 14:51:53] [INFO   ] ---------------------------------- 
+[2021-07-16 14:51:53] [INFO   ] Avg LoC overall: 270 
+[2021-07-16 14:51:53] [INFO   ] Avg LoC overall normalized: 381 
+[2021-07-16 14:51:53] [INFO   ] BlowUp overall: 0.4111111111111112 

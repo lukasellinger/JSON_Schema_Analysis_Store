@@ -1,0 +1,1 @@
+{"definitions":{"percent%field":{"type":"integer"},"tilde~field":{"type":"integer"},"slash/field":{"type":"integer"}},"properties":{"slash":{"$ref":"#/definitions/slash~1field"},"tilde":{"$ref":"#/definitions/tilde~0field"},"percent":{"$ref":"#/definitions/percent%25field"}}}

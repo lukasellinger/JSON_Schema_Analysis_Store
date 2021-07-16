@@ -1,0 +1,1651 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://neotys.com/schemas/as-code/v3",
+  "title": "JSON Schema for NeoLoad as-code files",
+  "fileMatch": [
+    "*.nl.yaml",
+    "*.neoload.yaml",
+    "neoload*.yaml",
+    "*.nl.yml",
+    "*.neoload.yml",
+    "neoload*.yml",
+    "*.nl.json",
+    "*.neoload.json",
+    "neoload*.json"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "minProperties": 1,
+  "xrequired": [
+    "name",
+    "because neoload files can be partial"
+  ],
+  "properties": {
+    "$schema": {
+      "$ref": "#/definitions/definitions_common_full_url"
+    },
+    "name": {
+      "$ref": "#/definitions/definitions_common_name"
+    },
+    "includes": {
+      "title": "Includes",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/definitions_common_text"
+      }
+    },
+    "variables": {
+      "title": "Variables",
+      "type": "array",
+      "additionalItems": false,
+      "minItems": 1,
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/definitions/definitions_variables_constant"
+          },
+          {
+            "$ref": "#/definitions/definitions_variables_file"
+          },
+          {
+            "$ref": "#/definitions/definitions_variables_counter"
+          },
+          {
+            "$ref": "#/definitions/definitions_variables_random_number"
+          },
+          {
+            "$ref": "#/definitions/definitions_variables_javascript"
+          }
+        ]
+      }
+    },
+    "servers": {
+      "title": "Servers",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/server"
+      }
+    },
+    "sla_profiles": {
+      "title": "SLA Profiles",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/sla"
+      }
+    },
+    "populations": {
+      "title": "Populations",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/definitions_populations_population"
+      }
+    },
+    "scenarios": {
+      "title": "Scenarios",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/scenario"
+      }
+    },
+    "user_paths": {
+      "title": "User_paths",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/definitions_user_paths_user_path"
+      }
+    }
+  },
+  "definitions": {
+    "common": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "pattern": "^.*$"
+      },
+      "text": {
+        "title": "Value",
+        "type": "string",
+        "pattern": "^.*$"
+      },
+      "full_url": {
+        "title": "Url",
+        "type": "string",
+        "pattern": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#\u003d]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?\u0026//\u003d]*)"
+      },
+      "var_change_policy": {
+        "type": "string",
+        "default": "each_iteration",
+        "enum": [
+          "each_use",
+          "each_request",
+          "each_page",
+          "each_iteration",
+          "each_user"
+        ]
+      },
+      "var_scope": {
+        "type": "string",
+        "default": "global",
+        "enum": [
+          "local",
+          "global",
+          "unique"
+        ]
+      },
+      "var_order": {
+        "type": "string",
+        "default": "global",
+        "enum": [
+          "sequential",
+          "random",
+          "any"
+        ]
+      },
+      "var_out_of_value": {
+        "type": "string",
+        "default": "global",
+        "enum": [
+          "cycle",
+          "stop_test",
+          "no_value_code"
+        ]
+      }
+    },
+    "variables": {
+      "generic": {
+        "type": "object",
+        "xrequired": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "$ref": "#/definitions/definitions_common_name"
+          },
+          "descrption": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "change_policy": {
+            "$ref": "#/definitions/definitions_common_var_change_policy"
+          }
+        }
+      },
+      "constant": {
+        "title": "Constant",
+        "type": "object",
+        "xrequired": [
+          "value"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_variables_generic"
+          },
+          {
+            "properties": {
+              "value": {
+                "$ref": "#/definitions/definitions_common_text"
+              }
+            }
+          }
+        ],
+        "x-d7nosupport-additionalProperties": false
+      },
+      "file": {
+        "title": "File",
+        "type": "object",
+        "xrequired": [
+          "path"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_variables_generic"
+          },
+          {
+            "properties": {
+              "column_names": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "is_first_line_column_names": {
+                "type": "boolean",
+                "default": false
+              },
+              "start_from_line": {
+                "type": "integer",
+                "default": 1
+              },
+              "delimiter": {
+                "$ref": "#/definitions/definitions_common_text",
+                "default": ","
+              },
+              "path": {
+                "$ref": "#/definitions/definitions_common_text"
+              },
+              "scope": {
+                "$ref": "#/definitions/definitions_common_var_scope"
+              },
+              "order": {
+                "$ref": "#/definitions/definitions_common_var_order"
+              },
+              "out_of_value": {
+                "$ref": "#/definitions/definitions_common_var_out_of_value"
+              }
+            }
+          }
+        ],
+        "x-d7nosupport-additionalProperties": false
+      },
+      "counter": {
+        "title": "Counter",
+        "type": "object",
+        "xrequired": [
+          "start",
+          "end",
+          "increment"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_variables_generic"
+          },
+          {
+            "properties": {
+              "start": {
+                "type": "number"
+              },
+              "end": {
+                "type": "number"
+              },
+              "increment": {
+                "type": "number"
+              },
+              "scope": {
+                "$ref": "#/definitions/definitions_common_var_scope"
+              },
+              "out_of_value": {
+                "$ref": "#/definitions/definitions_common_var_out_of_value"
+              }
+            }
+          }
+        ],
+        "x-d7nosupport-additionalProperties": false
+      },
+      "random_number": {
+        "title": "Random Number",
+        "type": "object",
+        "xrequired": [
+          "min",
+          "max"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_variables_generic"
+          },
+          {
+            "properties": {
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "predictable": {
+                "type": "boolean"
+              }
+            }
+          }
+        ],
+        "x-d7nosupport-additionalProperties": false
+      },
+      "javascript": {
+        "title": "Javascript",
+        "type": "object",
+        "xrequired": [
+          "script"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_variables_generic"
+          },
+          {
+            "properties": {
+              "script": {
+                "$ref": "#/definitions/definitions_common_text"
+              }
+            }
+          }
+        ],
+        "x-d7nosupport-additionalProperties": false
+      }
+    },
+    "server": {
+      "title": "Server",
+      "type": "object",
+      "xrequired": [
+        "name",
+        "host"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "host": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "scheme": {
+          "type": "string",
+          "enum": [
+            "http",
+            "https"
+          ]
+        },
+        "port": {
+          "type": "integer"
+        },
+        "basic_authentication": {
+          "$ref": "#/definitions/definitions_authentication_basic"
+        },
+        "ntlm_authentication": {
+          "$ref": "#/definitions/definitions_authentication_ntlm"
+        },
+        "negotiate_authentication": {
+          "$ref": "#/definitions/definitions_authentication_basic"
+        }
+      }
+    },
+    "authentication": {
+      "auth-generic": {
+        "type": "object",
+        "xrequired": [
+          "login",
+          "password"
+        ],
+        "properties": {
+          "login": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "password": {
+            "$ref": "#/definitions/definitions_common_text"
+          }
+        }
+      },
+      "auth-generic-domain": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_authentication_auth-generic"
+          },
+          {
+            "properties": {
+              "domain": {
+                "$ref": "#/definitions/definitions_common_text"
+              }
+            }
+          }
+        ]
+      },
+      "basic": {
+        "title": "Basic Authentication",
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_authentication_auth-generic"
+          },
+          {
+            "properties": {
+              "realm": {
+                "$ref": "#/definitions/definitions_common_text"
+              }
+            }
+          }
+        ]
+      },
+      "ntlm": {
+        "title": "NTLM Authentication",
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_authentication_auth-generic-domain"
+          }
+        ]
+      },
+      "negotiate": {
+        "title": "Negotiate Authentication",
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_authentication_auth-generic-domain"
+          }
+        ]
+      }
+    },
+    "sla": {
+      "title": "SLA Profile",
+      "type": "object",
+      "xrequired": [
+        "name",
+        "thresholds"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "description": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "thresholds": {
+          "title": "Thresholds",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/definitions_sla_threshold"
+          }
+        }
+      },
+      "threshold": {
+        "title": "Threshold",
+        "type": "string",
+        "pattern": "^(.*?)\\s(warn\\s(\u003e\u003d|\u003d\u003d|\u003c\u003d|\u003e|\u003c))(?\u003d\\s)(.*?)per\\s(test|interval)$"
+      }
+    },
+    "populations": {
+      "population": {
+        "title": "Population",
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "description": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "xcomments": {
+            "value": "why do we need the substructure \u0027name\u0027 to denote a string list?"
+          },
+          "user_paths": {
+            "type": "array",
+            "minItems": 1,
+            "additionalItems": false,
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "$ref": "#/definitions/definitions_common_text"
+                }
+              }
+            }
+          }
+        }
+      },
+      "variation_commons": {
+        "type": "object",
+        "xrequired": [
+          "duration",
+          "start_after",
+          "stop_after"
+        ],
+        "properties": {
+          "duration": {
+            "title": "Duration",
+            "type": "string",
+            "pattern": "^.*$"
+          },
+          "start_after": {
+            "title": "Start after",
+            "type": "string",
+            "pattern": "^.*$"
+          },
+          "stop_after": {
+            "title": "Stop after",
+            "type": "string",
+            "pattern": "^.*$"
+          }
+        }
+      },
+      "constant_load": {
+        "title": "Constant Load",
+        "type": "object",
+        "xrequired": [
+          "users"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_populations_variation_commons"
+          },
+          {
+            "properties": {
+              "users": {
+                "type": "integer",
+                "default": 1
+              },
+              "rampup": {
+                "$ref": "#/definitions/definitions_common_text"
+              }
+            }
+          }
+        ]
+      },
+      "rampup_load": {
+        "title": "Ramp-up Load",
+        "type": "object",
+        "xrequired": [
+          "min_users",
+          "increment_users",
+          "increment_every"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_populations_variation_commons"
+          },
+          {
+            "properties": {
+              "min_users": {
+                "type": "integer",
+                "default": 1
+              },
+              "max_users": {
+                "type": "integer",
+                "default": 1
+              },
+              "increment_users": {
+                "type": "integer",
+                "default": 1
+              },
+              "increment_every": {
+                "$ref": "#/definitions/definitions_common_text"
+              },
+              "increment_rampup": {
+                "$ref": "#/definitions/definitions_common_text"
+              }
+            }
+          }
+        ]
+      },
+      "peaks_phase": {
+        "title": "Peaks Load",
+        "type": "object",
+        "xrequired": [
+          "users",
+          "duration"
+        ],
+        "properties": {
+          "users": {
+            "type": "integer",
+            "default": 1
+          },
+          "duration": {
+            "$ref": "#/definitions/definitions_common_text"
+          }
+        }
+      },
+      "peaks_load": {
+        "title": "Peaks Load",
+        "type": "object",
+        "xrequired": [
+          "minimum",
+          "maximum",
+          "start"
+        ],
+        "allOf": [
+          {
+            "$ref": "#/definitions/definitions_populations_variation_commons"
+          },
+          {
+            "properties": {
+              "minimum": {
+                "$ref": "#/definitions/definitions_populations_peaks_phase"
+              },
+              "maximum": {
+                "$ref": "#/definitions/definitions_populations_peaks_phase"
+              },
+              "start": {
+                "type": "string",
+                "enum": [
+                  "minimum",
+                  "maximum"
+                ]
+              },
+              "step_rampup": {
+                "$ref": "#/definitions/definitions_common_text"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "scenario": {
+      "title": "Scenario",
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "description": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "populations": {
+          "title": "Scenario Populations",
+          "type": "array",
+          "minItems": 1,
+          "additionalItems": false,
+          "items": {
+            "type": "object",
+            "xrequired": [
+              "name"
+            ],
+            "anyOf": [
+              {
+                "$ref": "#/definitions/definitions_populations_constant_load"
+              },
+              {
+                "$ref": "#/definitions/definitions_populations_rampup_load"
+              },
+              {
+                "$ref": "#/definitions/definitions_populations_peaks_load"
+              },
+              {
+                "properties": {
+                  "name": {
+                    "$ref": "#/definitions/definitions_common_text"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "user_paths": {
+      "user_path": {
+        "title": "User Path",
+        "type": "object",
+        "xrequired": [
+          "name",
+          "actions"
+        ],
+        "properties": {
+          "name": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "description": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "user_session": {
+            "type": "string",
+            "enum": [
+              "reset_on",
+              "reset_off",
+              "reset_auto"
+            ]
+          },
+          "init": {
+            "$ref": "#/definitions/definitions_user_paths_container"
+          },
+          "actions": {
+            "$ref": "#/definitions/definitions_user_paths_container"
+          },
+          "end": {
+            "$ref": "#/definitions/definitions_user_paths_container"
+          }
+        }
+      },
+      "container": {
+        "title": "Containers",
+        "type": "object",
+        "xrequired": [
+          "steps"
+        ],
+        "properties": {
+          "sla_profile": {
+            "type": "string"
+          },
+          "steps": {
+            "title": "Steps",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/definitions_user_paths_actions_transaction"
+                },
+                {
+                  "$ref": "#/definitions/definitions_user_paths_actions_request"
+                },
+                {
+                  "$ref": "#/definitions/definitions_user_paths_actions_delay"
+                },
+                {
+                  "$ref": "#/definitions/definitions_user_paths_actions_think_time"
+                },
+                {
+                  "$ref": "#/definitions/definitions_user_paths_actions_javascript"
+                },
+                {
+                  "$ref": "#/definitions/definitions_user_paths_actions_if"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "transaction": {
+          "title": "Action: Transaction",
+          "type": "object",
+          "xrequired": [
+            "name"
+          ],
+          "allOf": [
+            {
+              "$ref": "#/definitions/definitions_user_paths_container"
+            },
+            {
+              "properties": {
+                "name": {
+                  "$ref": "#/definitions/definitions_common_text"
+                },
+                "description": {
+                  "$ref": "#/definitions/definitions_common_text"
+                }
+              }
+            }
+          ]
+        },
+        "request": {
+          "title": "Action: HTTP/s Request",
+          "type": "object",
+          "xrequired": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "server": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "method": {
+              "type": "string",
+              "enum": [
+                "GET",
+                "POST",
+                "HEAD",
+                "PUT",
+                "DELETE",
+                "OPTIONS",
+                "TRACE"
+              ]
+            },
+            "headers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/definitions_common_text"
+              }
+            },
+            "sla_profile": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "body": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "extractors": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/definitions_user_paths_extractor"
+              }
+            }
+          }
+        },
+        "delay": {
+          "title": "Action: Delay",
+          "type": "string",
+          "allOf": [
+            {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          ]
+        },
+        "think_time": {
+          "title": "Action: Think Time",
+          "type": "string",
+          "allOf": [
+            {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          ]
+        },
+        "javascript": {
+          "title": "Action: Javascript",
+          "type": "object",
+          "xrequired": [
+            "name",
+            "script"
+          ],
+          "properties": {
+            "name": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "description": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "script": {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          }
+        },
+        "if": {
+          "title": "Action: If",
+          "type": "object",
+          "xrequired": [
+            "conditions",
+            "then"
+          ],
+          "properties": {
+            "name": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "description": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "conditions": {
+              "type": "array",
+              "xcomments": "like GWBSR said: \u0027aint gonna do it\u0027, at least not this commit",
+              "items": {
+                "$ref": "#/definitions/definitions_common_text"
+              }
+            },
+            "match": {
+              "type": "string",
+              "enum": [
+                "any",
+                "all"
+              ],
+              "default": "any"
+            },
+            "then": {
+              "$ref": "#/definitions/definitions_user_paths_container"
+            },
+            "else": {
+              "$ref": "#/definitions/definitions_user_paths_container"
+            }
+          }
+        }
+      },
+      "extractor": {
+        "type": "object",
+        "xrequired": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "from": {
+            "type": "string",
+            "default": "body",
+            "enum": [
+              "header",
+              "body",
+              "both"
+            ]
+          },
+          "xpath": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "jsonpath": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "regexp": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "match_number": {
+            "type": "integer",
+            "default": 1
+          },
+          "template": {
+            "$ref": "#/definitions/definitions_common_text"
+          },
+          "decode": {
+            "type": "string",
+            "enum": [
+              "html",
+              "url"
+            ]
+          },
+          "extract_once": {
+            "type": "boolean",
+            "default": false
+          },
+          "default": {
+            "type": "string",
+            "default": ""
+          },
+          "throw_assertion_error": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      }
+    },
+    "definitions_common_full_url": {
+      "title": "Url",
+      "type": "string",
+      "pattern": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#\u003d]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?\u0026//\u003d]*)"
+    },
+    "definitions_common_name": {
+      "title": "Name",
+      "type": "string",
+      "pattern": "^.*$"
+    },
+    "definitions_common_text": {
+      "title": "Value",
+      "type": "string",
+      "pattern": "^.*$"
+    },
+    "definitions_variables_constant": {
+      "title": "Constant",
+      "type": "object",
+      "xrequired": [
+        "value"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_variables_generic"
+        },
+        {
+          "properties": {
+            "value": {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          }
+        }
+      ],
+      "x-d7nosupport-additionalProperties": false
+    },
+    "definitions_variables_generic": {
+      "type": "object",
+      "xrequired": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_common_name"
+        },
+        "descrption": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "change_policy": {
+          "$ref": "#/definitions/definitions_common_var_change_policy"
+        }
+      }
+    },
+    "definitions_common_var_change_policy": {
+      "type": "string",
+      "default": "each_iteration",
+      "enum": [
+        "each_use",
+        "each_request",
+        "each_page",
+        "each_iteration",
+        "each_user"
+      ]
+    },
+    "definitions_variables_file": {
+      "title": "File",
+      "type": "object",
+      "xrequired": [
+        "path"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_variables_generic"
+        },
+        {
+          "properties": {
+            "column_names": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "is_first_line_column_names": {
+              "type": "boolean",
+              "default": false
+            },
+            "start_from_line": {
+              "type": "integer",
+              "default": 1
+            },
+            "delimiter": {
+              "$ref": "#/definitions/definitions_common_text",
+              "default": ","
+            },
+            "path": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "scope": {
+              "$ref": "#/definitions/definitions_common_var_scope"
+            },
+            "order": {
+              "$ref": "#/definitions/definitions_common_var_order"
+            },
+            "out_of_value": {
+              "$ref": "#/definitions/definitions_common_var_out_of_value"
+            }
+          }
+        }
+      ],
+      "x-d7nosupport-additionalProperties": false
+    },
+    "definitions_common_var_scope": {
+      "type": "string",
+      "default": "global",
+      "enum": [
+        "local",
+        "global",
+        "unique"
+      ]
+    },
+    "definitions_common_var_order": {
+      "type": "string",
+      "default": "global",
+      "enum": [
+        "sequential",
+        "random",
+        "any"
+      ]
+    },
+    "definitions_common_var_out_of_value": {
+      "type": "string",
+      "default": "global",
+      "enum": [
+        "cycle",
+        "stop_test",
+        "no_value_code"
+      ]
+    },
+    "definitions_variables_counter": {
+      "title": "Counter",
+      "type": "object",
+      "xrequired": [
+        "start",
+        "end",
+        "increment"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_variables_generic"
+        },
+        {
+          "properties": {
+            "start": {
+              "type": "number"
+            },
+            "end": {
+              "type": "number"
+            },
+            "increment": {
+              "type": "number"
+            },
+            "scope": {
+              "$ref": "#/definitions/definitions_common_var_scope"
+            },
+            "out_of_value": {
+              "$ref": "#/definitions/definitions_common_var_out_of_value"
+            }
+          }
+        }
+      ],
+      "x-d7nosupport-additionalProperties": false
+    },
+    "definitions_variables_random_number": {
+      "title": "Random Number",
+      "type": "object",
+      "xrequired": [
+        "min",
+        "max"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_variables_generic"
+        },
+        {
+          "properties": {
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            },
+            "predictable": {
+              "type": "boolean"
+            }
+          }
+        }
+      ],
+      "x-d7nosupport-additionalProperties": false
+    },
+    "definitions_variables_javascript": {
+      "title": "Javascript",
+      "type": "object",
+      "xrequired": [
+        "script"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_variables_generic"
+        },
+        {
+          "properties": {
+            "script": {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          }
+        }
+      ],
+      "x-d7nosupport-additionalProperties": false
+    },
+    "definitions_populations_population": {
+      "title": "Population",
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "description": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "xcomments": {
+          "value": "why do we need the substructure \u0027name\u0027 to denote a string list?"
+        },
+        "user_paths": {
+          "type": "array",
+          "minItems": 1,
+          "additionalItems": false,
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "$ref": "#/definitions/definitions_common_text"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions_user_paths_user_path": {
+      "title": "User Path",
+      "type": "object",
+      "xrequired": [
+        "name",
+        "actions"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "description": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "user_session": {
+          "type": "string",
+          "enum": [
+            "reset_on",
+            "reset_off",
+            "reset_auto"
+          ]
+        },
+        "init": {
+          "$ref": "#/definitions/definitions_user_paths_container"
+        },
+        "actions": {
+          "$ref": "#/definitions/definitions_user_paths_container"
+        },
+        "end": {
+          "$ref": "#/definitions/definitions_user_paths_container"
+        }
+      }
+    },
+    "definitions_user_paths_container": {
+      "title": "Containers",
+      "type": "object",
+      "xrequired": [
+        "steps"
+      ],
+      "properties": {
+        "sla_profile": {
+          "type": "string"
+        },
+        "steps": {
+          "title": "Steps",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/definitions_user_paths_actions_transaction"
+              },
+              {
+                "$ref": "#/definitions/definitions_user_paths_actions_request"
+              },
+              {
+                "$ref": "#/definitions/definitions_user_paths_actions_delay"
+              },
+              {
+                "$ref": "#/definitions/definitions_user_paths_actions_think_time"
+              },
+              {
+                "$ref": "#/definitions/definitions_user_paths_actions_javascript"
+              },
+              {
+                "$ref": "#/definitions/definitions_user_paths_actions_if"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "definitions_user_paths_actions_transaction": {
+      "title": "Action: Transaction",
+      "type": "object",
+      "xrequired": [
+        "name"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_user_paths_container"
+        },
+        {
+          "properties": {
+            "name": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "description": {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          }
+        }
+      ]
+    },
+    "definitions_user_paths_actions_request": {
+      "title": "Action: HTTP/s Request",
+      "type": "object",
+      "xrequired": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "server": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST",
+            "HEAD",
+            "PUT",
+            "DELETE",
+            "OPTIONS",
+            "TRACE"
+          ]
+        },
+        "headers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_common_text"
+          }
+        },
+        "sla_profile": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "body": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "extractors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/definitions_user_paths_extractor"
+          }
+        }
+      }
+    },
+    "definitions_user_paths_extractor": {
+      "type": "object",
+      "xrequired": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "from": {
+          "type": "string",
+          "default": "body",
+          "enum": [
+            "header",
+            "body",
+            "both"
+          ]
+        },
+        "xpath": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "jsonpath": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "regexp": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "match_number": {
+          "type": "integer",
+          "default": 1
+        },
+        "template": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "decode": {
+          "type": "string",
+          "enum": [
+            "html",
+            "url"
+          ]
+        },
+        "extract_once": {
+          "type": "boolean",
+          "default": false
+        },
+        "default": {
+          "type": "string",
+          "default": ""
+        },
+        "throw_assertion_error": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "definitions_user_paths_actions_delay": {
+      "title": "Action: Delay",
+      "type": "string",
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_common_text"
+        }
+      ]
+    },
+    "definitions_user_paths_actions_think_time": {
+      "title": "Action: Think Time",
+      "type": "string",
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_common_text"
+        }
+      ]
+    },
+    "definitions_user_paths_actions_javascript": {
+      "title": "Action: Javascript",
+      "type": "object",
+      "xrequired": [
+        "name",
+        "script"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "description": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "script": {
+          "$ref": "#/definitions/definitions_common_text"
+        }
+      }
+    },
+    "definitions_user_paths_actions_if": {
+      "title": "Action: If",
+      "type": "object",
+      "xrequired": [
+        "conditions",
+        "then"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "description": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "conditions": {
+          "type": "array",
+          "xcomments": "like GWBSR said: \u0027aint gonna do it\u0027, at least not this commit",
+          "items": {
+            "$ref": "#/definitions/definitions_common_text"
+          }
+        },
+        "match": {
+          "type": "string",
+          "enum": [
+            "any",
+            "all"
+          ],
+          "default": "any"
+        },
+        "then": {
+          "$ref": "#/definitions/definitions_user_paths_container"
+        },
+        "else": {
+          "$ref": "#/definitions/definitions_user_paths_container"
+        }
+      }
+    },
+    "definitions_authentication_basic": {
+      "title": "Basic Authentication",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_authentication_auth-generic"
+        },
+        {
+          "properties": {
+            "realm": {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          }
+        }
+      ]
+    },
+    "definitions_authentication_auth-generic": {
+      "type": "object",
+      "xrequired": [
+        "login",
+        "password"
+      ],
+      "properties": {
+        "login": {
+          "$ref": "#/definitions/definitions_common_text"
+        },
+        "password": {
+          "$ref": "#/definitions/definitions_common_text"
+        }
+      }
+    },
+    "definitions_authentication_ntlm": {
+      "title": "NTLM Authentication",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_authentication_auth-generic-domain"
+        }
+      ]
+    },
+    "definitions_authentication_auth-generic-domain": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_authentication_auth-generic"
+        },
+        {
+          "properties": {
+            "domain": {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          }
+        }
+      ]
+    },
+    "definitions_sla_threshold": {
+      "title": "Threshold",
+      "type": "string",
+      "pattern": "^(.*?)\\s(warn\\s(\u003e\u003d|\u003d\u003d|\u003c\u003d|\u003e|\u003c))(?\u003d\\s)(.*?)per\\s(test|interval)$"
+    },
+    "definitions_populations_variation_commons": {
+      "type": "object",
+      "xrequired": [
+        "duration",
+        "start_after",
+        "stop_after"
+      ],
+      "properties": {
+        "duration": {
+          "title": "Duration",
+          "type": "string",
+          "pattern": "^.*$"
+        },
+        "start_after": {
+          "title": "Start after",
+          "type": "string",
+          "pattern": "^.*$"
+        },
+        "stop_after": {
+          "title": "Stop after",
+          "type": "string",
+          "pattern": "^.*$"
+        }
+      }
+    },
+    "definitions_populations_peaks_phase": {
+      "title": "Peaks Load",
+      "type": "object",
+      "xrequired": [
+        "users",
+        "duration"
+      ],
+      "properties": {
+        "users": {
+          "type": "integer",
+          "default": 1
+        },
+        "duration": {
+          "$ref": "#/definitions/definitions_common_text"
+        }
+      }
+    },
+    "definitions_populations_constant_load": {
+      "title": "Constant Load",
+      "type": "object",
+      "xrequired": [
+        "users"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_populations_variation_commons"
+        },
+        {
+          "properties": {
+            "users": {
+              "type": "integer",
+              "default": 1
+            },
+            "rampup": {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          }
+        }
+      ]
+    },
+    "definitions_populations_rampup_load": {
+      "title": "Ramp-up Load",
+      "type": "object",
+      "xrequired": [
+        "min_users",
+        "increment_users",
+        "increment_every"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_populations_variation_commons"
+        },
+        {
+          "properties": {
+            "min_users": {
+              "type": "integer",
+              "default": 1
+            },
+            "max_users": {
+              "type": "integer",
+              "default": 1
+            },
+            "increment_users": {
+              "type": "integer",
+              "default": 1
+            },
+            "increment_every": {
+              "$ref": "#/definitions/definitions_common_text"
+            },
+            "increment_rampup": {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          }
+        }
+      ]
+    },
+    "definitions_populations_peaks_load": {
+      "title": "Peaks Load",
+      "type": "object",
+      "xrequired": [
+        "minimum",
+        "maximum",
+        "start"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/definitions_populations_variation_commons"
+        },
+        {
+          "properties": {
+            "minimum": {
+              "$ref": "#/definitions/definitions_populations_peaks_phase"
+            },
+            "maximum": {
+              "$ref": "#/definitions/definitions_populations_peaks_phase"
+            },
+            "start": {
+              "type": "string",
+              "enum": [
+                "minimum",
+                "maximum"
+              ]
+            },
+            "step_rampup": {
+              "$ref": "#/definitions/definitions_common_text"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

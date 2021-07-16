@@ -1,0 +1,1 @@
+{"dependencies":{"foo\"bar":["foo\u0027bar"],"foo\u0027bar":{"required":["foo\"bar"]},"foo\tbar":{"minProperties":4},"foo\nbar":["foo\rbar"]}}

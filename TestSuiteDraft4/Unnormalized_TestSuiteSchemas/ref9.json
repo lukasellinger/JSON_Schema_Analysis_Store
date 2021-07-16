@@ -1,0 +1,1 @@
+{"description":"tree of nodes","id":"http://localhost:1234/tree","type":"object","definitions":{"node":{"description":"node","id":"http://localhost:1234/node","type":"object","properties":{"subtree":{"$ref":"tree"},"value":{"type":"number"}},"required":["value"]}},"properties":{"nodes":{"type":"array","items":{"$ref":"node"}},"meta":{"type":"string"}},"required":["meta","nodes"]}
